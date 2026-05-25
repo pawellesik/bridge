@@ -91,20 +91,7 @@
         android:text="@string/deal_cards"
         app:layout_constraintBottom_toTopOf="@id/player_south"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_logout"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"/>
-
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        app:layout_constraintBottom_toTopOf="@id/player_south"
-        app:layout_constraintStart_toEndOf="@id/btn_deal"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
