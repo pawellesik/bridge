@@ -9,4 +9,5 @@
     <string name="player_south">South (You)</string>
     <string name="player_east">East</string>
     <string name="player_west">West</string>
+    <string name="suit_desc">Suit</string>
 </resources>
