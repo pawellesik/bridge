@@ -71,7 +71,6 @@ public class GameActivity extends AppCompatActivity {
         rvSouth.setLayoutManager(layoutManager);
         southAdapter = new CardAdapter(displayHand);
         southAdapter.setOnCardClickListener((card, position) -> {
-            // Wait 1 second after selection
             handler.postDelayed(() -> playCard(card, position), 500);
         });
         rvSouth.setAdapter(southAdapter);
@@ -104,16 +103,6 @@ public class GameActivity extends AppCompatActivity {
 
     private void updateDisplayHand() {
         List<Card> actualHand = players.get(2).getHand();
-
-        // Sort hand: Spades, Hearts, Clubs, Diamonds. Then High to Low rank.
-        Collections.sort(actualHand, (c1, c2) -> {
-            int s1 = getSuitPriority(c1.getSuit());
-            int s2 = getSuitPriority(c2.getSuit());
-            if (s1 != s2) {
-                return s1 - s2;
-            }
-            return c2.getRank().ordinal() - c1.getRank().ordinal();
-        });
 
         displayHand.clear();
         for (int i = 0; i < 7 && i < actualHand.size(); i++) {
@@ -163,15 +152,7 @@ public class GameActivity extends AppCompatActivity {
         playedCardContainer.addView(cardView);
     }
 
-    private int getSuitPriority(Suit suit) {
-        switch (suit) {
-            case SPADES: return 0;
-            case HEARTS: return 1;
-            case CLUBS: return 2;
-            case DIAMONDS: return 3;
-            default: return 4;
-        }
-    }
+
 
     private String getRankString(Rank rank) {
         switch (rank) {
