@@ -45,7 +45,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         Card card = cards.get(position);
         if (card == null) {
-            holder.itemView.setVisibility(View.INVISIBLE);
+            holder.itemView.setVisibility(View.GONE);
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
             holder.bind(card, position == selectedPosition);
