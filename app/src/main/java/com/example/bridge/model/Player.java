@@ -47,4 +47,16 @@ public class Player {
     public void clearHand() {
         hand.clear();
     }
+
+    /**
+     * Checks if the player has any cards of the specified suit.
+     */
+    public boolean hasSuit(Suit suit) {
+        for (Card card : hand) {
+            if (card.getSuit() == suit) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

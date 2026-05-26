@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,7 +99,6 @@ public class GameActivity extends AppCompatActivity {
 
         updateDisplayHand();
         playedCardContainer.removeAllViews();
-        Toast.makeText(this, "Cards Dealt!", Toast.LENGTH_SHORT).show();
     }
 
     private void updateDisplayHand() {
