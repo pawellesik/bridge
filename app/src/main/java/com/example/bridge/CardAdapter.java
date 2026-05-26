@@ -12,15 +12,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Rank;
 import com.example.bridge.model.Suit;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
+    public interface OnCardClickListener {
+        void onCardClick(Card card, int position);
+    }
+
     private final List<Card> cards;
+    private int selectedPosition = RecyclerView.NO_POSITION;
+    private OnCardClickListener listener;
 
     public CardAdapter(List<Card> cards) {
         this.cards = cards;
+    }
+
+    public void setOnCardClickListener(OnCardClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,7 +48,32 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.itemView.setVisibility(View.INVISIBLE);
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
-            holder.bind(card);
+            holder.bind(card, position == selectedPosition);
+            
+            holder.itemView.setOnClickListener(v -> {
+                int currentPos = holder.getAdapterPosition();
+                if (currentPos == RecyclerView.NO_POSITION) return;
+
+                int previousSelected = selectedPosition;
+                selectedPosition = currentPos;
+                
+                if (previousSelected != RecyclerView.NO_POSITION) {
+                    notifyItemChanged(previousSelected);
+                }
+                notifyItemChanged(selectedPosition);
+
+                if (listener != null) {
+                    listener.onCardClick(card, currentPos);
+                }
+            });
+        }
+    }
+
+    public void clearSelection() {
+        int prev = selectedPosition;
+        selectedPosition = RecyclerView.NO_POSITION;
+        if (prev != RecyclerView.NO_POSITION) {
+            notifyItemChanged(prev);
         }
     }
 
@@ -49,15 +85,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     static class CardViewHolder extends RecyclerView.ViewHolder {
         TextView tvRank;
         ImageView ivSuitSmall, ivSuitLarge;
+        MaterialCardView cardView;
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRank = itemView.findViewById(R.id.tv_rank);
             ivSuitSmall = itemView.findViewById(R.id.iv_suit_small);
             ivSuitLarge = itemView.findViewById(R.id.iv_suit_large);
+            cardView = itemView.findViewById(R.id.card_view);
         }
 
-        public void bind(Card card) {
+        public void bind(Card card, boolean isSelected) {
             String rankStr = getRankString(card.getRank());
             tvRank.setText(rankStr);
 
@@ -68,6 +106,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             int color = (card.getSuit() == Suit.HEARTS || card.getSuit() == Suit.DIAMONDS) 
                 ? 0xFFFF0000 : 0xFF000000;
             tvRank.setTextColor(color);
+
+            if (isSelected) {
+                cardView.setCardBackgroundColor(android.graphics.Color.YELLOW);
+            } else {
+                cardView.setCardBackgroundColor(android.graphics.Color.WHITE);
+            }
         }
 
         private String getRankString(Rank rank) {

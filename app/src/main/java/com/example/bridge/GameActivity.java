@@ -1,8 +1,14 @@
 package com.example.bridge;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,11 +17,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.bridge.model.Card;
 import com.example.bridge.model.Deck;
 import com.example.bridge.model.Player;
+import com.example.bridge.model.Rank;
+import com.example.bridge.model.Suit;
 
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
@@ -24,7 +34,9 @@ public class GameActivity extends AppCompatActivity {
     private List<Player> players;
     private Deck deck;
     private CardAdapter southAdapter;
-    private List<com.example.bridge.model.Card> displayHand;
+    private List<Card> displayHand;
+    private FrameLayout playedCardContainer;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +51,29 @@ public class GameActivity extends AppCompatActivity {
 
         initGame();
 
+        playedCardContainer = findViewById(R.id.container_played_south);
         displayHand = new ArrayList<>();
         RecyclerView rvSouth = findViewById(R.id.rv_hand_south);
         
-        // 14 spans allows us to center the bottom row
-        // Row 1: 7 cards * 2 spans = 14
-        // Row 2: 1 spacer (1 span) + 6 cards (2 spans each) + 1 spacer (1 span) = 14
-        androidx.recyclerview.widget.GridLayoutManager layoutManager = 
+        androidx.recyclerview.widget.GridLayoutManager layoutManager =
             new androidx.recyclerview.widget.GridLayoutManager(this, 14);
             
         layoutManager.setSpanSizeLookup(new androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if (position == 7) {
-                    return 1; // Spacer at start of second row
+                    return 1;
                 }
-                return 2; // All cards take 2 spans
+                return 2;
             }
         });
         
         rvSouth.setLayoutManager(layoutManager);
         southAdapter = new CardAdapter(displayHand);
+        southAdapter.setOnCardClickListener((card, position) -> {
+            // Wait 1 second after selection
+            handler.postDelayed(() -> playCard(card, position), 1000);
+        });
         rvSouth.setAdapter(southAdapter);
 
         Button btnDeal = findViewById(R.id.btn_deal);
@@ -76,34 +90,115 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void dealCards() {
-        deck = new Deck(); // New deck each deal
+        deck = new Deck();
         deck.shuffle();
         for (Player player : players) {
             player.clearHand();
             player.addCards(deck.deal(13));
-            Log.d(TAG, "Player " + player.getName() + " has " + player.getHand().size() + " cards.");
         }
 
-        // Refresh South's hand display
-        List<com.example.bridge.model.Card> actualHand = players.get(2).getHand();
+        updateDisplayHand();
+        playedCardContainer.removeAllViews();
+        Toast.makeText(this, "Cards Dealt!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateDisplayHand() {
+        List<Card> actualHand = players.get(2).getHand();
+
+        // Sort hand: Spades, Hearts, Clubs, Diamonds. Then High to Low rank.
+        Collections.sort(actualHand, (c1, c2) -> {
+            int s1 = getSuitPriority(c1.getSuit());
+            int s2 = getSuitPriority(c2.getSuit());
+            if (s1 != s2) {
+                return s1 - s2;
+            }
+            return c2.getRank().ordinal() - c1.getRank().ordinal();
+        });
+
         displayHand.clear();
-        
-        // Add first 7 cards
         for (int i = 0; i < 7 && i < actualHand.size(); i++) {
             displayHand.add(actualHand.get(i));
         }
-        
-        // Add spacer for centering the second row
+
         if (actualHand.size() > 7) {
-            displayHand.add(null); 
-            // Add remaining cards
+            displayHand.add(null); // Spacer
             for (int i = 7; i < actualHand.size(); i++) {
                 displayHand.add(actualHand.get(i));
             }
         }
 
+        southAdapter.clearSelection();
         southAdapter.notifyDataSetChanged();
+    }
 
-        Toast.makeText(this, "Cards Dealt!", Toast.LENGTH_SHORT).show();
+    private void playCard(Card card, int displayPosition) {
+        // Remove from player's logical hand
+        players.get(2).removeCard(card);
+        
+        // Refresh the hand display
+        updateDisplayHand();
+
+        // Show the played card in the middle
+        showPlayedCard(card);
+    }
+
+    private void showPlayedCard(Card card) {
+        playedCardContainer.removeAllViews();
+        View cardView = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainer, false);
+        
+        TextView tvRank = cardView.findViewById(R.id.tv_rank);
+        ImageView ivSuitSmall = cardView.findViewById(R.id.iv_suit_small);
+        ImageView ivSuitLarge = cardView.findViewById(R.id.iv_suit_large);
+
+        String rankStr = getRankString(card.getRank());
+        tvRank.setText(rankStr);
+        int suitResId = getSuitDrawable(card.getSuit());
+        ivSuitSmall.setImageResource(suitResId);
+        ivSuitLarge.setImageResource(suitResId);
+
+        int color = (card.getSuit() == Suit.HEARTS || card.getSuit() == Suit.DIAMONDS) 
+                ? 0xFFFF0000 : 0xFF000000;
+        tvRank.setTextColor(color);
+
+        playedCardContainer.addView(cardView);
+    }
+
+    private int getSuitPriority(Suit suit) {
+        switch (suit) {
+            case SPADES: return 0;
+            case HEARTS: return 1;
+            case CLUBS: return 2;
+            case DIAMONDS: return 3;
+            default: return 4;
+        }
+    }
+
+    private String getRankString(Rank rank) {
+        switch (rank) {
+            case ACE: return "A";
+            case KING: return "K";
+            case QUEEN: return "Q";
+            case JACK: return "J";
+            case TEN: return "10";
+            case NINE: return "9";
+            case EIGHT: return "8";
+            case SEVEN: return "7";
+            case SIX: return "6";
+            case FIVE: return "5";
+            case FOUR: return "4";
+            case THREE: return "3";
+            case TWO: return "2";
+            default: return "?";
+        }
+    }
+
+    private int getSuitDrawable(Suit suit) {
+        switch (suit) {
+            case HEARTS: return R.drawable.suit_hearts;
+            case DIAMONDS: return R.drawable.suit_diamonds;
+            case SPADES: return R.drawable.suit_spades;
+            case CLUBS: return R.drawable.suit_clubs;
+            default: return 0;
+        }
     }
 }
