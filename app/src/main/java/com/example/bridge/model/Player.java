@@ -21,10 +21,6 @@ public class Player {
         return hand;
     }
 
-    public void setHand(List<Card> card) {
-        this.hand = card;
-    }
-
     public void addCards(List<Card> newCards) {
         List<Card> sortedCard = sortCard(newCards);
         hand.addAll(sortedCard);
