@@ -4,6 +4,7 @@
     <string name="logout">Logout</string>
     <string name="cards_will_appear_here">Cards will appear here</string>
     <string name="deal_cards">Deal Cards</string>
+    <string name="start_game">Start Game</string>
     <string name="player_north">North</string>
     <string name="player_south">South (You)</string>
     <string name="player_east">East</string>
