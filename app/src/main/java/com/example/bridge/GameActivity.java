@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
         southAdapter = new CardAdapter(displayHand);
         southAdapter.setOnCardClickListener((card, position) -> {
             // Wait 1 second after selection
-            handler.postDelayed(() -> playCard(card, position), 1000);
+            handler.postDelayed(() -> playCard(card, position), 500);
         });
         rvSouth.setAdapter(southAdapter);
 
