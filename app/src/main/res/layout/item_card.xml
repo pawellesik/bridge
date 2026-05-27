@@ -30,24 +30,24 @@
                 android:id="@+id/tv_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:includeFontPadding="false"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:includeFontPadding="false"
-                android:layout_marginStart="1dp"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Small suit icon next to rank -->
             <ImageView
                 android:id="@+id/iv_suit_small"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                app:layout_constraintStart_toEndOf="@id/tv_rank"
-                app:layout_constraintTop_toTopOf="@id/tv_rank"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/suit_desc"
                 app:layout_constraintBottom_toBottomOf="@id/tv_rank"
-                android:layout_marginStart="1dp"
-                android:contentDescription="@string/suit_desc" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_rank"
+                app:layout_constraintTop_toTopOf="@id/tv_rank" />
 
             <!-- Large suit icon in the center -->
             <ImageView
