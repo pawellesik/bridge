@@ -26,6 +26,7 @@ import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
 
+    public static final Card GHOST_CARD = new Card(null, null);
     private List<Player> players;
     private Deck deck;
     private CardAdapter southAdapter;
@@ -134,26 +135,39 @@ public class GameActivity extends AppCompatActivity {
         List<Card> actualHand = players.get(0).getHand();
         displayHandNorth.clear();
 
-        int row1End =  Math.max(0, actualHand.size()-7);
-        addCardsWithSpacersNorth(actualHand.subList(0, row1End));
-        if (actualHand.size() > 7) {
-            addCardsWithSpacersNorth(actualHand.subList(actualHand.size() -7, actualHand.size()));
-        }
+        int total = actualHand.size();
+        int row2Count = Math.min(7, total);
+        int row1Count = total - row2Count;
+
+        addCardsWithSpacersNorth(actualHand.subList(0, row1Count));
+        addCardsWithSpacersNorth(actualHand.subList(row1Count, total));
 
         northAdapter.clearSelection();
         northAdapter.notifyDataSetChanged();
     }
 
     private void addCardsWithSpacersSouth(List<Card> rowCards) {
-        int padding = (14 - rowCards.size() * 2) / 2;
-        for (int i = 0; i < padding; i++) displayHandSouth.add(null);
-        displayHandSouth.addAll(rowCards);
-    }
+        int cardSpans = rowCards.size() * 2;
+        int totalPadding = 14 - cardSpans;
+        int leftPadding = totalPadding / 2;
+        int rightPadding = totalPadding - leftPadding;
+
+        for (int i = 0; i < leftPadding; i++) displayHandSouth.add(null);
+        displayHandSouth.addAll(rowCards);    }
 
     private void addCardsWithSpacersNorth(List<Card> rowCards) {
-        int padding = (14 - rowCards.size() * 2) / 2;
-        for (int i = 0; i < padding; i++) displayHandNorth.add(null);
+        if (rowCards.isEmpty()) {
+            for (int i = 0; i < 7; i++) displayHandNorth.add(GHOST_CARD);
+            return;
+        }
+        int cardSpans = rowCards.size() * 2;
+        int totalPadding = 14 - cardSpans;
+        int leftPadding = totalPadding / 2;
+        int rightPadding = totalPadding - leftPadding;
+
+        for (int i = 0; i < leftPadding; i++) displayHandNorth.add(null);
         displayHandNorth.addAll(rowCards);
+        for (int i = 0; i < rightPadding; i++) displayHandNorth.add(null);
     }
 
     private void playCardSouth(Card card) {
