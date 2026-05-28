@@ -118,6 +118,7 @@ public class GameActivity extends AppCompatActivity {
         playedCardContainerSouth.removeAllViews();
         playedCardContainerNorth.removeAllViews();
     }
+
     private void updateDisplayHandSouth() {
         List<Card> actualHand = players.get(2).getHand();
         displayHandSouth.clear();
@@ -131,18 +132,15 @@ public class GameActivity extends AppCompatActivity {
         southAdapter.clearSelection();
         southAdapter.notifyDataSetChanged();
     }
+
     private void updateDisplayHandNorth() {
         List<Card> actualHand = players.get(0).getHand();
         displayHandNorth.clear();
 
         int total = actualHand.size();
         int row2Count = Math.min(7, total);
-
-        // First row (top) gets the remainder
-        addCardsWithSpacers(displayHandNorth, actualHand.subList(row2Count, total));
-        // Second row (bottom) gets the first 7 cards
-        addCardsWithSpacers(displayHandNorth, actualHand.subList(0, row2Count));
-
+        addCardsWithSpacersNorth(displayHandNorth, actualHand.subList(row2Count, total));
+        addCardsWithSpacersNorth(displayHandNorth, actualHand.subList(0, row2Count));
         northAdapter.clearSelection();
         northAdapter.notifyDataSetChanged();
     }
@@ -153,9 +151,10 @@ public class GameActivity extends AppCompatActivity {
         int leftPadding = totalPadding / 2;
 
         for (int i = 0; i < leftPadding; i++) displayHandSouth.add(null);
-        displayHandSouth.addAll(rowCards);    }
+        displayHandSouth.addAll(rowCards);
+    }
 
-    private void addCardsWithSpacers(List<Card> displayList, List<Card> rowCards) {
+    private void addCardsWithSpacersNorth(List<Card> displayList, List<Card> rowCards) {
         if (rowCards.isEmpty()) {
             for (int i = 0; i < 7; i++) displayList.add(GHOST_CARD);
             return;
@@ -175,11 +174,13 @@ public class GameActivity extends AppCompatActivity {
         updateDisplayHandSouth();
         showPlayedCardSouth(card);
     }
+
     private void playCardNorth(Card card) {
         players.get(0).removeCard(card);
         updateDisplayHandNorth();
         showPlayedCardNorth(card);
     }
+
     private void showPlayedCardSouth(Card card) {
         playedCardContainerSouth.removeAllViews();
         View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainerSouth, false);
@@ -195,6 +196,7 @@ public class GameActivity extends AppCompatActivity {
 
         playedCardContainerSouth.addView(view);
     }
+
     private void showPlayedCardNorth(Card card) {
         playedCardContainerNorth.removeAllViews();
         View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainerNorth, false);
