@@ -12,8 +12,13 @@ public class Player {
         this.name = name;
     }
 
-    public String getName() { return name; }
-    public List<Card> getHand() { return hand; }
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getHand() {
+        return hand;
+    }
 
     public void addCards(List<Card> newCards) {
         hand.addAll(newCards);
@@ -28,10 +33,4 @@ public class Player {
         hand.clear();
     }
 
-    public boolean hasSuit(Suit suit) {
-        for (Card card : hand) {
-            if (card.getSuit() == suit) return true;
-        }
-        return false;
-    }
 }
