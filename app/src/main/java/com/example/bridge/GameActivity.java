@@ -29,8 +29,13 @@ public class GameActivity extends AppCompatActivity {
     private List<Player> players;
     private Deck deck;
     private CardAdapter southAdapter;
-    private final List<Card> displayHand = new ArrayList<>();
-    private FrameLayout playedCardContainer;
+    private CardAdapter northAdapter;
+    private final List<Card> displayHandSouth = new ArrayList<>();
+    private final List<Card> displayHandNorth = new ArrayList<>();
+    private FrameLayout playedCardContainerSouth;
+    private FrameLayout playedCardContainerNorth;
+    private FrameLayout playedCardContainerWest;
+    private FrameLayout playedCardContainerEast;
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
@@ -42,7 +47,10 @@ public class GameActivity extends AppCompatActivity {
         initGame();
         setupRecyclerView();
 
-        playedCardContainer = findViewById(R.id.container_played_south);
+        playedCardContainerSouth = findViewById(R.id.container_played_south);
+        playedCardContainerNorth = findViewById(R.id.container_played_north);
+        playedCardContainerWest = findViewById(R.id.container_played_west);
+        playedCardContainerEast = findViewById(R.id.container_played_east);
         findViewById(R.id.btn_deal).setOnClickListener(v -> dealCards());
     }
 
@@ -64,19 +72,37 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
+
         RecyclerView rvSouth = findViewById(R.id.rv_hand_south);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 14);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        RecyclerView rvNorth = findViewById(R.id.rv_hand_north);
+
+        GridLayoutManager southLayoutManager = new GridLayoutManager(this, 14);
+        southLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return (displayHand.get(position) == null) ? 1 : 2;
+                return (displayHandSouth.get(position) == null) ? 1 : 2;
             }
         });
 
-        rvSouth.setLayoutManager(layoutManager);
-        southAdapter = new CardAdapter(displayHand);
-        southAdapter.setOnCardClickListener(card -> handler.postDelayed(() -> playCard(card), 300));
+        GridLayoutManager northLayoutManager = new GridLayoutManager(this, 14);
+        northLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (displayHandNorth.get(position) == null) ? 1 : 2;
+            }
+        });
+
+        rvSouth.setLayoutManager(southLayoutManager);
+        southAdapter = new CardAdapter(displayHandSouth);
+        southAdapter.setOnCardClickListener(card ->
+                handler.postDelayed(() -> playCardSouth(card), 300));
         rvSouth.setAdapter(southAdapter);
+
+        rvNorth.setLayoutManager(northLayoutManager);
+        northAdapter = new CardAdapter(displayHandNorth);
+        northAdapter.setOnCardClickListener(card ->
+                handler.postDelayed(() -> playCardNorth(card), 300));
+        rvNorth.setAdapter(northAdapter);
     }
 
     private void dealCards() {
@@ -86,39 +112,63 @@ public class GameActivity extends AppCompatActivity {
             player.clearHand();
             player.addCards(deck.deal(13));
         }
-        updateDisplayHand();
-        playedCardContainer.removeAllViews();
+        updateDisplayHandSouth();
+        updateDisplayHandNorth();
+        playedCardContainerSouth.removeAllViews();
+        playedCardContainerNorth.removeAllViews();
     }
-
-    private void updateDisplayHand() {
+    private void updateDisplayHandSouth() {
         List<Card> actualHand = players.get(2).getHand();
-        displayHand.clear();
+        displayHandSouth.clear();
 
         int row1End = Math.min(7, actualHand.size());
-        addCardsWithSpacers(actualHand.subList(0, row1End));
+        addCardsWithSpacersSouth(actualHand.subList(0, row1End));
         if (actualHand.size() > 7) {
-            addCardsWithSpacers(actualHand.subList(7, actualHand.size()));
+            addCardsWithSpacersSouth(actualHand.subList(7, actualHand.size()));
         }
 
         southAdapter.clearSelection();
         southAdapter.notifyDataSetChanged();
     }
+    private void updateDisplayHandNorth() {
+        List<Card> actualHand = players.get(0).getHand();
+        displayHandNorth.clear();
 
-    private void addCardsWithSpacers(List<Card> rowCards) {
+        int row1End =  Math.max(0, actualHand.size()-7);
+        addCardsWithSpacersNorth(actualHand.subList(0, row1End));
+        if (actualHand.size() > 7) {
+            addCardsWithSpacersNorth(actualHand.subList(actualHand.size() -7, actualHand.size()));
+        }
+
+        northAdapter.clearSelection();
+        northAdapter.notifyDataSetChanged();
+    }
+
+    private void addCardsWithSpacersSouth(List<Card> rowCards) {
         int padding = (14 - rowCards.size() * 2) / 2;
-        for (int i = 0; i < padding; i++) displayHand.add(null);
-        displayHand.addAll(rowCards);
+        for (int i = 0; i < padding; i++) displayHandSouth.add(null);
+        displayHandSouth.addAll(rowCards);
     }
 
-    private void playCard(Card card) {
+    private void addCardsWithSpacersNorth(List<Card> rowCards) {
+        int padding = (14 - rowCards.size() * 2) / 2;
+        for (int i = 0; i < padding; i++) displayHandNorth.add(null);
+        displayHandNorth.addAll(rowCards);
+    }
+
+    private void playCardSouth(Card card) {
         players.get(2).removeCard(card);
-        updateDisplayHand();
-        showPlayedCard(card);
+        updateDisplayHandSouth();
+        showPlayedCardSouth(card);
     }
-
-    private void showPlayedCard(Card card) {
-        playedCardContainer.removeAllViews();
-        View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainer, false);
+    private void playCardNorth(Card card) {
+        players.get(0).removeCard(card);
+        updateDisplayHandNorth();
+        showPlayedCardNorth(card);
+    }
+    private void showPlayedCardSouth(Card card) {
+        playedCardContainerSouth.removeAllViews();
+        View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainerSouth, false);
 
         TextView tvRank = view.findViewById(R.id.tv_rank);
         ImageView ivSmall = view.findViewById(R.id.iv_suit_small);
@@ -129,6 +179,22 @@ public class GameActivity extends AppCompatActivity {
         ivLarge.setImageResource(card.getSuit().resId);
         tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
 
-        playedCardContainer.addView(view);
+        playedCardContainerSouth.addView(view);
     }
+    private void showPlayedCardNorth(Card card) {
+        playedCardContainerNorth.removeAllViews();
+        View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainerNorth, false);
+
+        TextView tvRank = view.findViewById(R.id.tv_rank);
+        ImageView ivSmall = view.findViewById(R.id.iv_suit_small);
+        ImageView ivLarge = view.findViewById(R.id.iv_suit_large);
+
+        tvRank.setText(card.getRank().display);
+        ivSmall.setImageResource(card.getSuit().resId);
+        ivLarge.setImageResource(card.getSuit().resId);
+        tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
+
+        playedCardContainerNorth.addView(view);
+    }
+
 }
