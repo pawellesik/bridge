@@ -137,10 +137,11 @@ public class GameActivity extends AppCompatActivity {
 
         int total = actualHand.size();
         int row2Count = Math.min(7, total);
-        int row1Count = total - row2Count;
 
-        addCardsWithSpacersNorth(actualHand.subList(0, row1Count));
-        addCardsWithSpacersNorth(actualHand.subList(row1Count, total));
+        // First row (top) gets the remainder
+        addCardsWithSpacers(displayHandNorth, actualHand.subList(row2Count, total));
+        // Second row (bottom) gets the first 7 cards
+        addCardsWithSpacers(displayHandNorth, actualHand.subList(0, row2Count));
 
         northAdapter.clearSelection();
         northAdapter.notifyDataSetChanged();
@@ -154,9 +155,9 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < leftPadding; i++) displayHandSouth.add(null);
         displayHandSouth.addAll(rowCards);    }
 
-    private void addCardsWithSpacersNorth(List<Card> rowCards) {
+    private void addCardsWithSpacers(List<Card> displayList, List<Card> rowCards) {
         if (rowCards.isEmpty()) {
-            for (int i = 0; i < 7; i++) displayHandNorth.add(GHOST_CARD);
+            for (int i = 0; i < 7; i++) displayList.add(GHOST_CARD);
             return;
         }
         int cardSpans = rowCards.size() * 2;
@@ -164,9 +165,9 @@ public class GameActivity extends AppCompatActivity {
         int leftPadding = totalPadding / 2;
         int rightPadding = totalPadding - leftPadding;
 
-        for (int i = 0; i < leftPadding; i++) displayHandNorth.add(null);
-        displayHandNorth.addAll(rowCards);
-        for (int i = 0; i < rightPadding; i++) displayHandNorth.add(null);
+        for (int i = 0; i < leftPadding; i++) displayList.add(null);
+        displayList.addAll(rowCards);
+        for (int i = 0; i < rightPadding; i++) displayList.add(null);
     }
 
     private void playCardSouth(Card card) {
