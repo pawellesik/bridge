@@ -30,37 +30,40 @@
                 android:id="@+id/tv_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
+                android:layout_marginStart="2dp"
                 android:includeFontPadding="false"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Small suit icon next to rank -->
+            <!-- Small suit icon under rank -->
             <ImageView
                 android:id="@+id/iv_suit_small"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="2dp"
                 android:contentDescription="@string/suit_desc"
-                app:layout_constraintBottom_toBottomOf="@id/tv_rank"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_rank"
-                app:layout_constraintTop_toTopOf="@id/tv_rank" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_rank" />
 
-            <!-- Large suit icon in the center -->
+            <!-- Large suit icon in the dead center -->
             <ImageView
                 android:id="@+id/iv_suit_large"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintWidth_percent="0.7"
-                app:layout_constraintHeight_percent="0.7"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:contentDescription="@string/suit_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.6"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_rank"
-                android:contentDescription="@string/suit_desc" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6" />
 
             <!-- Hidden field for compatibility -->
             <TextView

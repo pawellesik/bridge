@@ -8,101 +8,220 @@
     android:background="#1B5E20"
     tools:context=".GameActivity">
 
-    <!-- North Player -->
-    <TextView
-        android:id="@+id/player_north"
-        android:layout_width="wrap_content"
+    <!-- Top Status Bar (Scoreboard) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/player_north"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"/>
+        android:padding="4dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- South Player (User) -->
+        <!-- Left Scores (SN, WE) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SN 4 ♠" android:textColor="#FFEB3B" android:textStyle="bold" android:background="#44000000" android:padding="2dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="WE 1" android:textColor="#FFEB3B" android:textStyle="bold" android:background="#44000000" android:padding="2dp" android:layout_marginTop="2dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SN 0" android:textColor="#FFEB3B" android:textStyle="bold" android:background="#44000000" android:padding="2dp" android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <!-- Middle Info -->
+
+        <!-- Right Bids -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#44000000"
+                android:padding="2dp"
+                android:text="5 ♥"
+                android:textColor="#FFEB3B"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#44000000"
+                android:padding="2dp"
+                android:text="2 ♥A ♠"
+                android:textColor="#FFEB3B"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#44000000"
+                android:padding="2dp"
+                android:text="4 ♥"
+                android:textColor="#FFEB3B"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- North Player Hand -->
     <TextView
-        android:id="@+id/player_south"
+        android:id="@+id/name_north"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/player_south"
+        android:text="North"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/rv_hand_south"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginTop="4dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_hand_south"
+        android:id="@+id/rv_hand_north"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:padding="4dp"
-        android:clipToPadding="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_north"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp"
         tools:listitem="@layout/item_card" />
 
-    <!-- West Player -->
-    <TextView
-        android:id="@+id/player_west"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/player_west"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="32dp"/>
-
-    <!-- East Player -->
-    <TextView
-        android:id="@+id/player_east"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/player_east"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="32dp"/>
-
-    <!-- Center Area (Table) -->
+    <!-- Center Table -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/table_center"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="#1B5E20"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        app:layout_constraintTop_toBottomOf="@id/rv_hand_north"
+        app:layout_constraintBottom_toTopOf="@id/name_south"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Placeholder for played card from South -->
+        <!-- Played North -->
+        <FrameLayout
+            android:id="@+id/container_played_north"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Played South -->
         <FrameLayout
             android:id="@+id/container_played_south"
             android:layout_width="60dp"
             android:layout_height="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Played West -->
+        <FrameLayout
+            android:id="@+id/container_played_west"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Played East -->
+        <FrameLayout
+            android:id="@+id/container_played_east"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Side Hand Placeholders (Stacks) -->
+    <LinearLayout
+        android:id="@+id/stack_west_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/table_center"
+        app:layout_constraintBottom_toBottomOf="@id/table_center"
+        android:layout_marginStart="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="West"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+        <View
+            android:id="@+id/stack_west"
+            android:layout_width="40dp"
+            android:layout_height="120dp"
+            android:background="#2196F3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/stack_east_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/table_center"
+        app:layout_constraintBottom_toBottomOf="@id/table_center"
+        android:layout_marginEnd="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="East"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+        <View
+            android:id="@+id/stack_east"
+            android:layout_width="40dp"
+            android:layout_height="120dp"
+            android:background="#2196F3" />
+    </LinearLayout>
+
+    <!-- South Player Hand -->
+    <TextView
+        android:id="@+id/name_south"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="South"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/rv_hand_south"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="4dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_hand_south"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"
+        tools:listitem="@layout/item_card" />
 
     <Button
         android:id="@+id/btn_deal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/deal_cards"
-        app:layout_constraintBottom_toTopOf="@id/player_south"
-        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_margin="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
