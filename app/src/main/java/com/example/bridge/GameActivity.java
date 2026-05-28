@@ -186,6 +186,7 @@ public class GameActivity extends AppCompatActivity {
         List<Card> hand = player.getHand();
         if (!hand.isEmpty()) {
             Card randomCard = hand.get((int) (Math.random() * hand.size()));
+            //TODO choose the best card to throu
             playCard(player, randomCard, playedCardContainer);
         }
     }
