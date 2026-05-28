@@ -161,38 +161,38 @@
         <!-- Played North -->
         <FrameLayout
             android:id="@+id/container_played_north"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Played South -->
         <FrameLayout
             android:id="@+id/container_played_south"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Played West -->
         <FrameLayout
             android:id="@+id/container_played_west"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Played East -->
         <FrameLayout
             android:id="@+id/container_played_east"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

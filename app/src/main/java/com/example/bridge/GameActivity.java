@@ -96,13 +96,13 @@ public class GameActivity extends AppCompatActivity {
         rvSouth.setLayoutManager(southLayoutManager);
         southAdapter = new CardAdapter(displayHandSouth);
         southAdapter.setOnCardClickListener(card ->
-                handler.postDelayed(() -> playCard(players.get(2), card, playedCardContainerNorth), 300));
+                handler.postDelayed(() -> playCard(players.get(2), card, playedCardContainerSouth), 300));
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(northLayoutManager);
         northAdapter = new CardAdapter(displayHandNorth);
         northAdapter.setOnCardClickListener(card ->
-                handler.postDelayed(() -> playCard(players.get(0), card, playedCardContainerSouth), 300));
+                handler.postDelayed(() -> playCard(players.get(0), card, playedCardContainerNorth), 300));
         rvNorth.setAdapter(northAdapter);
     }
 
@@ -117,6 +117,8 @@ public class GameActivity extends AppCompatActivity {
         updateDisplayHandNorth();
         playedCardContainerSouth.removeAllViews();
         playedCardContainerNorth.removeAllViews();
+        playedCardContainerWest.removeAllViews();
+        playedCardContainerEast.removeAllViews();
     }
 
     private void updateDisplayHandSouth() {
@@ -128,7 +130,6 @@ public class GameActivity extends AppCompatActivity {
         if (actualHand.size() > 7) {
             addCardsWithSpacersSouth(actualHand.subList(7, actualHand.size()));
         }
-
         southAdapter.clearSelection();
         southAdapter.notifyDataSetChanged();
     }
@@ -171,12 +172,22 @@ public class GameActivity extends AppCompatActivity {
 
     private void playCard(Player player, Card card, FrameLayout playedCardContainer) {
         player.removeCard(card);
-        if (player.getName().equals("North")) {
+        if ("North".equals(player.getName())) {
             updateDisplayHandNorth();
-        } else if (player.getName().equals("South")) {
+            handler.postDelayed(() -> playCardOponent(players.get(1), playedCardContainerEast), 600);
+        } else if ("South".equals(player.getName())) {
             updateDisplayHandSouth();
+            handler.postDelayed(() -> playCardOponent(players.get(3), playedCardContainerWest), 600);
         }
         showPlayedCard(card, playedCardContainer);
+    }
+
+    private void playCardOponent(Player player, FrameLayout playedCardContainer) {
+        List<Card> hand = player.getHand();
+        if (!hand.isEmpty()) {
+            Card randomCard = hand.get((int) (Math.random() * hand.size()));
+            playCard(player, randomCard, playedCardContainer);
+        }
     }
 
     private void showPlayedCard(Card card, FrameLayout playedCardContainer) {
