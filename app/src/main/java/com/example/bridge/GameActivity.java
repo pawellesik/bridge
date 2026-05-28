@@ -150,7 +150,6 @@ public class GameActivity extends AppCompatActivity {
         int cardSpans = rowCards.size() * 2;
         int totalPadding = 14 - cardSpans;
         int leftPadding = totalPadding / 2;
-        int rightPadding = totalPadding - leftPadding;
 
         for (int i = 0; i < leftPadding; i++) displayHandSouth.add(null);
         displayHandSouth.addAll(rowCards);    }
