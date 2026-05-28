@@ -23,9 +23,35 @@
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SN 4 ♠" android:textColor="#FFEB3B" android:textStyle="bold" android:background="#44000000" android:padding="2dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="WE 1" android:textColor="#FFEB3B" android:textStyle="bold" android:background="#44000000" android:padding="2dp" android:layout_marginTop="2dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SN 0" android:textColor="#FFEB3B" android:textStyle="bold" android:background="#44000000" android:padding="2dp" android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#1B5E20"
+                android:padding="2dp"
+                android:text="SN 4 ♠"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#1B5E20"
+                android:padding="2dp"
+                android:text="WE 1"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="#1B5E20"
+                android:padding="2dp"
+                android:text="SN 0"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Middle Info -->
@@ -42,30 +68,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#44000000"
+                android:background="#1B5E20"
                 android:padding="2dp"
                 android:text="5 ♥"
-                android:textColor="#FFEB3B"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:background="#44000000"
+                android:background="#1B5E20"
                 android:padding="2dp"
                 android:text="2 ♥A ♠"
-                android:textColor="#FFEB3B"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:background="#44000000"
+                android:background="#1B5E20"
                 android:padding="2dp"
                 android:text="4 ♥"
-                android:textColor="#FFEB3B"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -159,11 +185,6 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:layout_marginBottom="4dp"/>
-        <View
-            android:id="@+id/stack_west"
-            android:layout_width="40dp"
-            android:layout_height="120dp"
-            android:background="#2196F3" />
     </LinearLayout>
 
     <LinearLayout
@@ -183,11 +204,6 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:layout_marginBottom="4dp"/>
-        <View
-            android:id="@+id/stack_east"
-            android:layout_width="40dp"
-            android:layout_height="120dp"
-            android:background="#2196F3" />
     </LinearLayout>
 
     <!-- South Player Hand -->
