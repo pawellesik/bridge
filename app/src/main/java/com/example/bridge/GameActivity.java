@@ -96,13 +96,13 @@ public class GameActivity extends AppCompatActivity {
         rvSouth.setLayoutManager(southLayoutManager);
         southAdapter = new CardAdapter(displayHandSouth);
         southAdapter.setOnCardClickListener(card ->
-                handler.postDelayed(() -> playCardSouth(card), 300));
+                handler.postDelayed(() -> playCard(players.get(2), card, playedCardContainerNorth), 300));
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(northLayoutManager);
         northAdapter = new CardAdapter(displayHandNorth);
         northAdapter.setOnCardClickListener(card ->
-                handler.postDelayed(() -> playCardNorth(card), 300));
+                handler.postDelayed(() -> playCard(players.get(0), card, playedCardContainerSouth), 300));
         rvNorth.setAdapter(northAdapter);
     }
 
@@ -169,21 +169,19 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < rightPadding; i++) displayList.add(null);
     }
 
-    private void playCardSouth(Card card) {
-        players.get(2).removeCard(card);
-        updateDisplayHandSouth();
-        showPlayedCardSouth(card);
+    private void playCard(Player player, Card card, FrameLayout playedCardContainer) {
+        player.removeCard(card);
+        if (player.getName().equals("North")) {
+            updateDisplayHandNorth();
+        } else if (player.getName().equals("South")) {
+            updateDisplayHandSouth();
+        }
+        showPlayedCard(card, playedCardContainer);
     }
 
-    private void playCardNorth(Card card) {
-        players.get(0).removeCard(card);
-        updateDisplayHandNorth();
-        showPlayedCardNorth(card);
-    }
-
-    private void showPlayedCardSouth(Card card) {
-        playedCardContainerSouth.removeAllViews();
-        View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainerSouth, false);
+    private void showPlayedCard(Card card, FrameLayout playedCardContainer) {
+        playedCardContainer.removeAllViews();
+        View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainer, false);
 
         TextView tvRank = view.findViewById(R.id.tv_rank);
         ImageView ivSmall = view.findViewById(R.id.iv_suit_small);
@@ -194,23 +192,7 @@ public class GameActivity extends AppCompatActivity {
         ivLarge.setImageResource(card.getSuit().resId);
         tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
 
-        playedCardContainerSouth.addView(view);
-    }
-
-    private void showPlayedCardNorth(Card card) {
-        playedCardContainerNorth.removeAllViews();
-        View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainerNorth, false);
-
-        TextView tvRank = view.findViewById(R.id.tv_rank);
-        ImageView ivSmall = view.findViewById(R.id.iv_suit_small);
-        ImageView ivLarge = view.findViewById(R.id.iv_suit_large);
-
-        tvRank.setText(card.getRank().display);
-        ivSmall.setImageResource(card.getSuit().resId);
-        ivLarge.setImageResource(card.getSuit().resId);
-        tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
-
-        playedCardContainerNorth.addView(view);
+        playedCardContainer.addView(view);
     }
 
 }
