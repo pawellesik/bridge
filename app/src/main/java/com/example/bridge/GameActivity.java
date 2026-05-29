@@ -42,6 +42,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private TextView tvContract;
     private ImageView ivContractSuit;
+    private View contractContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         tvContract = findViewById(R.id.game_contract);
         ivContractSuit = findViewById(R.id.iv_contract_suit);
+        contractContainer = findViewById(R.id.game_contract_container);
 
         initGame();
         setupRecyclerView();
@@ -71,13 +73,21 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onContractDetermined(String contract) {
+        if (contractContainer != null) contractContainer.setBackgroundColor(Color.WHITE);
+
+        if ("PASS".equals(contract)) {
+            tvContract.setText(" PASS");
+            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
+            return;
+        }
+
         if (contract.endsWith("NT")) {
-            tvContract.setText(contract);
+            tvContract.setText(" " + contract);
             if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
         } else {
             String level = contract.substring(0, contract.length() - 1);
             String suitChar = contract.substring(contract.length() - 1);
-            tvContract.setText(level);
+            tvContract.setText(" " + level);
             if (ivContractSuit != null) {
                 ivContractSuit.setVisibility(View.VISIBLE);
                 switch (suitChar) {
@@ -94,7 +104,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                         ivContractSuit.setImageResource(R.drawable.clubs);
                         break;
                     default:
-                        tvContract.setText(contract);
+                        tvContract.setText(" " + contract);
                         ivContractSuit.setVisibility(View.GONE);
                         break;
                 }
@@ -177,7 +187,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onClearLastCards(List<Card> cardsOnTable) {
-        if (cardsOnTable.size() < 2) {
+        if (cardsOnTable.size() > 1) {
             tvLastNorth.setText("");
             tvLastSouth.setText("");
             tvLastEast.setText("");

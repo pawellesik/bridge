@@ -51,7 +51,6 @@ public class GameController {
             callback.onHandUpdated(i);
         }
 
-        // Calculate HCP for South (index 2) and North (index 0)
         int hcpSouth = players.get(2).calculateHCP();
         int hcpNorth = players.get(0).calculateHCP();
         int totalHCP = hcpSouth + hcpNorth;
@@ -148,7 +147,9 @@ public class GameController {
     }
 
     private void clearTable() {
-        callback.onTableCleared(new HashMap<>(currentTrick));
+        if (cardsOnTable.size()==4) {
+            callback.onTableCleared(new HashMap<>(currentTrick));
+        }
         cardsOnTable.clear();
         currentTrick.clear();
     }
