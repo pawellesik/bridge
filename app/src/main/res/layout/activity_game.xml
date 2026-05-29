@@ -30,19 +30,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#1B5E20"
-                android:padding="2dp"
-                android:text="SN 4 ♠"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:background="#1B5E20"
                 android:padding="2dp"
                 android:text="WE 1"
@@ -63,6 +52,19 @@
         </LinearLayout>
 
         <!-- Middle Info -->
+        <TextView
+            android:id="@+id/game_contract"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#1B5E20"
+            android:padding="2dp"
+            android:text="SN 4 ♠"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Right Bids (Cross Pattern) -->
         <androidx.constraintlayout.widget.ConstraintLayout
