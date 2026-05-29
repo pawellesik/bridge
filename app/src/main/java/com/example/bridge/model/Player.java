@@ -7,9 +7,18 @@ import java.util.List;
 public class Player {
     private final String name;
     private final List<Card> hand = new ArrayList<>();
+    private boolean isCurrentMove = false;
 
     public Player(String name) {
         this.name = name;
+    }
+
+    public boolean isCurrentMove() {
+        return isCurrentMove;
+    }
+
+    public void setCurrentMove(boolean currentMove) {
+        isCurrentMove = currentMove;
     }
 
     public String getName() {

@@ -113,10 +113,13 @@ public class GameActivity extends AppCompatActivity {
         for (Player player : players) {
             player.clearHand();
             player.addCards(deck.deal(13));
+            player.setCurrentMove(false);
         }
+        clearTable();
         updateDisplayHandSouth();
         updateDisplayHandNorth();
-        clearTable();
+        handler.postDelayed(() -> playCardOponent(players.get(3), playedCardContainerWest), 600);
+        players.get(0).setCurrentMove(true);
     }
 
     private void updateDisplayHandSouth() {
