@@ -37,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     private FrameLayout playedCardContainerNorth;
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
+    private int cardsOnTableCount = 0;
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
@@ -115,10 +116,7 @@ public class GameActivity extends AppCompatActivity {
         }
         updateDisplayHandSouth();
         updateDisplayHandNorth();
-        playedCardContainerSouth.removeAllViews();
-        playedCardContainerNorth.removeAllViews();
-        playedCardContainerWest.removeAllViews();
-        playedCardContainerEast.removeAllViews();
+        clearTable();
     }
 
     private void updateDisplayHandSouth() {
@@ -205,6 +203,19 @@ public class GameActivity extends AppCompatActivity {
         tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
 
         playedCardContainer.addView(view);
+
+        cardsOnTableCount++;
+        if (cardsOnTableCount == 4) {
+            handler.postDelayed(this::clearTable, 1000);
+        }
+    }
+
+    private void clearTable() {
+        playedCardContainerSouth.removeAllViews();
+        playedCardContainerNorth.removeAllViews();
+        playedCardContainerWest.removeAllViews();
+        playedCardContainerEast.removeAllViews();
+        cardsOnTableCount = 0;
     }
 
 }
