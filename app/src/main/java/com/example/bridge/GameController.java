@@ -50,53 +50,47 @@ public class GameController {
             player.setCurrentMove(false);
             callback.onHandUpdated(i);
         }
-
-        int hcpSouth = players.get(2).calculateHCP();
-        int hcpNorth = players.get(0).calculateHCP();
-        int totalHCP = hcpSouth + hcpNorth;
-
-        callback.onContractDetermined(determineBestContract(totalHCP));
-
+        callback.onContractDetermined(determineBestContract());
         clearTable();
         players.get(3).setCurrentMove(true);
         playCardOpponent(players.get(3));
     }
 
-    private String determineBestContract(int totalHCP) {
-        if (totalHCP < 12) return "PASS";
+    private String determineBestContract() {
+        switchCardsIfAreToWeaks();
+        int totalHCP = getHPCFromSNPlauers();
 
-        // Find longest combined suit for SN
-        com.example.bridge.model.Suit bestSuit = null;
-        int maxCount = 0;
-        for (com.example.bridge.model.Suit s : com.example.bridge.model.Suit.values()) {
-            int count = players.get(0).countSuit(s) + players.get(2).countSuit(s);
-            if (count > maxCount) {
-                maxCount = count;
-                bestSuit = s;
-            }
-        }
+        if (totalHCP >= 25) return "3NT";
+        if (totalHCP >= 20) return "2NT";
+        if (totalHCP >= 15) return "1NT";
+        return "PASS";
+    }
 
-        String suitChar = "";
-        if (bestSuit != null && maxCount >= 8) {
-            switch (bestSuit) {
-                case SPADES: suitChar = "S"; break;
-                case HEARTS: suitChar = "H"; break;
-                case DIAMONDS: suitChar = "D"; break;
-                case CLUBS: suitChar = "C"; break;
-            }
-        }
+    private void switchCardsIfAreToWeaks(){
+        if (getHPCFromSNPlauers() < 20 || ){
+            List<Card> h0 = new ArrayList<>(players.get(0).getHand());
+            List<Card> h1 = new ArrayList<>(players.get(1).getHand());
+            List<Card> h2 = new ArrayList<>(players.get(2).getHand());
+            List<Card> h3 = new ArrayList<>(players.get(3).getHand());
 
-        if (totalHCP >= 25) {
-            if (suitChar.isEmpty()) return "3NT";
-            String level = (suitChar.equals("S") || suitChar.equals("H")) ? "4" : "5";
-            return level + suitChar;
-        } else if (totalHCP >= 20) {
-            return suitChar.isEmpty() ? "2NT" : "3" + suitChar;
-        } else if (totalHCP >= 15) {
-            return suitChar.isEmpty() ? "1NT" : "2" + suitChar;
-        } else {
-            return suitChar.isEmpty() ? "1NT" : "1" + suitChar;
+            players.get(0).clearHand();
+            players.get(1).clearHand();
+            players.get(2).clearHand();
+            players.get(3).clearHand();
+
+            players.get(0).addCards(h1);
+            players.get(1).addCards(h0);
+            players.get(2).addCards(h3);
+            players.get(3).addCards(h2);
+
+            for (int i = 0; i < 4; i++) callback.onHandUpdated(i);
         }
+    }
+
+    private int getHPCFromSNPlauers(){
+        int hcpSouth = players.get(2).calculateHCP();
+        int hcpNorth = players.get(0).calculateHCP();
+        return hcpSouth + hcpNorth;
     }
 
     public void playCard(Player player, Card card) {
