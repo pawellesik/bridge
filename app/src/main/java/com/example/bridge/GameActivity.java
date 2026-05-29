@@ -37,7 +37,7 @@ public class GameActivity extends AppCompatActivity {
     private FrameLayout playedCardContainerNorth;
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
-    private int cardsOnTableCount = 0;
+    private List<Card> cardsOnTable = new ArrayList<>();
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
@@ -101,6 +101,7 @@ public class GameActivity extends AppCompatActivity {
         });
         return lm;
     }
+
     private void dealCards() {
         deck = new Deck();
         deck.shuffle();
@@ -169,27 +170,19 @@ public class GameActivity extends AppCompatActivity {
 
     private void playCard(Player player, Card card, FrameLayout playedCardContainer) {
         player.removeCard(card);
+        player.setCurrentMove(false);
         if ("North".equals(player.getName())) {
             updateDisplayHandNorth();
             handler.postDelayed(() -> playCardOponent(players.get(1), playedCardContainerEast), 600);
-            players.get(2).setCurrentMove(true);
         } else if ("South".equals(player.getName())) {
             updateDisplayHandSouth();
             handler.postDelayed(() -> playCardOponent(players.get(3), playedCardContainerWest), 600);
-            players.get(0).setCurrentMove(true);
         }
-        showPlayedCard(card, playedCardContainer);
+        showPlayedCard(card, player, playedCardContainer);
         southAdapter.notifyDataSetChanged();
         northAdapter.notifyDataSetChanged();
-    }
 
-    private int getNextPlayerIndex(int current) {
-        if (current == 2) return 3;
-        if (current == 3) return 0;
-        if (current == 0) return 1;
-        return 2;
     }
-
 
     private void playCardOponent(Player player, FrameLayout playedCardContainer) {
         List<Card> hand = player.getHand();
@@ -200,7 +193,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void showPlayedCard(Card card, FrameLayout playedCardContainer) {
+    private void showPlayedCard(Card card, Player player, FrameLayout playedCardContainer) {
         playedCardContainer.removeAllViews();
         View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainer, false);
 
@@ -215,10 +208,20 @@ public class GameActivity extends AppCompatActivity {
 
         playedCardContainer.addView(view);
 
-        cardsOnTableCount++;
-        if (cardsOnTableCount == 4) {
+        cardsOnTable.add(card);
+        if (this.cardsOnTable.size() == 4) {
+            //todo chose currentplayer
             handler.postDelayed(this::clearTable, 1000);
+        } else {
+            players.get(getNextPlayerIndex(players.indexOf(player))).setCurrentMove(true);
         }
+    }
+
+    private int getNextPlayerIndex(int current) {
+        if (current == 2) return 3;
+        if (current == 3) return 0;
+        if (current == 0) return 1;
+        return 2;
     }
 
     private void clearTable() {
@@ -226,7 +229,7 @@ public class GameActivity extends AppCompatActivity {
         playedCardContainerNorth.removeAllViews();
         playedCardContainerWest.removeAllViews();
         playedCardContainerEast.removeAllViews();
-        cardsOnTableCount = 0;
+        cardsOnTable.clear();
     }
 
 }

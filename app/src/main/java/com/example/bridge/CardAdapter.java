@@ -51,13 +51,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.itemView.setVisibility(View.INVISIBLE);
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
-            holder.bind(card, position == selectedPos, player.isCurrentMove());
+            holder.bind(card, position == selectedPos);
             holder.itemView.setOnClickListener(v -> {
                 if (player.isCurrentMove()) {
                     int prev = selectedPos;
                     selectedPos = holder.getAdapterPosition();
                     notifyItemChanged(prev);
                     notifyItemChanged(selectedPos);
+                    player.setCurrentMove(false);
                     if (listener != null) listener.onCardClick(card);
                 }
             });
@@ -89,12 +90,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             cardView = itemView.findViewById(R.id.card_view);
         }
 
-        void bind(Card card, boolean isSelected, boolean isCurrentMove) {
+        void bind(Card card, boolean isSelected) {
             tvRank.setText(card.getRank().display);
             ivSmall.setImageResource(card.getSuit().resId);
             ivLarge.setImageResource(card.getSuit().resId);
             tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
-            cardView.setCardBackgroundColor(isSelected && isCurrentMove ? Color.YELLOW : Color.WHITE);
+            cardView.setCardBackgroundColor(isSelected ? Color.YELLOW : Color.WHITE);
         }
     }
 }
