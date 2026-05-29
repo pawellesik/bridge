@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.model.Card;
+import com.example.bridge.model.Player;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
@@ -25,8 +26,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     private int selectedPos = RecyclerView.NO_POSITION;
     private OnCardClickListener listener;
 
-    public CardAdapter(List<Card> cards) {
+    private Player player;
+
+    public CardAdapter(List<Card> cards, Player player) {
         this.cards = cards;
+        this.player = player;
     }
 
     public void setOnCardClickListener(OnCardClickListener listener) {
@@ -47,14 +51,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.itemView.setVisibility(View.INVISIBLE);
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
-            holder.bind(card, position == selectedPos);
+            holder.bind(card, position == selectedPos, player.isCurrentMove());
             holder.itemView.setOnClickListener(v -> {
-                int prev = selectedPos;
-                selectedPos = holder.getAdapterPosition();
-                notifyItemChanged(prev);
-                notifyItemChanged(selectedPos);
-                if (listener != null) listener.onCardClick(card);
+                if (player.isCurrentMove()) {
+                    int prev = selectedPos;
+                    selectedPos = holder.getAdapterPosition();
+                    notifyItemChanged(prev);
+                    notifyItemChanged(selectedPos);
+                    if (listener != null) listener.onCardClick(card);
+                }
             });
+
         }
     }
 
@@ -65,7 +72,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     }
 
     @Override
-    public int getItemCount() { return cards.size(); }
+    public int getItemCount() {
+        return cards.size();
+    }
 
     static class CardViewHolder extends RecyclerView.ViewHolder {
         TextView tvRank;
@@ -80,12 +89,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             cardView = itemView.findViewById(R.id.card_view);
         }
 
-        void bind(Card card, boolean isSelected) {
+        void bind(Card card, boolean isSelected, boolean isCurrentMove) {
             tvRank.setText(card.getRank().display);
             ivSmall.setImageResource(card.getSuit().resId);
             ivLarge.setImageResource(card.getSuit().resId);
             tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
-            cardView.setCardBackgroundColor(isSelected ? Color.YELLOW : Color.WHITE);
+            cardView.setCardBackgroundColor(isSelected && isCurrentMove ? Color.YELLOW : Color.WHITE);
         }
     }
 }

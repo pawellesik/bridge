@@ -78,35 +78,29 @@ public class GameActivity extends AppCompatActivity {
         RecyclerView rvSouth = findViewById(R.id.rv_hand_south);
         RecyclerView rvNorth = findViewById(R.id.rv_hand_north);
 
-        GridLayoutManager southLayoutManager = new GridLayoutManager(this, 14);
-        southLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return (displayHandSouth.get(position) == null) ? 1 : 2;
-            }
-        });
-
-        GridLayoutManager northLayoutManager = new GridLayoutManager(this, 14);
-        northLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return (displayHandNorth.get(position) == null) ? 1 : 2;
-            }
-        });
-
-        rvSouth.setLayoutManager(southLayoutManager);
-        southAdapter = new CardAdapter(displayHandSouth);
+        rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
+        southAdapter = new CardAdapter(displayHandSouth, players.get(2));
         southAdapter.setOnCardClickListener(card ->
                 handler.postDelayed(() -> playCard(players.get(2), card, playedCardContainerSouth), 300));
         rvSouth.setAdapter(southAdapter);
 
-        rvNorth.setLayoutManager(northLayoutManager);
-        northAdapter = new CardAdapter(displayHandNorth);
+        rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
+        northAdapter = new CardAdapter(displayHandNorth, players.get(0));
         northAdapter.setOnCardClickListener(card ->
                 handler.postDelayed(() -> playCard(players.get(0), card, playedCardContainerNorth), 300));
         rvNorth.setAdapter(northAdapter);
     }
 
+    private GridLayoutManager createLayoutManager(List<Card> displayList) {
+        GridLayoutManager lm = new GridLayoutManager(this, 14);
+        lm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (displayList.get(position) == null) ? 1 : 2;
+            }
+        });
+        return lm;
+    }
     private void dealCards() {
         deck = new Deck();
         deck.shuffle();
@@ -120,6 +114,8 @@ public class GameActivity extends AppCompatActivity {
         updateDisplayHandNorth();
         handler.postDelayed(() -> playCardOponent(players.get(3), playedCardContainerWest), 600);
         players.get(0).setCurrentMove(true);
+        southAdapter.notifyDataSetChanged();
+        northAdapter.notifyDataSetChanged();
     }
 
     private void updateDisplayHandSouth() {
@@ -176,12 +172,24 @@ public class GameActivity extends AppCompatActivity {
         if ("North".equals(player.getName())) {
             updateDisplayHandNorth();
             handler.postDelayed(() -> playCardOponent(players.get(1), playedCardContainerEast), 600);
+            players.get(2).setCurrentMove(true);
         } else if ("South".equals(player.getName())) {
             updateDisplayHandSouth();
             handler.postDelayed(() -> playCardOponent(players.get(3), playedCardContainerWest), 600);
+            players.get(0).setCurrentMove(true);
         }
         showPlayedCard(card, playedCardContainer);
+        southAdapter.notifyDataSetChanged();
+        northAdapter.notifyDataSetChanged();
     }
+
+    private int getNextPlayerIndex(int current) {
+        if (current == 2) return 3;
+        if (current == 3) return 0;
+        if (current == 0) return 1;
+        return 2;
+    }
+
 
     private void playCardOponent(Player player, FrameLayout playedCardContainer) {
         List<Card> hand = player.getHand();
