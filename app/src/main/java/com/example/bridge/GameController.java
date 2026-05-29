@@ -16,8 +16,12 @@ public class GameController {
 
     public interface GameCallback {
         void onHandUpdated(int playerIndex);
+
         void onCardPlayed(Player player, Card card);
+
         void onTableCleared(Map<String, Card> trickCards);
+
+        void onClearLastCards(List<Card> cardsOnTable);
     }
 
     private final List<Player> players;
@@ -35,7 +39,6 @@ public class GameController {
 
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
-        currentTrick.clear();
         deck = new Deck();
         deck.shuffle();
         for (int i = 0; i < players.size(); i++) {
@@ -54,10 +57,10 @@ public class GameController {
         player.removeCard(card);
         cardsOnTable.add(card);
         currentTrick.put(player.getName(), card);
-        
+        callback.onClearLastCards(cardsOnTable);
         callback.onCardPlayed(player, card);
         callback.onHandUpdated(players.indexOf(player));
-        
+
         setNextPlayerCurrentMove(player);
     }
 
@@ -102,7 +105,7 @@ public class GameController {
         cardsOnTable.clear();
         currentTrick.clear();
     }
-    
+
     public void cleanup() {
         handler.removeCallbacksAndMessages(null);
     }

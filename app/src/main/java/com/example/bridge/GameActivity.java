@@ -28,12 +28,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public static final Card GHOST_CARD = new Card(null, null);
     private List<Player> players;
     private GameController gameController;
-    
+
     private CardAdapter southAdapter;
     private CardAdapter northAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
-    
+
     private FrameLayout playedCardContainerSouth;
     private FrameLayout playedCardContainerNorth;
     private FrameLayout playedCardContainerWest;
@@ -78,7 +78,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.add(new Player("East", playedCardContainerEast));
         players.add(new Player("South", playedCardContainerSouth));
         players.add(new Player("West", playedCardContainerWest));
-        
+
         gameController = new GameController(players, this);
     }
 
@@ -88,13 +88,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
         southAdapter = new CardAdapter(displayHandSouth, players.get(2));
-        southAdapter.setOnCardClickListener(card -> 
+        southAdapter.setOnCardClickListener(card ->
                 findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get(2), card), 300));
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
         northAdapter = new CardAdapter(displayHandNorth, players.get(0));
-        northAdapter.setOnCardClickListener(card -> 
+        northAdapter.setOnCardClickListener(card ->
                 findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get(0), card), 300));
         rvNorth.setAdapter(northAdapter);
     }
@@ -131,16 +131,19 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerWest.removeAllViews();
         playedCardContainerEast.removeAllViews();
 
-        if (trickCards.isEmpty()) {
+        updateLastCard(tvLastNorth, trickCards.get("North"));
+        updateLastCard(tvLastSouth, trickCards.get("South"));
+        updateLastCard(tvLastEast, trickCards.get("East"));
+        updateLastCard(tvLastWest, trickCards.get("West"));
+    }
+
+    @Override
+    public void onClearLastCards(List<Card> cardsOnTable) {
+        if (cardsOnTable.size() < 2) {
             tvLastNorth.setText("");
             tvLastSouth.setText("");
             tvLastEast.setText("");
             tvLastWest.setText("");
-        } else {
-            updateLastCard(tvLastNorth, trickCards.get("North"));
-            updateLastCard(tvLastSouth, trickCards.get("South"));
-            updateLastCard(tvLastEast, trickCards.get("East"));
-            updateLastCard(tvLastWest, trickCards.get("West"));
         }
     }
 

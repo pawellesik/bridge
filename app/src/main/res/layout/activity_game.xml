@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="-8dp">
 
-        <!-- Left Scores (SN, WE) -->
+        <!-- Left Info (Contract + Scores) -->
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
@@ -29,9 +29,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <LinearLayout
+                android:id="@+id/game_contract_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_frame"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/game_contract"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 4"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_contract_suit"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="@string/suit_desc"
+                    android:src="@drawable/spades" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:background="#1B5E20"
                 android:padding="2dp"
                 android:text="WE 1"
@@ -52,23 +80,10 @@
         </LinearLayout>
 
         <!-- Middle Info -->
-        <TextView
-            android:id="@+id/game_contract"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#1B5E20"
-            android:padding="2dp"
-            android:text="SN 4 ♠"
-            android:textColor="@color/white"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Right Bids (Cross Pattern) -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bids_cross"
+            android:id="@+id/last_cards"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,8 +93,8 @@
                 android:id="@+id/n_last_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_frame"
-                android:textColor="@color/white"
+                android:background="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="4dp"
-                android:background="@drawable/white_frame"
-                android:textColor="@color/white"
+                android:background="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/e_last_card"
@@ -105,8 +120,8 @@
                 android:id="@+id/e_last_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_frame"
-                android:textColor="@color/white"
+                android:background="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -118,8 +133,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:background="@drawable/white_frame"
-                android:textColor="@color/white"
+                android:background="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
