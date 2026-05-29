@@ -40,6 +40,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerEast;
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
+    private TextView tvContract;
+    private ImageView ivContractSuit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +60,46 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvLastEast = findViewById(R.id.e_last_card);
         tvLastWest = findViewById(R.id.w_last_card);
 
+        tvContract = findViewById(R.id.game_contract);
+        ivContractSuit = findViewById(R.id.iv_contract_suit);
+
         initGame();
         setupRecyclerView();
 
         findViewById(R.id.btn_deal).setOnClickListener(v -> gameController.dealCards());
+    }
+
+    @Override
+    public void onContractDetermined(String contract) {
+        if (contract.endsWith("NT")) {
+            tvContract.setText(contract);
+            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
+        } else {
+            String level = contract.substring(0, contract.length() - 1);
+            String suitChar = contract.substring(contract.length() - 1);
+            tvContract.setText(level);
+            if (ivContractSuit != null) {
+                ivContractSuit.setVisibility(View.VISIBLE);
+                switch (suitChar) {
+                    case "S":
+                        ivContractSuit.setImageResource(R.drawable.spades);
+                        break;
+                    case "H":
+                        ivContractSuit.setImageResource(R.drawable.heart);
+                        break;
+                    case "D":
+                        ivContractSuit.setImageResource(R.drawable.diamonds);
+                        break;
+                    case "C":
+                        ivContractSuit.setImageResource(R.drawable.clubs);
+                        break;
+                    default:
+                        tvContract.setText(contract);
+                        ivContractSuit.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        }
     }
 
     private void setupWindowInsets() {

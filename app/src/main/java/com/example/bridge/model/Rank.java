@@ -1,12 +1,14 @@
 package com.example.bridge.model;
 
 public enum Rank {
-    TWO("2"), THREE("3"), FOUR("4"), FIVE("5"), SIX("6"), SEVEN("7"), 
-    EIGHT("8"), NINE("9"), TEN("10"), JACK("J"), QUEEN("Q"), KING("K"), ACE("A");
+    TWO("2", 0), THREE("3", 0), FOUR("4", 0), FIVE("5", 0), SIX("6", 0), SEVEN("7", 0), 
+    EIGHT("8", 0), NINE("9", 0), TEN("10", 0), JACK("J", 1), QUEEN("Q", 2), KING("K", 3), ACE("A", 4);
 
     public final String display;
+    public final int hcp;
 
-    Rank(String display) {
+    Rank(String display, int hcp) {
         this.display = display;
+        this.hcp = hcp;
     }
 }

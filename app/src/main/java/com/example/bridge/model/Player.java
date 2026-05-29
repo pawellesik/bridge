@@ -50,4 +50,22 @@ public class Player {
         hand.clear();
     }
 
+    public int calculateHCP() {
+        int total = 0;
+        for (Card card : hand) {
+            if (card.getRank() != null) {
+                total += card.getRank().hcp;
+            }
+        }
+        return total;
+    }
+
+    public int countSuit(Suit suit) {
+        int count = 0;
+        for (Card card : hand) {
+            if (card.getSuit() == suit) count++;
+        }
+        return count;
+    }
+
 }

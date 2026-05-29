@@ -22,6 +22,8 @@ public class GameController {
         void onTableCleared(Map<String, Card> trickCards);
 
         void onClearLastCards(List<Card> cardsOnTable);
+
+        void onContractDetermined(String contract);
     }
 
     private final List<Player> players;
@@ -48,9 +50,54 @@ public class GameController {
             player.setCurrentMove(false);
             callback.onHandUpdated(i);
         }
+
+        // Calculate HCP for South (index 2) and North (index 0)
+        int hcpSouth = players.get(2).calculateHCP();
+        int hcpNorth = players.get(0).calculateHCP();
+        int totalHCP = hcpSouth + hcpNorth;
+
+        callback.onContractDetermined(determineBestContract(totalHCP));
+
         clearTable();
         players.get(3).setCurrentMove(true);
         playCardOpponent(players.get(3));
+    }
+
+    private String determineBestContract(int totalHCP) {
+        if (totalHCP < 12) return "PASS";
+
+        // Find longest combined suit for SN
+        com.example.bridge.model.Suit bestSuit = null;
+        int maxCount = 0;
+        for (com.example.bridge.model.Suit s : com.example.bridge.model.Suit.values()) {
+            int count = players.get(0).countSuit(s) + players.get(2).countSuit(s);
+            if (count > maxCount) {
+                maxCount = count;
+                bestSuit = s;
+            }
+        }
+
+        String suitChar = "";
+        if (bestSuit != null && maxCount >= 8) {
+            switch (bestSuit) {
+                case SPADES: suitChar = "S"; break;
+                case HEARTS: suitChar = "H"; break;
+                case DIAMONDS: suitChar = "D"; break;
+                case CLUBS: suitChar = "C"; break;
+            }
+        }
+
+        if (totalHCP >= 25) {
+            if (suitChar.isEmpty()) return "3NT";
+            String level = (suitChar.equals("S") || suitChar.equals("H")) ? "4" : "5";
+            return level + suitChar;
+        } else if (totalHCP >= 20) {
+            return suitChar.isEmpty() ? "2NT" : "3" + suitChar;
+        } else if (totalHCP >= 15) {
+            return suitChar.isEmpty() ? "1NT" : "2" + suitChar;
+        } else {
+            return suitChar.isEmpty() ? "1NT" : "1" + suitChar;
+        }
     }
 
     public void playCard(Player player, Card card) {
