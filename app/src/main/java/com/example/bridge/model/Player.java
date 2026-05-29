@@ -1,5 +1,7 @@
 package com.example.bridge.model;
 
+import android.widget.FrameLayout;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,9 +10,15 @@ public class Player {
     private final String name;
     private final List<Card> hand = new ArrayList<>();
     private boolean isCurrentMove = false;
+    private final FrameLayout playedCardContainer;
 
-    public Player(String name) {
+    public Player(String name, FrameLayout playedCardContainer) {
         this.name = name;
+        this.playedCardContainer = playedCardContainer;
+    }
+
+    public FrameLayout getPlayedCardContainer() {
+        return playedCardContainer;
     }
 
     public boolean isCurrentMove() {

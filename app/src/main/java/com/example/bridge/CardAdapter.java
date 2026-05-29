@@ -54,11 +54,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.bind(card, position == selectedPos);
             holder.itemView.setOnClickListener(v -> {
                 if (player.isCurrentMove()) {
+                    player.setCurrentMove(false);
                     int prev = selectedPos;
                     selectedPos = holder.getAdapterPosition();
                     notifyItemChanged(prev);
                     notifyItemChanged(selectedPos);
-                    player.setCurrentMove(false);
                     if (listener != null) listener.onCardClick(card);
                 }
             });

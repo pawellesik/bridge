@@ -46,13 +46,15 @@ public class GameActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
         setupWindowInsets();
-        initGame();
-        setupRecyclerView();
 
         playedCardContainerSouth = findViewById(R.id.container_played_south);
         playedCardContainerNorth = findViewById(R.id.container_played_north);
         playedCardContainerWest = findViewById(R.id.container_played_west);
         playedCardContainerEast = findViewById(R.id.container_played_east);
+
+        initGame();
+        setupRecyclerView();
+
         findViewById(R.id.btn_deal).setOnClickListener(v -> dealCards());
     }
 
@@ -66,10 +68,10 @@ public class GameActivity extends AppCompatActivity {
 
     private void initGame() {
         players = new ArrayList<>();
-        players.add(new Player("North"));
-        players.add(new Player("East"));
-        players.add(new Player("South"));
-        players.add(new Player("West"));
+        players.add(new Player("North", playedCardContainerNorth));
+        players.add(new Player("East", playedCardContainerEast));
+        players.add(new Player("South", playedCardContainerSouth));
+        players.add(new Player("West", playedCardContainerWest));
         deck = new Deck();
     }
 
@@ -111,10 +113,10 @@ public class GameActivity extends AppCompatActivity {
             player.setCurrentMove(false);
         }
         clearTable();
-        updateDisplayHandSouth();
         updateDisplayHandNorth();
-        handler.postDelayed(() -> playCardOponent(players.get(3), playedCardContainerWest), 600);
-        players.get(0).setCurrentMove(true);
+        updateDisplayHandSouth();
+        players.get(3).setCurrentMove(true);
+        playCardOponent(players.get(3));
         southAdapter.notifyDataSetChanged();
         northAdapter.notifyDataSetChanged();
     }
@@ -169,31 +171,35 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void playCard(Player player, Card card, FrameLayout playedCardContainer) {
-        player.removeCard(card);
         player.setCurrentMove(false);
+        player.removeCard(card);
+        cardsOnTable.add(card);
         if ("North".equals(player.getName())) {
             updateDisplayHandNorth();
-            handler.postDelayed(() -> playCardOponent(players.get(1), playedCardContainerEast), 600);
+            setNextPlayerCurrentMove(player);
+            playCardOponent(getNextPlayer(player));
+            northAdapter.notifyDataSetChanged();
         } else if ("South".equals(player.getName())) {
             updateDisplayHandSouth();
-            handler.postDelayed(() -> playCardOponent(players.get(3), playedCardContainerWest), 600);
+            setNextPlayerCurrentMove(player);
+            playCardOponent(getNextPlayer(player));
+            southAdapter.notifyDataSetChanged();
+        } else {
+            setNextPlayerCurrentMove(player);
         }
-        showPlayedCard(card, player, playedCardContainer);
-        southAdapter.notifyDataSetChanged();
-        northAdapter.notifyDataSetChanged();
-
+        showPlayedCard(card, playedCardContainer);
     }
 
-    private void playCardOponent(Player player, FrameLayout playedCardContainer) {
-        List<Card> hand = player.getHand();
-        if (!hand.isEmpty()) {
+    private void playCardOponent(Player playerOponent) {
+        List<Card> hand = playerOponent.getHand();
+        if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
             Card randomCard = hand.get((int) (Math.random() * hand.size()));
             //TODO choose the best card to throu
-            playCard(player, randomCard, playedCardContainer);
+            handler.postDelayed(() -> playCard(playerOponent, randomCard, playerOponent.getPlayedCardContainer()), 600);
         }
     }
 
-    private void showPlayedCard(Card card, Player player, FrameLayout playedCardContainer) {
+    private void showPlayedCard(Card card, FrameLayout playedCardContainer) {
         playedCardContainer.removeAllViews();
         View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainer, false);
 
@@ -207,14 +213,21 @@ public class GameActivity extends AppCompatActivity {
         tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
 
         playedCardContainer.addView(view);
+    }
 
-        cardsOnTable.add(card);
+    private void setNextPlayerCurrentMove(Player player) {
         if (this.cardsOnTable.size() == 4) {
-            //todo chose currentplayer
+            //todo chose currentplayer uzupełnienie zleconcyh kart
             handler.postDelayed(this::clearTable, 1000);
+
+            players.get(2).setCurrentMove(true);//temporary
         } else {
-            players.get(getNextPlayerIndex(players.indexOf(player))).setCurrentMove(true);
+            getNextPlayer(player).setCurrentMove(true);
         }
+    }
+
+    private Player getNextPlayer(Player player) {
+        return players.get(getNextPlayerIndex(players.indexOf(player)));
     }
 
     private int getNextPlayerIndex(int current) {
