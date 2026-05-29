@@ -20,6 +20,7 @@ import com.example.bridge.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GameActivity extends AppCompatActivity implements GameController.GameCallback {
 
@@ -37,6 +38,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
 
+    private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerNorth = findViewById(R.id.container_played_north);
         playedCardContainerWest = findViewById(R.id.container_played_west);
         playedCardContainerEast = findViewById(R.id.container_played_east);
+
+        tvLastNorth = findViewById(R.id.n_last_card);
+        tvLastSouth = findViewById(R.id.s_last_card);
+        tvLastEast = findViewById(R.id.e_last_card);
+        tvLastWest = findViewById(R.id.w_last_card);
 
         initGame();
         setupRecyclerView();
@@ -116,11 +124,30 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onTableCleared() {
+    public void onTableCleared(Map<String, Card> trickCards) {
         playedCardContainerSouth.removeAllViews();
         playedCardContainerNorth.removeAllViews();
         playedCardContainerWest.removeAllViews();
         playedCardContainerEast.removeAllViews();
+
+        if (trickCards.isEmpty()) {
+            tvLastNorth.setText("");
+            tvLastSouth.setText("");
+            tvLastEast.setText("");
+            tvLastWest.setText("");
+        } else {
+            updateLastCard(tvLastNorth, trickCards.get("North"));
+            updateLastCard(tvLastSouth, trickCards.get("South"));
+            updateLastCard(tvLastEast, trickCards.get("East"));
+            updateLastCard(tvLastWest, trickCards.get("West"));
+        }
+    }
+
+    private void updateLastCard(TextView tv, Card card) {
+        if (card != null) {
+            tv.setText(card.getRank().display + " " + card.getSuit().symbol);
+            tv.setTextColor( 0xFFFFFFFF);
+        }
     }
 
     private void updateDisplayHandSouth() {

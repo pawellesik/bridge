@@ -8,19 +8,22 @@ import com.example.bridge.model.Deck;
 import com.example.bridge.model.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameController {
 
     public interface GameCallback {
         void onHandUpdated(int playerIndex);
         void onCardPlayed(Player player, Card card);
-        void onTableCleared();
+        void onTableCleared(Map<String, Card> trickCards);
     }
 
     private final List<Player> players;
     private Deck deck;
     private final List<Card> cardsOnTable = new ArrayList<>();
+    private final Map<String, Card> currentTrick = new HashMap<>();
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final GameCallback callback;
 
@@ -32,6 +35,7 @@ public class GameController {
 
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
+        currentTrick.clear();
         deck = new Deck();
         deck.shuffle();
         for (int i = 0; i < players.size(); i++) {
@@ -47,9 +51,9 @@ public class GameController {
     }
 
     public void playCard(Player player, Card card) {
-        player.setCurrentMove(false);
         player.removeCard(card);
         cardsOnTable.add(card);
+        currentTrick.put(player.getName(), card);
         
         callback.onCardPlayed(player, card);
         callback.onHandUpdated(players.indexOf(player));
@@ -94,8 +98,9 @@ public class GameController {
     }
 
     private void clearTable() {
+        callback.onTableCleared(new HashMap<>(currentTrick));
         cardsOnTable.clear();
-        callback.onTableCleared();
+        currentTrick.clear();
     }
     
     public void cleanup() {
