@@ -59,14 +59,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                     selectedPos = holder.getAdapterPosition();
                     notifyItemChanged(prev);
                     notifyItemChanged(selectedPos);
-                    
-                    // Delay the actual click event slightly to ensure UI updates
                     v.post(() -> {
                         if (listener != null) listener.onCardClick(card);
                     });
                 }
             });
-
         }
     }
 

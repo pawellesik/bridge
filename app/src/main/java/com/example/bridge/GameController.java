@@ -42,15 +42,12 @@ public class GameController {
             callback.onHandUpdated(i);
         }
         clearTable();
-        
-        // West (index 3) starts
         players.get(3).setCurrentMove(true);
         playCardOpponent(players.get(3));
     }
 
     public void playCard(Player player, Card card) {
         player.setCurrentMove(false);
-
         player.removeCard(card);
         cardsOnTable.add(card);
         
@@ -64,7 +61,7 @@ public class GameController {
         if (cardsOnTable.size() == 4) {
             handler.postDelayed(() -> {
                 clearTable();
-                Player nextPlayer = players.get(2); // South wins for now
+                Player nextPlayer = players.get(2); //todo
                 nextPlayer.setCurrentMove(true);
                 checkOpponentMove(nextPlayer);
             }, 1000);

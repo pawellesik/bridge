@@ -101,8 +101,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return lm;
     }
 
-    // --- GameController.GameCallback Implementation ---
-
     @Override
     public void onHandUpdated(int playerIndex) {
         if ("North".equals(players.get(playerIndex).getName())) {
@@ -124,8 +122,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerWest.removeAllViews();
         playedCardContainerEast.removeAllViews();
     }
-
-    // --- UI Update Methods ---
 
     private void updateDisplayHandSouth() {
         List<Card> actualHand = players.get(2).getHand();
