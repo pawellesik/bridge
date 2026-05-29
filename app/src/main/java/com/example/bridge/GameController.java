@@ -6,6 +6,7 @@ import android.os.Looper;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Deck;
 import com.example.bridge.model.Player;
+import com.example.bridge.model.Suit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +51,8 @@ public class GameController {
             player.setCurrentMove(false);
             callback.onHandUpdated(i);
         }
-        callback.onContractDetermined(determineBestContract());
+        String contract = determineBestContract();
+        callback.onContractDetermined(contract);
         clearTable();
         players.get(3).setCurrentMove(true);
         playCardOpponent(players.get(3));
@@ -66,8 +68,15 @@ public class GameController {
         return "PASS";
     }
 
-    private void switchCardsIfAreToWeaks(){
-        if (getHPCFromSNPlauers() < 20 || ){
+    private void switchCardsIfAreToWeaks() {
+        int maxSuitS = numberLongestColor(players.get(2));
+        int maxSuitN = numberLongestColor(players.get(0));
+        int hcp = getHPCFromSNPlauers();
+
+        boolean isStrongEnough = (maxSuitS > 6 && hcp >= 15) || (maxSuitN > 6 && hcp >= 15);
+
+        if (!isStrongEnough && hcp < 20) {
+
             List<Card> h0 = new ArrayList<>(players.get(0).getHand());
             List<Card> h1 = new ArrayList<>(players.get(1).getHand());
             List<Card> h2 = new ArrayList<>(players.get(2).getHand());
@@ -87,7 +96,18 @@ public class GameController {
         }
     }
 
-    private int getHPCFromSNPlauers(){
+    private int numberLongestColor(Player player) {
+        int maxCount = 0;
+        for (com.example.bridge.model.Suit s : com.example.bridge.model.Suit.values()) {
+            int count = player.countSuit(s);
+            if (count > maxCount) {
+                maxCount = count;
+            }
+        }
+        return maxCount;
+    }
+
+    private int getHPCFromSNPlauers() {
         int hcpSouth = players.get(2).calculateHCP();
         int hcpNorth = players.get(0).calculateHCP();
         return hcpSouth + hcpNorth;
@@ -141,7 +161,7 @@ public class GameController {
     }
 
     private void clearTable() {
-        if (cardsOnTable.size()==4) {
+        if (cardsOnTable.size() == 4) {
             callback.onTableCleared(new HashMap<>(currentTrick));
         }
         cardsOnTable.clear();
