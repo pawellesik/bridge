@@ -105,6 +105,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void dealCards() {
+        handler.removeCallbacksAndMessages(null);
         deck = new Deck();
         deck.shuffle();
         for (Player player : players) {
@@ -176,23 +177,17 @@ public class GameActivity extends AppCompatActivity {
         cardsOnTable.add(card);
         if ("North".equals(player.getName())) {
             updateDisplayHandNorth();
-            setNextPlayerCurrentMove(player);
-            playCardOponent(getNextPlayer(player));
-            northAdapter.notifyDataSetChanged();
         } else if ("South".equals(player.getName())) {
             updateDisplayHandSouth();
-            setNextPlayerCurrentMove(player);
-            playCardOponent(getNextPlayer(player));
-            southAdapter.notifyDataSetChanged();
-        } else {
-            setNextPlayerCurrentMove(player);
         }
         showPlayedCard(card, playedCardContainer);
+        setNextPlayerCurrentMove(player);
     }
 
     private void playCardOponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
+            playerOponent.setCurrentMove(false);
             Card randomCard = hand.get((int) (Math.random() * hand.size()));
             //TODO choose the best card to throu
             handler.postDelayed(() -> playCard(playerOponent, randomCard, playerOponent.getPlayedCardContainer()), 600);
@@ -217,12 +212,20 @@ public class GameActivity extends AppCompatActivity {
 
     private void setNextPlayerCurrentMove(Player player) {
         if (this.cardsOnTable.size() == 4) {
-            //todo chose currentplayer uzupełnienie zleconcyh kart
-            handler.postDelayed(this::clearTable, 1000);
-
-            players.get(2).setCurrentMove(true);//temporary
+            handler.postDelayed(() -> {
+                clearTable();
+                Player nextPlayer = players.get(2); //todo chose currentplayer uzupełnienie zleconcyh kart
+                nextPlayer.setCurrentMove(true);
+                if ("East".equals(nextPlayer.getName()) || "West".equals(nextPlayer.getName())) {
+                    playCardOponent(nextPlayer);
+                }
+            }, 1000);
         } else {
-            getNextPlayer(player).setCurrentMove(true);
+            Player nextPlayer = getNextPlayer(player);
+            nextPlayer.setCurrentMove(true);
+            if ("East".equals(nextPlayer.getName()) || "West".equals(nextPlayer.getName())) {
+                playCardOponent(nextPlayer);
+            }
         }
     }
 
