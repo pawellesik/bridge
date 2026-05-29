@@ -1,5 +1,6 @@
 package com.example.bridge;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,7 +147,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void updateLastCard(TextView tv, Card card) {
         if (card != null) {
             tv.setText(card.getRank().display + " " + card.getSuit().symbol);
-            tv.setTextColor( 0xFFFFFFFF);
+            tv.setTextColor(Color.parseColor("#000000"));
         }
     }
 

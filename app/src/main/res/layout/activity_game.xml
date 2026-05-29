@@ -36,6 +36,7 @@
                 android:padding="2dp"
                 android:text="SN 4 ♠"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -46,6 +47,7 @@
                 android:padding="2dp"
                 android:text="WE 1"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -56,6 +58,7 @@
                 android:padding="2dp"
                 android:text="SN 0"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -74,12 +77,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_frame"
-                android:text="4 ♥"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/w_last_card"
@@ -88,25 +91,25 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/white_frame"
-                android:text="A ♠"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/n_last_card"
                 app:layout_constraintEnd_toStartOf="@+id/e_last_card"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed" />
+                app:layout_constraintTop_toBottomOf="@id/n_last_card" />
 
             <TextView
                 android:id="@+id/e_last_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_frame"
-                android:text="2 ♥"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="@id/w_last_card"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/w_last_card"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/w_last_card" />
 
             <TextView
                 android:id="@+id/s_last_card"
@@ -114,12 +117,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/white_frame"
-                android:text="5 ♥"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/w_last_card"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/w_last_card" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
