@@ -1,8 +1,6 @@
 package com.example.bridge;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,27 +16,26 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.model.Card;
-import com.example.bridge.model.Deck;
 import com.example.bridge.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GameController.GameCallback {
 
     public static final Card GHOST_CARD = new Card(null, null);
     private List<Player> players;
-    private Deck deck;
+    private GameController gameController;
+    
     private CardAdapter southAdapter;
     private CardAdapter northAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
+    
     private FrameLayout playedCardContainerSouth;
     private FrameLayout playedCardContainerNorth;
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
-    private List<Card> cardsOnTable = new ArrayList<>();
-    private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
         initGame();
         setupRecyclerView();
 
-        findViewById(R.id.btn_deal).setOnClickListener(v -> dealCards());
+        findViewById(R.id.btn_deal).setOnClickListener(v -> gameController.dealCards());
     }
 
     private void setupWindowInsets() {
@@ -72,24 +69,24 @@ public class GameActivity extends AppCompatActivity {
         players.add(new Player("East", playedCardContainerEast));
         players.add(new Player("South", playedCardContainerSouth));
         players.add(new Player("West", playedCardContainerWest));
-        deck = new Deck();
+        
+        gameController = new GameController(players, this);
     }
 
     private void setupRecyclerView() {
-
         RecyclerView rvSouth = findViewById(R.id.rv_hand_south);
         RecyclerView rvNorth = findViewById(R.id.rv_hand_north);
 
         rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
         southAdapter = new CardAdapter(displayHandSouth, players.get(2));
-        southAdapter.setOnCardClickListener(card ->
-                handler.postDelayed(() -> playCard(players.get(2), card, playedCardContainerSouth), 300));
+        southAdapter.setOnCardClickListener(card -> 
+                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get(2), card), 300));
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
         northAdapter = new CardAdapter(displayHandNorth, players.get(0));
-        northAdapter.setOnCardClickListener(card ->
-                handler.postDelayed(() -> playCard(players.get(0), card, playedCardContainerNorth), 300));
+        northAdapter.setOnCardClickListener(card -> 
+                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get(0), card), 300));
         rvNorth.setAdapter(northAdapter);
     }
 
@@ -104,23 +101,31 @@ public class GameActivity extends AppCompatActivity {
         return lm;
     }
 
-    private void dealCards() {
-        handler.removeCallbacksAndMessages(null);
-        deck = new Deck();
-        deck.shuffle();
-        for (Player player : players) {
-            player.clearHand();
-            player.addCards(deck.deal(13));
-            player.setCurrentMove(false);
+    // --- GameController.GameCallback Implementation ---
+
+    @Override
+    public void onHandUpdated(int playerIndex) {
+        if ("North".equals(players.get(playerIndex).getName())) {
+            updateDisplayHandNorth();
+        } else if ("South".equals(players.get(playerIndex).getName())) {
+            updateDisplayHandSouth();
         }
-        clearTable();
-        updateDisplayHandNorth();
-        updateDisplayHandSouth();
-        players.get(3).setCurrentMove(true);
-        playCardOponent(players.get(3));
-        southAdapter.notifyDataSetChanged();
-        northAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onCardPlayed(Player player, Card card) {
+        showPlayedCard(card, player.getPlayedCardContainer());
+    }
+
+    @Override
+    public void onTableCleared() {
+        playedCardContainerSouth.removeAllViews();
+        playedCardContainerNorth.removeAllViews();
+        playedCardContainerWest.removeAllViews();
+        playedCardContainerEast.removeAllViews();
+    }
+
+    // --- UI Update Methods ---
 
     private void updateDisplayHandSouth() {
         List<Card> actualHand = players.get(2).getHand();
@@ -171,32 +176,9 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < rightPadding; i++) displayList.add(null);
     }
 
-    private void playCard(Player player, Card card, FrameLayout playedCardContainer) {
-        player.setCurrentMove(false);
-        player.removeCard(card);
-        cardsOnTable.add(card);
-        if ("North".equals(player.getName())) {
-            updateDisplayHandNorth();
-        } else if ("South".equals(player.getName())) {
-            updateDisplayHandSouth();
-        }
-        showPlayedCard(card, playedCardContainer);
-        setNextPlayerCurrentMove(player);
-    }
-
-    private void playCardOponent(Player playerOponent) {
-        List<Card> hand = playerOponent.getHand();
-        if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            playerOponent.setCurrentMove(false);
-            Card randomCard = hand.get((int) (Math.random() * hand.size()));
-            //TODO choose the best card to throu
-            handler.postDelayed(() -> playCard(playerOponent, randomCard, playerOponent.getPlayedCardContainer()), 600);
-        }
-    }
-
-    private void showPlayedCard(Card card, FrameLayout playedCardContainer) {
-        playedCardContainer.removeAllViews();
-        View view = LayoutInflater.from(this).inflate(R.layout.item_card, playedCardContainer, false);
+    private void showPlayedCard(Card card, FrameLayout container) {
+        container.removeAllViews();
+        View view = LayoutInflater.from(this).inflate(R.layout.item_card, container, false);
 
         TextView tvRank = view.findViewById(R.id.tv_rank);
         ImageView ivSmall = view.findViewById(R.id.iv_suit_small);
@@ -207,45 +189,12 @@ public class GameActivity extends AppCompatActivity {
         ivLarge.setImageResource(card.getSuit().resId);
         tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
 
-        playedCardContainer.addView(view);
+        container.addView(view);
     }
 
-    private void setNextPlayerCurrentMove(Player player) {
-        if (this.cardsOnTable.size() == 4) {
-            handler.postDelayed(() -> {
-                clearTable();
-                Player nextPlayer = players.get(2); //todo chose currentplayer uzupełnienie zleconcyh kart
-                nextPlayer.setCurrentMove(true);
-                if ("East".equals(nextPlayer.getName()) || "West".equals(nextPlayer.getName())) {
-                    playCardOponent(nextPlayer);
-                }
-            }, 1000);
-        } else {
-            Player nextPlayer = getNextPlayer(player);
-            nextPlayer.setCurrentMove(true);
-            if ("East".equals(nextPlayer.getName()) || "West".equals(nextPlayer.getName())) {
-                playCardOponent(nextPlayer);
-            }
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gameController.cleanup();
     }
-
-    private Player getNextPlayer(Player player) {
-        return players.get(getNextPlayerIndex(players.indexOf(player)));
-    }
-
-    private int getNextPlayerIndex(int current) {
-        if (current == 2) return 3;
-        if (current == 3) return 0;
-        if (current == 0) return 1;
-        return 2;
-    }
-
-    private void clearTable() {
-        playedCardContainerSouth.removeAllViews();
-        playedCardContainerNorth.removeAllViews();
-        playedCardContainerWest.removeAllViews();
-        playedCardContainerEast.removeAllViews();
-        cardsOnTable.clear();
-    }
-
 }
