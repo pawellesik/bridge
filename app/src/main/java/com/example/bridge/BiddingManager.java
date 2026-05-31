@@ -1,0 +1,75 @@
+package com.example.bridge;
+
+import com.example.bridge.model.Card;
+import com.example.bridge.model.Player;
+import com.example.bridge.model.Suit;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BiddingManager {
+
+    private final List<Player> players;
+    private final GameController.GameCallback callback;
+
+    public BiddingManager(List<Player> players, GameController.GameCallback callback) {
+        this.players = players;
+        this.callback = callback;
+    }
+
+    public String determineBestContract() {
+        switchCardsIfAreToWeaks();
+        int totalHCP = getHPCFromSNPlayers();
+
+        if (totalHCP >= 25) return "3NT";
+        if (totalHCP >= 20) return "2NT";
+        if (totalHCP >= 15) return "1NT";
+        return "PASS";
+    }
+
+    private void switchCardsIfAreToWeaks() {
+        int maxSuitS = numberLongestColor(players.get(2));
+        int maxSuitN = numberLongestColor(players.get(0));
+        int hcp = getHPCFromSNPlayers();
+
+        boolean isStrongEnough = (maxSuitS > 6 && hcp >= 15) || (maxSuitN > 6 && hcp >= 15);
+
+        if (!isStrongEnough && hcp < 20) {
+            List<Card> h0 = new ArrayList<>(players.get(0).getHand());
+            List<Card> h1 = new ArrayList<>(players.get(1).getHand());
+            List<Card> h2 = new ArrayList<>(players.get(2).getHand());
+            List<Card> h3 = new ArrayList<>(players.get(3).getHand());
+
+            players.get(0).clearHand();
+            players.get(1).clearHand();
+            players.get(2).clearHand();
+            players.get(3).clearHand();
+
+            players.get(0).addCards(h1);
+            players.get(1).addCards(h0);
+            players.get(2).addCards(h3);
+            players.get(3).addCards(h2);
+
+            for (int i = 0; i < 4; i++) {
+                callback.onHandUpdated(i);
+            }
+        }
+    }
+
+    private int numberLongestColor(Player player) {
+        int maxCount = 0;
+        for (Suit s : Suit.values()) {
+            int count = player.countSuit(s);
+            if (count > maxCount) {
+                maxCount = count;
+            }
+        }
+        return maxCount;
+    }
+
+    private int getHPCFromSNPlayers() {
+        int hcpSouth = players.get(2).calculateHCP();
+        int hcpNorth = players.get(0).calculateHCP();
+        return hcpSouth + hcpNorth;
+    }
+}

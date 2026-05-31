@@ -33,11 +33,13 @@ public class GameController {
     private final Map<String, Card> currentTrick = new HashMap<>();
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final GameCallback callback;
+    private final BiddingManager biddingManager;
 
     public GameController(List<Player> players, GameCallback callback) {
         this.players = players;
         this.callback = callback;
         this.deck = new Deck();
+        this.biddingManager = new BiddingManager(players, callback);
     }
 
     public void dealCards() {
@@ -51,66 +53,11 @@ public class GameController {
             player.setCurrentMove(false);
             callback.onHandUpdated(i);
         }
-        String contract = determineBestContract();
+        String contract = biddingManager.determineBestContract();
         callback.onContractDetermined(contract);
         clearTable();
         players.get(3).setCurrentMove(true);
         playCardOpponent(players.get(3));
-    }
-
-    private String determineBestContract() {
-        switchCardsIfAreToWeaks();
-        int totalHCP = getHPCFromSNPlauers();
-
-        if (totalHCP >= 25) return "3NT";
-        if (totalHCP >= 20) return "2NT";
-        if (totalHCP >= 15) return "1NT";
-        return "PASS";
-    }
-
-    private void switchCardsIfAreToWeaks() {
-        int maxSuitS = numberLongestColor(players.get(2));
-        int maxSuitN = numberLongestColor(players.get(0));
-        int hcp = getHPCFromSNPlauers();
-
-        boolean isStrongEnough = (maxSuitS > 6 && hcp >= 15) || (maxSuitN > 6 && hcp >= 15);
-
-        if (!isStrongEnough && hcp < 20) {
-
-            List<Card> h0 = new ArrayList<>(players.get(0).getHand());
-            List<Card> h1 = new ArrayList<>(players.get(1).getHand());
-            List<Card> h2 = new ArrayList<>(players.get(2).getHand());
-            List<Card> h3 = new ArrayList<>(players.get(3).getHand());
-
-            players.get(0).clearHand();
-            players.get(1).clearHand();
-            players.get(2).clearHand();
-            players.get(3).clearHand();
-
-            players.get(0).addCards(h1);
-            players.get(1).addCards(h0);
-            players.get(2).addCards(h3);
-            players.get(3).addCards(h2);
-
-            for (int i = 0; i < 4; i++) callback.onHandUpdated(i);
-        }
-    }
-
-    private int numberLongestColor(Player player) {
-        int maxCount = 0;
-        for (com.example.bridge.model.Suit s : com.example.bridge.model.Suit.values()) {
-            int count = player.countSuit(s);
-            if (count > maxCount) {
-                maxCount = count;
-            }
-        }
-        return maxCount;
-    }
-
-    private int getHPCFromSNPlauers() {
-        int hcpSouth = players.get(2).calculateHCP();
-        int hcpNorth = players.get(0).calculateHCP();
-        return hcpSouth + hcpNorth;
     }
 
     public void playCard(Player player, Card card) {
