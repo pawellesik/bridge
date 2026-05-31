@@ -29,64 +29,40 @@ public class BiddingManager {
     }
 
     private String getContractColor() {
-        String contractColor;
-        int countSpadesPlayerNorth = players.get(0).countSuit(Suit.SPADES);
-        int countSpadesPlayerSouth = players.get(2).countSuit(Suit.SPADES);
+        Player north = players.get(0);
+        Player south = players.get(2);
 
-        int countHeartsPlayerNorth = players.get(0).countSuit(Suit.HEARTS);
-        int countHeartsPlayerSouth = players.get(2).countSuit(Suit.HEARTS);
+        // 1. Check Majors for 8+ fit (Spades, then Hearts)
+        if (getCombinedCount(Suit.SPADES) >= 8) return "Spades";
+        if (getCombinedCount(Suit.HEARTS) >= 8) return "Hearts";
 
-        int countClubsPlayerNorth = players.get(0).countSuit(Suit.CLUBS);
-        int countClubsPlayerSouth = players.get(2).countSuit(Suit.CLUBS);
+        // 2. Check for NT if we have holds in all colors
+        if (playersHaveHoldInAllSuits(north, south)) return "NT";
 
-        int countDiamondsPlayerNorth = players.get(0).countSuit(Suit.DIAMONDS);
-        int countDiamondsPlayerSouth = players.get(2).countSuit(Suit.DIAMONDS);
+        // 3. Check Minors for 8+ fit (Clubs, then Diamonds)
+        if (getCombinedCount(Suit.CLUBS) >= 8) return "Clubs";
+        if (getCombinedCount(Suit.DIAMONDS) >= 8) return "Diamonds";
 
-        //SH
-        if (countSpadesPlayerNorth + countSpadesPlayerSouth >= 8) {
-            contractColor = "Spades";
-        } else if (countHeartsPlayerNorth + countHeartsPlayerSouth >= 8) {
-            contractColor = "Hearts";
-        }
-        //NT
-        else if (playrsHaveHoldInAllColors(players.get(0), players.get(2))) {
-            contractColor = "NT";
-        }
-        //DC
-        else if (countClubsPlayerNorth + countClubsPlayerSouth >= 8) {
-            contractColor = "Clubs";
-        } else if (countDiamondsPlayerNorth + countDiamondsPlayerSouth >= 8) {
-            contractColor = "Diamonds";
-        }
-        //SHDC
-        else if (countSpadesPlayerNorth + countSpadesPlayerSouth == 7) {
-            contractColor = "Spades";
-        } else if (countHeartsPlayerNorth + countHeartsPlayerSouth == 7) {
-            contractColor = "Hearts";
-        } else if (countClubsPlayerNorth + countClubsPlayerSouth == 7) {
-            contractColor = "Clubs";
-        } else if (countDiamondsPlayerNorth + countDiamondsPlayerSouth == 7) {
-            contractColor = "Diamonds";
-        } else if (countSpadesPlayerNorth + countSpadesPlayerSouth == 7) {
-            contractColor = "Spades";
-        } else if (countHeartsPlayerNorth + countHeartsPlayerSouth == 7) {//TODO
-            contractColor = "Hearts";
-        } else {
-            contractColor = "NT";
-        }
-        return contractColor;
+        // 4. Check for 7 card fits (Majors first)
+        if (getCombinedCount(Suit.SPADES) == 7) return "Spades";
+        if (getCombinedCount(Suit.HEARTS) == 7) return "Hearts";
+        if (getCombinedCount(Suit.CLUBS) == 7) return "Clubs";
+        if (getCombinedCount(Suit.DIAMONDS) == 7) return "Diamonds";
+
+        return "NT";
     }
 
-    private boolean playrsHaveHoldInAllColors(Player player1, Player player2) {
-        if ((player1.haveHoldInColor("Spades") || (player2.haveHoldInColor("Spades")))
-                && (player1.haveHoldInColor("Hearts") || (player2.haveHoldInColor("Hearts")))
-                && (player1.haveHoldInColor("Clubs") || (player2.haveHoldInColor("Clubs")))
-                && (player1.haveHoldInColor("Diamonds") || (player2.haveHoldInColor("Diamonds")))
-        ) {
-            return true;
-        } else {
-            return false;
+    private int getCombinedCount(Suit suit) {
+        return players.get(0).countSuit(suit) + players.get(2).countSuit(suit);
+    }
+
+    private boolean playersHaveHoldInAllSuits(Player p1, Player p2) {
+        for (Suit suit : Suit.values()) {
+            if (!p1.hasHold(suit) && !p2.hasHold(suit)) {
+                return false;
+            }
         }
+        return true;
     }
 
 

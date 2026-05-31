@@ -68,9 +68,32 @@ public class Player {
         return count;
     }
 
-    public boolean haveHoldInColor(String color) {
+    public boolean hasHold(Suit suit) {
+        boolean hasAce = false;
+        boolean hasKing = false;
+        boolean hasQueen = false;
+        boolean hasJack = false;
+        int count = 0;
+
+        for (Card card : hand) {
+            if (card.getSuit() == suit) {
+                count++;
+                switch (card.getRank()) {
+                    case ACE: hasAce = true; break;
+                    case KING: hasKing = true; break;
+                    case QUEEN: hasQueen = true; break;
+                    case JACK: hasJack = true; break;
+                }
+            }
+        }
+
+        // Standard Bridge "hold" (stopper) rules:
+        // A, Kx, Qxx, Jxxx
+        if (hasAce) return true;
+        if (hasKing && count >= 2) return true;
+        if (hasQueen && count >= 3) return true;
+        if (hasJack && count >= 4) return true;
+        
         return false;
     }
-
-
 }
