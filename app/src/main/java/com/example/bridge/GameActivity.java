@@ -174,12 +174,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onTableCleared(Map<String, Card> trickCards) {
-        playedCardContainerSouth.removeAllViews();
-        playedCardContainerNorth.removeAllViews();
-        playedCardContainerWest.removeAllViews();
-        playedCardContainerEast.removeAllViews();
+        FrameLayout[] containers = {playedCardContainerSouth, playedCardContainerNorth, playedCardContainerWest, playedCardContainerEast};
+        for (FrameLayout container : containers) {
+            if (container != null) container.removeAllViews();
+        }
 
-        if (trickCards.size() > 0) {
+        if (trickCards != null && !trickCards.isEmpty()) {
             updateLastCard(tvLastNorth, trickCards.get("North"));
             updateLastCard(tvLastSouth, trickCards.get("South"));
             updateLastCard(tvLastEast, trickCards.get("East"));
@@ -191,16 +191,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onClearLastCards(List<Card> cardsOnTable) {
-        if (cardsOnTable.size() > 1) {
+        if (cardsOnTable != null && cardsOnTable.size() > 1) {
             clearLastCards();
         }
     }
 
     private void clearLastCards() {
-        tvLastNorth.setText("");
-        tvLastSouth.setText("");
-        tvLastEast.setText("");
-        tvLastWest.setText("");
+        TextView[] lastCardTVs = {tvLastNorth, tvLastSouth, tvLastEast, tvLastWest};
+        for (TextView tv : lastCardTVs) {
+            if (tv != null) tv.setText("");
+        }
     }
 
     private void updateLastCard(TextView tv, Card card) {
