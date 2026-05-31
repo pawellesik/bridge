@@ -68,4 +68,9 @@ public class Player {
         return count;
     }
 
+    public boolean haveHoldInColor(String color) {
+        return false;
+    }
+
+
 }
