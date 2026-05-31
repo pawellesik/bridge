@@ -179,20 +179,28 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerWest.removeAllViews();
         playedCardContainerEast.removeAllViews();
 
-        updateLastCard(tvLastNorth, trickCards.get("North"));
-        updateLastCard(tvLastSouth, trickCards.get("South"));
-        updateLastCard(tvLastEast, trickCards.get("East"));
-        updateLastCard(tvLastWest, trickCards.get("West"));
+        if (trickCards.size() > 0) {
+            updateLastCard(tvLastNorth, trickCards.get("North"));
+            updateLastCard(tvLastSouth, trickCards.get("South"));
+            updateLastCard(tvLastEast, trickCards.get("East"));
+            updateLastCard(tvLastWest, trickCards.get("West"));
+        } else {
+            clearLastCards();
+        }
     }
 
     @Override
     public void onClearLastCards(List<Card> cardsOnTable) {
         if (cardsOnTable.size() > 1) {
-            tvLastNorth.setText("");
-            tvLastSouth.setText("");
-            tvLastEast.setText("");
-            tvLastWest.setText("");
+            clearLastCards();
         }
+    }
+
+    private void clearLastCards() {
+        tvLastNorth.setText("");
+        tvLastSouth.setText("");
+        tvLastEast.setText("");
+        tvLastWest.setText("");
     }
 
     private void updateLastCard(TextView tv, Card card) {

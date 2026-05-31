@@ -44,6 +44,7 @@ public class GameController {
 
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
+        resetTable();
         deck = new Deck();
         deck.shuffle();
         for (int i = 0; i < players.size(); i++) {
@@ -55,9 +56,15 @@ public class GameController {
         }
         String contract = biddingManager.determineBestContract();
         callback.onContractDetermined(contract);
-        clearTable();
+
         players.get(3).setCurrentMove(true);
         playCardOpponent(players.get(3));
+    }
+
+    private void resetTable() {
+        cardsOnTable.clear();
+        currentTrick.clear();
+        callback.onTableCleared(new HashMap<>(currentTrick));
     }
 
     public void playCard(Player player, Card card) {
