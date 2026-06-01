@@ -90,11 +90,14 @@ public class GameController {
 
     private void setNextPlayerCurrentMove(Player player) {
         if (cardsOnTable.size() == 4) {
+            String winnerName = determineTrickWinner();
             handler.postDelayed(() -> {
                 clearTable();
-                Player nextPlayer = players.get("South"); 
-                trickLeaderName = "South";
+
+                Player nextPlayer = players.get(winnerName);
+                trickLeaderName = winnerName;
                 nextPlayer.setCurrentMove(true);
+
                 callback.onTurnChanged(nextPlayer.getName());
                 checkOpponentMove(nextPlayer);
             }, 1000);
@@ -104,6 +107,49 @@ public class GameController {
             callback.onTurnChanged(nextPlayer.getName());
             checkOpponentMove(nextPlayer);
         }
+    }
+
+    private String determineTrickWinner() {
+        Card leadCard = currentTrick.get(trickLeaderName);
+        if (leadCard == null) return players.keySet().iterator().next(); // Should not happen
+
+        Suit ledSuit = leadCard.getSuit();
+        Suit trumpSuit = getTrumpSuit();
+
+        String winnerName = trickLeaderName;
+        Card bestCard = leadCard;
+
+        for (Map.Entry<String, Card> entry : currentTrick.entrySet()) {
+            Card card = entry.getValue();
+            if (isBetterCard(card, bestCard, ledSuit, trumpSuit)) {
+                bestCard = card;
+                winnerName = entry.getKey();
+            }
+        }
+        return winnerName;
+    }
+
+    private boolean isBetterCard(Card challenger, Card currentBest, Suit ledSuit, Suit trumpSuit) {
+        if (challenger.getSuit() == trumpSuit) {
+            if (currentBest.getSuit() != trumpSuit) return true;
+            return challenger.getRank().ordinal() > currentBest.getRank().ordinal();
+        }
+        if (currentBest.getSuit() == trumpSuit) return false;
+
+        if (challenger.getSuit() == ledSuit) {
+            if (currentBest.getSuit() != ledSuit) return true;
+            return challenger.getRank().ordinal() > currentBest.getRank().ordinal();
+        }
+        return false;
+    }
+
+    private Suit getTrumpSuit() {
+        if (currentContract == null || currentContract.equals("PASS") || currentContract.endsWith("NT")) return null;
+        if (currentContract.contains("S")) return Suit.SPADES;
+        if (currentContract.contains("H")) return Suit.HEARTS;
+        if (currentContract.contains("D")) return Suit.DIAMONDS;
+        if (currentContract.contains("C")) return Suit.CLUBS;
+        return null;
     }
 
     private void checkOpponentMove(Player player) {
@@ -152,7 +198,6 @@ public class GameController {
         }
 
         int result = ddsSolver.calcDDTable(ddsCards, trump, leaderIdx, trickSuits, trickRanks);
-        System.out.println("plesik "+result);
         if (result < 0) return null;
 
         int resSuitIdx = result / 100;
