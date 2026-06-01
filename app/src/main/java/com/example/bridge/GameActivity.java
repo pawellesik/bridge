@@ -20,13 +20,14 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Player;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class GameActivity extends AppCompatActivity implements GameController.GameCallback {
 
     public static final Card GHOST_CARD = new Card(null, null);
-    private List<Player> players;
+    private Map<String, Player> players;
     private GameController gameController;
 
     private CardAdapter southAdapter;
@@ -121,11 +122,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void initGame() {
-        players = new ArrayList<>();
-        players.add(new Player("North", playedCardContainerNorth));
-        players.add(new Player("East", playedCardContainerEast));
-        players.add(new Player("South", playedCardContainerSouth));
-        players.add(new Player("West", playedCardContainerWest));
+        players = new LinkedHashMap<>();
+        players.put("North", new Player("North", playedCardContainerNorth));
+        players.put("East", new Player("East", playedCardContainerEast));
+        players.put("South", new Player("South", playedCardContainerSouth));
+        players.put("West", new Player("West", playedCardContainerWest));
 
         gameController = new GameController(players, this);
     }
@@ -135,15 +136,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         RecyclerView rvNorth = findViewById(R.id.rv_hand_north);
 
         rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
-        southAdapter = new CardAdapter(displayHandSouth, players.get(2));
+        southAdapter = new CardAdapter(displayHandSouth, players.get("South"));
         southAdapter.setOnCardClickListener(card ->
-                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get(2), card), 300));
+                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("South"), card), 300));
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
-        northAdapter = new CardAdapter(displayHandNorth, players.get(0));
+        northAdapter = new CardAdapter(displayHandNorth, players.get("North"));
         northAdapter.setOnCardClickListener(card ->
-                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get(0), card), 300));
+                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("North"), card), 300));
         rvNorth.setAdapter(northAdapter);
     }
 
@@ -159,10 +160,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onHandUpdated(int playerIndex) {
-        if ("North".equals(players.get(playerIndex).getName())) {
+    public void onHandUpdated(String playerName) {
+        if ("North".equals(playerName)) {
             updateDisplayHandNorth();
-        } else if ("South".equals(players.get(playerIndex).getName())) {
+        } else if ("South".equals(playerName)) {
             updateDisplayHandSouth();
         }
     }
@@ -211,7 +212,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void updateDisplayHandSouth() {
-        List<Card> actualHand = players.get(2).getHand();
+        List<Card> actualHand = players.get("South").getHand();
         displayHandSouth.clear();
 
         int row1End = Math.min(7, actualHand.size());
@@ -224,7 +225,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void updateDisplayHandNorth() {
-        List<Card> actualHand = players.get(0).getHand();
+        List<Card> actualHand = players.get("North").getHand();
         displayHandNorth.clear();
 
         int total = actualHand.size();

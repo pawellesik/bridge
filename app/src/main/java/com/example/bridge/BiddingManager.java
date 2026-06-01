@@ -6,13 +6,14 @@ import com.example.bridge.model.Suit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BiddingManager {
 
-    private final List<Player> players;
+    private final Map<String, Player> players;
     private final GameController.GameCallback callback;
 
-    public BiddingManager(List<Player> players, GameController.GameCallback callback) {
+    public BiddingManager(Map<String, Player> players, GameController.GameCallback callback) {
         this.players = players;
         this.callback = callback;
     }
@@ -29,8 +30,8 @@ public class BiddingManager {
     }
 
     private String getContractColor() {
-        Player north = players.get(0);
-        Player south = players.get(2);
+        Player north = players.get("North");
+        Player south = players.get("South");
 
         // 1. Check Majors for 8+ fit (Spades, then Hearts)
         if (getCombinedCount(Suit.SPADES) >= 8) return "Spades";
@@ -53,7 +54,7 @@ public class BiddingManager {
     }
 
     private int getCombinedCount(Suit suit) {
-        return players.get(0).countSuit(suit) + players.get(2).countSuit(suit);
+        return players.get("North").countSuit(suit) + players.get("South").countSuit(suit);
     }
 
     private boolean playersHaveHoldInAllSuits(Player p1, Player p2) {
@@ -67,31 +68,32 @@ public class BiddingManager {
 
 
     private void switchCardsIfAreToWeaks() {
-        int maxSuitS = numberLongestColor(players.get(2));
-        int maxSuitN = numberLongestColor(players.get(0));
+        int maxSuitS = numberLongestColor(players.get("South"));
+        int maxSuitN = numberLongestColor(players.get("North"));
         int hcp = getHPCFromSNPlayers();
 
         boolean isStrongEnough = (maxSuitS > 6 && hcp >= 15) || (maxSuitN > 6 && hcp >= 15);
 
         if (!isStrongEnough && hcp < 20) {
-            List<Card> h0 = new ArrayList<>(players.get(0).getHand());
-            List<Card> h1 = new ArrayList<>(players.get(1).getHand());
-            List<Card> h2 = new ArrayList<>(players.get(2).getHand());
-            List<Card> h3 = new ArrayList<>(players.get(3).getHand());
+            List<Card> h0 = new ArrayList<>(players.get("North").getHand());
+            List<Card> h1 = new ArrayList<>(players.get("East").getHand());
+            List<Card> h2 = new ArrayList<>(players.get("South").getHand());
+            List<Card> h3 = new ArrayList<>(players.get("West").getHand());
 
-            players.get(0).clearHand();
-            players.get(1).clearHand();
-            players.get(2).clearHand();
-            players.get(3).clearHand();
+            players.get("North").clearHand();
+            players.get("East").clearHand();
+            players.get("South").clearHand();
+            players.get("West").clearHand();
 
-            players.get(0).addCards(h1);
-            players.get(1).addCards(h0);
-            players.get(2).addCards(h3);
-            players.get(3).addCards(h2);
+            players.get("North").addCards(h1);
+            players.get("East").addCards(h0);
+            players.get("South").addCards(h3);
+            players.get("West").addCards(h2);
 
-            for (int i = 0; i < 4; i++) {
-                callback.onHandUpdated(i);
-            }
+            callback.onHandUpdated("North");
+            callback.onHandUpdated("East");
+            callback.onHandUpdated("South");
+            callback.onHandUpdated("West");
         }
     }
 
@@ -107,8 +109,8 @@ public class BiddingManager {
     }
 
     private int getHPCFromSNPlayers() {
-        int hcpSouth = players.get(2).calculateHCP();
-        int hcpNorth = players.get(0).calculateHCP();
+        int hcpSouth = players.get("South").calculateHCP();
+        int hcpNorth = players.get("North").calculateHCP();
         return hcpSouth + hcpNorth;
     }
 }

@@ -16,7 +16,7 @@ import java.util.Map;
 public class GameController {
 
     public interface GameCallback {
-        void onHandUpdated(int playerIndex);
+        void onHandUpdated(String playerName);
 
         void onCardPlayed(Player player, Card card);
 
@@ -27,7 +27,7 @@ public class GameController {
         void onContractDetermined(String contract);
     }
 
-    private final List<Player> players;
+    private final Map<String, Player> players;
     private Deck deck;
     private final List<Card> cardsOnTable = new ArrayList<>();
     private final Map<String, Card> currentTrick = new HashMap<>();
@@ -35,7 +35,7 @@ public class GameController {
     private final GameCallback callback;
     private final BiddingManager biddingManager;
 
-    public GameController(List<Player> players, GameCallback callback) {
+    public GameController(Map<String, Player> players, GameCallback callback) {
         this.players = players;
         this.callback = callback;
         this.deck = new Deck();
@@ -47,18 +47,17 @@ public class GameController {
         resetTable();
         deck = new Deck();
         deck.shuffle();
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
+        for (Player player : players.values()) {
             player.clearHand();
             player.addCards(deck.deal(13));
             player.setCurrentMove(false);
-            callback.onHandUpdated(i);
+            callback.onHandUpdated(player.getName());
         }
         String contract = biddingManager.determineBestContract();
         callback.onContractDetermined(contract);
 
-        players.get(3).setCurrentMove(true);
-        playCardOpponent(players.get(3));
+        players.get("West").setCurrentMove(true);
+        playCardOpponent(players.get("West"));
     }
 
     private void resetTable() {
@@ -73,7 +72,7 @@ public class GameController {
         currentTrick.put(player.getName(), card);
         callback.onClearLastCards(cardsOnTable);
         callback.onCardPlayed(player, card);
-        callback.onHandUpdated(players.indexOf(player));
+        callback.onHandUpdated(player.getName());
 
         setNextPlayerCurrentMove(player);
     }
@@ -82,7 +81,7 @@ public class GameController {
         if (cardsOnTable.size() == 4) {
             handler.postDelayed(() -> {
                 clearTable();
-                Player nextPlayer = players.get(2); //todo
+                Player nextPlayer = players.get("South"); //todo
                 nextPlayer.setCurrentMove(true);
                 checkOpponentMove(nextPlayer);
             }, 1000);
@@ -109,9 +108,18 @@ public class GameController {
     }
 
     private Player getNextPlayer(Player player) {
-        int current = players.indexOf(player);
-        int next = (current == 2) ? 3 : (current == 3) ? 0 : (current == 0) ? 1 : 2;
-        return players.get(next);
+        switch (player.getName()) {
+            case "North":
+                return players.get("East");
+            case "East":
+                return players.get("South");
+            case "South":
+                return players.get("West");
+            case "West":
+                return players.get("North");
+            default:
+                return null;
+        }
     }
 
     private void clearTable() {
