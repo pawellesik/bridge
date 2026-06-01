@@ -54,7 +54,7 @@
 
             <TextView
                 android:id="@+id/we_score"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="#1B5E20"
@@ -62,11 +62,12 @@
                 android:text="WE: 0"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/sn_score"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="#1B5E20"
@@ -74,7 +75,8 @@
                 android:text="SN: 0"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:maxLines="1" />
         </LinearLayout>
 
         <!-- Middle Info -->
