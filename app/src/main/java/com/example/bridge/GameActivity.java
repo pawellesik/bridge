@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerEast;
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
+    private TextView tvScoreSN, tvScoreWE;
     private TextView nameNorth, nameSouth, nameEast, nameWest;
     private TextView tvContract;
     private ImageView ivContractSuit;
@@ -68,6 +69,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         nameEast = findViewById(R.id.name_east);
         nameWest = findViewById(R.id.name_west);
 
+        tvScoreSN = findViewById(R.id.sn_score);
+        tvScoreWE = findViewById(R.id.we_score);
+
         tvContract = findViewById(R.id.game_contract);
         ivContractSuit = findViewById(R.id.iv_contract_suit);
         contractContainer = findViewById(R.id.game_contract_container);
@@ -76,6 +80,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         setupRecyclerView();
 
         findViewById(R.id.btn_deal).setOnClickListener(v -> gameController.dealCards());
+    }
+
+    @Override
+    public void onScoreUpdated(int snScore, int weScore) {
+        if (tvScoreSN != null) tvScoreSN.setText("SN: " + snScore);
+        if (tvScoreWE != null) tvScoreWE.setText("WE: " + weScore);
     }
 
     @Override

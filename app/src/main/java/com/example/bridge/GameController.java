@@ -27,6 +27,8 @@ public class GameController {
         void onContractDetermined(String contract);
 
         void onTurnChanged(String playerName);
+
+        void onScoreUpdated(int snScore, int weScore);
     }
 
     private final Map<String, Player> players;
@@ -39,6 +41,8 @@ public class GameController {
     private final DdsSolver ddsSolver;
     private String currentContract = "PASS";
     private String trickLeaderName = "West";
+    private int snScore = 0;
+    private int weScore = 0;
 
     public GameController(Map<String, Player> players, GameCallback callback) {
         this.players = players;
@@ -52,6 +56,10 @@ public class GameController {
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
         resetTable();
+        snScore = 0;
+        weScore = 0;
+        callback.onScoreUpdated(snScore, weScore);
+
         deck = new Deck();
         deck.shuffle();
         for (Player player : players.values()) {
@@ -86,11 +94,19 @@ public class GameController {
         callback.onHandUpdated(player.getName());
 
         setNextPlayerCurrentMove(player);
+
     }
 
     private void setNextPlayerCurrentMove(Player player) {
         if (cardsOnTable.size() == 4) {
             String winnerName = determineTrickWinner();
+            if (winnerName.equals("North") || winnerName.equals("South")) {
+                snScore++;
+            } else {
+                weScore++;
+            }
+            callback.onScoreUpdated(snScore, weScore);
+
             handler.postDelayed(() -> {
                 clearTable();
 
