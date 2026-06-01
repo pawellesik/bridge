@@ -91,8 +91,6 @@ public class GameController {
     private void setNextPlayerCurrentMove(Player player) {
         if (cardsOnTable.size() == 4) {
             handler.postDelayed(() -> {
-                // Find winner of the trick to determine next leader
-                // For now, let's just use South as requested in your todo
                 clearTable();
                 Player nextPlayer = players.get("South"); 
                 trickLeaderName = "South";
