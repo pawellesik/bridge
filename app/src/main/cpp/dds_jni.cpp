@@ -17,35 +17,49 @@ Java_com_example_bridge_DdsSolver_calcDDTable(
         JNIEnv *env, jobject thiz,
         jintArray cards,
         jint trump,
-        jint leader) {
+        jint leader,
+        jintArray trickSuits,
+        jintArray trickRanks) {
 
     Deal dl;
     dl.trump = trump;
     dl.first = leader;
 
+    jint *ts = env->GetIntArrayElements(trickSuits, nullptr);
+    jint *tr = env->GetIntArrayElements(trickRanks, nullptr);
     for (int i = 0; i < 3; i++) {
-        dl.currentTrickSuit[i] = 0;
-        dl.currentTrickRank[i] = 0;
+        // DDS expects 0 for empty trick slots, not -1
+        dl.currentTrickSuit[i] = (ts[i] < 0) ? 0 : ts[i];
+        dl.currentTrickRank[i] = (tr[i] < 2) ? 0 : tr[i];
     }
+    env->ReleaseIntArrayElements(trickSuits, ts, JNI_ABORT);
+    env->ReleaseIntArrayElements(trickRanks, tr, JNI_ABORT);
 
     jint *cardArray = env->GetIntArrayElements(cards, nullptr);
     for (int hand = 0; hand < 4; hand++) {
         for (int suit = 0; suit < 4; suit++) {
-            dl.remainCards[hand][suit] = cardArray[hand * 4 + suit];
+            // Remove the << 2. Java already provides bit 2 for rank 2, etc.
+            dl.remainCards[hand][suit] = (unsigned int)cardArray[hand * 4 + suit];
         }
     }
-    env->ReleaseIntArrayElements(cards, cardArray, 0);
+    env->ReleaseIntArrayElements(cards, cardArray, JNI_ABORT);
 
     FutureTricks ft;
-
-    int result = SolveBoard(dl, -1, 1, 1, &ft, 0);
+    // solutions = 1 (optimal card), mode = 0
+    int result = SolveBoard(dl, -1, 1, 0, &ft, 0);
 
     if (result != RETURN_NO_FAULT) {
-        __android_log_print(ANDROID_LOG_ERROR, TAG, "DDS error: %d", result);
-        return -1;
+        char msg[80];
+        ErrorMessage(result, msg);
+        __android_log_print(ANDROID_LOG_ERROR, TAG, "DDS error %d: %s", result, msg);
+        return -result; // Return negative error code
     }
 
-    return ft.suit[0] * 100 + ft.rank[0];
+    if (ft.cards > 0) {
+        // Return suit * 100 + rank (e.g., Spades Ace = 0 * 100 + 14 = 14)
+        return ft.suit[0] * 100 + ft.rank[0];
+    }
+    return -1000; // No cards found
 }
 
 JNIEXPORT jintArray JNICALL
@@ -54,22 +68,20 @@ Java_com_example_bridge_DdsSolver_calcFullDDTable(
         jintArray cards) {
 
     DdTableDeal tableDeal;
-
     jint *cardArray = env->GetIntArrayElements(cards, nullptr);
     for (int hand = 0; hand < 4; hand++) {
         for (int suit = 0; suit < 4; suit++) {
-            tableDeal.cards[hand][suit] = cardArray[hand * 4 + suit];
+            tableDeal.cards[hand][suit] = (unsigned int)cardArray[hand * 4 + suit];
         }
     }
-    env->ReleaseIntArrayElements(cards, cardArray, 0);
+    env->ReleaseIntArrayElements(cards, cardArray, JNI_ABORT);
 
     DdTableResults tableRes;
     int result = CalcDDtable(tableDeal, &tableRes);
 
     if (result != RETURN_NO_FAULT) {
-        __android_log_print(ANDROID_LOG_ERROR, TAG, "DDS error: %d", result);
-        jintArray empty = env->NewIntArray(20);
-        return empty;
+        __android_log_print(ANDROID_LOG_ERROR, TAG, "DDS CalcDDtable error: %d", result);
+        return env->NewIntArray(0);
     }
 
     jintArray output = env->NewIntArray(20);

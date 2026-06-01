@@ -12,9 +12,11 @@ public class DdsSolver {
      * @param cards Array of 16 integers (4 hands * 4 suits)
      * @param trump 0=NT, 1=Spades, 2=Hearts, 3=Diamonds, 4=Clubs
      * @param leader 0=North, 1=East, 2=South, 3=West
+     * @param trickSuits Array of 3 integers (suits already played in current trick, -1 if none)
+     * @param trickRanks Array of 3 integers (ranks 2-14 already played in current trick, 0 if none)
      * @return suit * 100 + rank
      */
-    public native int calcDDTable(int[] cards, int trump, int leader);
+    public native int calcDDTable(int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks);
 
     /**
      * Calculates full double dummy table for all denominations and leads.
