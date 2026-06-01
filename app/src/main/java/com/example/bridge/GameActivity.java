@@ -1,5 +1,7 @@
 package com.example.bridge;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +29,9 @@ import java.util.Map;
 public class GameActivity extends AppCompatActivity implements GameController.GameCallback {
 
     public static final Card GHOST_CARD = new Card(null, null);
+    private static final String PREFS_NAME = "BridgePrefs";
+    private static final String KEY_CAREER_SCORE = "careerScore";
+
     private Map<String, Player> players;
     private GameController gameController;
 
@@ -41,7 +46,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerEast;
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
-    private TextView tvScoreSN, tvScoreWE;
+    private TextView tvScoreSN, tvScoreWE, tvTotalTricks;
     private TextView nameNorth, nameSouth, nameEast, nameWest;
     private TextView tvContract;
     private ImageView ivContractSuit;
@@ -71,6 +76,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         tvScoreSN = findViewById(R.id.sn_score);
         tvScoreWE = findViewById(R.id.we_score);
+        tvTotalTricks = findViewById(R.id.tv_total_tricks);
 
         tvContract = findViewById(R.id.game_contract);
         ivContractSuit = findViewById(R.id.iv_contract_suit);
@@ -86,6 +92,39 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onScoreUpdated(int snScore, int weScore) {
         if (tvScoreSN != null) tvScoreSN.setText("SN: " + snScore);
         if (tvScoreWE != null) tvScoreWE.setText("WE: " + weScore);
+    }
+
+    @Override
+    public void onGameEnded(int snScore, String contract) {
+        int level = 0;
+        try {
+            level = Integer.parseInt(contract.split(" ")[0].trim());
+        } catch (Exception e) {
+            return;
+        }
+
+        int requiredTricks = level + 6;
+        int handScore;
+
+        handScore = (snScore - requiredTricks);
+
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
+        careerScore += handScore;
+
+        prefs.edit().putInt(KEY_CAREER_SCORE, careerScore).apply();
+        
+        if (tvTotalTricks != null) {
+            tvTotalTricks.setText("score: " + careerScore);
+        }
+    }
+
+    private void loadAndRestoreScores() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
+        if (tvTotalTricks != null) {
+            tvTotalTricks.setText("score: " + careerScore);
+        }
     }
 
     @Override
@@ -110,12 +149,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     public void onContractDetermined(String contract) {
         if (contractContainer != null) contractContainer.setBackgroundResource(R.drawable.white_frame);
-
-        if (contract == null || "PASS".equals(contract)) {
-            tvContract.setText(" PASS");
-            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
-            return;
-        }
 
         String[] parts = contract.split(" ");
         if (parts.length < 2) {
@@ -172,6 +205,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.put("West", new Player("West", playedCardContainerWest));
 
         gameController = new GameController(players, this);
+        loadAndRestoreScores();
     }
 
     private void setupRecyclerView() {
@@ -181,13 +215,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
         southAdapter = new CardAdapter(displayHandSouth, players.get("South"));
         southAdapter.setOnCardClickListener(card ->
-                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("South"), card), 300));
+                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("South"), card), 200));
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
         northAdapter = new CardAdapter(displayHandNorth, players.get("North"));
         northAdapter.setOnCardClickListener(card ->
-                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("North"), card), 300));
+                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("North"), card), 200));
         rvNorth.setAdapter(northAdapter);
     }
 

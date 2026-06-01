@@ -29,6 +29,8 @@ public class GameController {
         void onTurnChanged(String playerName);
 
         void onScoreUpdated(int snScore, int weScore);
+
+        void onGameEnded(int snScore, String contract);
     }
 
     private final Map<String, Player> players;
@@ -56,6 +58,7 @@ public class GameController {
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
         resetTable();
+        
         snScore = 0;
         weScore = 0;
         callback.onScoreUpdated(snScore, weScore);
@@ -110,13 +113,18 @@ public class GameController {
             handler.postDelayed(() -> {
                 clearTable();
 
+                if (players.get("South").getHand().isEmpty()) {
+                    callback.onGameEnded(snScore, currentContract);
+                    return;
+                }
+
                 Player nextPlayer = players.get(winnerName);
                 trickLeaderName = winnerName;
                 nextPlayer.setCurrentMove(true);
 
                 callback.onTurnChanged(nextPlayer.getName());
                 checkOpponentMove(nextPlayer);
-            }, 1000);
+            }, 700);
         } else {
             Player nextPlayer = getNextPlayer(player);
             nextPlayer.setCurrentMove(true);
@@ -185,7 +193,7 @@ public class GameController {
             }
 
             final Card finalCard = bestCard;
-            handler.postDelayed(() -> playCard(playerOponent, finalCard), 600);
+            handler.postDelayed(() -> playCard(playerOponent, finalCard), 200);
         }
     }
 
