@@ -22,23 +22,87 @@ public class BiddingManager {
         switchCardsIfAreToWeaks();
         int totalHCP = getHPCFromSNPlayers();
         String contractColor = getContractColor();
+        int contractCount;
+        contractCount = getContractCount(contractColor, totalHCP);
 
-        //if (totalHCP >= 25) return "3NT";
-        //if (totalHCP >= 20) return "2NT";
-        //if (totalHCP >= 15) return "1NT";
-        return contractColor;
+        return contractCount + " " + contractColor;
+    }
+
+    private int getContractCount(String contractColor, int totalHCP) {
+        if ((contractColor.equals("Spades") || contractColor.equals("Hearts")) && (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7)) {
+            if (totalHCP >= 37) {
+                return 7;
+            } else if (totalHCP >= 33) {
+                return 6;
+            } else if (totalHCP >= 29) { //todo and second color and 7 in as i kinght
+                return 6;
+            } else if (totalHCP >= 25) {
+                return 4;
+            } else if (totalHCP >= 24) {//todo and second color
+                return 4;
+            } else if (totalHCP >= 20) {
+                return 2;
+            } else {
+                return 1;
+            }
+        } else if ((contractColor.equals("Diamonds") || contractColor.equals("Clubs")) && (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7)) {
+            if (totalHCP >= 37) {
+                return 7;
+            } else if (totalHCP >= 33) {
+                return 6;
+            } else if (totalHCP >= 29) {//todo and second color and 7 in as i kinght
+                return 6;
+            } else if (totalHCP >= 26) {
+                return 5;
+            } else if (totalHCP >= 20) {
+                return 3;
+            } else {
+                return 1;
+            }
+        } else if (!contractColor.equals("NT") && (numberLongestColor(players.get("South")) >= 7 || numberLongestColor(players.get("North")) >= 7)) {
+            if (totalHCP >= 37) {
+                return 7;
+            } else if (totalHCP >= 33) {
+                return 6;
+            } else if (totalHCP >= 25) {
+                return 4;
+            } else {
+                return 3;
+            }
+        } else if ((contractColor.equals("Spades") || contractColor.equals("Hearts"))) {
+            if (totalHCP >= 37) {
+                return 7;
+            } else if (totalHCP >= 33) {
+                return 6;
+            } else if (totalHCP >= 26) {
+                return 4;
+            } else if (totalHCP >= 20) {
+                return 2;
+            } else {
+                return 1;
+            }
+        } else //NT
+        {
+            if (totalHCP >= 37) {
+                return 7;
+            } else if (totalHCP >= 33) {
+                return 6;
+            } else if (totalHCP >= 25) {
+                return 3;
+            } else {
+                return 1;
+            }
+        }
     }
 
     private String getContractColor() {
-        Player north = players.get("North");
-        Player south = players.get("South");
 
         // 1. Check Majors for 8+ fit (Spades, then Hearts)
         if (getCombinedCount(Suit.SPADES) >= 8) return "Spades";
         if (getCombinedCount(Suit.HEARTS) >= 8) return "Hearts";
 
         // 2. Check for NT if we have holds in all colors
-        if (playersHaveHoldInAllSuits(north, south)) return "NT";
+        if (playersHaveHoldInAllSuits(players.get("North"), players.get("South"))) return "NT";
 
         // 3. Check Minors for 8+ fit (Clubs, then Diamonds)
         if (getCombinedCount(Suit.CLUBS) >= 8) return "Clubs";
