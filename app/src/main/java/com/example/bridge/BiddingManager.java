@@ -24,10 +24,12 @@ public class BiddingManager {
         String contractColor = getContractColor();
         int contractCount = getContractCount(contractColor, totalHCP);
 
-        sortHandsByContract(contractColor);
         swapNorthSouthIfSouthHasLongerTrump(contractColor);
+        sortHandsByContract(contractColor);
+
         callback.onHandUpdated("North");
         callback.onHandUpdated("South");
+
         return contractCount + " " + contractColor;
     }
 
@@ -43,6 +45,8 @@ public class BiddingManager {
         if (trumpSuit != null) {
             int southCount = players.get("South").countSuit(trumpSuit);
             int northCount = players.get("North").countSuit(trumpSuit);
+            
+            // If South has more trump cards than North, swap them
             if (southCount < northCount) {
                 List<Card> southHand = new ArrayList<>(players.get("South").getHand());
                 List<Card> northHand = new ArrayList<>(players.get("North").getHand());
@@ -51,24 +55,23 @@ public class BiddingManager {
                 players.get("South").addCards(northHand);
                 players.get("North").clearHand();
                 players.get("North").addCards(southHand);
-
             }
         }
     }
 
     private void sortHandsByContract(String contractColor) {
         Suit trumpSuit = null;
-        switch (contractColor) {
-            case "Spades": trumpSuit = Suit.SPADES; break;
-            case "Hearts": trumpSuit = Suit.HEARTS; break;
-            case "Diamonds": trumpSuit = Suit.DIAMONDS; break;
-            case "Clubs": trumpSuit = Suit.CLUBS; break;
+        if (contractColor != null) {
+            switch (contractColor) {
+                case "Spades": trumpSuit = Suit.SPADES; break;
+                case "Hearts": trumpSuit = Suit.HEARTS; break;
+                case "Diamonds": trumpSuit = Suit.DIAMONDS; break;
+                case "Clubs": trumpSuit = Suit.CLUBS; break;
+            }
         }
 
-        if (trumpSuit != null) {
-            for (Player player : players.values()) {
-                player.resortHand(trumpSuit);
-            }
+        for (Player player : players.values()) {
+            player.resortHand(trumpSuit);
         }
     }
 
@@ -102,7 +105,7 @@ public class BiddingManager {
             } else { // Long suit (7+)
                 if (totalHCP >= 37) return 7;
                 if (totalHCP >= 33) return 6;
-                if (totalHCP >= 25) return 4;
+                if (totalHCP >= 25) return 5;
                 return 3;
             }
         } else { // NT

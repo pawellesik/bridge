@@ -44,12 +44,38 @@ public class Player {
     }
 
     public void resortHand(Suit trumpSuit) {
+        // Define circular order: Spades -> Hearts -> Clubs -> Diamonds -> Spades...
+        final List<Suit> fullCycle = new ArrayList<>();
+        fullCycle.add(Suit.SPADES);
+        fullCycle.add(Suit.HEARTS);
+        fullCycle.add(Suit.CLUBS);
+        fullCycle.add(Suit.DIAMONDS);
+
+        final List<Suit> customOrder = new ArrayList<>();
+        if (trumpSuit != null) {
+            int startIndex = fullCycle.indexOf(trumpSuit);
+            for (int i = 0; i < 4; i++) {
+                customOrder.add(fullCycle.get((startIndex + i) % 4));
+            }
+        } else {
+            // Default S -> H -> C -> D
+            customOrder.addAll(fullCycle);
+        }
+
         Collections.sort(hand, new Comparator<Card>() {
             @Override
             public int compare(Card c1, Card c2) {
-                if (c1.getSuit() == trumpSuit && c2.getSuit() != trumpSuit) return -1;
-                if (c1.getSuit() != trumpSuit && c2.getSuit() == trumpSuit) return 1;
-                return c1.compareTo(c2);
+                Suit s1 = c1.getSuit();
+                Suit s2 = c2.getSuit();
+
+                if (s1 == s2) {
+                    return c2.getRank().ordinal() - c1.getRank().ordinal();
+                }
+
+                int p1 = customOrder.indexOf(s1);
+                int p2 = customOrder.indexOf(s2);
+                
+                return p1 - p2;
             }
         });
     }
