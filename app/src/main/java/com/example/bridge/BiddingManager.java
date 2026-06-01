@@ -22,10 +22,54 @@ public class BiddingManager {
         switchCardsIfAreToWeaks();
         int totalHCP = getHPCFromSNPlayers();
         String contractColor = getContractColor();
-        int contractCount;
-        contractCount = getContractCount(contractColor, totalHCP);
+        int contractCount = getContractCount(contractColor, totalHCP);
 
+        sortHandsByContract(contractColor);
+        swapNorthSouthIfSouthHasLongerTrump(contractColor);
+        callback.onHandUpdated("North");
+        callback.onHandUpdated("South");
         return contractCount + " " + contractColor;
+    }
+
+    private void swapNorthSouthIfSouthHasLongerTrump(String contractColor) {
+        Suit trumpSuit = null;
+        switch (contractColor) {
+            case "Spades": trumpSuit = Suit.SPADES; break;
+            case "Hearts": trumpSuit = Suit.HEARTS; break;
+            case "Diamonds": trumpSuit = Suit.DIAMONDS; break;
+            case "Clubs": trumpSuit = Suit.CLUBS; break;
+        }
+
+        if (trumpSuit != null) {
+            int southCount = players.get("South").countSuit(trumpSuit);
+            int northCount = players.get("North").countSuit(trumpSuit);
+            if (southCount < northCount) {
+                List<Card> southHand = new ArrayList<>(players.get("South").getHand());
+                List<Card> northHand = new ArrayList<>(players.get("North").getHand());
+
+                players.get("South").clearHand();
+                players.get("South").addCards(northHand);
+                players.get("North").clearHand();
+                players.get("North").addCards(southHand);
+
+            }
+        }
+    }
+
+    private void sortHandsByContract(String contractColor) {
+        Suit trumpSuit = null;
+        switch (contractColor) {
+            case "Spades": trumpSuit = Suit.SPADES; break;
+            case "Hearts": trumpSuit = Suit.HEARTS; break;
+            case "Diamonds": trumpSuit = Suit.DIAMONDS; break;
+            case "Clubs": trumpSuit = Suit.CLUBS; break;
+        }
+
+        if (trumpSuit != null) {
+            for (Player player : players.values()) {
+                player.resortHand(trumpSuit);
+            }
+        }
     }
 
     private int getContractCount(String contractColor, int totalHCP) {

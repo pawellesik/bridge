@@ -4,6 +4,7 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Player {
@@ -40,6 +41,17 @@ public class Player {
     public void addCards(List<Card> newCards) {
         hand.addAll(newCards);
         Collections.sort(hand);
+    }
+
+    public void resortHand(Suit trumpSuit) {
+        Collections.sort(hand, new Comparator<Card>() {
+            @Override
+            public int compare(Card c1, Card c2) {
+                if (c1.getSuit() == trumpSuit && c2.getSuit() != trumpSuit) return -1;
+                if (c1.getSuit() != trumpSuit && c2.getSuit() == trumpSuit) return 1;
+                return c1.compareTo(c2);
+            }
+        });
     }
 
     public void removeCard(Card card) {
