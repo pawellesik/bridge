@@ -44,7 +44,6 @@ public class Player {
     }
 
     public void resortHand(Suit trumpSuit) {
-        // Define circular order: Spades -> Hearts -> Clubs -> Diamonds -> Spades...
         final List<Suit> fullCycle = new ArrayList<>();
         fullCycle.add(Suit.SPADES);
         fullCycle.add(Suit.HEARTS);
@@ -58,7 +57,6 @@ public class Player {
                 customOrder.add(fullCycle.get((startIndex + i) % 4));
             }
         } else {
-            // Default S -> H -> C -> D
             customOrder.addAll(fullCycle);
         }
 

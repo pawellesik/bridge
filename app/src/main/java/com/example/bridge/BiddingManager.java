@@ -45,8 +45,7 @@ public class BiddingManager {
         if (trumpSuit != null) {
             int southCount = players.get("South").countSuit(trumpSuit);
             int northCount = players.get("North").countSuit(trumpSuit);
-            
-            // If South has more trump cards than North, swap them
+
             if (southCount < northCount) {
                 List<Card> southHand = new ArrayList<>(players.get("South").getHand());
                 List<Card> northHand = new ArrayList<>(players.get("North").getHand());
