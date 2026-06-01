@@ -60,6 +60,16 @@ public class Player {
         return total;
     }
 
+    public int countAcesAndKings() {
+        int count = 0;
+        for (Card card : hand) {
+            if (card.getRank() == Rank.ACE || card.getRank() == Rank.KING) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public int countSuit(Suit suit) {
         int count = 0;
         for (Card card : hand) {

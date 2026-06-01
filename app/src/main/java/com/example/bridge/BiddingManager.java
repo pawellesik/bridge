@@ -29,70 +29,61 @@ public class BiddingManager {
     }
 
     private int getContractCount(String contractColor, int totalHCP) {
-        if ((contractColor.equals("Spades") || contractColor.equals("Hearts")) && (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7)) {
-            if (totalHCP >= 37) {
-                return 7;
-            } else if (totalHCP >= 33) {
-                return 6;
-            } else if (totalHCP >= 29) { //todo and second color and 7 in as i kinght
-                return 6;
-            } else if (totalHCP >= 25) {
-                return 4;
-            } else if (totalHCP >= 24) {//todo and second color
-                return 4;
-            } else if (totalHCP >= 20) {
-                return 2;
-            } else {
+        int acesAndKings = getAcesAndKingsCount();
+        boolean hasSecondColor = hasSecondColorFit();
+
+        if (contractColor.equals("Spades") || contractColor.equals("Hearts")) {
+            if (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7) {
+                if (totalHCP >= 37) return 7;
+                if (totalHCP >= 33) return 6;
+                if (totalHCP >= 29 && hasSecondColor && acesAndKings >= 7) return 6;
+                if (totalHCP >= 25) return 4;
+                if (totalHCP >= 24 && hasSecondColor) return 4;
+                if (totalHCP >= 20) return 2;
                 return 1;
-            }
-        } else if ((contractColor.equals("Diamonds") || contractColor.equals("Clubs")) && (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7)) {
-            if (totalHCP >= 37) {
-                return 7;
-            } else if (totalHCP >= 33) {
-                return 6;
-            } else if (totalHCP >= 29) {//todo and second color and 7 in as i kinght
-                return 6;
-            } else if (totalHCP >= 26) {
-                return 5;
-            } else if (totalHCP >= 20) {
-                return 3;
-            } else {
-                return 1;
-            }
-        } else if (!contractColor.equals("NT") && (numberLongestColor(players.get("South")) >= 7 || numberLongestColor(players.get("North")) >= 7)) {
-            if (totalHCP >= 37) {
-                return 7;
-            } else if (totalHCP >= 33) {
-                return 6;
-            } else if (totalHCP >= 25) {
-                return 4;
-            } else {
+            } else { // Long suit (7+)
+                if (totalHCP >= 37) return 7;
+                if (totalHCP >= 33) return 6;
+                if (totalHCP >= 25) return 4;
                 return 3;
             }
-        } else if ((contractColor.equals("Spades") || contractColor.equals("Hearts"))) {
-            if (totalHCP >= 37) {
-                return 7;
-            } else if (totalHCP >= 33) {
-                return 6;
-            } else if (totalHCP >= 26) {
-                return 4;
-            } else if (totalHCP >= 20) {
-                return 2;
-            } else {
+        } else if (contractColor.equals("Diamonds") || contractColor.equals("Clubs")) {
+            if (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7) {
+                if (totalHCP >= 37) return 7;
+                if (totalHCP >= 33) return 6;
+                if (totalHCP >= 29 && hasSecondColor && acesAndKings >= 7) return 6;
+                if (totalHCP >= 26) return 5;
+                if (totalHCP >= 20) return 3;
                 return 1;
-            }
-        } else //NT
-        {
-            if (totalHCP >= 37) {
-                return 7;
-            } else if (totalHCP >= 33) {
-                return 6;
-            } else if (totalHCP >= 25) {
+            } else { // Long suit (7+)
+                if (totalHCP >= 37) return 7;
+                if (totalHCP >= 33) return 6;
+                if (totalHCP >= 25) return 4;
                 return 3;
-            } else {
-                return 1;
+            }
+        } else { // NT
+            if (totalHCP >= 37) return 7;
+            if (totalHCP >= 33) return 6;
+            if (totalHCP >= 25) return 3;
+            return 1;
+        }
+    }
+
+    private int getAcesAndKingsCount() {
+        return players.get("North").countAcesAndKings() + players.get("South").countAcesAndKings();
+    }
+
+    private boolean hasSecondColorFit() {
+        for (Suit suit : Suit.values()) {
+            if (getCombinedCount(suit) >= 8) {
+                int fits = 0;
+                for (Suit s : Suit.values()) {
+                    if (getCombinedCount(s) >= 8) fits++;
+                }
+                return fits >= 2;
             }
         }
+        return false;
     }
 
     private String getContractColor() {
