@@ -25,6 +25,8 @@ public class GameController {
         void onClearLastCards(List<Card> cardsOnTable);
 
         void onContractDetermined(String contract);
+
+        void onTurnChanged(String playerName);
     }
 
     private final Map<String, Player> players;
@@ -57,6 +59,7 @@ public class GameController {
         callback.onContractDetermined(contract);
 
         players.get("West").setCurrentMove(true);
+        callback.onTurnChanged("West");
         playCardOpponent(players.get("West"));
     }
 
@@ -67,6 +70,8 @@ public class GameController {
     }
 
     public void playCard(Player player, Card card) {
+        player.setCurrentMove(false);
+        callback.onTurnChanged(null); // Clear highlight while processing
         player.removeCard(card);
         cardsOnTable.add(card);
         currentTrick.put(player.getName(), card);
@@ -83,11 +88,13 @@ public class GameController {
                 clearTable();
                 Player nextPlayer = players.get("South"); //todo
                 nextPlayer.setCurrentMove(true);
+                callback.onTurnChanged(nextPlayer.getName());
                 checkOpponentMove(nextPlayer);
             }, 1000);
         } else {
             Player nextPlayer = getNextPlayer(player);
             nextPlayer.setCurrentMove(true);
+            callback.onTurnChanged(nextPlayer.getName());
             checkOpponentMove(nextPlayer);
         }
     }

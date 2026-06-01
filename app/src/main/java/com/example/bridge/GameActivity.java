@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerEast;
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
+    private TextView nameNorth, nameSouth, nameEast, nameWest;
     private TextView tvContract;
     private ImageView ivContractSuit;
     private View contractContainer;
@@ -62,6 +63,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvLastEast = findViewById(R.id.e_last_card);
         tvLastWest = findViewById(R.id.w_last_card);
 
+        nameNorth = findViewById(R.id.name_north);
+        nameSouth = findViewById(R.id.name_south);
+        nameEast = findViewById(R.id.name_east);
+        nameWest = findViewById(R.id.name_west);
+
         tvContract = findViewById(R.id.game_contract);
         ivContractSuit = findViewById(R.id.iv_contract_suit);
         contractContainer = findViewById(R.id.game_contract_container);
@@ -70,6 +76,25 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         setupRecyclerView();
 
         findViewById(R.id.btn_deal).setOnClickListener(v -> gameController.dealCards());
+    }
+
+    @Override
+    public void onTurnChanged(String playerName) {
+        // Reset all to a frame with no border (just the green background)
+        nameNorth.setBackgroundResource(R.drawable.green_frame);
+        nameSouth.setBackgroundResource(R.drawable.green_frame);
+        nameEast.setBackgroundResource(R.drawable.green_frame);
+        nameWest.setBackgroundResource(R.drawable.green_frame);
+
+        if (playerName == null) return;
+
+        // Apply white_frame (which has the white border) to current player's name
+        switch (playerName) {
+            case "North": nameNorth.setBackgroundResource(R.drawable.white_frame); break;
+            case "South": nameSouth.setBackgroundResource(R.drawable.white_frame); break;
+            case "East": nameEast.setBackgroundResource(R.drawable.white_frame); break;
+            case "West": nameWest.setBackgroundResource(R.drawable.white_frame); break;
+        }
     }
 
     @Override

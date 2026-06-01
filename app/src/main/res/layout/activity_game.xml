@@ -41,7 +41,7 @@
                     android:id="@+id/game_contract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -224,6 +224,7 @@
         app:layout_constraintBottom_toBottomOf="@id/table_center"
         android:layout_marginStart="8dp">
         <TextView
+            android:id="@+id/name_west"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="West"
@@ -243,6 +244,7 @@
         app:layout_constraintBottom_toBottomOf="@id/table_center"
         android:layout_marginEnd="8dp">
         <TextView
+            android:id="@+id/name_east"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="East"
