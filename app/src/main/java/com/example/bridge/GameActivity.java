@@ -74,34 +74,42 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onContractDetermined(String contract) {
-        if (contractContainer != null) contractContainer.setBackgroundColor(Color.WHITE);
+        if (contractContainer != null) contractContainer.setBackgroundResource(R.drawable.white_frame);
 
-        if ("PASS".equals(contract)) {
+        if (contract == null || "PASS".equals(contract)) {
             tvContract.setText(" PASS");
             if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
             return;
         }
 
-        if (contract.endsWith("NT")) {
-            tvContract.setText(" " + contract);
+        String[] parts = contract.split(" ");
+        if (parts.length < 2) {
+            tvContract.setText(contract);
             if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
-        } else {
-            String level = contract.substring(0, contract.length() - 1);
-            String suitChar = contract.substring(contract.length() - 1);
-            tvContract.setText(" " + level);
-            if (ivContractSuit != null) {
+            return;
+        }
+
+        String count = parts[0];
+        String color = parts[1];
+
+        tvContract.setText(" " + count);
+        if (ivContractSuit != null) {
+            if ("NT".equals(color)) {
+                tvContract.setText(" " + contract);
+                ivContractSuit.setVisibility(View.GONE);
+            } else {
                 ivContractSuit.setVisibility(View.VISIBLE);
-                switch (suitChar) {
-                    case "S":
+                switch (color) {
+                    case "Spades":
                         ivContractSuit.setImageResource(R.drawable.spades);
                         break;
-                    case "H":
+                    case "Hearts":
                         ivContractSuit.setImageResource(R.drawable.heart);
                         break;
-                    case "D":
+                    case "Diamonds":
                         ivContractSuit.setImageResource(R.drawable.diamonds);
                         break;
-                    case "C":
+                    case "Clubs":
                         ivContractSuit.setImageResource(R.drawable.clubs);
                         break;
                     default:
