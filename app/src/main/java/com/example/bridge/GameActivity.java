@@ -109,7 +109,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (snScore >= requiredTricks) {
             handScore = level + (snScore - requiredTricks);
         } else {
-            handScore = -(requiredTricks - snScore);
+            handScore = -level + (snScore - requiredTricks);
         }
 
 
