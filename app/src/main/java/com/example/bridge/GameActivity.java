@@ -108,9 +108,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         if (snScore >= requiredTricks) {
             handScore = level + (snScore - requiredTricks);
-        }
-        {
-            handScore = -level + (snScore - requiredTricks);
+        } else {
+            handScore = -(requiredTricks - snScore);
         }
 
 
@@ -229,14 +228,26 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
         southAdapter = new CardAdapter(displayHandSouth, players.get("South"));
-        southAdapter.setOnCardClickListener(card ->
-                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("South"), card), 200));
+        southAdapter.setOnCardClickListener(card -> {
+            Player south = players.get("South");
+            if (south.isCurrentMove() && gameController.isLegalMove(south, card)) {
+                gameController.playCard(south, card);
+            } else {
+                southAdapter.clearSelection();
+            }
+        });
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
         northAdapter = new CardAdapter(displayHandNorth, players.get("North"));
-        northAdapter.setOnCardClickListener(card ->
-                findViewById(R.id.main).postDelayed(() -> gameController.playCard(players.get("North"), card), 200));
+        northAdapter.setOnCardClickListener(card -> {
+            Player north = players.get("North");
+            if (north.isCurrentMove() && gameController.isLegalMove(north, card)) {
+                gameController.playCard(north, card);
+            } else {
+                northAdapter.clearSelection();
+            }
+        });
         rvNorth.setAdapter(northAdapter);
     }
 
@@ -298,7 +309,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void updateLastCard(TextView tv, Card card) {
         if (card != null) {
-            tv.setText(card.getRank().display + " " + card.getSuit().symbol);
+            tv.setText(" "+card.getRank().display + " " + card.getSuit().symbol);
             tv.setTextColor(Color.parseColor("#000000"));
         }
     }

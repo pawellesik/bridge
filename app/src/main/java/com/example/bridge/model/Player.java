@@ -114,6 +114,13 @@ public class Player {
         return count;
     }
 
+    public boolean hasSuit(Suit suit) {
+        for (Card card : hand) {
+            if (card.getSuit() == suit) return true;
+        }
+        return false;
+    }
+
     public boolean hasHold(Suit suit) {
         boolean hasAce = false;
         boolean hasKing = false;

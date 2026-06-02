@@ -87,6 +87,10 @@ public class GameController {
     }
 
     public void playCard(Player player, Card card) {
+        if (!player.isCurrentMove() || !isLegalMove(player, card)) {
+            return; // Reject moves if it's not the turn or illegal card
+        }
+
         player.setCurrentMove(false);
         callback.onTurnChanged(null); // Clear highlight while processing
         player.removeCard(card);
@@ -98,6 +102,25 @@ public class GameController {
 
         setNextPlayerCurrentMove(player);
 
+    }
+
+    public boolean isLegalMove(Player player, Card card) {
+        // First card in a trick is always legal
+        if (cardsOnTable.isEmpty()) {
+            return true;
+        }
+
+        // Must follow suit if possible
+        Card leadCard = currentTrick.get(trickLeaderName);
+        if (leadCard == null) return true;
+
+        Suit ledSuit = leadCard.getSuit();
+        if (card.getSuit() == ledSuit) {
+            return true;
+        }
+
+        // If playing a different suit, must not have any cards of the led suit
+        return !player.hasSuit(ledSuit);
     }
 
     private void setNextPlayerCurrentMove(Player player) {
@@ -185,15 +208,15 @@ public class GameController {
     private void playCardOpponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            playerOponent.setCurrentMove(false);
-
+            // Do NOT set setCurrentMove(false) here. 
+            // playCard will handle it.
             Card bestCard = calculateBestCard(playerOponent);
             if (bestCard == null) {
                 bestCard = hand.get((int) (Math.random() * hand.size()));
             }
 
             final Card finalCard = bestCard;
-            handler.postDelayed(() -> playCard(playerOponent, finalCard), 200);
+            handler.postDelayed(() -> playCard(playerOponent, finalCard), 600);
         }
     }
 

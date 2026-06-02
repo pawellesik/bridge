@@ -53,16 +53,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.itemView.setVisibility(View.VISIBLE);
             holder.bind(card, position == selectedPos);
             holder.itemView.setOnClickListener(v -> {
-                if (player.isCurrentMove()) {
-                    player.setCurrentMove(false);
-                    int prev = selectedPos;
-                    selectedPos = holder.getAdapterPosition();
-                    notifyItemChanged(prev);
-                    notifyItemChanged(selectedPos);
-                    v.post(() -> {
-                        if (listener != null) listener.onCardClick(card);
-                    });
-                }
+                int prev = selectedPos;
+                selectedPos = holder.getAdapterPosition();
+                notifyItemChanged(prev);
+                notifyItemChanged(selectedPos);
+                if (listener != null) listener.onCardClick(card);
             });
         }
     }
