@@ -50,9 +50,9 @@ public class GameController {
         this.players = players;
         this.callback = callback;
         this.deck = new Deck();
-        this.biddingManager = new BiddingManager(players, callback);
         this.ddsSolver = new DdsSolver();
         this.ddsSolver.initDds();
+        this.biddingManager = new BiddingManager(players, callback, ddsSolver);
     }
 
     public void dealCards() {

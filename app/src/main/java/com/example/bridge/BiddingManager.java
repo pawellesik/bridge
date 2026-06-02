@@ -12,10 +12,12 @@ public class BiddingManager {
 
     private final Map<String, Player> players;
     private final GameController.GameCallback callback;
+    private final DdsSolver ddsSolver;
 
-    public BiddingManager(Map<String, Player> players, GameController.GameCallback callback) {
+    public BiddingManager(Map<String, Player> players, GameController.GameCallback callback, DdsSolver ddsSolver) {
         this.players = players;
         this.callback = callback;
+        this.ddsSolver = ddsSolver;
     }
 
     public String determineBestContract() {
@@ -23,6 +25,18 @@ public class BiddingManager {
         int totalHCP = getHPCFromSNPlayers();
         String contractColor = getContractColor();
         int contractCount = getContractCount(contractColor, totalHCP);
+        int possibleTricks = simulateMaxTricks(contractColor);
+        if (contractCount == 1 && contractColor.equals("NT") && possibleTricks >= 10) {
+            contractCount = 3;
+        }
+        if (contractCount == 2 && possibleTricks >= 11) {
+            contractCount = 4;
+        }
+        if (contractCount == 3 && !contractColor.equals("NT") && !contractColor.equals("Spades") && !contractColor.equals("Hearts") && possibleTricks >= 11) {
+            contractCount = 4;
+        } else if (contractCount >= 4 && possibleTricks == 13) {
+            contractCount = 6;
+        }
 
         swapNorthSouthIfSouthHasLongerTrump(contractColor);
         sortHandsByContract(contractColor);
@@ -33,13 +47,77 @@ public class BiddingManager {
         return contractCount + " " + contractColor;
     }
 
+    private int simulateMaxTricks(String contractColor) {
+        int[] ddsCards = new int[16];
+        String[] handNames = {"North", "East", "South", "West"};
+        for (int h = 0; h < 4; h++) {
+            Player p = players.get(handNames[h]);
+            if (p != null) {
+                for (Card c : p.getHand()) {
+                    int suitIdx = mapSuitToDdsIndex(c.getSuit());
+                    ddsCards[h * 4 + suitIdx] |= (1 << (c.getRank().ordinal() + 2));
+                }
+            }
+        }
+
+        int[] results = ddsSolver.calcFullDDTable(ddsCards);
+        if (results == null || results.length < 20) return 7; // Fallback
+
+        int trumpIdx = getTrumpDdsIndex(contractColor);
+        // We check what South (idx 2) or North (idx 0) can make as leader
+        int tricksNorth = results[trumpIdx * 4];
+        int tricksSouth = results[trumpIdx * 4 + 2];
+
+        return Math.max(tricksNorth, tricksSouth);
+    }
+
+    private int mapSuitToDdsIndex(Suit suit) {
+        switch (suit) {
+            case SPADES:
+                return 0;
+            case HEARTS:
+                return 1;
+            case DIAMONDS:
+                return 2;
+            case CLUBS:
+                return 3;
+            default:
+                return 0;
+        }
+    }
+
+    private int getTrumpDdsIndex(String color) {
+        switch (color) {
+            case "Spades":
+                return 0;
+            case "Hearts":
+                return 1;
+            case "Diamonds":
+                return 2;
+            case "Clubs":
+                return 3;
+            case "NT":
+                return 4;
+            default:
+                return 4;
+        }
+    }
+
     private void swapNorthSouthIfSouthHasLongerTrump(String contractColor) {
         Suit trumpSuit = null;
         switch (contractColor) {
-            case "Spades": trumpSuit = Suit.SPADES; break;
-            case "Hearts": trumpSuit = Suit.HEARTS; break;
-            case "Diamonds": trumpSuit = Suit.DIAMONDS; break;
-            case "Clubs": trumpSuit = Suit.CLUBS; break;
+            case "Spades":
+                trumpSuit = Suit.SPADES;
+                break;
+            case "Hearts":
+                trumpSuit = Suit.HEARTS;
+                break;
+            case "Diamonds":
+                trumpSuit = Suit.DIAMONDS;
+                break;
+            case "Clubs":
+                trumpSuit = Suit.CLUBS;
+                break;
         }
 
         if (trumpSuit != null) {
@@ -62,10 +140,18 @@ public class BiddingManager {
         Suit trumpSuit = null;
         if (contractColor != null) {
             switch (contractColor) {
-                case "Spades": trumpSuit = Suit.SPADES; break;
-                case "Hearts": trumpSuit = Suit.HEARTS; break;
-                case "Diamonds": trumpSuit = Suit.DIAMONDS; break;
-                case "Clubs": trumpSuit = Suit.CLUBS; break;
+                case "Spades":
+                    trumpSuit = Suit.SPADES;
+                    break;
+                case "Hearts":
+                    trumpSuit = Suit.HEARTS;
+                    break;
+                case "Diamonds":
+                    trumpSuit = Suit.DIAMONDS;
+                    break;
+                case "Clubs":
+                    trumpSuit = Suit.CLUBS;
+                    break;
             }
         }
 
