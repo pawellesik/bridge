@@ -106,14 +106,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         int requiredTricks = level + 6;
         int handScore;
 
-        handScore = (snScore - requiredTricks);
+        if (snScore >= requiredTricks) {
+            handScore = level + (snScore - requiredTricks);
+        }
+        {
+            handScore = -level + (snScore - requiredTricks);
+        }
+
 
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
         careerScore += handScore;
 
         prefs.edit().putInt(KEY_CAREER_SCORE, careerScore).apply();
-        
+
         if (tvTotalTricks != null) {
             tvTotalTricks.setText("score: " + careerScore);
         }
@@ -139,16 +145,25 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         // Apply white_frame (which has the white border) to current player's name
         switch (playerName) {
-            case "North": nameNorth.setBackgroundResource(R.drawable.white_frame); break;
-            case "South": nameSouth.setBackgroundResource(R.drawable.white_frame); break;
-            case "East": nameEast.setBackgroundResource(R.drawable.white_frame); break;
-            case "West": nameWest.setBackgroundResource(R.drawable.white_frame); break;
+            case "North":
+                nameNorth.setBackgroundResource(R.drawable.white_frame);
+                break;
+            case "South":
+                nameSouth.setBackgroundResource(R.drawable.white_frame);
+                break;
+            case "East":
+                nameEast.setBackgroundResource(R.drawable.white_frame);
+                break;
+            case "West":
+                nameWest.setBackgroundResource(R.drawable.white_frame);
+                break;
         }
     }
 
     @Override
     public void onContractDetermined(String contract) {
-        if (contractContainer != null) contractContainer.setBackgroundResource(R.drawable.white_frame);
+        if (contractContainer != null)
+            contractContainer.setBackgroundResource(R.drawable.white_frame);
 
         String[] parts = contract.split(" ");
         if (parts.length < 2) {
