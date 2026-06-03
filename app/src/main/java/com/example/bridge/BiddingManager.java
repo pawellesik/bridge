@@ -26,15 +26,20 @@ public class BiddingManager {
         String contractColor = getContractColor();
         int contractCount = getContractCount(contractColor, totalHCP);
         int possibleTricks = simulateMaxTricks(contractColor);
-        if (contractCount == 1 && contractColor.equals("NT") && possibleTricks >= 10) {
-            contractCount = 3;
+        if (contractCount == 1 && contractColor.equals("NT") && possibleTricks >= 9) {
+            contractCount = 2;
         }
-        if (contractCount == 2 && possibleTricks >= 11) {
+        if (contractCount == 2 && possibleTricks >= 10) {
             contractCount = 4;
         }
         if (contractCount == 3 && !contractColor.equals("NT") && !contractColor.equals("Spades") && !contractColor.equals("Hearts") && possibleTricks >= 11) {
+            contractCount = 5;
+        }
+        if (contractCount == 3 && !contractColor.equals("NT") && !contractColor.equals("Diamonds") && !contractColor.equals("Clubs") && possibleTricks >= 10) {
             contractCount = 4;
-        } else if (contractCount >= 4 && possibleTricks == 13) {
+        } else if (contractCount == 4 && possibleTricks == 12) {
+            contractCount = 6;
+        } else if (contractCount == 5 && possibleTricks == 12) {
             contractCount = 6;
         }
 
