@@ -1,6 +1,7 @@
 package com.example.bridge;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private TextView tvScoreSN, tvScoreWE, tvTotalTricks;
+    private final Map<String, String> initialHandsHtml = new LinkedHashMap<>();
     private TextView nameNorth, nameSouth, nameEast, nameWest;
     private TextView tvContract;
     private ImageView ivContractSuit;
@@ -95,7 +97,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onGameEnded(int snScore, String contract) {
+    public void onGameEnded(int snScore, int weScore, String contract) {
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
@@ -112,7 +114,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             handScore = -level + (snScore - requiredTricks);
         }
 
-
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
         careerScore += handScore;
@@ -122,6 +123,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (tvTotalTricks != null) {
             tvTotalTricks.setText("score: " + careerScore);
         }
+
+        final int finalCareerScore = careerScore;
+        findViewById(R.id.main).postDelayed(() -> {
+            Intent intent = new Intent(this, ResultActivity.class);
+            for (Map.Entry<String, String> entry : initialHandsHtml.entrySet()) {
+                intent.putExtra(entry.getKey(), entry.getValue());
+            }
+            intent.putExtra("snScore", snScore);
+            intent.putExtra("weScore", weScore);
+            intent.putExtra("contract", contract);
+            intent.putExtra("careerScore", finalCareerScore);
+
+            startActivity(intent);
+        }, 500);
     }
 
     private void loadAndRestoreScores() {
@@ -269,6 +284,42 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("South".equals(playerName)) {
             updateDisplayHandSouth();
         }
+
+        // Capture initial hand state if not already captured
+        if (!initialHandsHtml.containsKey(playerName)) {
+            Player p = players.get(playerName);
+            if (p != null && p.getHand().size() == 13) {
+                initialHandsHtml.put(playerName, formatHandToHtml(p.getHand()));
+            }
+        }
+    }
+
+    private String formatHandToHtml(List<Card> hand) {
+        StringBuilder sb = new StringBuilder();
+        com.example.bridge.model.Suit[] suits = {
+            com.example.bridge.model.Suit.SPADES,
+            com.example.bridge.model.Suit.HEARTS,
+            com.example.bridge.model.Suit.DIAMONDS,
+            com.example.bridge.model.Suit.CLUBS
+        };
+
+        for (com.example.bridge.model.Suit suit : suits) {
+            String color = suit.isRed ? "red" : "white";
+            sb.append("<font color='").append(color).append("'>")
+              .append(suit.symbol).append("</font> ");
+            
+            sb.append("<font color='white'>");
+            boolean first = true;
+            for (Card card : hand) {
+                if (card.getSuit() == suit) {
+                    if (!first) sb.append(" ");
+                    sb.append(card.getRank().display);
+                    first = false;
+                }
+            }
+            sb.append("</font><br/>");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -291,6 +342,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else {
             clearLastCards();
         }
+    }
+
+    @Override
+    public void onInitialHandsHtmlClear(){
+        initialHandsHtml.clear();
     }
 
     @Override

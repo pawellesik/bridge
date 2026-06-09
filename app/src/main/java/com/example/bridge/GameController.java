@@ -22,6 +22,8 @@ public class GameController {
 
         void onTableCleared(Map<String, Card> trickCards);
 
+        void onInitialHandsHtmlClear();
+
         void onClearLastCards(List<Card> cardsOnTable);
 
         void onContractDetermined(String contract);
@@ -30,7 +32,7 @@ public class GameController {
 
         void onScoreUpdated(int snScore, int weScore);
 
-        void onGameEnded(int snScore, String contract);
+        void onGameEnded(int snScore, int weScore, String contract);
     }
 
     private final Map<String, Player> players;
@@ -58,10 +60,11 @@ public class GameController {
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
         resetTable();
-        
+        callback.onInitialHandsHtmlClear();
+
         snScore = 0;
         weScore = 0;
-        callback.onScoreUpdated(snScore, weScore);
+
 
         deck = new Deck();
         deck.shuffle();
@@ -137,7 +140,7 @@ public class GameController {
                 clearTable();
 
                 if (players.get("South").getHand().isEmpty()) {
-                    callback.onGameEnded(snScore, currentContract);
+                    callback.onGameEnded(snScore, weScore, currentContract);
                     return;
                 }
 
