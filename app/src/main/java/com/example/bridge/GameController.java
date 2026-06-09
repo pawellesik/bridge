@@ -60,11 +60,6 @@ public class GameController {
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
         resetTable();
-        callback.onInitialHandsHtmlClear();
-
-        snScore = 0;
-        weScore = 0;
-
 
         deck = new Deck();
         deck.shuffle();
@@ -84,8 +79,11 @@ public class GameController {
     }
 
     private void resetTable() {
+        snScore = 0;
+        weScore = 0;
         cardsOnTable.clear();
         currentTrick.clear();
+        callback.onInitialHandsHtmlClear();
         callback.onTableCleared(new HashMap<>(currentTrick));
     }
 

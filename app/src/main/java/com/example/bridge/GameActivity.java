@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public static final Card GHOST_CARD = new Card(null, null);
     private static final String PREFS_NAME = "BridgePrefs";
     private static final String KEY_CAREER_SCORE = "careerScore";
+    private static final int REQUEST_RESULT =1;
 
     private Map<String, Player> players;
     private GameController gameController;
@@ -135,10 +136,19 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             intent.putExtra("contract", contract);
             intent.putExtra("careerScore", finalCareerScore);
 
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_RESULT);
         }, 500);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_RESULT && resultCode == RESULT_OK) {
+            if ("DEAL_AGAIN".equals(data.getStringExtra("action"))) {
+                gameController.dealCards();
+            }
+        }
+    }
     private void loadAndRestoreScores() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
@@ -346,6 +356,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onInitialHandsHtmlClear(){
+        System.out.println("plesik onInitialHandsHtmlClear");
         initialHandsHtml.clear();
     }
 

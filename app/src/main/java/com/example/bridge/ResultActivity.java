@@ -1,5 +1,6 @@
 package com.example.bridge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -45,7 +46,12 @@ public class ResultActivity extends AppCompatActivity {
             contractContainer.setBackgroundResource(R.drawable.white_frame);
         }
 
-        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
+        findViewById(R.id.btn_back).setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra("action", "DEAL_AGAIN");
+            setResult(RESULT_OK, intent);
+            finish();
+        });
     }
 
     private void displayHand(int viewId, String handHtml) {
