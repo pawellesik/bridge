@@ -118,24 +118,29 @@
             android:id="@+id/layout_north"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_horizontal"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/layout_west"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="North"
-                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textColor="@android:color/white"/>
-            <TextView android:id="@+id/tv_north_cards"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_north_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:background="@drawable/white_frame"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@android:color/white"
-                android:lineSpacingExtra="4dp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- West (LHO) -->
@@ -155,12 +160,15 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"/>
-            <TextView android:id="@+id/tv_west_cards"
+
+            <TextView
+                android:id="@+id/tv_west_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:background="@drawable/white_frame"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@android:color/white"
-                android:lineSpacingExtra="4dp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- East (RHO) -->
@@ -180,12 +188,15 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"/>
-            <TextView android:id="@+id/tv_east_cards"
+
+            <TextView
+                android:id="@+id/tv_east_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:background="@drawable/white_frame"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@android:color/white"
-                android:lineSpacingExtra="4dp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- South (You) -->
@@ -193,25 +204,30 @@
             android:id="@+id/layout_south"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="24dp"
             android:gravity="center_horizontal"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="24dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_west">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="South"
-                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textColor="@android:color/white"/>
-            <TextView android:id="@+id/tv_south_cards"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_south_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:background="@drawable/white_frame"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@android:color/white"
-                android:lineSpacingExtra="4dp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

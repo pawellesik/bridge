@@ -326,9 +326,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             for (Card card : hand) {
                 if (card.getSuit() == suit) {
                     if (!first) sb.append(" ");
-                    sb.append(card.getRank().display);
+                    sb.append("  "+card.getRank().display);
                     first = false;
                 }
+                //to do add to 13 cards
             }
             sb.append("</font><br/>");
         }
