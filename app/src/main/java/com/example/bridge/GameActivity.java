@@ -305,7 +305,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
     @Override
     public void onInitialHandsHtmlClear(){
-        System.out.println("plesik onInitialHandsHtmlClear");
         initialHandsHtml.clear();
     }
     private String formatHandToHtml(List<Card> hand) {
