@@ -33,6 +33,8 @@ public class GameController {
         void onScoreUpdated(int snScore, int weScore);
 
         void onGameEnded(int snScore, int weScore, String contract);
+
+        void onInitialHandsHtml();
     }
 
     private final Map<String, Player> players;
@@ -71,6 +73,7 @@ public class GameController {
         }
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
+        callback.onInitialHandsHtml();
 
         trickLeaderName = "West";
         players.get("West").setCurrentMove(true);

@@ -294,16 +294,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("South".equals(playerName)) {
             updateDisplayHandSouth();
         }
-
-        // Capture initial hand state if not already captured
-        if (!initialHandsHtml.containsKey(playerName)) {
-            Player p = players.get(playerName);
-            if (p != null && p.getHand().size() == 13) {
-                initialHandsHtml.put(playerName, formatHandToHtml(p.getHand()));
+    }
+    @Override
+    public void onInitialHandsHtml(){
+        for (Player player : players.values()) {
+            if (!initialHandsHtml.containsKey(player.getName())) {
+                initialHandsHtml.put(player.getName(), formatHandToHtml(player.getHand()));
             }
         }
     }
-
+    @Override
+    public void onInitialHandsHtmlClear(){
+        System.out.println("plesik onInitialHandsHtmlClear");
+        initialHandsHtml.clear();
+    }
     private String formatHandToHtml(List<Card> hand) {
         StringBuilder sb = new StringBuilder();
         com.example.bridge.model.Suit[] suits = {
@@ -352,12 +356,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else {
             clearLastCards();
         }
-    }
-
-    @Override
-    public void onInitialHandsHtmlClear(){
-        System.out.println("plesik onInitialHandsHtmlClear");
-        initialHandsHtml.clear();
     }
 
     @Override
