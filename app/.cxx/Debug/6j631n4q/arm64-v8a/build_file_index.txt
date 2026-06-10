@@ -1,1 +1,1 @@
-C:\Users\pawel\Desktop\bridge\bridge\app\src\main\cpp\CMakeLists.txt
+C:\Users\plesik\AndroidStudioProjects\Bridge\app\src\main\cpp\CMakeLists.txt
