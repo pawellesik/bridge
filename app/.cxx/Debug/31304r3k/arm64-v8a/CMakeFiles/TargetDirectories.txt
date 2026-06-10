@@ -1,0 +1,3 @@
+C:/Users/pawel/Desktop/bridge/bridge/app/.cxx/Debug/31304r3k/arm64-v8a/CMakeFiles/bridge_dds.dir
+C:/Users/pawel/Desktop/bridge/bridge/app/.cxx/Debug/31304r3k/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/pawel/Desktop/bridge/bridge/app/.cxx/Debug/31304r3k/arm64-v8a/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+C:\Users\pawel\Desktop\bridge\bridge\app\src\main\cpp\CMakeLists.txt
