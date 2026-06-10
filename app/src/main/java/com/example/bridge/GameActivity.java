@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         initGame();
         setupRecyclerView();
-
+        gameController.dealCards();
         findViewById(R.id.btn_deal).setOnClickListener(v -> gameController.dealCards());
     }
 
