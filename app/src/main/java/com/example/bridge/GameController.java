@@ -76,6 +76,9 @@ public class GameController {
         callback.onInitialHandsHtml();
 
         trickLeaderName = "West";
+    }
+
+    public void startGame() {
         players.get("West").setCurrentMove(true);
         callback.onTurnChanged("West");
         playCardOpponent(players.get("West"));

@@ -54,6 +54,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private TextView tvContract;
     private ImageView ivContractSuit;
     private View contractContainer;
+    private View startBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +85,19 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvContract = findViewById(R.id.game_contract);
         ivContractSuit = findViewById(R.id.iv_contract_suit);
         contractContainer = findViewById(R.id.game_contract_container);
+        startBar = findViewById(R.id.start_bar);
 
         initGame();
         setupRecyclerView();
         gameController.dealCards();
-        findViewById(R.id.btn_deal).setOnClickListener(v -> gameController.dealCards());
+        findViewById(R.id.btn_deal).setOnClickListener(v -> {
+            if (startBar != null) startBar.setVisibility(View.VISIBLE);
+            gameController.dealCards();
+        });
+        findViewById(R.id.btn_start).setOnClickListener(v -> {
+            startBar.setVisibility(View.GONE);
+            gameController.startGame();
+        });
     }
 
     @Override
@@ -145,6 +154,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_RESULT && resultCode == RESULT_OK) {
             if ("DEAL_AGAIN".equals(data.getStringExtra("action"))) {
+                if (startBar != null) startBar.setVisibility(View.VISIBLE);
                 gameController.dealCards();
             }
         }
