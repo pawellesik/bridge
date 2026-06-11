@@ -38,6 +38,12 @@ public class ResultActivity extends AppCompatActivity {
         tvWeScore.setText("WE: " + weScore);
         tvTotalScore.setText("score: " + careerScore);
 
+        // Display last trick cards
+        ((TextView) findViewById(R.id.n_last_card)).setText(getIntent().getStringExtra("last_n"));
+        ((TextView) findViewById(R.id.s_last_card)).setText(getIntent().getStringExtra("last_s"));
+        ((TextView) findViewById(R.id.e_last_card)).setText(getIntent().getStringExtra("last_e"));
+        ((TextView) findViewById(R.id.w_last_card)).setText(getIntent().getStringExtra("last_w"));
+
         displayContract(tvContract, ivContractSuit, contract);
 
         // Set contract container background

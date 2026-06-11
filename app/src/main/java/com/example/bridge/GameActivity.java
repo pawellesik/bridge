@@ -145,6 +145,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             intent.putExtra("contract", contract);
             intent.putExtra("careerScore", finalCareerScore);
 
+            // Pass last trick cards
+            intent.putExtra("last_n", tvLastNorth.getText().toString());
+            intent.putExtra("last_s", tvLastSouth.getText().toString());
+            intent.putExtra("last_e", tvLastEast.getText().toString());
+            intent.putExtra("last_w", tvLastWest.getText().toString());
+
             startActivityForResult(intent, REQUEST_RESULT);
         }, 500);
     }
