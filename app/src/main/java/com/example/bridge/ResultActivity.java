@@ -69,7 +69,7 @@ public class ResultActivity extends AppCompatActivity {
         // Set contract container background
         View contractContainer = findViewById(R.id.game_contract_container);
         if (contractContainer != null && contract != null && !"PASS".equals(contract)) {
-            contractContainer.setBackgroundResource(R.drawable.white_frame);
+            contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
         }
 
         findViewById(R.id.btn_back).setOnClickListener(v -> {

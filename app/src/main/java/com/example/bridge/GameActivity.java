@@ -356,22 +356,25 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             com.example.bridge.model.Suit.CLUBS
         };
 
-        for (com.example.bridge.model.Suit suit : suits) {
+        for (int i = 0; i < suits.length; i++) {
+            com.example.bridge.model.Suit suit = suits[i];
             String color = suit.isRed ? "red" : "white";
             sb.append("<font color='").append(color).append("'>")
-              .append(suit.symbol).append("</font> ");
-            
+              .append(suit.symbol).append("</font>&nbsp;");
+
             sb.append("<font color='white'>");
             boolean first = true;
             for (Card card : hand) {
                 if (card.getSuit() == suit) {
-                    if (!first) sb.append(" ");
-                    sb.append("  "+card.getRank().display);
+                    if (!first) sb.append("&nbsp;");
+                    sb.append(card.getRank().display);
                     first = false;
                 }
-                //to do add to 13 cards
             }
-            sb.append("</font><br/>");
+            sb.append("</font>");
+            if (i < suits.length - 1) {
+                sb.append("<br/>");
+            }
         }
         return sb.toString();
     }

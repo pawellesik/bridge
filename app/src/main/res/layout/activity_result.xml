@@ -45,7 +45,8 @@
                     android:id="@+id/iv_contract_suit"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:layout_marginStart="4dp" />
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="@string/suit_desc" />
             </LinearLayout>
 
             <TextView
@@ -161,7 +162,7 @@
         <!-- North (Dummy) -->
         <LinearLayout
             android:id="@+id/layout_north"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -184,18 +185,21 @@
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
         </LinearLayout>
 
         <!-- West (LHO) -->
         <LinearLayout
             android:id="@+id/layout_west"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_north"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/layout_east">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -211,18 +215,21 @@
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="15sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
         </LinearLayout>
 
         <!-- East (RHO) -->
         <LinearLayout
             android:id="@+id/layout_east"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_north"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_west">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -238,13 +245,15 @@
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="15sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
         </LinearLayout>
 
         <!-- South (You) -->
         <LinearLayout
             android:id="@+id/layout_south"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -267,7 +276,9 @@
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="17sp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
