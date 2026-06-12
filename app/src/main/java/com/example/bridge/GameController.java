@@ -32,7 +32,7 @@ public class GameController {
 
         void onScoreUpdated(int snScore, int weScore);
 
-        void onGameEnded(int snScore, int weScore, String contract);
+        void onGameEnded(int snScore, int weScore, String contract, List<String> history);
 
         void onInitialHandsHtml();
 
@@ -47,6 +47,7 @@ public class GameController {
     private final GameCallback callback;
     private final BiddingManager biddingManager;
     private final DdsSolver ddsSolver;
+    private final List<String> playHistory = new ArrayList<>();
     private String currentContract = "PASS";
     private String trickLeaderName = "West";
     private int snScore = 0;
@@ -91,6 +92,7 @@ public class GameController {
         weScore = 0;
         cardsOnTable.clear();
         currentTrick.clear();
+        playHistory.clear();
         callback.onInitialHandsHtmlClear();
         callback.onTableCleared(new HashMap<>(currentTrick));
     }
@@ -105,6 +107,9 @@ public class GameController {
         player.removeCard(card);
         cardsOnTable.add(card);
         currentTrick.put(player.getName(), card);
+        
+        playHistory.add(player.getName() + ": " + card.getRank().display + card.getSuit().symbol);
+
         callback.onClearLastCards(cardsOnTable);
         callback.onCardPlayed(player, card);
         callback.onHandUpdated(player.getName());
@@ -143,6 +148,8 @@ public class GameController {
     public void claimRest() {
         int remainingTricks = players.get("South").getHand().size();
         snScore += remainingTricks;
+        
+        playHistory.add("NS claimed the remaining " + remainingTricks + " tricks.");
 
         for (Player p : players.values()) {
             p.getHand().clear();
@@ -150,7 +157,7 @@ public class GameController {
         }
 
         callback.onScoreUpdated(snScore, weScore);
-        callback.onGameEnded(snScore, weScore, currentContract);
+        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory));
     }
 
     public boolean isLegalMove(Player player, Card card) {
@@ -182,7 +189,7 @@ public class GameController {
                 clearTable();
 
                 if (players.get("South").getHand().isEmpty()) {
-                    callback.onGameEnded(snScore, weScore, currentContract);
+                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory));
                     return;
                 }
 

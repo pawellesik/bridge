@@ -6,7 +6,12 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.view.Gravity;
+import android.graphics.Color;
+import java.util.List;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +58,10 @@ public class ResultActivity extends AppCompatActivity {
 
         displayContract(tvContract, ivContractSuit, contract);
 
+        // Display play history
+        List<String> history = getIntent().getStringArrayListExtra("history");
+        displayHistory(history);
+
         // Set contract container background
         View contractContainer = findViewById(R.id.game_contract_container);
         if (contractContainer != null && contract != null && !"PASS".equals(contract)) {
@@ -73,6 +82,49 @@ public class ResultActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void displayHistory(List<String> history) {
+        TableLayout table = findViewById(R.id.table_history);
+        if (history == null || table == null) return;
+
+        for (int i = 0; i < history.size(); i += 4) {
+            TableRow row = new TableRow(this);
+            String[] trickData = new String[4]; // N, E, S, W
+
+            for (int j = 0; j < 4 && (i + j) < history.size(); j++) {
+                String entry = history.get(i + j);
+                if (entry.startsWith("NS claimed")) {
+                    TextView claimTv = new TextView(this);
+                    claimTv.setText(entry);
+                    claimTv.setTextColor(Color.YELLOW);
+                    claimTv.setPadding(16, 8, 16, 8);
+                    table.addView(claimTv);
+                    return; // End display after claim
+                }
+                String[] parts = entry.split(": ");
+                if (parts.length == 2) {
+                    String name = parts[0];
+                    String card = parts[1];
+                    int col = -1;
+                    if ("North".equals(name)) col = 0;
+                    else if ("East".equals(name)) col = 1;
+                    else if ("South".equals(name)) col = 2;
+                    else if ("West".equals(name)) col = 3;
+                    if (col != -1) trickData[col] = card;
+                }
+            }
+
+            for (String cardText : trickData) {
+                TextView tv = new TextView(this);
+                tv.setText(cardText != null ? cardText : "-");
+                tv.setTextColor(Color.WHITE);
+                tv.setGravity(Gravity.CENTER);
+                tv.setPadding(4, 12, 4, 12);
+                row.addView(tv);
+            }
+            table.addView(row);
+        }
     }
 
     private void displayHand(int viewId, String handHtml) {
