@@ -97,6 +97,7 @@ public class GameController {
         playHistoryWinTrick.clear();
         callback.onInitialHandsHtmlClear();
         callback.onTableCleared(new HashMap<>(currentTrick));
+        callback.onScoreUpdated(snScore, weScore);
     }
 
     public void playCard(Player player, Card card) {

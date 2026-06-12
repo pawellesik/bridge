@@ -359,10 +359,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         for (int i = 0; i < suits.length; i++) {
             com.example.bridge.model.Suit suit = suits[i];
             String color = suit.isRed ? "red" : "white";
-            sb.append("<font color='").append(color).append("'>")
-              .append(suit.symbol).append("</font>&nbsp;");
+            sb.append("<b><font color='").append(color).append("'>")
+              .append(suit.symbol).append("</font></b>&nbsp;");
 
-            sb.append("<font color='white'>");
+            sb.append("<b><font color='white'>");
             boolean first = true;
             for (Card card : hand) {
                 if (card.getSuit() == suit) {
@@ -371,7 +371,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     first = false;
                 }
             }
-            sb.append("</font>");
+            sb.append("</font></b>");
             if (i < suits.length - 1) {
                 sb.append("<br/>");
             }
