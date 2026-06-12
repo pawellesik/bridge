@@ -55,6 +55,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private ImageView ivContractSuit;
     private View contractContainer;
     private View startBar;
+    private View btnClaim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         ivContractSuit = findViewById(R.id.iv_contract_suit);
         contractContainer = findViewById(R.id.game_contract_container);
         startBar = findViewById(R.id.start_bar);
+        btnClaim = findViewById(R.id.btn_claim);
 
         initGame();
         setupRecyclerView();
@@ -98,6 +100,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             startBar.setVisibility(View.GONE);
             gameController.startGame();
         });
+        btnClaim.setOnClickListener(v -> {
+            btnClaim.setVisibility(View.GONE);
+            gameController.claimRest();
+        });
+    }
+
+    @Override
+    public void onClaimButtonVisibilityChanged(boolean visible) {
+        if (btnClaim != null) {
+            btnClaim.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override

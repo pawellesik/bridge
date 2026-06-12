@@ -35,6 +35,8 @@ public class GameController {
         void onGameEnded(int snScore, int weScore, String contract);
 
         void onInitialHandsHtml();
+
+        void onClaimButtonVisibilityChanged(boolean visible);
     }
 
     private final Map<String, Player> players;
@@ -106,18 +108,55 @@ public class GameController {
         callback.onClearLastCards(cardsOnTable);
         callback.onCardPlayed(player, card);
         callback.onHandUpdated(player.getName());
-
         setNextPlayerCurrentMove(player);
 
     }
 
+    private void checkClaimPossibility(Player player) {
+        Map<Suit, Integer> maxEWRank = new HashMap<>();
+        for (String name : new String[]{"East", "West"}) {
+            Player p = players.get(name);
+            if (p != null) {
+                for (Card c : p.getHand()) {
+                    int rank = c.getRank().ordinal();
+                    if (rank > maxEWRank.getOrDefault(c.getSuit(), -1)) {
+                        maxEWRank.put(c.getSuit(), rank);
+                    }
+                }
+            }
+        }
+
+        callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxEWRank));
+    }
+
+    private boolean hasOnlyWinningCards(Player p, Map<Suit, Integer> maxEWRank) {
+        int totalNSWinners = 0;
+        for (Card c : p.getHand()) {
+            if (c.getRank().ordinal() > maxEWRank.getOrDefault(c.getSuit(), -1)) {
+                totalNSWinners++;
+            }
+        }
+        return totalNSWinners >= p.getHand().size();
+    }
+
+    public void claimRest() {
+        int remainingTricks = players.get("South").getHand().size();
+        snScore += remainingTricks;
+
+        for (Player p : players.values()) {
+            p.getHand().clear();
+            callback.onHandUpdated(p.getName());
+        }
+
+        callback.onScoreUpdated(snScore, weScore);
+        callback.onGameEnded(snScore, weScore, currentContract);
+    }
+
     public boolean isLegalMove(Player player, Card card) {
-        // First card in a trick is always legal
         if (cardsOnTable.isEmpty()) {
             return true;
         }
 
-        // Must follow suit if possible
         Card leadCard = currentTrick.get(trickLeaderName);
         if (leadCard == null) return true;
 
@@ -126,7 +165,6 @@ public class GameController {
             return true;
         }
 
-        // If playing a different suit, must not have any cards of the led suit
         return !player.hasSuit(ledSuit);
     }
 
@@ -139,7 +177,6 @@ public class GameController {
                 weScore++;
             }
             callback.onScoreUpdated(snScore, weScore);
-
             handler.postDelayed(() -> {
                 clearTable();
 
@@ -154,6 +191,9 @@ public class GameController {
 
                 callback.onTurnChanged(nextPlayer.getName());
                 checkOpponentMove(nextPlayer);
+                if (winnerName.equals("North") || winnerName.equals("South")) {
+                    checkClaimPossibility(nextPlayer);
+                }
             }, 700);
         } else {
             Player nextPlayer = getNextPlayer(player);
@@ -198,7 +238,8 @@ public class GameController {
     }
 
     private Suit getTrumpSuit() {
-        if (currentContract == null || currentContract.equals("PASS") || currentContract.endsWith("NT")) return null;
+        if (currentContract == null || currentContract.equals("PASS") || currentContract.endsWith("NT"))
+            return null;
         if (currentContract.contains("S")) return Suit.SPADES;
         if (currentContract.contains("H")) return Suit.HEARTS;
         if (currentContract.contains("D")) return Suit.DIAMONDS;
@@ -267,11 +308,16 @@ public class GameController {
 
     private int mapSuitToDdsIndex(Suit suit) {
         switch (suit) {
-            case SPADES: return 0;
-            case HEARTS: return 1;
-            case DIAMONDS: return 2;
-            case CLUBS: return 3;
-            default: return 0;
+            case SPADES:
+                return 0;
+            case HEARTS:
+                return 1;
+            case DIAMONDS:
+                return 2;
+            case CLUBS:
+                return 3;
+            default:
+                return 0;
         }
     }
 
@@ -286,11 +332,16 @@ public class GameController {
 
     private int getPlayerDdsIndex(String name) {
         switch (name) {
-            case "North": return 0;
-            case "East": return 1;
-            case "South": return 2;
-            case "West": return 3;
-            default: return 0;
+            case "North":
+                return 0;
+            case "East":
+                return 1;
+            case "South":
+                return 2;
+            case "West":
+                return 3;
+            default:
+                return 0;
         }
     }
 
