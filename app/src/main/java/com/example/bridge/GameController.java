@@ -108,7 +108,7 @@ public class GameController {
         cardsOnTable.add(card);
         currentTrick.put(player.getName(), card);
         
-        playHistory.add(player.getName() + ": " + card.getRank().display + card.getSuit().symbol);
+        playHistory.add(player.getName() + ": " + card.getRank().display+" " + card.getSuit().symbol);
 
         callback.onClearLastCards(cardsOnTable);
         callback.onCardPlayed(player, card);
