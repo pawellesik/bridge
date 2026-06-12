@@ -411,7 +411,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void clearLastCards() {
         TextView[] lastCardTVs = {tvLastNorth, tvLastSouth, tvLastEast, tvLastWest};
         for (TextView tv : lastCardTVs) {
-            if (tv != null) tv.setText("");
+            if (tv != null) {
+                tv.setText("");
+                tv.setBackground(null);
+            }
         }
     }
 
@@ -419,6 +422,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (card != null) {
             tv.setText(" "+card.getRank().display + " " + card.getSuit().symbol);
             tv.setTextColor(Color.parseColor("#000000"));
+            tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
         }
     }
 
