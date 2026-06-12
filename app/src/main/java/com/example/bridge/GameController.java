@@ -136,7 +136,8 @@ public class GameController {
                 totalNSWinners++;
             }
         }
-        return totalNSWinners >= p.getHand().size();
+        //return totalNSWinners >= p.getHand().size();//todo
+        return true;
     }
 
     public void claimRest() {
