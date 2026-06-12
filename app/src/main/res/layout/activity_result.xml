@@ -37,7 +37,7 @@
                     android:id="@+id/game_contract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -181,9 +181,9 @@
                 android:id="@+id/tv_north_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_frame"
+                android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -208,9 +208,9 @@
                 android:id="@+id/tv_west_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_frame"
+                android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -235,9 +235,9 @@
                 android:id="@+id/tv_east_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_frame"
+                android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -264,21 +264,20 @@
                 android:id="@+id/tv_south_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_frame"
+                android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- History -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/tx_history"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:background="@drawable/green_frame"
+        android:background="#C8E6C9"
         app:layout_constraintTop_toBottomOf="@id/layout_hands"
         app:layout_constraintBottom_toTopOf="@id/btn_back"
         app:layout_constraintStart_toStartOf="parent"
@@ -292,11 +291,11 @@
             android:stretchColumns="0,1,2,3">
 
             <!-- Header Row -->
-            <TableRow android:background="#2E7D32">
-                <TextView android:text="North" android:textColor="@color/white" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
-                <TextView android:text="East" android:textColor="@color/white" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
-                <TextView android:text="South" android:textColor="@color/white" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
-                <TextView android:text="West" android:textColor="@color/white" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+            <TableRow android:background="#A5D6A7">
+                <TextView android:text="West" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+                <TextView android:text="North" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+                <TextView android:text="East" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+                <TextView android:text="South" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
             </TableRow>
 
         </TableLayout>

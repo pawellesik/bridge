@@ -80,6 +80,14 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("action", "DEAL_AGAIN");
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
+    }
+
     private void setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -107,7 +115,7 @@ public class ResultActivity extends AppCompatActivity {
                 if (entry.startsWith("NS claimed")) {
                     TextView claimTv = new TextView(this);
                     claimTv.setText(entry);
-                    claimTv.setTextColor(Color.YELLOW);
+                    claimTv.setTextColor(Color.RED);
                     claimTv.setPadding(16, 8, 16, 8);
                     table.addView(claimTv);
                     return; 
@@ -127,11 +135,11 @@ public class ResultActivity extends AppCompatActivity {
             for (int c = 0; c < 4; c++) {
                 TextView tv = new TextView(this);
                 tv.setText(trickData[c] != null ? trickData[c] : "-");
-                tv.setTextColor(Color.WHITE);
+                tv.setTextColor(Color.BLACK);
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(8, 16, 8, 16); // Slightly more padding
                 if (c == winnerCol) {
-                    tv.setBackgroundResource(R.drawable.white_frame);
+                    tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
                     tv.setTypeface(null, android.graphics.Typeface.BOLD);
                 }
                 row.addView(tv);
@@ -141,10 +149,10 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private int getPlayerColumn(String name) {
-        if ("North".equals(name)) return 0;
-        if ("East".equals(name)) return 1;
-        if ("South".equals(name)) return 2;
-        if ("West".equals(name)) return 3;
+        if ("West".equals(name)) return 0;
+        if ("North".equals(name)) return 1;
+        if ("East".equals(name)) return 2;
+        if ("South".equals(name)) return 3;
         return -1;
     }
 

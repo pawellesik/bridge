@@ -149,7 +149,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         final int finalCareerScore = careerScore;
         findViewById(R.id.main).postDelayed(() -> {
-            Intent intent = new Intent(this, ResultActivity.class);
+            Intent intent = new Intent(GameActivity.this, ResultActivity.class);
             for (Map.Entry<String, String> entry : initialHandsHtml.entrySet()) {
                 intent.putExtra(entry.getKey(), entry.getValue());
             }
@@ -173,12 +173,21 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_RESULT && resultCode == RESULT_OK) {
-            if ("DEAL_AGAIN".equals(data.getStringExtra("action"))) {
-                if (startBar != null) startBar.setVisibility(View.VISIBLE);
-                gameController.dealCards();
+        if (requestCode == REQUEST_RESULT) {
+            // Check for DEAL_AGAIN action or if the result was cancelled (system back button)
+            if (resultCode == RESULT_OK && data != null && "DEAL_AGAIN".equals(data.getStringExtra("action"))) {
+                dealNewCards();
+            } else {
+                // If they just pressed back, we still might want a new deal 
+                // since the game ended.
+                dealNewCards();
             }
         }
+    }
+
+    private void dealNewCards() {
+        if (startBar != null) startBar.setVisibility(View.VISIBLE);
+        gameController.dealCards();
     }
     private void loadAndRestoreScores() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -218,7 +227,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     public void onContractDetermined(String contract) {
         if (contractContainer != null)
-            contractContainer.setBackgroundResource(R.drawable.white_frame);
+            contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
 
         String[] parts = contract.split(" ");
         if (parts.length < 2) {
