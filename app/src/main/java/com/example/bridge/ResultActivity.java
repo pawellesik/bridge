@@ -11,6 +11,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.view.Gravity;
 import android.graphics.Color;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.activity.EdgeToEdge;
@@ -60,7 +62,9 @@ public class ResultActivity extends AppCompatActivity {
 
         // Display play history
         List<String> history = getIntent().getStringArrayListExtra("history");
-        displayHistory(history);
+        List<String> historyWinTrick = getIntent().getStringArrayListExtra("historyWinTrick");
+
+        displayHistory(history, historyWinTrick);
 
         // Set contract container background
         View contractContainer = findViewById(R.id.game_contract_container);
@@ -84,19 +88,19 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
-    private void displayHistory(List<String> history) {
+    private void displayHistory(List<String> history, List<String> historyWinTrick) {
         TableLayout table = findViewById(R.id.table_history);
         if (history == null || table == null) return;
-
-        String contract = getIntent().getStringExtra("contract");
-        String trumpSymbol = getTrumpSymbol(contract);
 
         for (int i = 0; i < history.size(); i += 4) {
             TableRow row = new TableRow(this);
             String[] trickData = new String[4]; // N, E, S, W
+            int trickIndex = i / 4;
             int winnerCol = -1;
-            int bestValue = -1;
-            String leadSymbol = null;
+
+            if (historyWinTrick != null && trickIndex < historyWinTrick.size()) {
+                winnerCol = getPlayerColumn(historyWinTrick.get(trickIndex));
+            }
 
             for (int j = 0; j < 4 && (i + j) < history.size(); j++) {
                 String entry = history.get(i + j);
@@ -116,21 +120,6 @@ public class ResultActivity extends AppCompatActivity {
                     int col = getPlayerColumn(name);
                     if (col != -1) {
                         trickData[col] = cardStr;
-                        
-                        // Scoring logic to find winner
-                        String rankChar = cardStr.substring(0, cardStr.length() - 1);
-                        String symbol = cardStr.substring(cardStr.length() - 1);
-                        
-                        if (leadSymbol == null) leadSymbol = symbol;
-                        
-                        int val = getRankValue(rankChar);
-                        if (symbol.equals(trumpSymbol)) val += 200;
-                        else if (symbol.equals(leadSymbol)) val += 100;
-                        
-                        if (val > bestValue) {
-                            bestValue = val;
-                            winnerCol = col;
-                        }
                     }
                 }
             }
@@ -151,28 +140,11 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
-    private String getTrumpSymbol(String contract) {
-        if (contract == null || contract.contains("NT") || contract.equals("PASS")) return null;
-        if (contract.contains("Spades")) return "♠";
-        if (contract.contains("Hearts")) return "♥";
-        if (contract.contains("Diamonds")) return "♦";
-        if (contract.contains("Clubs")) return "♣";
-        return null;
-    }
-
     private int getPlayerColumn(String name) {
         if ("North".equals(name)) return 0;
         if ("East".equals(name)) return 1;
         if ("South".equals(name)) return 2;
         if ("West".equals(name)) return 3;
-        return -1;
-    }
-
-    private int getRankValue(String rank) {
-        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-        for (int i = 0; i < ranks.length; i++) {
-            if (ranks[i].equals(rank)) return i;
-        }
         return -1;
     }
 

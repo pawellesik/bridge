@@ -120,7 +120,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onGameEnded(int snScore, int weScore, String contract, List<String> history) {
+    public void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick) {
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
@@ -158,6 +158,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             intent.putExtra("contract", contract);
             intent.putExtra("careerScore", finalCareerScore);
             intent.putStringArrayListExtra("history", new ArrayList<>(history));
+            intent.putStringArrayListExtra("historyWinTrick", new ArrayList<>(historyWinTrick));
 
             // Pass last trick cards
             intent.putExtra("last_n", tvLastNorth.getText().toString());

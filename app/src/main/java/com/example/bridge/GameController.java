@@ -32,7 +32,7 @@ public class GameController {
 
         void onScoreUpdated(int snScore, int weScore);
 
-        void onGameEnded(int snScore, int weScore, String contract, List<String> history);
+        void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick);
 
         void onInitialHandsHtml();
 
@@ -48,6 +48,7 @@ public class GameController {
     private final BiddingManager biddingManager;
     private final DdsSolver ddsSolver;
     private final List<String> playHistory = new ArrayList<>();
+    private final List<String> playHistoryWinTrick = new ArrayList<>();
     private String currentContract = "PASS";
     private String trickLeaderName = "West";
     private int snScore = 0;
@@ -93,6 +94,7 @@ public class GameController {
         cardsOnTable.clear();
         currentTrick.clear();
         playHistory.clear();
+        playHistoryWinTrick.clear();
         callback.onInitialHandsHtmlClear();
         callback.onTableCleared(new HashMap<>(currentTrick));
     }
@@ -157,7 +159,7 @@ public class GameController {
         }
 
         callback.onScoreUpdated(snScore, weScore);
-        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory));
+        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick));
     }
 
     public boolean isLegalMove(Player player, Card card) {
@@ -179,6 +181,8 @@ public class GameController {
     private void setNextPlayerCurrentMove(Player player) {
         if (cardsOnTable.size() == 4) {
             String winnerName = determineTrickWinner();
+            playHistoryWinTrick.add(winnerName);
+
             if (winnerName.equals("North") || winnerName.equals("South")) {
                 snScore++;
             } else {
@@ -189,7 +193,7 @@ public class GameController {
                 clearTable();
 
                 if (players.get("South").getHand().isEmpty()) {
-                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory));
+                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick));
                     return;
                 }
 
