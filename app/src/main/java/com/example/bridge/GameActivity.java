@@ -337,10 +337,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
     @Override
     public void onInitialHandsHtml(){
+        // Capture hands AFTER swapping/sorting is complete
+        initialHandsHtml.clear();
         for (Player player : players.values()) {
-            if (!initialHandsHtml.containsKey(player.getName())) {
-                initialHandsHtml.put(player.getName(), formatHandToHtml(player.getHand()));
-            }
+            initialHandsHtml.put(player.getName(), formatHandToHtml(player.getHand()));
         }
     }
     @Override

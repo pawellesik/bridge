@@ -180,14 +180,15 @@
 
             <TextView
                 android:id="@+id/tv_north_cards"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:minHeight="84dp"
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="17sp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp" />
+                android:textSize="14sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
         </LinearLayout>
 
         <!-- West (LHO) -->
@@ -210,12 +211,13 @@
 
             <TextView
                 android:id="@+id/tv_west_cards"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:minHeight="84dp"
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp" />
         </LinearLayout>
@@ -240,12 +242,13 @@
 
             <TextView
                 android:id="@+id/tv_east_cards"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:minHeight="84dp"
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp" />
         </LinearLayout>
@@ -271,14 +274,15 @@
 
             <TextView
                 android:id="@+id/tv_south_cards"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:minHeight="84dp"
                 android:background="@drawable/white_frame_in_bright_green"
                 android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
-                android:textSize="17sp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp" />
+                android:textSize="14sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
