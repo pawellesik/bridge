@@ -88,9 +88,15 @@ public class ResultActivity extends AppCompatActivity {
         TableLayout table = findViewById(R.id.table_history);
         if (history == null || table == null) return;
 
+        String contract = getIntent().getStringExtra("contract");
+        String trumpSymbol = getTrumpSymbol(contract);
+
         for (int i = 0; i < history.size(); i += 4) {
             TableRow row = new TableRow(this);
             String[] trickData = new String[4]; // N, E, S, W
+            int winnerCol = -1;
+            int bestValue = -1;
+            String leadSymbol = null;
 
             for (int j = 0; j < 4 && (i + j) < history.size(); j++) {
                 String entry = history.get(i + j);
@@ -100,31 +106,74 @@ public class ResultActivity extends AppCompatActivity {
                     claimTv.setTextColor(Color.YELLOW);
                     claimTv.setPadding(16, 8, 16, 8);
                     table.addView(claimTv);
-                    return; // End display after claim
+                    return; 
                 }
+                
                 String[] parts = entry.split(": ");
                 if (parts.length == 2) {
                     String name = parts[0];
-                    String card = parts[1];
-                    int col = -1;
-                    if ("North".equals(name)) col = 0;
-                    else if ("East".equals(name)) col = 1;
-                    else if ("South".equals(name)) col = 2;
-                    else if ("West".equals(name)) col = 3;
-                    if (col != -1) trickData[col] = card;
+                    String cardStr = parts[1];
+                    int col = getPlayerColumn(name);
+                    if (col != -1) {
+                        trickData[col] = cardStr;
+                        
+                        // Scoring logic to find winner
+                        String rankChar = cardStr.substring(0, cardStr.length() - 1);
+                        String symbol = cardStr.substring(cardStr.length() - 1);
+                        
+                        if (leadSymbol == null) leadSymbol = symbol;
+                        
+                        int val = getRankValue(rankChar);
+                        if (symbol.equals(trumpSymbol)) val += 200;
+                        else if (symbol.equals(leadSymbol)) val += 100;
+                        
+                        if (val > bestValue) {
+                            bestValue = val;
+                            winnerCol = col;
+                        }
+                    }
                 }
             }
 
-            for (String cardText : trickData) {
+            for (int c = 0; c < 4; c++) {
                 TextView tv = new TextView(this);
-                tv.setText(cardText != null ? cardText : "-");
+                tv.setText(trickData[c] != null ? trickData[c] : "-");
                 tv.setTextColor(Color.WHITE);
                 tv.setGravity(Gravity.CENTER);
-                tv.setPadding(4, 12, 4, 12);
+                tv.setPadding(8, 16, 8, 16); // Slightly more padding
+                if (c == winnerCol) {
+                    tv.setBackgroundResource(R.drawable.white_frame);
+                    tv.setTypeface(null, android.graphics.Typeface.BOLD);
+                }
                 row.addView(tv);
             }
             table.addView(row);
         }
+    }
+
+    private String getTrumpSymbol(String contract) {
+        if (contract == null || contract.contains("NT") || contract.equals("PASS")) return null;
+        if (contract.contains("Spades")) return "♠";
+        if (contract.contains("Hearts")) return "♥";
+        if (contract.contains("Diamonds")) return "♦";
+        if (contract.contains("Clubs")) return "♣";
+        return null;
+    }
+
+    private int getPlayerColumn(String name) {
+        if ("North".equals(name)) return 0;
+        if ("East".equals(name)) return 1;
+        if ("South".equals(name)) return 2;
+        if ("West".equals(name)) return 3;
+        return -1;
+    }
+
+    private int getRankValue(String rank) {
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        for (int i = 0; i < ranks.length; i++) {
+            if (ranks[i].equals(rank)) return i;
+        }
+        return -1;
     }
 
     private void displayHand(int viewId, String handHtml) {
