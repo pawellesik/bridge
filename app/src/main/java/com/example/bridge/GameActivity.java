@@ -471,12 +471,18 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void addCardsWithSpacersSouth(List<Card> rowCards) {
+        if (rowCards.isEmpty()) {
+            for (int i = 0; i < 7; i++) displayHandSouth.add(GHOST_CARD);
+            return;
+        }
         int cardSpans = rowCards.size() * 2;
         int totalPadding = 14 - cardSpans;
         int leftPadding = totalPadding / 2;
+        int rightPadding = totalPadding - leftPadding;
 
         for (int i = 0; i < leftPadding; i++) displayHandSouth.add(null);
         displayHandSouth.addAll(rowCards);
+        for (int i = 0; i < rightPadding; i++) displayHandSouth.add(null);
     }
 
     private void addCardsWithSpacersNorth(List<Card> displayList, List<Card> rowCards) {

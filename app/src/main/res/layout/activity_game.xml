@@ -29,10 +29,11 @@
             <LinearLayout
                 android:id="@+id/game_contract_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="2dp">
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
 
                 <TextView
                     android:id="@+id/game_contract"
@@ -52,10 +53,12 @@
             <TextView
                 android:id="@+id/we_score"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="24dp"
                 android:layout_marginTop="2dp"
                 android:background="#1B5E20"
-                android:padding="2dp"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:text="WE: 0"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -65,10 +68,12 @@
             <TextView
                 android:id="@+id/sn_score"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="24dp"
                 android:layout_marginTop="2dp"
                 android:background="#1B5E20"
-                android:padding="2dp"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:text="SN: 0"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -151,10 +156,13 @@
     <TextView
         android:id="@+id/name_north"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
         android:text="North"
         android:textColor="@android:color/white"
         android:textSize="14sp"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:layout_constraintTop_toBottomOf="@id/top_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -234,10 +242,13 @@
         <TextView
             android:id="@+id/name_west"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:text="West"
             android:textColor="@android:color/white"
             android:textSize="14sp"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:layout_marginBottom="4dp"/>
     </LinearLayout>
 
@@ -254,10 +265,13 @@
         <TextView
             android:id="@+id/name_east"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:text="East"
             android:textColor="@android:color/white"
             android:textSize="14sp"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:layout_marginBottom="4dp"/>
     </LinearLayout>
 
@@ -265,10 +279,13 @@
     <TextView
         android:id="@+id/name_south"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
         android:text="South"
         android:textColor="@android:color/white"
         android:textSize="14sp"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:layout_constraintBottom_toTopOf="@id/rv_hand_south"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
