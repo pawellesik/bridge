@@ -40,7 +40,8 @@ public class ResultActivity extends AppCompatActivity {
         ImageView ivContractSuit = findViewById(R.id.iv_contract_suit);
         TextView tvWeScore = findViewById(R.id.we_score);
         TextView tvSnScore = findViewById(R.id.sn_score);
-        TextView tvTotalScore = findViewById(R.id.tv_total_score);
+        TextView tvMiddle2 = findViewById(R.id.tv_middle_2);
+        TextView tvMiddle3 = findViewById(R.id.tv_middle_3);
 
         String contract = getIntent().getStringExtra("contract");
         String careerScore = getIntent().getStringExtra("careerScore");
@@ -49,7 +50,7 @@ public class ResultActivity extends AppCompatActivity {
 
         tvSnScore.setText("SN: " + snScore);
         tvWeScore.setText("WE: " + weScore);
-        tvTotalScore.setText("SCORE: "+ careerScore);
+        tvMiddle2.setText("SCORE: "+ careerScore);
 
         // Display last trick cards
         ((TextView) findViewById(R.id.n_last_card)).setText(getIntent().getStringExtra("last_n"));

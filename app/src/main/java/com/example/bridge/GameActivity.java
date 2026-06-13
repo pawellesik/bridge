@@ -48,7 +48,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerEast;
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
-    private TextView tvScoreSN, tvScoreWE, tvTotalScore;
+    private TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
     private final Map<String, String> initialHandsHtml = new LinkedHashMap<>();
     private TextView nameNorth, nameSouth, nameEast, nameWest;
     private TextView tvContract;
@@ -82,7 +82,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         tvScoreSN = findViewById(R.id.sn_score);
         tvScoreWE = findViewById(R.id.we_score);
-        tvTotalScore = findViewById(R.id.tv_total_score);
+
+        tvMiddle1 = findViewById(R.id.tv_middle_1);
+        tvMiddle2 = findViewById(R.id.tv_middle_2);
+        tvMiddle3 = findViewById(R.id.tv_middle_3);
 
         tvContract = findViewById(R.id.game_contract);
         ivContractSuit = findViewById(R.id.iv_contract_suit);
@@ -93,13 +96,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGame();
         setupRecyclerView();
         gameController.dealCards();
+
         findViewById(R.id.btn_deal).setOnClickListener(v -> {
             startBar.setVisibility(View.VISIBLE);
             setPrefChangeTotalScore(-10);
             setTotalScore(getPrefTotalScore());
             gameController.dealCards();
         });
-
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             startBar.setVisibility(View.GONE);
             gameController.startGame();
@@ -125,12 +128,22 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return careerScore;
     }
 
-    private void setTotalScore(String totalScore) {
-        tvTotalScore.setText("SCORE: " + totalScore);
+    private void setTotalScore(int totalScore, int changeScore) {
+        tvMiddle1.setText("SCORE:");
+        tvMiddle2.setText(String.valueOf(totalScore));
+        if (changeScore > 0){
+            tvMiddle3.setText("(+"+ changeScore +")");
+            tvMiddle3.setTextColor(Color.parseColor("#C8E6C9"));
+        } else {
+            tvMiddle3.setText("("+ changeScore +")");
+            tvMiddle3.setTextColor(0xFFFF0000);
+        }
     }
 
     private void setTotalScore(int totalScore) {
-        setTotalScore(String.valueOf(totalScore));
+        tvMiddle1.setText("SCORE:");
+        tvMiddle2.setText(String.valueOf(totalScore));
+        tvMiddle3.setText("");
     }
 
     @Override
@@ -157,17 +170,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         int requiredTricks = level + 6;
         int handScore;
-        String totalScore;
 
         if (snScore >= requiredTricks) {
             handScore = level + (snScore - requiredTricks);
-            totalScore = getPrefTotalScore() + " +" + String.valueOf(handScore);
         } else {
             handScore = -level + (snScore - requiredTricks);
-            totalScore = getPrefTotalScore() + String.valueOf(handScore);
         }
         setPrefChangeTotalScore(handScore);
-        setTotalScore(totalScore);
+        setTotalScore(getPrefTotalScore(), handScore);
 
         findViewById(R.id.main).postDelayed(() -> {
             Intent intent = new Intent(GameActivity.this, ResultActivity.class);
@@ -177,7 +187,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             intent.putExtra("snScore", snScore);
             intent.putExtra("weScore", weScore);
             intent.putExtra("contract", contract);
-            intent.putExtra("careerScore", totalScore);
+            intent.putExtra("careerScore", "");
             intent.putStringArrayListExtra("history", new ArrayList<>(history));
             intent.putStringArrayListExtra("historyWinTrick", new ArrayList<>(historyWinTrick));
 
@@ -195,7 +205,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_RESULT) {
-            setTotalScore(getPrefTotalScore());
             dealNewCards();
         }
     }
@@ -296,9 +305,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.put("East", new Player("East", playedCardContainerEast));
         players.put("South", new Player("South", playedCardContainerSouth));
         players.put("West", new Player("West", playedCardContainerWest));
-
         gameController = new GameController(players, this);
-        tvTotalScore.setText("SCORE: " + getPrefTotalScore());
+
+        setTotalScore(getPrefTotalScore());
     }
 
     private void setupRecyclerView() {
