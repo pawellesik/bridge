@@ -305,7 +305,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         RecyclerView rvNorth = findViewById(R.id.rv_hand_north);
 
         rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
-        southAdapter = new CardAdapter(displayHandSouth, players.get("South"));
+        southAdapter = new CardAdapter(displayHandSouth);
         southAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
             Player south = players.get("South");
@@ -320,7 +320,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         rvSouth.setAdapter(southAdapter);
 
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
-        northAdapter = new CardAdapter(displayHandNorth, players.get("North"));
+        northAdapter = new CardAdapter(displayHandNorth);
         northAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
             Player north = players.get("North");
