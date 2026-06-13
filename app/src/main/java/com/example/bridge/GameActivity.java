@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View contractContainer;
     private View startBar;
     private View btnClaim;
+    private boolean isProcessingMove = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,14 +94,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         setupRecyclerView();
         gameController.dealCards();
         findViewById(R.id.btn_deal).setOnClickListener(v -> {
+            if (isProcessingMove) return;
+            isProcessingMove = true;
             if (startBar != null) startBar.setVisibility(View.VISIBLE);
             gameController.dealCards();
         });
         findViewById(R.id.btn_start).setOnClickListener(v -> {
+            if (isProcessingMove) return;
+            isProcessingMove = true;
             startBar.setVisibility(View.GONE);
             gameController.startGame();
         });
         btnClaim.setOnClickListener(v -> {
+            if (isProcessingMove) return;
+            isProcessingMove = true;
             btnClaim.setVisibility(View.GONE);
             gameController.claimRest();
         });
@@ -207,6 +214,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         if (playerName == null) return;
 
+        // Unlock interaction ONLY if it's a human player's turn
+        if ("North".equals(playerName) || "South".equals(playerName)) {
+            isProcessingMove = false;
+        }
+
         // Apply white_frame (which has the white border) to current player's name
         switch (playerName) {
             case "North":
@@ -226,6 +238,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onContractDetermined(String contract) {
+        isProcessingMove = false; // Allow Start button to be clicked
         if (contractContainer != null)
             contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
 
@@ -294,8 +307,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         rvSouth.setLayoutManager(createLayoutManager(displayHandSouth));
         southAdapter = new CardAdapter(displayHandSouth, players.get("South"));
         southAdapter.setOnCardClickListener(card -> {
+            if (isProcessingMove) return;
+            onClaimButtonVisibilityChanged(false);
             Player south = players.get("South");
             if (south.isCurrentMove() && gameController.isLegalMove(south, card)) {
+                isProcessingMove = true;
                 gameController.playCard(south, card);
             } else {
                 southAdapter.clearSelection();
@@ -306,8 +322,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
         northAdapter = new CardAdapter(displayHandNorth, players.get("North"));
         northAdapter.setOnCardClickListener(card -> {
+            if (isProcessingMove) return;
+            onClaimButtonVisibilityChanged(false);
             Player north = players.get("North");
             if (north.isCurrentMove() && gameController.isLegalMove(north, card)) {
+                isProcessingMove = true;
                 gameController.playCard(north, card);
             } else {
                 northAdapter.clearSelection();

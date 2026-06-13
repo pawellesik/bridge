@@ -98,6 +98,7 @@ public class GameController {
         callback.onInitialHandsHtmlClear();
         callback.onTableCleared(new HashMap<>(currentTrick));
         callback.onScoreUpdated(snScore, weScore);
+        callback.onClaimButtonVisibilityChanged(false);
     }
 
     public void playCard(Player player, Card card) {
@@ -106,12 +107,12 @@ public class GameController {
         }
 
         player.setCurrentMove(false);
-        callback.onTurnChanged(null); // Clear highlight while processing
+        callback.onTurnChanged(null);
         player.removeCard(card);
         cardsOnTable.add(card);
         currentTrick.put(player.getName(), card);
-        
-        playHistory.add(player.getName() + ": " + card.getRank().display+" " + card.getSuit().symbol);
+
+        playHistory.add(player.getName() + ": " + card.getRank().display + " " + card.getSuit().symbol);
 
         callback.onClearLastCards(cardsOnTable);
         callback.onCardPlayed(player, card);
@@ -121,20 +122,20 @@ public class GameController {
     }
 
     private void checkClaimPossibility(Player player) {
-        Map<Suit, Integer> maxEWRank = new HashMap<>();
-        for (String name : new String[]{"East", "West"}) {
-            Player p = players.get(name);
-            if (p != null) {
-                for (Card c : p.getHand()) {
+        Map<Suit, Integer> maxOthersRank = new HashMap<>();
+
+        for (String p : players.keySet()) {
+            if (!p.equals(player.getName())) {
+                for (Card c : players.get(p).getHand()) {
                     int rank = c.getRank().ordinal();
-                    if (rank > maxEWRank.getOrDefault(c.getSuit(), -1)) {
-                        maxEWRank.put(c.getSuit(), rank);
+                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                        maxOthersRank.put(c.getSuit(), rank);
                     }
                 }
             }
         }
 
-        callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxEWRank));
+        callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxOthersRank));
     }
 
     private boolean hasOnlyWinningCards(Player p, Map<Suit, Integer> maxEWRank) {
@@ -144,14 +145,14 @@ public class GameController {
                 totalNSWinners++;
             }
         }
-        return totalNSWinners >= p.getHand().size();//todo to test
-        //return true;
+        //return totalNSWinners >= p.getHand().size();//todo to test
+        return true;
     }
 
     public void claimRest() {
         int remainingTricks = players.get("South").getHand().size();
         snScore += remainingTricks;
-        
+
         playHistory.add("NS claimed the remaining " + remainingTricks + " tricks.");
 
         for (Player p : players.values()) {
