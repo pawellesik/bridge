@@ -51,7 +51,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.itemView.setVisibility(View.INVISIBLE);
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
-            holder.bind(card, player,position == selectedPos);
+            holder.bind(card, position == selectedPos);
             holder.itemView.setOnClickListener(v -> {
                 int prev = selectedPos;
                 selectedPos = holder.getAdapterPosition();
@@ -86,15 +86,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             cardView = itemView.findViewById(R.id.card_view);
         }
 
-        void bind(Card card, Player player, boolean isSelected) {
-            //if (player.isCurrentMove()){
-                tvRank.setText(card.getRank().display);
-                ivSmall.setImageResource(card.getSuit().resId);
-                ivLarge.setImageResource(card.getSuit().resId);
-                tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
-                cardView.setCardBackgroundColor(isSelected && player.isCurrentMove() ? Color.YELLOW : Color.WHITE);
-            //}
-
+        void bind(Card card, boolean isSelected) {
+            tvRank.setText(card.getRank().display);
+            ivSmall.setImageResource(card.getSuit().resId);
+            ivLarge.setImageResource(card.getSuit().resId);
+            tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
+            cardView.setCardBackgroundColor(isSelected ? Color.YELLOW : Color.WHITE);
         }
     }
 }
