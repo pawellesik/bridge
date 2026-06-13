@@ -78,7 +78,7 @@
 
         <!-- Middle Info -->
         <TextView
-            android:id="@+id/tv_total_tricks"
+            android:id="@+id/tv_total_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="score: 0"

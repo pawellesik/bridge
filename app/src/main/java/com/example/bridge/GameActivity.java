@@ -32,7 +32,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public static final Card GHOST_CARD = new Card(null, null);
     private static final String PREFS_NAME = "BridgePrefs";
     private static final String KEY_CAREER_SCORE = "careerScore";
-    private static final int REQUEST_RESULT =1;
+    private static final int REQUEST_RESULT = 1;
 
     private Map<String, Player> players;
     private GameController gameController;
@@ -48,7 +48,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerEast;
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
-    private TextView tvScoreSN, tvScoreWE, tvTotalTricks;
+    private TextView tvScoreSN, tvScoreWE, tvTotalScore;
     private final Map<String, String> initialHandsHtml = new LinkedHashMap<>();
     private TextView nameNorth, nameSouth, nameEast, nameWest;
     private TextView tvContract;
@@ -82,7 +82,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         tvScoreSN = findViewById(R.id.sn_score);
         tvScoreWE = findViewById(R.id.we_score);
-        tvTotalTricks = findViewById(R.id.tv_total_tricks);
+        tvTotalScore = findViewById(R.id.tv_total_score);
 
         tvContract = findViewById(R.id.game_contract);
         ivContractSuit = findViewById(R.id.iv_contract_suit);
@@ -94,14 +94,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         setupRecyclerView();
         gameController.dealCards();
         findViewById(R.id.btn_deal).setOnClickListener(v -> {
-            if (isProcessingMove) return;
-            isProcessingMove = true;
-            if (startBar != null) startBar.setVisibility(View.VISIBLE);
+            startBar.setVisibility(View.VISIBLE);
+            setPrefChangeTotalScore(-10);
+            setTotalScore(getPrefTotalScore());
             gameController.dealCards();
         });
+
         findViewById(R.id.btn_start).setOnClickListener(v -> {
-            if (isProcessingMove) return;
-            isProcessingMove = true;
             startBar.setVisibility(View.GONE);
             gameController.startGame();
         });
@@ -111,6 +110,27 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             btnClaim.setVisibility(View.GONE);
             gameController.claimRest();
         });
+    }
+
+    private void setPrefChangeTotalScore(int changeScore) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int careerScore = getPrefTotalScore();
+        careerScore += changeScore;
+        prefs.edit().putInt(KEY_CAREER_SCORE, careerScore).apply();
+    }
+
+    private int getPrefTotalScore() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
+        return careerScore;
+    }
+
+    private void setTotalScore(String totalScore) {
+        tvTotalScore.setText("SCORE: " + totalScore);
+    }
+
+    private void setTotalScore(int totalScore) {
+        setTotalScore(String.valueOf(totalScore));
     }
 
     @Override
@@ -137,24 +157,18 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         int requiredTricks = level + 6;
         int handScore;
+        String totalScore;
 
         if (snScore >= requiredTricks) {
             handScore = level + (snScore - requiredTricks);
+            totalScore = getPrefTotalScore() + " +" + String.valueOf(handScore);
         } else {
             handScore = -level + (snScore - requiredTricks);
+            totalScore = getPrefTotalScore() + String.valueOf(handScore);
         }
+        setPrefChangeTotalScore(handScore);
+        setTotalScore(totalScore);
 
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
-        careerScore += handScore;
-
-        prefs.edit().putInt(KEY_CAREER_SCORE, careerScore).apply();
-
-        if (tvTotalTricks != null) {
-            tvTotalTricks.setText("score: " + careerScore);
-        }
-
-        final int finalCareerScore = careerScore;
         findViewById(R.id.main).postDelayed(() -> {
             Intent intent = new Intent(GameActivity.this, ResultActivity.class);
             for (Map.Entry<String, String> entry : initialHandsHtml.entrySet()) {
@@ -163,7 +177,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             intent.putExtra("snScore", snScore);
             intent.putExtra("weScore", weScore);
             intent.putExtra("contract", contract);
-            intent.putExtra("careerScore", finalCareerScore);
+            intent.putExtra("careerScore", totalScore);
             intent.putStringArrayListExtra("history", new ArrayList<>(history));
             intent.putStringArrayListExtra("historyWinTrick", new ArrayList<>(historyWinTrick));
 
@@ -181,27 +195,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_RESULT) {
-            // Check for DEAL_AGAIN action or if the result was cancelled (system back button)
-            if (resultCode == RESULT_OK && data != null && "DEAL_AGAIN".equals(data.getStringExtra("action"))) {
-                dealNewCards();
-            } else {
-                // If they just pressed back, we still might want a new deal 
-                // since the game ended.
-                dealNewCards();
-            }
+            setTotalScore(getPrefTotalScore());
+            dealNewCards();
         }
     }
 
     private void dealNewCards() {
         if (startBar != null) startBar.setVisibility(View.VISIBLE);
         gameController.dealCards();
-    }
-    private void loadAndRestoreScores() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
-        if (tvTotalTricks != null) {
-            tvTotalTricks.setText("score: " + careerScore);
-        }
     }
 
     @Override
@@ -297,7 +298,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.put("West", new Player("West", playedCardContainerWest));
 
         gameController = new GameController(players, this);
-        loadAndRestoreScores();
+        tvTotalScore.setText("SCORE: " + getPrefTotalScore());
     }
 
     private void setupRecyclerView() {
@@ -354,32 +355,35 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             updateDisplayHandSouth();
         }
     }
+
     @Override
-    public void onInitialHandsHtml(){
+    public void onInitialHandsHtml() {
         // Capture hands AFTER swapping/sorting is complete
         initialHandsHtml.clear();
         for (Player player : players.values()) {
             initialHandsHtml.put(player.getName(), formatHandToHtml(player.getHand()));
         }
     }
+
     @Override
-    public void onInitialHandsHtmlClear(){
+    public void onInitialHandsHtmlClear() {
         initialHandsHtml.clear();
     }
+
     private String formatHandToHtml(List<Card> hand) {
         StringBuilder sb = new StringBuilder();
         com.example.bridge.model.Suit[] suits = {
-            com.example.bridge.model.Suit.SPADES,
-            com.example.bridge.model.Suit.HEARTS,
-            com.example.bridge.model.Suit.DIAMONDS,
-            com.example.bridge.model.Suit.CLUBS
+                com.example.bridge.model.Suit.SPADES,
+                com.example.bridge.model.Suit.HEARTS,
+                com.example.bridge.model.Suit.DIAMONDS,
+                com.example.bridge.model.Suit.CLUBS
         };
 
         for (int i = 0; i < suits.length; i++) {
             com.example.bridge.model.Suit suit = suits[i];
             String color = suit.isRed ? "red" : "white";
             sb.append("<b><font color='").append(color).append("'>")
-              .append(suit.symbol).append("</font></b>&nbsp;");
+                    .append(suit.symbol).append("</font></b>&nbsp;");
 
             sb.append("<b><font color='white'>");
             boolean first = true;
@@ -439,7 +443,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void updateLastCard(TextView tv, Card card) {
         if (card != null) {
-            tv.setText(" "+card.getRank().display + " " + card.getSuit().symbol);
+            tv.setText(" " + card.getRank().display + " " + card.getSuit().symbol);
             tv.setTextColor(Color.parseColor("#000000"));
             tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
         }

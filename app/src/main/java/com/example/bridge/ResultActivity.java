@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.view.Gravity;
 import android.graphics.Color;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.activity.EdgeToEdge;
@@ -41,16 +40,16 @@ public class ResultActivity extends AppCompatActivity {
         ImageView ivContractSuit = findViewById(R.id.iv_contract_suit);
         TextView tvWeScore = findViewById(R.id.we_score);
         TextView tvSnScore = findViewById(R.id.sn_score);
-        TextView tvTotalScore = findViewById(R.id.tv_total_tricks);
+        TextView tvTotalScore = findViewById(R.id.tv_total_score);
 
         String contract = getIntent().getStringExtra("contract");
+        String careerScore = getIntent().getStringExtra("careerScore");
         int snScore = getIntent().getIntExtra("snScore", 0);
         int weScore = getIntent().getIntExtra("weScore", 0);
-        int careerScore = getIntent().getIntExtra("careerScore", 0);
 
         tvSnScore.setText("SN: " + snScore);
         tvWeScore.setText("WE: " + weScore);
-        tvTotalScore.setText("score: " + careerScore);
+        tvTotalScore.setText("SCORE: "+ careerScore);
 
         // Display last trick cards
         ((TextView) findViewById(R.id.n_last_card)).setText(getIntent().getStringExtra("last_n"));
@@ -80,13 +79,13 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         Intent intent = new Intent();
         intent.putExtra("action", "DEAL_AGAIN");
         setResult(RESULT_OK, intent);
         super.onBackPressed();
-    }
+    }*/
 
     private void setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
