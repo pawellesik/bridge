@@ -308,10 +308,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         southAdapter = new CardAdapter(displayHandSouth, players.get("South"));
         southAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
-            onClaimButtonVisibilityChanged(false);
             Player south = players.get("South");
             if (south.isCurrentMove() && gameController.isLegalMove(south, card)) {
                 isProcessingMove = true;
+                onClaimButtonVisibilityChanged(false);
                 gameController.playCard(south, card);
             } else {
                 southAdapter.clearSelection();
@@ -323,10 +323,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         northAdapter = new CardAdapter(displayHandNorth, players.get("North"));
         northAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
-            onClaimButtonVisibilityChanged(false);
             Player north = players.get("North");
             if (north.isCurrentMove() && gameController.isLegalMove(north, card)) {
                 isProcessingMove = true;
+                onClaimButtonVisibilityChanged(false);
                 gameController.playCard(north, card);
             } else {
                 northAdapter.clearSelection();
