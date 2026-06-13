@@ -301,11 +301,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 TextView tv = new TextView(this);
                 tv.setText(trickData[c] != null ? trickData[c] : "-");
                 tv.setTextColor(Color.BLACK);
+                tv.setTypeface(null, android.graphics.Typeface.BOLD);
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(8, 16, 8, 16);
                 if (c == winnerCol) {
                     tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
-                    tv.setTypeface(null, android.graphics.Typeface.BOLD);
                 }
                 row.addView(tv);
             }
