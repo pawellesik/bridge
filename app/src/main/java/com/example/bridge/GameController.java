@@ -99,6 +99,7 @@ public class GameController {
         callback.onTableCleared(new HashMap<>(currentTrick));
         callback.onScoreUpdated(snScore, weScore);
         callback.onClaimButtonVisibilityChanged(false);
+        callback.onTurnChanged(null);
     }
 
     public void playCard(Player player, Card card) {
@@ -107,7 +108,7 @@ public class GameController {
         }
 
         player.setCurrentMove(false);
-        callback.onTurnChanged(null);
+        //callback.onTurnChanged(null); plesik
         player.removeCard(card);
         cardsOnTable.add(card);
         currentTrick.put(player.getName(), card);
