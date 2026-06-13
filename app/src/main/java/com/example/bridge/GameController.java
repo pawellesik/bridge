@@ -38,6 +38,8 @@ public class GameController {
 
         void onInitialHandsHtml();
 
+        void onTotalScore();
+
         void onClaimButtonVisibilityChanged(boolean visible);
     }
 
@@ -84,6 +86,8 @@ public class GameController {
 
         trickLeaderName = "West";
         callback.onVisibleStartBar(true);
+        callback.onTotalScore();
+
     }
 
     public void startGame() {

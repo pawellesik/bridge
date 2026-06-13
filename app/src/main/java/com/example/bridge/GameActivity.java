@@ -1,5 +1,11 @@
 package com.example.bridge;
 
+import android.text.Html;
+import android.text.Spanned;
+import android.view.Gravity;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +38,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public static final Card GHOST_CARD = new Card(null, null);
     private static final String PREFS_NAME = "BridgePrefs";
     private static final String KEY_CAREER_SCORE = "careerScore";
-    private static final int REQUEST_RESULT = 1;
 
     private Map<String, Player> players;
     private GameController gameController;
@@ -57,6 +62,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View startBar;
     private View btnClaim;
     private boolean isProcessingMove = false;
+
+    // Results Overlay Views
+    private View resultsOverlay;
+    private TextView tvNorthRes, tvSouthRes, tvEastRes, tvWestRes;
+    private TableLayout tableHistoryRes;
+    private View btnNewDeal;
+
+    private Button btn_deal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,15 +104,30 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         ivContractSuit = findViewById(R.id.iv_contract_suit);
         contractContainer = findViewById(R.id.game_contract_container);
         startBar = findViewById(R.id.start_bar);
+        btn_deal = findViewById(R.id.btn_deal);
         btnClaim = findViewById(R.id.btn_claim);
+
+        // Results Overlay Init
+        resultsOverlay = findViewById(R.id.results_overlay);
+        tvNorthRes = findViewById(R.id.tv_north_cards_res);
+        tvSouthRes = findViewById(R.id.tv_south_cards_res);
+        tvEastRes = findViewById(R.id.tv_east_cards_res);
+        tvWestRes = findViewById(R.id.tv_west_cards_res);
+        tableHistoryRes = findViewById(R.id.table_history_res);
+        btnNewDeal = findViewById(R.id.btn_new_deal);
+
+        btnNewDeal.setOnClickListener(v -> {
+            resultsOverlay.setVisibility(View.GONE);
+            dealNewCards();
+        });
 
         initGame();
         setupRecyclerView();
         gameController.dealCards();
 
-        findViewById(R.id.btn_deal).setOnClickListener(v -> {
+        btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
-            setPrefChangeTotalScore(-10);
+            setPrefChangeTotalScore(-1);
             setTotalScore(getPrefTotalScore());
             v.post(() -> {
                 gameController.dealCards();
@@ -148,6 +176,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvMiddle3.setText("");
     }
 
+
+    @Override
+    public void onTotalScore() {
+        setTotalScore(getPrefTotalScore());
+    }
+
     @Override
     public void onClaimButtonVisibilityChanged(boolean visible) {
         if (btnClaim != null) {
@@ -167,48 +201,116 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
         } catch (Exception e) {
-            return;
+            // malformed
         }
 
         int requiredTricks = level + 6;
-        int handScore;
-
-        if (snScore >= requiredTricks) {
-            handScore = level + (snScore - requiredTricks);
-        } else {
-            handScore = -level + (snScore - requiredTricks);
+        int handScore = 0;
+        if (level > 0) {
+            if (snScore >= requiredTricks) {
+                handScore = level + (snScore - requiredTricks);
+            } else {
+                handScore = -(requiredTricks - snScore);
+            }
         }
         setPrefChangeTotalScore(handScore);
         setTotalScore(getPrefTotalScore(), handScore);
 
         findViewById(R.id.main).postDelayed(() -> {
-            Intent intent = new Intent(GameActivity.this, ResultActivity.class);
-            for (Map.Entry<String, String> entry : initialHandsHtml.entrySet()) {
-                intent.putExtra(entry.getKey(), entry.getValue());
-            }
-            intent.putExtra("snScore", snScore);
-            intent.putExtra("weScore", weScore);
-            intent.putExtra("contract", contract);
-            intent.putExtra("careerScore", "");
-            intent.putStringArrayListExtra("history", new ArrayList<>(history));
-            intent.putStringArrayListExtra("historyWinTrick", new ArrayList<>(historyWinTrick));
-
-            // Pass last trick cards
-            intent.putExtra("last_n", tvLastNorth.getText().toString());
-            intent.putExtra("last_s", tvLastSouth.getText().toString());
-            intent.putExtra("last_e", tvLastEast.getText().toString());
-            intent.putExtra("last_w", tvLastWest.getText().toString());
-
-            startActivityForResult(intent, REQUEST_RESULT);
+            displayResults(history, historyWinTrick);
         }, 500);
+    }
+
+    private void displayResults(List<String> history, List<String> historyWinTrick) {
+        // Populate hands
+        displayHand(tvNorthRes, initialHandsHtml.get("North"));
+        displayHand(tvSouthRes, initialHandsHtml.get("South"));
+        displayHand(tvEastRes, initialHandsHtml.get("East"));
+        displayHand(tvWestRes, initialHandsHtml.get("West"));
+
+        // Populate history
+        displayHistory(history, historyWinTrick);
+
+        resultsOverlay.setVisibility(View.VISIBLE);
+    }
+
+    private void displayHand(TextView tv, String handHtml) {
+        if (tv != null && handHtml != null) {
+            Spanned formatted = Html.fromHtml(handHtml, Html.FROM_HTML_MODE_LEGACY);
+            tv.setText(formatted);
+        }
+    }
+
+    private void displayHistory(List<String> history, List<String> historyWinTrick) {
+        if (tableHistoryRes == null) return;
+        
+        // Clear previous entries (keep header row)
+        int childCount = tableHistoryRes.getChildCount();
+        if (childCount > 1) {
+            tableHistoryRes.removeViews(1, childCount - 1);
+        }
+
+        if (history == null) return;
+
+        for (int i = 0; i < history.size(); i += 4) {
+            TableRow row = new TableRow(this);
+            String[] trickData = new String[4]; // W, N, E, S (matches XML)
+            int trickIndex = i / 4;
+            int winnerCol = -1;
+
+            if (historyWinTrick != null && trickIndex < historyWinTrick.size()) {
+                winnerCol = getPlayerColumn(historyWinTrick.get(trickIndex));
+            }
+
+            for (int j = 0; j < 4 && (i + j) < history.size(); j++) {
+                String entry = history.get(i + j);
+                if (entry.startsWith("NS claimed")) {
+                    TextView claimTv = new TextView(this);
+                    claimTv.setText(entry);
+                    claimTv.setTextColor(Color.RED);
+                    claimTv.setPadding(16, 8, 16, 8);
+                    tableHistoryRes.addView(claimTv);
+                    return;
+                }
+
+                String[] parts = entry.split(": ");
+                if (parts.length == 2) {
+                    String name = parts[0];
+                    String cardStr = parts[1];
+                    int col = getPlayerColumn(name);
+                    if (col != -1) {
+                        trickData[col] = cardStr;
+                    }
+                }
+            }
+
+            for (int c = 0; c < 4; c++) {
+                TextView tv = new TextView(this);
+                tv.setText(trickData[c] != null ? trickData[c] : "-");
+                tv.setTextColor(Color.BLACK);
+                tv.setGravity(Gravity.CENTER);
+                tv.setPadding(8, 16, 8, 16);
+                if (c == winnerCol) {
+                    tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
+                    tv.setTypeface(null, android.graphics.Typeface.BOLD);
+                }
+                row.addView(tv);
+            }
+            tableHistoryRes.addView(row);
+        }
+    }
+
+    private int getPlayerColumn(String name) {
+        if ("West".equals(name)) return 0;
+        if ("North".equals(name)) return 1;
+        if ("East".equals(name)) return 2;
+        if ("South".equals(name)) return 3;
+        return -1;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_RESULT) {
-            dealNewCards();
-        }
     }
 
     private void dealNewCards() {
@@ -220,6 +322,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onVisibleStartBar(Boolean isVisible){
         if (isVisible) {
             startBar.setVisibility(View.VISIBLE);
+            if (getPrefTotalScore() <0 ){
+                btn_deal.setVisibility(View.GONE);
+            } else {
+                btn_deal.setVisibility(View.VISIBLE);
+            }
         } else {
             startBar.setVisibility(View.GONE);
         }
@@ -318,8 +425,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.put("South", new Player("South", playedCardContainerSouth));
         players.put("West", new Player("West", playedCardContainerWest));
         gameController = new GameController(players, this);
-
-        setTotalScore(getPrefTotalScore());
     }
 
     private void setupRecyclerView() {
