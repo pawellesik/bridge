@@ -61,6 +61,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View contractContainer;
     private View startBar;
     private View btnClaim;
+    private View loadingIndicator;
     private boolean isProcessingMove = false;
 
     // Results Overlay Views
@@ -106,6 +107,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         startBar = findViewById(R.id.start_bar);
         btn_deal = findViewById(R.id.btn_deal);
         btnClaim = findViewById(R.id.btn_claim);
+        loadingIndicator = findViewById(R.id.loading_indicator);
 
         // Results Overlay Init
         resultsOverlay = findViewById(R.id.results_overlay);
@@ -127,6 +129,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
+            loadingIndicator.setVisibility(View.VISIBLE);
             setPrefChangeTotalScore(-1);
             setTotalScore(getPrefTotalScore());
             v.post(() -> {
@@ -322,6 +325,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onVisibleStartBar(Boolean isVisible){
         if (isVisible) {
             startBar.setVisibility(View.VISIBLE);
+            loadingIndicator.setVisibility(View.GONE);
             if (getPrefTotalScore() <0 ){
                 btn_deal.setVisibility(View.GONE);
             } else {
@@ -368,6 +372,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     public void onContractDetermined(String contract) {
         isProcessingMove = false; // Allow Start button to be clicked
+        loadingIndicator.setVisibility(View.GONE);
         if (contractContainer != null)
             contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
 
