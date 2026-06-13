@@ -390,7 +390,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Results Overlay -->
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/results_overlay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -399,155 +399,156 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_bar">
 
+        <!-- Content (Player Hands) -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_hands"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="8dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Content (Player Hands) -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_hands"
-                android:layout_width="match_parent"
+            <!-- North (Dummy) -->
+            <LinearLayout
+                android:id="@+id/layout_north_res"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <!-- North (Dummy) -->
-                <LinearLayout
-                    android:id="@+id/layout_north_res"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:text="North"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="North"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_north_cards_res"
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="84dp"
-                        android:background="@drawable/white_frame_in_bright_green"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp" />
-                </LinearLayout>
-
-                <!-- West (LHO) -->
-                <LinearLayout
-                    android:id="@+id/layout_west_res"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tv_north_cards_res"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/layout_north_res"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/layout_east_res">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="West"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/white"/>
+                    android:minHeight="84dp"
+                    android:background="@drawable/white_frame_in_bright_green"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_west_cards_res"
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="84dp"
-                        android:background="@drawable/white_frame_in_bright_green"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp" />
-                </LinearLayout>
-
-                <!-- East (RHO) -->
-                <LinearLayout
-                    android:id="@+id/layout_east_res"
-                    android:layout_width="0dp"
+            <!-- West (LHO) -->
+            <LinearLayout
+                android:id="@+id/layout_west_res"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/layout_north_res"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/layout_east_res">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/layout_north_res"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/layout_west_res">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="East"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/white"/>
+                    android:text="West"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"/>
 
-                    <TextView
-                        android:id="@+id/tv_east_cards_res"
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="84dp"
-                        android:background="@drawable/white_frame_in_bright_green"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp" />
-                </LinearLayout>
-
-                <!-- South (You) -->
-                <LinearLayout
-                    android:id="@+id/layout_south_res"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tv_west_cards_res"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_west_res">
+                    android:minHeight="84dp"
+                    android:background="@drawable/white_frame_in_bright_green"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="South"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+            <!-- East (RHO) -->
+            <LinearLayout
+                android:id="@+id/layout_east_res"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/layout_north_res"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/layout_west_res">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="East"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"/>
 
-                    <TextView
-                        android:id="@+id/tv_south_cards_res"
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="84dp"
-                        android:background="@drawable/white_frame_in_bright_green"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_east_cards_res"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="84dp"
+                    android:background="@drawable/white_frame_in_bright_green"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp" />
+            </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- South (You) -->
+            <LinearLayout
+                android:id="@+id/layout_south_res"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_west_res">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="South"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_south_cards_res"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="84dp"
+                    android:background="@drawable/white_frame_in_bright_green"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_history"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:background="#C8E6C9"
+            app:layout_constraintTop_toBottomOf="@id/layout_hands"
+            app:layout_constraintBottom_toTopOf="@id/btn_new_deal">
 
             <TableLayout
                 android:id="@+id/table_history_res"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="#C8E6C9"
                 android:padding="8dp"
-                android:stretchColumns="0,1,2,3"
-                app:layout_constraintTop_toBottomOf="@id/layout_hands">
+                android:stretchColumns="0,1,2,3">
 
                 <!-- Header Row -->
                 <TableRow android:background="#A5D6A7">
@@ -558,20 +559,18 @@
                 </TableRow>
 
             </TableLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <Button
-                android:id="@+id/btn_new_deal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="New Deal"
-                app:layout_constraintTop_toBottomOf="@id/table_history_res"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+        <Button
+            android:id="@+id/btn_new_deal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="New Deal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
