@@ -28,6 +28,8 @@ public class GameController {
 
         void onContractDetermined(String contract);
 
+        void onVisibleStartBar(Boolean isVisible);
+
         void onTurnChanged(String playerName);
 
         void onScoreUpdated(int snScore, int weScore);
@@ -64,6 +66,7 @@ public class GameController {
     }
 
     public void dealCards() {
+
         handler.removeCallbacksAndMessages(null);
         resetTable();
 
@@ -80,6 +83,7 @@ public class GameController {
         callback.onInitialHandsHtml();
 
         trickLeaderName = "West";
+        callback.onVisibleStartBar(true);
     }
 
     public void startGame() {
@@ -100,7 +104,7 @@ public class GameController {
         callback.onScoreUpdated(snScore, weScore);
         callback.onClaimButtonVisibilityChanged(false);
         callback.onTurnChanged(null);
-    }
+     }
 
     public void playCard(Player player, Card card) {
         if (!player.isCurrentMove() || !isLegalMove(player, card)) {

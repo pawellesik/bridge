@@ -98,13 +98,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameController.dealCards();
 
         findViewById(R.id.btn_deal).setOnClickListener(v -> {
-            startBar.setVisibility(View.VISIBLE);
+            onVisibleStartBar(false);
             setPrefChangeTotalScore(-10);
             setTotalScore(getPrefTotalScore());
-            gameController.dealCards();
+            v.post(() -> {
+                gameController.dealCards();
+            });
         });
         findViewById(R.id.btn_start).setOnClickListener(v -> {
-            startBar.setVisibility(View.GONE);
+            onVisibleStartBar(false);
             gameController.startGame();
         });
         btnClaim.setOnClickListener(v -> {
@@ -213,6 +215,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (startBar != null) startBar.setVisibility(View.VISIBLE);
         gameController.dealCards();
     }
+
+    @Override
+    public void onVisibleStartBar(Boolean isVisible){
+        if (isVisible) {
+            startBar.setVisibility(View.VISIBLE);
+        } else {
+            startBar.setVisibility(View.GONE);
+        }
+    }
+
 
     @Override
     public void onTurnChanged(String playerName) {
