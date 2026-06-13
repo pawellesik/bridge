@@ -59,7 +59,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:text="WE: 0"
+                android:text="@string/we_label"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -74,7 +74,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:text="SN: 0"
+                android:text="@string/sn_label"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -100,7 +100,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                tools:text="SCORE: " />
+                android:text="@string/score_label" />
 
             <TextView
                 android:id="@+id/tv_middle_2"
@@ -184,7 +184,7 @@
         android:id="@+id/name_north"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:text="North"
+        android:text="@string/player_north"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:gravity="center"
@@ -270,7 +270,7 @@
             android:id="@+id/name_west"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:text="West"
+            android:text="@string/player_west"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:gravity="center"
@@ -293,7 +293,7 @@
             android:id="@+id/name_east"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:text="East"
+            android:text="@string/player_east"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:gravity="center"
@@ -307,7 +307,7 @@
         android:id="@+id/name_south"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:text="South"
+        android:text="@string/player_south"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:gravity="center"
@@ -346,7 +346,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:alpha="0.9"
-            android:text="Start"
+            android:text="@string/Start"
             app:layout_constraintBottom_toTopOf="@+id/btn_deal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -359,7 +359,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:alpha="0.9"
-            android:text="Deal"
+            android:text="@string/deal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -371,7 +371,7 @@
         android:id="@+id/btn_claim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take the rest"
+        android:text="@string/claim"
         android:visibility="gone"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -421,7 +421,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="North"
+                    android:text="@string/player_north"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -449,13 +449,14 @@
                 app:layout_constraintTop_toBottomOf="@id/layout_north_res"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/layout_east_res">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="West"
-                    android:textStyle="bold"
+                    android:text="@string/player_west"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:textColor="@android:color/white"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_west_cards_res"
@@ -480,13 +481,14 @@
                 app:layout_constraintTop_toBottomOf="@id/layout_north_res"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/layout_west_res">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="East"
-                    android:textStyle="bold"
+                    android:text="@string/player_east"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:textColor="@android:color/white"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_east_cards_res"
@@ -515,7 +517,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="South"
+                    android:text="@string/player_south"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -552,10 +554,10 @@
 
                 <!-- Header Row -->
                 <TableRow android:background="#A5D6A7">
-                    <TextView android:text="West" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
-                    <TextView android:text="North" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
-                    <TextView android:text="East" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
-                    <TextView android:text="South" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+                    <TextView android:text="@string/player_west" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+                    <TextView android:text="@string/player_north" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+                    <TextView android:text="@string/player_east" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
+                    <TextView android:text="@string/player_south" android:textColor="@color/black" android:textStyle="bold" android:gravity="center" android:padding="4dp"/>
                 </TableRow>
 
             </TableLayout>
@@ -566,7 +568,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="New Deal"
+            android:text="@string/new_deal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

@@ -35,6 +35,11 @@ import java.util.Map;
 
 public class GameActivity extends AppCompatActivity implements GameController.GameCallback {
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
+
     public static final Card GHOST_CARD = new Card(null, null);
     private static final String PREFS_NAME = "BridgePrefs";
     private static final String KEY_CAREER_SCORE = "careerScore";
@@ -162,7 +167,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void setTotalScore(int totalScore, int changeScore) {
-        tvMiddle1.setText("SCORE:");
+        tvMiddle1.setText(getString(R.string.score_label));
         tvMiddle2.setText(String.valueOf(totalScore));
         if (changeScore > 0){
             tvMiddle3.setText("(+"+ changeScore +")");
@@ -174,7 +179,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void setTotalScore(int totalScore) {
-        tvMiddle1.setText("SCORE:");
+        tvMiddle1.setText(getString(R.string.score_label));
         tvMiddle2.setText(String.valueOf(totalScore));
         tvMiddle3.setText("");
     }
@@ -194,8 +199,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onScoreUpdated(int snScore, int weScore) {
-        if (tvScoreSN != null) tvScoreSN.setText("SN: " + snScore);
-        if (tvScoreWE != null) tvScoreWE.setText("WE: " + weScore);
+        if (tvScoreSN != null) tvScoreSN.setText(getString(R.string.sn_label, snScore));
+        if (tvScoreWE != null) tvScoreWE.setText(getString(R.string.we_label, weScore));
     }
 
     @Override
@@ -213,7 +218,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if (snScore >= requiredTricks) {
                 handScore = level + (snScore - requiredTricks);
             } else {
-                handScore = -(requiredTricks - snScore);
+                handScore = -level -(requiredTricks - snScore);
             }
         }
         setPrefChangeTotalScore(handScore);
@@ -267,9 +272,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             for (int j = 0; j < 4 && (i + j) < history.size(); j++) {
                 String entry = history.get(i + j);
-                if (entry.startsWith("NS claimed")) {
+                if (entry.startsWith("CLAIM: ")) {
+                    int num = 0;
+                    try {
+                        num = Integer.parseInt(entry.replace("CLAIM: ", ""));
+                    } catch (Exception ignored) {}
+                    
                     TextView claimTv = new TextView(this);
-                    claimTv.setText(entry);
+                    claimTv.setText(getString(R.string.claimed_tricks, num));
                     claimTv.setTextColor(Color.RED);
                     claimTv.setPadding(16, 8, 16, 8);
                     tableHistoryRes.addView(claimTv);
@@ -376,6 +386,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (contractContainer != null)
             contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
 
+        if (contract == null || contract.equals("PASS")) {
+            tvContract.setText(getString(R.string.contract_pass));
+            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
+            return;
+        }
+
         String[] parts = contract.split(" ");
         if (parts.length < 2) {
             tvContract.setText(contract);
@@ -389,7 +405,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvContract.setText(" " + count);
         if (ivContractSuit != null) {
             if ("NT".equals(color)) {
-                tvContract.setText(" " + contract);
+                tvContract.setText(" " + count + " " + getString(R.string.suit_nt));
                 ivContractSuit.setVisibility(View.GONE);
             } else {
                 ivContractSuit.setVisibility(View.VISIBLE);

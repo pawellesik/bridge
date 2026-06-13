@@ -6,9 +6,24 @@
     <string name="deal_cards">Deal Cards</string>
     <string name="start_game">Start Game</string>
     <string name="player_north">North</string>
-    <string name="player_south">South (You)</string>
+    <string name="player_south">South</string>
     <string name="player_east">East</string>
     <string name="player_west">West</string>
     <string name="suit_desc">Suit</string>
     <string name="Start">Start</string>
+    <string name="deal">Deal</string>
+    <string name="claim">Take the rest</string>
+    <string name="new_deal">New Deal</string>
+    <string name="score_label">SCORE:</string>
+    <string name="we_label">WE: %1$d</string>
+    <string name="sn_label">SN: %1$d</string>
+    <string name="claimed_tricks">NS claimed the remaining %1$d tricks.</string>
+    <string name="contract_pass">PASS</string>
+    <string name="suit_spades">Spades</string>
+    <string name="suit_hearts">Hearts</string>
+    <string name="suit_diamonds">Diamonds</string>
+    <string name="suit_clubs">Clubs</string>
+    <string name="suit_nt">NT</string>
+    <string name="lang_en">EN</string>
+    <string name="lang_pl">PL</string>
 </resources>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Brydż</string>
+    <string name="welcome_to_bridge">Witaj w Brydżu</string>
+    <string name="logout">Wyloguj</string>
+    <string name="cards_will_appear_here">Karty pojawią się tutaj</string>
+    <string name="deal_cards">Rozdaj Karty</string>
+    <string name="start_game">Rozpocznij Grę</string>
+    <string name="player_north">Północ</string>
+    <string name="player_south">Południe</string>
+    <string name="player_east">Wschód</string>
+    <string name="player_west">Zachód</string>
+    <string name="suit_desc">Kolor</string>
+    <string name="Start">Rozegraj</string>
+    <string name="deal">Rozdaj</string>
+    <string name="claim">Weź resztę</string>
+    <string name="new_deal">Nowe Rozdanie</string>
+    <string name="score_label">WYNIK:</string>
+    <string name="we_label">ZW: %1$d</string>
+    <string name="sn_label">PP: %1$d</string>
+    <string name="claimed_tricks">Płn. Płd. wzieli pozostałe %1$d lew.</string>
+    <string name="contract_pass">PAS</string>
+    <string name="suit_spades">Piki</string>
+    <string name="suit_hearts">Kiery</string>
+    <string name="suit_diamonds">Karo</string>
+    <string name="suit_clubs">Trefle</string>
+    <string name="suit_nt">BA</string>
+    <string name="lang_en">EN</string>
+    <string name="lang_pl">PL</string>
+</resources>

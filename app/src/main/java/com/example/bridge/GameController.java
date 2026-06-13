@@ -161,7 +161,7 @@ public class GameController {
         int remainingTricks = players.get("South").getHand().size();
         snScore += remainingTricks;
 
-        playHistory.add("NS claimed the remaining " + remainingTricks + " tricks.");
+        playHistory.add("CLAIM: " + remainingTricks);
 
         for (Player p : players.values()) {
             p.getHand().clear();

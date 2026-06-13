@@ -21,6 +21,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
+    <LinearLayout
+        android:id="@+id/lang_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text">
+
+        <Button
+            android:id="@+id/btn_lang_en"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lang_en"
+            android:textColor="@android:color/white"
+            app:strokeColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_lang_pl"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/lang_pl"
+            android:textColor="@android:color/white"
+            app:strokeColor="@android:color/white" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
@@ -32,6 +62,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_text" />
+        app:layout_constraintTop_toBottomOf="@+id/lang_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
