@@ -80,9 +80,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     // Simulation Views
     private Button btnFirstSim, btnPrevSim, btnNextSim, btnLastSim;
     private TextView tvSimInfo;
-    private int currentSimTrickIndex = -1;
+    private int currentSimTrickIndex;
 
-    private List<Trick> playHistoryWinTrick = new ArrayList<>();
+    private List<Trick> playHistoryTrick = new ArrayList<>();
 
     private Button btn_deal;
 
@@ -175,9 +175,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void changeSimTrick(int i) {
-        if (i < 0 && currentSimTrickIndex > 0) {
+        if (i < 0 && currentSimTrickIndex > 1) {
             currentSimTrickIndex -= 1;
-        } else if (i > 0 && currentSimTrickIndex < 13) {
+        } else if (i > 0 && currentSimTrickIndex < this.playHistoryTrick.size()) {
             currentSimTrickIndex += 1;
         }
         updateSimTrickUI();
@@ -185,23 +185,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void jumpSimTrick(int direction) {
         if (direction < 0) {
-            currentSimTrickIndex = 0;
+            currentSimTrickIndex = 1;
         } else {
-            currentSimTrickIndex = 13;
+            currentSimTrickIndex = this.playHistoryTrick.size();
         }
         updateSimTrickUI();
     }
 
     private void updateSimTrickUI() {
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
-        Map<String, Card> currentTrick = new HashMap<>();
-
-        //this.playHistoryCards
-
-
-        onTableCleared(new HashMap<>(currentTrick));
-
-
+        onTableCleared(this.playHistoryTrick.get(currentSimTrickIndex - 1).getCardsOnTableMap());
     }
 
     private void setPrefChangeTotalScore(int changeScore) {
@@ -256,7 +249,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, String contract, List<Trick> history, int claim) {
-        this.playHistoryWinTrick = history;
+        this.playHistoryTrick = history;
+        this.currentSimTrickIndex = history.size();
+        tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
+
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
@@ -282,13 +278,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void displayResults(List<Trick> history, int claim) {
-        this.currentSimTrickIndex = 0;
 
         displayHand(tvNorthRes, initialHandsHtml.get("North"));
         displayHand(tvSouthRes, initialHandsHtml.get("South"));
         displayHand(tvEastRes, initialHandsHtml.get("East"));
         displayHand(tvWestRes, initialHandsHtml.get("West"));
-
         displayHistory(history, claim);
 
         resultsOverlay.setVisibility(View.VISIBLE);

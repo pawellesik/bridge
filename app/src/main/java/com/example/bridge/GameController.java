@@ -52,8 +52,6 @@ public class GameController {
     private final DdsSolver ddsSolver;
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
-
-
     private String currentContract = "PASS";
     private String trickLeaderName = "West";
     private int snScore = 0;
@@ -163,7 +161,7 @@ public class GameController {
         }
 
         callback.onScoreUpdated(snScore, weScore);
-        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistoryTrick),  remainingTricks);
+        callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick,  remainingTricks);
     }
 
     public boolean isLegalMove(Player player, Card card) {
@@ -197,7 +195,7 @@ public class GameController {
                 clearTable();
 
                 if (players.get("South").getHand().isEmpty()) {
-                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistoryTrick),-1);
+                    callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick,0);
                     return;
                 }
 
