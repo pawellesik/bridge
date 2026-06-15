@@ -76,9 +76,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View btnNewDeal;
 
     // Simulation Views
-    private Button btnPrevSim, btnNextSim;
+    private Button btnFirstSim, btnPrevSim, btnNextSim, btnLastSim;
     private TextView tvSimInfo;
     private int currentSimTrickIndex = -1;
+    private List<String> historyData;
+    private List<String> historyWinData;
 
     private Button btn_deal;
 
@@ -129,12 +131,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         btnNewDeal = findViewById(R.id.btn_new_deal);
 
         // Simulation Init
+        btnFirstSim = findViewById(R.id.btn_first_trick);
         btnPrevSim = findViewById(R.id.btn_prev_trick);
         btnNextSim = findViewById(R.id.btn_next_trick);
+        btnLastSim = findViewById(R.id.btn_last_trick);
         tvSimInfo = findViewById(R.id.tv_trick_info);
 
+        btnFirstSim.setOnClickListener(v -> jumpSimTrick(-1));
         btnPrevSim.setOnClickListener(v -> changeSimTrick(-1));
         btnNextSim.setOnClickListener(v -> changeSimTrick(1));
+        btnLastSim.setOnClickListener(v -> jumpSimTrick(1));
 
         btnNewDeal.setOnClickListener(v -> {
             resultsOverlay.setVisibility(View.GONE);
@@ -167,6 +173,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void changeSimTrick(int i) {
+
+    }
+
+    private void jumpSimTrick(int direction) {
+        if (historyData == null || historyData.isEmpty()) return;
+        if (direction < 0) {
+            currentSimTrickIndex = -1;
+        } else {
+            currentSimTrickIndex = (historyData.size() + 3) / 4 - 1;
+        }
+        updateSimTrickUI();
+    }
+
+    private void updateSimTrickUI() {
     }
 
     private void setPrefChangeTotalScore(int changeScore) {

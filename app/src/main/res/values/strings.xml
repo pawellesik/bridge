@@ -24,6 +24,8 @@
     <string name="suit_diamonds">Diamonds</string>
     <string name="suit_clubs">Clubs</string>
     <string name="suit_nt">NT</string>
+    <string name="trick_label">Trick</string>
+    <string name="simulation_start">Simulation: Start</string>
     <string name="lang_en">EN</string>
     <string name="lang_pl">PL</string>
 </resources>

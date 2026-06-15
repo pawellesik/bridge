@@ -24,6 +24,8 @@
     <string name="suit_diamonds">Karo</string>
     <string name="suit_clubs">Trefle</string>
     <string name="suit_nt">BA</string>
+    <string name="trick_label">Lewa</string>
+    <string name="simulation_start">Symulacja: Start</string>
     <string name="lang_en">EN</string>
     <string name="lang_pl">PL</string>
 </resources>
