@@ -173,20 +173,26 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void changeSimTrick(int i) {
-
+        //to use         this.historyData = history;
+        //        this.historyWinData = historyWinTrick;
+        if (i < 0 && currentSimTrickIndex > 0) {
+            currentSimTrickIndex -= 1;
+        } else if (i > 0 && currentSimTrickIndex < 13) {
+            currentSimTrickIndex += 1;
+        }
+        updateSimTrickUI();
     }
-
     private void jumpSimTrick(int direction) {
-        if (historyData == null || historyData.isEmpty()) return;
         if (direction < 0) {
-            currentSimTrickIndex = -1;
+            currentSimTrickIndex = 0;
         } else {
-            currentSimTrickIndex = (historyData.size() + 3) / 4 - 1;
+            currentSimTrickIndex = 13;
         }
         updateSimTrickUI();
     }
 
     private void updateSimTrickUI() {
+        tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
     }
 
     private void setPrefChangeTotalScore(int changeScore) {
@@ -205,11 +211,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void setTotalScore(int totalScore, int changeScore) {
         tvMiddle1.setText(getString(R.string.score_label));
         tvMiddle2.setText(String.valueOf(totalScore));
-        if (changeScore > 0){
-            tvMiddle3.setText("(+"+ changeScore +")");
+        if (changeScore > 0) {
+            tvMiddle3.setText("(+" + changeScore + ")");
             tvMiddle3.setTextColor(Color.parseColor("#C8E6C9"));
         } else {
-            tvMiddle3.setText("("+ changeScore +")");
+            tvMiddle3.setText("(" + changeScore + ")");
             tvMiddle3.setTextColor(0xFFFF0000);
         }
     }
@@ -254,7 +260,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if (snScore >= requiredTricks) {
                 handScore = level + (snScore - requiredTricks);
             } else {
-                handScore = -level -(requiredTricks - snScore);
+                handScore = -level - (requiredTricks - snScore);
             }
         }
         setPrefChangeTotalScore(handScore);
@@ -266,7 +272,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void displayResults(List<String> history, List<String> historyWinTrick) {
-        this.currentSimTrickIndex = -1;
+        this.currentSimTrickIndex = 0;
+        this.historyData = history;
+        this.historyWinData = historyWinTrick;
 
         displayHand(tvNorthRes, initialHandsHtml.get("North"));
         displayHand(tvSouthRes, initialHandsHtml.get("South"));
@@ -287,7 +295,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void displayHistory(List<String> history, List<String> historyWinTrick) {
         if (tableHistoryRes == null) return;
-        
+
         // Clear previous entries (keep header row)
         int childCount = tableHistoryRes.getChildCount();
         if (childCount > 1) {
@@ -312,8 +320,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     int num = 0;
                     try {
                         num = Integer.parseInt(entry.replace("CLAIM: ", ""));
-                    } catch (Exception ignored) {}
-                    
+                    } catch (Exception ignored) {
+                    }
+
                     TextView claimTv = new TextView(this);
                     claimTv.setText(getString(R.string.claimed_tricks, num));
                     claimTv.setTextColor(Color.RED);
@@ -368,11 +377,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onVisibleStartBar(Boolean isVisible){
+    public void onVisibleStartBar(Boolean isVisible) {
         if (isVisible) {
             startBar.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.GONE);
-            if (getPrefTotalScore() <0 ){
+            if (getPrefTotalScore() < 0) {
                 btn_deal.setVisibility(View.GONE);
             } else {
                 btn_deal.setVisibility(View.VISIBLE);
