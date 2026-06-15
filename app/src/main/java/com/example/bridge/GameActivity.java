@@ -27,8 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Player;
+import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,8 +81,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private Button btnFirstSim, btnPrevSim, btnNextSim, btnLastSim;
     private TextView tvSimInfo;
     private int currentSimTrickIndex = -1;
-    private List<String> historyData;
-    private List<String> historyWinData;
+
+    private List<Trick> playHistoryWinTrick = new ArrayList<>();
 
     private Button btn_deal;
 
@@ -173,8 +175,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void changeSimTrick(int i) {
-        //to use         this.historyData = history;
-        //        this.historyWinData = historyWinTrick;
         if (i < 0 && currentSimTrickIndex > 0) {
             currentSimTrickIndex -= 1;
         } else if (i > 0 && currentSimTrickIndex < 13) {
@@ -193,6 +193,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void updateSimTrickUI() {
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
+        Map<String, Card> currentTrick = new HashMap<>();
+
+        //this.playHistoryCards
+
+
+        onTableCleared(new HashMap<>(currentTrick));
+
+
+
     }
 
     private void setPrefChangeTotalScore(int changeScore) {
@@ -246,7 +255,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick) {
+    public void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick, List<Trick> playHistoryWinTrick) {
+        this.playHistoryWinTrick = playHistoryWinTrick;
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
@@ -273,8 +283,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void displayResults(List<String> history, List<String> historyWinTrick) {
         this.currentSimTrickIndex = 0;
-        this.historyData = history;
-        this.historyWinData = historyWinTrick;
 
         displayHand(tvNorthRes, initialHandsHtml.get("North"));
         displayHand(tvSouthRes, initialHandsHtml.get("South"));

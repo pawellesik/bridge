@@ -7,6 +7,7 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Deck;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Suit;
+import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class GameController {
 
         void onScoreUpdated(int snScore, int weScore);
 
-        void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick);
+        void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick, List<Trick> playHistoryWinTrick);
 
         void onInitialHandsHtml();
 
@@ -45,14 +46,16 @@ public class GameController {
 
     private final Map<String, Player> players;
     private Deck deck;
-    private final List<Card> cardsOnTable = new ArrayList<>();
-    private final Map<String, Card> currentTrick = new HashMap<>();
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final GameCallback callback;
     private final BiddingManager biddingManager;
     private final DdsSolver ddsSolver;
+    private Trick currentTrick = new Trick();
+    private List<Trick> playHistoryTrick = new ArrayList<>();
     private final List<String> playHistory = new ArrayList<>();
     private final List<String> playHistoryWinTrick = new ArrayList<>();
+
+
     private String currentContract = "PASS";
     private String trickLeaderName = "West";
     private int snScore = 0;
@@ -99,31 +102,28 @@ public class GameController {
     private void resetTable() {
         snScore = 0;
         weScore = 0;
-        cardsOnTable.clear();
-        currentTrick.clear();
+        currentTrick = new Trick();
+        playHistoryTrick = new ArrayList<>();
         playHistory.clear();
         playHistoryWinTrick.clear();
         callback.onInitialHandsHtmlClear();
-        callback.onTableCleared(new HashMap<>(currentTrick));
+        callback.onTableCleared(currentTrick.getCardsOnTableMap());
         callback.onScoreUpdated(snScore, weScore);
         callback.onClaimButtonVisibilityChanged(false);
         callback.onTurnChanged(null);
-     }
+    }
 
     public void playCard(Player player, Card card) {
         if (!player.isCurrentMove() || !isLegalMove(player, card)) {
             return; // Reject moves if it's not the turn or illegal card
         }
-
         player.setCurrentMove(false);
-        //callback.onTurnChanged(null); plesik
         player.removeCard(card);
-        cardsOnTable.add(card);
-        currentTrick.put(player.getName(), card);
 
+        currentTrick.addCard(player.getName(), card);
         playHistory.add(player.getName() + ": " + card.getRank().display + " " + card.getSuit().symbol);
 
-        callback.onClearLastCards(cardsOnTable);
+        callback.onClearLastCards(currentTrick.getCardsOnTable());
         callback.onCardPlayed(player, card);
         callback.onHandUpdated(player.getName());
         setNextPlayerCurrentMove(player);
@@ -170,15 +170,15 @@ public class GameController {
         }
 
         callback.onScoreUpdated(snScore, weScore);
-        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick));
+        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick), playHistoryTrick);
     }
 
     public boolean isLegalMove(Player player, Card card) {
-        if (cardsOnTable.isEmpty()) {
+        if (currentTrick.getCardsOnTable().isEmpty()) {
             return true;
         }
 
-        Card leadCard = currentTrick.get(trickLeaderName);
+        Card leadCard = currentTrick.getCard(trickLeaderName);
         if (leadCard == null) return true;
 
         Suit ledSuit = leadCard.getSuit();
@@ -190,7 +190,7 @@ public class GameController {
     }
 
     private void setNextPlayerCurrentMove(Player player) {
-        if (cardsOnTable.size() == 4) {
+        if (currentTrick.getCardsOnTable().size() == 4) {
             String winnerName = determineTrickWinner();
             playHistoryWinTrick.add(winnerName);
 
@@ -204,7 +204,7 @@ public class GameController {
                 clearTable();
 
                 if (players.get("South").getHand().isEmpty()) {
-                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick));
+                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick), playHistoryTrick);
                     return;
                 }
 
@@ -227,7 +227,7 @@ public class GameController {
     }
 
     private String determineTrickWinner() {
-        Card leadCard = currentTrick.get(trickLeaderName);
+        Card leadCard = currentTrick.getCard(trickLeaderName);
         if (leadCard == null) return players.keySet().iterator().next(); // Should not happen
 
         Suit ledSuit = leadCard.getSuit();
@@ -236,7 +236,7 @@ public class GameController {
         String winnerName = trickLeaderName;
         Card bestCard = leadCard;
 
-        for (Map.Entry<String, Card> entry : currentTrick.entrySet()) {
+        for (Map.Entry<String, Card> entry : currentTrick.getCardsOnTableMap().entrySet()) {
             Card card = entry.getValue();
             if (isBetterCard(card, bestCard, ledSuit, trumpSuit)) {
                 bestCard = card;
@@ -309,8 +309,8 @@ public class GameController {
 
         int[] trickSuits = {-1, -1, -1};
         int[] trickRanks = {0, 0, 0};
-        for (int i = 0; i < cardsOnTable.size(); i++) {
-            Card c = cardsOnTable.get(i);
+        for (int i = 0; i < currentTrick.getCardsOnTable().size(); i++) {
+            Card c = currentTrick.getCardsOnTable().get(i);
             trickSuits[i] = mapSuitToDdsIndex(c.getSuit());
             trickRanks[i] = c.getRank().ordinal() + 2;
         }
@@ -384,12 +384,11 @@ public class GameController {
     }
 
     private void clearTable() {
-        if (cardsOnTable.size() == 4) {
-            callback.onTableCleared(new HashMap<>(currentTrick));
-        }
-        cardsOnTable.clear();
-        currentTrick.clear();
+        playHistoryTrick.add(currentTrick);
+        callback.onTableCleared(currentTrick.getCardsOnTableMap());
+        currentTrick = new Trick();
     }
+
 
     public void cleanup() {
         handler.removeCallbacksAndMessages(null);
