@@ -251,6 +251,34 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         displayHand(tvSouthRes, formatHandToHtmlForSim(initialPlayerHands.get("South"), previousTricksCards, currentTrickCards));
         displayHand(tvEastRes, formatHandToHtmlForSim(initialPlayerHands.get("East"), previousTricksCards, currentTrickCards));
         displayHand(tvWestRes, formatHandToHtmlForSim(initialPlayerHands.get("West"), previousTricksCards, currentTrickCards));
+
+        // Aktualizacja podświetlenia w historii i przewijanie
+        updateHistoryHighlightAndScroll();
+    }
+
+    private void updateHistoryHighlightAndScroll() {
+        if (tableHistoryRes == null) return;
+
+        int rowCount = tableHistoryRes.getChildCount();
+        for (int i = 1; i < rowCount; i++) {
+            View row = tableHistoryRes.getChildAt(i);
+            if (i <= currentSimTrickIndex) {
+                row.setBackgroundColor(Color.parseColor("#A5D6A7"));
+            } else {
+                row.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
+
+        // Przewijanie do aktualnego wiersza
+        if (currentSimTrickIndex >= 0 && currentSimTrickIndex < rowCount) {
+            View targetRow = tableHistoryRes.getChildAt(currentSimTrickIndex);
+            if (targetRow != null) {
+                findViewById(R.id.scroll_history).post(() -> {
+                    androidx.core.widget.NestedScrollView scrollView = findViewById(R.id.scroll_history);
+                    scrollView.smoothScrollTo(0, targetRow.getTop());
+                });
+            }
+        }
     }
 
     private String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
@@ -377,8 +405,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void displayResults(List<Trick> history, int claim) {
-        updateSimTrickUI();
         displayHistory(history, claim);
+        updateSimTrickUI();
         resultsOverlay.setVisibility(View.VISIBLE);
     }
 
