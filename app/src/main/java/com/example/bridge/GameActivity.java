@@ -61,7 +61,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
-    private final Map<String, String> initialHandsHtml = new LinkedHashMap<>();
+    private final Map<String, List<Card>> initialPlayerHands = new LinkedHashMap<>();
     private TextView nameNorth, nameSouth, nameEast, nameWest;
     private TextView tvContract;
     private ImageView ivContractSuit;
@@ -175,7 +175,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void changeSimTrick(int i) {
-        if (i < 0 && currentSimTrickIndex > 1) {
+        if (i < 0 && currentSimTrickIndex > 0) {
             currentSimTrickIndex -= 1;
         } else if (i > 0 && currentSimTrickIndex < this.playHistoryTrick.size()) {
             currentSimTrickIndex += 1;
@@ -185,7 +185,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void jumpSimTrick(int direction) {
         if (direction < 0) {
-            currentSimTrickIndex = 1;
+            currentSimTrickIndex = 0;
         } else {
             currentSimTrickIndex = this.playHistoryTrick.size();
         }
@@ -194,7 +194,36 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void updateSimTrickUI() {
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
-        onTableCleared(this.playHistoryTrick.get(currentSimTrickIndex - 1).getCardsOnTableMap());
+        
+        List<Card> allPlayedCards = new ArrayList<>();
+        Map<String, Card> currentTrickMap = null;
+
+        if (currentSimTrickIndex > 0) {
+            Trick currentTrick = this.playHistoryTrick.get(currentSimTrickIndex - 1);
+            currentTrickMap = currentTrick.getCardsOnTableMap();
+            
+            // Collect all cards played up to currentSimTrickIndex
+            for (int trickIdx = 0; trickIdx < currentSimTrickIndex; trickIdx++) {
+                allPlayedCards.addAll(this.playHistoryTrick.get(trickIdx).getCardsOnTable());
+            }
+        }
+
+        // Update table center and indicators
+        onTableCleared(currentTrickMap);
+        if (currentTrickMap != null) {
+            for (Map.Entry<String, Card> entry : currentTrickMap.entrySet()) {
+                Player p = players.get(entry.getKey());
+                if (p != null) {
+                    showPlayedCard(entry.getValue(), p.getPlayedCardContainer());
+                }
+            }
+        }
+
+        // Update hands display with greyed out played cards
+        displayHand(tvNorthRes, formatHandToHtml(initialPlayerHands.get("North"), allPlayedCards));
+        displayHand(tvSouthRes, formatHandToHtml(initialPlayerHands.get("South"), allPlayedCards));
+        displayHand(tvEastRes, formatHandToHtml(initialPlayerHands.get("East"), allPlayedCards));
+        displayHand(tvWestRes, formatHandToHtml(initialPlayerHands.get("West"), allPlayedCards));
     }
 
     private void setPrefChangeTotalScore(int changeScore) {
@@ -252,12 +281,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         this.playHistoryTrick = history;
         this.currentSimTrickIndex = history.size();
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
+        setScore(contract, snScore);
+        findViewById(R.id.main).postDelayed(() -> {
+            displayResults(history, claim);
+        }, 500);
+    }
 
+    private void setScore(String contract, int snScore) {
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
         } catch (Exception e) {
-            // malformed
         }
 
         int requiredTricks = level + 6;
@@ -271,20 +305,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
         setPrefChangeTotalScore(handScore);
         setTotalScore(getPrefTotalScore(), handScore);
-
-        findViewById(R.id.main).postDelayed(() -> {
-            displayResults(history, claim);
-        }, 500);
     }
 
     private void displayResults(List<Trick> history, int claim) {
-
-        displayHand(tvNorthRes, initialHandsHtml.get("North"));
-        displayHand(tvSouthRes, initialHandsHtml.get("South"));
-        displayHand(tvEastRes, initialHandsHtml.get("East"));
-        displayHand(tvWestRes, initialHandsHtml.get("West"));
+        updateSimTrickUI();
         displayHistory(history, claim);
-
         resultsOverlay.setVisibility(View.VISIBLE);
     }
 
@@ -535,19 +560,18 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onInitialHandsHtml() {
-        // Capture hands AFTER swapping/sorting is complete
-        initialHandsHtml.clear();
+        initialPlayerHands.clear();
         for (Player player : players.values()) {
-            initialHandsHtml.put(player.getName(), formatHandToHtml(player.getHand()));
+            initialPlayerHands.put(player.getName(), new ArrayList<>(player.getHand()));
         }
     }
 
     @Override
     public void onInitialHandsHtmlClear() {
-        initialHandsHtml.clear();
+        initialPlayerHands.clear();
     }
 
-    private String formatHandToHtml(List<Card> hand) {
+    private String formatHandToHtml(List<Card> hand, List<Card> playedCards) {
         StringBuilder sb = new StringBuilder();
         com.example.bridge.model.Suit[] suits = {
                 com.example.bridge.model.Suit.SPADES,
@@ -562,16 +586,21 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             sb.append("<b><font color='").append(color).append("'>")
                     .append(suit.symbol).append("</font></b>&nbsp;");
 
-            sb.append("<b><font color='white'>");
+            sb.append("<b>");
             boolean first = true;
             for (Card card : hand) {
                 if (card.getSuit() == suit) {
                     if (!first) sb.append("&nbsp;");
-                    sb.append(card.getRank().display);
+                    
+                    boolean isPlayed = playedCards != null && playedCards.contains(card);
+                    String cardColor = isPlayed ? "#999999" : "white";
+                    
+                    sb.append("<font color='").append(cardColor).append("'>")
+                            .append(card.getRank().display).append("</font>");
                     first = false;
                 }
             }
-            sb.append("</font></b>");
+            sb.append("</b>");
             if (i < suits.length - 1) {
                 sb.append("<br/>");
             }
