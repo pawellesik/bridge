@@ -181,7 +181,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if (i > 0 && currentSimTrickIndex < this.playHistoryTrick.size()) {
             currentSimTrickIndex += 1;
         }
-        updateSimTrickUI();
+        updateSimTrickUI(true);
     }
 
     private void jumpSimTrick(int direction) {
@@ -190,10 +190,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else {
             currentSimTrickIndex = this.playHistoryTrick.size();
         }
-        updateSimTrickUI();
+        updateSimTrickUI(true);
     }
 
-    private void updateSimTrickUI() {
+    private void updateSimTrickUI(boolean shouldScroll) {
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
 
         List<Card> previousTricksCards = new ArrayList<>();
@@ -253,10 +253,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         displayHand(tvWestRes, formatHandToHtmlForSim(initialPlayerHands.get("West"), previousTricksCards, currentTrickCards));
 
         // Aktualizacja podświetlenia w historii i przewijanie
-        updateHistoryHighlightAndScroll();
+        updateHistoryHighlightAndScroll(shouldScroll);
     }
 
-    private void updateHistoryHighlightAndScroll() {
+    private void updateHistoryHighlightAndScroll(boolean shouldScroll) {
         if (tableHistoryRes == null) return;
 
         int rowCount = tableHistoryRes.getChildCount();
@@ -269,8 +269,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         }
 
-        // Przewijanie do aktualnego wiersza
-        if (currentSimTrickIndex >= 0 && currentSimTrickIndex < rowCount) {
+        // Przewijanie do aktualnego wiersza tylko gdy shouldScroll jest true
+        if (shouldScroll && currentSimTrickIndex >= 0 && currentSimTrickIndex < rowCount) {
             View targetRow = tableHistoryRes.getChildAt(currentSimTrickIndex);
             if (targetRow != null) {
                 findViewById(R.id.scroll_history).post(() -> {
@@ -406,7 +406,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void displayResults(List<Trick> history, int claim) {
         displayHistory(history, claim);
-        updateSimTrickUI();
+        updateSimTrickUI(true);
         resultsOverlay.setVisibility(View.VISIBLE);
     }
 
@@ -420,6 +420,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void displayHistory(List<Trick> history, int claim) {
         if (tableHistoryRes == null) return;
 
+        // Nagłówek (index 0)
+        View headerRow = tableHistoryRes.getChildAt(0);
+        if (headerRow != null) {
+            headerRow.setOnClickListener(v -> {
+                currentSimTrickIndex = 0;
+                updateSimTrickUI(false);
+            });
+        }
+
         int childCount = tableHistoryRes.getChildCount();
         if (childCount > 1) {
             tableHistoryRes.removeViews(1, childCount - 1);
@@ -428,9 +437,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (history == null) return;
 
         for (int i = 0; i < history.size(); i++) {
-
+            final int trickNum = i + 1;
             Trick trick = history.get(i);
             TableRow row = new TableRow(this);
+            row.setOnClickListener(v -> {
+                currentSimTrickIndex = trickNum;
+                updateSimTrickUI(false);
+            });
+
             String[] trickData = new String[4]; // W, N, E, S (matches XML)
             int winnerCol = getPlayerColumn(trick.getWinnerTrick());
 
@@ -461,6 +475,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             claimTv.setText(getString(R.string.claimed_tricks, claim));
             claimTv.setTextColor(Color.RED);
             claimTv.setPadding(16, 8, 16, 8);
+            claimTv.setOnClickListener(v -> {
+                currentSimTrickIndex = history.size();
+                updateSimTrickUI(false);
+            });
             tableHistoryRes.addView(claimTv);
         }
     }
