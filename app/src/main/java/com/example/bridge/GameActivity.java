@@ -75,6 +75,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private TableLayout tableHistoryRes;
     private View btnNewDeal;
 
+    // Simulation Views
+    private Button btnPrevSim, btnNextSim;
+    private TextView tvSimInfo;
+    private int currentSimTrickIndex = -1;
+
     private Button btn_deal;
 
     @Override
@@ -123,6 +128,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tableHistoryRes = findViewById(R.id.table_history_res);
         btnNewDeal = findViewById(R.id.btn_new_deal);
 
+        // Simulation Init
+        btnPrevSim = findViewById(R.id.btn_prev_trick);
+        btnNextSim = findViewById(R.id.btn_next_trick);
+        tvSimInfo = findViewById(R.id.tv_trick_info);
+
+        btnPrevSim.setOnClickListener(v -> changeSimTrick(-1));
+        btnNextSim.setOnClickListener(v -> changeSimTrick(1));
+
         btnNewDeal.setOnClickListener(v -> {
             resultsOverlay.setVisibility(View.GONE);
             dealNewCards();
@@ -151,6 +164,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             btnClaim.setVisibility(View.GONE);
             gameController.claimRest();
         });
+    }
+
+    private void changeSimTrick(int i) {
     }
 
     private void setPrefChangeTotalScore(int changeScore) {
@@ -230,13 +246,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void displayResults(List<String> history, List<String> historyWinTrick) {
-        // Populate hands
+        this.currentSimTrickIndex = -1;
+
         displayHand(tvNorthRes, initialHandsHtml.get("North"));
         displayHand(tvSouthRes, initialHandsHtml.get("South"));
         displayHand(tvEastRes, initialHandsHtml.get("East"));
         displayHand(tvWestRes, initialHandsHtml.get("West"));
 
-        // Populate history
         displayHistory(history, historyWinTrick);
 
         resultsOverlay.setVisibility(View.VISIBLE);
