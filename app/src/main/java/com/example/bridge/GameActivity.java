@@ -194,22 +194,23 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void updateSimTrickUI() {
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
-        
-        List<Card> allPlayedCards = new ArrayList<>();
+
+        List<Card> previousTricksCards = new ArrayList<>();
+        List<Card> currentTrickCards = new ArrayList<>();
         Map<String, Card> currentTrickMap = null;
 
         if (currentSimTrickIndex > 0) {
-            Trick currentTrick = this.playHistoryTrick.get(currentSimTrickIndex - 1);
-            currentTrickMap = currentTrick.getCardsOnTableMap();
-            
-            // Collect all cards played up to currentSimTrickIndex
-            for (int trickIdx = 0; trickIdx < currentSimTrickIndex; trickIdx++) {
-                allPlayedCards.addAll(this.playHistoryTrick.get(trickIdx).getCardsOnTable());
+            Trick trick = this.playHistoryTrick.get(currentSimTrickIndex - 1);
+            currentTrickMap = trick.getCardsOnTableMap();
+            currentTrickCards = trick.getCardsOnTable();
+
+            for (int trickIdx = 0; trickIdx < currentSimTrickIndex - 1; trickIdx++) {
+                previousTricksCards.addAll(this.playHistoryTrick.get(trickIdx).getCardsOnTable());
             }
         }
 
-        // Update table center and indicators
         onTableCleared(currentTrickMap);
+
         if (currentTrickMap != null) {
             for (Map.Entry<String, Card> entry : currentTrickMap.entrySet()) {
                 Player p = players.get(entry.getKey());
@@ -219,11 +220,51 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         }
 
-        // Update hands display with greyed out played cards
-        displayHand(tvNorthRes, formatHandToHtml(initialPlayerHands.get("North"), allPlayedCards));
-        displayHand(tvSouthRes, formatHandToHtml(initialPlayerHands.get("South"), allPlayedCards));
-        displayHand(tvEastRes, formatHandToHtml(initialPlayerHands.get("East"), allPlayedCards));
-        displayHand(tvWestRes, formatHandToHtml(initialPlayerHands.get("West"), allPlayedCards));
+        displayHand(tvNorthRes, formatHandToHtmlForSim(initialPlayerHands.get("North"), previousTricksCards, currentTrickCards));
+        displayHand(tvSouthRes, formatHandToHtmlForSim(initialPlayerHands.get("South"), previousTricksCards, currentTrickCards));
+        displayHand(tvEastRes, formatHandToHtmlForSim(initialPlayerHands.get("East"), previousTricksCards, currentTrickCards));
+        displayHand(tvWestRes, formatHandToHtmlForSim(initialPlayerHands.get("West"), previousTricksCards, currentTrickCards));
+    }
+
+    private String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
+        StringBuilder sb = new StringBuilder();
+        com.example.bridge.model.Suit[] suits = {
+                com.example.bridge.model.Suit.SPADES,
+                com.example.bridge.model.Suit.HEARTS,
+                com.example.bridge.model.Suit.DIAMONDS,
+                com.example.bridge.model.Suit.CLUBS
+        };
+
+        for (int i = 0; i < suits.length; i++) {
+            com.example.bridge.model.Suit suit = suits[i];
+            String color = suit.isRed ? "red" : "black";
+            sb.append("<b><font color='").append(color).append("'>")
+                    .append(suit.symbol).append("</font></b>&nbsp;");
+
+            sb.append("<b>");
+            boolean first = true;
+            for (Card card : hand) {
+                if (card.getSuit() == suit) {
+                    if (!first) sb.append("&nbsp;");
+
+                    String cardColor = "black"; // Nie rzucone
+                    if (previousTricksCards != null && previousTricksCards.contains(card)) {
+                        cardColor = "#999999"; // Rzucone w poprzednich lewach (szare)
+                    } else if (currentTrickCards != null && currentTrickCards.contains(card)) {
+                        cardColor = "red"; // Obecnie rzucona (czerwona)
+                    }
+
+                    sb.append("<font color='").append(cardColor).append("'>")
+                            .append(card.getRank().display).append("</font>");
+                    first = false;
+                }
+            }
+            sb.append("</b>");
+            if (i < suits.length - 1) {
+                sb.append("<br/>");
+            }
+        }
+        return sb.toString();
     }
 
     private void setPrefChangeTotalScore(int changeScore) {
