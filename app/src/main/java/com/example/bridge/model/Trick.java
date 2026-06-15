@@ -13,6 +13,9 @@ public class Trick {
     public void setWinnerTrick (String winnerTrick){
         this.winnerTrick = winnerTrick;
     }
+    public String getWinnerTrick() {
+        return winnerTrick;
+    }
     public void addCard(String direction, Card card) {
         cardsOnTableMap.put(direction, card);
         cardsOnTable.add(card);

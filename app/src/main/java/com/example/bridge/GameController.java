@@ -35,7 +35,7 @@ public class GameController {
 
         void onScoreUpdated(int snScore, int weScore);
 
-        void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick, List<Trick> playHistoryWinTrick);
+        void onGameEnded(int snScore, int weScore, String contract, List<Trick> history, int claim);
 
         void onInitialHandsHtml();
 
@@ -52,8 +52,6 @@ public class GameController {
     private final DdsSolver ddsSolver;
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
-    private final List<String> playHistory = new ArrayList<>();
-    private final List<String> playHistoryWinTrick = new ArrayList<>();
 
 
     private String currentContract = "PASS";
@@ -104,8 +102,6 @@ public class GameController {
         weScore = 0;
         currentTrick = new Trick();
         playHistoryTrick = new ArrayList<>();
-        playHistory.clear();
-        playHistoryWinTrick.clear();
         callback.onInitialHandsHtmlClear();
         callback.onTableCleared(currentTrick.getCardsOnTableMap());
         callback.onScoreUpdated(snScore, weScore);
@@ -121,7 +117,6 @@ public class GameController {
         player.removeCard(card);
 
         currentTrick.addCard(player.getName(), card);
-        playHistory.add(player.getName() + ": " + card.getRank().display + " " + card.getSuit().symbol);
 
         callback.onClearLastCards(currentTrick.getCardsOnTable());
         callback.onCardPlayed(player, card);
@@ -162,15 +157,13 @@ public class GameController {
         int remainingTricks = players.get("South").getHand().size();
         snScore += remainingTricks;
 
-        playHistory.add("CLAIM: " + remainingTricks);
-
         for (Player p : players.values()) {
             p.getHand().clear();
             callback.onHandUpdated(p.getName());
         }
 
         callback.onScoreUpdated(snScore, weScore);
-        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick), playHistoryTrick);
+        callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistoryTrick),  remainingTricks);
     }
 
     public boolean isLegalMove(Player player, Card card) {
@@ -192,7 +185,7 @@ public class GameController {
     private void setNextPlayerCurrentMove(Player player) {
         if (currentTrick.getCardsOnTable().size() == 4) {
             String winnerName = determineTrickWinner();
-            playHistoryWinTrick.add(winnerName);
+            currentTrick.setWinnerTrick(winnerName);
 
             if (winnerName.equals("North") || winnerName.equals("South")) {
                 snScore++;
@@ -204,7 +197,7 @@ public class GameController {
                 clearTable();
 
                 if (players.get("South").getHand().isEmpty()) {
-                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistory), new ArrayList<>(playHistoryWinTrick), playHistoryTrick);
+                    callback.onGameEnded(snScore, weScore, currentContract, new ArrayList<>(playHistoryTrick),-1);
                     return;
                 }
 

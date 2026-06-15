@@ -182,6 +182,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
         updateSimTrickUI();
     }
+
     private void jumpSimTrick(int direction) {
         if (direction < 0) {
             currentSimTrickIndex = 0;
@@ -199,7 +200,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
 
         onTableCleared(new HashMap<>(currentTrick));
-
 
 
     }
@@ -255,8 +255,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onGameEnded(int snScore, int weScore, String contract, List<String> history, List<String> historyWinTrick, List<Trick> playHistoryWinTrick) {
-        this.playHistoryWinTrick = playHistoryWinTrick;
+    public void onGameEnded(int snScore, int weScore, String contract, List<Trick> history, int claim) {
+        this.playHistoryWinTrick = history;
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
@@ -277,11 +277,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         setTotalScore(getPrefTotalScore(), handScore);
 
         findViewById(R.id.main).postDelayed(() -> {
-            displayResults(history, historyWinTrick);
+            displayResults(history, claim);
         }, 500);
     }
 
-    private void displayResults(List<String> history, List<String> historyWinTrick) {
+    private void displayResults(List<Trick> history, int claim) {
         this.currentSimTrickIndex = 0;
 
         displayHand(tvNorthRes, initialHandsHtml.get("North"));
@@ -289,7 +289,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         displayHand(tvEastRes, initialHandsHtml.get("East"));
         displayHand(tvWestRes, initialHandsHtml.get("West"));
 
-        displayHistory(history, historyWinTrick);
+        displayHistory(history, claim);
 
         resultsOverlay.setVisibility(View.VISIBLE);
     }
@@ -301,10 +301,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-    private void displayHistory(List<String> history, List<String> historyWinTrick) {
+    private void displayHistory(List<Trick> history, int claim) {
         if (tableHistoryRes == null) return;
 
-        // Clear previous entries (keep header row)
         int childCount = tableHistoryRes.getChildCount();
         if (childCount > 1) {
             tableHistoryRes.removeViews(1, childCount - 1);
@@ -312,44 +311,21 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         if (history == null) return;
 
-        for (int i = 0; i < history.size(); i += 4) {
+        for (int i = 0; i < history.size(); i++) {
+
+            Trick trick = history.get(i);
             TableRow row = new TableRow(this);
             String[] trickData = new String[4]; // W, N, E, S (matches XML)
-            int trickIndex = i / 4;
-            int winnerCol = -1;
+            int winnerCol = getPlayerColumn(trick.getWinnerTrick());
 
-            if (historyWinTrick != null && trickIndex < historyWinTrick.size()) {
-                winnerCol = getPlayerColumn(historyWinTrick.get(trickIndex));
-            }
-
-            for (int j = 0; j < 4 && (i + j) < history.size(); j++) {
-                String entry = history.get(i + j);
-                if (entry.startsWith("CLAIM: ")) {
-                    int num = 0;
-                    try {
-                        num = Integer.parseInt(entry.replace("CLAIM: ", ""));
-                    } catch (Exception ignored) {
-                    }
-
-                    TextView claimTv = new TextView(this);
-                    claimTv.setText(getString(R.string.claimed_tricks, num));
-                    claimTv.setTextColor(Color.RED);
-                    claimTv.setPadding(16, 8, 16, 8);
-                    tableHistoryRes.addView(claimTv);
-                    return;
-                }
-
-                String[] parts = entry.split(": ");
-                if (parts.length == 2) {
-                    String name = parts[0];
-                    String cardStr = parts[1];
-                    int col = getPlayerColumn(name);
-                    if (col != -1) {
-                        trickData[col] = cardStr;
-                    }
+            for (Map.Entry<String, Card> entry : trick.getCardsOnTableMap().entrySet()) {
+                String name = entry.getKey();
+                Card card = entry.getValue();
+                int col = getPlayerColumn(name);
+                if (col != -1) {
+                    trickData[col] = card.getRank().display + " " + card.getSuit().symbol;
                 }
             }
-
             for (int c = 0; c < 4; c++) {
                 TextView tv = new TextView(this);
                 tv.setText(trickData[c] != null ? trickData[c] : "-");
@@ -363,6 +339,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 row.addView(tv);
             }
             tableHistoryRes.addView(row);
+        }
+        if (claim > 0) {
+            TextView claimTv = new TextView(this);
+            claimTv.setText(getString(R.string.claimed_tricks, claim));
+            claimTv.setTextColor(Color.RED);
+            claimTv.setPadding(16, 8, 16, 8);
+            tableHistoryRes.addView(claimTv);
         }
     }
 
