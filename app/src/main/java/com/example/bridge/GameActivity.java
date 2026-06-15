@@ -83,6 +83,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private int currentSimTrickIndex;
 
     private List<Trick> playHistoryTrick = new ArrayList<>();
+    private int simClaimCount = 0;
 
     private Button btn_deal;
 
@@ -196,21 +197,46 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
 
         List<Card> previousTricksCards = new ArrayList<>();
-        List<Card> currentTrickCards = new ArrayList<>();
+        List<Card> currentTrickCards = null;
         Map<String, Card> currentTrickMap = null;
 
-        if (currentSimTrickIndex > 0) {
-            Trick trick = this.playHistoryTrick.get(currentSimTrickIndex - 1);
-            currentTrickMap = trick.getCardsOnTableMap();
-            currentTrickCards = trick.getCardsOnTable();
+        int simSnScore = 0;
+        int simWeScore = 0;
 
-            for (int trickIdx = 0; trickIdx < currentSimTrickIndex - 1; trickIdx++) {
-                previousTricksCards.addAll(this.playHistoryTrick.get(trickIdx).getCardsOnTable());
+        for (int trickIdx = 0; trickIdx < currentSimTrickIndex; trickIdx++) {
+            Trick trick = this.playHistoryTrick.get(trickIdx);
+            
+            // Punktacja - uwzględniamy wszystkie lewy do obecnego indeksu włącznie
+            String winner = trick.getWinnerTrick();
+            if ("North".equals(winner) || "South".equals(winner)) {
+                simSnScore++;
+            } else if ("East".equals(winner) || "West".equals(winner)) {
+                simWeScore++;
+            }
+
+            if (trickIdx < currentSimTrickIndex - 1) {
+                // Karty z poprzednich lew (do wyszarzenia)
+                previousTricksCards.addAll(trick.getCardsOnTable());
+            } else {
+                // Karty z obecnej lewy (do pokazania na stole i na czerwono)
+                currentTrickMap = trick.getCardsOnTableMap();
+                currentTrickCards = trick.getCardsOnTable();
             }
         }
 
+        // Dodaj claim (jeśli jesteśmy na końcu historii)
+        if (currentSimTrickIndex == this.playHistoryTrick.size() && simClaimCount > 0) {
+            simSnScore += simClaimCount;
+        }
+
+        // Aktualizacja wyników w symulacji
+        if (tvScoreSN != null) tvScoreSN.setText(getString(R.string.sn_label, simSnScore));
+        if (tvScoreWE != null) tvScoreWE.setText(getString(R.string.we_label, simWeScore));
+
+        // Wyczyść stół i wskaźniki "ostatnich kart"
         onTableCleared(currentTrickMap);
 
+        // Pokaż karty obecnej lewy na środku stołu
         if (currentTrickMap != null) {
             for (Map.Entry<String, Card> entry : currentTrickMap.entrySet()) {
                 Player p = players.get(entry.getKey());
@@ -220,6 +246,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         }
 
+        // Odśwież widok rąk
         displayHand(tvNorthRes, formatHandToHtmlForSim(initialPlayerHands.get("North"), previousTricksCards, currentTrickCards));
         displayHand(tvSouthRes, formatHandToHtmlForSim(initialPlayerHands.get("South"), previousTricksCards, currentTrickCards));
         displayHand(tvEastRes, formatHandToHtmlForSim(initialPlayerHands.get("East"), previousTricksCards, currentTrickCards));
@@ -320,6 +347,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     public void onGameEnded(int snScore, int weScore, String contract, List<Trick> history, int claim) {
         this.playHistoryTrick = history;
+        this.simClaimCount = claim;
         this.currentSimTrickIndex = history.size();
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
         setScore(contract, snScore);
@@ -424,6 +452,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void dealNewCards() {
         if (startBar != null) startBar.setVisibility(View.VISIBLE);
+        simClaimCount = 0;
         gameController.dealCards();
     }
 
@@ -610,6 +639,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     public void onInitialHandsHtmlClear() {
         initialPlayerHands.clear();
+        simClaimCount = 0;
     }
 
     private String formatHandToHtml(List<Card> hand, List<Card> playedCards) {
