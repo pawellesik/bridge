@@ -76,6 +76,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private TextView tvNorthRes, tvSouthRes, tvEastRes, tvWestRes;
     private TableLayout tableHistoryRes;
     private View btnNewDeal;
+    private View btnAutoReplay;
 
     // Simulation Views
     private Button btnFirstSim, btnPrevSim, btnNextSim, btnLastSim;
@@ -145,9 +146,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         btnNextSim.setOnClickListener(v -> changeSimTrick(1));
         btnLastSim.setOnClickListener(v -> jumpSimTrick(1));
 
+        btnAutoReplay = findViewById(R.id.btn_auto_replay);
         btnNewDeal.setOnClickListener(v -> {
             resultsOverlay.setVisibility(View.GONE);
             dealNewCards();
+        });
+
+        btnAutoReplay.setOnClickListener(v -> {
+            resultsOverlay.setVisibility(View.GONE);
+            autoReplay();
         });
 
         initGame();
@@ -174,6 +181,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameController.claimRest();
         });
     }
+
+
+    public void autoReplay() {
+        //int currentSimTrickIndex
+        //List<Trick> playHistoryTrick
+        //displayHistory(List<Trick> history, int claim);
+
+        updateSimTrickUI(true);
+    }
+
 
     private void changeSimTrick(int i) {
         if (i < 0 && currentSimTrickIndex > 0) {

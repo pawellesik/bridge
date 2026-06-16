@@ -56,6 +56,7 @@ public class GameController {
     private String trickLeaderName = "West";
     private int snScore = 0;
     private int weScore = 0;
+    private boolean isAutoPlayMode = false;
 
     public GameController(Map<String, Player> players, GameCallback callback) {
         this.players = players;
@@ -70,6 +71,7 @@ public class GameController {
 
         handler.removeCallbacksAndMessages(null);
         resetTable();
+        isAutoPlayMode = false;
 
         deck = new Deck();
         deck.shuffle();
@@ -262,7 +264,7 @@ public class GameController {
     }
 
     private void checkOpponentMove(Player player) {
-        if ("East".equals(player.getName()) || "West".equals(player.getName())) {
+        if (isAutoPlayMode || "East".equals(player.getName()) || "West".equals(player.getName())) {
             playCardOpponent(player);
         }
     }

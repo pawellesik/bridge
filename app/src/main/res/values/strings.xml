@@ -14,6 +14,7 @@
     <string name="deal">Deal</string>
     <string name="claim">Take the rest</string>
     <string name="new_deal">New Deal</string>
+    <string name="auto_play_deal">Auto Play Deal</string>
     <string name="score_label">SCORE:</string>
     <string name="we_label">WE: %1$d</string>
     <string name="sn_label">SN: %1$d</string>
