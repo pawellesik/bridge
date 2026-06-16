@@ -82,9 +82,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private Button btnFirstSim, btnPrevSim, btnNextSim, btnLastSim;
     private TextView tvSimInfo;
     private int currentSimTrickIndex;
-
     private List<Trick> playHistoryTrick = new ArrayList<>();
+    private List<Trick> playAutoHistoryTrick = new ArrayList<>();
     private int simClaimCount = 0;
+    private boolean isShowingAutoHistory = false;
 
     private Button btn_deal;
 
@@ -153,7 +154,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
 
         btnAutoReplay.setOnClickListener(v -> {
-            resultsOverlay.setVisibility(View.GONE);
             autoReplay();
         });
 
@@ -184,33 +184,50 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
 
     public void autoReplay() {
-        //int currentSimTrickIndex
-        //List<Trick> playHistoryTrick
-        //displayHistory(List<Trick> history, int claim);
+        if (initialPlayerHands.isEmpty()) return;
 
-        updateSimTrickUI(true);
+        isShowingAutoHistory = !isShowingAutoHistory;
+
+        if (isShowingAutoHistory) {
+            if (this.playAutoHistoryTrick == null || this.playAutoHistoryTrick.isEmpty()) {
+                String contract = gameController.getCurrentContract();
+                this.playAutoHistoryTrick = gameController.calculateOptimalHistory(initialPlayerHands, contract);
+            }
+            displayHistory(this.playAutoHistoryTrick, 0);
+            updateSimTrickUI(true, playAutoHistoryTrick, 0, 0);
+        } else {
+            displayHistory(this.playHistoryTrick, simClaimCount);
+            updateSimTrickUI(true, playHistoryTrick, 0, simClaimCount);
+        }
     }
 
 
     private void changeSimTrick(int i) {
+        List<Trick> history = isShowingAutoHistory ? playAutoHistoryTrick : playHistoryTrick;
+        int claim = isShowingAutoHistory ? 0 : simClaimCount;
+
         if (i < 0 && currentSimTrickIndex > 0) {
             currentSimTrickIndex -= 1;
-        } else if (i > 0 && currentSimTrickIndex < this.playHistoryTrick.size()) {
+        } else if (i > 0 && currentSimTrickIndex < history.size()) {
             currentSimTrickIndex += 1;
         }
-        updateSimTrickUI(true);
+        updateSimTrickUI(true, history, currentSimTrickIndex, claim);
     }
 
     private void jumpSimTrick(int direction) {
+        List<Trick> history = isShowingAutoHistory ? playAutoHistoryTrick : playHistoryTrick;
+        int claim = isShowingAutoHistory ? 0 : simClaimCount;
+
         if (direction < 0) {
             currentSimTrickIndex = 0;
         } else {
-            currentSimTrickIndex = this.playHistoryTrick.size();
+            currentSimTrickIndex = history.size();
         }
-        updateSimTrickUI(true);
+        updateSimTrickUI(true, history, currentSimTrickIndex, claim);
     }
 
-    private void updateSimTrickUI(boolean shouldScroll) {
+    private void updateSimTrickUI(boolean shouldScroll, List<Trick> history, int trickIndex, int claim) {
+        this.currentSimTrickIndex = trickIndex;
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
 
         List<Card> previousTricksCards = new ArrayList<>();
@@ -221,7 +238,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         int simWeScore = 0;
 
         for (int trickIdx = 0; trickIdx < currentSimTrickIndex; trickIdx++) {
-            Trick trick = this.playHistoryTrick.get(trickIdx);
+            Trick trick = history.get(trickIdx);
             
             // Punktacja - uwzględniamy wszystkie lewy do obecnego indeksu włącznie
             String winner = trick.getWinnerTrick();
@@ -242,8 +259,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
 
         // Dodaj claim (jeśli jesteśmy na końcu historii)
-        if (currentSimTrickIndex == this.playHistoryTrick.size() && simClaimCount > 0) {
-            simSnScore += simClaimCount;
+        if (currentSimTrickIndex == history.size() && claim > 0) {
+            simSnScore += claim;
         }
 
         // Aktualizacja wyników w symulacji
@@ -422,8 +439,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void displayResults(List<Trick> history, int claim) {
+        isShowingAutoHistory = false;
+        playAutoHistoryTrick = null;
         displayHistory(history, claim);
-        updateSimTrickUI(true);
+        updateSimTrickUI(true, history, currentSimTrickIndex, claim);
         resultsOverlay.setVisibility(View.VISIBLE);
     }
 
@@ -441,8 +460,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         View headerRow = tableHistoryRes.getChildAt(0);
         if (headerRow != null) {
             headerRow.setOnClickListener(v -> {
-                currentSimTrickIndex = 0;
-                updateSimTrickUI(false);
+                updateSimTrickUI(false, history, 0, claim);
             });
         }
 
@@ -458,8 +476,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             Trick trick = history.get(i);
             TableRow row = new TableRow(this);
             row.setOnClickListener(v -> {
-                currentSimTrickIndex = trickNum;
-                updateSimTrickUI(false);
+                updateSimTrickUI(false, history, trickNum, claim);
             });
 
             String[] trickData = new String[4]; // W, N, E, S (matches XML)
@@ -493,8 +510,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             claimTv.setTextColor(Color.RED);
             claimTv.setPadding(16, 8, 16, 8);
             claimTv.setOnClickListener(v -> {
-                currentSimTrickIndex = history.size();
-                updateSimTrickUI(false);
+                updateSimTrickUI(false, history, history.size(), claim);
             });
             tableHistoryRes.addView(claimTv);
         }
