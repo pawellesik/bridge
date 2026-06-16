@@ -88,6 +88,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private boolean isShowingAutoHistory = false;
 
     private Button btn_deal;
+    private int snScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,8 +194,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 String contract = gameController.getCurrentContract();
                 this.playAutoHistoryTrick = gameController.calculateOptimalHistory(initialPlayerHands, contract);
             }
-            
-            btnAutoReplay.setText("Back to my play");
+            setBtnAutoReplayText(false, this.snScore);
             displayHistory(this.playAutoHistoryTrick, 0);
             updateSimTrickUI(true, playAutoHistoryTrick, playAutoHistoryTrick.size(), 0);
         } else {
@@ -205,13 +205,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     if ("North".equals(winner) || "South".equals(winner)) autoSnScoreTotal++;
                 }
             }
-            btnAutoReplay.setText(autoSnScoreTotal + " Auto Play");
-
+            setBtnAutoReplayText(true, autoSnScoreTotal);
             displayHistory(this.playHistoryTrick, simClaimCount);
             updateSimTrickUI(true, playHistoryTrick, playHistoryTrick.size(), simClaimCount);
         }
     }
 
+    private void setBtnAutoReplayText(boolean hist, int cnt) {
+        if (hist == true) {
+            btnAutoReplay.setText("Show Auto Playing (" + cnt + ")");
+        } else {
+            btnAutoReplay.setText("Show My Playing (" + this.snScore + ")");
+        }
+
+    }
 
     private void changeSimTrick(int i) {
         List<Trick> history = isShowingAutoHistory ? playAutoHistoryTrick : playHistoryTrick;
@@ -250,7 +257,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         for (int trickIdx = 0; trickIdx < currentSimTrickIndex; trickIdx++) {
             Trick trick = history.get(trickIdx);
-            
+
             // Punktacja - uwzględniamy wszystkie lewy do obecnego indeksu włącznie
             String winner = trick.getWinnerTrick();
             if ("North".equals(winner) || "South".equals(winner)) {
@@ -433,6 +440,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void setScore(String contract, int snScore) {
+        this.snScore = snScore;
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
@@ -455,7 +463,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void displayResults(List<Trick> history, int claim) {
         isShowingAutoHistory = false;
         playAutoHistoryTrick = null;
-        
+
         // Calculate auto score to show on button
         String contract = gameController.getCurrentContract();
         this.playAutoHistoryTrick = gameController.calculateOptimalHistory(initialPlayerHands, contract);
@@ -464,7 +472,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             String winner = trick.getWinnerTrick();
             if ("North".equals(winner) || "South".equals(winner)) autoSnScore++;
         }
-        btnAutoReplay.setText(autoSnScore + " Auto Play");
+        setBtnAutoReplayText(true, autoSnScore);
 
         displayHistory(history, claim);
         updateSimTrickUI(true, history, currentSimTrickIndex, claim);
@@ -768,10 +776,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             for (Card card : hand) {
                 if (card.getSuit() == suit) {
                     if (!first) sb.append("&nbsp;");
-                    
+
                     boolean isPlayed = playedCards != null && playedCards.contains(card);
                     String cardColor = isPlayed ? "#999999" : "white";
-                    
+
                     sb.append("<font color='").append(cardColor).append("'>")
                             .append(card.getRank().display).append("</font>");
                     first = false;
