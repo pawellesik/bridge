@@ -19,6 +19,12 @@ public class DdsSolver {
     public native int calcDDTable(int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks);
 
     /**
+     * Calculates all cards that result in the maximum possible number of tricks.
+     * @return Array of integers where each is suit * 100 + rank
+     */
+    public native int[] calcBestCards(int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks);
+
+    /**
      * Calculates full double dummy table for all denominations and leads.
      * @param cards Array of 16 integers
      * @return Array of 20 integers (5 trumps * 4 leaders)

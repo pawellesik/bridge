@@ -63,6 +63,72 @@ Java_com_example_bridge_DdsSolver_calcDDTable(
 }
 
 JNIEXPORT jintArray JNICALL
+Java_com_example_bridge_DdsSolver_calcBestCards(
+        JNIEnv *env, jobject thiz,
+        jintArray cards,
+        jint trump,
+        jint leader,
+        jintArray trickSuits,
+        jintArray trickRanks) {
+
+    Deal dl;
+    dl.trump = trump;
+    dl.first = leader;
+
+    jint *ts = env->GetIntArrayElements(trickSuits, nullptr);
+    jint *tr = env->GetIntArrayElements(trickRanks, nullptr);
+    for (int i = 0; i < 3; i++) {
+        dl.currentTrickSuit[i] = (ts[i] < 0) ? 0 : ts[i];
+        dl.currentTrickRank[i] = (tr[i] < 2) ? 0 : tr[i];
+    }
+    env->ReleaseIntArrayElements(trickSuits, ts, JNI_ABORT);
+    env->ReleaseIntArrayElements(trickRanks, tr, JNI_ABORT);
+
+    jint *cardArray = env->GetIntArrayElements(cards, nullptr);
+    for (int hand = 0; hand < 4; hand++) {
+        for (int suit = 0; suit < 4; suit++) {
+            dl.remainCards[hand][suit] = (unsigned int)cardArray[hand * 4 + suit];
+        }
+    }
+    env->ReleaseIntArrayElements(cards, cardArray, JNI_ABORT);
+
+    FutureTricks ft;
+    // solutions = 2: all legal cards with their scores
+    int result = SolveBoard(dl, -1, 2, 0, &ft, 0);
+
+    if (result != RETURN_NO_FAULT) {
+        __android_log_print(ANDROID_LOG_ERROR, TAG, "DDS SolveBoard error: %d", result);
+        return env->NewIntArray(0);
+    }
+
+    if (ft.cards <= 0) return env->NewIntArray(0);
+
+    // Find the maximum score among all legal cards
+    int maxScore = -1;
+    for (int i = 0; i < ft.cards; i++) {
+        if (ft.score[i] > maxScore) maxScore = ft.score[i];
+    }
+
+    // Count how many cards have that maximum score
+    int count = 0;
+    for (int i = 0; i < ft.cards; i++) {
+        if (ft.score[i] == maxScore) count++;
+    }
+
+    jintArray output = env->NewIntArray(count);
+    jint buf[13];
+    int idx = 0;
+    for (int i = 0; i < ft.cards; i++) {
+        if (ft.score[i] == maxScore) {
+            buf[idx++] = ft.suit[i] * 100 + ft.rank[i];
+        }
+    }
+
+    env->SetIntArrayRegion(output, 0, count, buf);
+    return output;
+}
+
+JNIEXPORT jintArray JNICALL
 Java_com_example_bridge_DdsSolver_calcFullDDTable(
         JNIEnv *env, jobject thiz,
         jintArray cards) {
