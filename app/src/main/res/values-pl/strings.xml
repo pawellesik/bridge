@@ -14,6 +14,7 @@
     <string name="deal">Rozdaj</string>
     <string name="claim">Weź resztę</string>
     <string name="new_deal">Nowe Rozdanie</string>
+    <string name="auto_play_deal">Inne Rozegranie</string>
     <string name="score_label">WYNIK:</string>
     <string name="we_label">ZW: %1$d</string>
     <string name="sn_label">PP: %1$d</string>

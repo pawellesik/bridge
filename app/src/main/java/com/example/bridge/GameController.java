@@ -56,6 +56,7 @@ public class GameController {
     private String trickLeaderName = "West";
     private int snScore = 0;
     private int weScore = 0;
+    private boolean isAutoPlayMode = false;
 
     public GameController(Map<String, Player> players, GameCallback callback) {
         this.players = players;
@@ -70,6 +71,7 @@ public class GameController {
 
         handler.removeCallbacksAndMessages(null);
         resetTable();
+        isAutoPlayMode = false;
 
         deck = new Deck();
         deck.shuffle();
@@ -262,7 +264,7 @@ public class GameController {
     }
 
     private void checkOpponentMove(Player player) {
-        if ("East".equals(player.getName()) || "West".equals(player.getName())) {
+        if (isAutoPlayMode || "East".equals(player.getName()) || "West".equals(player.getName())) {
             playCardOpponent(player);
         }
     }
@@ -270,8 +272,6 @@ public class GameController {
     private void playCardOpponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            // Do NOT set setCurrentMove(false) here. 
-            // playCard will handle it.
             Card bestCard = calculateBestCard(playerOponent);
             if (bestCard == null) {
                 bestCard = hand.get((int) (Math.random() * hand.size()));
@@ -282,26 +282,66 @@ public class GameController {
         }
     }
 
-    private Card calculateBestCard(Player player) {
+    public String getCurrentContract() {
+        return currentContract;
+    }
+
+    public List<Trick> calculateOptimalHistory(Map<String, List<Card>> initialHands, String contract) {
+        // Przygotuj symulowane ręce
+        Map<String, List<Card>> simHands = new HashMap<>();
+        for (Map.Entry<String, List<Card>> entry : initialHands.entrySet()) {
+            simHands.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+
+        List<Trick> history = new ArrayList<>();
+        String currentLeader = "West"; // Pierwszy lider
+
+        for (int t = 0; t < 13; t++) {
+            Trick trick = new Trick();
+            String currentPlayer = currentLeader;
+            List<Card> cardsInThisTrick = new ArrayList<>();
+
+            for (int c = 0; c < 4; c++) {
+                Card best = calculateBestCardInternal(currentPlayer, simHands, cardsInThisTrick, contract, currentLeader);
+                if (best == null && simHands.get(currentPlayer) != null && !simHands.get(currentPlayer).isEmpty()) {
+                    best = simHands.get(currentPlayer).get(0);
+                }
+                if (best != null) {
+                    trick.addCard(currentPlayer, best);
+                    cardsInThisTrick.add(best);
+                    simHands.get(currentPlayer).remove(best);
+                }
+                currentPlayer = getNextPlayerName(currentPlayer);
+            }
+
+            String winner = determineTrickWinnerInternal(trick.getCardsOnTableMap(), contract, currentLeader);
+            trick.setWinnerTrick(winner);
+            history.add(trick);
+            currentLeader = winner;
+        }
+        return history;
+    }
+
+    private Card calculateBestCardInternal(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, String contract, String leaderName) {
         int[] ddsCards = new int[16];
         String[] handNames = {"North", "East", "South", "West"};
         for (int h = 0; h < 4; h++) {
-            Player p = players.get(handNames[h]);
-            if (p != null) {
-                for (Card c : p.getHand()) {
+            List<Card> hand = hands.get(handNames[h]);
+            if (hand != null) {
+                for (Card c : hand) {
                     int suitIdx = mapSuitToDdsIndex(c.getSuit());
                     ddsCards[h * 4 + suitIdx] |= (1 << (c.getRank().ordinal() + 2));
                 }
             }
         }
 
-        int trump = getTrumpDdsIndex(currentContract);
-        int leaderIdx = getPlayerDdsIndex(trickLeaderName);
+        int trump = getTrumpDdsIndex(contract);
+        int leaderIdx = getPlayerDdsIndex(leaderName);
 
         int[] trickSuits = {-1, -1, -1};
         int[] trickRanks = {0, 0, 0};
-        for (int i = 0; i < currentTrick.getCardsOnTable().size(); i++) {
-            Card c = currentTrick.getCardsOnTable().get(i);
+        for (int i = 0; i < cardsOnTable.size(); i++) {
+            Card c = cardsOnTable.get(i);
             trickSuits[i] = mapSuitToDdsIndex(c.getSuit());
             trickRanks[i] = c.getRank().ordinal() + 2;
         }
@@ -312,12 +352,67 @@ public class GameController {
         int resSuitIdx = result / 100;
         int resRankVal = result % 100;
 
-        for (Card c : player.getHand()) {
-            if (mapSuitToDdsIndex(c.getSuit()) == resSuitIdx && (c.getRank().ordinal() + 2) == resRankVal) {
-                return c;
+        List<Card> currentPlayerHand = hands.get(playerName);
+        if (currentPlayerHand != null) {
+            for (Card c : currentPlayerHand) {
+                if (mapSuitToDdsIndex(c.getSuit()) == resSuitIdx && (c.getRank().ordinal() + 2) == resRankVal) {
+                    return c;
+                }
             }
         }
         return null;
+    }
+
+    private String determineTrickWinnerInternal(Map<String, Card> trickMap, String contract, String leaderName) {
+        Card leadCard = trickMap.get(leaderName);
+        if (leadCard == null) return players.keySet().iterator().next();
+
+        Suit ledSuit = leadCard.getSuit();
+        Suit trumpSuit = getTrumpSuitInternal(contract);
+
+        String winnerName = leaderName;
+        Card bestCard = leadCard;
+
+        for (Map.Entry<String, Card> entry : trickMap.entrySet()) {
+            Card card = entry.getValue();
+            if (isBetterCard(card, bestCard, ledSuit, trumpSuit)) {
+                bestCard = card;
+                winnerName = entry.getKey();
+            }
+        }
+        return winnerName;
+    }
+
+    private Suit getTrumpSuitInternal(String contract) {
+        if (contract == null || contract.equals("PASS") || contract.endsWith("NT"))
+            return null;
+        if (contract.contains("S")) return Suit.SPADES;
+        if (contract.contains("H")) return Suit.HEARTS;
+        if (contract.contains("D")) return Suit.DIAMONDS;
+        if (contract.contains("C")) return Suit.CLUBS;
+        return null;
+    }
+
+    private String getNextPlayerName(String name) {
+        switch (name) {
+            case "North": return "East";
+            case "East": return "South";
+            case "South": return "West";
+            case "West": return "North";
+            default: return "North";
+        }
+    }
+
+    private Card calculateBestCard(Player player) {
+        return calculateBestCardInternal(player.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, trickLeaderName);
+    }
+
+    private Map<String, List<Card>> getHandsMap() {
+        Map<String, List<Card>> map = new HashMap<>();
+        for (Player p : players.values()) {
+            map.put(p.getName(), p.getHand());
+        }
+        return map;
     }
 
     private int mapSuitToDdsIndex(Suit suit) {
