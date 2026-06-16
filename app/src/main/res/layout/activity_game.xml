@@ -131,8 +131,9 @@
 
             <TextView
                 android:id="@+id/n_last_card"
-                android:layout_width="wrap_content"
+                android:layout_width="56dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -142,10 +143,11 @@
 
             <TextView
                 android:id="@+id/w_last_card"
-                android:layout_width="wrap_content"
+                android:layout_width="56dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="4dp"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -156,8 +158,9 @@
 
             <TextView
                 android:id="@+id/e_last_card"
-                android:layout_width="wrap_content"
+                android:layout_width="56dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -167,9 +170,10 @@
 
             <TextView
                 android:id="@+id/s_last_card"
-                android:layout_width="wrap_content"
+                android:layout_width="56dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
