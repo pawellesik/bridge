@@ -346,8 +346,7 @@ public class GameController {
             trickRanks[i] = c.getRank().ordinal() + 2;
         }
 
-        int result = ddsSolver.calcDDTable(ddsCards, trump, leaderIdx, trickSuits, trickRanks);
-        if (result < 0) return null;
+        int result = getCalcBestCards(ddsCards, trump, leaderIdx, trickSuits, trickRanks);
 
         int resSuitIdx = result / 100;
         int resRankVal = result % 100;
@@ -361,6 +360,45 @@ public class GameController {
             }
         }
         return null;
+    }
+
+    private int getCalcBestCards(int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks) {
+        int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
+        if (resultTab == null || resultTab.length == 0) {
+            return ddsSolver.calcDDTable(cards, trump, leader, trickSuits, trickRanks);
+        }
+
+        int bestCard = resultTab[0];
+        int maxTrumpRank = -1;
+        int minFigureRank = 15;
+
+        // 1. Szukamy najwyższej karty w kolorze atu
+        for (int cardCode : resultTab) {
+            int cardSuit = cardCode / 100;
+            int cardRank = cardCode % 100;
+
+            if (cardSuit == trump) {
+                if (cardRank > maxTrumpRank) {
+                    maxTrumpRank = cardRank;
+                    bestCard = cardCode;
+                }
+            }
+        }
+
+        // 2. Jeśli brak atu w optymalnych ruchach, wybieramy najniższą figurę
+        if (maxTrumpRank == -1) {
+            for (int cardCode : resultTab) {
+                int cardRank = cardCode % 100;
+                if (cardRank >= 11) { // J, Q, K, A
+                    if (cardRank < minFigureRank) {
+                        minFigureRank = cardRank;
+                        bestCard = cardCode;
+                    }
+                }
+            }
+        }
+
+        return bestCard;
     }
 
     private String determineTrickWinnerInternal(Map<String, Card> trickMap, String contract, String leaderName) {
