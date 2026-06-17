@@ -96,7 +96,7 @@ public class GameController {
         playCardOpponent(players.get("West"));
     }
 
-    private void resetTable() {
+    public void resetTable() {
         snScore = 0;
         weScore = 0;
         currentTrick = new Trick();
@@ -159,6 +159,7 @@ public class GameController {
             }
         }
         return totalNSWinners == p.getHand().size();
+        //return true;
     }
 
     public void claimRest() {

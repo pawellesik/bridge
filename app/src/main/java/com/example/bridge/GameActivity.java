@@ -150,8 +150,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         btnAutoReplay = findViewById(R.id.btn_auto_replay);
         btnNewDeal.setOnClickListener(v -> {
+            contractContainer.setVisibility(View.GONE);
+            gameController.resetTable();
             resultsOverlay.setVisibility(View.GONE);
-            dealNewCards();
+            loadingIndicator.setVisibility(View.VISIBLE);
+            v.post(() -> {
+                gameController.dealCards();
+            });
         });
 
         btnAutoReplay.setOnClickListener(v -> {
@@ -623,12 +628,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (contractContainer != null)
             contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
 
-        if (contract == null || contract.equals("PASS")) {
-            tvContract.setText(getString(R.string.contract_pass));
-            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
-            return;
-        }
-
         String[] parts = contract.split(" ");
         if (parts.length < 2) {
             tvContract.setText(contract);
@@ -666,6 +665,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
         }
+        contractContainer.setVisibility(View.VISIBLE);
     }
 
     private void setupWindowInsets() {
