@@ -148,8 +148,8 @@ public class GameController {
                 totalNSWinners++;
             }
         }
-        //return totalNSWinners >= p.getHand().size();
-        return true;
+        return totalNSWinners >= p.getHand().size();
+        //return true;
     }
 
     public void claimRest() {
@@ -205,10 +205,10 @@ public class GameController {
                 nextPlayer.setCurrentMove(true);
 
                 callback.onTurnChanged(nextPlayer.getName());
-                checkOpponentMove(nextPlayer);
                 if (winnerName.equals("North") || winnerName.equals("South")) {
                     checkClaimPossibility(nextPlayer);
                 }
+                checkOpponentMove(nextPlayer);
             }, 700);
         } else {
             Player nextPlayer = getNextPlayer(player);
