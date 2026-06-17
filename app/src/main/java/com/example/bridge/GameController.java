@@ -345,7 +345,7 @@ public class GameController {
             trickRanks[i] = c.getRank().ordinal() + 2;
         }
 
-        int result = getCalcBestCards(ddsCards, trump, leaderIdx, trickSuits, trickRanks);
+        int result = getBestCard(ddsCards, trump, leaderIdx, trickSuits, trickRanks);
 
         int resSuitIdx = result / 100;
         int resRankVal = result % 100;
@@ -361,7 +361,7 @@ public class GameController {
         return null;
     }
 
-    private int getCalcBestCards(int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks) {
+    private int getBestCard(int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks) {
         System.out.println("plesik calcBestCards params: trump=" + trump + ", leader=" + leader +
                 ", cards=" + java.util.Arrays.toString(cards) +
                 ", trickSuits=" + java.util.Arrays.toString(trickSuits) +
@@ -370,9 +370,9 @@ public class GameController {
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
         System.out.println("plesik " + resultTab.length);
         System.out.println("plesik -----------------------------------------");
-        if (resultTab == null || resultTab.length == 0) {
-            return ddsSolver.calcDDTable(cards, trump, leader, trickSuits, trickRanks);
-        }
+        //if (resultTab == null || resultTab.length == 0) {
+        //    return ddsSolver.calcDDTable(cards, trump, leader, trickSuits, trickRanks);
+        //}
 
         // Determine how many cards are on the table
         int cardsOnTableCount = 0;
