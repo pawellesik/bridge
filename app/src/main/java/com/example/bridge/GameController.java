@@ -368,39 +368,109 @@ public class GameController {
                 ", trickRanks=" + java.util.Arrays.toString(trickRanks));
 
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
-        System.out.println("plesik "+resultTab.length);
+        System.out.println("plesik " + resultTab.length);
         System.out.println("plesik -----------------------------------------");
         if (resultTab == null || resultTab.length == 0) {
             return ddsSolver.calcDDTable(cards, trump, leader, trickSuits, trickRanks);
         }
 
-        int bestCard = resultTab[0];
-        int maxTrumpRank = -1;
-        int minFigureRank = 15;
+        // Determine how many cards are on the table
+        int cardsOnTableCount = 0;
+        for (int s : trickSuits) if (s != -1) cardsOnTableCount++;
 
-        // 1. Szukamy najwyższej karty w kolorze atu
+        // Determine current winner and highest trump on table
+        int currentWinnerIdx = -1;
+        int maxTrumpOnTable = -1;
+        int leadSuit = (cardsOnTableCount > 0) ? trickSuits[0] : -1;
+        int maxLeadSuitOnTable = -1;
+
+        for (int i = 0; i < cardsOnTableCount; i++) {
+            int s = trickSuits[i];
+            int r = trickRanks[i];
+            int pIdx = (leader + i) % 4;
+
+            boolean better = false;
+            if (s == trump) {
+                if (maxTrumpOnTable == -1 || r > maxTrumpOnTable) {
+                    better = true;
+                    maxTrumpOnTable = r;
+                }
+            } else if (s == leadSuit && maxTrumpOnTable == -1) {
+                if (r > maxLeadSuitOnTable) {
+                    better = true;
+                    maxLeadSuitOnTable = r;
+                }
+            }
+
+            if (better) currentWinnerIdx = pIdx;
+        }
+
+        int currentPlayerIdx = (leader + cardsOnTableCount) % 4;
+        boolean opponentWinning = false;
+        if (currentWinnerIdx != -1) {
+            // Opponents are different parity (0,2 vs 1,3)
+            if ((currentPlayerIdx % 2) != (currentWinnerIdx % 2)) {
+                opponentWinning = true;
+            }
+        }
+
+        int bestCard = resultTab[0];
+        int maxOptimalTrumpRank = -1;
+        int minOptimalTrumpRank = 15;
+        int maxOptimalTrumpCode = -1;
+        int minOptimalTrumpCode = -1;
+
+        // Collect optimal trumps
         for (int cardCode : resultTab) {
             int cardSuit = cardCode / 100;
             int cardRank = cardCode % 100;
-
             if (cardSuit == trump) {
-                if (cardRank > maxTrumpRank) {
-                    maxTrumpRank = cardRank;
-                    bestCard = cardCode;
+                if (cardRank > maxOptimalTrumpRank) {
+                    maxOptimalTrumpRank = cardRank;
+                    maxOptimalTrumpCode = cardCode;
+                }
+                if (cardRank < minOptimalTrumpRank) {
+                    minOptimalTrumpRank = cardRank;
+                    minOptimalTrumpCode = cardCode;
                 }
             }
         }
 
-        // 2. Jeśli brak atu w optymalnych ruchach, wybieramy najniższą figurę
-        if (maxTrumpRank == -1) {
-            for (int cardCode : resultTab) {
-                int cardRank = cardCode % 100;
-                if (cardRank >= 11) { // J, Q, K, A
-                    if (cardRank < minFigureRank) {
-                        minFigureRank = cardRank;
-                        bestCard = cardCode;
+        // 1. Trump logic (Ruffing or leading/following trumps)
+        if (maxOptimalTrumpRank != -1) {
+            if (maxTrumpOnTable != -1) {
+                if (maxOptimalTrumpRank > maxTrumpOnTable) {
+                    // We can beat the table's trump
+                    if (opponentWinning) {
+                        bestCard = maxOptimalTrumpCode; // Beating opponent -> play highest
+                    } else {
+                        bestCard = minOptimalTrumpCode; // Partner winning -> play lowest
                     }
+                } else {
+                    // Cannot beat the highest trump on table
+                    bestCard = minOptimalTrumpCode;
                 }
+            } else {
+                // No trump on table yet
+                if (opponentWinning && cardsOnTableCount > 0) {
+                    // This is a ruffing situation (discarding a side suit to win with trump)
+                    bestCard = maxOptimalTrumpCode; 
+                } else {
+                    // Leading or following (no trump on table)
+                    bestCard = minOptimalTrumpCode; 
+                }
+            }
+            return bestCard;
+        }
+
+        // 2. Non-trump logic (Following suit or Discarding)
+        // Heuristic: Always prefer the lowest rank among optimal cards to preserve honors.
+        int minOptimalRank = 15;
+        for (int cardCode : resultTab) {
+            int cardRank = cardCode % 100;
+            if (cardRank < minOptimalRank) {
+                minOptimalRank = cardRank;
+                bestCard = cardCode;
             }
         }
 
