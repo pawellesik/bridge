@@ -102,11 +102,12 @@ Java_com_example_bridge_DdsSolver_calcBestCards(
     }
 
     if (ft.cards <= 0) return env->NewIntArray(0);
+    
+    int maxScore = ft.score[0];
 
-    // Find the maximum score among all legal cards
-    int maxScore = -1;
-    for (int i = 0; i < ft.cards; i++) {
-        if (ft.score[i] > maxScore) maxScore = ft.score[i];
+    for (int i = 1; i < ft.cards; i++) {
+        if (ft.score[i] > maxScore)
+            maxScore = ft.score[i];
     }
 
     // Count how many cards have that maximum score

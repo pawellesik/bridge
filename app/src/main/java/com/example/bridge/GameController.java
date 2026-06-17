@@ -68,7 +68,6 @@ public class GameController {
     }
 
     public void dealCards() {
-
         handler.removeCallbacksAndMessages(null);
         resetTable();
         isAutoPlayMode = false;
@@ -363,7 +362,14 @@ public class GameController {
     }
 
     private int getCalcBestCards(int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks) {
+        System.out.println("plesik calcBestCards params: trump=" + trump + ", leader=" + leader +
+                ", cards=" + java.util.Arrays.toString(cards) +
+                ", trickSuits=" + java.util.Arrays.toString(trickSuits) +
+                ", trickRanks=" + java.util.Arrays.toString(trickRanks));
+
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
+        System.out.println("plesik "+resultTab.length);
+        System.out.println("plesik -----------------------------------------");
         if (resultTab == null || resultTab.length == 0) {
             return ddsSolver.calcDDTable(cards, trump, leader, trickSuits, trickRanks);
         }
