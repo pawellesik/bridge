@@ -25,7 +25,6 @@ public class BiddingManager {
         int totalHCP = getHPCFromSNPlayers();
         String contractColor = getContractColor();
         int contractCount = getContractCount(contractColor, totalHCP);
-        System.out.println("plesik "+contractCount);
 
         swapNorthSouthIfSouthHasLongerTrump(contractColor);
         sortHandsByContract(contractColor);
