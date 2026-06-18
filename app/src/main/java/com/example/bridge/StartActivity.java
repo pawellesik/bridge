@@ -37,11 +37,31 @@ public class StartActivity extends AppCompatActivity {
         findViewById(R.id.btn_lang_en).setOnClickListener(v -> changeLanguage("en"));
         findViewById(R.id.btn_lang_pl).setOnClickListener(v -> changeLanguage("pl"));
 
+        View loadingIndicator = findViewById(R.id.loading_indicator);
+        View langContainer = findViewById(R.id.lang_container);
         Button btnStart = findViewById(R.id.btn_start);
+        
         btnStart.setOnClickListener(v -> {
+            if (loadingIndicator != null) loadingIndicator.setVisibility(View.VISIBLE);
+            if (langContainer != null) langContainer.setVisibility(View.GONE);
+            btnStart.setVisibility(View.GONE);
+
             Intent intent = new Intent(StartActivity.this, GameActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reset UI when returning to this screen
+        View loadingIndicator = findViewById(R.id.loading_indicator);
+        View langContainer = findViewById(R.id.lang_container);
+        Button btnStart = findViewById(R.id.btn_start);
+
+        if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
+        if (langContainer != null) langContainer.setVisibility(View.VISIBLE);
+        if (btnStart != null) btnStart.setVisibility(View.VISIBLE);
     }
 
     private void changeLanguage(String lang) {

@@ -381,7 +381,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void setPrefChangeTotalScore(int changeScore) {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int careerScore = 10000;//getPrefTotalScore();//todo
+        int careerScore = getPrefTotalScore();
         careerScore += changeScore;
         prefs.edit().putInt(KEY_CAREER_SCORE, careerScore).apply();
     }
