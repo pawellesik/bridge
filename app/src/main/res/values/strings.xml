@@ -11,7 +11,7 @@
     <string name="player_west">West</string>
     <string name="suit_desc">Suit</string>
     <string name="Start">Start</string>
-    <string name="deal">Deal</string>
+    <string name="deal">Deal Cards</string>
     <string name="claim">Take the rest</string>
     <string name="new_deal">New Deal</string>
     <string name="auto_play_deal">Auto Play Deal</string>
