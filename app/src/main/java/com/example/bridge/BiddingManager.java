@@ -25,6 +25,11 @@ public class BiddingManager {
         int totalHCP = getHPCFromSNPlayers();
         String contractColor = getContractColor();
         int contractCount = getContractCount(contractColor, totalHCP);
+        System.out.println("plesik "+contractCount);
+
+        swapNorthSouthIfSouthHasLongerTrump(contractColor);
+        sortHandsByContract(contractColor);
+
         int possibleTricks = simulateMaxTricks(contractColor);
         if (contractCount == 1 && !contractColor.equals("NT") && possibleTricks >= 8) {
             contractCount = 2;
@@ -37,14 +42,13 @@ public class BiddingManager {
         }
         if (contractCount == 3 && !contractColor.equals("NT") && !contractColor.equals("Diamonds") && !contractColor.equals("Clubs") && possibleTricks >= 10) {
             contractCount = 4;
-        } else if (contractCount == 4 && possibleTricks == 12) {
+        } else if (contractCount == 4 && possibleTricks == 13) {
             contractCount = 6;
-        } else if (contractCount == 5 && possibleTricks == 12) {
+        } else if (contractCount == 5 && possibleTricks == 13) {
             contractCount = 6;
         }
 
-        swapNorthSouthIfSouthHasLongerTrump(contractColor);
-        sortHandsByContract(contractColor);
+
 
         callback.onHandUpdated("North");
         callback.onHandUpdated("South");
@@ -172,6 +176,7 @@ public class BiddingManager {
         if (contractColor.equals("Spades") || contractColor.equals("Hearts")) {
             if (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7) {
                 if (totalHCP >= 37) return 7;
+                if (totalHCP >= 33 && hasSecondColor && acesAndKings >= 8) return 7;
                 if (totalHCP >= 33) return 6;
                 if (totalHCP >= 29 && hasSecondColor && acesAndKings >= 7) return 6;
                 if (totalHCP >= 25) return 4;
@@ -210,6 +215,9 @@ public class BiddingManager {
         return players.get("North").countAcesAndKings() + players.get("South").countAcesAndKings();
     }
 
+    private int hasRenonsInColor() {
+
+    }
     private boolean hasSecondColorFit() {
         for (Suit suit : Suit.values()) {
             if (getCombinedCount(suit) >= 8) {
