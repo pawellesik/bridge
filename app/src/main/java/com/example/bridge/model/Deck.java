@@ -1,19 +1,27 @@
 package com.example.bridge.model;
 
+import com.example.bridge.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private final List<Card> cards;
+    private List<Card> cards;
 
     public Deck() {
         cards = new ArrayList<>();
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
-                cards.add(new Card(suit, rank));
+        if (Test.isDebugModel == 1) {
+            cards = Test.getCards();
+        } else {
+            for (Suit suit : Suit.values()) {
+                for (Rank rank : Rank.values()) {
+                    cards.add(new Card(suit, rank));
+                }
             }
+            shuffle();
         }
+
     }
 
     public void shuffle() {

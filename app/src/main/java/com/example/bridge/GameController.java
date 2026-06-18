@@ -71,9 +71,8 @@ public class GameController {
         handler.removeCallbacksAndMessages(null);
         resetTable();
         isAutoPlayMode = false;
-
         deck = new Deck();
-        deck.shuffle();
+
         for (Player player : players.values()) {
             player.clearHand();
             player.addCards(deck.deal(13));
