@@ -707,18 +707,61 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <Button
-                android:id="@+id/btn_auto_replay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save_game"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/auto_play_deal" />
+                android:alpha="0.95"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_deal_button"
+                app:backgroundTint="@null"
+                app:cornerRadius="30dp"
+                app:elevation="4dp"
+                app:icon="@android:drawable/ic_menu_save"
+                app:iconGravity="textStart"
+                app:iconTint="@android:color/white" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_auto_replay"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.95"
+                android:text="@string/auto_play_deal"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_start_button"
+                app:backgroundTint="@null"
+                app:cornerRadius="30dp"
+                app:elevation="4dp"
+                app:icon="@drawable/bg_start_arrow"
+                app:iconGravity="textStart"
+                app:iconTint="@android:color/white" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_new_deal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_deal" />
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:alpha="0.95"
+                android:text="@string/new_deal"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_deal_button"
+                app:backgroundTint="@null"
+                app:cornerRadius="30dp"
+                app:elevation="4dp"
+                app:icon="@drawable/bg_deal_cards"
+                app:iconGravity="textStart"
+                app:iconTint="@android:color/white" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

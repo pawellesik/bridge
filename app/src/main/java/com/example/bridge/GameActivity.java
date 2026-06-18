@@ -75,7 +75,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View resultsOverlay;
     private TextView tvNorthRes, tvSouthRes, tvEastRes, tvWestRes;
     private TableLayout tableHistoryRes;
-    private View btnNewDeal;
+    private View btnNewDeal, btnSaveGame;
     private Button btnAutoReplay;
 
     // Simulation Views
@@ -135,6 +135,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvWestRes = findViewById(R.id.tv_west_cards_res);
         tableHistoryRes = findViewById(R.id.table_history_res);
         btnNewDeal = findViewById(R.id.btn_new_deal);
+        btnSaveGame = findViewById(R.id.btn_save_game);
 
         // Simulation Init
         btnFirstSim = findViewById(R.id.btn_first_trick);
@@ -161,6 +162,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         btnAutoReplay.setOnClickListener(v -> {
             autoReplay();
+        });
+
+        btnSaveGame.setOnClickListener(v -> {
+            // Future use: Save logic
         });
 
         initGame();
@@ -217,12 +222,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void setBtnAutoReplayText(boolean hist, int cnt) {
-        if (hist == true) {
-            btnAutoReplay.setText("Show Auto Playing (" + cnt + ")");
+        if (hist) {
+            btnAutoReplay.setText(getString(R.string.auto_play_deal, cnt));
         } else {
+            // Just reuse the format with a different prefix if needed, 
+            // but the user specifically asked for the auto_play_deal format
             btnAutoReplay.setText("Show My Playing (" + this.snScore + ")");
         }
-
     }
 
     private void changeSimTrick(int i) {
