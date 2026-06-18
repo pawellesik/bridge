@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Test {
 
-    static public int isDebugModel = 1;
+    static public int isDebugModel = 0;
 
     static public List<Card> getCards() {
         List<Card> cards = new ArrayList<>();
