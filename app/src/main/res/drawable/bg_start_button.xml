@@ -1,13 +1,11 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="32dp"/>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State when button is pressed -->
+    <item android:drawable="@drawable/bg_start_button_pressed" android:state_pressed="true" />
 
-    <gradient
-        android:angle="90"
-        android:startColor="#2E7D32"
-        android:centerColor="#43A047"
-        android:endColor="#1B5E20" />
+    <!-- State when button is focused (for keyboard/DPAD navigation) -->
+    <item android:drawable="@drawable/bg_start_button_pressed" android:state_focused="true" />
 
-    <padding
-        android:left="16dp"
-        android:right="16dp"/>
-</shape>
+    <!-- Default state -->
+    <item android:drawable="@drawable/bg_start_button_normal" />
+</selector>
