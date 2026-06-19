@@ -678,7 +678,8 @@
             android:background="#C8E6C9"
             app:layout_constraintBottom_toTopOf="@id/results_buttons_container"
             app:layout_constraintTop_toBottomOf="@+id/simulation_bar"
-            tools:layout_editor_absoluteX="8dp">
+            tools:layout_editor_absoluteX="8dp"
+            tools:visibility="gone">
 
             <TableLayout
                 android:id="@+id/table_history_res"

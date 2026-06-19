@@ -15,8 +15,8 @@
     <string name="claim">Weź resztę</string>
     <string name="new_deal">Nowe Rozdanie</string>
     <string name="auto_play_deal">Automat</string>
-    <string name="auto_play_deal_format">%1$d Automat</string>
-    <string name="back_to_my_play_format">Moje Rozegranie (%1$d)</string>
+    <string name="auto_play_deal_format">Automat (%1$d)</string>
+    <string name="back_to_my_play_format">Moja gra (%1$d)</string>
     <string name="back_to_my_play">Moje Rozegranie</string>
     <string name="save">Zapisz</string>
     <string name="score_label">WYNIK:</string>
