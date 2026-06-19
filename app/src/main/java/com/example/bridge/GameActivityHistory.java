@@ -11,14 +11,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.bridge.model.Card;
-import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GameHistory {
+public class GameActivityHistory {
 
     private final GameActivity activity;
     private final GameController gameController;
@@ -37,7 +36,7 @@ public class GameHistory {
     private boolean isShowingAutoHistory = false;
     private int userSnScore;
 
-    public GameHistory(GameActivity activity, GameController gameController) {
+    public GameActivityHistory(GameActivity activity, GameController gameController) {
         this.activity = activity;
         this.gameController = gameController;
 

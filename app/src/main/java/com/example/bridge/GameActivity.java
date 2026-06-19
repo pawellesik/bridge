@@ -1,11 +1,6 @@
 package com.example.bridge;
 
-import android.text.Html;
-import android.text.Spanned;
-import android.view.Gravity;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +25,6 @@ import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,13 +53,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
 
-    private TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
-    private TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
     private final Map<String, List<Card>> initialPlayerHands = new LinkedHashMap<>();
-    private TextView nameNorth, nameSouth, nameEast, nameWest;
-    private TextView tvContract;
-    private ImageView ivContractSuit;
-    private View contractContainer;
     private View startBar;
     private View btnClaim;
     private View loadingIndicator;
@@ -74,7 +62,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View btnNewDeal;
     private Button btn_deal;
     private int snScore;
-    private GameHistory gameHistory;
+    private GameActivityHistory gameHistory;
+    private GameActivityTop gameActivityTop;
+
+    private TextView nameNorth, nameSouth, nameEast, nameWest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,26 +79,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerWest = findViewById(R.id.container_played_west);
         playedCardContainerEast = findViewById(R.id.container_played_east);
 
-        tvLastNorth = findViewById(R.id.n_last_card);
-        tvLastSouth = findViewById(R.id.s_last_card);
-        tvLastEast = findViewById(R.id.e_last_card);
-        tvLastWest = findViewById(R.id.w_last_card);
-
         nameNorth = findViewById(R.id.name_north);
         nameSouth = findViewById(R.id.name_south);
         nameEast = findViewById(R.id.name_east);
         nameWest = findViewById(R.id.name_west);
 
-        tvScoreSN = findViewById(R.id.sn_score);
-        tvScoreWE = findViewById(R.id.we_score);
-
-        tvMiddle1 = findViewById(R.id.tv_middle_1);
-        tvMiddle2 = findViewById(R.id.tv_middle_2);
-        tvMiddle3 = findViewById(R.id.tv_middle_3);
-
-        tvContract = findViewById(R.id.game_contract);
-        ivContractSuit = findViewById(R.id.iv_contract_suit);
-        contractContainer = findViewById(R.id.game_contract_container);
         startBar = findViewById(R.id.start_bar);
         btn_deal = findViewById(R.id.btn_deal);
         btnClaim = findViewById(R.id.btn_claim);
@@ -115,8 +91,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         btnNewDeal = findViewById(R.id.btn_new_deal);
 
+        initGame();
+        gameActivityTop = new GameActivityTop(this);
+        gameHistory = new GameActivityHistory(this, gameController);
+
         btnNewDeal.setOnClickListener(v -> {
-            contractContainer.setVisibility(View.GONE);
+            gameActivityTop.hideContract();
             gameController.resetTable();
             gameHistory.hide();
             loadingIndicator.setVisibility(View.VISIBLE);
@@ -129,8 +109,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             // Future use: Save logic
         });
 
-        initGame();
-        gameHistory = new GameHistory(this, gameController);
         setupRecyclerView();
         gameController.dealCards();
 
@@ -145,6 +123,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
+            loadingIndicator.setVisibility(View.VISIBLE);
             v.post(() -> {
                 gameController.startGame();
             });
@@ -162,7 +141,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         int level = 0;
         try {
             level = Integer.parseInt(contract.split(" ")[0].trim());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         int requiredTricks = level + 6;
         int handScore = 0;
@@ -182,8 +162,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void updateSimulationScores(int sn, int we) {
-        if (tvScoreSN != null) tvScoreSN.setText(getString(R.string.sn_label, sn));
-        if (tvScoreWE != null) tvScoreWE.setText(getString(R.string.we_label, we));
+        gameActivityTop.updateScores(sn, we);
     }
 
     public void showPlayedCardInSim(Card card, String playerName) {
@@ -216,21 +195,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void setTotalScore(int totalScore, int changeScore) {
-        tvMiddle1.setText(getString(R.string.score_label));
-        tvMiddle2.setText(String.valueOf(totalScore));
-        if (changeScore > 0) {
-            tvMiddle3.setText("(+" + changeScore + ")");
-            tvMiddle3.setTextColor(Color.parseColor("#C8E6C9"));
-        } else {
-            tvMiddle3.setText("(" + changeScore + ")");
-            tvMiddle3.setTextColor(0xFFFF0000);
-        }
+        gameActivityTop.setTotalScore(totalScore, changeScore);
     }
 
     private void setTotalScore(int totalScore) {
-        tvMiddle1.setText(getString(R.string.score_label));
-        tvMiddle2.setText(String.valueOf(totalScore));
-        tvMiddle3.setText("");
+        gameActivityTop.setTotalScore(totalScore);
     }
 
     @Override
@@ -247,8 +216,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onScoreUpdated(int snScore, int weScore) {
-        if (tvScoreSN != null) tvScoreSN.setText(getString(R.string.sn_label, snScore));
-        if (tvScoreWE != null) tvScoreWE.setText(getString(R.string.we_label, weScore));
+        gameActivityTop.updateScores(snScore, weScore);
     }
 
     @Override
@@ -279,9 +247,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-
-    @Override
-    public void onTurnChanged(String playerName) {
+    public void updateTurn(String playerName) {
         nameNorth.setBackgroundResource(R.drawable.green_frame);
         nameSouth.setBackgroundResource(R.drawable.green_frame);
         nameEast.setBackgroundResource(R.drawable.green_frame);
@@ -289,12 +255,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         if (playerName == null) return;
 
-        // Unlock interaction ONLY if it's a human player's turn
-        if ("North".equals(playerName) || "South".equals(playerName)) {
-            isProcessingMove = false;
-        }
-
-        // Apply white_frame (which has the white border) to current player's name
         switch (playerName) {
             case "North":
                 nameNorth.setBackgroundResource(R.drawable.white_frame);
@@ -312,55 +272,22 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
+    public void onTurnChanged(String playerName) {
+        if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
+        updateTurn(playerName);
+
+        if (playerName == null) return;
+
+        // Unlock interaction ONLY if it's a human player's turn
+        if ("North".equals(playerName) || "South".equals(playerName)) {
+            isProcessingMove = false;
+        }
+    }
+
+    @Override
     public void onContractDetermined(String contract) {
         isProcessingMove = false;
-        if (contractContainer != null)
-            contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
-
-        if (contract == null || contract.equals("PASS")) {
-            tvContract.setText(getString(R.string.contract_pass));
-            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
-            return;
-        }
-
-        String[] parts = contract.split(" ");
-        if (parts.length < 2) {
-            tvContract.setText(contract);
-            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
-            return;
-        }
-
-        String count = parts[0];
-        String color = parts[1];
-
-        tvContract.setText(" " + count);
-        if (ivContractSuit != null) {
-            if ("NT".equals(color)) {
-                tvContract.setText(" " + count + " " + getString(R.string.suit_nt));
-                ivContractSuit.setVisibility(View.GONE);
-            } else {
-                ivContractSuit.setVisibility(View.VISIBLE);
-                switch (color) {
-                    case "Spades":
-                        ivContractSuit.setImageResource(R.drawable.spades);
-                        break;
-                    case "Hearts":
-                        ivContractSuit.setImageResource(R.drawable.heart);
-                        break;
-                    case "Diamonds":
-                        ivContractSuit.setImageResource(R.drawable.diamonds);
-                        break;
-                    case "Clubs":
-                        ivContractSuit.setImageResource(R.drawable.clubs);
-                        break;
-                    default:
-                        tvContract.setText(" " + contract);
-                        ivContractSuit.setVisibility(View.GONE);
-                        break;
-                }
-            }
-        }
-        contractContainer.setVisibility(View.VISIBLE);
+        gameActivityTop.setContract(contract);
     }
 
     private void setupWindowInsets() {
@@ -448,8 +375,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initialPlayerHands.clear();
     }
 
-
-
     @Override
     public void onCardPlayed(Player player, Card card) {
         showPlayedCard(card, player.getPlayedCardContainer());
@@ -461,39 +386,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         for (FrameLayout container : containers) {
             if (container != null) container.removeAllViews();
         }
-
-        if (trickCards != null && !trickCards.isEmpty()) {
-            updateLastCard(tvLastNorth, trickCards.get("North"));
-            updateLastCard(tvLastSouth, trickCards.get("South"));
-            updateLastCard(tvLastEast, trickCards.get("East"));
-            updateLastCard(tvLastWest, trickCards.get("West"));
-        } else {
-            clearLastCards();
-        }
+        gameActivityTop.onTableCleared(trickCards);
     }
 
     @Override
     public void onClearLastCards(List<Card> cardsOnTable) {
         if (cardsOnTable != null && cardsOnTable.size() > 1) {
-            clearLastCards();
-        }
-    }
-
-    private void clearLastCards() {
-        TextView[] lastCardTVs = {tvLastNorth, tvLastSouth, tvLastEast, tvLastWest};
-        for (TextView tv : lastCardTVs) {
-            if (tv != null) {
-                tv.setText("");
-                tv.setBackground(null);
-            }
-        }
-    }
-
-    private void updateLastCard(TextView tv, Card card) {
-        if (card != null) {
-            tv.setText(card.getRank().display + " " + card.getSuit().symbol);
-            tv.setTextColor(Color.parseColor("#000000"));
-            tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
+            gameActivityTop.clearLastCards();
         }
     }
 
@@ -574,9 +473,5 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     protected void onDestroy() {
         super.onDestroy();
         gameController.cleanup();
-    }
-    private void dealNewCards() {
-        if (startBar != null) startBar.setVisibility(View.VISIBLE);
-        gameController.dealCards();
     }
 }
