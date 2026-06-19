@@ -277,7 +277,7 @@ public class GameActivityHistory {
                 tv.setTypeface(null, android.graphics.Typeface.BOLD);
                 tv.setGravity(Gravity.CENTER);
                 if (c == winnerCol)
-                    tv.setBackgroundResource(R.drawable.bright_green);
+                    tv.setBackgroundResource(R.drawable.green_win_in_row);
                 // Set padding AFTER background, so drawable padding doesn't overwrite it
                 tv.setPadding(8, 16, 8, 16);
                 row.addView(tv);
