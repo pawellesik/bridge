@@ -11,7 +11,7 @@
     <string name="player_west">Zachód</string>
     <string name="suit_desc">Kolor</string>
     <string name="Start">Rozegraj</string>
-    <string name="deal">Rozdaj</string>
+    <string name="deal">Rozdaj Karty</string>
     <string name="claim">Weź resztę</string>
     <string name="new_deal">Nowe Rozdanie</string>
     <string name="auto_play_deal">Automat (%1$d)</string>
@@ -19,7 +19,7 @@
     <string name="score_label">WYNIK:</string>
     <string name="we_label">ZW: %1$d</string>
     <string name="sn_label">PP: %1$d</string>
-    <string name="claimed_tricks">Płn. Płd. wzieli pozostałe %1$d lew.</string>
+    <string name="claimed_tricks">Płn. Płd. wzieli pozostałe %1$d lewy.</string>
     <string name="contract_pass">PAS</string>
     <string name="suit_spades">Piki</string>
     <string name="suit_hearts">Kiery</string>

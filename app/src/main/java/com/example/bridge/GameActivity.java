@@ -227,7 +227,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else {
             // Just reuse the format with a different prefix if needed, 
             // but the user specifically asked for the auto_play_deal format
-            btnAutoReplay.setText("Show My Playing (" + this.snScore + ")");
+            btnAutoReplay.setText("My Playing (" + this.snScore + ")");
         }
     }
 

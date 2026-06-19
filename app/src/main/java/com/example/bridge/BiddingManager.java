@@ -272,12 +272,12 @@ public class BiddingManager {
         if (getCombinedCount(Suit.SPADES) >= 8) return "Spades";
         if (getCombinedCount(Suit.HEARTS) >= 8) return "Hearts";
 
-        // 2. Check for NT if we have holds in all colors
-        if (playersHaveHoldInAllSuits(players.get("North"), players.get("South"))) return "NT";
-
         // 3. Check Minors for 8+ fit (Clubs, then Diamonds)
         if (getCombinedCount(Suit.CLUBS) >= 8) return "Clubs";
         if (getCombinedCount(Suit.DIAMONDS) >= 8) return "Diamonds";
+
+        // 2. Check for NT if we have holds in all colors
+        if (playersHaveHoldInAllSuits(players.get("North"), players.get("South"))) return "NT";
 
         // 4. Check for 7 card fits (Majors first)
         if (getCombinedCount(Suit.SPADES) == 7) return "Spades";
