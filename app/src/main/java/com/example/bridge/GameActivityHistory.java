@@ -213,7 +213,11 @@ public class GameActivityHistory {
         int rowCount = tableHistoryRes.getChildCount();
         for (int i = 1; i < rowCount; i++) {
             View row = tableHistoryRes.getChildAt(i);
-            row.setBackgroundColor(i <= currentSimTrickIndex ? Color.parseColor("#A5D6A7") : Color.TRANSPARENT);
+            if (i <= currentSimTrickIndex) {
+                row.setBackgroundColor(i <= currentSimTrickIndex ? Color.parseColor("#A5D6A7") : Color.TRANSPARENT);
+            } else {
+                row.setBackgroundColor(Color.TRANSPARENT);
+            }
         }
 
         if (shouldScroll && currentSimTrickIndex >= 0 && currentSimTrickIndex < rowCount) {
@@ -265,7 +269,7 @@ public class GameActivityHistory {
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(8, 16, 8, 16);
                 if (c == winnerCol)
-                    tv.setBackgroundResource(R.drawable.bright_green_frame_black);
+                    tv.setBackgroundResource(R.drawable.bright_green_frame_red);
                 row.addView(tv);
             }
             tableHistoryRes.addView(row);
