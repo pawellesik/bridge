@@ -150,16 +150,15 @@ public class GameController {
         for (Card c : p.getHand()) {
             // Jeśli inni gracze mają jeszcze atu, nie możemy bezpiecznie claimować lew w kolorach bocznych
             if (othersHaveTrumps && c.getSuit() != trumpSuit) {
-                //return false;
-                return true;
+                return false;
             }
 
             if (c.getRank().ordinal() > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
                 totalNSWinners++;
             }
         }
-        //return totalNSWinners == p.getHand().size();
-        return true;
+        return totalNSWinners == p.getHand().size();
+     // return true;
     }
 
     public void claimRest() {
@@ -355,7 +354,7 @@ public class GameController {
             trickRanks[i] = c.getRank().ordinal() + 2;
         }
 
-        int result = getBestCard(playerName, ddsCards, trump, leaderIdx, trickSuits, trickRanks);
+        int result = getBestCard(playerName, ddsCards, trump, leaderIdx, trickSuits, trickRanks, cardsOnTable.size());
 
         int resSuitIdx = result / 100;
         int resRankVal = result % 100;
@@ -371,20 +370,14 @@ public class GameController {
         return null;
     }
 
-    private int getBestCard(String playerName, int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks) {
+    private int getBestCard(String playerName, int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks, int cardsOnTableCount) {
         //System.out.println("plesik calcBestCards params: trump=" + trump + ", leader=" + leader +
         //        ", cards=" + java.util.Arrays.toString(cards) +
         //        ", trickSuits=" + java.util.Arrays.toString(trickSuits) +
         //        ", trickRanks=" + java.util.Arrays.toString(trickRanks));
 
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
-        //System.out.println("plesik " + resultTab.length);
-        //System.out.println("plesik -----------------------------------------");
-        //if (resultTab == null || resultTab.length == 0) {
-        //    return ddsSolver.calcDDTable(cards, trump, leader, trickSuits, trickRanks);
-        //}
-
-        int cardsOnTableCount = currentTrick.getCardsOnTable().size();
+        
         boolean isFirstMove = cardsOnTableCount == 0;
 
         boolean isNS = playerName.contains("South") || playerName.contains("North");
@@ -418,99 +411,89 @@ public class GameController {
 
         int currentPlayerIdx = (leader + cardsOnTableCount) % 4;
         boolean opponentWinning = false;
+        boolean partnerWinning = false;
         if (currentWinnerIdx != -1) {
-            // Opponents are different parity (0,2 vs 1,3)
             if ((currentPlayerIdx % 2) != (currentWinnerIdx % 2)) {
                 opponentWinning = true;
+            } else {
+                partnerWinning = true;
             }
         }
 
-        int bestCard = resultTab[0];
-        int maxOptimalTrumpRank = -1;
-        int minOptimalTrumpRank = 15;
+        // Heuristic analysis of optimal cards
+        int minOptimalCode = resultTab[0];
+        int minOptimalRank = 100;
         int maxOptimalTrumpCode = -1;
-        int minOptimalTrumpCode = -1;
+        int maxOptimalTrumpRank = -1;
+        int lowestWinningTrumpCode = -1;
+        int lowestWinningTrumpRank = 100;
 
-        // Collect optimal trumps
         for (int cardCode : resultTab) {
             int cardSuit = cardCode / 100;
             int cardRank = cardCode % 100;
+            
+            if (cardRank < minOptimalRank) {
+                minOptimalRank = cardRank;
+                minOptimalCode = cardCode;
+            }
+
             if (cardSuit == trump) {
                 if (cardRank > maxOptimalTrumpRank) {
                     maxOptimalTrumpRank = cardRank;
                     maxOptimalTrumpCode = cardCode;
                 }
-                if (cardRank < minOptimalTrumpRank) {
-                    minOptimalTrumpRank = cardRank;
-                    minOptimalTrumpCode = cardCode;
+                // Can this trump beat the current winning card?
+                if (cardRank > maxTrumpOnTable) {
+                    if (cardRank < lowestWinningTrumpRank) {
+                        lowestWinningTrumpRank = cardRank;
+                        lowestWinningTrumpCode = cardCode;
+                    }
                 }
             }
         }
 
-        // 1. Trump logic (Ruffing or leading/following trumps)
-        if (maxOptimalTrumpRank != -1) {
-
-            // 🔥 NOWA REGUŁA: pierwszy ruch zależny od strony
-            if (isFirstMove && resultTab.length > 1) {
-
-                boolean prefersTrump = isNS; // NS → graj atu, EW → unikaj atu
-
-                if (prefersTrump) {
-                    // NS: spróbuj zagrać najwyższe atu
-                    bestCard = maxOptimalTrumpCode;
-                    return bestCard;
-                } else {
-                    // EW: unikaj atu jeśli masz alternatywy
-                    int fallback = -1;
-
-                    for (int cardCode : resultTab) {
-                        int suit = cardCode / 100;
-                        if (suit != trump) {
-                            fallback = cardCode;
-                            break;
-                        }
-                    }
-
-                    if (fallback != -1) {
-                        return fallback;
-                    }
-                    // jeśli nie ma wyboru → gramy atu
+        // 1. First move logic
+        if (isFirstMove && resultTab.length > 1) {
+            boolean prefersTrump = isNS;
+            if (prefersTrump && maxOptimalTrumpCode != -1) {
+                return maxOptimalTrumpCode;
+            } else if (!prefersTrump) {
+                // EW: avoid trump if alternatives exist
+                for (int code : resultTab) {
+                    if (code / 100 != trump) return code;
                 }
-            }
-
-            if (maxTrumpOnTable != -1) {
-                if (maxOptimalTrumpRank > maxTrumpOnTable) {
-                    if (opponentWinning) {
-                        bestCard = maxOptimalTrumpCode;
-                    } else {
-                        bestCard = minOptimalTrumpCode;
-                    }
-                } else {
-                    bestCard = minOptimalTrumpCode;
-                }
-            } else {
-                if (opponentWinning && cardsOnTableCount > 0) {
-                    bestCard = maxOptimalTrumpCode;
-                } else {
-                    bestCard = minOptimalTrumpCode;
-                }
-            }
-
-            return bestCard;
-        }
-
-        // 2. Non-trump logic (Following suit or Discarding)
-        // Heuristic: Always prefer the lowest rank among optimal cards to preserve honors.
-        int minOptimalRank = 15;
-        for (int cardCode : resultTab) {
-            int cardRank = cardCode % 100;
-            if (cardRank < minOptimalRank) {
-                minOptimalRank = cardRank;
-                bestCard = cardCode;
             }
         }
 
-        return bestCard;
+        // 2. Partner is winning - play absolute lowest optimal card
+        if (partnerWinning) {
+            return minOptimalCode;
+        }
+
+        // 3. Opponent is winning - try to win with the LOWEST possible optimal card
+        if (opponentWinning) {
+            // If we are ruffing or over-ruffing
+            if (lowestWinningTrumpCode != -1) {
+                return lowestWinningTrumpCode;
+            }
+            
+            // If it's a non-trump trick and we can win with lead suit
+            // (Usually the first element is fine, but let's be safe)
+            int lowestWinningLeadCode = -1;
+            int lowestWinningLeadRank = 100;
+            for (int code : resultTab) {
+                int s = code / 100;
+                int r = code % 100;
+                if (s == leadSuit && r > maxLeadSuitOnTable && r < lowestWinningLeadRank) {
+                    lowestWinningLeadRank = r;
+                    lowestWinningLeadCode = code;
+                }
+            }
+            if (lowestWinningLeadCode != -1) return lowestWinningLeadCode;
+        }
+
+        // 4. Default: play lowest optimal card to preserve honors
+        return minOptimalCode;
     }
 
     private String determineTrickWinnerInternal(Map<String, Card> trickMap, String contract, String leaderName) {
