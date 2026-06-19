@@ -9,4 +9,12 @@
     <padding
         android:left="16dp"
         android:right="16dp"/>
+    <stroke
+        android:width="2dp"
+        android:color="#B3FFFFFF"/>
+    <gradient
+        android:startColor="#42A5F5"
+        android:centerColor="#1E88E5"
+        android:endColor="#0D47A1"
+        android:angle="90"/>
 </shape>
