@@ -188,10 +188,10 @@ public class GameActivityHistory {
         if (history != null && currentSimTrickIndex > 0) {
             Trick currentTrick = history.get(currentSimTrickIndex - 1);
             String winner = currentTrick.getWinnerTrick();
-            if ("North".equals(winner)) tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_red);
-            else if ("South".equals(winner)) tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_red);
-            else if ("East".equals(winner)) tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_red);
-            else if ("West".equals(winner)) tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_red);
+            if ("North".equals(winner)) tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
+            else if ("South".equals(winner)) tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
+            else if ("East".equals(winner)) tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
+            else if ("West".equals(winner)) tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
         }
 
         if (currentTrickMap != null) {
@@ -272,7 +272,7 @@ public class GameActivityHistory {
                 tv.setTypeface(null, android.graphics.Typeface.BOLD);
                 tv.setGravity(Gravity.CENTER);
                 if (c == winnerCol)
-                    tv.setBackgroundResource(R.drawable.bright_green_frame_red);
+                    tv.setBackgroundResource(R.drawable.bright_green_frame_yellow_think_frame);
                 // Set padding AFTER background, so drawable padding doesn't overwrite it
                 tv.setPadding(8, 16, 8, 16);
                 row.addView(tv);

@@ -150,15 +150,16 @@ public class GameController {
         for (Card c : p.getHand()) {
             // Jeśli inni gracze mają jeszcze atu, nie możemy bezpiecznie claimować lew w kolorach bocznych
             if (othersHaveTrumps && c.getSuit() != trumpSuit) {
-                return false;
+                //return false;
+                return true;
             }
 
             if (c.getRank().ordinal() > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
                 totalNSWinners++;
             }
         }
-        return totalNSWinners == p.getHand().size();
-        //return true;
+        //return totalNSWinners == p.getHand().size();
+        return true;
     }
 
     public void claimRest() {
