@@ -3,8 +3,6 @@ package com.example.bridge;
 import android.widget.Button;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -205,25 +203,25 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void updateTurn(String playerName) {
-        nameNorth.setBackgroundResource(R.drawable.green_frame);
-        nameSouth.setBackgroundResource(R.drawable.green_frame);
-        nameEast.setBackgroundResource(R.drawable.green_frame);
-        nameWest.setBackgroundResource(R.drawable.green_frame);
+        nameNorth.setBackgroundResource(R.drawable.dark_green);
+        nameSouth.setBackgroundResource(R.drawable.dark_green);
+        nameEast.setBackgroundResource(R.drawable.dark_green);
+        nameWest.setBackgroundResource(R.drawable.dark_green);
 
         if (playerName == null) return;
 
         switch (playerName) {
             case "North":
-                nameNorth.setBackgroundResource(R.drawable.white_frame);
+                nameNorth.setBackgroundResource(R.drawable.dark_green_white_frame);
                 break;
             case "South":
-                nameSouth.setBackgroundResource(R.drawable.white_frame);
+                nameSouth.setBackgroundResource(R.drawable.dark_green_white_frame);
                 break;
             case "East":
-                nameEast.setBackgroundResource(R.drawable.white_frame);
+                nameEast.setBackgroundResource(R.drawable.dark_green_white_frame);
                 break;
             case "West":
-                nameWest.setBackgroundResource(R.drawable.white_frame);
+                nameWest.setBackgroundResource(R.drawable.dark_green_white_frame);
                 break;
         }
     }

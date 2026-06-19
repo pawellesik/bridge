@@ -43,7 +43,7 @@ public class GameActivityTop {
 
     public void setContract(String contract) {
         if (contractContainer != null)
-            contractContainer.setBackgroundResource(R.drawable.white_frame_in_bright_green);
+            contractContainer.setBackgroundResource(R.drawable.bright_green_frame_black);
 
         if (contract == null || contract.equals("PASS")) {
             tvContract.setText(activity.getString(R.string.contract_pass));
@@ -134,7 +134,7 @@ public class GameActivityTop {
         if (card != null) {
             tv.setText(card.getRank().display + " " + card.getSuit().symbol);
             tv.setTextColor(Color.parseColor("#000000"));
-            tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
+            tv.setBackgroundResource(R.drawable.bright_green_frame_black);
         }
     }
 }

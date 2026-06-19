@@ -249,7 +249,7 @@ public class GameActivityHistory {
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(8, 16, 8, 16);
                 if (c == winnerCol)
-                    tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
+                    tv.setBackgroundResource(R.drawable.bright_green_frame_black);
                 row.addView(tv);
             }
             tableHistoryRes.addView(row);
