@@ -11,6 +11,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.bridge.model.Card;
+import com.example.bridge.model.Contract;
 import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class GameActivityHistory {
         this.playAutoHistoryTrick = null;
 
         // Calculate auto score for initial button state
-        String contract = gameController != null ? gameController.getCurrentContract() : "PASS";
+        Contract contract = gameController != null ? gameController.getCurrentContract() : Contract.PASS;
         this.playAutoHistoryTrick = gameController != null ? gameController.calculateOptimalHistory(activity.getInitialPlayerHands(), contract) : new ArrayList<>();
         int autoSnScore = calculateSnScore(playAutoHistoryTrick);
 

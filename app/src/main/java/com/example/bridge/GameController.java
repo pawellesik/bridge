@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.example.bridge.model.Card;
+import com.example.bridge.model.Contract;
 import com.example.bridge.model.Deck;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Suit;
@@ -27,7 +28,7 @@ public class GameController {
 
         void onClearLastCards(List<Card> cardsOnTable);
 
-        void onContractDetermined(String contract);
+        void onContractDetermined(Contract contract);
 
         void onVisibleStartBar(Boolean isVisible);
 
@@ -35,7 +36,7 @@ public class GameController {
 
         void onScoreUpdated(int snScore, int weScore);
 
-        void onGameEnded(int snScore, int weScore, String contract, List<Trick> history, int claim);
+        void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim);
 
         void onInitialHandsHtml();
 
@@ -52,7 +53,7 @@ public class GameController {
     private final DdsSolver ddsSolver;
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
-    private String currentContract = "PASS";
+    private Contract currentContract = Contract.PASS;
     private String trickLeaderName = "West";
     private int snScore = 0;
     private int weScore = 0;
@@ -262,13 +263,9 @@ public class GameController {
     }
 
     private Suit getTrumpSuit() {
-        if (currentContract == null || currentContract.equals("PASS") || currentContract.endsWith("NT"))
+        if (currentContract == null || currentContract.isPass())
             return null;
-        if (currentContract.contains("S")) return Suit.SPADES;
-        if (currentContract.contains("H")) return Suit.HEARTS;
-        if (currentContract.contains("D")) return Suit.DIAMONDS;
-        if (currentContract.contains("C")) return Suit.CLUBS;
-        return null;
+        return currentContract.getSuit();
     }
 
     private void checkOpponentMove(Player player) {
@@ -290,11 +287,11 @@ public class GameController {
         }
     }
 
-    public String getCurrentContract() {
+    public Contract getCurrentContract() {
         return currentContract;
     }
 
-    public List<Trick> calculateOptimalHistory(Map<String, List<Card>> initialHands, String contract) {
+    public List<Trick> calculateOptimalHistory(Map<String, List<Card>> initialHands, Contract contract) {
         // Przygotuj symulowane ręce
         Map<String, List<Card>> simHands = new HashMap<>();
         for (Map.Entry<String, List<Card>> entry : initialHands.entrySet()) {
@@ -330,7 +327,7 @@ public class GameController {
         return history;
     }
 
-    private Card calculateBestCardInternal(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, String contract, String leaderName) {
+    private Card calculateBestCardInternal(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, Contract contract, String leaderName) {
         int[] ddsCards = new int[16];
         String[] handNames = {"North", "East", "South", "West"};
         for (int h = 0; h < 4; h++) {
@@ -496,12 +493,12 @@ public class GameController {
         return minOptimalCode;
     }
 
-    private String determineTrickWinnerInternal(Map<String, Card> trickMap, String contract, String leaderName) {
+    private String determineTrickWinnerInternal(Map<String, Card> trickMap, Contract contract, String leaderName) {
         Card leadCard = trickMap.get(leaderName);
         if (leadCard == null) return players.keySet().iterator().next();
 
         Suit ledSuit = leadCard.getSuit();
-        Suit trumpSuit = getTrumpSuitInternal(contract);
+        Suit trumpSuit = (contract == null || contract.isPass()) ? null : contract.getSuit();
 
         String winnerName = leaderName;
         Card bestCard = leadCard;
@@ -514,16 +511,6 @@ public class GameController {
             }
         }
         return winnerName;
-    }
-
-    private Suit getTrumpSuitInternal(String contract) {
-        if (contract == null || contract.equals("PASS") || contract.endsWith("NT"))
-            return null;
-        if (contract.contains("S")) return Suit.SPADES;
-        if (contract.contains("H")) return Suit.HEARTS;
-        if (contract.contains("D")) return Suit.DIAMONDS;
-        if (contract.contains("C")) return Suit.CLUBS;
-        return null;
     }
 
     private String getNextPlayerName(String name) {
@@ -563,13 +550,9 @@ public class GameController {
         }
     }
 
-    private int getTrumpDdsIndex(String contract) {
-        if (contract == null || contract.equals("PASS") || contract.endsWith("NT")) return 4;
-        if (contract.contains("S")) return 0;
-        if (contract.contains("H")) return 1;
-        if (contract.contains("D")) return 2;
-        if (contract.contains("C")) return 3;
-        return 4;
+    private int getTrumpDdsIndex(Contract contract) {
+        if (contract == null || contract.isPass() || contract.isNoTrump()) return 4;
+        return mapSuitToDdsIndex(contract.getSuit());
     }
 
     private int getPlayerDdsIndex(String name) {

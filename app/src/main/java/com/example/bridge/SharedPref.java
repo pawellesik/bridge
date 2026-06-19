@@ -3,6 +3,9 @@ package com.example.bridge;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.bridge.model.Contract;
+
+
 public class SharedPref {
     public int getChangeScore() {
         return changeScore;
@@ -20,16 +23,10 @@ public class SharedPref {
         this.gameActivity = gameActivity;
     }
 
-    public void setScore(String contract, int snScoreValue) {
+    public void setScore(Contract contract, int snScoreValue) {
         int level = 0;
-        try {
-            String[] parts = contract.split(" ");
-            if (parts.length > 0) {
-                level = Integer.parseInt(parts[0].trim());
-            }
-
-        } catch (Exception e) {
-            // level remains 0
+        if (contract != null && !contract.isPass()) {
+            level = contract.getLevel();
         }
 
         int requiredTricks = level + 6;

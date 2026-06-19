@@ -1,6 +1,7 @@
 package com.example.bridge;
 
 import com.example.bridge.model.Card;
+import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Suit;
 
@@ -20,26 +21,26 @@ public class BiddingManager {
         this.ddsSolver = ddsSolver;
     }
 
-    public String determineBestContract() {
+    public Contract determineBestContract() {
         switchCardsIfAreToWeaks();
         int totalHCP = getHPCFromSNPlayers();
-        String contractColor = getContractColor();
-        int contractCount = getContractCount(contractColor, totalHCP);
+        String contractColorStr = getContractColor();
+        int contractCount = getContractCount(contractColorStr, totalHCP);
 
-        swapNorthSouthIfSouthHasLongerTrump(contractColor);
-        sortHandsByContract(contractColor);
+        swapNorthSouthIfSouthHasLongerTrump(contractColorStr);
+        sortHandsByContract(contractColorStr);
 
-        int possibleTricks = simulateMaxTricks(contractColor);
-        if (contractCount == 1 && !contractColor.equals("NT") && possibleTricks >= 8) {
+        int possibleTricks = simulateMaxTricks(contractColorStr);
+        if (contractCount == 1 && !contractColorStr.equals("NT") && possibleTricks >= 8) {
             contractCount = 2;
         }
         if (contractCount == 2 && possibleTricks >= 10) {
             contractCount = 4;
         }
-        if (contractCount == 3 && !contractColor.equals("NT") && !contractColor.equals("Spades") && !contractColor.equals("Hearts") && possibleTricks >= 11) {
+        if (contractCount == 3 && !contractColorStr.equals("NT") && !contractColorStr.equals("Spades") && !contractColorStr.equals("Hearts") && possibleTricks >= 11) {
             contractCount = 5;
         }
-        if (contractCount == 3 && !contractColor.equals("NT") && !contractColor.equals("Diamonds") && !contractColor.equals("Clubs") && possibleTricks >= 10) {
+        if (contractCount == 3 && !contractColorStr.equals("NT") && !contractColorStr.equals("Diamonds") && !contractColorStr.equals("Clubs") && possibleTricks >= 10) {
             contractCount = 4;
         } else if (contractCount == 4 && possibleTricks == 13) {
             contractCount = 6;
@@ -47,12 +48,20 @@ public class BiddingManager {
             contractCount = 6;
         }
 
-
-
         callback.onHandUpdated("North");
         callback.onHandUpdated("South");
 
-        return contractCount + " " + contractColor;
+        Suit contractSuit = null;
+        if (!contractColorStr.equals("NT")) {
+            for (Suit s : Suit.values()) {
+                if (s.name().equalsIgnoreCase(contractColorStr)) {
+                    contractSuit = s;
+                    break;
+                }
+            }
+        }
+
+        return new Contract(contractCount, contractSuit);
     }
 
     private int simulateMaxTricks(String contractColor) {

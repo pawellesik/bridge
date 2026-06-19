@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bridge.model.Card;
+import com.example.bridge.model.Contract;
 
 import java.util.Map;
 
@@ -61,40 +62,33 @@ public class GameActivityTop {
         }
     }
 
-    public void setContract(String contract) {
+    public void setContract(Contract contract) {
         if (contractContainer != null)
             contractContainer.setBackgroundResource(R.drawable.bright_green_frame_black_sharp);
 
-        if (contract == null || contract.equals("PASS")) {
+        if (contract == null || contract.isPass()) {
             tvContract.setText(activity.getString(R.string.contract_pass));
             if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
             return;
         }
 
-        String[] parts = contract.split(" ");
-        if (parts.length < 2) {
-            tvContract.setText(contract);
-            if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
-            return;
-        }
-
-        String count = parts[0];
-        String color = parts[1];
+        int count = contract.getLevel();
+        com.example.bridge.model.Suit suit = contract.getSuit();
 
         tvContract.setText(" " + count);
         if (ivContractSuit != null) {
-            if ("NT".equals(color)) {
+            if (contract.isNoTrump()) {
                 tvContract.setText(" " + count + " " + activity.getString(R.string.suit_nt));
                 ivContractSuit.setVisibility(View.GONE);
             } else {
                 ivContractSuit.setVisibility(View.VISIBLE);
-                switch (color) {
-                    case "Spades": ivContractSuit.setImageResource(R.drawable.spades); break;
-                    case "Hearts": ivContractSuit.setImageResource(R.drawable.heart); break;
-                    case "Diamonds": ivContractSuit.setImageResource(R.drawable.diamonds); break;
-                    case "Clubs": ivContractSuit.setImageResource(R.drawable.clubs); break;
+                switch (suit) {
+                    case SPADES: ivContractSuit.setImageResource(R.drawable.spades); break;
+                    case HEARTS: ivContractSuit.setImageResource(R.drawable.heart); break;
+                    case DIAMONDS: ivContractSuit.setImageResource(R.drawable.diamonds); break;
+                    case CLUBS: ivContractSuit.setImageResource(R.drawable.clubs); break;
                     default:
-                        tvContract.setText(" " + contract);
+                        tvContract.setText(contract.toString());
                         ivContractSuit.setVisibility(View.GONE);
                         break;
                 }

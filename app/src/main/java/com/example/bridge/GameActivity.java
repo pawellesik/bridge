@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.model.Card;
+import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
 
@@ -169,7 +170,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onGameEnded(int snScore, int weScore, String contract, List<Trick> history, int claim) {
+    public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
         sharedPref.setScore(contract, snScore);
         findViewById(R.id.main).postDelayed(() -> {
             gameHistory.showResults(history, claim, snScore);
@@ -208,7 +209,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onContractDetermined(String contract) {
+    public void onContractDetermined(Contract contract) {
         isProcessingMove = false;
         gameActivityTop.setContract(contract);
     }
