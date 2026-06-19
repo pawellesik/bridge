@@ -82,13 +82,13 @@ public class GameActivityHistory {
     }
 
     private int calculateSnScore(List<Trick> tricks) {
-        int count = 0;
+        int score = 0;
         if (tricks == null) return 0;
         for (Trick t : tricks) {
             String winner = t.getWinnerTrick();
-            if ("North".equals(winner) || "South".equals(winner)) count++;
+            if ("North".equals(winner) || "South".equals(winner)) score++;
         }
-        return count;
+        return score;
     }
 
     private void toggleAutoReplay() {
@@ -213,8 +213,10 @@ public class GameActivityHistory {
         int rowCount = tableHistoryRes.getChildCount();
         for (int i = 1; i < rowCount; i++) {
             View row = tableHistoryRes.getChildAt(i);
-            if (i <= currentSimTrickIndex) {
-                row.setBackgroundColor(i <= currentSimTrickIndex ? Color.parseColor("#A5D6A7") : Color.TRANSPARENT);
+            if (i == currentSimTrickIndex) {
+                row.setBackgroundResource(R.drawable.middle_green_frame_black);
+            } else if (i < currentSimTrickIndex) {
+                row.setBackgroundColor(Color.parseColor("#A5D6A7"));
             } else {
                 row.setBackgroundColor(Color.TRANSPARENT);
             }
