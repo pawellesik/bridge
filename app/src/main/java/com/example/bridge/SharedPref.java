@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.bridge.model.Contract;
+import com.example.bridge.model.Suit;
 
 
 public class SharedPref {
@@ -11,7 +12,7 @@ public class SharedPref {
         return changeScore;
     }
 
-    final int changeScore = 1;
+    final int changeScore = 50;
     static final String PREFS_NAME = "BridgePrefs";
     static final String KEY_CAREER_SCORE = "careerScore";
 
@@ -24,22 +25,34 @@ public class SharedPref {
     }
 
     public void setScore(Contract contract, int snScoreValue) {
-        int level = 0;
-        if (contract != null && !contract.isPass()) {
-            level = contract.getLevel();
+
+        int requiredTricks = contract.getLevel() + 6;
+        int handScore;
+
+        if (snScoreValue >= requiredTricks) {
+            handScore = getContractPkt(contract.getSuit(), contract.getLevel() + (snScoreValue - requiredTricks));
+        } else {
+            handScore = -getContractPkt(contract.getSuit(), contract.getLevel()) - getContractPkt(contract.getSuit(), contract.getLevel() - (requiredTricks - snScoreValue));
         }
 
-        int requiredTricks = level + 6;
-        int handScore = 0;
-        if (level > 0) {
-            if (snScoreValue >= requiredTricks) {
-                handScore = level + (snScoreValue - requiredTricks);
-            } else {
-                handScore = -level - (requiredTricks - snScoreValue);
-            }
-        }
         setPrefChangeTotalScore(handScore);
         gameActivity.setTotalScore(getPrefTotalScore(), handScore);
+    }
+
+    private int getContractPkt(Suit suit, int cnt) {
+        if (suit == null) {
+            return (cnt > 0) ? (cnt * 30 + 10) : 0;
+        }
+        switch (suit) {
+            case SPADES:
+            case HEARTS:
+                return cnt * 30;
+            case CLUBS:
+            case DIAMONDS:
+                return cnt * 20;
+            default:
+                return 0;
+        }
     }
 
     public void setPrefChangeTotalScore(int changeScore) {

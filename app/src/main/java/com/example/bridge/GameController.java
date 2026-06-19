@@ -53,7 +53,7 @@ public class GameController {
     private final DdsSolver ddsSolver;
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
-    private Contract currentContract = Contract.PASS;
+    private Contract currentContract = new Contract(true);
     private String trickLeaderName = "West";
     private int snScore = 0;
     private int weScore = 0;

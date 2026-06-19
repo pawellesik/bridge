@@ -72,7 +72,7 @@ public class GameActivityHistory {
         this.playAutoHistoryTrick = null;
 
         // Calculate auto score for initial button state
-        Contract contract = gameController != null ? gameController.getCurrentContract() : Contract.PASS;
+        Contract contract = gameController != null ? gameController.getCurrentContract() : new Contract(true);
         this.playAutoHistoryTrick = gameController != null ? gameController.calculateOptimalHistory(activity.getInitialPlayerHands(), contract) : new ArrayList<>();
         int autoSnScore = calculateSnScore(playAutoHistoryTrick);
 
