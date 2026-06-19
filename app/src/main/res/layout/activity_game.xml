@@ -394,16 +394,30 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_claim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_margin="4dp"
+        android:alpha="0.95"
         android:text="@string/claim"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_blue_button"
         android:visibility="gone"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:backgroundTint="@null"
+        app:cornerRadius="30dp"
+        app:elevation="8dp"
+        app:icon="@drawable/ic_take_rest"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp"
+        app:iconTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/name_south"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_hand_north" />
 
     <ProgressBar
         android:id="@+id/loading_indicator"
@@ -425,7 +439,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_bar"
-        tools:visibility="visible">
+        tools:visibility="invisible">
 
         <!-- Content (Player Hands) -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -609,17 +623,17 @@
                     android:layout_marginHorizontal="12dp"
                     android:background="@drawable/bright_green_frame_black"
                     android:backgroundTint="#1B5E20"
+                    android:gravity="center"
                     android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:gravity="center">
+                    android:paddingVertical="4dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/trick_label"
+                        android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        android:textAllCaps="true"
                         android:textStyle="bold" />
 
                     <TextView
@@ -730,8 +744,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -740,17 +754,17 @@
                 android:id="@+id/btn_save_game"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="4dp"
+                android:layout_weight="1"
                 android:alpha="0.95"
-                android:text="@string/save"
-                android:textAllCaps="false"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
                 android:background="@drawable/bg_blue_button"
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
+                android:textStyle="bold"
                 app:backgroundTint="@null"
                 app:cornerRadius="30dp"
                 app:elevation="4dp"
@@ -763,17 +777,17 @@
                 android:id="@+id/btn_auto_replay"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_weight="1.6"
                 android:layout_marginEnd="4dp"
+                android:layout_weight="1.6"
                 android:alpha="0.95"
-                android:text="@string/auto_play_deal"
-                android:textAllCaps="false"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
                 android:background="@drawable/bg_green_button"
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
+                android:text="@string/auto_play_deal"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
+                android:textStyle="bold"
                 app:backgroundTint="@null"
                 app:cornerRadius="30dp"
                 app:elevation="4dp"
@@ -789,13 +803,13 @@
                 android:layout_weight="1.4"
                 android:alpha="0.95"
                 android:background="@drawable/bg_blue_button"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
                 android:text="@string/new_deal"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
                 app:backgroundTint="@null"
                 app:cornerRadius="30dp"
                 app:elevation="4dp"
