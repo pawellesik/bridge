@@ -36,19 +36,19 @@ public class GameActivityHistory {
     private boolean isShowingAutoHistory = false;
     private int userSnScore;
 
-    public GameActivityHistory(GameActivity activity, GameController gameController) {
-        this.activity = activity;
+    public GameActivityHistory(GameActivity gameActivity, GameController gameController) {
+        this.activity = gameActivity;
         this.gameController = gameController;
 
-        this.resultsOverlay = activity.findViewById(R.id.results_overlay);
-        this.tableHistoryRes = activity.findViewById(R.id.table_history_res);
-        this.btnAutoReplay = activity.findViewById(R.id.btn_auto_replay);
-        this.tvSimInfo = activity.findViewById(R.id.tv_trick_info);
+        this.resultsOverlay = gameActivity.findViewById(R.id.results_overlay);
+        this.tableHistoryRes = gameActivity.findViewById(R.id.table_history_res);
+        this.btnAutoReplay = gameActivity.findViewById(R.id.btn_auto_replay);
+        this.tvSimInfo = gameActivity.findViewById(R.id.tv_trick_info);
 
-        this.tvNorthRes = activity.findViewById(R.id.tv_north_cards_res);
-        this.tvSouthRes = activity.findViewById(R.id.tv_south_cards_res);
-        this.tvEastRes = activity.findViewById(R.id.tv_east_cards_res);
-        this.tvWestRes = activity.findViewById(R.id.tv_west_cards_res);
+        this.tvNorthRes = gameActivity.findViewById(R.id.tv_north_cards_res);
+        this.tvSouthRes = gameActivity.findViewById(R.id.tv_south_cards_res);
+        this.tvEastRes = gameActivity.findViewById(R.id.tv_east_cards_res);
+        this.tvWestRes = gameActivity.findViewById(R.id.tv_west_cards_res);
 
         setupListeners();
     }
@@ -233,10 +233,10 @@ public class GameActivityHistory {
             });
 
             String[] trickData = new String[4];
-            int winnerCol = activity.getPlayerColumn(trick.getWinnerTrick());
+            int winnerCol = getPlayerColumn(trick.getWinnerTrick());
 
             for (Map.Entry<String, Card> entry : trick.getCardsOnTableMap().entrySet()) {
-                int col = activity.getPlayerColumn(entry.getKey());
+                int col = getPlayerColumn(entry.getKey());
                 if (col != -1)
                     trickData[col] = entry.getValue().getRank().display + " " + entry.getValue().getSuit().symbol;
             }
@@ -312,6 +312,13 @@ public class GameActivityHistory {
             }
         }
         return sb.toString();
+    }
+    public int getPlayerColumn(String name) {
+        if ("West".equals(name)) return 0;
+        if ("North".equals(name)) return 1;
+        if ("East".equals(name)) return 2;
+        if ("South".equals(name)) return 3;
+        return -1;
     }
 
     public void hide() {

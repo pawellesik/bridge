@@ -37,8 +37,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public static final Card GHOST_CARD = new Card(null, null);
-    private static final String PREFS_NAME = "BridgePrefs";
-    private static final String KEY_CAREER_SCORE = "careerScore";
 
     private Map<String, Player> players;
     private GameController gameController;
@@ -61,11 +59,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private View btnNewDeal;
     private Button btn_deal;
-    private int snScore;
+
     private GameActivityHistory gameHistory;
     private GameActivityTop gameActivityTop;
 
     private TextView nameNorth, nameSouth, nameEast, nameWest;
+    private SharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +92,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         initGame();
         gameActivityTop = new GameActivityTop(this);
+        sharedPref = new SharedPref(this, gameActivityTop);
         gameHistory = new GameActivityHistory(this, gameController);
 
         btnNewDeal.setOnClickListener(v -> {
@@ -115,8 +115,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
-            setPrefChangeTotalScore(-1);
-            setTotalScore(getPrefTotalScore());
+            sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
+            setTotalScore(sharedPref.getPrefTotalScore());
             v.post(() -> {
                 gameController.dealCards();
             });
@@ -136,27 +136,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
     }
 
-    private void setScore(String contract, int snScoreValue) {
-        this.snScore = snScoreValue;
-        int level = 0;
-        try {
-            level = Integer.parseInt(contract.split(" ")[0].trim());
-        } catch (Exception e) {
-        }
-
-        int requiredTricks = level + 6;
-        int handScore = 0;
-        if (level > 0) {
-            if (snScoreValue >= requiredTricks) {
-                handScore = level + (snScoreValue - requiredTricks);
-            } else {
-                handScore = -level - (requiredTricks - snScoreValue);
-            }
-        }
-        setPrefChangeTotalScore(handScore);
-        setTotalScore(getPrefTotalScore(), handScore);
-    }
-
     public Map<String, List<Card>> getInitialPlayerHands() {
         return initialPlayerHands;
     }
@@ -172,39 +151,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-
-    public int getPlayerColumn(String name) {
-        if ("West".equals(name)) return 0;
-        if ("North".equals(name)) return 1;
-        if ("East".equals(name)) return 2;
-        if ("South".equals(name)) return 3;
-        return -1;
+    @Override
+    public void onTotalScore() {
+        setTotalScore(sharedPref.getPrefTotalScore());
     }
 
-    private void setPrefChangeTotalScore(int changeScore) {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int careerScore = getPrefTotalScore();
-        careerScore += changeScore;
-        prefs.edit().putInt(KEY_CAREER_SCORE, careerScore).apply();
-    }
-
-    private int getPrefTotalScore() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
-        return careerScore;
-    }
-
-    private void setTotalScore(int totalScore, int changeScore) {
+    void setTotalScore(int totalScore, int changeScore) {
         gameActivityTop.setTotalScore(totalScore, changeScore);
     }
 
     private void setTotalScore(int totalScore) {
         gameActivityTop.setTotalScore(totalScore);
-    }
-
-    @Override
-    public void onTotalScore() {
-        setTotalScore(getPrefTotalScore());
     }
 
     @Override
@@ -221,7 +178,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, String contract, List<Trick> history, int claim) {
-        setScore(contract, snScore);
+        sharedPref.setScore(contract, snScore);
         findViewById(R.id.main).postDelayed(() -> {
             gameHistory.showResults(history, claim, snScore);
         }, 500);
@@ -237,7 +194,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (isVisible) {
             startBar.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.GONE);
-            if (getPrefTotalScore() < 0) {
+            if (sharedPref.getPrefTotalScore() < 0) {
                 btn_deal.setVisibility(View.GONE);
             } else {
                 btn_deal.setVisibility(View.VISIBLE);
@@ -275,8 +232,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onTurnChanged(String playerName) {
         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
         updateTurn(playerName);
-
-        if (playerName == null) return;
 
         // Unlock interaction ONLY if it's a human player's turn
         if ("North".equals(playerName) || "South".equals(playerName)) {
