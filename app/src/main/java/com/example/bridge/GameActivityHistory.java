@@ -178,6 +178,22 @@ public class GameActivityHistory {
         activity.updateSimulationScores(simSnScore, simWeScore);
         activity.onTableCleared(currentTrickMap);
 
+        // Reset backgrounds
+        tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+        tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+        tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+        tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+
+        // Highlight winner of current trick
+        if (history != null && currentSimTrickIndex > 0) {
+            Trick currentTrick = history.get(currentSimTrickIndex - 1);
+            String winner = currentTrick.getWinnerTrick();
+            if ("North".equals(winner)) tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_red);
+            else if ("South".equals(winner)) tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_red);
+            else if ("East".equals(winner)) tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_red);
+            else if ("West".equals(winner)) tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_red);
+        }
+
         if (currentTrickMap != null) {
             for (Map.Entry<String, Card> entry : currentTrickMap.entrySet()) {
                 activity.showPlayedCardInSim(entry.getValue(), entry.getKey());
