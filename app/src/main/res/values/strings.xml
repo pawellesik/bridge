@@ -14,7 +14,10 @@
     <string name="deal">Deal Cards</string>
     <string name="claim">Take the rest</string>
     <string name="new_deal">New Deal</string>
-    <string name="auto_play_deal">Auto Play (%1$d)</string>
+    <string name="auto_play_deal">Auto Play</string>
+    <string name="auto_play_deal_format">%1$d Auto Play</string>
+    <string name="back_to_my_play_format">Back to My Play (%1$d)</string>
+    <string name="back_to_my_play">Back to My Play</string>
     <string name="save">Save</string>
     <string name="score_label">SCORE:</string>
     <string name="we_label">WE: %1$d</string>
