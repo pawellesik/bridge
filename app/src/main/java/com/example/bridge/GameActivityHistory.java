@@ -220,6 +220,8 @@ public class GameActivityHistory {
             } else {
                 row.setBackgroundColor(Color.TRANSPARENT);
             }
+            // Ensure padding from drawable doesn't shift the content
+            row.setPadding(0, 0, 0, 0);
         }
 
         if (shouldScroll && currentSimTrickIndex >= 0 && currentSimTrickIndex < rowCount) {
@@ -269,9 +271,10 @@ public class GameActivityHistory {
                 tv.setTextColor(Color.BLACK);
                 tv.setTypeface(null, android.graphics.Typeface.BOLD);
                 tv.setGravity(Gravity.CENTER);
-                tv.setPadding(8, 16, 8, 16);
                 if (c == winnerCol)
                     tv.setBackgroundResource(R.drawable.bright_green_frame_red);
+                // Set padding AFTER background, so drawable padding doesn't overwrite it
+                tv.setPadding(8, 16, 8, 16);
                 row.addView(tv);
             }
             tableHistoryRes.addView(row);
