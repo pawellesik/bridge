@@ -12,7 +12,7 @@ public class SharedPref {
         return changeScore;
     }
 
-    final int changeScore = 50;
+    final int changeScore = -50;
     static final String PREFS_NAME = "BridgePrefs";
     static final String KEY_CAREER_SCORE = "careerScore";
 
