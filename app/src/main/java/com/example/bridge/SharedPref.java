@@ -21,11 +21,15 @@ public class SharedPref {
     }
 
     public void setScore(String contract, int snScoreValue) {
-        //this.snScore = snScoreValue;
         int level = 0;
         try {
-            level = Integer.parseInt(contract.split(" ")[0].trim());
+            String[] parts = contract.split(" ");
+            if (parts.length > 0) {
+                level = Integer.parseInt(parts[0].trim());
+            }
+
         } catch (Exception e) {
+            // level remains 0
         }
 
         int requiredTricks = level + 6;

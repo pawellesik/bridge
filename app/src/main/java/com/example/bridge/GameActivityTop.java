@@ -14,6 +14,7 @@ public class GameActivityTop {
 
     private final TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private final TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
+    private final TextView nameNorth, nameSouth, nameEast, nameWest;
 
     private final TextView tvContract;
     private final ImageView ivContractSuit;
@@ -27,6 +28,11 @@ public class GameActivityTop {
         tvLastEast = activity.findViewById(R.id.e_last_card);
         tvLastWest = activity.findViewById(R.id.w_last_card);
 
+        nameNorth = activity.findViewById(R.id.name_north);
+        nameSouth = activity.findViewById(R.id.name_south);
+        nameEast = activity.findViewById(R.id.name_east);
+        nameWest = activity.findViewById(R.id.name_west);
+
         tvScoreSN = activity.findViewById(R.id.sn_score);
         tvScoreWE = activity.findViewById(R.id.we_score);
 
@@ -39,7 +45,21 @@ public class GameActivityTop {
         contractContainer = activity.findViewById(R.id.game_contract_container);
     }
 
+    public void updateTurn(String playerName) {
+        nameNorth.setBackgroundResource(R.drawable.dark_green);
+        nameSouth.setBackgroundResource(R.drawable.dark_green);
+        nameEast.setBackgroundResource(R.drawable.dark_green);
+        nameWest.setBackgroundResource(R.drawable.dark_green);
 
+        if (playerName == null) return;
+
+        switch (playerName) {
+            case "North": nameNorth.setBackgroundResource(R.drawable.dark_green_white_frame); break;
+            case "South": nameSouth.setBackgroundResource(R.drawable.dark_green_white_frame); break;
+            case "East": nameEast.setBackgroundResource(R.drawable.dark_green_white_frame); break;
+            case "West": nameWest.setBackgroundResource(R.drawable.dark_green_white_frame); break;
+        }
+    }
 
     public void setContract(String contract) {
         if (contractContainer != null)

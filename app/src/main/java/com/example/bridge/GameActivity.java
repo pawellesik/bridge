@@ -61,7 +61,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private GameActivityHistory gameHistory;
     private GameActivityTop gameActivityTop;
 
-    private TextView nameNorth, nameSouth, nameEast, nameWest;
     private SharedPref sharedPref;
 
     @Override
@@ -75,11 +74,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerNorth = findViewById(R.id.container_played_north);
         playedCardContainerWest = findViewById(R.id.container_played_west);
         playedCardContainerEast = findViewById(R.id.container_played_east);
-
-        nameNorth = findViewById(R.id.name_north);
-        nameSouth = findViewById(R.id.name_south);
-        nameEast = findViewById(R.id.name_east);
-        nameWest = findViewById(R.id.name_west);
 
         startBar = findViewById(R.id.start_bar);
         btn_deal = findViewById(R.id.btn_deal);
@@ -158,7 +152,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameActivityTop.setTotalScore(totalScore, changeScore);
     }
 
-    private void setTotalScore(int totalScore) {
+    void setTotalScore(int totalScore) {
         gameActivityTop.setTotalScore(totalScore);
     }
 
@@ -202,34 +196,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-    public void updateTurn(String playerName) {
-        nameNorth.setBackgroundResource(R.drawable.dark_green);
-        nameSouth.setBackgroundResource(R.drawable.dark_green);
-        nameEast.setBackgroundResource(R.drawable.dark_green);
-        nameWest.setBackgroundResource(R.drawable.dark_green);
-
-        if (playerName == null) return;
-
-        switch (playerName) {
-            case "North":
-                nameNorth.setBackgroundResource(R.drawable.dark_green_white_frame);
-                break;
-            case "South":
-                nameSouth.setBackgroundResource(R.drawable.dark_green_white_frame);
-                break;
-            case "East":
-                nameEast.setBackgroundResource(R.drawable.dark_green_white_frame);
-                break;
-            case "West":
-                nameWest.setBackgroundResource(R.drawable.dark_green_white_frame);
-                break;
-        }
-    }
-
     @Override
     public void onTurnChanged(String playerName) {
         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
-        updateTurn(playerName);
+        gameActivityTop.updateTurn(playerName);
 
         // Unlock interaction ONLY if it's a human player's turn
         if ("North".equals(playerName) || "South".equals(playerName)) {
