@@ -32,7 +32,7 @@ public class SharedPref {
         if (snScoreValue >= requiredTricks) {
             handScore = getContractPkt(contract.getSuit(), contract.getLevel() + (snScoreValue - requiredTricks));
         } else {
-            handScore = -getContractPkt(contract.getSuit(), contract.getLevel()) - getContractPkt(contract.getSuit(), contract.getLevel() - (requiredTricks - snScoreValue));
+            handScore = -getContractPkt(contract.getSuit(), contract.getLevel()) - getContractPkt(contract.getSuit(), (requiredTricks - snScoreValue));
         }
 
         setPrefChangeTotalScore(handScore);
