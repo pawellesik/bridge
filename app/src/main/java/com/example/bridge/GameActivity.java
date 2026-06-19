@@ -193,10 +193,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-    public Spanned formatSimHand(String playerName, List<Card> previousTricks, List<Card> currentTrick) {
-        String html = formatHandToHtmlForSim(initialPlayerHands.get(playerName), previousTricks, currentTrick);
-        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
-    }
 
     public int getPlayerColumn(String name) {
         if ("West".equals(name)) return 0;
@@ -237,7 +233,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvMiddle3.setText("");
     }
 
-
     @Override
     public void onTotalScore() {
         setTotalScore(getPrefTotalScore());
@@ -267,11 +262,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void dealNewCards() {
-        if (startBar != null) startBar.setVisibility(View.VISIBLE);
-        gameController.dealCards();
     }
 
     @Override
@@ -458,46 +448,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initialPlayerHands.clear();
     }
 
-    public String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
-        StringBuilder sb = new StringBuilder();
-        com.example.bridge.model.Suit[] suits = {
-                com.example.bridge.model.Suit.SPADES,
-                com.example.bridge.model.Suit.HEARTS,
-                com.example.bridge.model.Suit.DIAMONDS,
-                com.example.bridge.model.Suit.CLUBS
-        };
 
-        for (int i = 0; i < suits.length; i++) {
-            com.example.bridge.model.Suit suit = suits[i];
-            String color = suit.isRed ? "red" : "white"; // Change black to white for dark background
-            sb.append("<b><font color='").append(color).append("'>")
-                    .append(suit.symbol).append("</font></b>&nbsp;");
-
-            sb.append("<b>");
-            boolean first = true;
-            for (Card card : hand) {
-                if (card.getSuit() == suit) {
-                    if (!first) sb.append("&nbsp;");
-
-                    String cardColor = "white"; // Nie rzucone
-                    if (previousTricksCards != null && previousTricksCards.contains(card)) {
-                        cardColor = "#999999"; // Rzucone w poprzednich lewach (szare)
-                    } else if (currentTrickCards != null && currentTrickCards.contains(card)) {
-                        cardColor = "red"; // Obecnie rzucona (czerwona)
-                    }
-
-                    sb.append("<font color='").append(cardColor).append("'>")
-                            .append(card.getRank().display).append("</font>");
-                    first = false;
-                }
-            }
-            sb.append("</b>");
-            if (i < suits.length - 1) {
-                sb.append("<br/>");
-            }
-        }
-        return sb.toString();
-    }
 
     @Override
     public void onCardPlayed(Player player, Card card) {
@@ -623,5 +574,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     protected void onDestroy() {
         super.onDestroy();
         gameController.cleanup();
+    }
+    private void dealNewCards() {
+        if (startBar != null) startBar.setVisibility(View.VISIBLE);
+        gameController.dealCards();
     }
 }

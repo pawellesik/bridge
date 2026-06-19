@@ -22,12 +22,12 @@ public class GameHistory {
 
     private final GameActivity activity;
     private final GameController gameController;
-    
+
     private final View resultsOverlay;
     private final TableLayout tableHistoryRes;
     private final Button btnAutoReplay;
     private final TextView tvSimInfo;
-    
+
     private final TextView tvNorthRes, tvSouthRes, tvEastRes, tvWestRes;
 
     private List<Trick> playHistoryTrick = new ArrayList<>();
@@ -56,7 +56,7 @@ public class GameHistory {
 
     private void setupListeners() {
         btnAutoReplay.setOnClickListener(v -> toggleAutoReplay());
-        
+
         activity.findViewById(R.id.btn_first_trick).setOnClickListener(v -> jumpSimTrick(-1));
         activity.findViewById(R.id.btn_prev_trick).setOnClickListener(v -> changeSimTrick(-1));
         activity.findViewById(R.id.btn_next_trick).setOnClickListener(v -> changeSimTrick(1));
@@ -75,7 +75,7 @@ public class GameHistory {
         String contract = gameController != null ? gameController.getCurrentContract() : "PASS";
         this.playAutoHistoryTrick = gameController != null ? gameController.calculateOptimalHistory(activity.getInitialPlayerHands(), contract) : new ArrayList<>();
         int autoSnScore = calculateSnScore(playAutoHistoryTrick);
-        
+
         setBtnAutoReplayText(true, autoSnScore);
         displayHistory(history, claim);
         updateSimTrickUI(true);
@@ -146,7 +146,7 @@ public class GameHistory {
     private void updateSimTrickUI(boolean shouldScroll) {
         List<Trick> history = isShowingAutoHistory ? playAutoHistoryTrick : playHistoryTrick;
         int claim = isShowingAutoHistory ? 0 : simClaimCount;
-        
+
         tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
 
         List<Card> previousTricksCards = new ArrayList<>();
@@ -185,10 +185,10 @@ public class GameHistory {
             }
         }
 
-        tvNorthRes.setText(activity.formatSimHand("North", previousTricksCards, currentTrickCards));
-        tvSouthRes.setText(activity.formatSimHand("South", previousTricksCards, currentTrickCards));
-        tvEastRes.setText(activity.formatSimHand("East", previousTricksCards, currentTrickCards));
-        tvWestRes.setText(activity.formatSimHand("West", previousTricksCards, currentTrickCards));
+        tvNorthRes.setText(formatSimHand("North", previousTricksCards, currentTrickCards));
+        tvSouthRes.setText(formatSimHand("South", previousTricksCards, currentTrickCards));
+        tvEastRes.setText(formatSimHand("East", previousTricksCards, currentTrickCards));
+        tvWestRes.setText(formatSimHand("West", previousTricksCards, currentTrickCards));
 
         updateHistoryHighlightAndScroll(shouldScroll);
     }
@@ -204,9 +204,9 @@ public class GameHistory {
         if (shouldScroll && currentSimTrickIndex >= 0 && currentSimTrickIndex < rowCount) {
             View targetRow = tableHistoryRes.getChildAt(currentSimTrickIndex);
             if (targetRow != null) {
-                activity.findViewById(R.id.scroll_history).post(() -> 
-                    ((androidx.core.widget.NestedScrollView) activity.findViewById(R.id.scroll_history))
-                    .smoothScrollTo(0, targetRow.getTop()));
+                activity.findViewById(R.id.scroll_history).post(() ->
+                        ((androidx.core.widget.NestedScrollView) activity.findViewById(R.id.scroll_history))
+                                .smoothScrollTo(0, targetRow.getTop()));
             }
         }
     }
@@ -214,7 +214,10 @@ public class GameHistory {
     private void displayHistory(List<Trick> history, int claim) {
         if (tableHistoryRes == null) return;
         View headerRow = tableHistoryRes.getChildAt(0);
-        if (headerRow != null) headerRow.setOnClickListener(v -> { currentSimTrickIndex = 0; updateSimTrickUI(false); });
+        if (headerRow != null) headerRow.setOnClickListener(v -> {
+            currentSimTrickIndex = 0;
+            updateSimTrickUI(false);
+        });
 
         int childCount = tableHistoryRes.getChildCount();
         if (childCount > 1) tableHistoryRes.removeViews(1, childCount - 1);
@@ -225,14 +228,18 @@ public class GameHistory {
             final int trickNum = i + 1;
             Trick trick = history.get(i);
             TableRow row = new TableRow(activity);
-            row.setOnClickListener(v -> { currentSimTrickIndex = trickNum; updateSimTrickUI(false); });
+            row.setOnClickListener(v -> {
+                currentSimTrickIndex = trickNum;
+                updateSimTrickUI(false);
+            });
 
             String[] trickData = new String[4];
             int winnerCol = activity.getPlayerColumn(trick.getWinnerTrick());
 
             for (Map.Entry<String, Card> entry : trick.getCardsOnTableMap().entrySet()) {
                 int col = activity.getPlayerColumn(entry.getKey());
-                if (col != -1) trickData[col] = entry.getValue().getRank().display + " " + entry.getValue().getSuit().symbol;
+                if (col != -1)
+                    trickData[col] = entry.getValue().getRank().display + " " + entry.getValue().getSuit().symbol;
             }
 
             for (int c = 0; c < 4; c++) {
@@ -242,7 +249,8 @@ public class GameHistory {
                 tv.setTypeface(null, android.graphics.Typeface.BOLD);
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(8, 16, 8, 16);
-                if (c == winnerCol) tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
+                if (c == winnerCol)
+                    tv.setBackgroundResource(R.drawable.white_frame_in_bright_green);
                 row.addView(tv);
             }
             tableHistoryRes.addView(row);
@@ -253,9 +261,58 @@ public class GameHistory {
             claimTv.setText(activity.getString(R.string.claimed_tricks, claim));
             claimTv.setTextColor(Color.RED);
             claimTv.setPadding(16, 8, 16, 8);
-            claimTv.setOnClickListener(v -> { currentSimTrickIndex = history.size(); updateSimTrickUI(false); });
+            claimTv.setOnClickListener(v -> {
+                currentSimTrickIndex = history.size();
+                updateSimTrickUI(false);
+            });
             tableHistoryRes.addView(claimTv);
         }
+    }
+
+    public Spanned formatSimHand(String playerName, List<Card> previousTricks, List<Card> currentTrick) {
+        String html = formatHandToHtmlForSim(activity.getInitialPlayerHands().get(playerName), previousTricks, currentTrick);
+        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+    }
+
+    public String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
+        StringBuilder sb = new StringBuilder();
+        com.example.bridge.model.Suit[] suits = {
+                com.example.bridge.model.Suit.SPADES,
+                com.example.bridge.model.Suit.HEARTS,
+                com.example.bridge.model.Suit.DIAMONDS,
+                com.example.bridge.model.Suit.CLUBS
+        };
+
+        for (int i = 0; i < suits.length; i++) {
+            com.example.bridge.model.Suit suit = suits[i];
+            String color = suit.isRed ? "red" : "white"; // Change black to white for dark background
+            sb.append("<b><font color='").append(color).append("'>")
+                    .append(suit.symbol).append("</font></b>&nbsp;");
+
+            sb.append("<b>");
+            boolean first = true;
+            for (Card card : hand) {
+                if (card.getSuit() == suit) {
+                    if (!first) sb.append("&nbsp;");
+
+                    String cardColor = "white"; // Nie rzucone
+                    if (previousTricksCards != null && previousTricksCards.contains(card)) {
+                        cardColor = "#999999"; // Rzucone w poprzednich lewach (szare)
+                    } else if (currentTrickCards != null && currentTrickCards.contains(card)) {
+                        cardColor = "red"; // Obecnie rzucona (czerwona)
+                    }
+
+                    sb.append("<font color='").append(cardColor).append("'>")
+                            .append(card.getRank().display).append("</font>");
+                    first = false;
+                }
+            }
+            sb.append("</b>");
+            if (i < suits.length - 1) {
+                sb.append("<br/>");
+            }
+        }
+        return sb.toString();
     }
 
     public void hide() {
