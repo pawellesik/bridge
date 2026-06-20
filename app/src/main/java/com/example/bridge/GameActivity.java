@@ -134,7 +134,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                showExitConfirmationDialog();
+                if (startBar != null && startBar.getVisibility() == View.VISIBLE) {
+                    finish();
+                } else {
+                    showExitConfirmationDialog();
+                }
             }
         });
     }

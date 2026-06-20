@@ -37,7 +37,7 @@
     <string name="trick_label">Trick</string>
     <string name="simulation_start">Simulation: Start</string>
     <string name="exit_title">Exit Game</string>
-    <string name="exit_message">Are you sure you want to exit the game?</string>
+    <string name="exit_message">Do you want to abandon this deal and return to the menu?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="lang_en">EN</string>
