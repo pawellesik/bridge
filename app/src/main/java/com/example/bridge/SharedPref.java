@@ -15,6 +15,7 @@ public class SharedPref {
     final int changeScore = -50;
     static final String PREFS_NAME = "BridgePrefs";
     static final String KEY_CAREER_SCORE = "careerScore";
+    static final String KEY_GAMES_PLAYED = "gamesPlayed";
 
     GameActivityTop gameActivityTop;
     GameActivity gameActivity;
@@ -68,6 +69,17 @@ public class SharedPref {
         SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int careerScore = prefs.getInt(KEY_CAREER_SCORE, 0);
         return careerScore;
+    }
+
+    public int getGamesPlayed() {
+        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getInt(KEY_GAMES_PLAYED, 0);
+    }
+
+    public void incrementGamesPlayed() {
+        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int count = getGamesPlayed() + 1;
+        prefs.edit().putInt(KEY_GAMES_PLAYED, count).apply();
     }
 
 }

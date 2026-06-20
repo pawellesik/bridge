@@ -117,6 +117,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
+            sharedPref.incrementGamesPlayed();
             v.post(() -> {
                 gameController.startGame();
             });
@@ -187,6 +188,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (isVisible) {
             startBar.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.GONE);
+            
+            Button btnStart = findViewById(R.id.btn_start);
+            if (btnStart != null) {
+                int gamesCount = sharedPref.getGamesPlayed();
+                btnStart.setText(getString(R.string.start_with_count, gamesCount));
+            }
+
             if (sharedPref.getPrefTotalScore() < 0) {
                 btn_deal.setVisibility(View.GONE);
             } else {

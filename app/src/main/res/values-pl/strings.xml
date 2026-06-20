@@ -15,6 +15,7 @@
     <string name="player_west">Zachód</string>
     <string name="suit_desc">Kolor</string>
     <string name="Start">Rozegraj</string>
+    <string name="start_with_count">Rozegraj (%1$d)</string>
     <string name="deal">Rozdaj Karty</string>
     <string name="claim">Weź resztę</string>
     <string name="new_deal">Nowe Rozdanie</string>
