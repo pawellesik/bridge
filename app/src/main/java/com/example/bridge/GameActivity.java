@@ -99,6 +99,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameHistory.hide();
             loadingIndicator.setVisibility(View.VISIBLE);
 
+            showTemporaryNotification(R.string.score_deducted);
+            sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
 
             v.post(() -> {
@@ -107,7 +109,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
 
         findViewById(R.id.btn_save_game).setOnClickListener(v -> {
-            // Future use: Save logic
+            showSaveConfirmationDialog();
         });
 
         setupRecyclerView();
@@ -123,8 +125,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
 
-            showDeductionNotification();
-
+            showTemporaryNotification(R.string.score_deducted);
             sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
             v.post(() -> {
@@ -159,13 +160,27 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
     }
 
-    private void showDeductionNotification() {
+    private void showTemporaryNotification(int resId) {
         View notifyView = findViewById(R.id.notification_text);
         if (notifyView != null) {
-            ((TextView) notifyView).setText(R.string.score_deducted);
+            ((TextView) notifyView).setText(resId);
             notifyView.setVisibility(View.VISIBLE);
             notifyView.postDelayed(() -> notifyView.setVisibility(View.GONE), 1000);
         }
+    }
+
+    private void showSaveConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.save_confirm_title)
+                .setMessage(R.string.save_confirm_message)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    // Logic for saving (placeholder for now)
+                    View btnSave = findViewById(R.id.btn_save_game);
+                    if (btnSave != null) btnSave.setVisibility(View.GONE);
+                    showTemporaryNotification(R.string.save_success);
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
     }
 
     private void showExitConfirmationDialog() {
