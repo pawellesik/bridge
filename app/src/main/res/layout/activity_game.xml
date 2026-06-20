@@ -772,7 +772,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="4dp"
                 android:alpha="0.95"
-                android:background="@drawable/bg_blue_button"
+                android:background="@drawable/bg_yellow_button"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:text="@string/save"
