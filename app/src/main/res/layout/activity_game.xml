@@ -405,7 +405,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:background="@drawable/bg_blue_button"
+        android:background="@drawable/bg_green_button"
         android:visibility="gone"
         app:backgroundTint="@null"
         app:cornerRadius="30dp"

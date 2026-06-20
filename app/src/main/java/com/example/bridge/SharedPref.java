@@ -35,9 +35,7 @@ public class SharedPref {
         } else {
             handScore = -getContractPkt(contract.getSuit(), contract.getLevel()) - getContractPkt(contract.getSuit(), (requiredTricks - snScoreValue));
         }
-        if (handScore < 0) {
-            handScore = 0;
-        }
+
         setPrefChangeTotalScore(handScore);
         gameActivity.setTotalScore(getPrefTotalScore(), handScore);
     }
@@ -62,6 +60,9 @@ public class SharedPref {
         SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int careerScore = getPrefTotalScore();
         careerScore += changeScore;
+        if (careerScore <0){
+            careerScore = 0;
+        }
         prefs.edit().putInt(KEY_CAREER_SCORE, careerScore).apply();
     }
 
