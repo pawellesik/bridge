@@ -38,16 +38,31 @@ public class StartActivity extends AppCompatActivity {
         findViewById(R.id.btn_lang_pl).setOnClickListener(v -> changeLanguage("pl"));
 
         View loadingIndicator = findViewById(R.id.loading_indicator);
-        View langContainer = findViewById(R.id.lang_container);
+        View menuContainer = findViewById(R.id.menu_container);
         Button btnStart = findViewById(R.id.btn_start);
         
         btnStart.setOnClickListener(v -> {
             if (loadingIndicator != null) loadingIndicator.setVisibility(View.VISIBLE);
-            if (langContainer != null) langContainer.setVisibility(View.GONE);
-            btnStart.setVisibility(View.GONE);
+            if (menuContainer != null) menuContainer.setVisibility(View.GONE);
 
             Intent intent = new Intent(StartActivity.this, GameActivity.class);
             startActivity(intent);
+        });
+
+        findViewById(R.id.btn_history).setOnClickListener(v -> {
+            // Future use
+        });
+
+        findViewById(R.id.btn_settings).setOnClickListener(v -> {
+            // Future use
+        });
+
+        findViewById(R.id.btn_about).setOnClickListener(v -> {
+            // Future use
+        });
+
+        findViewById(R.id.btn_quit).setOnClickListener(v -> {
+            finishAffinity();
         });
     }
 
@@ -56,12 +71,10 @@ public class StartActivity extends AppCompatActivity {
         super.onResume();
         // Reset UI when returning to this screen
         View loadingIndicator = findViewById(R.id.loading_indicator);
-        View langContainer = findViewById(R.id.lang_container);
-        Button btnStart = findViewById(R.id.btn_start);
+        View menuContainer = findViewById(R.id.menu_container);
 
         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
-        if (langContainer != null) langContainer.setVisibility(View.VISIBLE);
-        if (btnStart != null) btnStart.setVisibility(View.VISIBLE);
+        if (menuContainer != null) menuContainer.setVisibility(View.VISIBLE);
     }
 
     private void changeLanguage(String lang) {

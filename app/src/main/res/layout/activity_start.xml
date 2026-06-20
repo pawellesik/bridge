@@ -7,72 +7,166 @@
     android:background="#1B5E20"
     tools:context=".StartActivity">
 
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@android:color/white"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
+    <!-- Language Container at top-right -->
     <LinearLayout
         android:id="@+id/lang_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_text">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/btn_lang_en"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:padding="0dp"
             android:text="@string/lang_en"
             android:textColor="@android:color/white"
+            android:textSize="12sp"
             app:strokeColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_lang_pl"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
+            android:padding="0dp"
             android:text="@string/lang_pl"
             android:textColor="@android:color/white"
+            android:textSize="12sp"
             app:strokeColor="@android:color/white" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_start"
-        android:layout_width="220dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:alpha="0.95"
-        android:text="@string/start_game"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/app_name"
         android:textColor="@android:color/white"
-        android:background="@drawable/bg_green_button"
-        app:backgroundTint="@null"
-        app:elevation="12dp"
-        app:icon="@drawable/bg_green_arrow"
-        app:iconGravity="textStart"
-        app:iconPadding="12dp"
-        app:iconTint="@android:color/white"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/menu_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lang_container" />
+        app:layout_constraintTop_toBottomOf="@+id/title_text">
+
+        <!-- Start Game -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_start"
+            android:layout_width="210dp"
+            android:layout_height="54dp"
+            android:layout_marginVertical="6dp"
+            android:text="@string/start_game"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_green_button"
+            app:backgroundTint="@null"
+            app:elevation="4dp"
+            app:icon="@drawable/bg_green_arrow"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="#FFFFFF"
+            app:iconTintMode="src_in" />
+
+        <!-- History -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_history"
+            android:layout_width="210dp"
+            android:layout_height="54dp"
+            android:layout_marginVertical="6dp"
+            android:text="@string/history_games"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_green_button"
+            app:backgroundTint="@null"
+            app:elevation="4dp"
+            app:icon="@android:drawable/ic_menu_recent_history"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="#FFFFFF"
+            app:iconTintMode="src_in" />
+
+        <!-- Settings -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_settings"
+            android:layout_width="210dp"
+            android:layout_height="54dp"
+            android:layout_marginVertical="6dp"
+            android:text="@string/settings"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_green_button"
+            app:backgroundTint="@null"
+            app:elevation="4dp"
+            app:icon="@android:drawable/ic_menu_preferences"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="#FFFFFF"
+            app:iconTintMode="src_in" />
+
+        <!-- About -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_about"
+            android:layout_width="210dp"
+            android:layout_height="54dp"
+            android:layout_marginVertical="6dp"
+            android:text="@string/about"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_green_button"
+            app:backgroundTint="@null"
+            app:elevation="4dp"
+            app:icon="@android:drawable/ic_menu_info_details"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="#FFFFFF"
+            app:iconTintMode="src_in" />
+
+        <!-- Quit -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_quit"
+            android:layout_width="210dp"
+            android:layout_height="54dp"
+            android:layout_marginVertical="6dp"
+            android:text="@string/quit"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_blue_button"
+            app:backgroundTint="@null"
+            app:elevation="4dp"
+            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="#FFFFFF"
+            app:iconTintMode="src_in" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/loading_indicator"

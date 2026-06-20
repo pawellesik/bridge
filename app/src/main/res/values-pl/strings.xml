@@ -5,6 +5,10 @@
     <string name="cards_will_appear_here">Karty pojawią się tutaj</string>
     <string name="deal_cards">Rozdaj Karty</string>
     <string name="start_game">Rozpocznij Grę</string>
+    <string name="history_games">Historia Gier</string>
+    <string name="settings">Ustawienia</string>
+    <string name="about">O aplikacji</string>
+    <string name="quit">Wyjdź</string>
     <string name="player_north">Północ</string>
     <string name="player_south">Południe</string>
     <string name="player_east">Wschód</string>
