@@ -105,7 +105,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
 
         setupRecyclerView();
-        gameController.dealCards();
+
+        Map<String, List<Card>> savedDeal = sharedPref.loadSavedDeal();
+        if (savedDeal != null) {
+            gameController.restoreCards(savedDeal);
+        } else {
+            gameController.dealCards();
+        }
 
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
@@ -120,6 +126,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
             sharedPref.incrementGamesPlayed();
+            sharedPref.clearSavedDeal(); // Clear the deal once the game starts
             v.post(() -> {
                 gameController.startGame();
             });
@@ -322,6 +329,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         for (Player player : players.values()) {
             initialPlayerHands.put(player.getName(), new ArrayList<>(player.getHand()));
         }
+        sharedPref.saveDeal(players);
     }
 
     @Override

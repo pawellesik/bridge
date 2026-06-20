@@ -80,6 +80,27 @@ public class GameController {
             player.setCurrentMove(false);
             callback.onHandUpdated(player.getName());
         }
+        finishDealing();
+    }
+
+    public void restoreCards(Map<String, List<Card>> savedHands) {
+        handler.removeCallbacksAndMessages(null);
+        resetTable();
+        isAutoPlayMode = false;
+
+        for (Map.Entry<String, List<Card>> entry : savedHands.entrySet()) {
+            Player player = players.get(entry.getKey());
+            if (player != null) {
+                player.clearHand();
+                player.addCards(entry.getValue());
+                player.setCurrentMove(false);
+                callback.onHandUpdated(player.getName());
+            }
+        }
+        finishDealing();
+    }
+
+    private void finishDealing() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
         callback.onInitialHandsHtml();
@@ -87,7 +108,6 @@ public class GameController {
         trickLeaderName = "West";
         callback.onVisibleStartBar(true);
         callback.onTotalScore();
-
     }
 
     public void startGame() {
