@@ -119,6 +119,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
+
+            // Show temporary notification
+            View notifyView = findViewById(R.id.notification_text);
+            if (notifyView != null) {
+                ((TextView) notifyView).setText(R.string.score_deducted);
+                notifyView.setVisibility(View.VISIBLE);
+                notifyView.postDelayed(() -> notifyView.setVisibility(View.GONE), 1000);
+            }
+
             sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
             v.post(() -> {
