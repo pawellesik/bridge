@@ -137,9 +137,6 @@ public class GameController {
                 }
             }
         }
-        //for (Map.Entry<Suit, Integer> entry : maxOthersRank.entrySet()) {
-        //    System.out.println("plesik: " + player.getName() + " porownanie do " + entry.getKey() + " -> " + entry.getValue());
-        //}
         callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxOthersRank));
     }
 

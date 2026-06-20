@@ -34,7 +34,9 @@ public class SharedPref {
         } else {
             handScore = -getContractPkt(contract.getSuit(), contract.getLevel()) - getContractPkt(contract.getSuit(), (requiredTricks - snScoreValue));
         }
-
+        if (handScore < 0) {
+            handScore = 0;
+        }
         setPrefChangeTotalScore(handScore);
         gameActivity.setTotalScore(getPrefTotalScore(), handScore);
     }
