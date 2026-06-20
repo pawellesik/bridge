@@ -195,7 +195,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 btnStart.setText(getString(R.string.start_with_count, gamesCount));
             }
 
-            if (sharedPref.getPrefTotalScore() < 0) {
+            if (sharedPref.getPrefTotalScore() <= 0) {
                 btn_deal.setVisibility(View.GONE);
             } else {
                 btn_deal.setVisibility(View.VISIBLE);
