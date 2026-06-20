@@ -36,6 +36,10 @@
     <string name="suit_nt">BA</string>
     <string name="trick_label">Lewa</string>
     <string name="simulation_start">Symulacja: Start</string>
+    <string name="exit_title">Wyjście z gry</string>
+    <string name="exit_message">Czy na pewno chcesz wyjść z gry?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
     <string name="lang_en">EN</string>
     <string name="lang_pl">PL</string>
 </resources>
