@@ -231,13 +231,24 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 ssb.setSpan(new RelativeSizeSpan(0.6f), baseText.length() + 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 
                 btnStart.setText(ssb);
-                btnStart.setLineSpacing(0f, 0.8f); // Tighter spacing to fit within button
+                btnStart.setLineSpacing(0f, 0.8f);
             }
 
-            if (sharedPref.getPrefTotalScore() <= 0) {
-                btn_deal.setVisibility(View.GONE);
-            } else {
-                btn_deal.setVisibility(View.VISIBLE);
+            if (btn_deal != null) {
+                String dealText = getString(R.string.deal);
+                String costText = getString(R.string.deal_cost);
+
+                SpannableStringBuilder ssb = new SpannableStringBuilder(dealText + "\n" + costText);
+                ssb.setSpan(new RelativeSizeSpan(0.6f), dealText.length() + 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                btn_deal.setText(ssb);
+                btn_deal.setLineSpacing(0f, 0.8f);
+
+                if (sharedPref.getPrefTotalScore() <= 0) {
+                    btn_deal.setVisibility(View.GONE);
+                } else {
+                    btn_deal.setVisibility(View.VISIBLE);
+                }
             }
         } else {
             startBar.setVisibility(View.GONE);

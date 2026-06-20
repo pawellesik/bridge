@@ -17,6 +17,7 @@
     <string name="Start">Start Game</string>
     <string name="start_with_count">Start Game (%1$d)</string>
     <string name="deal">Deal Cards</string>
+    <string name="deal_cost">(cost 50 score)</string>
     <string name="claim">Take the rest</string>
     <string name="new_deal">New Deal</string>
     <string name="auto_play_deal">Auto Play</string>
