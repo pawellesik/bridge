@@ -98,6 +98,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameController.resetTable();
             gameHistory.hide();
             loadingIndicator.setVisibility(View.VISIBLE);
+
+            showDeductionNotification();
+            sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
+            setTotalScore(sharedPref.getPrefTotalScore());
+
             v.post(() -> {
                 gameController.dealCards();
             });
@@ -120,13 +125,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
 
-            // Show temporary notification
-            View notifyView = findViewById(R.id.notification_text);
-            if (notifyView != null) {
-                ((TextView) notifyView).setText(R.string.score_deducted);
-                notifyView.setVisibility(View.VISIBLE);
-                notifyView.postDelayed(() -> notifyView.setVisibility(View.GONE), 1000);
-            }
+            showDeductionNotification();
 
             sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
@@ -160,6 +159,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
         });
+    }
+
+    private void showDeductionNotification() {
+        View notifyView = findViewById(R.id.notification_text);
+        if (notifyView != null) {
+            ((TextView) notifyView).setText(R.string.score_deducted);
+            notifyView.setVisibility(View.VISIBLE);
+            notifyView.postDelayed(() -> notifyView.setVisibility(View.GONE), 1000);
+        }
     }
 
     private void showExitConfirmationDialog() {
