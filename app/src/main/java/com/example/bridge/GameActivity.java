@@ -240,7 +240,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if (btnStart != null) {
                 int gamesCount = sharedPref.getGamesPlayed();
                 String baseText = getString(R.string.Start);
-                String countText = "(" + gamesCount + ")";
+                String countText = getString(R.string.games_count_format, gamesCount);
                 
                 SpannableStringBuilder ssb = new SpannableStringBuilder(baseText + "\n" + countText);
                 ssb.setSpan(new RelativeSizeSpan(0.6f), baseText.length() + 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

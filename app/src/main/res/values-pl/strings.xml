@@ -15,7 +15,6 @@
     <string name="player_west">Zachód</string>
     <string name="suit_desc">Kolor</string>
     <string name="Start">Rozegraj</string>
-    <string name="start_with_count">Rozegraj (%1$d)</string>
     <string name="deal">Rozdaj Karty</string>
     <string name="deal_cost">(koszt 50 pkt)</string>
     <string name="score_deducted">-50 Punktów</string>
@@ -38,6 +37,7 @@
     <string name="suit_nt">BA</string>
     <string name="trick_label">Lewa</string>
     <string name="simulation_start">Symulacja: Start</string>
+    <string name="games_count_format">(ilość gier %1$d)</string>
     <string name="exit_title">Wyjście z gry</string>
     <string name="exit_message">Czy chcesz przerwać to rozdanie i wrócić do menu?</string>
     <string name="yes">Tak</string>

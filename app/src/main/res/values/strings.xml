@@ -15,7 +15,6 @@
     <string name="player_west">West</string>
     <string name="suit_desc">Suit</string>
     <string name="Start">Start Game</string>
-    <string name="start_with_count">Start Game (%1$d)</string>
     <string name="deal">Deal Cards</string>
     <string name="deal_cost">(cost 50 points)</string>
     <string name="score_deducted">-50 Points</string>
@@ -38,6 +37,7 @@
     <string name="suit_nt">NT</string>
     <string name="trick_label">Trick</string>
     <string name="simulation_start">Simulation: Start</string>
+    <string name="games_count_format">(games count %1$d)</string>
     <string name="exit_title">Exit Game</string>
     <string name="exit_message">Do you want to abandon this deal and return to the menu?</string>
     <string name="yes">Yes</string>
