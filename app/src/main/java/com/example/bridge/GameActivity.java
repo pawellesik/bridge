@@ -1,5 +1,8 @@
 package com.example.bridge;
 
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.widget.Button;
 import android.content.Context;
 import android.content.Intent;
@@ -217,11 +220,18 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (isVisible) {
             startBar.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.GONE);
-            
+
             Button btnStart = findViewById(R.id.btn_start);
             if (btnStart != null) {
                 int gamesCount = sharedPref.getGamesPlayed();
-                btnStart.setText(getString(R.string.start_with_count, gamesCount));
+                String baseText = getString(R.string.Start);
+                String countText = "(" + gamesCount + ")";
+                
+                SpannableStringBuilder ssb = new SpannableStringBuilder(baseText + "\n" + countText);
+                ssb.setSpan(new RelativeSizeSpan(0.6f), baseText.length() + 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                
+                btnStart.setText(ssb);
+                btnStart.setLineSpacing(0f, 0.8f); // Tighter spacing to fit within button
             }
 
             if (sharedPref.getPrefTotalScore() <= 0) {
