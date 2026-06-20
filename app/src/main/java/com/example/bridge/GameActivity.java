@@ -99,7 +99,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameHistory.hide();
             loadingIndicator.setVisibility(View.VISIBLE);
 
-            showDeductionNotification();
             sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
 
