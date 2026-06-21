@@ -48,14 +48,17 @@
     <string name="exit_message">Do you want to abandon this deal and return to the menu?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="filter_saved_only">Only Saved</string>
-    <string name="filter_contract_all">All Contracts</string>
+    <string name="filter_saved_only">Saved</string>
+    <string name="filter_contract_all">Contract</string>
     <string name="filter_contract_pass">PASS</string>
     <string name="filter_contract_nt">NT</string>
     <string name="filter_contract_spades">Spades</string>
     <string name="filter_contract_hearts">Hearts</string>
     <string name="filter_contract_diamonds">Diamonds</string>
     <string name="filter_contract_clubs">Clubs</string>
+    <string name="filter_result_all">Result</string>
+    <string name="filter_result_won">Won Only</string>
+    <string name="filter_result_lost">Lost Only</string>
     <string name="lang_en">EN</string>
     <string name="lang_pl">PL</string>
 </resources>

@@ -48,14 +48,17 @@
     <string name="exit_message">Czy chcesz przerwać to rozdanie i wrócić do menu?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
-    <string name="filter_saved_only">Tylko zapisane</string>
-    <string name="filter_contract_all">Wszystkie</string>
+    <string name="filter_saved_only">Zapisane</string>
+    <string name="filter_contract_all">Kontrakt</string>
     <string name="filter_contract_pass">PAS</string>
     <string name="filter_contract_nt">BA</string>
     <string name="filter_contract_spades">Piki</string>
     <string name="filter_contract_hearts">Kiery</string>
     <string name="filter_contract_diamonds">Karo</string>
     <string name="filter_contract_clubs">Trefle</string>
+    <string name="filter_result_all">Wynik</string>
+    <string name="filter_result_won">Tylko wygrane</string>
+    <string name="filter_result_lost">Tylko przegrane</string>
     <string name="lang_en">EN</string>
     <string name="lang_pl">PL</string>
 </resources>
