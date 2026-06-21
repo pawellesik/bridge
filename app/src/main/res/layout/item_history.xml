@@ -54,7 +54,7 @@
             android:layout_marginStart="12dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_delete_history"
+            app:layout_constraintEnd_toStartOf="@+id/btn_toggle_save"
             app:layout_constraintStart_toEndOf="@id/history_contract_container"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -74,6 +74,19 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <!-- Toggle Save Button -->
+        <ImageButton
+            android:id="@+id/btn_toggle_save"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete_history"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <!-- Delete Button -->
         <ImageButton

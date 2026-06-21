@@ -60,7 +60,7 @@ public class HistoryActivity extends AppCompatActivity {
         filteredList = new ArrayList<>(fullHistoryList);
         
         rvHistory.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HistoryAdapter(filteredList, this::showDeleteDialog);
+        adapter = new HistoryAdapter(filteredList, this::showDeleteDialog, this::toggleSave);
         rvHistory.setAdapter(adapter);
 
         setupFilters();
@@ -131,6 +131,18 @@ public class HistoryActivity extends AppCompatActivity {
         tvEmpty.setVisibility(filteredList.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
+    private void toggleSave(int position) {
+        try {
+            JSONObject item = filteredList.get(position);
+            boolean currentStatus = item.optBoolean("isSaved", false);
+            item.put("isSaved", !currentStatus);
+            saveHistory();
+            applyFilters();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showDeleteDialog(int position) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.delete_confirm_title)
@@ -160,13 +172,19 @@ public class HistoryActivity extends AppCompatActivity {
         void onDelete(int position);
     }
 
+    private interface OnToggleSaveListener {
+        void onToggleSave(int position);
+    }
+
     private static class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
         private final List<JSONObject> items;
         private final OnDeleteListener deleteListener;
+        private final OnToggleSaveListener toggleSaveListener;
 
-        HistoryAdapter(List<JSONObject> items, OnDeleteListener deleteListener) {
+        HistoryAdapter(List<JSONObject> items, OnDeleteListener deleteListener, OnToggleSaveListener toggleSaveListener) {
             this.items = items;
             this.deleteListener = deleteListener;
+            this.toggleSaveListener = toggleSaveListener;
         }
 
         @NonNull
@@ -239,11 +257,14 @@ public class HistoryActivity extends AppCompatActivity {
                 boolean isSaved = item.optBoolean("isSaved", false);
                 if (isSaved) {
                     ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(android.graphics.Color.parseColor("#43A047"));
+                    holder.btnToggleSave.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
                 } else {
                     ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(android.graphics.Color.parseColor("#2E7D32"));
+                    holder.btnToggleSave.setImageResource(R.drawable.ic_save);
                 }
                 
                 holder.btnDelete.setOnClickListener(v -> deleteListener.onDelete(holder.getAdapterPosition()));
+                holder.btnToggleSave.setOnClickListener(v -> toggleSaveListener.onToggleSave(holder.getAdapterPosition()));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -258,7 +279,7 @@ public class HistoryActivity extends AppCompatActivity {
         static class ViewHolder extends RecyclerView.ViewHolder {
             TextView tvContract, tvResult, tvDate;
             ImageView ivSuit;
-            ImageButton btnDelete;
+            ImageButton btnDelete, btnToggleSave;
 
             ViewHolder(View itemView) {
                 super(itemView);
@@ -267,6 +288,7 @@ public class HistoryActivity extends AppCompatActivity {
                 tvDate = itemView.findViewById(R.id.tv_history_date);
                 ivSuit = itemView.findViewById(R.id.iv_history_suit);
                 btnDelete = itemView.findViewById(R.id.btn_delete_history);
+                btnToggleSave = itemView.findViewById(R.id.btn_toggle_save);
             }
         }
     }
