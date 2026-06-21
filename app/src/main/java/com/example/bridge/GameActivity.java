@@ -111,7 +111,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
 
         findViewById(R.id.btn_save_game).setOnClickListener(v -> {
-            showSaveConfirmationDialog();
+            markGameAsSaved();
         });
 
         setupRecyclerView();
@@ -171,20 +171,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-    private void showSaveConfirmationDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.save_confirm_title)
-                .setMessage(R.string.save_confirm_message)
-                .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    // Just mark the already auto-saved game as "Special/Saved"
-                    sharedPref.markLatestGameAsSaved();
+    private void markGameAsSaved() {
+        // Just mark the already auto-saved game as "Special/Saved"
+        sharedPref.markLatestGameAsSaved();
 
-                    View btnSave = findViewById(R.id.btn_save_game);
-                    if (btnSave != null) btnSave.setVisibility(View.GONE);
-                    showTemporaryNotification(R.string.save_success);
-                })
-                .setNegativeButton(R.string.no, null)
-                .show();
+        View btnSave = findViewById(R.id.btn_save_game);
+        if (btnSave != null) btnSave.setVisibility(View.GONE);
+        showTemporaryNotification(R.string.save_success);
     }
 
     private void showExitConfirmationDialog() {
@@ -243,6 +236,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         this.lastSnScore = snScore;
         this.lastWeScore = weScore;
         sharedPref.setScore(contract, snScore);
+
+        // Reset Save button visibility for new game result
+        View btnSave = findViewById(R.id.btn_save_game);
+        if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
 
         // Auto save to history
         String contractStr = contract.toString();
