@@ -176,9 +176,22 @@ public class HistoryActivity extends AppCompatActivity {
         try {
             JSONObject item = filteredList.get(position);
             boolean currentStatus = item.optBoolean("isSaved", false);
-            item.put("isSaved", !currentStatus);
-            saveHistory();
-            applyFilters();
+            int messageResId = currentStatus ? R.string.unhighlight_confirm_message : R.string.highlight_confirm_message;
+
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.app_name)
+                    .setMessage(messageResId)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> {
+                        try {
+                            item.put("isSaved", !currentStatus);
+                            saveHistory();
+                            applyFilters();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
         } catch (Exception e) {
             e.printStackTrace();
         }

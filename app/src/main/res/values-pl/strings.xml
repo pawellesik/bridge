@@ -27,6 +27,8 @@
     <string name="save">Zapisz</string>
     <string name="save_confirm_title">Zapisywanie</string>
     <string name="save_confirm_message">Czy na pewno chcesz zapisać to rozdanie do historii?</string>
+    <string name="highlight_confirm_message">Czy na pewno chcesz wyróżnić to rozdanie w historii?</string>
+    <string name="unhighlight_confirm_message">Czy na pewno chcesz usunąć wyróżnienie tego rozdania?</string>
     <string name="save_success">Rozdanie zapisane pomyślnie!</string>
     <string name="delete_confirm_title">Usuwanie</string>
     <string name="delete_confirm_message">Czy na pewno chcesz usunąć to rozdanie z historii?</string>

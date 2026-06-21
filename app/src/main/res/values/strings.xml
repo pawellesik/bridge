@@ -27,6 +27,8 @@
     <string name="save">Save</string>
     <string name="save_confirm_title">Save Deal</string>
     <string name="save_confirm_message">Are you sure you want to save this deal to history?</string>
+    <string name="highlight_confirm_message">Are you sure you want to highlight this deal in history?</string>
+    <string name="unhighlight_confirm_message">Are you sure you want to remove the highlight from this deal?</string>
     <string name="save_success">Deal saved successfully!</string>
     <string name="delete_confirm_title">Delete Entry</string>
     <string name="delete_confirm_message">Are you sure you want to delete this game from history?</string>
