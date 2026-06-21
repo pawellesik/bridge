@@ -28,6 +28,8 @@
     <string name="save_confirm_title">Zapisywanie</string>
     <string name="save_confirm_message">Czy na pewno chcesz zapisać to rozdanie do historii?</string>
     <string name="save_success">Rozdanie zapisane pomyślnie!</string>
+    <string name="delete_confirm_title">Usuwanie</string>
+    <string name="delete_confirm_message">Czy na pewno chcesz usunąć to rozdanie z historii?</string>
     <string name="score_label">PUNKTY:</string>
     <string name="we_label">ZW: %1$d</string>
     <string name="sn_label">PP: %1$d</string>
