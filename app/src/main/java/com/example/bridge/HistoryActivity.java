@@ -140,8 +140,34 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                 }
 
-                holder.tvResult.setText(item.getString("result"));
+                String resultStr = item.getString("result");
+                int snTricks = 0;
+                try {
+                    // result format: "SN: 10 - WE: 3"
+                    String[] resParts = resultStr.split(" ");
+                    if (resParts.length >= 2) {
+                        snTricks = Integer.parseInt(resParts[1]);
+                    }
+                } catch (Exception e) {}
+
+                holder.tvResult.setText(holder.itemView.getContext().getString(R.string.result_label, snTricks));
                 holder.tvDate.setText(item.getString("date"));
+
+                // Logic for color: yellow if contract failed
+                boolean failed = false;
+                if (!contractStr.toUpperCase().contains("PASS")) {
+                    try {
+                        String[] conParts = contractStr.split(" ");
+                        if (conParts.length >= 1) {
+                            int level = Integer.parseInt(conParts[0]);
+                            if (snTricks < (level + 6)) {
+                                failed = true;
+                            }
+                        }
+                    } catch (Exception e) {}
+                }
+                
+                holder.tvResult.setTextColor(failed ? 0xFFFFEE58 : 0xFFFFFFFF);
                 
                 holder.btnDelete.setOnClickListener(v -> deleteListener.onDelete(holder.getAdapterPosition()));
 
