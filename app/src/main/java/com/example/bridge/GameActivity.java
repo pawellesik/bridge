@@ -180,7 +180,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     String contractStr = gameController.getCurrentContract().toString();
                     String resultStr = "SN: " + lastSnScore + " - WE: " + lastWeScore;
                     String dateStr = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
-                    
+
                     sharedPref.addGameToHistory(contractStr, resultStr, dateStr, initialPlayerHands);
 
                     View btnSave = findViewById(R.id.btn_save_game);
@@ -237,6 +237,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onScoreUpdated(int snScore, int weScore) {
+        this.lastSnScore = snScore;
+        this.lastWeScore = weScore;
         gameActivityTop.updateScores(snScore, weScore);
     }
 

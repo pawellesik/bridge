@@ -46,7 +46,7 @@ public class SharedPref {
             game.put("contract", contract);
             game.put("result", result);
             game.put("date", date);
-            
+
             org.json.JSONObject handsJson = new org.json.JSONObject();
             for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
                 org.json.JSONArray handArray = new org.json.JSONArray();
