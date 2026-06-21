@@ -71,7 +71,6 @@ public class HistoryActivity extends AppCompatActivity {
         // Setup Contract Spinner
         String[] options = {
                 getString(R.string.filter_contract_all),
-                getString(R.string.filter_contract_pass),
                 getString(R.string.filter_contract_nt),
                 getString(R.string.filter_contract_spades),
                 getString(R.string.filter_contract_hearts),
@@ -99,7 +98,7 @@ public class HistoryActivity extends AppCompatActivity {
     private void applyFilters() {
         filteredList.clear();
         boolean onlySaved = cbOnlySaved.isChecked();
-        int contractType = spinnerContract.getSelectedItemPosition(); // 0:All, 1:PASS, 2:NT, 3:S, 4:H, 5:D, 6:C
+        int contractType = spinnerContract.getSelectedItemPosition(); // 0:All, 1:NT, 2:S, 3:H, 4:D, 5:C
 
         for (JSONObject game : fullHistoryList) {
             try {
@@ -113,12 +112,11 @@ public class HistoryActivity extends AppCompatActivity {
                 if (contractType > 0) {
                     boolean match = false;
                     switch (contractType) {
-                        case 1: match = contractStr.contains("PASS"); break;
-                        case 2: match = contractStr.contains("NT"); break;
-                        case 3: match = contractStr.contains("SPADES"); break;
-                        case 4: match = contractStr.contains("HEARTS"); break;
-                        case 5: match = contractStr.contains("DIAMONDS"); break;
-                        case 6: match = contractStr.contains("CLUBS"); break;
+                        case 1: match = contractStr.contains("NT"); break;
+                        case 2: match = contractStr.contains("SPADES"); break;
+                        case 3: match = contractStr.contains("HEARTS"); break;
+                        case 4: match = contractStr.contains("DIAMONDS"); break;
+                        case 5: match = contractStr.contains("CLUBS"); break;
                     }
                     if (!match) continue;
                 }
