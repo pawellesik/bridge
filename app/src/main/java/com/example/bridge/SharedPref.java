@@ -58,6 +58,21 @@ public class SharedPref {
             }
             game.put("hands", handsJson);
 
+            // Limit history to 10 entries
+            if (history.length() >= 10) {
+                int indexToRemove = -1;
+                // Find the oldest (last in array) item that is NOT manually saved
+                for (int i = history.length() - 1; i >= 0; i--) {
+                    if (!history.getJSONObject(i).optBoolean("isSaved", false)) {
+                        indexToRemove = i;
+                        break;
+                    }
+                }
+                if (indexToRemove != -1) {
+                    history.remove(indexToRemove);
+                }
+            }
+
             // Add at the beginning (newest first)
             org.json.JSONArray newHistory = new org.json.JSONArray();
             newHistory.put(game);
