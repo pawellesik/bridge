@@ -1,6 +1,9 @@
 package com.example.bridge;
 
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -236,7 +239,7 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {}
 
-                holder.tvResult.setText(holder.itemView.getContext().getString(R.string.result_label, snTricks));
+                String fullResultText = holder.itemView.getContext().getString(R.string.result_label, snTricks);
                 holder.tvDate.setText(item.getString("date"));
 
                 boolean failed = false;
@@ -251,8 +254,23 @@ public class HistoryActivity extends AppCompatActivity {
                         }
                     } catch (Exception e) {}
                 }
-                
-                holder.tvResult.setTextColor(failed ? 0xFFFFEE58 : 0xFFFFFFFF);
+
+                if (failed) {
+                    SpannableStringBuilder ssb = new SpannableStringBuilder(fullResultText);
+                    int colonIndex = fullResultText.indexOf(":");
+                    if (colonIndex != -1) {
+                        // Label part - White
+                        ssb.setSpan(new ForegroundColorSpan(0xFFFFFFFF), 0, colonIndex + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        // Number part - Grey
+                        ssb.setSpan(new ForegroundColorSpan(0xFFBDBDBD), colonIndex + 1, fullResultText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    } else {
+                        ssb.setSpan(new ForegroundColorSpan(0xFFBDBDBD), 0, fullResultText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                    holder.tvResult.setText(ssb);
+                } else {
+                    holder.tvResult.setText(fullResultText);
+                    holder.tvResult.setTextColor(0xFFFFFFFF);
+                }
 
                 boolean isSaved = item.optBoolean("isSaved", false);
                 com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
