@@ -30,8 +30,8 @@
     <string name="highlight_confirm_message">Czy na pewno chcesz wyróżnić to rozdanie w historii?</string>
     <string name="unhighlight_confirm_message">Czy na pewno chcesz usunąć wyróżnienie tego rozdania?</string>
     <string name="save_success">Rozdanie zapisane pomyślnie!</string>
-    <string name="delete_confirm_title">Usuwanie</string>
-    <string name="delete_confirm_message">Czy na pewno chcesz usunąć to rozdanie z historii?</string>
+    <string name="delete_confirm_title">TRWAŁE USUNIĘCIE</string>
+    <string name="delete_confirm_message">Czy na pewno chcesz trwale usunąć to rozdanie z historii? Tej operacji nie można cofnąć!</string>
     <string name="result_label">Wynik: %1$d</string>
     <string name="score_label">PUNKTY:</string>
     <string name="we_label">ZW: %1$d</string>

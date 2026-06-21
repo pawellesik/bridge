@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.model.Suit;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -198,17 +200,25 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void showDeleteDialog(int position) {
-        new AlertDialog.Builder(this)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.delete_confirm_title)
                 .setMessage(R.string.delete_confirm_message)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(R.string.yes, (dialog, which) -> {
                     JSONObject itemToRemove = filteredList.get(position);
                     fullHistoryList.remove(itemToRemove);
                     saveHistory();
                     applyFilters();
                 })
-                .setNegativeButton(R.string.no, null)
-                .show();
+                .setNegativeButton(R.string.no, null);
+
+        AlertDialog dialog = builder.show();
+        
+        // Make the "Yes" button red to indicate a destructive action
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        if (positiveButton != null) {
+            positiveButton.setTextColor(android.graphics.Color.parseColor("#FF1744"));
+        }
     }
 
     private void saveHistory() {
