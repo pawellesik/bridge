@@ -25,6 +25,7 @@ public class SharedPref {
     static final String KEY_CAREER_SCORE = "careerScore";
     static final String KEY_GAMES_PLAYED = "gamesPlayed";
     static final String KEY_HAS_SAVED_DEAL = "hasSavedDeal";
+    static final String KEY_HISTORY = "gameHistory";
 
     GameActivityTop gameActivityTop;
     GameActivity gameActivity;
@@ -32,6 +33,46 @@ public class SharedPref {
     public SharedPref(GameActivity gameActivity, GameActivityTop gameActivityTop) {
         this.gameActivityTop = gameActivityTop;
         this.gameActivity = gameActivity;
+    }
+
+    public void addGameToHistory(String contract, String result, String date, Map<String, List<Card>> hands) {
+        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        try {
+            org.json.JSONArray history;
+            String existingHistory = prefs.getString(KEY_HISTORY, "[]");
+            history = new org.json.JSONArray(existingHistory);
+
+            org.json.JSONObject game = new org.json.JSONObject();
+            game.put("contract", contract);
+            game.put("result", result);
+            game.put("date", date);
+            
+            org.json.JSONObject handsJson = new org.json.JSONObject();
+            for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
+                org.json.JSONArray handArray = new org.json.JSONArray();
+                for (Card card : entry.getValue()) {
+                    handArray.put(card.getSuit().name() + ":" + card.getRank().name());
+                }
+                handsJson.put(entry.getKey(), handArray);
+            }
+            game.put("hands", handsJson);
+
+            // Add at the beginning (newest first)
+            org.json.JSONArray newHistory = new org.json.JSONArray();
+            newHistory.put(game);
+            for (int i = 0; i < history.length(); i++) {
+                newHistory.put(history.get(i));
+            }
+
+            prefs.edit().putString(KEY_HISTORY, newHistory.toString()).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getHistoryJson() {
+        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(KEY_HISTORY, "[]");
     }
 
     public void saveDeal(Map<String, com.example.bridge.model.Player> players) {
