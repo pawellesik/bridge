@@ -255,12 +255,26 @@ public class HistoryActivity extends AppCompatActivity {
                 holder.tvResult.setTextColor(failed ? 0xFFFFEE58 : 0xFFFFFFFF);
 
                 boolean isSaved = item.optBoolean("isSaved", false);
+                com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
+                
+                // Constant background for all items
+                card.setCardBackgroundColor(android.graphics.Color.parseColor("#2E7D32"));
+                
                 if (isSaved) {
-                    ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(android.graphics.Color.parseColor("#43A047"));
-                    holder.btnToggleSave.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
-                } else {
-                    ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(android.graphics.Color.parseColor("#2E7D32"));
+                    // Yellow/Gold outline for highlighted items
+                    card.setStrokeColor(android.graphics.Color.parseColor("#FFD700"));
+                    card.setStrokeWidth(4);
+                    // Yellow diskette icon
                     holder.btnToggleSave.setImageResource(R.drawable.ic_save);
+                    holder.btnToggleSave.setColorFilter(android.graphics.Color.parseColor("#FFD700"));
+                } else {
+                    // Subtle white outline for normal items
+                    card.setStrokeColor(android.graphics.Color.parseColor("#33FFFFFF"));
+                    card.setStrokeWidth(2);
+                    // White diskette icon
+                    holder.btnToggleSave.setImageResource(R.drawable.ic_save);
+                    holder.btnToggleSave.setColorFilter(null); // Clear filter to use default white/tint
+                    holder.btnToggleSave.setColorFilter(android.graphics.Color.WHITE);
                 }
                 
                 holder.btnDelete.setOnClickListener(v -> deleteListener.onDelete(holder.getAdapterPosition()));
