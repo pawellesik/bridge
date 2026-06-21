@@ -176,12 +176,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 .setTitle(R.string.save_confirm_title)
                 .setMessage(R.string.save_confirm_message)
                 .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    // Logic for saving
-                    String contractStr = gameController.getCurrentContract().toString();
-                    String resultStr = "SN: " + lastSnScore + " - WE: " + lastWeScore;
-                    String dateStr = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
-
-                    sharedPref.addGameToHistory(contractStr, resultStr, dateStr, initialPlayerHands);
+                    // Just mark the already auto-saved game as "Special/Saved"
+                    sharedPref.markLatestGameAsSaved();
 
                     View btnSave = findViewById(R.id.btn_save_game);
                     if (btnSave != null) btnSave.setVisibility(View.GONE);
@@ -247,6 +243,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         this.lastSnScore = snScore;
         this.lastWeScore = weScore;
         sharedPref.setScore(contract, snScore);
+
+        // Auto save to history
+        String contractStr = contract.toString();
+        String resultStr = "SN: " + snScore + " - WE: " + weScore;
+        String dateStr = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
+        sharedPref.addGameToHistory(contractStr, resultStr, dateStr, initialPlayerHands);
+
         findViewById(R.id.main).postDelayed(() -> {
             gameHistory.showResults(history, claim, snScore);
         }, 500);

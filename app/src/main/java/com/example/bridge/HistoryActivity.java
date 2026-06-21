@@ -168,6 +168,14 @@ public class HistoryActivity extends AppCompatActivity {
                 }
                 
                 holder.tvResult.setTextColor(failed ? 0xFFFFEE58 : 0xFFFFFFFF);
+
+                // Change background if flagged as "Saved"
+                boolean isSaved = item.optBoolean("isSaved", false);
+                if (isSaved) {
+                    ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(android.graphics.Color.parseColor("#43A047"));
+                } else {
+                    ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(android.graphics.Color.parseColor("#2E7D32"));
+                }
                 
                 holder.btnDelete.setOnClickListener(v -> deleteListener.onDelete(holder.getAdapterPosition()));
 

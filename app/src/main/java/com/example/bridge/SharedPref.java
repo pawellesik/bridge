@@ -46,6 +46,7 @@ public class SharedPref {
             game.put("contract", contract);
             game.put("result", result);
             game.put("date", date);
+            game.put("isSaved", false); // Default flag
 
             org.json.JSONObject handsJson = new org.json.JSONObject();
             for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
@@ -65,6 +66,21 @@ public class SharedPref {
             }
 
             prefs.edit().putString(KEY_HISTORY, newHistory.toString()).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void markLatestGameAsSaved() {
+        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        try {
+            String existingHistory = prefs.getString(KEY_HISTORY, "[]");
+            org.json.JSONArray history = new org.json.JSONArray(existingHistory);
+            if (history.length() > 0) {
+                org.json.JSONObject latest = history.getJSONObject(0);
+                latest.put("isSaved", true);
+                prefs.edit().putString(KEY_HISTORY, history.toString()).apply();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
