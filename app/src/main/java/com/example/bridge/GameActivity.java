@@ -171,10 +171,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             @Override
             public void handleOnBackPressed() {
                 if (gameHistory.isVisible()) {
-                    gameHistory.hide();
-                    if (isReplayingFromHistory) {
-                        finish();
-                    }
+                    finish();
                     return;
                 }
 
@@ -258,11 +255,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
         this.lastSnScore = snScore;
         this.lastWeScore = weScore;
-        
+
         if (!isReplayingFromHistory) {
             sharedPref.setScore(contract, snScore);
             sharedPref.addGameToHistory(contract, snScore, history, claim, initialPlayerHands);
-            
+
             View btnSave = findViewById(R.id.btn_save_game);
             if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
         } else {
@@ -354,10 +351,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 int gamesCount = sharedPref.getGamesPlayed();
                 String baseText = getString(R.string.Start);
                 String countText = getString(R.string.games_count_format, gamesCount);
-                
+
                 SpannableStringBuilder ssb = new SpannableStringBuilder(baseText + "\n" + countText);
                 ssb.setSpan(new RelativeSizeSpan(0.6f), baseText.length() + 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                
+
                 btnStart.setText(ssb);
                 btnStart.setLineSpacing(0f, 0.8f);
             }
