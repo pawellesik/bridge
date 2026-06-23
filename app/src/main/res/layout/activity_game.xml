@@ -765,7 +765,7 @@
                 app:backgroundTint="@null"
                 app:cornerRadius="24dp"
                 app:elevation="4dp"
-                app:icon="@drawable/ic_save"
+                app:icon="@drawable/ic_star"
                 app:iconGravity="textStart"
                 app:iconPadding="4dp"
                 app:iconSize="16dp"

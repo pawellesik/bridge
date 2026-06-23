@@ -355,14 +355,14 @@ public class HistoryActivity extends AppCompatActivity {
                     card.setStrokeColor(android.graphics.Color.parseColor("#FFD700"));
                     card.setStrokeWidth(4);
                     // Yellow diskette icon
-                    holder.btnToggleSave.setImageResource(R.drawable.ic_save);
+                    holder.btnToggleSave.setImageResource(R.drawable.ic_star);
                     holder.btnToggleSave.setColorFilter(android.graphics.Color.parseColor("#FFD700"));
                 } else {
                     // Subtle white outline for normal items
                     card.setStrokeColor(android.graphics.Color.parseColor("#33FFFFFF"));
                     card.setStrokeWidth(2);
                     // White diskette icon
-                    holder.btnToggleSave.setImageResource(R.drawable.ic_save);
+                    holder.btnToggleSave.setImageResource(R.drawable.ic_star);
                     holder.btnToggleSave.setColorFilter(null); // Clear filter to use default white/tint
                     holder.btnToggleSave.setColorFilter(android.graphics.Color.WHITE);
                 }

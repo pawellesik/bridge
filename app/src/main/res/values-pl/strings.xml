@@ -22,13 +22,12 @@
     <string name="new_deal">Nowe Rozdanie</string>
     <string name="auto_play_deal">Automat</string>
     <string name="auto_play_deal_format">Automat (%1$d)</string>
-    <string name="back_to_my_play_format">Moja gra (%1$d)</string>
+    <string name="back_to_my_play_format">Moja Gra (%1$d)</string>
     <string name="back_to_my_play">Moje Rozegranie</string>
-    <string name="save">Zapisz</string>
-    <string name="save_confirm_title">Zapisywanie</string>
-    <string name="save_confirm_message">Czy na pewno chcesz zapisać to rozdanie do historii?</string>
-    <string name="highlight_confirm_message">Czy na pewno chcesz wyróżnić to rozdanie w historii?</string>
-    <string name="unhighlight_confirm_message">Czy na pewno chcesz usunąć wyróżnienie tego rozdania?</string>
+    <string name="save">Ulubione</string>
+    <string name="save_confirm_message">Czy na pewno chcesz dodać to rozdanie do ulubionych?</string>
+    <string name="highlight_confirm_message">Czy na pewno chcesz dodać to rozdanie do ulubionych?</string>
+    <string name="unhighlight_confirm_message">Czy na pewno chcesz usunąć to rozdanie z ulubionych?</string>
     <string name="save_success">Rozdanie zapisane pomyślnie!</string>
     <string name="delete_confirm_title">TRWAŁE USUNIĘCIE</string>
     <string name="delete_confirm_message">Czy na pewno chcesz trwale usunąć to rozdanie z historii? Tej operacji nie można cofnąć!</string>
@@ -50,7 +49,7 @@
     <string name="exit_message">Czy chcesz przerwać to rozdanie i wrócić do menu?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
-    <string name="filter_saved_only">Zapisane</string>
+    <string name="filter_saved_only">Ulubione</string>
     <string name="filter_contract_all">Kontrakt</string>
     <string name="filter_contract_pass">PAS</string>
     <string name="filter_contract_nt">BA</string>
