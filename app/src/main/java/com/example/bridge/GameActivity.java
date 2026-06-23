@@ -123,7 +123,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameHistory.hide();
 
             if (isReplayingFromHistory) {
-                // Play again with same hands
                 gameController.restoreCards(new LinkedHashMap<>(initialPlayerHands));
                 onVisibleStartBar(true);
             } else {
@@ -369,7 +368,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 btn_deal.setText(ssb);
                 btn_deal.setLineSpacing(0f, 0.8f);
 
-                if (sharedPref.getPrefTotalScore() <= 0) {
+                if (sharedPref.getPrefTotalScore() < 50) {
                     btn_deal.setVisibility(View.GONE);
                 } else {
                     btn_deal.setVisibility(View.VISIBLE);
