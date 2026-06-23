@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
+import com.example.bridge.model.Rank;
+import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
@@ -96,13 +98,32 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         sharedPref = new SharedPref(this, gameActivityTop);
         gameHistory = new GameActivityHistory(this, gameController);
 
+        // Check if we are replaying a game from history
+        String replayedGameJson = getIntent().getStringExtra("replayedGameJson");
+        if (replayedGameJson != null) {
+            startBar.setVisibility(View.GONE);
+            loadingIndicator.setVisibility(View.VISIBLE);
+            findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson), 300);
+        } else {
+            setupRecyclerView();
+
+            Map<String, List<Card>> savedDeal = sharedPref.loadSavedDeal();
+            if (savedDeal != null) {
+                gameController.restoreCards(savedDeal);
+            } else {
+                gameController.dealCards();
+            }
+        }
+
         btnNewDeal.setOnClickListener(v -> {
             gameActivityTop.hideContract();
             gameController.resetTable();
             gameHistory.hide();
             loadingIndicator.setVisibility(View.VISIBLE);
-
             setTotalScore(sharedPref.getPrefTotalScore());
+            
+            // Ensure recyclerview is ready if we came from history
+            setupRecyclerView();
 
             v.post(() -> {
                 gameController.dealCards();
@@ -112,15 +133,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         findViewById(R.id.btn_save_game).setOnClickListener(v -> {
             markGameAsSaved();
         });
-
-        setupRecyclerView();
-
-        Map<String, List<Card>> savedDeal = sharedPref.loadSavedDeal();
-        if (savedDeal != null) {
-            gameController.restoreCards(savedDeal);
-        } else {
-            gameController.dealCards();
-        }
 
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
@@ -171,9 +183,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void markGameAsSaved() {
-        // Just mark the already auto-saved game as "Special/Saved"
         sharedPref.markLatestGameAsSaved();
-
         View btnSave = findViewById(R.id.btn_save_game);
         if (btnSave != null) btnSave.setVisibility(View.GONE);
         showTemporaryNotification(R.string.save_success);
@@ -236,19 +246,62 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         this.lastWeScore = weScore;
         sharedPref.setScore(contract, snScore);
 
-        // Reset Save button visibility for new game result
         View btnSave = findViewById(R.id.btn_save_game);
         if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
 
-        // Auto save to history
-        String contractStr = contract.toString();
-        String resultStr = "SN: " + snScore + " - WE: " + weScore;
-        String dateStr = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
-        sharedPref.addGameToHistory(contractStr, resultStr, dateStr, initialPlayerHands);
+        sharedPref.addGameToHistory(contract, snScore, history, claim, initialPlayerHands);
 
         findViewById(R.id.main).postDelayed(() -> {
             gameHistory.showResults(history, claim, snScore);
         }, 500);
+    }
+
+    private void loadGameFromHistory(String json) {
+        try {
+            org.json.JSONObject game = new org.json.JSONObject(json);
+            Contract contract = Contract.fromString(game.getString("contract"));
+            int snScoreFromGame = game.optInt("snScore", 0);
+            int claim = game.optInt("claim", 0);
+
+            org.json.JSONObject handsJson = game.getJSONObject("hands");
+            initialPlayerHands.clear();
+            for (String direction : new String[]{"North", "East", "South", "West"}) {
+                org.json.JSONArray handArray = handsJson.getJSONArray(direction);
+                List<Card> cards = new ArrayList<>();
+                for (int i = 0; i < handArray.length(); i++) {
+                    String[] parts = handArray.getString(i).split(":");
+                    cards.add(new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
+                }
+                initialPlayerHands.put(direction, cards);
+            }
+
+            List<Trick> history = new ArrayList<>();
+            org.json.JSONArray tricksArray = game.optJSONArray("playHistory");
+            if (tricksArray != null) {
+                for (int i = 0; i < tricksArray.length(); i++) {
+                    org.json.JSONObject trickJson = tricksArray.getJSONObject(i);
+                    Trick trick = new Trick();
+                    trick.setWinnerTrick(trickJson.getString("winner"));
+                    org.json.JSONObject cardsMap = trickJson.getJSONObject("cards");
+                    java.util.Iterator<String> keys = cardsMap.keys();
+                    while (keys.hasNext()) {
+                        String pName = keys.next();
+                        String[] parts = cardsMap.getString(pName).split(":");
+                        trick.addCard(pName, new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
+                    }
+                    history.add(trick);
+                }
+            }
+
+            loadingIndicator.setVisibility(View.GONE);
+            gameController.setCurrentContract(contract);
+            gameActivityTop.setContract(contract);
+            gameHistory.showResults(history, claim, snScoreFromGame);
+        } catch (Exception e) {
+            e.printStackTrace();
+            loadingIndicator.setVisibility(View.GONE);
+            gameController.dealCards();
+        }
     }
 
     @Override
@@ -301,7 +354,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
         gameActivityTop.updateTurn(playerName);
 
-        // Unlock interaction ONLY if it's a human player's turn
         if ("North".equals(playerName) || "South".equals(playerName)) {
             isProcessingMove = false;
         }

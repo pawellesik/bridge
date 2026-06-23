@@ -308,6 +308,10 @@ public class GameController {
         return currentContract;
     }
 
+    public void setCurrentContract(Contract currentContract) {
+        this.currentContract = currentContract;
+    }
+
     public List<Trick> calculateOptimalHistory(Map<String, List<Card>> initialHands, Contract contract) {
         // Przygotuj symulowane ręce
         Map<String, List<Card>> simHands = new HashMap<>();

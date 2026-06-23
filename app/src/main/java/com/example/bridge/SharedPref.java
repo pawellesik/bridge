@@ -8,6 +8,7 @@ import com.example.bridge.model.Suit;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Rank;
+import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,19 +36,25 @@ public class SharedPref {
         this.gameActivity = gameActivity;
     }
 
-    public void addGameToHistory(String contract, String result, String date, Map<String, List<Card>> hands) {
+    public void addGameToHistory(Contract contract, int snScore, List<Trick> playHistory, int claim, Map<String, List<Card>> hands) {
         SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         try {
+            String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
+            String result = gameActivity.getString(R.string.result_label, snScore);
+
             org.json.JSONArray history;
             String existingHistory = prefs.getString(KEY_HISTORY, "[]");
             history = new org.json.JSONArray(existingHistory);
 
             org.json.JSONObject game = new org.json.JSONObject();
-            game.put("contract", contract);
+            game.put("contract", contract.toString());
             game.put("result", result);
             game.put("date", date);
-            game.put("isSaved", false); // Default flag
+            game.put("isSaved", false);
+            game.put("claim", claim);
+            game.put("snScore", snScore);
 
+            // Save Initial Hands
             org.json.JSONObject handsJson = new org.json.JSONObject();
             for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
                 org.json.JSONArray handArray = new org.json.JSONArray();
@@ -58,22 +65,33 @@ public class SharedPref {
             }
             game.put("hands", handsJson);
 
+            // Save Play History (Tricks)
+            org.json.JSONArray tricksArray = new org.json.JSONArray();
+            for (Trick trick : playHistory) {
+                org.json.JSONObject trickJson = new org.json.JSONObject();
+                trickJson.put("winner", trick.getWinnerTrick());
+                org.json.JSONObject cardsMap = new org.json.JSONObject();
+                for (Map.Entry<String, Card> entry : trick.getCardsOnTableMap().entrySet()) {
+                    cardsMap.put(entry.getKey(), entry.getValue().getSuit().name() + ":" + entry.getValue().getRank().name());
+                }
+                trickJson.put("cards", cardsMap);
+                tricksArray.put(trickJson);
+            }
+            game.put("playHistory", tricksArray);
+
             // Limit history to 10 entries
             if (history.length() >= 10) {
                 int indexToRemove = -1;
-                // Find the oldest (last in array) item that is NOT manually saved
                 for (int i = history.length() - 1; i >= 0; i--) {
                     if (!history.getJSONObject(i).optBoolean("isSaved", false)) {
                         indexToRemove = i;
                         break;
                     }
                 }
-                if (indexToRemove != -1) {
-                    history.remove(indexToRemove);
-                }
+                if (indexToRemove != -1) history.remove(indexToRemove);
             }
 
-            // Add at the beginning (newest first)
+            // Add at the beginning
             org.json.JSONArray newHistory = new org.json.JSONArray();
             newHistory.put(game);
             for (int i = 0; i < history.length(); i++) {

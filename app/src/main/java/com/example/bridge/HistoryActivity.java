@@ -1,5 +1,6 @@
 package com.example.bridge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -66,7 +67,11 @@ public class HistoryActivity extends AppCompatActivity {
         filteredList = new ArrayList<>(fullHistoryList);
         
         rvHistory.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HistoryAdapter(filteredList, this::showDeleteDialog, this::toggleSave);
+        adapter = new HistoryAdapter(filteredList, this::showDeleteDialog, this::toggleSave, item -> {
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("replayedGameJson", item.toString());
+            startActivity(intent);
+        });
         rvHistory.setAdapter(adapter);
 
         setupFilters();
@@ -240,15 +245,21 @@ public class HistoryActivity extends AppCompatActivity {
         void onToggleSave(int position);
     }
 
+    private interface OnItemClickListener {
+        void onItemClick(JSONObject item);
+    }
+
     private static class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
         private final List<JSONObject> items;
         private final OnDeleteListener deleteListener;
         private final OnToggleSaveListener toggleSaveListener;
+        private final OnItemClickListener clickListener;
 
-        HistoryAdapter(List<JSONObject> items, OnDeleteListener deleteListener, OnToggleSaveListener toggleSaveListener) {
+        HistoryAdapter(List<JSONObject> items, OnDeleteListener deleteListener, OnToggleSaveListener toggleSaveListener, OnItemClickListener clickListener) {
             this.items = items;
             this.deleteListener = deleteListener;
             this.toggleSaveListener = toggleSaveListener;
+            this.clickListener = clickListener;
         }
 
         @NonNull
@@ -358,6 +369,7 @@ public class HistoryActivity extends AppCompatActivity {
                 
                 holder.btnDelete.setOnClickListener(v -> deleteListener.onDelete(holder.getAdapterPosition()));
                 holder.btnToggleSave.setOnClickListener(v -> toggleSaveListener.onToggleSave(holder.getAdapterPosition()));
+                holder.itemView.setOnClickListener(v -> clickListener.onItemClick(item));
 
             } catch (Exception e) {
                 e.printStackTrace();
