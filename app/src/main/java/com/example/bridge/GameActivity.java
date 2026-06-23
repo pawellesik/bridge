@@ -102,7 +102,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameHistory.hide();
             loadingIndicator.setVisibility(View.VISIBLE);
 
-            sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
 
             v.post(() -> {
