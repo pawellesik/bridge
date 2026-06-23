@@ -27,7 +27,13 @@ public class BiddingManager {
         String contractColorStr = getContractColor();
         int contractCount = getContractCount(contractColorStr, totalHCP);
 
-        swapNorthSouthIfSouthHasLongerTrump(contractColorStr);
+
+        if (players.get("South").countSuit(Suit.getSuit(contractColorStr)) != players.get("North").countSuit(Suit.getSuit(contractColorStr))) {
+            swapNorthSouthIfSouthHasLongerTrump(contractColorStr);
+        } else {
+            swapNorthSouthIfSouthHaveMoreHpc();
+        }
+
         sortHandsByContract(contractColorStr);
 
         int possibleTricks = simulateMaxTricks(contractColorStr);
@@ -153,6 +159,18 @@ public class BiddingManager {
         }
     }
 
+    private void swapNorthSouthIfSouthHaveMoreHpc() {
+        if (players.get("South").calculateHCP() < players.get("North").calculateHCP()) {
+            List<Card> southHand = new ArrayList<>(players.get("South").getHand());
+            List<Card> northHand = new ArrayList<>(players.get("North").getHand());
+
+            players.get("South").clearHand();
+            players.get("South").addCards(northHand);
+            players.get("North").clearHand();
+            players.get("North").addCards(southHand);
+        }
+    }
+
     private void sortHandsByContract(String contractColor) {
         Suit trumpSuit = null;
         if (contractColor != null) {
@@ -185,7 +203,8 @@ public class BiddingManager {
             if (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7) {
                 if (totalHCP >= 37) return 7;
                 if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 8) return 7;
-                if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 7 && hasRenonsInOtherColor(contractColor)) return 7;
+                if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 7 && hasRenonsInOtherColor(contractColor))
+                    return 7;
                 if (totalHCP >= 33) return 6;
                 if (totalHCP >= 29 && hasSecondColor && acesAndKings >= 7) return 6;
                 if (totalHCP >= 25) return 4;
@@ -202,7 +221,8 @@ public class BiddingManager {
             if (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7) {
                 if (totalHCP >= 37) return 7;
                 if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 8) return 7;
-                if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 7 && hasRenonsInOtherColor(contractColor)) return 7;
+                if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 7 && hasRenonsInOtherColor(contractColor))
+                    return 7;
                 if (totalHCP >= 33) return 6;
                 if (totalHCP >= 29 && hasSecondColor && acesAndKings >= 7) return 6;
                 if (totalHCP >= 26) return 5;
@@ -218,8 +238,8 @@ public class BiddingManager {
             }
         } else { // NT
             if (totalHCP >= 37) return 7;
-            if (totalHCP >= 35  && acesAndKings >= 8) return 7;
-            if (totalHCP >= 35  && hasSecondColor && acesAndKings >= 8) return 7;
+            if (totalHCP >= 35 && acesAndKings >= 8) return 7;
+            if (totalHCP >= 35 && hasSecondColor && acesAndKings >= 8) return 7;
             if (totalHCP >= 33) return 6;
             if (totalHCP >= 25) return 3;
             return 1;

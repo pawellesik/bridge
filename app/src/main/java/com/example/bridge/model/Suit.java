@@ -18,4 +18,18 @@ public enum Suit {
         this.isRed = isRed;
         this.symbol = symbol;
     }
+
+    public static Suit getSuit(String color) {
+        switch (color) {
+            case "Spades":
+                return Suit.SPADES;
+            case "Hearts":
+                return Suit.HEARTS;
+            case "Diamonds":
+                return Suit.DIAMONDS;
+            case "Clubs":
+                return Suit.CLUBS;
+        }
+        return null;
+    }
 }

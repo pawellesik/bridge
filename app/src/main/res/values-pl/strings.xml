@@ -20,6 +20,7 @@
     <string name="score_deducted">-50 Punktów</string>
     <string name="claim">Weź resztę</string>
     <string name="new_deal">Nowe Rozdanie</string>
+    <string name="play_again">Zagraj Ponownie</string>
     <string name="auto_play_deal">Automat</string>
     <string name="auto_play_deal_format">Automat (%1$d)</string>
     <string name="back_to_my_play_format">Moja Gra (%1$d)</string>

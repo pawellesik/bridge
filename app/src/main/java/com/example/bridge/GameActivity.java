@@ -73,6 +73,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private GameActivityTop gameActivityTop;
 
     private SharedPref sharedPref;
+    private boolean isReplayingFromHistory = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +165,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                if (gameHistory.isVisible()) {
+                    gameHistory.hide();
+                    if (isReplayingFromHistory) {
+                        finish();
+                    }
+                    return;
+                }
+
                 if (startBar != null && startBar.getVisibility() == View.VISIBLE) {
                     finish();
                 } else {

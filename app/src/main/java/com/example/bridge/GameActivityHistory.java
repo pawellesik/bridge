@@ -354,4 +354,8 @@ public class GameActivityHistory {
     public void hide() {
         if (resultsOverlay != null) resultsOverlay.setVisibility(View.GONE);
     }
+
+    public boolean isVisible() {
+        return resultsOverlay != null && resultsOverlay.getVisibility() == View.VISIBLE;
+    }
 }
