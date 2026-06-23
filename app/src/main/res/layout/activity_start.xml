@@ -80,7 +80,7 @@
             android:background="@drawable/bg_green_button"
             app:backgroundTint="@null"
             app:elevation="4dp"
-            app:icon="@drawable/bg_green_arrow"
+            app:icon="@drawable/ic_arrow"
             app:iconGravity="textStart"
             app:iconPadding="8dp"
             app:iconTint="#FFFFFF"

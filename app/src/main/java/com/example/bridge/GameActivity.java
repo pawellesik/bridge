@@ -102,6 +102,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         // Check if we are replaying a game from history
         String replayedGameJson = getIntent().getStringExtra("replayedGameJson");
         if (replayedGameJson != null) {
+            isReplayingFromHistory = true;
             startBar.setVisibility(View.GONE);
             loadingIndicator.setVisibility(View.VISIBLE);
             findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson), 300);
@@ -120,15 +121,19 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameActivityTop.hideContract();
             gameController.resetTable();
             gameHistory.hide();
-            loadingIndicator.setVisibility(View.VISIBLE);
-            setTotalScore(sharedPref.getPrefTotalScore());
-            
-            // Ensure recyclerview is ready if we came from history
-            setupRecyclerView();
 
-            v.post(() -> {
-                gameController.dealCards();
-            });
+            if (isReplayingFromHistory) {
+                // Play again with same hands
+                gameController.restoreCards(new LinkedHashMap<>(initialPlayerHands));
+                onVisibleStartBar(true);
+            } else {
+                loadingIndicator.setVisibility(View.VISIBLE);
+                setTotalScore(sharedPref.getPrefTotalScore());
+                setupRecyclerView();
+                v.post(() -> {
+                    gameController.dealCards();
+                });
+            }
         });
 
         findViewById(R.id.btn_save_game).setOnClickListener(v -> {
@@ -253,12 +258,21 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
         this.lastSnScore = snScore;
         this.lastWeScore = weScore;
-        sharedPref.setScore(contract, snScore);
-
-        View btnSave = findViewById(R.id.btn_save_game);
-        if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
-
-        sharedPref.addGameToHistory(contract, snScore, history, claim, initialPlayerHands);
+        
+        if (!isReplayingFromHistory) {
+            sharedPref.setScore(contract, snScore);
+            sharedPref.addGameToHistory(contract, snScore, history, claim, initialPlayerHands);
+            
+            View btnSave = findViewById(R.id.btn_save_game);
+            if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
+        } else {
+            // Replay mode adjustments
+            View btnSave = findViewById(R.id.btn_save_game);
+            if (btnSave != null) btnSave.setVisibility(View.GONE);
+            if (btnNewDeal instanceof Button) {
+                ((Button) btnNewDeal).setText(R.string.play_again);
+            }
+        }
 
         findViewById(R.id.main).postDelayed(() -> {
             gameHistory.showResults(history, claim, snScore);
@@ -302,9 +316,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
 
+            // Prepare UI
             loadingIndicator.setVisibility(View.GONE);
             gameController.setCurrentContract(contract);
             gameActivityTop.setContract(contract);
+
+            // UI adjustments for Replay mode
+            View btnSave = findViewById(R.id.btn_save_game);
+            if (btnSave != null) btnSave.setVisibility(View.GONE);
+            if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
+                com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
+                mBtn.setText(R.string.play_again);
+                mBtn.setIconResource(R.drawable.ic_arrow);
+            }
+
             gameHistory.showResults(history, claim, snScoreFromGame);
         } catch (Exception e) {
             e.printStackTrace();
