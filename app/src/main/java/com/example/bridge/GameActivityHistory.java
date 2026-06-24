@@ -226,9 +226,9 @@ public class GameActivityHistory {
             } else {
                 row.setForeground(null);
                 if (i < currentSimTrickIndex) {
-                    row.setBackgroundColor(Color.parseColor("#A5D6A7"));
+                    row.setBackgroundColor(Color.parseColor("#C8E6C9"));
                 } else {
-                    row.setBackgroundColor(Color.TRANSPARENT);
+                    row.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
                 }
             }
             // Ensure padding from drawable doesn't shift the content
@@ -262,6 +262,11 @@ public class GameActivityHistory {
             final int trickNum = i + 1;
             Trick trick = history.get(i);
             TableRow row = new TableRow(activity);
+            
+            // Dodanie pionowych linii między kolumnami
+            row.setDividerDrawable(androidx.core.content.ContextCompat.getDrawable(activity, R.drawable.history_divider));
+            row.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+
             row.setOnClickListener(v -> {
                 currentSimTrickIndex = trickNum;
                 updateSimTrickUI(false);

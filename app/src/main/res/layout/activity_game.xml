@@ -760,10 +760,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:stretchColumns="0,1,2,3">
+                android:stretchColumns="0,1,2,3"
+                android:divider="@drawable/history_divider"
+                android:showDividers="middle">
 
                 <!-- Header Row -->
-                <TableRow android:background="#A5D6A7">
+                <TableRow
+                    android:background="#A5D6A7"
+                    android:divider="@drawable/history_divider"
+                    android:showDividers="middle">
 
                     <TextView
                         android:gravity="center"
