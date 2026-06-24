@@ -3,9 +3,9 @@ package com.example.bridge.model;
 import com.example.bridge.R;
 
 public enum Suit {
-    SPADES(0, R.drawable.spades, false, "♠", 0xFF000000, "black"),
-    HEARTS(1, R.drawable.heart, true, "♥", 0xFFFF0000, "red"),
-    CLUBS(2, R.drawable.clubs, false, "♣", 0xFF1976D2, "#1976D2"),
+    SPADES(0, R.drawable.spades, false, "♠", 0xFF243D65, "black"),
+    HEARTS(1, R.drawable.heart, true, "♥", 0xFFC94B4B, "red"),
+    CLUBS(2, R.drawable.clubs, false, "♣", 0xFF388E3C, "#1976D2"),
     DIAMONDS(3, R.drawable.diamonds, true, "♦", 0xFFF57C00, "#F57C00");
 
     public final int priority;
