@@ -49,9 +49,29 @@ public class StartActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        findViewById(R.id.btn_single).setOnClickListener(v -> {
+            // Single player logic
+        });
+
+        findViewById(R.id.btn_multiplayer).setOnClickListener(v -> {
+            // Multiplayer logic
+        });
+
         findViewById(R.id.btn_history).setOnClickListener(v -> {
             Intent intent = new Intent(StartActivity.this, HistoryActivity.class);
             startActivity(intent);
+        });
+
+        View moreContainer = findViewById(R.id.more_options_container);
+        findViewById(R.id.btn_more).setOnClickListener(v -> {
+            if (moreContainer != null) {
+                boolean isVisible = moreContainer.getVisibility() == View.VISIBLE;
+                moreContainer.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        findViewById(R.id.btn_create_deal).setOnClickListener(v -> {
+            // Create deal logic
         });
 
         findViewById(R.id.btn_settings).setOnClickListener(v -> {
@@ -60,10 +80,6 @@ public class StartActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_about).setOnClickListener(v -> {
             // Future use
-        });
-
-        findViewById(R.id.btn_quit).setOnClickListener(v -> {
-            finishAffinity();
         });
     }
 
