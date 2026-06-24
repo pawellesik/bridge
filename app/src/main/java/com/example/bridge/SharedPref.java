@@ -84,7 +84,7 @@ public class SharedPref {
             newHistory.put(game);
             
             for (int i = 0; i < history.length(); i++) {
-                if (newHistory.length() >= 10) {
+                if (newHistory.length() >= 1000) {
                     if (!history.getJSONObject(i).optBoolean("isSaved", false)) continue;
                 }
                 newHistory.put(history.get(i));

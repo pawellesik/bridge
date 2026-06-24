@@ -55,7 +55,8 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="filter_saved_only">Ulubione</string>
-    <string name="filter_contract_all">Kontrakt</string>
+    <string name="filter_level_all">Poziom</string>
+    <string name="filter_suit_all">Kolor</string>
     <string name="filter_contract_pass">PAS</string>
     <string name="filter_contract_nt">BA</string>
     <string name="filter_contract_spades">Piki</string>

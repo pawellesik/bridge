@@ -39,7 +39,7 @@ public class HistoryActivity extends AppCompatActivity {
     private List<JSONObject> filteredList;
     private TextView tvEmpty;
     private CheckBox cbOnlySaved;
-    private Spinner spinnerContract, spinnerResult;
+    private Spinner spinnerLevel, spinnerSuit, spinnerResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,8 @@ public class HistoryActivity extends AppCompatActivity {
         RecyclerView rvHistory = findViewById(R.id.rv_history);
         tvEmpty = findViewById(R.id.tv_empty_history);
         cbOnlySaved = findViewById(R.id.cb_filter_saved);
-        spinnerContract = findViewById(R.id.spinner_contract_filter);
+        spinnerLevel = findViewById(R.id.spinner_level_filter);
+        spinnerSuit = findViewById(R.id.spinner_suit_filter);
         spinnerResult = findViewById(R.id.spinner_result_filter);
 
         String json = getSharedPreferences("BridgePrefs", MODE_PRIVATE).getString("gameHistory", "[]");
@@ -79,18 +80,45 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void setupFilters() {
-        // Setup Contract Spinner
-        String[] contractOptions = {
-                getString(R.string.filter_contract_all),
+        // Setup Level Spinner
+        String[] levelOptions = {
+                getString(R.string.filter_level_all),
+                "1", "2", "3", "4", "5", "6", "7"
+        };
+        ArrayAdapter<String> levelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, levelOptions) {
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ((TextView) v).setTextSize(12);
+                ((TextView) v).setPadding(0, 0, 0, 0);
+                return v;
+            }
+        };
+        levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLevel.setAdapter(levelAdapter);
+
+        // Setup Suit Spinner
+        String[] suitOptions = {
+                getString(R.string.filter_suit_all),
                 getString(R.string.filter_contract_nt),
                 getString(R.string.filter_contract_spades),
                 getString(R.string.filter_contract_hearts),
                 getString(R.string.filter_contract_diamonds),
                 getString(R.string.filter_contract_clubs)
         };
-        ArrayAdapter<String> contractAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, contractOptions);
-        contractAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerContract.setAdapter(contractAdapter);
+        ArrayAdapter<String> suitAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, suitOptions) {
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ((TextView) v).setTextSize(12);
+                ((TextView) v).setPadding(0, 0, 0, 0);
+                return v;
+            }
+        };
+        suitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSuit.setAdapter(suitAdapter);
 
         // Setup Result Spinner
         String[] resultOptions = {
@@ -98,7 +126,16 @@ public class HistoryActivity extends AppCompatActivity {
                 getString(R.string.filter_result_won),
                 getString(R.string.filter_result_lost)
         };
-        ArrayAdapter<String> resultAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, resultOptions);
+        ArrayAdapter<String> resultAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, resultOptions) {
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ((TextView) v).setTextSize(12);
+                ((TextView) v).setPadding(0, 0, 0, 0);
+                return v;
+            }
+        };
         resultAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerResult.setAdapter(resultAdapter);
 
@@ -114,14 +151,16 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         };
-        spinnerContract.setOnItemSelectedListener(listener);
+        spinnerLevel.setOnItemSelectedListener(listener);
+        spinnerSuit.setOnItemSelectedListener(listener);
         spinnerResult.setOnItemSelectedListener(listener);
     }
 
     private void applyFilters() {
         filteredList.clear();
         boolean onlySaved = cbOnlySaved.isChecked();
-        int contractType = spinnerContract.getSelectedItemPosition(); // 0:All, 1:NT, 2:S, 3:H, 4:D, 5:C
+        int selectedLevelIdx = spinnerLevel.getSelectedItemPosition(); // 0:All, 1-7: "1"-"7"
+        int selectedSuitIdx = spinnerSuit.getSelectedItemPosition(); // 0:All, 1:NT, 2:S, 3:H, 4:D, 5:C
         int resultType = spinnerResult.getSelectedItemPosition(); // 0:All, 1:Won, 2:Lost
 
         for (JSONObject game : fullHistoryList) {
@@ -131,7 +170,6 @@ public class HistoryActivity extends AppCompatActivity {
                     continue;
                 }
 
-                // 2. Check Result Filter (Won/Lost)
                 String contractStr = game.getString("contract");
                 String resultStr = game.getString("result");
                 
@@ -141,13 +179,15 @@ public class HistoryActivity extends AppCompatActivity {
                     if (resParts.length >= 2) tricks = Integer.parseInt(resParts[1]);
                 } catch (Exception e) {}
 
+                // 2. Determine Won/Lost
                 boolean won = true;
+                int contractLevel = 0;
                 if (!contractStr.toUpperCase().contains("PASS")) {
                     try {
                         String[] conParts = contractStr.split(" ");
                         if (conParts.length >= 1) {
-                            int level = Integer.parseInt(conParts[0]);
-                            if (tricks < (level + 6)) won = false;
+                            contractLevel = Integer.parseInt(conParts[0]);
+                            if (tricks < (contractLevel + 6)) won = false;
                         }
                     } catch (Exception e) {}
                 }
@@ -155,11 +195,16 @@ public class HistoryActivity extends AppCompatActivity {
                 if (resultType == 1 && !won) continue;
                 if (resultType == 2 && won) continue;
 
-                // 3. Check Contract Filter
+                // 3. Level Filter
+                if (selectedLevelIdx > 0) {
+                    if (contractLevel != selectedLevelIdx) continue;
+                }
+
+                // 4. Suit Filter
                 String contractUpper = contractStr.toUpperCase();
-                if (contractType > 0) {
+                if (selectedSuitIdx > 0) {
                     boolean match = false;
-                    switch (contractType) {
+                    switch (selectedSuitIdx) {
                         case 1: match = contractUpper.contains("NT"); break;
                         case 2: match = contractUpper.contains("SPADES"); break;
                         case 3: match = contractUpper.contains("HEARTS"); break;

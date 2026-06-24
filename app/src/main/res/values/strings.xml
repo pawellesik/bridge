@@ -55,7 +55,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="filter_saved_only">Favorite</string>
-    <string name="filter_contract_all">Contract</string>
+    <string name="filter_level_all">Level</string>
+    <string name="filter_suit_all">Suit</string>
     <string name="filter_contract_pass">PASS</string>
     <string name="filter_contract_nt">NT</string>
     <string name="filter_contract_spades">Spades</string>
