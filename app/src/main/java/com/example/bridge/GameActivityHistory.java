@@ -319,9 +319,19 @@ public class GameActivityHistory {
 
         if (claim > 0) {
             TextView claimTv = new TextView(activity);
-            claimTv.setText(activity.getString(R.string.claimed_tricks, claim));
-            claimTv.setTextColor(Color.RED);
             claimTv.setPadding(16, 8, 16, 8);
+            claimTv.setTypeface(null, android.graphics.Typeface.BOLD);
+            
+            String label = activity.getString(R.string.claimed_tricks_label) + " ";
+            String countText = activity.getString(claim == 1 ? R.string.claimed_trick_count : R.string.claimed_tricks_count, claim);
+            
+            android.text.SpannableStringBuilder ssb = new android.text.SpannableStringBuilder(label + countText);
+            // Label in Red
+            ssb.setSpan(new android.text.style.ForegroundColorSpan(Color.RED), 0, label.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // Count in Black
+            ssb.setSpan(new android.text.style.ForegroundColorSpan(Color.BLACK), label.length(), ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            
+            claimTv.setText(ssb);
             claimTv.setOnClickListener(v -> {
                 currentSimTrickIndex = history.size();
                 updateSimTrickUI(false);

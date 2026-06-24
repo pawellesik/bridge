@@ -40,7 +40,9 @@
     <string name="score_label">PUNKTY:</string>
     <string name="we_label">ZW: %1$d</string>
     <string name="sn_label">PP: %1$d</string>
-    <string name="claimed_tricks">Płn. Płd. wzieli pozostałe %1$d lewy.</string>
+    <string name="claimed_tricks_label">Płn. Płd. wzięli</string>
+    <string name="claimed_tricks_count">%1$d lewy.</string>
+    <string name="claimed_trick_count">%1$d lewę.</string>
     <string name="contract_pass">PAS</string>
     <string name="suit_spades">Piki</string>
     <string name="suit_hearts">Kiery</string>

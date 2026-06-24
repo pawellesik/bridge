@@ -40,7 +40,9 @@
     <string name="score_label">POINTS:</string>
     <string name="we_label">WE: %1$d</string>
     <string name="sn_label">SN: %1$d</string>
-    <string name="claimed_tricks">NS claimed the remaining %1$d tricks.</string>
+    <string name="claimed_tricks_label">NS claimed</string>
+    <string name="claimed_tricks_count">%1$d tricks.</string>
+    <string name="claimed_trick_count">%1$d trick.</string>
     <string name="contract_pass">PASS</string>
     <string name="suit_spades">Spades</string>
     <string name="suit_hearts">Hearts</string>
