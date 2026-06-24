@@ -16,7 +16,12 @@
     <string name="create_deal">Create Deal</string>
     <string name="history_games">History Games</string>
     <string name="settings">Settings</string>
-    <string name="card_colors_title">Card Colors</string>
+    <string name="card_colors_title">Card Visuals</string>
+    <string name="card_colors_desc">Choose between 4-color or standard 2-color decks.</string>
+    <string name="difficulty_desc">Select AI challenge level for Quick Games.</string>
+    <string name="bidding_desc">Preferred system for Singleplayer AI partners.</string>
+    <string name="category_visuals">VISUALS</string>
+    <string name="category_gameplay">GAMEPLAY</string>
     <string name="card_colors_colorful">4 Colors (Colorful)</string>
     <string name="card_colors_standard">2 Colors (Standard)</string>
     <string name="about">About</string>

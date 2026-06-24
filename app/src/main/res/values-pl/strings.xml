@@ -16,7 +16,12 @@
     <string name="create_deal">Stwórz Rozdanie</string>
     <string name="history_games">Historia Gier</string>
     <string name="settings">Ustawienia</string>
-    <string name="card_colors_title">Kolory kart</string>
+    <string name="card_colors_title">Wygląd kart</string>
+    <string name="card_colors_desc">Wybierz talię 4-kolorową lub standardową 2-kolorową.</string>
+    <string name="difficulty_desc">Poziom wyzwania AI w Szybkiej Grze.</string>
+    <string name="bidding_desc">Preferowany system licytacji dla partnera AI.</string>
+    <string name="category_visuals">WIDOK</string>
+    <string name="category_gameplay">ROZGRYWKA</string>
     <string name="card_colors_colorful">4 Kolory (Kolorowe)</string>
     <string name="card_colors_standard">2 Kolory (Standardowe)</string>
     <string name="about">O aplikacji</string>

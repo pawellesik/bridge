@@ -76,7 +76,20 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, @NonNull ViewGroup parent) {
                 View v = super.getView(position, convertView, parent);
-                ((TextView) v).setTextColor(android.graphics.Color.WHITE);
+                if (v instanceof TextView) {
+                    ((TextView) v).setTextColor(android.graphics.Color.WHITE);
+                    ((TextView) v).setTextSize(16);
+                }
+                return v;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+                if (v instanceof TextView) {
+                    ((TextView) v).setTextColor(android.graphics.Color.WHITE);
+                    v.setBackgroundColor(android.graphics.Color.parseColor("#2E7D32"));
+                }
                 return v;
             }
         };
