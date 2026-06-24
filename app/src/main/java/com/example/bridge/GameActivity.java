@@ -108,7 +108,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             isReplayingFromHistory = true;
             startBar.setVisibility(View.GONE);
             loadingIndicator.setVisibility(View.VISIBLE);
-            findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson), 300);
+            findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson, true), 300);
         } else {
             Map<String, List<Card>> savedDeal = sharedPref.loadSavedDeal();
             if (savedDeal != null) {
@@ -125,9 +125,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             if (isReplayingFromHistory) {
                 gameController.restoreCards(new LinkedHashMap<>(initialPlayerHands));
-                //onVisibleStartBar(false);
-                //loadingIndicator.setVisibility(View.VISIBLE);
-                test(replayedGameJson);
+                loadGameFromHistory(replayedGameJson, false);
                 v.post(() -> {
                     gameController.startGame();
                 });
@@ -135,6 +133,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 loadingIndicator.setVisibility(View.VISIBLE);
                 setTotalScore(sharedPref.getPrefTotalScore());
                 setupRecyclerView();
+
                 v.post(() -> {
                     gameController.dealCards();
                 });
@@ -272,8 +271,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             // Replay mode adjustments
             View btnSave = findViewById(R.id.btn_save_game);
             if (btnSave != null) btnSave.setVisibility(View.GONE);
-            if (btnNewDeal instanceof Button) {
-                ((Button) btnNewDeal).setText(R.string.play_again);
+            if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
+                com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
+                mBtn.setText(R.string.play_again);
+                mBtn.setIconResource(R.drawable.ic_arrow);
             }
         }
 
@@ -282,46 +283,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }, 500);
     }
 
-    private void test(String json) {
-        try {
-            org.json.JSONObject game = new org.json.JSONObject(json);
-            Contract contract = Contract.fromString(game.getString("contract"));
-
-            org.json.JSONObject handsJson = game.getJSONObject("hands");
-            initialPlayerHands.clear();
-            for (String direction : new String[]{"North", "East", "South", "West"}) {
-                org.json.JSONArray handArray = handsJson.getJSONArray(direction);
-                List<Card> cards = new ArrayList<>();
-                for (int i = 0; i < handArray.length(); i++) {
-                    String[] parts = handArray.getString(i).split(":");
-                    cards.add(new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
-                }
-                initialPlayerHands.put(direction, cards);
-            }
-            List<Trick> history = new ArrayList<>();
-            org.json.JSONArray tricksArray = game.optJSONArray("playHistory");
-            if (tricksArray != null) {
-                for (int i = 0; i < tricksArray.length(); i++) {
-                    org.json.JSONObject trickJson = tricksArray.getJSONObject(i);
-                    Trick trick = new Trick();
-                    trick.setWinnerTrick(trickJson.getString("winner"));
-                    org.json.JSONObject cardsMap = trickJson.getJSONObject("cards");
-                    java.util.Iterator<String> keys = cardsMap.keys();
-                    while (keys.hasNext()) {
-                        String pName = keys.next();
-                        String[] parts = cardsMap.getString(pName).split(":");
-                        trick.addCard(pName, new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
-                    }
-                    history.add(trick);
-                }
-            }
-            gameController.restoreCardsWithContract(new LinkedHashMap<>(initialPlayerHands), contract);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadGameFromHistory(String json) {
+    private void loadGameFromHistory(String json, boolean isInitialUiLoad) {
         try {
             org.json.JSONObject game = new org.json.JSONObject(json);
             Contract contract = Contract.fromString(game.getString("contract"));
@@ -358,33 +320,32 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
 
-            // Inicjalizacja stanu w kontrolerze bez licytacji
             gameController.restoreCardsWithContract(new LinkedHashMap<>(initialPlayerHands), contract);
-            
-            // UI adjustments for Replay mode
-            loadingIndicator.setVisibility(View.GONE);
-            startBar.setVisibility(View.GONE);
-            
-            // Ukrywamy przyciski, których nie chcemy w historii
-            View btnSave = findViewById(R.id.btn_save_game);
-            if (btnSave != null) btnSave.setVisibility(View.GONE);
 
-            View btnAuto = findViewById(R.id.btn_auto_replay);
-            if (btnAuto != null) btnAuto.setVisibility(View.GONE);
-            
-            // Przycisk "New Deal" zmienia się w "Play Again" (jeśli to MaterialButton)
-            if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
-                com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
-                mBtn.setText(R.string.play_again);
-                mBtn.setIconResource(R.drawable.ic_arrow); // Upewnij się, że masz taką ikonę lub użyj innej
+            if (isInitialUiLoad) {
+                loadingIndicator.setVisibility(View.GONE);
+                startBar.setVisibility(View.GONE);
+
+                View btnSave = findViewById(R.id.btn_save_game);
+                if (btnSave != null) btnSave.setVisibility(View.GONE);
+
+                //View btnAuto = findViewById(R.id.btn_auto_replay);
+                //if (btnAuto != null) btnAuto.setVisibility(View.GONE);
+
+                if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
+                    com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
+                    mBtn.setText(R.string.play_again);
+                    mBtn.setIconResource(R.drawable.ic_arrow);
+                }
+
+                gameHistory.showResults(history, claim, snScoreFromGame);
             }
-
-            // Pokaż od razu nakładkę z wynikami
-            gameHistory.showResults(history, claim, snScoreFromGame);
         } catch (Exception e) {
             e.printStackTrace();
-            loadingIndicator.setVisibility(View.GONE);
-            gameController.dealCards();
+            if (isInitialUiLoad) {
+                loadingIndicator.setVisibility(View.GONE);
+                gameController.dealCards();
+            }
         }
     }
 
