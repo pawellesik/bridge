@@ -81,7 +81,7 @@ public class GameActivityTop {
             if (contract.isNoTrump()) {
                 tvContract.setText(" " + count + " " + activity.getString(R.string.suit_nt));
                 ivContractSuit.setVisibility(View.GONE);
-                tvContract.setTextColor(Color.WHITE);
+                tvContract.setTextColor(Color.BLACK);
             } else {
                 ivContractSuit.setVisibility(View.VISIBLE);
                 ivContractSuit.setImageResource(suit.resId);
