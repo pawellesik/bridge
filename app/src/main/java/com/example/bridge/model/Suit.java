@@ -4,9 +4,9 @@ import android.content.Context;
 import com.example.bridge.R;
 
 public enum Suit {
-    SPADES(0, R.drawable.spades, false, "♠", 0xFF000000, 0xFF000000),
-    HEARTS(1, R.drawable.heart, true, "♥", 0xFFFF0000, 0xFFFF0000),
-    CLUBS(2, R.drawable.clubs, false, "♣", 0xFF1976D2, 0xFF000000),
+    SPADES(0, R.drawable.spades, false, "♠", 0xFF243D65, 0xFF000000),
+    HEARTS(1, R.drawable.heart, true, "♥", 0xFFC94B4B, 0xFFFF0000),
+    CLUBS(2, R.drawable.clubs, false, "♣", 0xFF388E3C, 0xFF000000),
     DIAMONDS(3, R.drawable.diamonds, true, "♦", 0xFFF57C00, 0xFFFF0000);
 
     public final int priority;
