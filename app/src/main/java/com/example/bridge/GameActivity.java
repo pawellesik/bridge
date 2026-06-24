@@ -584,7 +584,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvRank.setText(card.getRank().display);
         ivSmall.setImageResource(card.getSuit().resId);
         ivLarge.setImageResource(card.getSuit().resId);
-        tvRank.setTextColor(card.getSuit().isRed ? 0xFFFF0000 : 0xFF000000);
+        
+        int suitColor = card.getSuit().color;
+        tvRank.setTextColor(suitColor);
+        ivSmall.setColorFilter(suitColor);
+        ivLarge.setColorFilter(suitColor);
 
         container.addView(view);
     }

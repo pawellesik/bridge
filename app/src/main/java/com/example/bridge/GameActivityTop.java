@@ -82,16 +82,8 @@ public class GameActivityTop {
                 ivContractSuit.setVisibility(View.GONE);
             } else {
                 ivContractSuit.setVisibility(View.VISIBLE);
-                switch (suit) {
-                    case SPADES: ivContractSuit.setImageResource(R.drawable.spades); break;
-                    case HEARTS: ivContractSuit.setImageResource(R.drawable.heart); break;
-                    case DIAMONDS: ivContractSuit.setImageResource(R.drawable.diamonds); break;
-                    case CLUBS: ivContractSuit.setImageResource(R.drawable.clubs); break;
-                    default:
-                        tvContract.setText(contract.toString());
-                        ivContractSuit.setVisibility(View.GONE);
-                        break;
-                }
+                ivContractSuit.setImageResource(suit.resId);
+                ivContractSuit.setColorFilter(suit.color);
             }
         }
         contractContainer.setVisibility(View.VISIBLE);

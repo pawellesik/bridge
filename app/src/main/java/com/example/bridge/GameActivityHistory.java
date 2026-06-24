@@ -314,7 +314,7 @@ public class GameActivityHistory {
 
         for (int i = 0; i < suits.length; i++) {
             com.example.bridge.model.Suit suit = suits[i];
-            String color = suit.isRed ? "red" : "white"; // Change black to white for dark background
+            String color = suit.hexColor;
             sb.append("<b><font color='").append(color).append("'>")
                     .append(suit.symbol).append("</font></b>&nbsp;");
 
@@ -324,7 +324,7 @@ public class GameActivityHistory {
                 if (card.getSuit() == suit) {
                     if (!first) sb.append("&nbsp;");
 
-                    String cardColor = "white"; // Nie rzucone
+                    String cardColor = suit.hexColor; // Default suit color
                     if (previousTricksCards != null && previousTricksCards.contains(card)) {
                         cardColor = "#999999"; // Rzucone w poprzednich lewach (szare)
                     } else if (currentTrickCards != null && currentTrickCards.contains(card)) {
