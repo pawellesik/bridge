@@ -277,6 +277,7 @@ public class HistoryActivity extends AppCompatActivity {
                 
                 if (contractStr.toUpperCase().contains("PASS")) {
                     holder.tvContract.setText(R.string.contract_pass);
+                    holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                     holder.ivSuit.setVisibility(View.GONE);
                 } else {
                     String[] parts = contractStr.split(" ");
@@ -286,19 +287,23 @@ public class HistoryActivity extends AppCompatActivity {
                         if (suitPart.equals("NT")) {
                             holder.ivSuit.setVisibility(View.GONE);
                             holder.tvContract.setText(parts[0] + " " + holder.itemView.getContext().getString(R.string.suit_nt));
+                            holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                         } else {
                             try {
                                 Suit suit = Suit.valueOf(suitPart);
                                 holder.ivSuit.setVisibility(View.VISIBLE);
                                 holder.ivSuit.setImageResource(suit.resId);
                                 holder.ivSuit.setColorFilter(suit.color);
+                                holder.tvContract.setTextColor(suit.color);
                             } catch (Exception e) {
                                 holder.ivSuit.setVisibility(View.GONE);
                                 holder.tvContract.setText(contractStr);
+                                holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                             }
                         }
                     } else {
                         holder.tvContract.setText(contractStr);
+                        holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                         holder.ivSuit.setVisibility(View.GONE);
                     }
                 }
