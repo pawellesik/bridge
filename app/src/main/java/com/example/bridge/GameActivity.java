@@ -124,7 +124,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameHistory.hide();
 
             if (isReplayingFromHistory) {
-                gameController.restoreCards(new LinkedHashMap<>(initialPlayerHands));
                 loadGameFromHistory(replayedGameJson, false);
                 v.post(() -> {
                     gameController.startGame();
