@@ -6,6 +6,8 @@ import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -265,28 +267,52 @@ public class GameActivityHistory {
                 updateSimTrickUI(false);
             });
 
-            String[] trickData = new String[4];
+            com.example.bridge.model.Card[] trickCards = new com.example.bridge.model.Card[4];
             int winnerCol = getPlayerColumn(trick.getWinnerTrick());
 
             for (Map.Entry<String, Card> entry : trick.getCardsOnTableMap().entrySet()) {
                 int col = getPlayerColumn(entry.getKey());
                 if (col != -1) {
-                    Card card = entry.getValue();
-                    trickData[col] = card.getRank().display + " " + card.getSuit().symbol;
+                    trickCards[col] = entry.getValue();
                 }
             }
 
             for (int c = 0; c < 4; c++) {
+                LinearLayout cellLayout = new LinearLayout(activity);
+                cellLayout.setOrientation(LinearLayout.HORIZONTAL);
+                cellLayout.setGravity(Gravity.CENTER);
+
                 TextView tv = new TextView(activity);
-                tv.setText(trickData[c] != null ? trickData[c] : "-");
-                tv.setTextColor(Color.BLACK);
-                tv.setTypeface(null, android.graphics.Typeface.BOLD);
-                tv.setGravity(Gravity.CENTER);
+                ImageView iv = new ImageView(activity);
+
+                if (trickCards[c] != null) {
+                    tv.setText(trickCards[c].getRank().display);
+                    tv.setTextColor(Color.BLACK);
+                    tv.setTypeface(null, android.graphics.Typeface.BOLD);
+
+                    iv.setImageResource(trickCards[c].getSuit().resId);
+                    iv.setColorFilter(trickCards[c].getSuit().color);
+                    
+                    int iconSize = (int) (14 * activity.getResources().getDisplayMetrics().density);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(iconSize, iconSize);
+                    lp.leftMargin = (int) (4 * activity.getResources().getDisplayMetrics().density);
+                    iv.setLayoutParams(lp);
+                } else {
+                    tv.setText("-");
+                    tv.setTextColor(Color.BLACK);
+                    tv.setTypeface(null, android.graphics.Typeface.BOLD);
+                    iv.setVisibility(View.GONE);
+                }
+
+                cellLayout.addView(tv);
+                cellLayout.addView(iv);
+
                 if (c == winnerCol)
-                    tv.setBackgroundResource(R.drawable.green_win_in_row);
-                // Set padding AFTER background, so drawable padding doesn't overwrite it
-                tv.setPadding(8, 16, 8, 16);
-                row.addView(tv);
+                    cellLayout.setBackgroundResource(R.drawable.green_win_in_row);
+
+                // Set padding AFTER background
+                cellLayout.setPadding(8, 16, 8, 16);
+                row.addView(cellLayout);
             }
             tableHistoryRes.addView(row);
         }
