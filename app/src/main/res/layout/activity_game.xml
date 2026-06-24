@@ -132,7 +132,7 @@
             <!-- North Last Card -->
             <LinearLayout
                 android:id="@+id/n_last_card"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="24dp"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -140,13 +140,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:id="@+id/tv_rank_n"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:includeFontPadding="false" />
+                    android:textStyle="bold" />
+
                 <ImageView
                     android:id="@+id/iv_suit_n"
                     android:layout_width="16dp"
@@ -157,7 +159,7 @@
             <!-- West Last Card -->
             <LinearLayout
                 android:id="@+id/w_last_card"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="2dp"
@@ -168,13 +170,15 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/n_last_card">
+
                 <TextView
                     android:id="@+id/tv_rank_w"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:includeFontPadding="false" />
+                    android:textStyle="bold" />
+
                 <ImageView
                     android:id="@+id/iv_suit_w"
                     android:layout_width="16dp"
@@ -185,7 +189,7 @@
             <!-- East Last Card -->
             <LinearLayout
                 android:id="@+id/e_last_card"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="24dp"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -193,13 +197,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/w_last_card"
                 app:layout_constraintTop_toTopOf="@id/w_last_card">
+
                 <TextView
                     android:id="@+id/tv_rank_e"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:includeFontPadding="false" />
+                    android:textStyle="bold" />
+
                 <ImageView
                     android:id="@+id/iv_suit_e"
                     android:layout_width="16dp"
@@ -210,7 +216,7 @@
             <!-- South Last Card -->
             <LinearLayout
                 android:id="@+id/s_last_card"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="1dp"
                 android:gravity="center"
@@ -219,13 +225,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/w_last_card">
+
                 <TextView
                     android:id="@+id/tv_rank_s"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:includeFontPadding="false" />
+                    android:textStyle="bold" />
+
                 <ImageView
                     android:id="@+id/iv_suit_s"
                     android:layout_width="16dp"
