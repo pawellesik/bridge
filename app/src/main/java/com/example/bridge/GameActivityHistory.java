@@ -189,10 +189,14 @@ public class GameActivityHistory {
         if (history != null && currentSimTrickIndex > 0) {
             Trick currentTrick = history.get(currentSimTrickIndex - 1);
             String winner = currentTrick.getWinnerTrick();
-            if ("North".equals(winner)) tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
-            else if ("South".equals(winner)) tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
-            else if ("East".equals(winner)) tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
-            else if ("West".equals(winner)) tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
+            if ("North".equals(winner))
+                tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
+            else if ("South".equals(winner))
+                tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
+            else if ("East".equals(winner))
+                tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
+            else if ("West".equals(winner))
+                tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
         }
 
         if (currentTrickMap != null) {
@@ -302,40 +306,58 @@ public class GameActivityHistory {
 
     public Spanned formatSimHand(String playerName, List<Card> previousTricks, List<Card> currentTrick) {
         String html = formatHandToHtmlForSim(activity.getInitialPlayerHands().get(playerName), previousTricks, currentTrick);
-        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, source -> {
-            int resId = 0;
-            int color = 0;
-            switch (source) {
-                case "spades": 
-                    resId = R.drawable.spades; 
-                    color = com.example.bridge.model.Suit.SPADES.color;
-                    break;
-                case "heart": 
-                    resId = R.drawable.heart; 
-                    color = com.example.bridge.model.Suit.HEARTS.color;
-                    break;
-                case "diamonds": 
-                    resId = R.drawable.diamonds; 
-                    color = com.example.bridge.model.Suit.DIAMONDS.color;
-                    break;
-                case "clubs": 
-                    resId = R.drawable.clubs; 
-                    color = com.example.bridge.model.Suit.CLUBS.color;
-                    break;
-            }
 
-            if (resId != 0) {
-                android.graphics.drawable.Drawable d = androidx.core.content.res.ResourcesCompat.getDrawable(activity.getResources(), resId, null);
-                if (d != null) {
-                    d.mutate();
-                    d.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN);
-                    int size = (int) (16 * activity.getResources().getDisplayMetrics().density);
-                    d.setBounds(0, 0, size, size);
-                    return d;
-                }
-            }
-            return null;
-        }, null);
+        android.text.SpannableString spanned = new android.text.SpannableString(
+                Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, source -> {
+                    int resId = 0;
+                    int color = 0;
+                    switch (source) {
+                        case "spades":
+                            resId = R.drawable.spades;
+                            color = com.example.bridge.model.Suit.SPADES.color;
+                            break;
+                        case "heart":
+                            resId = R.drawable.heart;
+                            color = com.example.bridge.model.Suit.HEARTS.color;
+                            break;
+                        case "diamonds":
+                            resId = R.drawable.diamonds;
+                            color = com.example.bridge.model.Suit.DIAMONDS.color;
+                            break;
+                        case "clubs":
+                            resId = R.drawable.clubs;
+                            color = com.example.bridge.model.Suit.CLUBS.color;
+                            break;
+                    }
+
+                    if (resId != 0) {
+                        android.graphics.drawable.Drawable d = androidx.core.content.res.ResourcesCompat.getDrawable(
+                                activity.getResources(), resId, null);
+                        if (d != null) {
+                            d.mutate();
+                            d.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN);
+                            float textSizePx = tvNorthRes.getTextSize();
+                            int size = (int) textSizePx;
+                            d.setBounds(0, 0, size, size);
+                            return d;
+                        }
+                    }
+                    return null;
+                }, null)
+        );
+
+        // Zamień wszystkie ImageSpan na ALIGN_CENTER
+        android.text.style.ImageSpan[] spans = spanned.getSpans(0, spanned.length(), android.text.style.ImageSpan.class);
+        android.text.SpannableStringBuilder result = new android.text.SpannableStringBuilder(spanned);
+        for (android.text.style.ImageSpan span : spans) {
+            int start = spanned.getSpanStart(span);
+            int end = spanned.getSpanEnd(span);
+            android.text.style.ImageSpan centered = new android.text.style.ImageSpan(
+                    span.getDrawable(), android.text.style.DynamicDrawableSpan.ALIGN_CENTER);
+            result.removeSpan(span);
+            result.setSpan(centered, start, end, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return result;
     }
 
     public String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
@@ -349,14 +371,23 @@ public class GameActivityHistory {
 
         for (int i = 0; i < suits.length; i++) {
             com.example.bridge.model.Suit suit = suits[i];
-            
+
             String suitImageName;
             switch (suit) {
-                case SPADES: suitImageName = "spades"; break;
-                case HEARTS: suitImageName = "heart"; break;
-                case DIAMONDS: suitImageName = "diamonds"; break;
-                case CLUBS: suitImageName = "clubs"; break;
-                default: suitImageName = "spades";
+                case SPADES:
+                    suitImageName = "spades";
+                    break;
+                case HEARTS:
+                    suitImageName = "heart";
+                    break;
+                case DIAMONDS:
+                    suitImageName = "diamonds";
+                    break;
+                case CLUBS:
+                    suitImageName = "clubs";
+                    break;
+                default:
+                    suitImageName = "spades";
             }
 
             sb.append("<img src='").append(suitImageName).append("'/>&nbsp;");
@@ -386,6 +417,7 @@ public class GameActivityHistory {
         }
         return sb.toString();
     }
+
     public int getPlayerColumn(String name) {
         if ("West".equals(name)) return 0;
         if ("North".equals(name)) return 1;
