@@ -13,7 +13,7 @@ import java.util.Map;
 public class GameActivityTop {
     private final GameActivity activity;
 
-    private final TextView tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
+    private final View tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private final TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
     private final TextView nameNorth, nameSouth, nameEast, nameWest;
 
@@ -68,6 +68,7 @@ public class GameActivityTop {
 
         if (contract == null || contract.isPass()) {
             tvContract.setText(activity.getString(R.string.contract_pass));
+            tvContract.setTextColor(Color.WHITE);
             if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
             return;
         }
@@ -80,10 +81,12 @@ public class GameActivityTop {
             if (contract.isNoTrump()) {
                 tvContract.setText(" " + count + " " + activity.getString(R.string.suit_nt));
                 ivContractSuit.setVisibility(View.GONE);
+                tvContract.setTextColor(Color.WHITE);
             } else {
                 ivContractSuit.setVisibility(View.VISIBLE);
                 ivContractSuit.setImageResource(suit.resId);
                 ivContractSuit.setColorFilter(suit.color);
+                tvContract.setTextColor(suit.color);
             }
         }
         contractContainer.setVisibility(View.VISIBLE);
@@ -127,27 +130,34 @@ public class GameActivityTop {
     }
 
     public void clearLastCards() {
-        TextView[] lastCardTVs = {tvLastNorth, tvLastSouth, tvLastEast, tvLastWest};
-        for (TextView tv : lastCardTVs) {
-            if (tv != null) {
-                tv.setText("");
-                tv.setBackground(null);
+        View[] lastCardViews = {tvLastNorth, tvLastSouth, tvLastEast, tvLastWest};
+        for (View v : lastCardViews) {
+            if (v != null) {
+                v.setBackground(null);
+                TextView tvRank = v.findViewById(R.id.tv_rank);
+                ImageView ivSuit = v.findViewById(R.id.iv_suit);
+                if (tvRank != null) tvRank.setText("");
+                if (ivSuit != null) ivSuit.setImageDrawable(null);
             }
         }
     }
 
-    private void updateLastCard(TextView tv, Card card) {
-        if (card != null) {
-            String text = card.getRank().display + " " + card.getSuit().symbol;
-            int suitColor = card.getSuit().color;
+    private void updateLastCard(View container, Card card) {
+        if (container != null && card != null) {
+            TextView tvRank = container.findViewById(R.id.tv_rank);
+            ImageView ivSuit = container.findViewById(R.id.iv_suit);
             
-            android.text.SpannableString spannable = new android.text.SpannableString(text);
-            spannable.setSpan(new android.text.style.ForegroundColorSpan(suitColor), 
-                0, text.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (tvRank != null) {
+                tvRank.setText(card.getRank().display);
+                tvRank.setTextColor(card.getSuit().color);
+            }
+            if (ivSuit != null) {
+                ivSuit.setImageResource(card.getSuit().resId);
+                ivSuit.setColorFilter(card.getSuit().color);
+                ivSuit.setVisibility(View.VISIBLE);
+            }
             
-            tv.setTextColor(suitColor); // Set base color too
-            tv.setText(spannable);
-            tv.setBackgroundResource(R.drawable.bright_green_frame_black_sharp);
+            container.setBackgroundResource(R.drawable.bright_green_frame_black_sharp);
         }
     }
 }
