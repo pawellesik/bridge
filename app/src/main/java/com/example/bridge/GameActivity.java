@@ -125,8 +125,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             if (isReplayingFromHistory) {
                 gameController.restoreCards(new LinkedHashMap<>(initialPlayerHands));
-                onVisibleStartBar(false);
-                loadingIndicator.setVisibility(View.VISIBLE);
+                //onVisibleStartBar(false);
+                //loadingIndicator.setVisibility(View.VISIBLE);
+                test(replayedGameJson);
                 v.post(() -> {
                     gameController.startGame();
                 });
@@ -279,6 +280,45 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         findViewById(R.id.main).postDelayed(() -> {
             gameHistory.showResults(history, claim, snScore);
         }, 500);
+    }
+
+    private void test(String json) {
+        try {
+            org.json.JSONObject game = new org.json.JSONObject(json);
+            Contract contract = Contract.fromString(game.getString("contract"));
+
+            org.json.JSONObject handsJson = game.getJSONObject("hands");
+            initialPlayerHands.clear();
+            for (String direction : new String[]{"North", "East", "South", "West"}) {
+                org.json.JSONArray handArray = handsJson.getJSONArray(direction);
+                List<Card> cards = new ArrayList<>();
+                for (int i = 0; i < handArray.length(); i++) {
+                    String[] parts = handArray.getString(i).split(":");
+                    cards.add(new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
+                }
+                initialPlayerHands.put(direction, cards);
+            }
+            List<Trick> history = new ArrayList<>();
+            org.json.JSONArray tricksArray = game.optJSONArray("playHistory");
+            if (tricksArray != null) {
+                for (int i = 0; i < tricksArray.length(); i++) {
+                    org.json.JSONObject trickJson = tricksArray.getJSONObject(i);
+                    Trick trick = new Trick();
+                    trick.setWinnerTrick(trickJson.getString("winner"));
+                    org.json.JSONObject cardsMap = trickJson.getJSONObject("cards");
+                    java.util.Iterator<String> keys = cardsMap.keys();
+                    while (keys.hasNext()) {
+                        String pName = keys.next();
+                        String[] parts = cardsMap.getString(pName).split(":");
+                        trick.addCard(pName, new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
+                    }
+                    history.add(trick);
+                }
+            }
+            gameController.restoreCardsWithContract(new LinkedHashMap<>(initialPlayerHands), contract);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadGameFromHistory(String json) {

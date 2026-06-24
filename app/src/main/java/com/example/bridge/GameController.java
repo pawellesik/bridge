@@ -82,18 +82,19 @@ public class GameController {
             player.setCurrentMove(false);
             callback.onHandUpdated(player.getName());
         }
-        finishDealing();
+        finishDealing(true);
+        callback.onSaveDeal();
     }
 
     public void restoreCards(Map<String, List<Card>> savedHands) {
-        restoreCardsInternal(savedHands, null);
+        restoreCardsInternal(savedHands, null, true);
     }
 
     public void restoreCardsWithContract(Map<String, List<Card>> savedHands, Contract contract) {
-        restoreCardsInternal(savedHands, contract);
+        restoreCardsInternal(savedHands, contract, false);
     }
 
-    private void restoreCardsInternal(Map<String, List<Card>> savedHands, Contract contract) {
+    private void restoreCardsInternal(Map<String, List<Card>> savedHands, Contract contract, Boolean visibleStartBar) {
         handler.removeCallbacksAndMessages(null);
         resetTable();
         isAutoPlayMode = false;
@@ -107,7 +108,7 @@ public class GameController {
                 callback.onHandUpdated(player.getName());
             }
         }
-        
+
         if (contract != null) {
             currentContract = contract;
             callback.onContractDetermined(currentContract);
@@ -115,18 +116,17 @@ public class GameController {
             trickLeaderName = "West";
             callback.onVisibleStartBar(true);
             callback.onTotalScore();
-        } else {
-            finishDealing();
         }
+        finishDealing(visibleStartBar);
     }
 
-    private void finishDealing() {
+    private void finishDealing(Boolean visibleStartBar) {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
         callback.onInitialHandsHtml();
 
         trickLeaderName = "West";
-        callback.onVisibleStartBar(true);
+        callback.onVisibleStartBar(visibleStartBar);
         callback.onTotalScore();
     }
 
@@ -196,7 +196,7 @@ public class GameController {
             }
         }
         return totalNSWinners == p.getHand().size();
-     // return true;
+        // return true;
     }
 
     public void claimRest() {
@@ -209,7 +209,7 @@ public class GameController {
         }
 
         callback.onScoreUpdated(snScore, weScore);
-        callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick,  remainingTricks);
+        callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick, remainingTricks);
     }
 
     public boolean isLegalMove(Player player, Card card) {
@@ -243,7 +243,7 @@ public class GameController {
                 clearTable();
 
                 if (players.get("South").getHand().isEmpty()) {
-                    callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick,0);
+                    callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick, 0);
                     return;
                 }
 
@@ -415,7 +415,7 @@ public class GameController {
         //        ", trickRanks=" + java.util.Arrays.toString(trickRanks));
 
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
-        
+
         boolean isFirstMove = cardsOnTableCount == 0;
 
         boolean isNS = playerName.contains("South") || playerName.contains("North");
@@ -469,7 +469,7 @@ public class GameController {
         for (int cardCode : resultTab) {
             int cardSuit = cardCode / 100;
             int cardRank = cardCode % 100;
-            
+
             if (cardRank < minOptimalRank) {
                 minOptimalRank = cardRank;
                 minOptimalCode = cardCode;
@@ -514,7 +514,7 @@ public class GameController {
             if (lowestWinningTrumpCode != -1) {
                 return lowestWinningTrumpCode;
             }
-            
+
             // If it's a non-trump trick and we can win with lead suit
             // (Usually the first element is fine, but let's be safe)
             int lowestWinningLeadCode = -1;
@@ -556,11 +556,16 @@ public class GameController {
 
     private String getNextPlayerName(String name) {
         switch (name) {
-            case "North": return "East";
-            case "East": return "South";
-            case "South": return "West";
-            case "West": return "North";
-            default: return "North";
+            case "North":
+                return "East";
+            case "East":
+                return "South";
+            case "South":
+                return "West";
+            case "West":
+                return "North";
+            default:
+                return "North";
         }
     }
 
