@@ -138,8 +138,15 @@ public class GameActivityTop {
 
     private void updateLastCard(TextView tv, Card card) {
         if (card != null) {
-            tv.setText(card.getRank().display + " " + card.getSuit().symbol);
-            tv.setTextColor(Color.parseColor("#000000"));
+            String text = card.getRank().display + " " + card.getSuit().symbol;
+            int suitColor = card.getSuit().color;
+            
+            android.text.SpannableString spannable = new android.text.SpannableString(text);
+            spannable.setSpan(new android.text.style.ForegroundColorSpan(suitColor), 
+                0, text.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            
+            tv.setTextColor(suitColor); // Set base color too
+            tv.setText(spannable);
             tv.setBackgroundResource(R.drawable.bright_green_frame_black_sharp);
         }
     }

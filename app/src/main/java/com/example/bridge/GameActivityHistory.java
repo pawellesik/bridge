@@ -266,8 +266,10 @@ public class GameActivityHistory {
 
             for (Map.Entry<String, Card> entry : trick.getCardsOnTableMap().entrySet()) {
                 int col = getPlayerColumn(entry.getKey());
-                if (col != -1)
-                    trickData[col] = entry.getValue().getRank().display + " " + entry.getValue().getSuit().symbol;
+                if (col != -1) {
+                    Card card = entry.getValue();
+                    trickData[col] = card.getRank().display + " " + card.getSuit().symbol;
+                }
             }
 
             for (int c = 0; c < 4; c++) {
@@ -324,7 +326,7 @@ public class GameActivityHistory {
                 if (card.getSuit() == suit) {
                     if (!first) sb.append("&nbsp;");
 
-                    String cardColor = suit.hexColor; // Default suit color
+                    String cardColor = "black"; // Nie rzucone
                     if (previousTricksCards != null && previousTricksCards.contains(card)) {
                         cardColor = "#999999"; // Rzucone w poprzednich lewach (szare)
                     } else if (currentTrickCards != null && currentTrickCards.contains(card)) {
