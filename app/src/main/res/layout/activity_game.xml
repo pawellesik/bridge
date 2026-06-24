@@ -133,23 +133,24 @@
             <LinearLayout
                 android:id="@+id/n_last_card"
                 android:layout_width="60dp"
-                android:layout_height="28dp"
+                android:layout_height="24dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="2dp"
+                android:padding="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <TextView
-                    android:id="@+id/tv_rank"
+                    android:id="@+id/tv_rank_n"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false" />
                 <ImageView
-                    android:id="@+id/iv_suit"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:id="@+id/iv_suit_n"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="2dp" />
             </LinearLayout>
 
@@ -157,26 +158,27 @@
             <LinearLayout
                 android:id="@+id/w_last_card"
                 android:layout_width="60dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="4dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="2dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="2dp"
+                android:padding="0dp"
                 app:layout_constraintEnd_toStartOf="@+id/e_last_card"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/n_last_card">
                 <TextView
-                    android:id="@+id/tv_rank"
+                    android:id="@+id/tv_rank_w"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false" />
                 <ImageView
-                    android:id="@+id/iv_suit"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:id="@+id/iv_suit_w"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="2dp" />
             </LinearLayout>
 
@@ -184,23 +186,24 @@
             <LinearLayout
                 android:id="@+id/e_last_card"
                 android:layout_width="60dp"
-                android:layout_height="28dp"
+                android:layout_height="24dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="2dp"
+                android:padding="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/w_last_card"
                 app:layout_constraintTop_toTopOf="@id/w_last_card">
                 <TextView
-                    android:id="@+id/tv_rank"
+                    android:id="@+id/tv_rank_e"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false" />
                 <ImageView
-                    android:id="@+id/iv_suit"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:id="@+id/iv_suit_e"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="2dp" />
             </LinearLayout>
 
@@ -208,24 +211,25 @@
             <LinearLayout
                 android:id="@+id/s_last_card"
                 android:layout_width="60dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="2dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="1dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="2dp"
+                android:padding="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/w_last_card">
                 <TextView
-                    android:id="@+id/tv_rank"
+                    android:id="@+id/tv_rank_s"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false" />
                 <ImageView
-                    android:id="@+id/iv_suit"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:id="@+id/iv_suit_s"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="2dp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

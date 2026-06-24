@@ -132,21 +132,30 @@ public class GameActivityTop {
     public void clearLastCards() {
         View[] lastCardViews = {tvLastNorth, tvLastSouth, tvLastEast, tvLastWest};
         for (View v : lastCardViews) {
-            if (v != null) {
+            if (v instanceof android.view.ViewGroup) {
                 v.setBackground(null);
-                TextView tvRank = v.findViewById(R.id.tv_rank);
-                ImageView ivSuit = v.findViewById(R.id.iv_suit);
-                if (tvRank != null) tvRank.setText("");
-                if (ivSuit != null) ivSuit.setImageDrawable(null);
+                android.view.ViewGroup group = (android.view.ViewGroup) v;
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    View child = group.getChildAt(i);
+                    if (child instanceof TextView) ((TextView) child).setText("");
+                    if (child instanceof ImageView) ((ImageView) child).setImageDrawable(null);
+                }
             }
         }
     }
 
     private void updateLastCard(View container, Card card) {
-        if (container != null && card != null) {
-            TextView tvRank = container.findViewById(R.id.tv_rank);
-            ImageView ivSuit = container.findViewById(R.id.iv_suit);
-            
+        if (container instanceof android.view.ViewGroup && card != null) {
+            android.view.ViewGroup group = (android.view.ViewGroup) container;
+            TextView tvRank = null;
+            ImageView ivSuit = null;
+
+            for (int i = 0; i < group.getChildCount(); i++) {
+                View child = group.getChildAt(i);
+                if (child instanceof TextView) tvRank = (TextView) child;
+                else if (child instanceof ImageView) ivSuit = (ImageView) child;
+            }
+
             if (tvRank != null) {
                 tvRank.setText(card.getRank().display);
                 tvRank.setTextColor(card.getSuit().color);
@@ -156,7 +165,7 @@ public class GameActivityTop {
                 ivSuit.setColorFilter(card.getSuit().color);
                 ivSuit.setVisibility(View.VISIBLE);
             }
-            
+
             container.setBackgroundResource(R.drawable.bright_green_frame_black_sharp);
         }
     }
