@@ -125,7 +125,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             if (isReplayingFromHistory) {
                 gameController.restoreCards(new LinkedHashMap<>(initialPlayerHands));
-                onVisibleStartBar(true);
+                onVisibleStartBar(false);
+                loadingIndicator.setVisibility(View.VISIBLE);
+                v.post(() -> {
+                    gameController.startGame();
+                });
             } else {
                 loadingIndicator.setVisibility(View.VISIBLE);
                 setTotalScore(sharedPref.getPrefTotalScore());
@@ -133,6 +137,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 v.post(() -> {
                     gameController.dealCards();
                 });
+                onSaveDeal();
             }
         });
 

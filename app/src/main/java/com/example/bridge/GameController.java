@@ -128,7 +128,6 @@ public class GameController {
         trickLeaderName = "West";
         callback.onVisibleStartBar(true);
         callback.onTotalScore();
-        callback.onSaveDeal();
     }
 
     public void startGame() {
