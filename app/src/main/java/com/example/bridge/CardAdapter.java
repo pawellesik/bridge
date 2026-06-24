@@ -89,7 +89,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             ivSmall.setImageResource(card.getSuit().resId);
             ivLarge.setImageResource(card.getSuit().resId);
             
-            int suitColor = card.getSuit().color;
+            int suitColor = card.getSuit().getColor(tvRank.getContext());
             tvRank.setTextColor(suitColor);
             ivSmall.setColorFilter(suitColor);
             ivLarge.setColorFilter(suitColor);

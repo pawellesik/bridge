@@ -585,7 +585,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         ivSmall.setImageResource(card.getSuit().resId);
         ivLarge.setImageResource(card.getSuit().resId);
         
-        int suitColor = card.getSuit().color;
+        int suitColor = card.getSuit().getColor(this);
         tvRank.setTextColor(suitColor);
         ivSmall.setColorFilter(suitColor);
         ivLarge.setColorFilter(suitColor);

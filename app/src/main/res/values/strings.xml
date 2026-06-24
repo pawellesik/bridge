@@ -11,6 +11,9 @@
     <string name="create_deal">Create Deal</string>
     <string name="history_games">History Games</string>
     <string name="settings">Settings</string>
+    <string name="card_colors_title">Card Colors</string>
+    <string name="card_colors_colorful">4 Colors (Colorful)</string>
+    <string name="card_colors_standard">2 Colors (Standard)</string>
     <string name="about">About</string>
     <string name="quit">Quit</string>
     <string name="player_north">North</string>

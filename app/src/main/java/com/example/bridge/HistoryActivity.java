@@ -338,8 +338,9 @@ public class HistoryActivity extends AppCompatActivity {
                                 Suit suit = Suit.valueOf(suitPart);
                                 holder.ivSuit.setVisibility(View.VISIBLE);
                                 holder.ivSuit.setImageResource(suit.resId);
-                                holder.ivSuit.setColorFilter(suit.color);
-                                holder.tvContract.setTextColor(suit.color);
+                                int suitColor = suit.getColor(holder.itemView.getContext());
+                                holder.ivSuit.setColorFilter(suitColor);
+                                holder.tvContract.setTextColor(suitColor);
                             } catch (Exception e) {
                                 holder.ivSuit.setVisibility(View.GONE);
                                 holder.tvContract.setText(contractStr);

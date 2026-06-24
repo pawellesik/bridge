@@ -291,7 +291,7 @@ public class GameActivityHistory {
                     tv.setTypeface(null, android.graphics.Typeface.BOLD);
 
                     iv.setImageResource(trickCards[c].getSuit().resId);
-                    iv.setColorFilter(trickCards[c].getSuit().color);
+                    iv.setColorFilter(trickCards[c].getSuit().getColor(activity));
                     
                     int iconSize = (int) (14 * activity.getResources().getDisplayMetrics().density);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(iconSize, iconSize);
@@ -350,19 +350,19 @@ public class GameActivityHistory {
                     switch (source) {
                         case "spades":
                             resId = R.drawable.spades;
-                            color = com.example.bridge.model.Suit.SPADES.color;
+                            color = com.example.bridge.model.Suit.SPADES.getColor(activity);
                             break;
                         case "heart":
                             resId = R.drawable.heart;
-                            color = com.example.bridge.model.Suit.HEARTS.color;
+                            color = com.example.bridge.model.Suit.HEARTS.getColor(activity);
                             break;
                         case "diamonds":
                             resId = R.drawable.diamonds;
-                            color = com.example.bridge.model.Suit.DIAMONDS.color;
+                            color = com.example.bridge.model.Suit.DIAMONDS.getColor(activity);
                             break;
                         case "clubs":
                             resId = R.drawable.clubs;
-                            color = com.example.bridge.model.Suit.CLUBS.color;
+                            color = com.example.bridge.model.Suit.CLUBS.getColor(activity);
                             break;
                     }
 

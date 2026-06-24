@@ -75,7 +75,8 @@ public class StartActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btn_settings).setOnClickListener(v -> {
-            // Future use
+            Intent intent = new Intent(StartActivity.this, SettingsActivity.class);
+            startActivity(intent);
         });
 
         findViewById(R.id.btn_about).setOnClickListener(v -> {

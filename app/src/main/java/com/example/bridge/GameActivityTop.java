@@ -87,8 +87,9 @@ public class GameActivityTop {
             } else {
                 ivContractSuit.setVisibility(View.VISIBLE);
                 ivContractSuit.setImageResource(suit.resId);
-                ivContractSuit.setColorFilter(suit.color);
-                tvContract.setTextColor(suit.color);
+                int suitColor = suit.getColor(activity);
+                ivContractSuit.setColorFilter(suitColor);
+                tvContract.setTextColor(suitColor);
             }
         }
         contractContainer.setVisibility(View.VISIBLE);
@@ -160,11 +161,11 @@ public class GameActivityTop {
 
             if (tvRank != null) {
                 tvRank.setText(card.getRank().display);
-                tvRank.setTextColor(card.getSuit().color);
+                tvRank.setTextColor(card.getSuit().getColor(container.getContext()));
             }
             if (ivSuit != null) {
                 ivSuit.setImageResource(card.getSuit().resId);
-                ivSuit.setColorFilter(card.getSuit().color);
+                ivSuit.setColorFilter(card.getSuit().getColor(container.getContext()));
                 ivSuit.setVisibility(View.VISIBLE);
             }
 
