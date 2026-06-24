@@ -27,6 +27,7 @@ public class GameActivityHistory {
 
     private final View resultsOverlay;
     private final TableLayout tableHistoryRes;
+    private final TableLayout tableHistoryHeader;
     private final Button btnAutoReplay;
     private final TextView tvSimInfo;
 
@@ -45,6 +46,7 @@ public class GameActivityHistory {
 
         this.resultsOverlay = gameActivity.findViewById(R.id.results_overlay);
         this.tableHistoryRes = gameActivity.findViewById(R.id.table_history_res);
+        this.tableHistoryHeader = gameActivity.findViewById(R.id.table_history_header);
         this.btnAutoReplay = gameActivity.findViewById(R.id.btn_auto_replay);
         this.tvSimInfo = gameActivity.findViewById(R.id.tv_trick_info);
 
@@ -218,25 +220,25 @@ public class GameActivityHistory {
     private void updateHistoryHighlightAndScroll(boolean shouldScroll) {
         if (tableHistoryRes == null) return;
         int rowCount = tableHistoryRes.getChildCount();
-        for (int i = 1; i < rowCount; i++) {
+        for (int i = 0; i < rowCount; i++) {
             View row = tableHistoryRes.getChildAt(i);
-            if (i == currentSimTrickIndex) {
+            // i is trick index (0-12), currentSimTrickIndex is 1-based
+            if (i + 1 == currentSimTrickIndex) {
                 row.setBackgroundResource(R.drawable.middle_green_frame_black);
                 row.setForeground(androidx.appcompat.content.res.AppCompatResources.getDrawable(activity, R.drawable.middle_green_frame_black_border_only));
             } else {
                 row.setForeground(null);
-                if (i < currentSimTrickIndex) {
-                    row.setBackgroundColor(Color.parseColor("#C8E6C9"));
+                if (i + 1 < currentSimTrickIndex) {
+                    row.setBackgroundColor(Color.parseColor("#E2F5E3"));
                 } else {
                     row.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
                 }
             }
-            // Ensure padding from drawable doesn't shift the content
             row.setPadding(0, 0, 0, 0);
         }
 
-        if (shouldScroll && currentSimTrickIndex >= 0 && currentSimTrickIndex < rowCount) {
-            View targetRow = tableHistoryRes.getChildAt(currentSimTrickIndex);
+        if (shouldScroll && currentSimTrickIndex > 0 && currentSimTrickIndex <= rowCount) {
+            View targetRow = tableHistoryRes.getChildAt(currentSimTrickIndex - 1);
             if (targetRow != null) {
                 activity.findViewById(R.id.scroll_history).post(() ->
                         ((androidx.core.widget.NestedScrollView) activity.findViewById(R.id.scroll_history))
@@ -246,15 +248,17 @@ public class GameActivityHistory {
     }
 
     private void displayHistory(List<Trick> history, int claim) {
-        if (tableHistoryRes == null) return;
-        View headerRow = tableHistoryRes.getChildAt(0);
+        if (tableHistoryRes == null || tableHistoryHeader == null) return;
+        
+        // Header is now in a separate table, set click listener on its row
+        View headerRow = tableHistoryHeader.getChildAt(0);
         if (headerRow != null) headerRow.setOnClickListener(v -> {
             currentSimTrickIndex = 0;
             updateSimTrickUI(false);
         });
 
-        int childCount = tableHistoryRes.getChildCount();
-        if (childCount > 1) tableHistoryRes.removeViews(1, childCount - 1);
+        // Clear all rows from the body table
+        tableHistoryRes.removeAllViews();
 
         if (history == null) return;
 
@@ -312,11 +316,18 @@ public class GameActivityHistory {
                 cellLayout.addView(tv);
                 cellLayout.addView(iv);
 
-                if (c == winnerCol)
+                if (c == winnerCol) {
                     cellLayout.setBackgroundResource(R.drawable.green_win_in_row);
+                }
 
-                // Set padding AFTER background
+                // Dodajemy margines wewnętrzny, aby obramowanie nie było przykrywane przez sąsiednie komórki/linie
                 cellLayout.setPadding(8, 16, 8, 16);
+                
+                TableRow.LayoutParams rowParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f);
+                // Tiny margin to ensure border visibility
+                rowParams.setMargins(1, 1, 1, 1);
+                cellLayout.setLayoutParams(rowParams);
+
                 row.addView(cellLayout);
             }
             tableHistoryRes.addView(row);

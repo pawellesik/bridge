@@ -25,7 +25,7 @@
             android:id="@+id/history_contract_container"
             android:layout_width="70dp"
             android:layout_height="32dp"
-            android:background="@drawable/bright_green_frame_black"
+            android:background="@drawable/bright_green_frame_black_sharp"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingStart="4dp"
