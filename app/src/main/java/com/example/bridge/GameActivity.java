@@ -329,9 +329,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 View btnSave = findViewById(R.id.btn_save_game);
                 if (btnSave != null) btnSave.setVisibility(View.GONE);
 
-                //View btnAuto = findViewById(R.id.btn_auto_replay);
-                //if (btnAuto != null) btnAuto.setVisibility(View.GONE);
-
                 if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
                     com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
                     mBtn.setText(R.string.play_again);
