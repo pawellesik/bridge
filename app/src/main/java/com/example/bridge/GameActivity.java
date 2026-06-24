@@ -277,7 +277,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void loadGameFromHistory(String json) {
-        System.out.println("plesik: " +json);
         try {
             org.json.JSONObject game = new org.json.JSONObject(json);
             Contract contract = Contract.fromString(game.getString("contract"));
@@ -483,6 +482,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         for (Player player : players.values()) {
             initialPlayerHands.put(player.getName(), new ArrayList<>(player.getHand()));
         }
+    }
+    @Override
+    public void onSaveDeal() {
         sharedPref.saveDeal(players);
     }
 

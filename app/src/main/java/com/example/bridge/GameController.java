@@ -24,6 +24,8 @@ public class GameController {
 
         void onTableCleared(Map<String, Card> trickCards);
 
+        void onSaveDeal();
+
         void onInitialHandsHtmlClear();
 
         void onClearLastCards(List<Card> cardsOnTable);
@@ -126,6 +128,7 @@ public class GameController {
         trickLeaderName = "West";
         callback.onVisibleStartBar(true);
         callback.onTotalScore();
+        callback.onSaveDeal();
     }
 
     public void startGame() {
