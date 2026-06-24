@@ -8,6 +8,11 @@ public enum Suit {
     CLUBS(2, R.drawable.clubs, false, "♣", 0xFF388E3C),
     DIAMONDS(3, R.drawable.diamonds, true, "♦", 0xFFF57C00);
 
+    /*SPADES(0, R.drawable.spades, false, "♠", 0xFF000000),
+    HEARTS(1, R.drawable.heart, true, "♥", 0xFFFF0000),
+    CLUBS(2, R.drawable.clubs, false, "♣", 0xFF000000),
+    DIAMONDS(3, R.drawable.diamonds, true, "♦", 0xFFFF0000);*/
+
     public final int priority;
     public final int resId;
     public final boolean isRed;
