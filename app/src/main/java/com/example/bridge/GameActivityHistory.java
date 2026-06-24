@@ -302,7 +302,40 @@ public class GameActivityHistory {
 
     public Spanned formatSimHand(String playerName, List<Card> previousTricks, List<Card> currentTrick) {
         String html = formatHandToHtmlForSim(activity.getInitialPlayerHands().get(playerName), previousTricks, currentTrick);
-        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, source -> {
+            int resId = 0;
+            int color = 0;
+            switch (source) {
+                case "spades": 
+                    resId = R.drawable.spades; 
+                    color = com.example.bridge.model.Suit.SPADES.color;
+                    break;
+                case "heart": 
+                    resId = R.drawable.heart; 
+                    color = com.example.bridge.model.Suit.HEARTS.color;
+                    break;
+                case "diamonds": 
+                    resId = R.drawable.diamonds; 
+                    color = com.example.bridge.model.Suit.DIAMONDS.color;
+                    break;
+                case "clubs": 
+                    resId = R.drawable.clubs; 
+                    color = com.example.bridge.model.Suit.CLUBS.color;
+                    break;
+            }
+
+            if (resId != 0) {
+                android.graphics.drawable.Drawable d = androidx.core.content.res.ResourcesCompat.getDrawable(activity.getResources(), resId, null);
+                if (d != null) {
+                    d.mutate();
+                    d.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN);
+                    int size = (int) (16 * activity.getResources().getDisplayMetrics().density);
+                    d.setBounds(0, 0, size, size);
+                    return d;
+                }
+            }
+            return null;
+        }, null);
     }
 
     public String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
@@ -316,9 +349,17 @@ public class GameActivityHistory {
 
         for (int i = 0; i < suits.length; i++) {
             com.example.bridge.model.Suit suit = suits[i];
-            String color = suit.hexColor;
-            sb.append("<b><font color='").append(color).append("'>")
-                    .append(suit.symbol).append("</font></b>&nbsp;");
+            
+            String suitImageName;
+            switch (suit) {
+                case SPADES: suitImageName = "spades"; break;
+                case HEARTS: suitImageName = "heart"; break;
+                case DIAMONDS: suitImageName = "diamonds"; break;
+                case CLUBS: suitImageName = "clubs"; break;
+                default: suitImageName = "spades";
+            }
+
+            sb.append("<img src='").append(suitImageName).append("'/>&nbsp;");
 
             sb.append("<b>");
             boolean first = true;
