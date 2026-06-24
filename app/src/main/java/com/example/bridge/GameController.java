@@ -84,6 +84,14 @@ public class GameController {
     }
 
     public void restoreCards(Map<String, List<Card>> savedHands) {
+        restoreCardsInternal(savedHands, null);
+    }
+
+    public void restoreCardsWithContract(Map<String, List<Card>> savedHands, Contract contract) {
+        restoreCardsInternal(savedHands, contract);
+    }
+
+    private void restoreCardsInternal(Map<String, List<Card>> savedHands, Contract contract) {
         handler.removeCallbacksAndMessages(null);
         resetTable();
         isAutoPlayMode = false;
@@ -97,7 +105,17 @@ public class GameController {
                 callback.onHandUpdated(player.getName());
             }
         }
-        finishDealing();
+        
+        if (contract != null) {
+            currentContract = contract;
+            callback.onContractDetermined(currentContract);
+            callback.onInitialHandsHtml();
+            trickLeaderName = "West";
+            callback.onVisibleStartBar(true);
+            callback.onTotalScore();
+        } else {
+            finishDealing();
+        }
     }
 
     private void finishDealing() {

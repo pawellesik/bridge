@@ -54,7 +54,7 @@ public class SharedPref {
             game.put("claim", claim);
             game.put("snScore", snScore);
 
-            // Save Initial Hands
+            // Zapisz początkowe ręce (do replayu)
             org.json.JSONObject handsJson = new org.json.JSONObject();
             for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
                 org.json.JSONArray handArray = new org.json.JSONArray();
@@ -65,36 +65,28 @@ public class SharedPref {
             }
             game.put("hands", handsJson);
 
-            // Save Play History (Tricks)
+            // Zapisz historię zagrywek (Tricki)
             org.json.JSONArray tricksArray = new org.json.JSONArray();
             for (Trick trick : playHistory) {
                 org.json.JSONObject trickJson = new org.json.JSONObject();
                 trickJson.put("winner", trick.getWinnerTrick());
                 org.json.JSONObject cardsMap = new org.json.JSONObject();
-                for (Map.Entry<String, Card> entry : trick.getCardsOnTableMap().entrySet()) {
-                    cardsMap.put(entry.getKey(), entry.getValue().getSuit().name() + ":" + entry.getValue().getRank().name());
+                for (Map.Entry<String, Card> e : trick.getCardsOnTableMap().entrySet()) {
+                    cardsMap.put(e.getKey(), e.getValue().getSuit().name() + ":" + e.getValue().getRank().name());
                 }
                 trickJson.put("cards", cardsMap);
                 tricksArray.put(trickJson);
             }
             game.put("playHistory", tricksArray);
 
-            // Limit history to 10 entries
-            if (history.length() >= 10) {
-                int indexToRemove = -1;
-                for (int i = history.length() - 1; i >= 0; i--) {
-                    if (!history.getJSONObject(i).optBoolean("isSaved", false)) {
-                        indexToRemove = i;
-                        break;
-                    }
-                }
-                if (indexToRemove != -1) history.remove(indexToRemove);
-            }
-
-            // Add at the beginning
+            // Limit do 10 wpisów z ochroną wyróżnionych
             org.json.JSONArray newHistory = new org.json.JSONArray();
             newHistory.put(game);
+            
             for (int i = 0; i < history.length(); i++) {
+                if (newHistory.length() >= 10) {
+                    if (!history.getJSONObject(i).optBoolean("isSaved", false)) continue;
+                }
                 newHistory.put(history.get(i));
             }
 

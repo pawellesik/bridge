@@ -99,6 +99,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         sharedPref = new SharedPref(this, gameActivityTop);
         gameHistory = new GameActivityHistory(this, gameController);
 
+        // Always setup RecyclerView before loading any data to prevent NullPointerException
+        setupRecyclerView();
+
         // Check if we are replaying a game from history
         String replayedGameJson = getIntent().getStringExtra("replayedGameJson");
         if (replayedGameJson != null) {
@@ -107,8 +110,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             loadingIndicator.setVisibility(View.VISIBLE);
             findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson), 300);
         } else {
-            setupRecyclerView();
-
             Map<String, List<Card>> savedDeal = sharedPref.loadSavedDeal();
             if (savedDeal != null) {
                 gameController.restoreCards(savedDeal);
@@ -276,6 +277,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void loadGameFromHistory(String json) {
+        System.out.println("plesik: " +json);
         try {
             org.json.JSONObject game = new org.json.JSONObject(json);
             Contract contract = Contract.fromString(game.getString("contract"));
@@ -312,20 +314,28 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
 
-            // Prepare UI
-            loadingIndicator.setVisibility(View.GONE);
-            gameController.setCurrentContract(contract);
-            gameActivityTop.setContract(contract);
-
+            // Inicjalizacja stanu w kontrolerze bez licytacji
+            gameController.restoreCardsWithContract(new LinkedHashMap<>(initialPlayerHands), contract);
+            
             // UI adjustments for Replay mode
+            loadingIndicator.setVisibility(View.GONE);
+            startBar.setVisibility(View.GONE);
+            
+            // Ukrywamy przyciski, których nie chcemy w historii
             View btnSave = findViewById(R.id.btn_save_game);
             if (btnSave != null) btnSave.setVisibility(View.GONE);
+
+            View btnAuto = findViewById(R.id.btn_auto_replay);
+            if (btnAuto != null) btnAuto.setVisibility(View.GONE);
+            
+            // Przycisk "New Deal" zmienia się w "Play Again" (jeśli to MaterialButton)
             if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
                 com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
                 mBtn.setText(R.string.play_again);
-                mBtn.setIconResource(R.drawable.ic_arrow);
+                mBtn.setIconResource(R.drawable.ic_arrow); // Upewnij się, że masz taką ikonę lub użyj innej
             }
 
+            // Pokaż od razu nakładkę z wynikami
             gameHistory.showResults(history, claim, snScoreFromGame);
         } catch (Exception e) {
             e.printStackTrace();
