@@ -6,6 +6,11 @@
     <string name="deal_cards">Deal Cards</string>
     <string name="quick_game">Quick Game</string>
     <string name="single_player">Singleplayer</string>
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="bidding_system">Bidding System</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="more">More</string>
     <string name="create_deal">Create Deal</string>
