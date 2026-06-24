@@ -44,6 +44,8 @@ public class GameActivityTop {
         tvContract = activity.findViewById(R.id.game_contract);
         ivContractSuit = activity.findViewById(R.id.iv_contract_suit);
         contractContainer = activity.findViewById(R.id.game_contract_container);
+
+        updateScores(0, 0);
     }
 
     public void updateTurn(String playerName) {
