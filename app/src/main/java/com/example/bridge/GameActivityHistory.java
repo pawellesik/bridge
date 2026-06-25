@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.bridge.model.Card;
@@ -26,8 +24,8 @@ public class GameActivityHistory {
     private final GameController gameController;
 
     private final View resultsOverlay;
-    private final TableLayout tableHistoryRes;
-    private final TableLayout tableHistoryHeader;
+    private final LinearLayout tableHistoryRes;
+    private final LinearLayout tableHistoryHeader;
     private final Button btnAutoReplay;
     private final TextView tvSimInfo;
 
@@ -250,14 +248,12 @@ public class GameActivityHistory {
     private void displayHistory(List<Trick> history, int claim) {
         if (tableHistoryRes == null || tableHistoryHeader == null) return;
         
-        // Header is now in a separate table, set click listener on its row
-        View headerRow = tableHistoryHeader.getChildAt(0);
-        if (headerRow != null) headerRow.setOnClickListener(v -> {
+        // Header alignment with logic
+        tableHistoryHeader.setOnClickListener(v -> {
             currentSimTrickIndex = 0;
             updateSimTrickUI(false);
         });
 
-        // Clear all rows from the body table
         tableHistoryRes.removeAllViews();
 
         if (history == null) return;
@@ -265,9 +261,9 @@ public class GameActivityHistory {
         for (int i = 0; i < history.size(); i++) {
             final int trickNum = i + 1;
             Trick trick = history.get(i);
-            TableRow row = new TableRow(activity);
             
-            // Dodanie pionowych linii między kolumnami
+            LinearLayout row = new LinearLayout(activity);
+            row.setOrientation(LinearLayout.HORIZONTAL);
             row.setDividerDrawable(androidx.core.content.ContextCompat.getDrawable(activity, R.drawable.history_divider));
             row.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
 
@@ -290,6 +286,10 @@ public class GameActivityHistory {
                 LinearLayout cellLayout = new LinearLayout(activity);
                 cellLayout.setOrientation(LinearLayout.HORIZONTAL);
                 cellLayout.setGravity(Gravity.CENTER);
+                
+                // Use weight=1 to match header exactly
+                LinearLayout.LayoutParams cellParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+                cellLayout.setLayoutParams(cellParams);
 
                 TextView tv = new TextView(activity);
                 ImageView iv = new ImageView(activity);
@@ -320,14 +320,7 @@ public class GameActivityHistory {
                     cellLayout.setBackgroundResource(R.drawable.green_win_in_row);
                 }
 
-                // Dodajemy margines wewnętrzny, aby obramowanie nie było przykrywane przez sąsiednie komórki/linie
                 cellLayout.setPadding(8, 16, 8, 16);
-                
-                TableRow.LayoutParams rowParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f);
-                // Tiny margin to ensure border visibility
-                rowParams.setMargins(1, 1, 1, 1);
-                cellLayout.setLayoutParams(rowParams);
-
                 row.addView(cellLayout);
             }
             tableHistoryRes.addView(row);
@@ -342,9 +335,7 @@ public class GameActivityHistory {
             String countText = activity.getString(claim == 1 ? R.string.claimed_trick_count : R.string.claimed_tricks_count, claim);
             
             android.text.SpannableStringBuilder ssb = new android.text.SpannableStringBuilder(label + countText);
-            // Label in Red
             ssb.setSpan(new android.text.style.ForegroundColorSpan(Color.RED), 0, label.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            // Count in Black
             ssb.setSpan(new android.text.style.ForegroundColorSpan(Color.BLACK), label.length(), ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             
             claimTv.setText(ssb);
