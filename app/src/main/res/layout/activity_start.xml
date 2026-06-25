@@ -287,6 +287,7 @@
                 app:iconGravity="textStart"
                 app:iconPadding="12dp"
                 app:iconSize="20dp"
+                app:iconTint="#FFFFFF"
                 app:strokeColor="#33FFFFFF"
                 app:strokeWidth="1dp" />
 
