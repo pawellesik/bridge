@@ -36,7 +36,7 @@ public class SharedPref {
         this.gameActivity = gameActivity;
     }
 
-    public void addGameToHistory(Contract contract, int snScore, List<Trick> playHistory, int claim, Map<String, List<Card>> hands) {
+    public void addGameToHistory(Contract contract, int snScore, List<Trick> playHistory, int claim, Map<String, List<Card>> hands, int autoSnScore, List<Trick> autoPlayHistory) {
         SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         try {
             String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
@@ -53,6 +53,7 @@ public class SharedPref {
             game.put("isSaved", false);
             game.put("claim", claim);
             game.put("snScore", snScore);
+            game.put("autoSnScore", autoSnScore);
 
             // Zapisz początkowe ręce (do replayu)
             org.json.JSONObject handsJson = new org.json.JSONObject();
@@ -65,26 +66,18 @@ public class SharedPref {
             }
             game.put("hands", handsJson);
 
-            // Zapisz historię zagrywek (Tricki)
-            org.json.JSONArray tricksArray = new org.json.JSONArray();
-            for (Trick trick : playHistory) {
-                org.json.JSONObject trickJson = new org.json.JSONObject();
-                trickJson.put("winner", trick.getWinnerTrick());
-                org.json.JSONObject cardsMap = new org.json.JSONObject();
-                for (Map.Entry<String, Card> e : trick.getCardsOnTableMap().entrySet()) {
-                    cardsMap.put(e.getKey(), e.getValue().getSuit().name() + ":" + e.getValue().getRank().name());
-                }
-                trickJson.put("cards", cardsMap);
-                tricksArray.put(trickJson);
-            }
-            game.put("playHistory", tricksArray);
+            // Zapisz historię zagrywek użytkownika
+            game.put("playHistory", serializeTricks(playHistory));
+
+            // Zapisz historię zagrywek robota (alternatywną)
+            game.put("autoPlayHistory", serializeTricks(autoPlayHistory));
 
             // Limit do 10 wpisów z ochroną wyróżnionych
             org.json.JSONArray newHistory = new org.json.JSONArray();
             newHistory.put(game);
             
             for (int i = 0; i < history.length(); i++) {
-                if (newHistory.length() >= 1000) {
+                if (newHistory.length() >= 10) {
                     if (!history.getJSONObject(i).optBoolean("isSaved", false)) continue;
                 }
                 newHistory.put(history.get(i));
@@ -94,6 +87,22 @@ public class SharedPref {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private org.json.JSONArray serializeTricks(List<Trick> tricks) throws org.json.JSONException {
+        org.json.JSONArray tricksArray = new org.json.JSONArray();
+        if (tricks == null) return tricksArray;
+        for (Trick trick : tricks) {
+            org.json.JSONObject trickJson = new org.json.JSONObject();
+            trickJson.put("winner", trick.getWinnerTrick());
+            org.json.JSONObject cardsMap = new org.json.JSONObject();
+            for (Map.Entry<String, Card> e : trick.getCardsOnTableMap().entrySet()) {
+                cardsMap.put(e.getKey(), e.getValue().getSuit().name() + ":" + e.getValue().getRank().name());
+            }
+            trickJson.put("cards", cardsMap);
+            tricksArray.put(trickJson);
+        }
+        return tricksArray;
     }
 
     public void markLatestGameAsSaved() {

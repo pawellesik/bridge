@@ -74,6 +74,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private SharedPref sharedPref;
     private boolean isReplayingFromHistory = false;
+    private int snScoreFromHistory = 0;
+    private int autoSnScoreFromHistory = 0;
+    private List<Trick> autoPlayHistoryFromHistory = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,10 +265,25 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         if (!isReplayingFromHistory) {
             sharedPref.setScore(contract, snScore);
-            sharedPref.addGameToHistory(contract, snScore, history, claim, initialPlayerHands);
+
+            // Obliczamy optymalną historię robota raz przed zapisem
+            List<Trick> autoPlayHistory = gameController.calculateOptimalHistory(initialPlayerHands, contract);
+            int autoSnScore = 0;
+            for (Trick t : autoPlayHistory) {
+                String winner = t.getWinnerTrick();
+                if ("North".equals(winner) || "South".equals(winner)) autoSnScore++;
+            }
+
+            sharedPref.addGameToHistory(contract, snScore, history, claim, initialPlayerHands, autoSnScore, autoPlayHistory);
 
             View btnSave = findViewById(R.id.btn_save_game);
             if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
+
+            final int finalAutoSnScore = autoSnScore;
+            final List<Trick> finalAutoPlayHistory = autoPlayHistory;
+            findViewById(R.id.main).postDelayed(() -> {
+                gameHistory.showResults(history, claim, snScore, finalAutoSnScore, finalAutoPlayHistory);
+            }, 500);
         } else {
             // Replay mode adjustments
             View btnSave = findViewById(R.id.btn_save_game);
@@ -275,18 +293,19 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 mBtn.setText(R.string.play_again);
                 mBtn.setIconResource(R.drawable.ic_arrow);
             }
-        }
 
-        findViewById(R.id.main).postDelayed(() -> {
-            gameHistory.showResults(history, claim, snScore);
-        }, 500);
+            findViewById(R.id.main).postDelayed(() -> {
+                gameHistory.showResults(history, claim, snScoreFromHistory, autoSnScoreFromHistory, autoPlayHistoryFromHistory);
+            }, 500);
+        }
     }
 
     private void loadGameFromHistory(String json, boolean isInitialUiLoad) {
         try {
             org.json.JSONObject game = new org.json.JSONObject(json);
             Contract contract = Contract.fromString(game.getString("contract"));
-            int snScoreFromGame = game.optInt("snScore", 0);
+            this.snScoreFromHistory = game.optInt("snScore", 0);
+            this.autoSnScoreFromHistory = game.optInt("autoSnScore", 0);
             int claim = game.optInt("claim", 0);
 
             org.json.JSONObject handsJson = game.getJSONObject("hands");
@@ -301,24 +320,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 initialPlayerHands.put(direction, cards);
             }
 
-            List<Trick> history = new ArrayList<>();
-            org.json.JSONArray tricksArray = game.optJSONArray("playHistory");
-            if (tricksArray != null) {
-                for (int i = 0; i < tricksArray.length(); i++) {
-                    org.json.JSONObject trickJson = tricksArray.getJSONObject(i);
-                    Trick trick = new Trick();
-                    trick.setWinnerTrick(trickJson.getString("winner"));
-                    org.json.JSONObject cardsMap = trickJson.getJSONObject("cards");
-                    java.util.Iterator<String> keys = cardsMap.keys();
-                    while (keys.hasNext()) {
-                        String pName = keys.next();
-                        String[] parts = cardsMap.getString(pName).split(":");
-                        trick.addCard(pName, new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
-                    }
-                    history.add(trick);
-                }
-            }
+            List<Trick> history = parseTricks(game.optJSONArray("playHistory"));
+            this.autoPlayHistoryFromHistory = parseTricks(game.optJSONArray("autoPlayHistory"));
 
+            // Restore without bidding to prevent freeze
             gameController.restoreCardsWithContract(new LinkedHashMap<>(initialPlayerHands), contract);
 
             if (isInitialUiLoad) {
@@ -328,13 +333,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 View btnSave = findViewById(R.id.btn_save_game);
                 if (btnSave != null) btnSave.setVisibility(View.GONE);
 
+                View btnAuto = findViewById(R.id.btn_auto_replay);
+                if (btnAuto != null) btnAuto.setVisibility(View.GONE);
+
                 if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
                     com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
                     mBtn.setText(R.string.play_again);
                     mBtn.setIconResource(R.drawable.ic_arrow);
                 }
 
-                gameHistory.showResults(history, claim, snScoreFromGame);
+                gameHistory.showResults(history, claim, snScoreFromHistory, autoSnScoreFromHistory, autoPlayHistoryFromHistory);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -343,6 +351,26 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 gameController.dealCards();
             }
         }
+    }
+
+    private List<Trick> parseTricks(org.json.JSONArray tricksArray) throws org.json.JSONException {
+        List<Trick> tricks = new ArrayList<>();
+        if (tricksArray != null) {
+            for (int i = 0; i < tricksArray.length(); i++) {
+                org.json.JSONObject trickJson = tricksArray.getJSONObject(i);
+                Trick trick = new Trick();
+                trick.setWinnerTrick(trickJson.getString("winner"));
+                org.json.JSONObject cardsMap = trickJson.getJSONObject("cards");
+                java.util.Iterator<String> keys = cardsMap.keys();
+                while (keys.hasNext()) {
+                    String pName = keys.next();
+                    String[] parts = cardsMap.getString(pName).split(":");
+                    trick.addCard(pName, new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
+                }
+                tricks.add(trick);
+            }
+        }
+        return tricks;
     }
 
     @Override

@@ -37,6 +37,7 @@ public class GameActivityHistory {
     private int currentSimTrickIndex;
     private boolean isShowingAutoHistory = false;
     private int userSnScore;
+    private int savedAutoSnScore;
 
     public GameActivityHistory(GameActivity gameActivity, GameController gameController) {
         this.activity = gameActivity;
@@ -65,33 +66,19 @@ public class GameActivityHistory {
         activity.findViewById(R.id.btn_last_trick).setOnClickListener(v -> jumpSimTrick(1));
     }
 
-    public void showResults(List<Trick> history, int claim, int snScore) {
+    public void showResults(List<Trick> history, int claim, int snScore, int autoSnScore, List<Trick> autoHistory) {
         this.playHistoryTrick = history;
         this.simClaimCount = claim;
         this.userSnScore = snScore;
+        this.savedAutoSnScore = autoSnScore;
         this.currentSimTrickIndex = (history != null) ? history.size() : 0;
         this.isShowingAutoHistory = false;
-        this.playAutoHistoryTrick = null;
-
-        // Calculate auto score for initial button state
-        Contract contract = gameController != null ? gameController.getCurrentContract() : new Contract(true);
-        this.playAutoHistoryTrick = gameController != null ? gameController.calculateOptimalHistory(activity.getInitialPlayerHands(), contract) : new ArrayList<>();
-        int autoSnScore = calculateSnScore(playAutoHistoryTrick);
+        this.playAutoHistoryTrick = autoHistory;
 
         setBtnAutoReplayText(true, autoSnScore);
         displayHistory(history, claim);
         updateSimTrickUI(true);
         resultsOverlay.setVisibility(View.VISIBLE);
-    }
-
-    private int calculateSnScore(List<Trick> tricks) {
-        int score = 0;
-        if (tricks == null) return 0;
-        for (Trick t : tricks) {
-            String winner = t.getWinnerTrick();
-            if ("North".equals(winner) || "South".equals(winner)) score++;
-        }
-        return score;
     }
 
     private void toggleAutoReplay() {
@@ -106,8 +93,7 @@ public class GameActivityHistory {
             activeHistory = playAutoHistoryTrick;
             activeClaim = 0;
         } else {
-            int autoSnScore = calculateSnScore(playAutoHistoryTrick);
-            setBtnAutoReplayText(true, autoSnScore);
+            setBtnAutoReplayText(true, savedAutoSnScore);
             activeHistory = playHistoryTrick;
             activeClaim = simClaimCount;
         }
