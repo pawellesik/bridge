@@ -8,16 +8,15 @@
     android:layout_marginVertical="3dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="#2E7D32"
-    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="#16321A"
+    app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
-    app:strokeColor="#33FFFFFF"
+    app:strokeColor="#1AFFFFFF"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_history_item"
         android:padding="8dp">
 
         <!-- Contract Container (Fixed width 64dp) -->

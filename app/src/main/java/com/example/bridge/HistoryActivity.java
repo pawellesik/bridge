@@ -399,8 +399,8 @@ public class HistoryActivity extends AppCompatActivity {
                 boolean isSaved = item.optBoolean("isSaved", false);
                 com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
                 
-                // Constant background for all items
-                card.setCardBackgroundColor(android.graphics.Color.parseColor("#2E7D32"));
+                // Dark Forest card background
+                card.setCardBackgroundColor(android.graphics.Color.parseColor("#16321A"));
                 
                 if (isSaved) {
                     // Yellow/Gold outline for highlighted items
