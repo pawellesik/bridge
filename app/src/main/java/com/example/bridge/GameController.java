@@ -82,19 +82,27 @@ public class GameController {
             player.setCurrentMove(false);
             callback.onHandUpdated(player.getName());
         }
-        finishDealing(true);
+        finishDealing();
         callback.onSaveDeal();
     }
 
     public void restoreCards(Map<String, List<Card>> savedHands) {
-        restoreCardsInternal(savedHands, null, true);
+        restoreCardsInternal(savedHands);
+        finishDealing();
     }
 
     public void restoreCardsWithContract(Map<String, List<Card>> savedHands, Contract contract) {
-        restoreCardsInternal(savedHands, contract, false);
+        restoreCardsInternal(savedHands);
+        currentContract = contract;
+        callback.onContractDetermined(currentContract);
+        callback.onInitialHandsHtml();
+        trickLeaderName = "West";
+        callback.onVisibleStartBar(false);
+        callback.onTotalScore();
+
     }
 
-    private void restoreCardsInternal(Map<String, List<Card>> savedHands, Contract contract, Boolean visibleStartBar) {
+    private void restoreCardsInternal(Map<String, List<Card>> savedHands) {
         handler.removeCallbacksAndMessages(null);
         resetTable();
         isAutoPlayMode = false;
@@ -108,25 +116,15 @@ public class GameController {
                 callback.onHandUpdated(player.getName());
             }
         }
-
-        if (contract != null) {
-            currentContract = contract;
-            callback.onContractDetermined(currentContract);
-            callback.onInitialHandsHtml();
-            trickLeaderName = "West";
-            callback.onVisibleStartBar(true);
-            callback.onTotalScore();
-        }
-        finishDealing(visibleStartBar);
     }
 
-    private void finishDealing(Boolean visibleStartBar) {
+    private void finishDealing() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
         callback.onInitialHandsHtml();
 
         trickLeaderName = "West";
-        callback.onVisibleStartBar(visibleStartBar);
+        callback.onVisibleStartBar(true);
         callback.onTotalScore();
     }
 
