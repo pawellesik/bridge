@@ -43,6 +43,11 @@ public class Player {
         Collections.sort(hand);
     }
 
+    public void setHandDirectly(List<Card> newHand) {
+        hand.clear();
+        hand.addAll(newHand);
+    }
+
     public void resortHand(Suit trumpSuit) {
         final List<Suit> fullCycle = new ArrayList<>();
         fullCycle.add(Suit.SPADES);

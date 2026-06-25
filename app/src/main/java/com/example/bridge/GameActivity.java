@@ -110,9 +110,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             loadingIndicator.setVisibility(View.VISIBLE);
             findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson, true), 300);
         } else {
-            Map<String, List<Card>> savedDeal = sharedPref.loadSavedDeal();
-            if (savedDeal != null) {
-                gameController.restoreCards(savedDeal);
+            SharedPref.SavedState savedState = sharedPref.loadSavedDeal();
+            if (savedState != null) {
+                gameController.restoreCards(savedState.hands, savedState.contract);
             } else {
                 gameController.dealCards();
             }
@@ -487,7 +487,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
     @Override
     public void onSaveDeal() {
-        sharedPref.saveDeal(players);
+        sharedPref.saveDeal(players, gameController.getCurrentContract());
     }
 
     @Override

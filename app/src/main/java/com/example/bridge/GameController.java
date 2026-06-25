@@ -88,20 +88,32 @@ public class GameController {
         callback.onSaveDeal();
     }
 
-    public void restoreCards(Map<String, List<Card>> savedHands) {
+    public void restoreCards(Map<String, List<Card>> savedHands, Contract savedContract) {
         restoreCardsInternal(savedHands);
-        finishDealing();
+        if (savedContract != null) {
+            currentContract = savedContract;
+            callback.onContractDetermined(currentContract);
+            callback.onInitialHandsHtml();
+            trickLeaderName = "West";
+            callback.onVisibleStartBar(true);
+            callback.onTotalScore();
+            
+            for (String playerName : players.keySet()) {
+                callback.onHandUpdated(playerName);
+            }
+        } else {
+            finishDealing();
+        }
     }
 
     public void restoreCardsWithContract(Map<String, List<Card>> savedHands, Contract contract) {
         restoreCardsInternal(savedHands);
         currentContract = contract;
-        
-        // Ensure hands are resorted according to the restored contract
-        Suit trumpSuit = currentContract.isPass() ? null : currentContract.getSuit();
-        for (Player p : players.values()) {
-            p.resortHand(trumpSuit);
-            callback.onHandUpdated(p.getName());
+
+        // Cards are already sorted in saved state, no need to resort!
+        // But we must update the UI to show the restored state.
+        for (String playerName : players.keySet()) {
+            callback.onHandUpdated(playerName);
         }
 
         callback.onContractDetermined(currentContract);
@@ -119,10 +131,9 @@ public class GameController {
         for (Map.Entry<String, List<Card>> entry : savedHands.entrySet()) {
             Player player = players.get(entry.getKey());
             if (player != null) {
-                player.clearHand();
-                player.addCards(entry.getValue());
+                // Use setHandDirectly to preserve the exact order from saved state
+                player.setHandDirectly(entry.getValue());
                 player.setCurrentMove(false);
-                // callback.onHandUpdated(player.getName()); // Notify later
             }
         }
     }

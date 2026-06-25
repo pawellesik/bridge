@@ -116,7 +116,7 @@ public class SharedPref {
         return prefs.getString(KEY_HISTORY, "[]");
     }
 
-    public void saveDeal(Map<String, com.example.bridge.model.Player> players) {
+    public void saveDeal(Map<String, com.example.bridge.model.Player> players, Contract contract) {
         SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         for (Map.Entry<String, com.example.bridge.model.Player> entry : players.entrySet()) {
@@ -126,11 +126,28 @@ public class SharedPref {
             }
             editor.putString("hand_" + entry.getKey(), sb.toString());
         }
+
+        if (contract != null) {
+            editor.putInt("saved_contract_level", contract.getLevel());
+            editor.putString("saved_contract_suit", contract.getSuit() != null ? contract.getSuit().name() : "NT");
+            editor.putBoolean("saved_contract_pass", contract.isPass());
+        }
+
         editor.putBoolean(KEY_HAS_SAVED_DEAL, true);
         editor.apply();
     }
 
-    public Map<String, List<com.example.bridge.model.Card>> loadSavedDeal() {
+    public static class SavedState {
+        public final Map<String, List<Card>> hands;
+        public final Contract contract;
+
+        public SavedState(Map<String, List<Card>> hands, Contract contract) {
+            this.hands = hands;
+            this.contract = contract;
+        }
+    }
+
+    public SavedState loadSavedDeal() {
         SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         if (!prefs.getBoolean(KEY_HAS_SAVED_DEAL, false)) return null;
 
@@ -150,7 +167,20 @@ public class SharedPref {
             }
             hands.put(dir, cards);
         }
-        return hands;
+
+        Contract contract = null;
+        if (prefs.contains("saved_contract_level")) {
+            if (prefs.getBoolean("saved_contract_pass", false)) {
+                contract = new Contract(true);
+            } else {
+                int level = prefs.getInt("saved_contract_level", 1);
+                String suitStr = prefs.getString("saved_contract_suit", "NT");
+                Suit suit = suitStr.equals("NT") ? null : Suit.valueOf(suitStr);
+                contract = new Contract(level, suit);
+            }
+        }
+
+        return new SavedState(hands, contract);
     }
 
     public void clearSavedDeal() {
