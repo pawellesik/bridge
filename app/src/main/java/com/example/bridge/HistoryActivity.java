@@ -405,17 +405,16 @@ public class HistoryActivity extends AppCompatActivity {
                 if (isSaved) {
                     // Yellow/Gold outline for highlighted items
                     card.setStrokeColor(android.graphics.Color.parseColor("#FFD700"));
-                    card.setStrokeWidth(4);
-                    // Yellow diskette icon
+                    card.setStrokeWidth(2);
+                    // Yellow star icon
                     holder.btnToggleSave.setImageResource(R.drawable.ic_star);
                     holder.btnToggleSave.setColorFilter(android.graphics.Color.parseColor("#FFD700"));
                 } else {
                     // Subtle white outline for normal items
                     card.setStrokeColor(android.graphics.Color.parseColor("#33FFFFFF"));
-                    card.setStrokeWidth(2);
-                    // White diskette icon
+                    card.setStrokeWidth(1);
+                    // White star icon
                     holder.btnToggleSave.setImageResource(R.drawable.ic_star);
-                    holder.btnToggleSave.setColorFilter(null); // Clear filter to use default white/tint
                     holder.btnToggleSave.setColorFilter(android.graphics.Color.WHITE);
                 }
                 
