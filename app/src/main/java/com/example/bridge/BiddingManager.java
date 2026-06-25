@@ -34,6 +34,7 @@ public class BiddingManager {
             swapNorthSouthIfSouthHaveMoreHpc();
         }
 
+        // Resort hands AFTER potential swaps, because addCards inside swaps resets sorting to Natural
         sortHandsByContract(contractColorStr);
 
         int possibleTricks = simulateMaxTricks(contractColorStr);
@@ -54,8 +55,10 @@ public class BiddingManager {
             contractCount = 6;
         }
 
-        callback.onHandUpdated("North");
-        callback.onHandUpdated("South");
+        // Notify all players that their hands might have changed/resorted
+        for (String playerName : players.keySet()) {
+            callback.onHandUpdated(playerName);
+        }
 
         Suit contractSuit = null;
         if (!contractColorStr.equals("NT")) {

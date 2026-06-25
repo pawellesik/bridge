@@ -80,7 +80,9 @@ public class GameController {
             player.clearHand();
             player.addCards(deck.deal(13));
             player.setCurrentMove(false);
-            callback.onHandUpdated(player.getName());
+            // We'll notify later after contract is determined to avoid double-refresh/flicker
+            // and ensure correct sorting from the start if possible.
+            // callback.onHandUpdated(player.getName());
         }
         finishDealing();
         callback.onSaveDeal();
@@ -94,12 +96,19 @@ public class GameController {
     public void restoreCardsWithContract(Map<String, List<Card>> savedHands, Contract contract) {
         restoreCardsInternal(savedHands);
         currentContract = contract;
+        
+        // Ensure hands are resorted according to the restored contract
+        Suit trumpSuit = currentContract.isPass() ? null : currentContract.getSuit();
+        for (Player p : players.values()) {
+            p.resortHand(trumpSuit);
+            callback.onHandUpdated(p.getName());
+        }
+
         callback.onContractDetermined(currentContract);
         callback.onInitialHandsHtml();
         trickLeaderName = "West";
         callback.onVisibleStartBar(false);
         callback.onTotalScore();
-
     }
 
     private void restoreCardsInternal(Map<String, List<Card>> savedHands) {
@@ -113,7 +122,7 @@ public class GameController {
                 player.clearHand();
                 player.addCards(entry.getValue());
                 player.setCurrentMove(false);
-                callback.onHandUpdated(player.getName());
+                // callback.onHandUpdated(player.getName()); // Notify later
             }
         }
     }
