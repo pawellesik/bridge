@@ -380,20 +380,11 @@ public class HistoryActivity extends AppCompatActivity {
                 }
 
                 if (failed) {
-                    SpannableStringBuilder ssb = new SpannableStringBuilder(fullResultText);
-                    int colonIndex = fullResultText.indexOf(":");
-                    if (colonIndex != -1) {
-                        // Label part - White
-                        ssb.setSpan(new ForegroundColorSpan(0xFFFFFFFF), 0, colonIndex + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        // Number part - Grey
-                        ssb.setSpan(new ForegroundColorSpan(0xFFBDBDBD), colonIndex + 1, fullResultText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    } else {
-                        ssb.setSpan(new ForegroundColorSpan(0xFFBDBDBD), 0, fullResultText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
-                    holder.tvResult.setText(ssb);
+                    holder.tvResult.setText(fullResultText);
+                    holder.tvResult.setTextColor(android.graphics.Color.parseColor("#BDBDBD")); // Grey for lost
                 } else {
                     holder.tvResult.setText(fullResultText);
-                    holder.tvResult.setTextColor(0xFFFFFFFF);
+                    holder.tvResult.setTextColor(android.graphics.Color.parseColor("#FFD700")); // Yellow for won
                 }
 
                 boolean isSaved = item.optBoolean("isSaved", false);
