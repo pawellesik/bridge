@@ -4,247 +4,349 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B5E20"
-    tools:context=".StartActivity">
+    android:background="#081009">
 
-    <!-- Language Container at top-right -->
+    <!-- Top Bar with Language -->
     <LinearLayout
-        android:id="@+id/lang_container"
-        android:layout_width="wrap_content"
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="end"
+        android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <TextView
             android:id="@+id/btn_lang_en"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:padding="0dp"
-            android:text="@string/lang_en"
-            android:textColor="@android:color/white"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_settings_icon"
+            android:gravity="center"
+            android:text="EN"
+            android:textColor="#FFFFFF"
             android:textSize="12sp"
-            app:strokeColor="@android:color/white" />
+            android:textStyle="bold" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_lang_pl"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginStart="8dp"
-            android:padding="0dp"
-            android:text="@string/lang_pl"
-            android:textColor="@android:color/white"
+            android:background="@drawable/bg_settings_icon"
+            android:gravity="center"
+            android:text="PL"
+            android:textColor="#FFFFFF"
             android:textSize="12sp"
-            app:strokeColor="@android:color/white" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:text="@string/app_name"
-        android:textColor="@android:color/white"
-        android:textSize="56sp"
+        android:textColor="#FFFFFF"
+        android:textSize="64sp"
         android:textStyle="bold"
+        android:letterSpacing="-0.02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/top_bar" />
 
-    <LinearLayout
-        android:id="@+id/menu_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
+    <ScrollView
+        android:id="@+id/menu_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_text">
+        app:layout_constraintTop_toBottomOf="@id/title_text">
 
-        <!-- Quick Game -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_start"
-            android:layout_width="210dp"
-            android:layout_height="54dp"
-            android:layout_marginVertical="6dp"
-            android:text="@string/quick_game"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_green_button"
-            app:backgroundTint="@null"
-            app:elevation="4dp"
-            app:icon="@drawable/ic_arrow"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="#FFFFFF"
-            app:iconTintMode="src_in" />
-
-        <!-- Single -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_single"
-            android:layout_width="210dp"
-            android:layout_height="54dp"
-            android:layout_marginVertical="6dp"
-            android:text="@string/single_player"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_green_button"
-            app:backgroundTint="@null"
-            app:elevation="4dp"
-            app:icon="@drawable/ic_singleplayer"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="#FFFFFF"
-            app:iconTintMode="src_in" />
-
-        <!-- Multiplayer -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_multiplayer"
-            android:layout_width="210dp"
-            android:layout_height="54dp"
-            android:layout_marginVertical="6dp"
-            android:text="@string/multiplayer"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_green_button"
-            app:backgroundTint="@null"
-            app:elevation="4dp"
-            app:icon="@drawable/ic_multiplayer"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="#FFFFFF"
-            app:iconTintMode="src_in" />
-
-        <!-- History -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_history"
-            android:layout_width="210dp"
-            android:layout_height="54dp"
-            android:layout_marginVertical="6dp"
-            android:text="@string/history_games"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_green_button"
-            app:backgroundTint="@null"
-            app:elevation="4dp"
-            app:icon="@drawable/ic_history"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="#FFFFFF"
-            app:iconTintMode="src_in" />
-
-        <!-- More -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_more"
-            android:layout_width="210dp"
-            android:layout_height="54dp"
-            android:layout_marginVertical="6dp"
-            android:text="@string/more"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_blue_button"
-            app:backgroundTint="@null"
-            app:elevation="4dp"
-            app:icon="@drawable/ic_more"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="#FFFFFF"
-            app:iconTintMode="src_in" />
-
-        <!-- Hidden container for More options -->
         <LinearLayout
-            android:id="@+id/more_options_container"
-            android:layout_width="wrap_content"
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:gravity="center">
+            android:padding="20dp"
+            android:gravity="center_horizontal">
 
-            <!-- Create Deal -->
+            <!-- QUICK GAME CARD -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_start_card"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:id="@+id/icon_bg_1"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_settings_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow"
+                        app:tint="#FFFFFF" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/quick_game"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/icon_bg_1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zagraj szybkie rozdanie z AI"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- SINGLEPLAYER CARD -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_single"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_start_card"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:id="@+id/icon_bg_2"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_settings_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_difficulty"
+                        app:tint="#FFFFFF" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/single_player"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/icon_bg_2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trening i nauka systemów licytacji"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- MULTIPLAYER CARD -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_multiplayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_start_card"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:id="@+id/icon_bg_multi"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_settings_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_menu_share"
+                        app:tint="#FFFFFF"
+                        android:contentDescription="@string/multiplayer" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_multi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/multiplayer"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/icon_bg_multi"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rywalizacja z innymi graczami"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_multi"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_multi" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- HISTORY CARD -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_start_card"
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:id="@+id/icon_bg_3"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_settings_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_download"
+                        app:tint="#FFFFFF" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/history_games"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/icon_bg_3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Przeglądaj zapisane rozdania"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- MORE BUTTON -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_create_deal"
-                android:layout_width="210dp"
-                android:layout_height="54dp"
-                android:layout_marginVertical="6dp"
-                android:text="@string/create_deal"
+                android:id="@+id/btn_more"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/more"
                 android:textAllCaps="false"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/bg_yellow_button"
-                app:backgroundTint="@null"
-                app:elevation="4dp"
-                app:icon="@drawable/ic_add"
+                app:backgroundTint="#1AFFFFFF"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_more_vert"
                 app:iconGravity="textStart"
-                app:iconPadding="8dp"
-                app:iconTint="#FFFFFF"
-                app:iconTintMode="src_in" />
+                app:iconPadding="12dp"
+                app:iconSize="20dp"
+                app:strokeColor="#33FFFFFF"
+                app:strokeWidth="1dp" />
 
-            <!-- Settings -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_settings"
-                android:layout_width="210dp"
-                android:layout_height="54dp"
-                android:layout_marginVertical="6dp"
-                android:text="@string/settings"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/bg_yellow_button"
-                app:backgroundTint="@null"
-                app:elevation="4dp"
-                app:icon="@drawable/ic_settings"
-                app:iconGravity="textStart"
-                app:iconPadding="8dp"
-                app:iconTint="#FFFFFF"
-                app:iconTintMode="src_in" />
+            <!-- MORE OPTIONS CONTAINER -->
+            <LinearLayout
+                android:id="@+id/more_options_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="12dp">
 
-            <!-- About -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_about"
-                android:layout_width="210dp"
-                android:layout_height="54dp"
-                android:layout_marginVertical="6dp"
-                android:text="@string/about"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/bg_yellow_button"
-                app:backgroundTint="@null"
-                app:elevation="4dp"
-                app:icon="@drawable/ic_about"
-                app:iconGravity="textStart"
-                app:iconPadding="8dp"
-                app:iconTint="#FFFFFF"
-                app:iconTintMode="src_in" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_create_deal"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/create_deal"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#F57C00"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_add"
+                    app:iconSize="18dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/settings"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#2E7D32"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_palette"
+                    app:iconSize="18dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="@string/about"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="#D97706"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/ic_menu_info_details"
+                    app:iconSize="18dp" />
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/loading_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:visibility="gone"
-        android:indeterminateTint="@android:color/white"
+        android:indeterminateTint="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

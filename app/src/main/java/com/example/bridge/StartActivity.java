@@ -39,7 +39,7 @@ public class StartActivity extends AppCompatActivity {
 
         View loadingIndicator = findViewById(R.id.loading_indicator);
         View menuContainer = findViewById(R.id.menu_container);
-        Button btnStart = findViewById(R.id.btn_start);
+        View btnStart = findViewById(R.id.btn_start);
         
         btnStart.setOnClickListener(v -> {
             if (loadingIndicator != null) loadingIndicator.setVisibility(View.VISIBLE);
