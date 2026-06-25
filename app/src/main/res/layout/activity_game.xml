@@ -403,10 +403,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_hand_north">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_start"
             android:layout_width="220dp"
-            android:layout_height="60dp"
+            android:layout_height="66dp"
             android:layout_margin="4dp"
             android:alpha="0.95"
             android:text="@string/Start"
@@ -416,10 +416,12 @@
             android:textColor="@android:color/white"
             android:background="@drawable/bg_green_button"
             app:backgroundTint="@null"
-            app:elevation="12dp"
+            app:cornerRadius="12dp"
+            app:elevation="8dp"
             app:icon="@drawable/ic_arrow"
             app:iconGravity="textStart"
             app:iconPadding="12dp"
+            app:iconSize="28dp"
             app:iconTint="@android:color/white"
             app:layout_constraintBottom_toTopOf="@+id/btn_deal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -430,7 +432,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_deal"
             android:layout_width="220dp"
-            android:layout_height="60dp"
+            android:layout_height="66dp"
             android:layout_margin="4dp"
             android:alpha="0.95"
             android:text="@string/deal"
@@ -440,16 +442,17 @@
             android:textColor="@android:color/white"
             android:background="@drawable/bg_blue_button"
             app:backgroundTint="@null"
-            app:cornerRadius="30dp"
+            app:cornerRadius="12dp"
             app:elevation="8dp"
             app:icon="@drawable/ic_cards"
             app:iconGravity="textStart"
             app:iconPadding="12dp"
+            app:iconSize="28dp"
             app:iconTint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_start"/>
+            app:layout_constraintTop_toBottomOf="@+id/btn_start" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
