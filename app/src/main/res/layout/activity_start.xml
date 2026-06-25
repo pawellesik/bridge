@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#081009">
+    android:background="#122615">
 
     <!-- Top Bar with Language -->
     <LinearLayout
@@ -299,43 +299,156 @@
                 android:visibility="gone"
                 android:layout_marginTop="12dp">
 
-                <com.google.android.material.button.MaterialButton
+                <!-- CREATE DEAL CARD -->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btn_create_deal"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/create_deal"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    app:backgroundTint="#F57C00"
-                    app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_add"
-                    app:iconSize="18dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_start_card"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:focusable="true">
 
-                <com.google.android.material.button.MaterialButton
+                    <FrameLayout
+                        android:id="@+id/icon_bg_create"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_settings_icon"
+                        android:backgroundTint="#F57C00"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_add"
+                            app:tint="#FFFFFF" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_create"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/create_deal"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/icon_bg_create"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stwórz własne rozdanie kart"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_title_create"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_create" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- SETTINGS CARD -->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btn_settings"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/settings"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    app:backgroundTint="#2E7D32"
-                    app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_palette"
-                    app:iconSize="18dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_start_card"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:focusable="true">
 
-                <com.google.android.material.button.MaterialButton
+                    <FrameLayout
+                        android:id="@+id/icon_bg_settings"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_settings_icon"
+                        android:backgroundTint="#1976D2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_settings"
+                            app:tint="#FFFFFF" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_settings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/settings"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/icon_bg_settings"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dostosuj parametry gry"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_title_settings"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_settings" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- ABOUT CARD -->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btn_about"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:text="@string/about"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    app:backgroundTint="#D97706"
-                    app:cornerRadius="12dp"
-                    app:icon="@android:drawable/ic_menu_info_details"
-                    app:iconSize="18dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_start_card"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:id="@+id/icon_bg_about"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_settings_icon"
+                        android:backgroundTint="#D97706"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_info_details"
+                            app:tint="#FFFFFF" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_about"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/about"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/icon_bg_about"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Informacje o aplikacji"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_title_about"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_about" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
         </LinearLayout>
