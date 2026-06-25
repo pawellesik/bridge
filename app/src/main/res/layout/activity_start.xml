@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B5E20">
+    android:background="#0F2111">
 
     <!-- Top Bar with Language -->
     <LinearLayout
