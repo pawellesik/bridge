@@ -105,6 +105,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         // Always setup RecyclerView before loading any data to prevent NullPointerException
         setupRecyclerView();
 
+        View bottomNav = findViewById(R.id.bottom_navigation);
+        if (bottomNav != null) {
+            ((com.google.android.material.bottomnavigation.BottomNavigationView) bottomNav).setSelectedItemId(R.id.nav_game);
+        }
+
         // Check if we are replaying a game from history
         String replayedGameJson = getIntent().getStringExtra("replayedGameJson");
         if (replayedGameJson != null) {
@@ -380,7 +385,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onVisibleStartBar(Boolean isVisible) {
+        View bottomNav = findViewById(R.id.bottom_navigation);
         if (isVisible) {
+            if (bottomNav != null) bottomNav.setVisibility(View.VISIBLE);
             startBar.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.GONE);
 
@@ -414,6 +421,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
         } else {
+            if (bottomNav != null) bottomNav.setVisibility(View.GONE);
             startBar.setVisibility(View.GONE);
         }
     }
@@ -437,14 +445,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            // No bottom padding for the main container to allow nav background to flow down
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
-        
+
         View bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
             ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                // Nav icons are pushed up above system buttons
                 v.setPadding(0, 0, 0, systemBars.bottom);
                 return insets;
             });
