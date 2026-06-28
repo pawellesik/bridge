@@ -83,4 +83,8 @@
     <string name="filter_result_lost">Tylko przegrane</string>
     <string name="lang_en">EN</string>
     <string name="lang_pl">PL</string>
+    <string name="nav_game">Gra</string>
+    <string name="nav_history">Historia</string>
+    <string name="nav_statistic">Statystyki</string>
+    <string name="nav_settings">Ustawienia</string>
 </resources>

@@ -57,10 +57,6 @@ public class StartActivity extends AppCompatActivity {
             // Multiplayer logic
         });
 
-        findViewById(R.id.btn_history).setOnClickListener(v -> {
-            Intent intent = new Intent(StartActivity.this, HistoryActivity.class);
-            startActivity(intent);
-        });
 
         View moreContainer = findViewById(R.id.more_options_container);
         findViewById(R.id.btn_more).setOnClickListener(v -> {

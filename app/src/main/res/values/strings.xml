@@ -83,4 +83,8 @@
     <string name="filter_result_lost">Lost Only</string>
     <string name="lang_en">EN</string>
     <string name="lang_pl">PL</string>
+    <string name="nav_game">Game</string>
+    <string name="nav_history">History</string>
+    <string name="nav_statistic">Statistic</string>
+    <string name="nav_settings">Settings</string>
 </resources>
