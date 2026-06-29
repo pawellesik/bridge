@@ -3,7 +3,9 @@ package com.example.bridge.ui.game;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.bridge.BiddingManager;
 import com.example.bridge.DdsSolver;
+import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Deck;
@@ -13,6 +15,7 @@ import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +28,6 @@ public class GameController {
 
         void onTableCleared(Map<String, Card> trickCards);
 
-        void onSaveDeal();
-
-        void onInitialHandsHtmlClear();
-
         void onClearLastCards(List<Card> cardsOnTable);
 
         void onContractDetermined(Contract contract);
@@ -40,11 +39,6 @@ public class GameController {
         void onScoreUpdated(int snScore, int weScore);
 
         void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim);
-
-        void onInitialHandsHtml();
-
-        void onTotalScore();
-
         void onClaimButtonVisibilityChanged(boolean visible);
     }
 
@@ -61,14 +55,23 @@ public class GameController {
     private int snScore = 0;
     private int weScore = 0;
     private boolean isAutoPlayMode = false;
+    private final Map<String, List<Card>> initialPlayerHands = new LinkedHashMap<>();
 
-    public GameController(Map<String, Player> players, GameCallback callback) {
-        this.players = players;
+    private SharedPref sharedPref;
+
+    public GameController(GameCallback callback, Map<String, Player> players, SharedPref sharedPref) {
         this.callback = callback;
+        this.players = players;
+        this.sharedPref = sharedPref;
+
         this.deck = new Deck();
         this.ddsSolver = new DdsSolver();
         this.ddsSolver.initDds();
         this.biddingManager = new BiddingManager(players, callback, ddsSolver);
+    }
+
+    public Map<String, Player> getPlayers() {
+        return this.players;
     }
 
     public void dealCards() {
@@ -83,10 +86,14 @@ public class GameController {
             player.setCurrentMove(false);
             // We'll notify later after contract is determined to avoid double-refresh/flicker
             // and ensure correct sorting from the start if possible.
-            // callback.onHandUpdated(player.getName());
+            //callback.onHandUpdated(player.getName());
         }
         finishDealing();
-        callback.onSaveDeal();
+        //sharedPref.saveDeal(players, currentContract);
+    }
+
+    public Map<String, List<Card>> getInitialPlayerHands() {
+        return initialPlayerHands;
     }
 
     public void restoreCards(Map<String, List<Card>> savedHands, Contract savedContract) {
@@ -94,16 +101,23 @@ public class GameController {
         if (savedContract != null) {
             currentContract = savedContract;
             callback.onContractDetermined(currentContract);
-            callback.onInitialHandsHtml();
+            initialHandsHtml();
             trickLeaderName = "West";
             callback.onVisibleStartBar(true);
-            callback.onTotalScore();
-            
+            //callback.onTotalScore();
+
             for (String playerName : players.keySet()) {
                 callback.onHandUpdated(playerName);
             }
         } else {
             finishDealing();
+        }
+    }
+
+    private void initialHandsHtml(){
+        this.initialPlayerHands.clear();
+        for (Player player : players.values()) {
+            this.initialPlayerHands.put(player.getName(), new ArrayList<>(player.getHand()));
         }
     }
 
@@ -118,10 +132,10 @@ public class GameController {
         }
 
         callback.onContractDetermined(currentContract);
-        callback.onInitialHandsHtml();
+        initialHandsHtml();
         trickLeaderName = "West";
         callback.onVisibleStartBar(false);
-        callback.onTotalScore();
+        //callback.onTotalScore();
     }
 
     private void restoreCardsInternal(Map<String, List<Card>> savedHands) {
@@ -142,11 +156,11 @@ public class GameController {
     private void finishDealing() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
-        callback.onInitialHandsHtml();
+        this.initialPlayerHands.clear();
 
         trickLeaderName = "West";
         callback.onVisibleStartBar(true);
-        callback.onTotalScore();
+        //callback.onTotalScore();
     }
 
     public void startGame() {
@@ -161,7 +175,7 @@ public class GameController {
         currentTrick = new Trick();
         playHistoryTrick = new ArrayList<>();
 
-        callback.onInitialHandsHtmlClear();
+        this.initialPlayerHands.clear();
         callback.onTableCleared(currentTrick.getCardsOnTableMap());
         callback.onScoreUpdated(snScore, weScore);
         callback.onClaimButtonVisibilityChanged(false);

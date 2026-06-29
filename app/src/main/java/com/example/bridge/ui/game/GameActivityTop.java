@@ -16,8 +16,6 @@ public class GameActivityTop {
 
     private final View tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private final TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
-    private final TextView nameNorth, nameSouth, nameEast, nameWest;
-
     private final TextView tvContract;
     private final ImageView ivContractSuit;
     private final View contractContainer;
@@ -29,11 +27,6 @@ public class GameActivityTop {
         tvLastSouth = activity.findViewById(R.id.s_last_card);
         tvLastEast = activity.findViewById(R.id.e_last_card);
         tvLastWest = activity.findViewById(R.id.w_last_card);
-
-        nameNorth = activity.findViewById(R.id.name_north);
-        nameSouth = activity.findViewById(R.id.name_south);
-        nameEast = activity.findViewById(R.id.name_east);
-        nameWest = activity.findViewById(R.id.name_west);
 
         tvScoreSN = activity.findViewById(R.id.sn_score);
         tvScoreWE = activity.findViewById(R.id.we_score);
@@ -49,21 +42,7 @@ public class GameActivityTop {
         updateScores(0, 0);
     }
 
-    public void updateTurn(String playerName) {
-        nameNorth.setBackgroundResource(0);
-        nameSouth.setBackgroundResource(0);
-        nameEast.setBackgroundResource(0);
-        nameWest.setBackgroundResource(0);
 
-        if (playerName == null) return;
-
-        switch (playerName) {
-            case "North": nameNorth.setBackgroundResource(R.drawable.transparent_white_frame); break;
-            case "South": nameSouth.setBackgroundResource(R.drawable.transparent_white_frame); break;
-            case "East": nameEast.setBackgroundResource(R.drawable.transparent_white_frame); break;
-            case "West": nameWest.setBackgroundResource(R.drawable.transparent_white_frame); break;
-        }
-    }
 
     public void setContract(Contract contract) {
         if (contractContainer != null)
@@ -73,6 +52,7 @@ public class GameActivityTop {
             tvContract.setText(activity.getString(R.string.contract_pass));
             tvContract.setTextColor(Color.WHITE);
             if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
+            contractContainer.setVisibility(View.VISIBLE);
             return;
         }
 

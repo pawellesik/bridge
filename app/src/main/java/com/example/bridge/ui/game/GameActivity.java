@@ -48,12 +48,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LocaleHelper.onAttach(newBase));
     }
-
     public static final Card GHOST_CARD = new Card(null, null);
-
-    private Map<String, Player> players;
     private GameController gameController;
-
     private CardAdapter southAdapter;
     private CardAdapter northAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
@@ -64,33 +60,18 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
 
-    private final Map<String, List<Card>> initialPlayerHands = new LinkedHashMap<>();
+
     private View startBar;
     private View btnClaim;
     private View loadingIndicator;
-    private boolean isProcessingMove = false;
-
     private View btnNewDeal;
+    private boolean isProcessingMove = false;
     private Button btn_deal;
-
-    private int lastSnScore = 0;
-    private int lastWeScore = 0;
-
-    private GameActivityHistory gameHistory;
     private GameActivityTop gameActivityTop;
-    private View historyOverlay;
-    private HistoryListAdapter historyOverlayAdapter;
-    private List<org.json.JSONObject> filteredHistoryList = new ArrayList<>();
-    private List<org.json.JSONObject> fullHistoryList = new ArrayList<>();
-    private TextView tvEmptyHistory;
-    private android.widget.CheckBox cbOnlySavedHistory;
-    private android.widget.Spinner spinnerLevelHistory, spinnerSuitHistory, spinnerResultHistory;
-
     private SharedPref sharedPref;
-    private boolean isReplayingFromHistory = false;
-    private int snScoreFromHistory = 0;
-    private int autoSnScoreFromHistory = 0;
-    private List<Trick> autoPlayHistoryFromHistory = null;
+    private View historyOverlay;
+    private TextView nameNorth, nameSouth, nameEast, nameWest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +85,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerWest = findViewById(R.id.container_played_west);
         playedCardContainerEast = findViewById(R.id.container_played_east);
 
+        nameNorth = findViewById(R.id.name_north);
+        nameSouth = findViewById(R.id.name_south);
+        nameEast = findViewById(R.id.name_east);
+        nameWest = findViewById(R.id.name_west);
+
         startBar = findViewById(R.id.start_bar);
         btn_deal = findViewById(R.id.btn_deal);
         btnClaim = findViewById(R.id.btn_claim);
@@ -111,10 +97,22 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         btnNewDeal = findViewById(R.id.btn_new_deal);
 
-        initGame();
+
+
         gameActivityTop = new GameActivityTop(this);
         sharedPref = new SharedPref(this, gameActivityTop);
-        gameHistory = new GameActivityHistory(this, gameController);
+
+        Map<String, Player> players = new LinkedHashMap<>();
+        players.put("North", new Player("North", playedCardContainerNorth));
+        players.put("East", new Player("East", playedCardContainerEast));
+        players.put("South", new Player("South", playedCardContainerSouth));
+        players.put("West", new Player("West", playedCardContainerWest));
+        gameController = new GameController(this, players, sharedPref);
+
+
+
+        //gameHistory = new GameActivityHistory(this, gameController, gameActivityTop);
+
         historyOverlay = findViewById(R.id.history_overlay);
 
         // Always setup RecyclerView before loading any data to prevent NullPointerException
@@ -133,8 +131,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 } else if (itemId == R.id.nav_history) {
                     historyOverlay.setVisibility(View.VISIBLE);
                     bottomNav.setVisibility(View.VISIBLE);
-                    bottomNav.bringToFront(); // Force it to the front
-                    //refreshHistoryList();
                     return true;
                 } else if (itemId == R.id.nav_settings) {
                     startActivity(new Intent(this, SettingsActivity.class));
@@ -144,35 +140,34 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             });
         }
 
-        // Check if we are replaying a game from history
-        String replayedGameJson = getIntent().getStringExtra("replayedGameJson");
-        if (replayedGameJson != null) {
-            isReplayingFromHistory = true;
-            startBar.setVisibility(View.GONE);
-            loadingIndicator.setVisibility(View.VISIBLE);
-            findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson, true), 300);
-        } else {
-            SharedPref.SavedState savedState = sharedPref.loadSavedDeal();
-            if (savedState != null) {
-                gameController.restoreCards(savedState.hands, savedState.contract);
-            } else {
+        //String replayedGameJson = getIntent().getStringExtra("replayedGameJson");
+        //if (replayedGameJson != null) {
+           // isReplayingFromHistory = true;
+          //  startBar.setVisibility(View.GONE);
+          //  loadingIndicator.setVisibility(View.VISIBLE);
+         //   findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson, true), 300);
+       // } else {
+          //  SharedPref.SavedState savedState = sharedPref.loadSavedDeal();
+           // if (savedState != null) {
+             //   gameController.restoreCards(savedState.hands, savedState.contract);
+            //} else {
                 gameController.dealCards();
-            }
-        }
+           // }
+       // }
 
         btnNewDeal.setOnClickListener(v -> {
             gameActivityTop.hideContract();
             gameController.resetTable();
-            gameHistory.hide();
+            //gameHistory.hide();
 
-            if (isReplayingFromHistory) {
-                loadGameFromHistory(replayedGameJson, false);
+         //   if (isReplayingFromHistory) {
+              //  loadGameFromHistory(replayedGameJson, false);
                 if (southAdapter != null) southAdapter.setCardsEnabled(true);
                 if (northAdapter != null) northAdapter.setCardsEnabled(true);
                 v.post(() -> {
                     gameController.startGame();
                 });
-            } else {
+           // } else {
                 loadingIndicator.setVisibility(View.VISIBLE);
                 setTotalScore(sharedPref.getPrefTotalScore());
                 setupRecyclerView();
@@ -180,8 +175,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 v.post(() -> {
                     gameController.dealCards();
                 });
-                onSaveDeal();
-            }
+                //onSaveDeal();
+           // }
         });
 
         /*findViewById(R.id.btn_save_game).setOnClickListener(v -> {
@@ -204,7 +199,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             loadingIndicator.setVisibility(View.VISIBLE);
             sharedPref.incrementGamesPlayed();
             sharedPref.clearSavedDeal(); // Clear the deal once the game starts
-            
+
             if (southAdapter != null) southAdapter.setCardsEnabled(true);
             if (northAdapter != null) northAdapter.setCardsEnabled(true);
 
@@ -232,10 +227,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     return;
                 }
 
-                if (gameHistory.isVisible()) {
-                    gameHistory.hide();
-                    return;
-                }
+                //if (gameHistory.isVisible()) {
+                //    gameHistory.hide();
+                //    return;
+                //}
 
                 if (startBar != null && startBar.getVisibility() == View.VISIBLE) {
                     finish();
@@ -271,25 +266,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 .show();
     }
 
-    public Map<String, List<Card>> getInitialPlayerHands() {
-        return initialPlayerHands;
-    }
 
-    public void updateSimulationScores(int sn, int we) {
-        gameActivityTop.updateScores(sn, we);
-    }
 
-    public void showPlayedCardInSim(Card card, String playerName) {
+    /*public void showPlayedCardInSim(Card card, String playerName) {
         Player p = players.get(playerName);
         if (p != null) {
             showPlayedCard(card, p.getPlayedCardContainer());
         }
-    }
-
-    @Override
-    public void onTotalScore() {
-        setTotalScore(sharedPref.getPrefTotalScore());
-    }
+    }*/
 
     public void setTotalScore(int totalScore, int changeScore) {
         gameActivityTop.setTotalScore(totalScore, changeScore);
@@ -308,31 +292,28 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onScoreUpdated(int snScore, int weScore) {
-        this.lastSnScore = snScore;
-        this.lastWeScore = weScore;
         gameActivityTop.updateScores(snScore, weScore);
     }
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
-        this.lastSnScore = snScore;
-        this.lastWeScore = weScore;
-        
+        gameActivityTop.updateScores(snScore, weScore);
+
         if (southAdapter != null) southAdapter.setCardsEnabled(false);
         if (northAdapter != null) northAdapter.setCardsEnabled(false);
 
-        if (!isReplayingFromHistory) {
+        /*if (!isReplayingFromHistory) {
             sharedPref.setScore(contract, snScore);
 
             // Obliczamy optymalną historię robota raz przed zapisem
-            List<Trick> autoPlayHistory = gameController.calculateOptimalHistory(initialPlayerHands, contract);
+            List<Trick> autoPlayHistory = gameController.calculateOptimalHistory(gameController.getInitialPlayerHands(), contract);
             int autoSnScore = 0;
             for (Trick t : autoPlayHistory) {
                 String winner = t.getWinnerTrick();
                 if ("North".equals(winner) || "South".equals(winner)) autoSnScore++;
             }
 
-            sharedPref.addGameToHistory(contract, snScore, history, claim, initialPlayerHands, autoSnScore, autoPlayHistory);
+            sharedPref.addGameToHistory(contract, snScore, history, claim, gameController.getInitialPlayerHands(), autoSnScore, autoPlayHistory);
 
             View btnSave = findViewById(R.id.btn_save_game);
             if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
@@ -342,7 +323,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             findViewById(R.id.main).postDelayed(() -> {
                 gameHistory.showResults(history, claim, snScore, finalAutoSnScore, finalAutoPlayHistory);
             }, 500);
-        } else {
+        } else {*/
             // Replay mode adjustments
             View btnSave = findViewById(R.id.btn_save_game);
             if (btnSave != null) btnSave.setVisibility(View.GONE);
@@ -350,15 +331,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
                 mBtn.setText(R.string.play_again);
                 mBtn.setIconResource(R.drawable.ic_arrow);
-            }
+            //}
 
-            findViewById(R.id.main).postDelayed(() -> {
-                gameHistory.showResults(history, claim, snScoreFromHistory, autoSnScoreFromHistory, autoPlayHistoryFromHistory);
-            }, 500);
+            //findViewById(R.id.main).postDelayed(() -> {
+            //    gameHistory.showResults(history, claim, snScoreFromHistory, autoSnScoreFromHistory, autoPlayHistoryFromHistory);
+            //}, 500);
         }
     }
 
-    private void loadGameFromHistory(String json, boolean isInitialUiLoad) {
+    /*private void loadGameFromHistory(String json, boolean isInitialUiLoad) {
         try {
             org.json.JSONObject game = new org.json.JSONObject(json);
             Contract contract = Contract.fromString(game.getString("contract"));
@@ -367,7 +348,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             int claim = game.optInt("claim", 0);
 
             org.json.JSONObject handsJson = game.getJSONObject("hands");
-            initialPlayerHands.clear();
+            gameController.getInitialPlayerHands().clear();
             for (String direction : new String[]{"North", "East", "South", "West"}) {
                 org.json.JSONArray handArray = handsJson.getJSONArray(direction);
                 List<Card> cards = new ArrayList<>();
@@ -375,14 +356,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     String[] parts = handArray.getString(i).split(":");
                     cards.add(new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
                 }
-                initialPlayerHands.put(direction, cards);
+                gameController.getInitialPlayerHands().put(direction, cards);
             }
 
             List<Trick> history = parseTricks(game.optJSONArray("playHistory"));
             this.autoPlayHistoryFromHistory = parseTricks(game.optJSONArray("autoPlayHistory"));
 
             // Restore without bidding to prevent freeze
-            gameController.restoreCardsWithContract(new LinkedHashMap<>(initialPlayerHands), contract);
+            gameController.restoreCardsWithContract(new LinkedHashMap<>(gameController.getInitialPlayerHands()), contract);
 
             if (isInitialUiLoad) {
                 loadingIndicator.setVisibility(View.GONE);
@@ -409,9 +390,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 gameController.dealCards();
             }
         }
-    }
+    }*/
 
-    private List<Trick> parseTricks(org.json.JSONArray tricksArray) throws org.json.JSONException {
+    /*private List<Trick> parseTricks(org.json.JSONArray tricksArray) throws org.json.JSONException {
         List<Trick> tricks = new ArrayList<>();
         if (tricksArray != null) {
             for (int i = 0; i < tricksArray.length(); i++) {
@@ -429,7 +410,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         }
         return tricks;
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -482,10 +463,33 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     public void onTurnChanged(String playerName) {
         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
-        gameActivityTop.updateTurn(playerName);
-
+        updateTurn(playerName);
         if ("North".equals(playerName) || "South".equals(playerName)) {
             isProcessingMove = false;
+        }
+    }
+
+    public void updateTurn(String playerName) {
+        nameNorth.setBackgroundResource(0);
+        nameSouth.setBackgroundResource(0);
+        nameEast.setBackgroundResource(0);
+        nameWest.setBackgroundResource(0);
+
+        if (playerName == null) return;
+
+        switch (playerName) {
+            case "North":
+                nameNorth.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
+            case "South":
+                nameSouth.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
+            case "East":
+                nameEast.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
+            case "West":
+                nameWest.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
         }
     }
 
@@ -507,7 +511,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (topBar != null) {
             ViewCompat.setOnApplyWindowInsetsListener(topBar, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(v.getPaddingLeft(), systemBars.top + (int)(4 * getResources().getDisplayMetrics().density), v.getPaddingRight(), v.getPaddingBottom());
+                v.setPadding(v.getPaddingLeft(), systemBars.top + (int) (4 * getResources().getDisplayMetrics().density), v.getPaddingRight(), v.getPaddingBottom());
                 return insets;
             });
         }
@@ -516,7 +520,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (filterBar != null) {
             ViewCompat.setOnApplyWindowInsetsListener(filterBar, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(v.getPaddingLeft(), systemBars.top + (int)(12 * getResources().getDisplayMetrics().density), v.getPaddingRight(), (int)(12 * getResources().getDisplayMetrics().density));
+                v.setPadding(v.getPaddingLeft(), systemBars.top + (int) (12 * getResources().getDisplayMetrics().density), v.getPaddingRight(), (int) (12 * getResources().getDisplayMetrics().density));
                 return insets;
             });
         }
@@ -532,14 +536,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-    private void initGame() {
-        players = new LinkedHashMap<>();
-        players.put("North", new Player("North", playedCardContainerNorth));
-        players.put("East", new Player("East", playedCardContainerEast));
-        players.put("South", new Player("South", playedCardContainerSouth));
-        players.put("West", new Player("West", playedCardContainerWest));
-        gameController = new GameController(players, this);
-    }
 
     private void setupRecyclerView() {
         RecyclerView rvSouth = findViewById(R.id.rv_hand_south);
@@ -549,7 +545,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         southAdapter = new CardAdapter(displayHandSouth);
         southAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
-            Player south = players.get("South");
+            Player south = gameController.getPlayers().get("South");
             if (south.isCurrentMove() && gameController.isLegalMove(south, card)) {
                 isProcessingMove = true;
                 onClaimButtonVisibilityChanged(false);
@@ -565,7 +561,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         northAdapter = new CardAdapter(displayHandNorth);
         northAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
-            Player north = players.get("North");
+            Player north = gameController.getPlayers().get("North");
             if (north.isCurrentMove() && gameController.isLegalMove(north, card)) {
                 isProcessingMove = true;
                 onClaimButtonVisibilityChanged(false);
@@ -598,22 +594,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-    @Override
-    public void onInitialHandsHtml() {
-        initialPlayerHands.clear();
-        for (Player player : players.values()) {
-            initialPlayerHands.put(player.getName(), new ArrayList<>(player.getHand()));
-        }
-    }
-    @Override
-    public void onSaveDeal() {
-        sharedPref.saveDeal(players, gameController.getCurrentContract());
-    }
-
-    @Override
-    public void onInitialHandsHtmlClear() {
-        initialPlayerHands.clear();
-    }
 
     @Override
     public void onCardPlayed(Player player, Card card) {
@@ -637,8 +617,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void updateDisplayHandSouth() {
-        if (players.get("South") == null) return;
-        List<Card> actualHand = players.get("South").getHand();
+        if (gameController.getPlayers().get("South") == null) return;
+        List<Card> actualHand = gameController.getPlayers().get("South").getHand();
         displayHandSouth.clear();
 
         int row1End = Math.min(7, actualHand.size());
@@ -651,8 +631,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void updateDisplayHandNorth() {
-        if (players.get("North") == null) return;
-        List<Card> actualHand = players.get("North").getHand();
+        if (gameController.getPlayers().get("North") == null) return;
+        List<Card> actualHand = gameController.getPlayers().get("North").getHand();
         displayHandNorth.clear();
 
         int total = actualHand.size();
@@ -704,7 +684,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         tvRank.setText(card.getRank().display);
         ivSmall.setImageResource(card.getSuit().resId);
         ivLarge.setImageResource(card.getSuit().resId);
-        
+
         int suitColor = card.getSuit().getColor(this);
         tvRank.setTextColor(suitColor);
         ivSmall.setColorFilter(suitColor);

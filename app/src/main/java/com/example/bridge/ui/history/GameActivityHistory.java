@@ -15,6 +15,7 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Trick;
 import com.example.bridge.ui.game.GameActivity;
+import com.example.bridge.ui.game.GameActivityTop;
 import com.example.bridge.ui.game.GameController;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class GameActivityHistory {
 
     private final GameActivity activity;
     private final GameController gameController;
-
+    private GameActivityTop gameActivityTop;
     private final View resultsOverlay;
     private final LinearLayout tableHistoryRes;
     private final LinearLayout tableHistoryHeader;
@@ -42,9 +43,12 @@ public class GameActivityHistory {
     private int userSnScore;
     private int savedAutoSnScore;
 
-    public GameActivityHistory(GameActivity gameActivity, GameController gameController) {
+
+
+    public GameActivityHistory(GameActivity gameActivity, GameController gameController, GameActivityTop gameActivityTop) {
         this.activity = gameActivity;
         this.gameController = gameController;
+        this.gameActivityTop = gameActivityTop;
 
         this.resultsOverlay = gameActivity.findViewById(R.id.results_overlay);
         this.tableHistoryRes = gameActivity.findViewById(R.id.table_history_res);
@@ -92,7 +96,7 @@ public class GameActivityHistory {
     }
 
     private void toggleAutoReplay() {
-        if (activity.getInitialPlayerHands().isEmpty()) return;
+        if (gameController.getInitialPlayerHands().isEmpty()) return;
 
         isShowingAutoHistory = !isShowingAutoHistory;
         List<Trick> activeHistory;
@@ -175,7 +179,7 @@ public class GameActivityHistory {
             simSnScore += claim;
         }
 
-        activity.updateSimulationScores(simSnScore, simWeScore);
+        gameActivityTop.updateScores(simSnScore, simWeScore);
         activity.onTableCleared(currentTrickMap);
 
         // Reset backgrounds
@@ -200,7 +204,7 @@ public class GameActivityHistory {
 
         if (currentTrickMap != null) {
             for (Map.Entry<String, Card> entry : currentTrickMap.entrySet()) {
-                activity.showPlayedCardInSim(entry.getValue(), entry.getKey());
+                //activity.showPlayedCardInSim(entry.getValue(), entry.getKey());todo
             }
         }
 
@@ -348,7 +352,7 @@ public class GameActivityHistory {
     }
 
     public Spanned formatSimHand(String playerName, List<Card> previousTricks, List<Card> currentTrick) {
-        String html = formatHandToHtmlForSim(activity.getInitialPlayerHands().get(playerName), previousTricks, currentTrick);
+        String html = formatHandToHtmlForSim(gameController.getInitialPlayerHands().get(playerName), previousTricks, currentTrick);
 
         android.text.SpannableString spanned = new android.text.SpannableString(
                 Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, source -> {
