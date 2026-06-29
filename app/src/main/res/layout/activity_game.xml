@@ -943,10 +943,10 @@
             android:id="@+id/filters_container_overlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_start_card"
-            android:padding="8dp"
+            android:background="@drawable/bg_top_nav"
+            android:elevation="50dp"
+            android:translationZ="100dp"
+            android:padding="12dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <Spinner
@@ -1008,11 +1008,11 @@
             android:id="@+id/rv_history_overlay"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
             android:clipToPadding="false"
-            android:paddingBottom="80dp"
+            android:paddingTop="120dp"
+            android:paddingBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/filters_container_overlay" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_empty_history_overlay"

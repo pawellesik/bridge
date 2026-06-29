@@ -493,10 +493,28 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            // No bottom padding for the main container to allow nav background to flow down
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
+            // No padding on main to allow overlays to reach the very top (under status bar)
+            v.setPadding(systemBars.left, 0, systemBars.right, 0);
             return insets;
         });
+
+        View topBar = findViewById(R.id.top_bar);
+        if (topBar != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(topBar, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), systemBars.top + (int)(4 * getResources().getDisplayMetrics().density), v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+        }
+
+        View filterBar = findViewById(R.id.filters_container_overlay);
+        if (filterBar != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(filterBar, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), systemBars.top + (int)(12 * getResources().getDisplayMetrics().density), v.getPaddingRight(), (int)(12 * getResources().getDisplayMetrics().density));
+                return insets;
+            });
+        }
 
         View bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
