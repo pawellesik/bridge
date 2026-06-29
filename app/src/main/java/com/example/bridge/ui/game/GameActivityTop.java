@@ -50,18 +50,18 @@ public class GameActivityTop {
     }
 
     public void updateTurn(String playerName) {
-        nameNorth.setBackgroundResource(R.drawable.dark_green);
-        nameSouth.setBackgroundResource(R.drawable.dark_green);
-        nameEast.setBackgroundResource(R.drawable.dark_green);
-        nameWest.setBackgroundResource(R.drawable.dark_green);
+        nameNorth.setBackgroundResource(0);
+        nameSouth.setBackgroundResource(0);
+        nameEast.setBackgroundResource(0);
+        nameWest.setBackgroundResource(0);
 
         if (playerName == null) return;
 
         switch (playerName) {
-            case "North": nameNorth.setBackgroundResource(R.drawable.dark_green_white_frame); break;
-            case "South": nameSouth.setBackgroundResource(R.drawable.dark_green_white_frame); break;
-            case "East": nameEast.setBackgroundResource(R.drawable.dark_green_white_frame); break;
-            case "West": nameWest.setBackgroundResource(R.drawable.dark_green_white_frame); break;
+            case "North": nameNorth.setBackgroundResource(R.drawable.transparent_white_frame); break;
+            case "South": nameSouth.setBackgroundResource(R.drawable.transparent_white_frame); break;
+            case "East": nameEast.setBackgroundResource(R.drawable.transparent_white_frame); break;
+            case "West": nameWest.setBackgroundResource(R.drawable.transparent_white_frame); break;
         }
     }
 
