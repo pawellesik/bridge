@@ -127,6 +127,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 } else if (itemId == R.id.nav_history) {
                     historyOverlay.setVisibility(View.VISIBLE);
                     bottomNav.setVisibility(View.VISIBLE);
+                    bottomNav.bringToFront(); // Force it to the front
                     refreshHistoryList();
                     return true;
                 } else if (itemId == R.id.nav_settings) {
@@ -218,7 +219,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 if (historyOverlay.getVisibility() == View.VISIBLE) {
                     historyOverlay.setVisibility(View.GONE);
                     com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-                    if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_game);
+                    if (bottomNav != null) {
+                        bottomNav.setVisibility(View.VISIBLE);
+                        bottomNav.setSelectedItemId(R.id.nav_game);
+                    }
                     return;
                 }
 
