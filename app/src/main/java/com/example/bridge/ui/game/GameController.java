@@ -84,9 +84,6 @@ public class GameController {
             player.clearHand();
             player.addCards(deck.deal(13));
             player.setCurrentMove(false);
-            // We'll notify later after contract is determined to avoid double-refresh/flicker
-            // and ensure correct sorting from the start if possible.
-            //callback.onHandUpdated(player.getName());
         }
         finishDealing();
         //sharedPref.saveDeal(players, currentContract);
@@ -157,9 +154,10 @@ public class GameController {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
         this.initialPlayerHands.clear();
-
         trickLeaderName = "West";
         callback.onVisibleStartBar(true);
+        callback.onHandUpdated("North");
+        callback.onHandUpdated("South");
         //callback.onTotalScore();
     }
 

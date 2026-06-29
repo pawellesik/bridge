@@ -357,11 +357,6 @@ public class BiddingManager {
             players.get("East").addCards(h0);
             players.get("South").addCards(h3);
             players.get("West").addCards(h2);
-
-            callback.onHandUpdated("North");
-            //callback.onHandUpdated("East");
-            callback.onHandUpdated("South");
-            //callback.onHandUpdated("West");
         }
     }
 
