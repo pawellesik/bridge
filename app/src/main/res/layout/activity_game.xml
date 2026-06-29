@@ -502,7 +502,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@id/top_bar"
-        tools:visibility="visible">
+        tools:visibility="invisible">
 
         <!-- Content (Player Hands) -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -755,8 +755,8 @@
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
             android:background="#A5D6A7"
-            android:orientation="horizontal"
             android:divider="@drawable/history_divider"
+            android:orientation="horizontal"
             android:showDividers="middle"
             app:layout_constraintTop_toBottomOf="@+id/simulation_bar">
 
@@ -817,10 +817,9 @@
                 android:id="@+id/table_history_res"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:divider="@drawable/history_divider"
-                android:showDividers="middle">
-            </LinearLayout>
+                android:orientation="vertical"
+                android:showDividers="middle"></LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <LinearLayout

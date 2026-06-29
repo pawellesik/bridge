@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1A2F1C">
+    android:background="#1B3E20">
 
     <!-- Top Bar with Language -->
     <LinearLayout
@@ -220,55 +220,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- HISTORY CARD -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_start_card"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true">
 
-                <FrameLayout
-                    android:id="@+id/icon_bg_hist"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_settings_icon"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_history"
-                        app:tint="#FFFFFF" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_title_hist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/nav_history"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/icon_bg_hist"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Przeglądaj swoje archiwalne gry"
-                    android:textColor="#80FFFFFF"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_title_hist"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_hist" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- MORE BUTTON -->
             <com.google.android.material.button.MaterialButton
