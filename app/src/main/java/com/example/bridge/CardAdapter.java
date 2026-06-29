@@ -2,6 +2,7 @@ package com.example.bridge;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -47,17 +48,52 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         Card card = cards.get(position);
         if (card == null || card == GameActivity.GHOST_CARD) {
             holder.itemView.setVisibility(View.INVISIBLE);
+            holder.itemView.setOnTouchListener(null);
         } else {
             holder.itemView.setVisibility(View.VISIBLE);
             holder.bind(card);
+
             holder.itemView.setOnClickListener(v -> {
                 int prev = selectedPos;
                 selectedPos = holder.getAdapterPosition();
-                notifyItemChanged(prev);
+                if (prev != RecyclerView.NO_POSITION) notifyItemChanged(prev);
                 notifyItemChanged(selectedPos);
                 if (listener != null) listener.onCardClick(card);
             });
+
+            holder.itemView.setOnTouchListener((v, event) -> {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        holder.cardView.setCardBackgroundColor(Color.YELLOW);
+                        return true;
+
+                    case MotionEvent.ACTION_MOVE:
+                        if (isInside(v, event)) {
+                            holder.cardView.setCardBackgroundColor(Color.YELLOW);
+                        } else {
+                            holder.cardView.setCardBackgroundColor(Color.WHITE);
+                        }
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        holder.cardView.setCardBackgroundColor(Color.WHITE);
+                        if (isInside(v, event)) {
+                            v.performClick();
+                        }
+                        break;
+
+                    case MotionEvent.ACTION_CANCEL:
+                        holder.cardView.setCardBackgroundColor(Color.WHITE);
+                        break;
+                }
+                return false;
+            });
         }
+    }
+
+    private boolean isInside(View v, MotionEvent e) {
+        return e.getX() >= 0 && e.getX() <= v.getWidth() &&
+               e.getY() >= 0 && e.getY() <= v.getHeight();
     }
 
     public void clearSelection() {
