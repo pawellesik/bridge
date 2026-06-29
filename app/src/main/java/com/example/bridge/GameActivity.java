@@ -430,7 +430,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
         } else {
-            if (bottomNav != null) bottomNav.setVisibility(View.GONE);
+            if (bottomNav != null) bottomNav.setVisibility(View.INVISIBLE);
             startBar.setVisibility(View.GONE);
         }
     }
