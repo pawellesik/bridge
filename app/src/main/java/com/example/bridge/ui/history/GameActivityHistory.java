@@ -1,4 +1,4 @@
-package com.example.bridge;
+package com.example.bridge.ui.history;
 
 import android.graphics.Color;
 import android.text.Html;
@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.bridge.R;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Trick;
+import com.example.bridge.ui.game.GameActivity;
+import com.example.bridge.ui.game.GameController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +61,19 @@ public class GameActivityHistory {
     }
 
     private void setupListeners() {
-        btnAutoReplay.setOnClickListener(v -> toggleAutoReplay());
+        if (btnAutoReplay != null) btnAutoReplay.setOnClickListener(v -> toggleAutoReplay());
 
-        activity.findViewById(R.id.btn_first_trick).setOnClickListener(v -> jumpSimTrick(-1));
-        activity.findViewById(R.id.btn_prev_trick).setOnClickListener(v -> changeSimTrick(-1));
-        activity.findViewById(R.id.btn_next_trick).setOnClickListener(v -> changeSimTrick(1));
-        activity.findViewById(R.id.btn_last_trick).setOnClickListener(v -> jumpSimTrick(1));
+        View btnFirst = activity.findViewById(R.id.btn_first_trick);
+        if (btnFirst != null) btnFirst.setOnClickListener(v -> jumpSimTrick(-1));
+        
+        View btnPrev = activity.findViewById(R.id.btn_prev_trick);
+        if (btnPrev != null) btnPrev.setOnClickListener(v -> changeSimTrick(-1));
+        
+        View btnNext = activity.findViewById(R.id.btn_next_trick);
+        if (btnNext != null) btnNext.setOnClickListener(v -> changeSimTrick(1));
+        
+        View btnLast = activity.findViewById(R.id.btn_last_trick);
+        if (btnLast != null) btnLast.setOnClickListener(v -> jumpSimTrick(1));
     }
 
     public void showResults(List<Trick> history, int claim, int snScore, int autoSnScore, List<Trick> autoHistory) {
@@ -78,7 +88,7 @@ public class GameActivityHistory {
         setBtnAutoReplayText(true, autoSnScore);
         displayHistory(history, claim);
         updateSimTrickUI(true);
-        resultsOverlay.setVisibility(View.VISIBLE);
+        if (resultsOverlay != null) resultsOverlay.setVisibility(View.VISIBLE);
     }
 
     private void toggleAutoReplay() {
@@ -104,6 +114,7 @@ public class GameActivityHistory {
     }
 
     private void setBtnAutoReplayText(boolean toAuto, int score) {
+        if (btnAutoReplay == null) return;
         if (toAuto) {
             btnAutoReplay.setText(activity.getString(R.string.auto_play_deal_format, score));
         } else {
@@ -135,7 +146,7 @@ public class GameActivityHistory {
         List<Trick> history = isShowingAutoHistory ? playAutoHistoryTrick : playHistoryTrick;
         int claim = isShowingAutoHistory ? 0 : simClaimCount;
 
-        tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
+        if (tvSimInfo != null) tvSimInfo.setText(String.valueOf(currentSimTrickIndex));
 
         List<Card> previousTricksCards = new ArrayList<>();
         List<Card> currentTrickCards = null;
@@ -168,22 +179,22 @@ public class GameActivityHistory {
         activity.onTableCleared(currentTrickMap);
 
         // Reset backgrounds
-        tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_black);
-        tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_black);
-        tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_black);
-        tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+        if (tvNorthRes != null) tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+        if (tvSouthRes != null) tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+        if (tvEastRes != null) tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_black);
+        if (tvWestRes != null) tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_black);
 
         // Highlight winner of current trick
         if (history != null && currentSimTrickIndex > 0) {
             Trick currentTrick = history.get(currentSimTrickIndex - 1);
             String winner = currentTrick.getWinnerTrick();
-            if ("North".equals(winner))
+            if ("North".equals(winner) && tvNorthRes != null)
                 tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
-            else if ("South".equals(winner))
+            else if ("South".equals(winner) && tvSouthRes != null)
                 tvSouthRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
-            else if ("East".equals(winner))
+            else if ("East".equals(winner) && tvEastRes != null)
                 tvEastRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
-            else if ("West".equals(winner))
+            else if ("West".equals(winner) && tvWestRes != null)
                 tvWestRes.setBackgroundResource(R.drawable.bright_green_frame_yellow);
         }
 
@@ -193,10 +204,10 @@ public class GameActivityHistory {
             }
         }
 
-        tvNorthRes.setText(formatSimHand("North", previousTricksCards, currentTrickCards));
-        tvSouthRes.setText(formatSimHand("South", previousTricksCards, currentTrickCards));
-        tvEastRes.setText(formatSimHand("East", previousTricksCards, currentTrickCards));
-        tvWestRes.setText(formatSimHand("West", previousTricksCards, currentTrickCards));
+        if (tvNorthRes != null) tvNorthRes.setText(formatSimHand("North", previousTricksCards, currentTrickCards));
+        if (tvSouthRes != null) tvSouthRes.setText(formatSimHand("South", previousTricksCards, currentTrickCards));
+        if (tvEastRes != null) tvEastRes.setText(formatSimHand("East", previousTricksCards, currentTrickCards));
+        if (tvWestRes != null) tvWestRes.setText(formatSimHand("West", previousTricksCards, currentTrickCards));
 
         updateHistoryHighlightAndScroll(shouldScroll);
     }
@@ -224,9 +235,12 @@ public class GameActivityHistory {
         if (shouldScroll && currentSimTrickIndex > 0 && currentSimTrickIndex <= rowCount) {
             View targetRow = tableHistoryRes.getChildAt(currentSimTrickIndex - 1);
             if (targetRow != null) {
-                activity.findViewById(R.id.scroll_history).post(() ->
-                        ((androidx.core.widget.NestedScrollView) activity.findViewById(R.id.scroll_history))
-                                .smoothScrollTo(0, targetRow.getTop()));
+                View scrollView = activity.findViewById(R.id.scroll_history);
+                if (scrollView != null) {
+                    scrollView.post(() ->
+                            ((androidx.core.widget.NestedScrollView) scrollView)
+                                    .smoothScrollTo(0, targetRow.getTop()));
+                }
             }
         }
     }
@@ -365,7 +379,7 @@ public class GameActivityHistory {
                         if (d != null) {
                             d.mutate();
                             d.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN);
-                            float textSizePx = tvNorthRes.getTextSize();
+                            float textSizePx = (tvNorthRes != null) ? tvNorthRes.getTextSize() : 14f;
                             int size = (int) textSizePx;
                             d.setBounds(0, 0, size, size);
                             return d;
@@ -431,8 +445,10 @@ public class GameActivityHistory {
             
             // Sort cards within the suit by rank (High to Low)
             List<Card> suitCards = new ArrayList<>();
-            for (Card card : hand) {
-                if (card.getSuit() == suit) suitCards.add(card);
+            if (hand != null) {
+                for (Card card : hand) {
+                    if (card.getSuit() == suit) suitCards.add(card);
+                }
             }
             java.util.Collections.sort(suitCards, (c1, c2) -> c2.getRank().ordinal() - c1.getRank().ordinal());
 

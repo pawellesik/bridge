@@ -1,7 +1,5 @@
 package com.example.bridge.model;
 
-import com.example.bridge.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,14 +9,12 @@ public class Deck {
 
     public Deck() {
         cards = new ArrayList<>();
-        if (Test.isDebugModel == 1) {
-            cards = Test.getCards();
-        } else {
-            for (Suit suit : Suit.values()) {
-                for (Rank rank : Rank.values()) {
-                    cards.add(new Card(suit, rank));
-                }
+
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                cards.add(new Card(suit, rank));
             }
+
             shuffle();
         }
 

@@ -1,10 +1,11 @@
-package com.example.bridge;
+package com.example.bridge.ui.game;
 
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.bridge.R;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 

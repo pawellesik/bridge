@@ -1,4 +1,4 @@
-package com.example.bridge;
+package com.example.bridge.core;
 
 import android.content.Context;
 import android.content.SharedPreferences;

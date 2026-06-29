@@ -1,14 +1,17 @@
-package com.example.bridge;
+package com.example.bridge.core;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.bridge.R;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Suit;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Rank;
 import com.example.bridge.model.Trick;
+import com.example.bridge.ui.game.GameActivity;
+import com.example.bridge.ui.game.GameActivityTop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +25,11 @@ public class SharedPref {
     }
 
     final int changeScore = -50;
-    static final String PREFS_NAME = "BridgePrefs";
+    public static final String PREFS_NAME = "BridgePrefs";
     static final String KEY_CAREER_SCORE = "careerScore";
     static final String KEY_GAMES_PLAYED = "gamesPlayed";
     static final String KEY_HAS_SAVED_DEAL = "hasSavedDeal";
-    static final String KEY_HISTORY = "gameHistory";
+    public static final String KEY_HISTORY = "gameHistory";
 
     GameActivityTop gameActivityTop;
     GameActivity gameActivity;

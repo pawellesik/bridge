@@ -1,4 +1,4 @@
-package com.example.bridge;
+package com.example.bridge.ui.game;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bridge.R;
 import com.example.bridge.model.Card;
-import com.example.bridge.model.Player;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;

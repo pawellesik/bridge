@@ -1,4 +1,4 @@
-package com.example.bridge;
+package com.example.bridge.ui.game;
 
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -23,12 +23,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bridge.R;
+import com.example.bridge.core.LocaleHelper;
+import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Rank;
 import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
+import com.example.bridge.ui.history.GameActivityHistory;
+import com.example.bridge.ui.history.HistoryListAdapter;
+import com.example.bridge.ui.settings.SettingsActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -216,7 +222,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (historyOverlay.getVisibility() == View.VISIBLE) {
+                if (historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE) {
                     historyOverlay.setVisibility(View.GONE);
                     com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
                     if (bottomNav != null) {
@@ -285,11 +291,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         setTotalScore(sharedPref.getPrefTotalScore());
     }
 
-    void setTotalScore(int totalScore, int changeScore) {
+    public void setTotalScore(int totalScore, int changeScore) {
         gameActivityTop.setTotalScore(totalScore, changeScore);
     }
 
-    void setTotalScore(int totalScore) {
+    public void setTotalScore(int totalScore) {
         gameActivityTop.setTotalScore(totalScore);
     }
 
@@ -715,11 +721,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         spinnerSuitHistory = findViewById(R.id.spinner_suit_filter_overlay);
         spinnerResultHistory = findViewById(R.id.spinner_result_filter_overlay);
 
+        if (rvHistory == null) return;
+
         rvHistory.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
         historyOverlayAdapter = new HistoryListAdapter(filteredHistoryList, this::showHistoryDeleteDialog, this::toggleHistorySave, item -> {
             historyOverlay.setVisibility(View.GONE);
             com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-            if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_game);
+            if (bottomNav != null) {
+                bottomNav.setVisibility(View.VISIBLE);
+                bottomNav.setSelectedItemId(R.id.nav_game);
+            }
             
             isReplayingFromHistory = true;
             startBar.setVisibility(View.GONE);
@@ -732,6 +743,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void setupHistoryFilters() {
+        if (spinnerLevelHistory == null) return;
         String[] levelOptions = { getString(R.string.filter_level_all), "1", "2", "3", "4", "5", "6", "7" };
         android.widget.ArrayAdapter<String> levelAdapter = new android.widget.ArrayAdapter<>(this, android.R.layout.simple_spinner_item, levelOptions);
         levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -1,4 +1,4 @@
-package com.example.bridge;
+package com.example.bridge.ui.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.bridge.R;
+import com.example.bridge.core.LocaleHelper;
 
 public class SettingsActivity extends AppCompatActivity {
 

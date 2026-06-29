@@ -1,10 +1,7 @@
-package com.example.bridge;
+package com.example.bridge.ui.history;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bridge.R;
 import com.example.bridge.model.Suit;
+import com.example.bridge.ui.game.GameActivity;
+import com.example.bridge.core.LocaleHelper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
@@ -40,6 +40,11 @@ public class HistoryActivity extends AppCompatActivity {
     private TextView tvEmpty;
     private CheckBox cbOnlySaved;
     private Spinner spinnerLevel, spinnerSuit, spinnerResult;
+
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

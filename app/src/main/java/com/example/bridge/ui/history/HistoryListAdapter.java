@@ -1,4 +1,4 @@
-package com.example.bridge;
+package com.example.bridge.ui.history;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bridge.R;
 import com.example.bridge.model.Suit;
 
 import org.json.JSONObject;
@@ -118,7 +119,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             boolean isSaved = item.optBoolean("isSaved", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
-            card.setCardBackgroundColor(android.graphics.Color.parseColor("#1B3E20"));
+            card.setCardBackgroundColor(android.graphics.Color.parseColor("#122614"));
 
             if (isSaved) {
                 card.setStrokeColor(android.graphics.Color.parseColor("#FFC107"));
