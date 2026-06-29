@@ -160,6 +160,7 @@ public class GameController {
         weScore = 0;
         currentTrick = new Trick();
         playHistoryTrick = new ArrayList<>();
+
         callback.onInitialHandsHtmlClear();
         callback.onTableCleared(currentTrick.getCardsOnTableMap());
         callback.onScoreUpdated(snScore, weScore);

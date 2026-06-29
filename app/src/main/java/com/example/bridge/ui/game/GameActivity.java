@@ -119,7 +119,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         // Always setup RecyclerView before loading any data to prevent NullPointerException
         setupRecyclerView();
-        setupHistoryOverlay();
+        //setupHistoryOverlay();
 
         com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
@@ -134,7 +134,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     historyOverlay.setVisibility(View.VISIBLE);
                     bottomNav.setVisibility(View.VISIBLE);
                     bottomNav.bringToFront(); // Force it to the front
-                    refreshHistoryList();
+                    //refreshHistoryList();
                     return true;
                 } else if (itemId == R.id.nav_settings) {
                     startActivity(new Intent(this, SettingsActivity.class));
@@ -184,15 +184,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         });
 
-        findViewById(R.id.btn_save_game).setOnClickListener(v -> {
+        /*findViewById(R.id.btn_save_game).setOnClickListener(v -> {
             markGameAsSaved();
-        });
+        });*/
 
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
 
-            showTemporaryNotification(R.string.score_deducted);
+            //showTemporaryNotification(R.string.score_deducted);
             sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
             v.post(() -> {
@@ -246,21 +246,21 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
     }
 
-    private void showTemporaryNotification(int resId) {
+    /*private void showTemporaryNotification(int resId) {
         View notifyView = findViewById(R.id.notification_text);
         if (notifyView != null) {
             ((TextView) notifyView).setText(resId);
             notifyView.setVisibility(View.VISIBLE);
             notifyView.postDelayed(() -> notifyView.setVisibility(View.GONE), 1000);
         }
-    }
+    }*/
 
-    private void markGameAsSaved() {
+    /*private void markGameAsSaved() {
         sharedPref.markLatestGameAsSaved();
         View btnSave = findViewById(R.id.btn_save_game);
         if (btnSave != null) btnSave.setVisibility(View.GONE);
         showTemporaryNotification(R.string.save_success);
-    }
+    }*/
 
     private void showExitConfirmationDialog() {
         new AlertDialog.Builder(this)
@@ -713,7 +713,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         container.addView(view);
     }
 
-    private void setupHistoryOverlay() {
+    /*private void setupHistoryOverlay() {
         RecyclerView rvHistory = findViewById(R.id.rv_history_overlay);
         tvEmptyHistory = findViewById(R.id.tv_empty_history_overlay);
         cbOnlySavedHistory = findViewById(R.id.cb_filter_saved_overlay);
@@ -740,9 +740,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         rvHistory.setAdapter(historyOverlayAdapter);
 
         setupHistoryFilters();
-    }
+    }*/
 
-    private void setupHistoryFilters() {
+    /*private void setupHistoryFilters() {
         if (spinnerLevelHistory == null) return;
         String[] levelOptions = { getString(R.string.filter_level_all), "1", "2", "3", "4", "5", "6", "7" };
         android.widget.ArrayAdapter<String> levelAdapter = new android.widget.ArrayAdapter<>(this, android.R.layout.simple_spinner_item, levelOptions);
@@ -778,9 +778,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         spinnerLevelHistory.setOnItemSelectedListener(listener);
         spinnerSuitHistory.setOnItemSelectedListener(listener);
         spinnerResultHistory.setOnItemSelectedListener(listener);
-    }
+    }*/
 
-    private void refreshHistoryList() {
+    /*private void refreshHistoryList() {
         String json = getSharedPreferences("BridgePrefs", MODE_PRIVATE).getString("gameHistory", "[]");
         fullHistoryList.clear();
         try {
@@ -790,9 +790,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         } catch (Exception e) { e.printStackTrace(); }
         applyHistoryFilters();
-    }
+    }*/
 
-    private void applyHistoryFilters() {
+    /*private void applyHistoryFilters() {
         filteredHistoryList.clear();
         boolean onlySaved = cbOnlySavedHistory.isChecked();
         int levelIdx = spinnerLevelHistory.getSelectedItemPosition();
@@ -837,9 +837,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
         historyOverlayAdapter.notifyDataSetChanged();
         tvEmptyHistory.setVisibility(filteredHistoryList.isEmpty() ? View.VISIBLE : View.GONE);
-    }
+    }*/
 
-    private void toggleHistorySave(int pos) {
+    /*private void toggleHistorySave(int pos) {
         try {
             org.json.JSONObject item = filteredHistoryList.get(pos);
             boolean current = item.optBoolean("isSaved", false);
@@ -856,9 +856,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     .setNegativeButton(R.string.no, null)
                     .show();
         } catch (Exception e) { e.printStackTrace(); }
-    }
+    }*/
 
-    private void showHistoryDeleteDialog(int pos) {
+    /*private void showHistoryDeleteDialog(int pos) {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.delete_confirm_title)
                 .setMessage(R.string.delete_confirm_message)
@@ -869,13 +869,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 })
                 .setNegativeButton(R.string.no, null)
                 .show();
-    }
+    }*/
 
-    private void saveFullHistory() {
+    /*private void saveFullHistory() {
         org.json.JSONArray array = new org.json.JSONArray();
         for (org.json.JSONObject obj : fullHistoryList) array.put(obj);
         getSharedPreferences("BridgePrefs", MODE_PRIVATE).edit().putString("gameHistory", array.toString()).apply();
-    }
+    }*/
 
     @Override
     protected void onDestroy() {
