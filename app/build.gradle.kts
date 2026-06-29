@@ -44,6 +44,19 @@ android {
             version = "3.22.1"
         }
     }
+
+    sourceSets {
+        getByName("main") {
+            res.srcDirs(
+                "src/main/res",
+                "src/main/res-common",
+                "src/main/res-game",
+                "src/main/res-history",
+                "src/main/res-start",
+                "src/main/res-settings"
+            )
+        }
+    }
 }
 
 dependencies {
