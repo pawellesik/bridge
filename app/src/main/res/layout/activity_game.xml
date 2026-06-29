@@ -930,7 +930,7 @@
         android:id="@+id/history_overlay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#0F2111"
+        android:background="#1B3E20"
         android:elevation="0dp"
         android:clickable="true"
         android:focusable="true"
@@ -943,8 +943,10 @@
             android:id="@+id/filters_container_overlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
             android:layout_marginTop="20dp"
-            android:paddingHorizontal="4dp"
+            android:background="@drawable/bg_start_card"
+            android:padding="8dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <Spinner

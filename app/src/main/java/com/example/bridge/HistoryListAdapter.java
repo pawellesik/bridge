@@ -73,9 +73,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                             Suit suit = Suit.valueOf(suitPart);
                             holder.ivSuit.setVisibility(View.VISIBLE);
                             holder.ivSuit.setImageResource(suit.resId);
-                            int suitColor = suit.getColor(holder.itemView.getContext());
-                            holder.ivSuit.setColorFilter(suitColor);
-                            holder.tvContract.setTextColor(suitColor);
+                            holder.ivSuit.setColorFilter(android.graphics.Color.WHITE);
+                            holder.tvContract.setTextColor(android.graphics.Color.WHITE);
                         } catch (Exception e) {
                             holder.ivSuit.setVisibility(View.GONE);
                             holder.tvContract.setText(contractStr);
@@ -101,38 +100,20 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             String fullResultText = holder.itemView.getContext().getString(R.string.result_label, snTricks);
             holder.tvDate.setText(item.getString("date"));
 
-            boolean failed = false;
-            if (!contractStr.toUpperCase().contains("PASS")) {
-                try {
-                    String[] conParts = contractStr.split(" ");
-                    if (conParts.length >= 1) {
-                        int level = Integer.parseInt(conParts[0]);
-                        if (snTricks < (level + 6)) {
-                            failed = true;
-                        }
-                    }
-                } catch (Exception e) {}
-            }
-
-            if (failed) {
-                holder.tvResult.setText(fullResultText);
-                holder.tvResult.setTextColor(android.graphics.Color.parseColor("#BDBDBD"));
-            } else {
-                holder.tvResult.setText(fullResultText);
-                holder.tvResult.setTextColor(android.graphics.Color.parseColor("#FFD700"));
-            }
+            holder.tvResult.setText(fullResultText);
+            holder.tvResult.setTextColor(android.graphics.Color.WHITE);
 
             boolean isSaved = item.optBoolean("isSaved", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
-            card.setCardBackgroundColor(android.graphics.Color.parseColor("#16321A"));
+            card.setCardBackgroundColor(android.graphics.Color.parseColor("#25592A"));
 
             if (isSaved) {
-                card.setStrokeColor(android.graphics.Color.parseColor("#FFD700"));
-                card.setStrokeWidth(2);
+                card.setStrokeColor(android.graphics.Color.parseColor("#FFC107"));
+                card.setStrokeWidth(3);
                 holder.btnToggleSave.setImageResource(R.drawable.ic_star);
-                holder.btnToggleSave.setColorFilter(android.graphics.Color.parseColor("#FFD700"));
+                holder.btnToggleSave.setColorFilter(android.graphics.Color.parseColor("#FFC107"));
             } else {
-                card.setStrokeColor(android.graphics.Color.parseColor("#33FFFFFF"));
+                card.setStrokeColor(android.graphics.Color.parseColor("#1AFFFFFF"));
                 card.setStrokeWidth(1);
                 holder.btnToggleSave.setImageResource(R.drawable.ic_star);
                 holder.btnToggleSave.setColorFilter(android.graphics.Color.WHITE);
