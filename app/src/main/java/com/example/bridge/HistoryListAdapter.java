@@ -118,7 +118,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             boolean isSaved = item.optBoolean("isSaved", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
-            card.setCardBackgroundColor(android.graphics.Color.parseColor("#0B1A0C"));
+            card.setCardBackgroundColor(android.graphics.Color.parseColor("#1B3E20"));
 
             if (isSaved) {
                 card.setStrokeColor(android.graphics.Color.parseColor("#FFC107"));
