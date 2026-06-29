@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B3E20">
+    android:background="@drawable/bg_game_table_gradient">
 
     <!-- Top Bar with Language -->
     <LinearLayout

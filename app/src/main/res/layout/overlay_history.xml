@@ -5,7 +5,7 @@
     android:id="@+id/history_overlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B5E20"
+    android:background="@drawable/bg_game_table_gradient"
     android:clickable="true"
     android:elevation="0dp"
     android:focusable="true"
