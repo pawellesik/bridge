@@ -26,10 +26,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     private final List<Card> cards;
     private int selectedPos = RecyclerView.NO_POSITION;
     private OnCardClickListener listener;
+    private boolean cardsEnabled = false;
 
 
     public CardAdapter(List<Card> cards) {
         this.cards = cards;
+    }
+
+    public void setCardsEnabled(boolean enabled) {
+        this.cardsEnabled = enabled;
+        notifyDataSetChanged();
     }
 
     public void setOnCardClickListener(OnCardClickListener listener) {
@@ -54,6 +60,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             holder.bind(card);
 
             holder.itemView.setOnClickListener(v -> {
+                if (!cardsEnabled) return;
                 int prev = selectedPos;
                 selectedPos = holder.getAdapterPosition();
                 if (prev != RecyclerView.NO_POSITION) notifyItemChanged(prev);
@@ -62,6 +69,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             });
 
             holder.itemView.setOnTouchListener((v, event) -> {
+                if (!cardsEnabled) return false;
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         holder.cardView.setCardBackgroundColor(Color.YELLOW);

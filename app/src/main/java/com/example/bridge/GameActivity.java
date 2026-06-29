@@ -133,6 +133,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             if (isReplayingFromHistory) {
                 loadGameFromHistory(replayedGameJson, false);
+                if (southAdapter != null) southAdapter.setCardsEnabled(true);
+                if (northAdapter != null) northAdapter.setCardsEnabled(true);
                 v.post(() -> {
                     gameController.startGame();
                 });
@@ -168,6 +170,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             loadingIndicator.setVisibility(View.VISIBLE);
             sharedPref.incrementGamesPlayed();
             sharedPref.clearSavedDeal(); // Clear the deal once the game starts
+            
+            if (southAdapter != null) southAdapter.setCardsEnabled(true);
+            if (northAdapter != null) northAdapter.setCardsEnabled(true);
+
             v.post(() -> {
                 gameController.startGame();
             });
@@ -267,6 +273,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
         this.lastSnScore = snScore;
         this.lastWeScore = weScore;
+        
+        if (southAdapter != null) southAdapter.setCardsEnabled(false);
+        if (northAdapter != null) northAdapter.setCardsEnabled(false);
 
         if (!isReplayingFromHistory) {
             sharedPref.setScore(contract, snScore);
@@ -488,6 +497,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         });
         rvSouth.setAdapter(southAdapter);
+        southAdapter.setCardsEnabled(false);
 
         rvNorth.setLayoutManager(createLayoutManager(displayHandNorth));
         northAdapter = new CardAdapter(displayHandNorth);
@@ -503,6 +513,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         });
         rvNorth.setAdapter(northAdapter);
+        northAdapter.setCardsEnabled(false);
     }
 
     private GridLayoutManager createLayoutManager(List<Card> displayList) {
