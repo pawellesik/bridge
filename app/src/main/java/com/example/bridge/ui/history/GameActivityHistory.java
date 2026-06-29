@@ -180,7 +180,7 @@ public class GameActivityHistory {
         }
 
         gameActivityTop.updateScores(simSnScore, simWeScore);
-        activity.onTableCleared(currentTrickMap);
+        activity.onUpdateLastTrickInTop(currentTrickMap);
 
         // Reset backgrounds
         if (tvNorthRes != null) tvNorthRes.setBackgroundResource(R.drawable.bright_green_frame_black);
