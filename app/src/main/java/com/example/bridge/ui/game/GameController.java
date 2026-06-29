@@ -26,7 +26,7 @@ public class GameController {
 
         void onCardPlayed(Player player, Card card);
 
-        void onTableCleared(Map<String, Card> trickCards);
+        void onUpdateLastTrickInTop(Map<String, Card> trickCards);
 
         void onClearLastCards(List<Card> cardsOnTable);
 
@@ -93,7 +93,7 @@ public class GameController {
         return initialPlayerHands;
     }
 
-    public void restoreCards(Map<String, List<Card>> savedHands, Contract savedContract) {
+    /*public void restoreCards(Map<String, List<Card>> savedHands, Contract savedContract) {
         restoreCardsInternal(savedHands);
         if (savedContract != null) {
             currentContract = savedContract;
@@ -109,7 +109,7 @@ public class GameController {
         } else {
             finishDealing();
         }
-    }
+    }*/
 
     private void initialHandsHtml(){
         this.initialPlayerHands.clear();
@@ -173,8 +173,8 @@ public class GameController {
         currentTrick = new Trick();
         playHistoryTrick = new ArrayList<>();
 
-        this.initialPlayerHands.clear();
-        callback.onTableCleared(currentTrick.getCardsOnTableMap());
+        //this.initialPlayerHands.clear();
+        callback.onUpdateLastTrickInTop(currentTrick.getCardsOnTableMap());
         callback.onScoreUpdated(snScore, weScore);
         callback.onClaimButtonVisibilityChanged(false);
         callback.onTurnChanged(null);
@@ -665,7 +665,7 @@ public class GameController {
 
     private void clearTable() {
         playHistoryTrick.add(currentTrick);
-        callback.onTableCleared(currentTrick.getCardsOnTableMap());
+        callback.onUpdateLastTrickInTop(currentTrick.getCardsOnTableMap());
         currentTrick = new Trick();
     }
 

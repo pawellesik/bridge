@@ -102,7 +102,7 @@ public class GameActivityTop {
         tvMiddle3.setText("");
     }
 
-    public void onTableCleared(Map<String, Card> trickCards) {
+    public void setLastTrickInTop(Map<String, Card> trickCards) {
         if (trickCards != null && !trickCards.isEmpty()) {
             updateLastCard(tvLastNorth, trickCards.get("North"));
             updateLastCard(tvLastSouth, trickCards.get("South"));

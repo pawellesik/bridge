@@ -29,13 +29,8 @@ import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
-import com.example.bridge.model.Rank;
-import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
-import com.example.bridge.ui.history.GameActivityHistory;
-import com.example.bridge.ui.history.HistoryListAdapter;
 import com.example.bridge.ui.settings.SettingsActivity;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -97,8 +92,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         btnNewDeal = findViewById(R.id.btn_new_deal);
 
-
-
         gameActivityTop = new GameActivityTop(this);
         sharedPref = new SharedPref(this, gameActivityTop);
 
@@ -108,8 +101,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.put("South", new Player("South", playedCardContainerSouth));
         players.put("West", new Player("West", playedCardContainerWest));
         gameController = new GameController(this, players, sharedPref);
-
-
 
         //gameHistory = new GameActivityHistory(this, gameController, gameActivityTop);
 
@@ -601,12 +592,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onTableCleared(Map<String, Card> trickCards) {
+    public void onUpdateLastTrickInTop(Map<String, Card> trickCards) {
         FrameLayout[] containers = {playedCardContainerSouth, playedCardContainerNorth, playedCardContainerWest, playedCardContainerEast};
         for (FrameLayout container : containers) {
             if (container != null) container.removeAllViews();
         }
-        gameActivityTop.onTableCleared(trickCards);
+        gameActivityTop.setLastTrickInTop(trickCards);
     }
 
     @Override
