@@ -42,6 +42,17 @@ public class SharedPref {
             String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
             String result = gameActivity.getString(R.string.result_label, snScore);
 
+            // Calculate points
+            int requiredTricks = contract.isPass() ? 0 : contract.getLevel() + 6;
+            int points = 0;
+            if (!contract.isPass()) {
+                if (snScore >= requiredTricks) {
+                    points = getContractPkt(contract.getSuit(), contract.getLevel() + (snScore - requiredTricks));
+                } else {
+                    points = -getContractPkt(contract.getSuit(), contract.getLevel()) - getContractPkt(contract.getSuit(), (requiredTricks - snScore));
+                }
+            }
+
             org.json.JSONArray history;
             String existingHistory = prefs.getString(KEY_HISTORY, "[]");
             history = new org.json.JSONArray(existingHistory);
@@ -54,6 +65,7 @@ public class SharedPref {
             game.put("claim", claim);
             game.put("snScore", snScore);
             game.put("autoSnScore", autoSnScore);
+            game.put("points", points);
 
             // Zapisz początkowe ręce (do replayu)
             org.json.JSONObject handsJson = new org.json.JSONObject();

@@ -54,58 +54,71 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         try {
             JSONObject item = items.get(position);
             String contractStr = item.getString("contract");
+            int snTricks = item.optInt("snScore", 0);
+            int points = item.optInt("points", 0);
 
             if (contractStr.toUpperCase().contains("PASS")) {
                 holder.tvContract.setText(R.string.contract_pass);
-                holder.tvContract.setTextColor(android.graphics.Color.WHITE);
+                holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                 holder.ivSuit.setVisibility(View.GONE);
+                holder.tvResultSymbol.setText("");
             } else {
                 String[] parts = contractStr.split(" ");
                 if (parts.length >= 2) {
                     holder.tvContract.setText(parts[0]);
                     String suitPart = parts[1].toUpperCase();
+                    
                     if (suitPart.equals("NT")) {
                         holder.ivSuit.setVisibility(View.GONE);
-                        holder.tvContract.setText(parts[0] + " " + holder.itemView.getContext().getString(R.string.suit_nt));
-                        holder.tvContract.setTextColor(android.graphics.Color.WHITE);
+                        holder.tvContract.setText(parts[0] + "NT");
+                        holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                     } else {
                         try {
                             Suit suit = Suit.valueOf(suitPart);
                             holder.ivSuit.setVisibility(View.VISIBLE);
                             holder.ivSuit.setImageResource(suit.resId);
-                            holder.ivSuit.setColorFilter(android.graphics.Color.WHITE);
-                            holder.tvContract.setTextColor(android.graphics.Color.WHITE);
+                            int suitColor = suit.getColor(holder.itemView.getContext());
+                            holder.ivSuit.setColorFilter(suitColor);
+                            holder.tvContract.setTextColor(suitColor);
                         } catch (Exception e) {
                             holder.ivSuit.setVisibility(View.GONE);
                             holder.tvContract.setText(contractStr);
-                            holder.tvContract.setTextColor(android.graphics.Color.WHITE);
+                            holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                         }
                     }
+
+                    // Calculate result symbol: S=, S+1, S-1
+                    int required = Integer.parseInt(parts[0]) + 6;
+                    int diff = snTricks - required;
+                    String symbol = " S";
+                    if (diff == 0) symbol += "=";
+                    else if (diff > 0) symbol += "+" + diff;
+                    else symbol += diff; // diff is negative
+                    holder.tvResultSymbol.setText(symbol);
+                    holder.tvResultSymbol.setTextColor(android.graphics.Color.BLACK);
+
                 } else {
                     holder.tvContract.setText(contractStr);
-                    holder.tvContract.setTextColor(android.graphics.Color.WHITE);
+                    holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                     holder.ivSuit.setVisibility(View.GONE);
+                    holder.tvResultSymbol.setText("");
                 }
             }
 
-            String resultStr = item.getString("result");
-            int snTricks = 0;
-            try {
-                String[] resParts = resultStr.split(" ");
-                if (resParts.length >= 2) {
-                    snTricks = Integer.parseInt(resParts[1]);
-                }
-            } catch (Exception e) {}
+            // Points display
+            if (points != 0) {
+                holder.tvPoints.setText((points > 0 ? "+" : "") + points);
+                holder.tvPoints.setTextColor(points > 0 ? android.graphics.Color.parseColor("#FFD700") : android.graphics.Color.parseColor("#FF5252"));
+            } else {
+                holder.tvPoints.setText("0");
+                holder.tvPoints.setTextColor(android.graphics.Color.WHITE);
+            }
 
-            String fullResultText = holder.itemView.getContext().getString(R.string.result_label, snTricks);
             holder.tvDate.setText(item.getString("date"));
-
-            holder.tvResult.setText(fullResultText);
-            holder.tvResult.setTextColor(android.graphics.Color.WHITE);
 
             boolean isSaved = item.optBoolean("isSaved", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
-            card.setCardBackgroundColor(android.graphics.Color.parseColor("#25592A"));
+            card.setCardBackgroundColor(android.graphics.Color.parseColor("#0B1A0C"));
 
             if (isSaved) {
                 card.setStrokeColor(android.graphics.Color.parseColor("#FFC107"));
@@ -134,14 +147,15 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvContract, tvResult, tvDate;
+        TextView tvContract, tvResultSymbol, tvPoints, tvDate;
         ImageView ivSuit;
         ImageButton btnDelete, btnToggleSave;
 
         ViewHolder(View itemView) {
             super(itemView);
             tvContract = itemView.findViewById(R.id.tv_history_contract);
-            tvResult = itemView.findViewById(R.id.tv_history_result);
+            tvResultSymbol = itemView.findViewById(R.id.tv_history_result_symbol);
+            tvPoints = itemView.findViewById(R.id.tv_history_points);
             tvDate = itemView.findViewById(R.id.tv_history_date);
             ivSuit = itemView.findViewById(R.id.iv_history_suit);
             btnDelete = itemView.findViewById(R.id.btn_delete_history);
