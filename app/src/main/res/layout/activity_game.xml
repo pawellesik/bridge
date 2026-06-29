@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="wrap_content"
+        android:minHeight="96dp"
         android:padding="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,7 +25,7 @@
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/game_contract_container"
@@ -92,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/tv_middle_1"
@@ -129,7 +130,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <!-- North Last Card -->
             <LinearLayout
@@ -505,7 +506,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@id/top_bar"
-        tools:visibility="gone">
+        tools:visibility="invisible">
 
         <!-- Content (Player Hands) -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -931,13 +932,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#1B5E20"
-        android:elevation="0dp"
         android:clickable="true"
+        android:elevation="0dp"
         android:focusable="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/filters_container_overlay"
@@ -945,9 +946,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_top_nav"
             android:elevation="50dp"
-            android:translationZ="100dp"
             android:paddingHorizontal="8dp"
             android:paddingBottom="8dp"
+            android:translationZ="100dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <Spinner
