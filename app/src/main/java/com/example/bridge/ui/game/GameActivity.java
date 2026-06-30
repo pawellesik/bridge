@@ -134,7 +134,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         btnNewDeal.setOnClickListener(v -> {
             gameActivityTop.hideContract();
-            gameController.resetTable();
             if (southAdapter != null) southAdapter.setCardsEnabled(true);
             if (northAdapter != null) northAdapter.setCardsEnabled(true);
             v.post(() -> {
