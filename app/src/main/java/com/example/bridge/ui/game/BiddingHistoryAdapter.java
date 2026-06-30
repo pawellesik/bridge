@@ -81,14 +81,31 @@ public class BiddingHistoryAdapter extends RecyclerView.Adapter<BiddingHistoryAd
                 // Format like "1S", "3NT"
                 try {
                     String level = bid.substring(0, 1);
-                    String suitPart = bid.substring(1);
+                    String suitPart = bid.substring(1).toUpperCase();
                     
                     if (suitPart.equalsIgnoreCase("NT")) {
                         tvLevel.setText(level + "NT");
                     } else {
                         tvLevel.setText(level);
                         ivSuit.setVisibility(View.VISIBLE);
-                        ivSuit.setImageResource(getSuitIcon(suitPart));
+                        int iconRes = getSuitIcon(suitPart);
+                        ivSuit.setImageResource(iconRes);
+                        
+                        // Apply dynamic colors (2 or 4 color deck)
+                        Suit s;
+                        switch (suitPart) {
+                            case "C": s = Suit.CLUBS; break;
+                            case "D": s = Suit.DIAMONDS; break;
+                            case "H": s = Suit.HEARTS; break;
+                            case "S": s = Suit.SPADES; break;
+                            default: s = null; break;
+                        }
+                        
+                        if (s != null) {
+                            int suitColor = s.getColor(itemView.getContext());
+                            tvLevel.setTextColor(suitColor);
+                            ivSuit.setImageTintList(android.content.res.ColorStateList.valueOf(suitColor));
+                        }
                     }
                 } catch (Exception e) {
                     tvLevel.setText(bid);
@@ -97,7 +114,7 @@ public class BiddingHistoryAdapter extends RecyclerView.Adapter<BiddingHistoryAd
         }
 
         private int getSuitIcon(String suit) {
-            switch (suit.toUpperCase()) {
+            switch (suit) {
                 case "C": return R.drawable.clubs;
                 case "D": return R.drawable.diamonds;
                 case "H": return R.drawable.heart;

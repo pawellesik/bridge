@@ -7,7 +7,7 @@
     android:background="@drawable/bg_bidding_container"
     android:padding="1dp">
 
-    <!-- Table Header -->
+    <!-- Table Header with white dividers and localized names -->
     <LinearLayout
         android:id="@+id/bidding_header"
         android:layout_width="match_parent"
@@ -15,6 +15,9 @@
         android:background="@drawable/bg_bidding_table_header"
         android:orientation="horizontal"
         android:weightSum="4"
+        android:divider="@drawable/divider_white"
+        android:dividerPadding="0dp"
+        android:showDividers="middle"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -22,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="West"
+            android:text="@string/player_west"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -32,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="North"
+            android:text="@string/player_north"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -42,7 +45,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="East"
+            android:text="@string/player_east"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -52,7 +55,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="South"
+            android:text="@string/player_south"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
