@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_game_table_gradient">
 
+    <!-- Spacer for System Status Bar (height set in GameActivity) -->
+    <View
+        android:id="@+id/system_status_bar_spacer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top Status Bar (Scoreboard) -->
+    <include
+        android:id="@+id/top_bar_container"
+        layout="@layout/layout_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/system_status_bar_spacer" />
+
     <TextView
         android:id="@+id/name_north"
         android:layout_width="wrap_content"
@@ -246,20 +261,20 @@
             android:layout_marginBottom="4dp"/>
     </LinearLayout>
 
-    <!-- Bidding Overlay - Covers from top to bottom of North cards -->
+    <!-- Bidding Overlay - Drawn AFTER everything above, covering Top Bar and North -->
     <include
         android:id="@+id/bidding_overlay"
         layout="@layout/overlay_bidding"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:elevation="60dp"
-        android:translationZ="50dp"
+        android:elevation="100dp"
+        android:translationZ="100dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/rv_hand_north"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/system_status_bar_spacer"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

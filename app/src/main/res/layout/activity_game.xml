@@ -8,11 +8,8 @@
     android:background="@drawable/bg_game_table_gradient"
     tools:context="com.example.bridge.ui.game.GameActivity">
 
-    <!-- Core Game Table -->
+    <!-- Core Game Table (Now includes Top Bar and Bidding Overlay) -->
     <include layout="@layout/layout_game_table" />
-
-    <!-- Top Status Bar (Scoreboard) -->
-    <include layout="@layout/layout_top_bar" />
 
     <!-- Results Overlay -->
     <include

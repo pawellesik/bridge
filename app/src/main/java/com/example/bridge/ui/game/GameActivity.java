@@ -56,7 +56,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View startBar;
     private View btnClaim;
     private View loadingIndicator;
-    private View btnNewDeal;
     private View historyOverlay;
     private View biddingOverlay;
     private final List<Card> displayHandSouth = new ArrayList<>();
@@ -185,6 +184,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         String gameMode = getIntent().getStringExtra("GAME_MODE");
         if ("single".equals(gameMode) && biddingOverlay != null) {
             biddingOverlay.setVisibility(View.VISIBLE);
+            gameActivityTop.hideContract();
         }
     }
 
@@ -226,11 +226,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         View btnSave = findViewById(R.id.btn_save_game);
         if (btnSave != null) btnSave.setVisibility(View.GONE);
-        if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
-            com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
-            mBtn.setText(R.string.play_again);
-            mBtn.setIconResource(R.drawable.ic_arrow);
-        }
     }
 
     @Override
@@ -308,6 +303,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             ViewCompat.setOnApplyWindowInsetsListener(topBar, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(v.getPaddingLeft(), systemBars.top + (int) (4 * getResources().getDisplayMetrics().density), v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+        }
+
+        View statusBarSpacer = findViewById(R.id.system_status_bar_spacer);
+        if (statusBarSpacer != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.getLayoutParams().height = systemBars.top;
+                v.requestLayout();
                 return insets;
             });
         }
