@@ -111,7 +111,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Zagraj szybkie rozdanie z AI"
+                    android:text="@string/quick_game_text"
                     android:textColor="#80FFFFFF"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="@id/tv_title_1"
@@ -142,7 +142,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_difficulty"
+                        android:src="@drawable/ic_person"
                         app:tint="#FFFFFF" />
                 </FrameLayout>
 
@@ -192,7 +192,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:src="@android:drawable/ic_menu_share"
+                        android:src="@drawable/ic_multi"
                         app:tint="#FFFFFF"
                         android:contentDescription="@string/multiplayer" />
                 </FrameLayout>

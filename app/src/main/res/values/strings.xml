@@ -4,7 +4,8 @@
     <string name="logout">Logout</string>
     <string name="cards_will_appear_here">Cards will appear here</string>
     <string name="deal_cards">Deal Cards</string>
-    <string name="quick_game">Quick Game</string>
+    <string name="quick_game">Just Declare</string>
+    <string name="quick_game_text">Play a quick hand without bidding</string>
     <string name="single_player">Singleplayer</string>
     <string name="difficulty_level">Difficulty Level</string>
     <string name="difficulty_easy">Easy</string>
