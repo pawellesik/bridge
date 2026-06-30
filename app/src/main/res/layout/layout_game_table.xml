@@ -33,6 +33,55 @@
         app:layout_constraintTop_toBottomOf="@id/name_north"
         tools:listitem="@layout/item_card" />
 
+    <!-- Center Table -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/table_center"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        app:layout_constraintTop_toBottomOf="@id/rv_hand_north"
+        app:layout_constraintBottom_toTopOf="@id/name_south"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible">
+
+        <!-- Played North -->
+        <FrameLayout
+            android:id="@+id/container_played_north"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Played South -->
+        <FrameLayout
+            android:id="@+id/container_played_south"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Played West -->
+        <FrameLayout
+            android:id="@+id/container_played_west"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Played East -->
+        <FrameLayout
+            android:id="@+id/container_played_east"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!-- South Player Hand -->
     <TextView
         android:id="@+id/name_south"
@@ -55,7 +104,7 @@
         android:layout_height="160dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="240dp"
         android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -196,54 +245,5 @@
             android:paddingEnd="8dp"
             android:layout_marginBottom="4dp"/>
     </LinearLayout>
-
-    <!-- Center Table -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/table_center"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        app:layout_constraintBottom_toTopOf="@id/name_south"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_hand_north"
-        tools:visibility="visible">
-
-        <!-- Played North -->
-        <FrameLayout
-            android:id="@+id/container_played_north"
-            android:layout_width="70dp"
-            android:layout_height="90dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Played South -->
-        <FrameLayout
-            android:id="@+id/container_played_south"
-            android:layout_width="70dp"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Played West -->
-        <FrameLayout
-            android:id="@+id/container_played_west"
-            android:layout_width="70dp"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Played East -->
-        <FrameLayout
-            android:id="@+id/container_played_east"
-            android:layout_width="70dp"
-            android:layout_height="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
