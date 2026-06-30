@@ -27,6 +27,7 @@ import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
+import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
 import com.example.bridge.ui.settings.SettingsActivity;
 
@@ -66,6 +67,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private GameController gameController;
     private SharedPref sharedPref;
     private String gameMode;
+    private GameBidding gameBidding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         historyOverlay = findViewById(R.id.history_overlay);
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
+        gameBidding = new GameBidding(this, biddingControlsOverlay);
 
         setupRecyclerView();
         setupBiddingHistory();
@@ -146,8 +149,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             if ("single".equals(gameMode) && biddingControlsOverlay != null) {
                 biddingControlsOverlay.setVisibility(View.VISIBLE);
-                View level1 = biddingControlsOverlay.findViewById(R.id.btn_level_1);
-                if (level1 != null) level1.setSelected(true);
+                gameBidding.selectLevel(1);
             } else {
                 v.post(() -> {
                     gameController.startGame();
