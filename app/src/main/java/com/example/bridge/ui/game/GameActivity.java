@@ -1,8 +1,5 @@
 package com.example.bridge.ui.game;
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.RelativeSizeSpan;
 import android.widget.Button;
 import android.content.Context;
 import android.content.Intent;
@@ -64,7 +61,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private GameActivityTop gameActivityTop;
     private GameController gameController;
     private SharedPref sharedPref;
-
+    private String gameMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,14 +99,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         setupRecyclerView();
 
-        Map<String, Player> players = new LinkedHashMap<>();
-        players.put("North", new Player("North", playedCardContainerNorth));
-        players.put("East", new Player("East", playedCardContainerEast));
-        players.put("South", new Player("South", playedCardContainerSouth));
-        players.put("West", new Player("West", playedCardContainerWest));
-        gameController = new GameController(this, players, sharedPref);
-        gameController.dealCards();
-
         com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
             bottomNav.setSelectedItemId(R.id.nav_game);
@@ -135,7 +124,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
             v.post(() -> {
-                gameController.dealCards();
+                initGame();
+                //gameController.dealCards();
             });
         });
 
@@ -181,12 +171,46 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         });
 
-        String gameMode = getIntent().getStringExtra("GAME_MODE");
-        if ("single".equals(gameMode) && biddingOverlay != null) {
-            biddingOverlay.setVisibility(View.VISIBLE);
-            gameActivityTop.hideContract();
+        gameMode = getIntent().getStringExtra("GAME_MODE");
+        initGame();
+    }
+
+    private void initGame(){
+        if ("quick".equals(gameMode)) {
+            initGameQiuckMode();
+        } else if ("single".equals(gameMode)) {
+            initGameSingleMode();
+        } else if ("multi".equals(gameMode)) {
+            //todo
         }
     }
+
+    private void initGameSingleMode() {
+        initGameBase();
+        gameActivityTop.hideContract();
+        biddingOverlay.setVisibility(View.VISIBLE);
+        onHandUpdated("South");
+        onVisibleStartBar(true);
+    }
+
+    private void initGameQiuckMode() {
+        initGameBase();
+        gameController.calculateAndSetTheBestContract();
+        onHandUpdated("North");
+        onHandUpdated("South");
+        onVisibleStartBar(true);
+    }
+
+    private void initGameBase() {
+        Map<String, Player> players = new LinkedHashMap<>();
+        players.put("North", new Player("North", playedCardContainerNorth));
+        players.put("East", new Player("East", playedCardContainerEast));
+        players.put("South", new Player("South", playedCardContainerSouth));
+        players.put("West", new Player("West", playedCardContainerWest));
+        gameController = new GameController(this, players, sharedPref);
+        gameController.dealCards();
+    }
+
 
     private void showExitConfirmationDialog() {
         new AlertDialog.Builder(this)

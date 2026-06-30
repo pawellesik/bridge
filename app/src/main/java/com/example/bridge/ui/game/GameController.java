@@ -86,18 +86,12 @@ public class GameController {
             player.addCards(deck.deal(13));
             player.setCurrentMove(false);
         }
-        finishDealing();
-        //sharedPref.saveDeal(players, currentContract);
     }
 
-    private void finishDealing() {
+    public void calculateAndSetTheBestContract() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
-        this.initialPlayerHands.clear();
-        trickLeaderName = "West";
-        callback.onVisibleStartBar(true);
-        callback.onHandUpdated("North");
-        callback.onHandUpdated("South");
+        trickLeaderName = getPlayerWinBidding().getName();
         //callback.onTotalScore();
     }
 
