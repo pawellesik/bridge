@@ -14,8 +14,6 @@
         android:layout_height="36dp"
         android:background="#FFFFFF"
         android:orientation="horizontal"
-        android:paddingStart="1dp"
-        android:paddingEnd="1dp"
         android:weightSum="7"
         app:layout_constraintTop_toTopOf="parent">
 
