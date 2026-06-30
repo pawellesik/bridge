@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Tło + pełny stroke dookoła -->
+    <!-- Warstwa spodnia: pełny biały prostokąt = "obramowanie" -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#1A3026" />
+            <solid android:color="#FFFFFF" />
             <corners
                 android:bottomLeftRadius="12dp"
                 android:bottomRightRadius="12dp" />
-            <stroke
-                android:width="1dp"
-                android:color="#FFFFFF" />
         </shape>
     </item>
 
-    <!-- Cienki pasek zakrywający tylko górną krawędź -->
+    <!-- Warstwa wierzchnia: zielone wypełnienie, wcięte z boków i z dołu o grubość stroke'a, ale NIE od góry -->
     <item
-
-        android:height="2dp"
-        android:gravity="top"
-        android:top="-1dp">
+        android:left="1dp"
+        android:right="1dp"
+        android:bottom="1dp"
+        android:top="0dp">
         <shape android:shape="rectangle">
             <solid android:color="#1A3026" />
+            <corners
+                android:bottomLeftRadius="11dp"
+                android:bottomRightRadius="11dp" />
         </shape>
     </item>
 
