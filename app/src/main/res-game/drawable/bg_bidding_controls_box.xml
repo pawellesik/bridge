@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#234235" /> <!-- Lighter Green as requested -->
-    <corners
-        android:topLeftRadius="0dp"
-        android:topRightRadius="0dp"
-        android:bottomLeftRadius="12dp"
-        android:bottomRightRadius="12dp" />
-    <stroke
-        android:width="1dp"
-        android:color="#33FFFFFF" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Tło + pełny stroke dookoła -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#1A3026" />
+            <corners
+                android:bottomLeftRadius="12dp"
+                android:bottomRightRadius="12dp" />
+            <stroke
+                android:width="1dp"
+                android:color="#FFFFFF" />
+        </shape>
+    </item>
+
+    <!-- Cienki pasek zakrywający tylko górną krawędź -->
+    <item
+
+        android:height="2dp"
+        android:gravity="top"
+        android:top="-1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#1A3026" />
+        </shape>
+    </item>
+
+</layer-list>

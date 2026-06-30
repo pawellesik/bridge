@@ -1,8 +1,8 @@
 package com.example.bridge.ui.game;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.core.widget.TextViewCompat;
 import android.content.res.ColorStateList;
 
 import com.example.bridge.R;
@@ -11,7 +11,6 @@ import com.example.bridge.model.Suit;
 public class GameBidding {
     private final GameActivity activity;
     private final View controlsOverlay;
-    private int currentLevel = 1;
 
     public GameBidding(GameActivity activity, View controlsOverlay) {
         this.activity = activity;
@@ -40,7 +39,6 @@ public class GameBidding {
     }
 
     public void selectLevel(int level) {
-        this.currentLevel = level;
         if (controlsOverlay == null) return;
 
         int[] levelBtnIds = {
@@ -56,14 +54,16 @@ public class GameBidding {
         }
 
         String levelStr = String.valueOf(level);
-        updateButtonText(R.id.bid_clubs, levelStr);
-        updateButtonText(R.id.bid_diamonds, levelStr);
-        updateButtonText(R.id.bid_hearts, levelStr);
-        updateButtonText(R.id.bid_spades, levelStr);
-        updateButtonText(R.id.bid_nt, levelStr + " " + activity.getString(R.string.suit_nt));
+        updateTileText(R.id.bid_clubs_text, levelStr);
+        updateTileText(R.id.bid_diamonds_text, levelStr);
+        updateTileText(R.id.bid_hearts_text, levelStr);
+        updateTileText(R.id.bid_spades_text, levelStr);
+        
+        TextView tvNt = controlsOverlay.findViewById(R.id.bid_nt);
+        if (tvNt != null) tvNt.setText(levelStr + " " + activity.getString(R.string.suit_nt));
     }
 
-    private void updateButtonText(int id, String text) {
+    private void updateTileText(int id, String text) {
         TextView tv = controlsOverlay.findViewById(id);
         if (tv != null) tv.setText(text);
     }
@@ -71,17 +71,18 @@ public class GameBidding {
     public void applyColors() {
         if (controlsOverlay == null) return;
 
-        updateSuitButton(R.id.bid_clubs, Suit.CLUBS);
-        updateSuitButton(R.id.bid_diamonds, Suit.DIAMONDS);
-        updateSuitButton(R.id.bid_hearts, Suit.HEARTS);
-        updateSuitButton(R.id.bid_spades, Suit.SPADES);
+        updateSuitTile(R.id.bid_clubs_text, R.id.bid_clubs_icon, Suit.CLUBS);
+        updateSuitTile(R.id.bid_diamonds_text, R.id.bid_diamonds_icon, Suit.DIAMONDS);
+        updateSuitTile(R.id.bid_hearts_text, R.id.bid_hearts_icon, Suit.HEARTS);
+        updateSuitTile(R.id.bid_spades_text, R.id.bid_spades_icon, Suit.SPADES);
     }
 
-    private void updateSuitButton(int id, Suit suit) {
-        TextView tv = controlsOverlay.findViewById(id);
-        if (tv == null) return;
+    private void updateSuitTile(int textId, int iconId, Suit suit) {
+        TextView tv = controlsOverlay.findViewById(textId);
+        ImageView iv = controlsOverlay.findViewById(iconId);
         int color = suit.getColor(activity);
-        tv.setTextColor(color);
-        TextViewCompat.setCompoundDrawableTintList(tv, ColorStateList.valueOf(color));
+        
+        if (tv != null) tv.setTextColor(color);
+        if (iv != null) iv.setImageTintList(ColorStateList.valueOf(color));
     }
 }
