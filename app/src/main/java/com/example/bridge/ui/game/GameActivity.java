@@ -43,37 +43,34 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LocaleHelper.onAttach(newBase));
     }
+
     public static final Card GHOST_CARD = new Card(null, null);
-    private GameController gameController;
     private CardAdapter southAdapter;
     private CardAdapter northAdapter;
-    private final List<Card> displayHandSouth = new ArrayList<>();
-    private final List<Card> displayHandNorth = new ArrayList<>();
-
     private FrameLayout playedCardContainerSouth;
     private FrameLayout playedCardContainerNorth;
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
-
-
+    private TextView nameNorth, nameSouth, nameEast, nameWest;
+    private Button btn_deal;
     private View startBar;
     private View btnClaim;
     private View loadingIndicator;
     private View btnNewDeal;
-    private boolean isProcessingMove = false;
-    private Button btn_deal;
-    private GameActivityTop gameActivityTop;
-    private SharedPref sharedPref;
     private View historyOverlay;
-    private TextView nameNorth, nameSouth, nameEast, nameWest;
+    private final List<Card> displayHandSouth = new ArrayList<>();
+    private final List<Card> displayHandNorth = new ArrayList<>();
+    private boolean isProcessingMove = false;
+    private GameActivityTop gameActivityTop;
+    private GameController gameController;
+    private SharedPref sharedPref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        
-        // Wyłączenie automatycznego przyciemniania paska przez system i ustawienie koloru
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
             getWindow().setNavigationBarContrastEnforced(false);
         }
@@ -102,20 +99,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameActivityTop = new GameActivityTop(this);
         sharedPref = new SharedPref(this, gameActivityTop);
 
+        historyOverlay = findViewById(R.id.history_overlay);
+
+        setupRecyclerView();
+
         Map<String, Player> players = new LinkedHashMap<>();
         players.put("North", new Player("North", playedCardContainerNorth));
         players.put("East", new Player("East", playedCardContainerEast));
         players.put("South", new Player("South", playedCardContainerSouth));
         players.put("West", new Player("West", playedCardContainerWest));
         gameController = new GameController(this, players, sharedPref);
-
-        //gameHistory = new GameActivityHistory(this, gameController, gameActivityTop);
-
-        historyOverlay = findViewById(R.id.history_overlay);
-
-        // Always setup RecyclerView before loading any data to prevent NullPointerException
-        setupRecyclerView();
-        //setupHistoryOverlay();
+        gameController.dealCards();
 
         com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
@@ -132,79 +126,50 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     return true;
                 } else if (itemId == R.id.nav_settings) {
                     startActivity(new Intent(this, SettingsActivity.class));
-                    return false; // Don't select settings in game nav
+                    return false;
                 }
                 return false;
             });
         }
 
-        //String replayedGameJson = getIntent().getStringExtra("replayedGameJson");
-        //if (replayedGameJson != null) {
-           // isReplayingFromHistory = true;
-          //  startBar.setVisibility(View.GONE);
-          //  loadingIndicator.setVisibility(View.VISIBLE);
-         //   findViewById(R.id.main).postDelayed(() -> loadGameFromHistory(replayedGameJson, true), 300);
-       // } else {
-          //  SharedPref.SavedState savedState = sharedPref.loadSavedDeal();
-           // if (savedState != null) {
-             //   gameController.restoreCards(savedState.hands, savedState.contract);
-            //} else {
-                gameController.dealCards();
-           // }
-       // }
-
         btnNewDeal.setOnClickListener(v -> {
             gameActivityTop.hideContract();
             gameController.resetTable();
-            //gameHistory.hide();
-
-         //   if (isReplayingFromHistory) {
-              //  loadGameFromHistory(replayedGameJson, false);
-                if (southAdapter != null) southAdapter.setCardsEnabled(true);
-                if (northAdapter != null) northAdapter.setCardsEnabled(true);
-                v.post(() -> {
-                    gameController.startGame();
-                });
-           // } else {
-                loadingIndicator.setVisibility(View.VISIBLE);
-                setTotalScore(sharedPref.getPrefTotalScore());
-                setupRecyclerView();
-
-                v.post(() -> {
-                    gameController.dealCards();
-                });
-                //onSaveDeal();
-           // }
-        });
-
-        /*findViewById(R.id.btn_save_game).setOnClickListener(v -> {
-            markGameAsSaved();
-        });*/
-
-        btn_deal.setOnClickListener(v -> {
-            onVisibleStartBar(false);
+            if (southAdapter != null) southAdapter.setCardsEnabled(true);
+            if (northAdapter != null) northAdapter.setCardsEnabled(true);
+            v.post(() -> {
+                gameController.startGame();
+            });
             loadingIndicator.setVisibility(View.VISIBLE);
-
-            //showTemporaryNotification(R.string.score_deducted);
-            sharedPref.setPrefChangeTotalScore(sharedPref.getChangeScore());
             setTotalScore(sharedPref.getPrefTotalScore());
+            setupRecyclerView();
+
             v.post(() -> {
                 gameController.dealCards();
             });
         });
-        findViewById(R.id.btn_start).setOnClickListener(v -> {
+
+        btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
-            sharedPref.incrementGamesPlayed();
-            sharedPref.clearSavedDeal(); // Clear the deal once the game starts
+            v.post(() -> {
+                gameController.dealCards();
+            });
+        });
 
-            if (southAdapter != null) southAdapter.setCardsEnabled(true);
-            if (northAdapter != null) northAdapter.setCardsEnabled(true);
+        findViewById(R.id.btn_start).setOnClickListener(v -> {
+            onVisibleStartBar(false);
+            sharedPref.incrementGamesPlayed();
+            sharedPref.clearSavedDeal();
+
+            southAdapter.setCardsEnabled(true);
+            northAdapter.setCardsEnabled(true);
 
             v.post(() -> {
                 gameController.startGame();
             });
         });
+
         btnClaim.setOnClickListener(v -> {
             if (isProcessingMove) return;
             isProcessingMove = true;
@@ -225,11 +190,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     return;
                 }
 
-                //if (gameHistory.isVisible()) {
-                //    gameHistory.hide();
-                //    return;
-                //}
-
                 if (startBar != null && startBar.getVisibility() == View.VISIBLE) {
                     finish();
                 } else {
@@ -239,22 +199,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
     }
 
-    /*private void showTemporaryNotification(int resId) {
-        View notifyView = findViewById(R.id.notification_text);
-        if (notifyView != null) {
-            ((TextView) notifyView).setText(resId);
-            notifyView.setVisibility(View.VISIBLE);
-            notifyView.postDelayed(() -> notifyView.setVisibility(View.GONE), 1000);
-        }
-    }*/
-
-    /*private void markGameAsSaved() {
-        sharedPref.markLatestGameAsSaved();
-        View btnSave = findViewById(R.id.btn_save_game);
-        if (btnSave != null) btnSave.setVisibility(View.GONE);
-        showTemporaryNotification(R.string.save_success);
-    }*/
-
     private void showExitConfirmationDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.exit_title)
@@ -263,15 +207,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
-
-
-
-    /*public void showPlayedCardInSim(Card card, String playerName) {
-        Player p = players.get(playerName);
-        if (p != null) {
-            showPlayedCard(card, p.getPlayedCardContainer());
-        }
-    }*/
 
     public void setTotalScore(int totalScore, int changeScore) {
         gameActivityTop.setTotalScore(totalScore, changeScore);
@@ -300,115 +235,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (southAdapter != null) southAdapter.setCardsEnabled(false);
         if (northAdapter != null) northAdapter.setCardsEnabled(false);
 
-        /*if (!isReplayingFromHistory) {
-            sharedPref.setScore(contract, snScore);
-
-            // Obliczamy optymalną historię robota raz przed zapisem
-            List<Trick> autoPlayHistory = gameController.calculateOptimalHistory(gameController.getInitialPlayerHands(), contract);
-            int autoSnScore = 0;
-            for (Trick t : autoPlayHistory) {
-                String winner = t.getWinnerTrick();
-                if ("North".equals(winner) || "South".equals(winner)) autoSnScore++;
-            }
-
-            sharedPref.addGameToHistory(contract, snScore, history, claim, gameController.getInitialPlayerHands(), autoSnScore, autoPlayHistory);
-
-            View btnSave = findViewById(R.id.btn_save_game);
-            if (btnSave != null) btnSave.setVisibility(View.VISIBLE);
-
-            final int finalAutoSnScore = autoSnScore;
-            final List<Trick> finalAutoPlayHistory = autoPlayHistory;
-            findViewById(R.id.main).postDelayed(() -> {
-                gameHistory.showResults(history, claim, snScore, finalAutoSnScore, finalAutoPlayHistory);
-            }, 500);
-        } else {*/
-            // Replay mode adjustments
-            View btnSave = findViewById(R.id.btn_save_game);
-            if (btnSave != null) btnSave.setVisibility(View.GONE);
-            if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
-                com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
-                mBtn.setText(R.string.play_again);
-                mBtn.setIconResource(R.drawable.ic_arrow);
-            //}
-
-            //findViewById(R.id.main).postDelayed(() -> {
-            //    gameHistory.showResults(history, claim, snScoreFromHistory, autoSnScoreFromHistory, autoPlayHistoryFromHistory);
-            //}, 500);
+        View btnSave = findViewById(R.id.btn_save_game);
+        if (btnSave != null) btnSave.setVisibility(View.GONE);
+        if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
+            com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
+            mBtn.setText(R.string.play_again);
+            mBtn.setIconResource(R.drawable.ic_arrow);
         }
     }
-
-    /*private void loadGameFromHistory(String json, boolean isInitialUiLoad) {
-        try {
-            org.json.JSONObject game = new org.json.JSONObject(json);
-            Contract contract = Contract.fromString(game.getString("contract"));
-            this.snScoreFromHistory = game.optInt("snScore", 0);
-            this.autoSnScoreFromHistory = game.optInt("autoSnScore", 0);
-            int claim = game.optInt("claim", 0);
-
-            org.json.JSONObject handsJson = game.getJSONObject("hands");
-            gameController.getInitialPlayerHands().clear();
-            for (String direction : new String[]{"North", "East", "South", "West"}) {
-                org.json.JSONArray handArray = handsJson.getJSONArray(direction);
-                List<Card> cards = new ArrayList<>();
-                for (int i = 0; i < handArray.length(); i++) {
-                    String[] parts = handArray.getString(i).split(":");
-                    cards.add(new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
-                }
-                gameController.getInitialPlayerHands().put(direction, cards);
-            }
-
-            List<Trick> history = parseTricks(game.optJSONArray("playHistory"));
-            this.autoPlayHistoryFromHistory = parseTricks(game.optJSONArray("autoPlayHistory"));
-
-            // Restore without bidding to prevent freeze
-            gameController.restoreCardsWithContract(new LinkedHashMap<>(gameController.getInitialPlayerHands()), contract);
-
-            if (isInitialUiLoad) {
-                loadingIndicator.setVisibility(View.GONE);
-                startBar.setVisibility(View.GONE);
-
-                View btnSave = findViewById(R.id.btn_save_game);
-                if (btnSave != null) btnSave.setVisibility(View.GONE);
-
-                View btnAuto = findViewById(R.id.btn_auto_replay);
-                if (btnAuto != null) btnAuto.setVisibility(View.GONE);
-
-                if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
-                    com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
-                    mBtn.setText(R.string.play_again);
-                    mBtn.setIconResource(R.drawable.ic_arrow);
-                }
-
-                gameHistory.showResults(history, claim, snScoreFromHistory, autoSnScoreFromHistory, autoPlayHistoryFromHistory);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (isInitialUiLoad) {
-                loadingIndicator.setVisibility(View.GONE);
-                gameController.dealCards();
-            }
-        }
-    }*/
-
-    /*private List<Trick> parseTricks(org.json.JSONArray tricksArray) throws org.json.JSONException {
-        List<Trick> tricks = new ArrayList<>();
-        if (tricksArray != null) {
-            for (int i = 0; i < tricksArray.length(); i++) {
-                org.json.JSONObject trickJson = tricksArray.getJSONObject(i);
-                Trick trick = new Trick();
-                trick.setWinnerTrick(trickJson.getString("winner"));
-                org.json.JSONObject cardsMap = trickJson.getJSONObject("cards");
-                java.util.Iterator<String> keys = cardsMap.keys();
-                while (keys.hasNext()) {
-                    String pName = keys.next();
-                    String[] parts = cardsMap.getString(pName).split(":");
-                    trick.addCard(pName, new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
-                }
-                tricks.add(trick);
-            }
-        }
-        return tricks;
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -423,35 +257,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             startBar.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.GONE);
 
-            Button btnStart = findViewById(R.id.btn_start);
-            if (btnStart != null) {
-                int gamesCount = sharedPref.getGamesPlayed();
-                String baseText = getString(R.string.Start);
-                String countText = getString(R.string.games_count_format, gamesCount);
-
-                SpannableStringBuilder ssb = new SpannableStringBuilder(baseText + "\n" + countText);
-                ssb.setSpan(new RelativeSizeSpan(0.6f), baseText.length() + 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                btnStart.setText(ssb);
-                btnStart.setLineSpacing(0f, 0.8f);
-            }
-
-            if (btn_deal != null) {
-                String dealText = getString(R.string.deal);
-                String costText = getString(R.string.deal_cost);
-
-                SpannableStringBuilder ssb = new SpannableStringBuilder(dealText + "\n" + costText);
-                ssb.setSpan(new RelativeSizeSpan(0.6f), dealText.length() + 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                btn_deal.setText(ssb);
-                btn_deal.setLineSpacing(0f, 0.8f);
-
-                if (sharedPref.getPrefTotalScore() < 50) {
-                    btn_deal.setVisibility(View.GONE);
-                } else {
-                    btn_deal.setVisibility(View.VISIBLE);
-                }
-            }
         } else {
             if (bottomNav != null) bottomNav.setVisibility(View.GONE);
             startBar.setVisibility(View.GONE);
@@ -527,7 +332,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (bottomNav != null) {
             ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                // Nav icons are pushed up above system buttons
                 v.setPadding(0, 0, 0, systemBars.bottom);
                 return insets;
             });
@@ -591,7 +395,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             updateDisplayHandSouth();
         }
     }
-
 
     @Override
     public void onCardPlayed(Player player, Card card) {
@@ -691,6 +494,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         container.addView(view);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gameController.cleanup();
+    }
+}
+
     /*private void setupHistoryOverlay() {
         RecyclerView rvHistory = findViewById(R.id.rv_history_overlay);
         tvEmptyHistory = findViewById(R.id.tv_empty_history_overlay);
@@ -709,7 +519,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 bottomNav.setVisibility(View.VISIBLE);
                 bottomNav.setSelectedItemId(R.id.nav_game);
             }
-            
+
             isReplayingFromHistory = true;
             startBar.setVisibility(View.GONE);
             loadingIndicator.setVisibility(View.VISIBLE);
@@ -855,9 +665,98 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         getSharedPreferences("BridgePrefs", MODE_PRIVATE).edit().putString("gameHistory", array.toString()).apply();
     }*/
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        gameController.cleanup();
-    }
-}
+ /*private void showTemporaryNotification(int resId) {
+        View notifyView = findViewById(R.id.notification_text);
+        if (notifyView != null) {
+            ((TextView) notifyView).setText(resId);
+            notifyView.setVisibility(View.VISIBLE);
+            notifyView.postDelayed(() -> notifyView.setVisibility(View.GONE), 1000);
+        }
+    }*/
+
+    /*private void markGameAsSaved() {
+        sharedPref.markLatestGameAsSaved();
+        View btnSave = findViewById(R.id.btn_save_game);
+        if (btnSave != null) btnSave.setVisibility(View.GONE);
+        showTemporaryNotification(R.string.save_success);
+    }*/
+
+/*public void showPlayedCardInSim(Card card, String playerName) {
+        Player p = players.get(playerName);
+        if (p != null) {
+            showPlayedCard(card, p.getPlayedCardContainer());
+        }
+    }*/
+
+  /*private List<Trick> parseTricks(org.json.JSONArray tricksArray) throws org.json.JSONException {
+        List<Trick> tricks = new ArrayList<>();
+        if (tricksArray != null) {
+            for (int i = 0; i < tricksArray.length(); i++) {
+                org.json.JSONObject trickJson = tricksArray.getJSONObject(i);
+                Trick trick = new Trick();
+                trick.setWinnerTrick(trickJson.getString("winner"));
+                org.json.JSONObject cardsMap = trickJson.getJSONObject("cards");
+                java.util.Iterator<String> keys = cardsMap.keys();
+                while (keys.hasNext()) {
+                    String pName = keys.next();
+                    String[] parts = cardsMap.getString(pName).split(":");
+                    trick.addCard(pName, new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
+                }
+                tricks.add(trick);
+            }
+        }
+        return tricks;
+    }*/
+
+ /*private void loadGameFromHistory(String json, boolean isInitialUiLoad) {
+        try {
+            org.json.JSONObject game = new org.json.JSONObject(json);
+            Contract contract = Contract.fromString(game.getString("contract"));
+            this.snScoreFromHistory = game.optInt("snScore", 0);
+            this.autoSnScoreFromHistory = game.optInt("autoSnScore", 0);
+            int claim = game.optInt("claim", 0);
+
+            org.json.JSONObject handsJson = game.getJSONObject("hands");
+            gameController.getInitialPlayerHands().clear();
+            for (String direction : new String[]{"North", "East", "South", "West"}) {
+                org.json.JSONArray handArray = handsJson.getJSONArray(direction);
+                List<Card> cards = new ArrayList<>();
+                for (int i = 0; i < handArray.length(); i++) {
+                    String[] parts = handArray.getString(i).split(":");
+                    cards.add(new Card(Suit.valueOf(parts[0]), Rank.valueOf(parts[1])));
+                }
+                gameController.getInitialPlayerHands().put(direction, cards);
+            }
+
+            List<Trick> history = parseTricks(game.optJSONArray("playHistory"));
+            this.autoPlayHistoryFromHistory = parseTricks(game.optJSONArray("autoPlayHistory"));
+
+            // Restore without bidding to prevent freeze
+            gameController.restoreCardsWithContract(new LinkedHashMap<>(gameController.getInitialPlayerHands()), contract);
+
+            if (isInitialUiLoad) {
+                loadingIndicator.setVisibility(View.GONE);
+                startBar.setVisibility(View.GONE);
+
+                View btnSave = findViewById(R.id.btn_save_game);
+                if (btnSave != null) btnSave.setVisibility(View.GONE);
+
+                View btnAuto = findViewById(R.id.btn_auto_replay);
+                if (btnAuto != null) btnAuto.setVisibility(View.GONE);
+
+                if (btnNewDeal instanceof com.google.android.material.button.MaterialButton) {
+                    com.google.android.material.button.MaterialButton mBtn = (com.google.android.material.button.MaterialButton) btnNewDeal;
+                    mBtn.setText(R.string.play_again);
+                    mBtn.setIconResource(R.drawable.ic_arrow);
+                }
+
+                gameHistory.showResults(history, claim, snScoreFromHistory, autoSnScoreFromHistory, autoPlayHistoryFromHistory);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (isInitialUiLoad) {
+                loadingIndicator.setVisibility(View.GONE);
+                gameController.dealCards();
+            }
+        }
+    }*/

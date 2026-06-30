@@ -51,7 +51,7 @@ public class GameController {
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
     private Contract currentContract = new Contract(true);
-    private String trickLeaderName = "West";
+    private String trickLeaderName;
     private int snScore = 0;
     private int weScore = 0;
     private boolean isAutoPlayMode = false;
@@ -89,67 +89,6 @@ public class GameController {
         //sharedPref.saveDeal(players, currentContract);
     }
 
-    public Map<String, List<Card>> getInitialPlayerHands() {
-        return initialPlayerHands;
-    }
-
-    /*public void restoreCards(Map<String, List<Card>> savedHands, Contract savedContract) {
-        restoreCardsInternal(savedHands);
-        if (savedContract != null) {
-            currentContract = savedContract;
-            callback.onContractDetermined(currentContract);
-            initialHandsHtml();
-            trickLeaderName = "West";
-            callback.onVisibleStartBar(true);
-            //callback.onTotalScore();
-
-            for (String playerName : players.keySet()) {
-                callback.onHandUpdated(playerName);
-            }
-        } else {
-            finishDealing();
-        }
-    }*/
-
-    private void initialHandsHtml(){
-        this.initialPlayerHands.clear();
-        for (Player player : players.values()) {
-            this.initialPlayerHands.put(player.getName(), new ArrayList<>(player.getHand()));
-        }
-    }
-
-    public void restoreCardsWithContract(Map<String, List<Card>> savedHands, Contract contract) {
-        restoreCardsInternal(savedHands);
-        currentContract = contract;
-
-        // Cards are already sorted in saved state, no need to resort!
-        // But we must update the UI to show the restored state.
-        for (String playerName : players.keySet()) {
-            callback.onHandUpdated(playerName);
-        }
-
-        callback.onContractDetermined(currentContract);
-        initialHandsHtml();
-        trickLeaderName = "West";
-        callback.onVisibleStartBar(false);
-        //callback.onTotalScore();
-    }
-
-    private void restoreCardsInternal(Map<String, List<Card>> savedHands) {
-        handler.removeCallbacksAndMessages(null);
-        resetTable();
-        isAutoPlayMode = false;
-
-        for (Map.Entry<String, List<Card>> entry : savedHands.entrySet()) {
-            Player player = players.get(entry.getKey());
-            if (player != null) {
-                // Use setHandDirectly to preserve the exact order from saved state
-                player.setHandDirectly(entry.getValue());
-                player.setCurrentMove(false);
-            }
-        }
-    }
-
     private void finishDealing() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
@@ -162,9 +101,15 @@ public class GameController {
     }
 
     public void startGame() {
-        players.get("West").setCurrentMove(true);
-        callback.onTurnChanged("West");
-        playCardOpponent(players.get("West"));
+        String playerWinBidding = getPlayerWinBidding().getName();
+        trickLeaderName = playerWinBidding;
+        players.get(playerWinBidding).setCurrentMove(true);
+        callback.onTurnChanged(playerWinBidding);
+        playCardOpponent(players.get(playerWinBidding));
+    }
+
+    public Player getPlayerWinBidding(){//todo gdy ktos inny wygra lictacje to tutaj nalezy zmienic
+        return players.get("West");
     }
 
     public void resetTable() {
@@ -441,12 +386,13 @@ public class GameController {
     }
 
     private int getBestCard(String playerName, int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks, int cardsOnTableCount) {
-        //System.out.println("plesik calcBestCards params: trump=" + trump + ", leader=" + leader +
-        //        ", cards=" + java.util.Arrays.toString(cards) +
-        //        ", trickSuits=" + java.util.Arrays.toString(trickSuits) +
-        //        ", trickRanks=" + java.util.Arrays.toString(trickRanks));
+        System.out.println("plesik calcBestCards params: trump=" + trump + ", leader=" + leader +
+                ", cards=" + java.util.Arrays.toString(cards) +
+                ", trickSuits=" + java.util.Arrays.toString(trickSuits) +
+                ", trickRanks=" + java.util.Arrays.toString(trickRanks));
 
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
+        System.out.println("plesik" +resultTab.length);
 
         boolean isFirstMove = cardsOnTableCount == 0;
 

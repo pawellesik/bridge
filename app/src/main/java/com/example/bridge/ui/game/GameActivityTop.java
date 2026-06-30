@@ -12,13 +12,12 @@ import com.example.bridge.model.Contract;
 import java.util.Map;
 
 public class GameActivityTop {
-    private final GameActivity activity;
-
     private final View tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private final TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
     private final TextView tvContract;
     private final ImageView ivContractSuit;
     private final View contractContainer;
+    private final GameActivity activity;
 
     public GameActivityTop(GameActivity activity) {
         this.activity = activity;

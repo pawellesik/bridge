@@ -65,7 +65,7 @@ public class GameActivityHistory {
     }
 
     private void setupListeners() {
-        if (btnAutoReplay != null) btnAutoReplay.setOnClickListener(v -> toggleAutoReplay());
+        //if (btnAutoReplay != null) btnAutoReplay.setOnClickListener(v -> toggleAutoReplay());
 
         View btnFirst = activity.findViewById(R.id.btn_first_trick);
         if (btnFirst != null) btnFirst.setOnClickListener(v -> jumpSimTrick(-1));
@@ -93,28 +93,6 @@ public class GameActivityHistory {
         displayHistory(history, claim);
         updateSimTrickUI(true);
         if (resultsOverlay != null) resultsOverlay.setVisibility(View.VISIBLE);
-    }
-
-    private void toggleAutoReplay() {
-        if (gameController.getInitialPlayerHands().isEmpty()) return;
-
-        isShowingAutoHistory = !isShowingAutoHistory;
-        List<Trick> activeHistory;
-        int activeClaim;
-
-        if (isShowingAutoHistory) {
-            setBtnAutoReplayText(false, userSnScore);
-            activeHistory = playAutoHistoryTrick;
-            activeClaim = 0;
-        } else {
-            setBtnAutoReplayText(true, savedAutoSnScore);
-            activeHistory = playHistoryTrick;
-            activeClaim = simClaimCount;
-        }
-
-        displayHistory(activeHistory, activeClaim);
-        currentSimTrickIndex = (activeHistory != null) ? activeHistory.size() : 0;
-        updateSimTrickUI(true);
     }
 
     private void setBtnAutoReplayText(boolean toAuto, int score) {
@@ -207,11 +185,6 @@ public class GameActivityHistory {
                 //activity.showPlayedCardInSim(entry.getValue(), entry.getKey());todo
             }
         }
-
-        if (tvNorthRes != null) tvNorthRes.setText(formatSimHand("North", previousTricksCards, currentTrickCards));
-        if (tvSouthRes != null) tvSouthRes.setText(formatSimHand("South", previousTricksCards, currentTrickCards));
-        if (tvEastRes != null) tvEastRes.setText(formatSimHand("East", previousTricksCards, currentTrickCards));
-        if (tvWestRes != null) tvWestRes.setText(formatSimHand("West", previousTricksCards, currentTrickCards));
 
         updateHistoryHighlightAndScroll(shouldScroll);
     }
@@ -351,61 +324,7 @@ public class GameActivityHistory {
         }
     }
 
-    public Spanned formatSimHand(String playerName, List<Card> previousTricks, List<Card> currentTrick) {
-        String html = formatHandToHtmlForSim(gameController.getInitialPlayerHands().get(playerName), previousTricks, currentTrick);
 
-        android.text.SpannableString spanned = new android.text.SpannableString(
-                Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, source -> {
-                    int resId = 0;
-                    int color = 0;
-                    switch (source) {
-                        case "spades":
-                            resId = R.drawable.spades;
-                            color = com.example.bridge.model.Suit.SPADES.getColor(activity);
-                            break;
-                        case "heart":
-                            resId = R.drawable.heart;
-                            color = com.example.bridge.model.Suit.HEARTS.getColor(activity);
-                            break;
-                        case "diamonds":
-                            resId = R.drawable.diamonds;
-                            color = com.example.bridge.model.Suit.DIAMONDS.getColor(activity);
-                            break;
-                        case "clubs":
-                            resId = R.drawable.clubs;
-                            color = com.example.bridge.model.Suit.CLUBS.getColor(activity);
-                            break;
-                    }
-
-                    if (resId != 0) {
-                        android.graphics.drawable.Drawable d = androidx.core.content.res.ResourcesCompat.getDrawable(
-                                activity.getResources(), resId, null);
-                        if (d != null) {
-                            d.mutate();
-                            d.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN);
-                            float textSizePx = (tvNorthRes != null) ? tvNorthRes.getTextSize() : 14f;
-                            int size = (int) textSizePx;
-                            d.setBounds(0, 0, size, size);
-                            return d;
-                        }
-                    }
-                    return null;
-                }, null)
-        );
-
-        // Zamień wszystkie ImageSpan na ALIGN_CENTER
-        android.text.style.ImageSpan[] spans = spanned.getSpans(0, spanned.length(), android.text.style.ImageSpan.class);
-        android.text.SpannableStringBuilder result = new android.text.SpannableStringBuilder(spanned);
-        for (android.text.style.ImageSpan span : spans) {
-            int start = spanned.getSpanStart(span);
-            int end = spanned.getSpanEnd(span);
-            android.text.style.ImageSpan centered = new android.text.style.ImageSpan(
-                    span.getDrawable(), android.text.style.DynamicDrawableSpan.ALIGN_CENTER);
-            result.removeSpan(span);
-            result.setSpan(centered, start, end, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        return result;
-    }
 
     public String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
         StringBuilder sb = new StringBuilder();
