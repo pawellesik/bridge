@@ -2,19 +2,37 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_bidding_controls_outer"
-    android:paddingHorizontal="1dp"
-    android:paddingBottom="1dp">
+    android:layout_height="wrap_content">
 
-    <!-- Level Tabs area -->
+    <!-- Left white border for tabs -->
+    <View
+        android:id="@+id/border_left"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@id/ll_levels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ll_levels" />
+
+    <!-- Right white border for tabs -->
+    <View
+        android:id="@+id/border_right"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@id/ll_levels"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ll_levels" />
+
+    <!-- Level Tabs area - fully transparent container -->
     <LinearLayout
         android:id="@+id/ll_levels"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="36dp"
-        android:background="#FFFFFF"
         android:orientation="horizontal"
         android:weightSum="7"
+        app:layout_constraintEnd_toStartOf="@id/border_right"
+        app:layout_constraintStart_toEndOf="@id/border_left"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -110,9 +128,10 @@
 
     <!-- Main Bidding Box Area -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bidding_box_container"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:background="@drawable/bg_bidding_controls_box"
+        android:background="@drawable/bg_bidding_controls_box_with_border"
         app:layout_constraintTop_toBottomOf="@id/ll_levels">
 
         <LinearLayout
@@ -123,7 +142,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="2dp">
 
-            <!-- Clubs Tile -->
+            <!-- Suits -->
             <LinearLayout
                 android:id="@+id/bid_clubs"
                 android:layout_width="0dp"
@@ -150,7 +169,6 @@
                     android:src="@drawable/clubs" />
             </LinearLayout>
 
-            <!-- Diamonds Tile -->
             <LinearLayout
                 android:id="@+id/bid_diamonds"
                 android:layout_width="0dp"
@@ -177,7 +195,6 @@
                     android:src="@drawable/diamonds" />
             </LinearLayout>
 
-            <!-- Hearts Tile -->
             <LinearLayout
                 android:id="@+id/bid_hearts"
                 android:layout_width="0dp"
@@ -204,7 +221,6 @@
                     android:src="@drawable/heart" />
             </LinearLayout>
 
-            <!-- Spades Tile -->
             <LinearLayout
                 android:id="@+id/bid_spades"
                 android:layout_width="0dp"
@@ -231,7 +247,7 @@
                     android:src="@drawable/spades" />
             </LinearLayout>
 
-            <!-- NT Tile -->
+            <!-- NT -->
             <TextView
                 android:id="@+id/bid_nt"
                 android:layout_width="0dp"
@@ -245,7 +261,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <!-- Double (X) Tile -->
+            <!-- Double X -->
             <TextView
                 android:id="@+id/btn_bid_double_toggle"
                 android:layout_width="40dp"

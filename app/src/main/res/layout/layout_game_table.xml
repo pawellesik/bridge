@@ -202,6 +202,7 @@
     </LinearLayout>
 
     <!-- Bidding Overlay - Drawn AFTER everything above, covering Top Bar and North -->
+    <!-- Bidding Overlay - Stay in place -->
     <include
         android:id="@+id/bidding_overlay"
         layout="@layout/overlay_bidding"
@@ -219,7 +220,7 @@
         app:layout_constraintTop_toBottomOf="@id/system_status_bar_spacer"
         tools:visibility="visible" />
 
-    <!-- Bidding Controls Overlay - Merged with bidding_overlay, no gap, identical margins -->
+    <!-- Bidding Controls Overlay - Overlaps only with tabs (36dp) -->
     <include
         android:id="@+id/bidding_controls_overlay"
         layout="@layout/overlay_bidding_controls"
@@ -233,6 +234,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bidding_overlay"
+        android:layout_marginTop="-36dp"
         tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
