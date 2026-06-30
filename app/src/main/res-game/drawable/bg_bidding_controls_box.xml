@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#234235" /> <!-- Lighter Green as requested -->
-    <corners
-        android:topLeftRadius="0dp"
-        android:topRightRadius="0dp"
-        android:bottomLeftRadius="12dp"
-        android:bottomRightRadius="12dp" />
-    <stroke
-        android:width="1dp"
-        android:color="#33FFFFFF" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Main Box Background with rounded bottom corners -->
+    <item>
+        <shape>
+            <solid android:color="#234235" />
+            <corners
+                android:bottomLeftRadius="12dp"
+                android:bottomRightRadius="12dp" />
+        </shape>
+    </item>
+    <!-- Borders: Left, Right, Bottom (but NO TOP) -->
+    <item android:top="-2dp">
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="1dp"
+                android:color="#33FFFFFF" />
+            <corners
+                android:bottomLeftRadius="12dp"
+                android:bottomRightRadius="12dp" />
+        </shape>
+    </item>
+</layer-list>
