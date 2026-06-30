@@ -2,13 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
         <shape>
-            <solid android:color="#D5D9A5" /> <!-- Bidding Cell Olive for selected -->
+            <solid android:color="#1A3026" /> <!-- Ciemnozielony dla zaznaczonego -->
             <corners android:topLeftRadius="8dp" android:topRightRadius="8dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="#1A3026" /> <!-- Header Green for unselected -->
+            <solid android:color="#D5D9A5" /> <!-- Jasnozielony/Oliwkowy dla pozostałych -->
             <corners android:topLeftRadius="8dp" android:topRightRadius="8dp" />
         </shape>
     </item>
