@@ -25,7 +25,9 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingStart="4dp"
-            android:paddingEnd="4dp">
+            android:paddingEnd="4dp"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/game_contract"

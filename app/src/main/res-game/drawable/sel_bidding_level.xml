@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="#D5D9A5" /> <!-- Bidding Cell Olive for selected -->
+            <corners android:topLeftRadius="8dp" android:topRightRadius="8dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="#1A3026" /> <!-- Header Green for unselected -->
+            <corners android:topLeftRadius="8dp" android:topRightRadius="8dp" />
+        </shape>
+    </item>
+</selector>

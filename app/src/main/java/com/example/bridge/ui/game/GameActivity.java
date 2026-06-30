@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
+import com.example.bridge.core.PbnExporter;
 import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
@@ -55,7 +56,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View loadingIndicator;
     private View historyOverlay;
     private View biddingOverlay;
+    private View biddingControlsOverlay;
     private final List<Card> displayHandSouth = new ArrayList<>();
+    private final List<String> biddingBids = new ArrayList<>();
+    private BiddingHistoryAdapter biddingHistoryAdapter;
     private final List<Card> displayHandNorth = new ArrayList<>();
     private boolean isProcessingMove = false;
     private GameActivityTop gameActivityTop;
@@ -96,8 +100,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         historyOverlay = findViewById(R.id.history_overlay);
         biddingOverlay = findViewById(R.id.bidding_overlay);
+        biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
 
         setupRecyclerView();
+        setupBiddingHistory();
 
         com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
@@ -138,9 +144,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             southAdapter.setCardsEnabled(true);
             northAdapter.setCardsEnabled(true);
 
-            v.post(() -> {
-                gameController.startGame();
-            });
+            if ("single".equals(gameMode) && biddingControlsOverlay != null) {
+                biddingControlsOverlay.setVisibility(View.VISIBLE);
+                View level1 = biddingControlsOverlay.findViewById(R.id.btn_level_1);
+                if (level1 != null) level1.setSelected(true);
+            } else {
+                v.post(() -> {
+                    gameController.startGame();
+                });
+            }
         });
 
         btnClaim.setOnClickListener(v -> {
@@ -187,6 +199,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void initGameSingleMode() {
         initGameBase();
         gameActivityTop.hideContract();
+        View topBar = findViewById(R.id.top_bar_container);
+        if (topBar != null) topBar.setVisibility(View.GONE);
         biddingOverlay.setVisibility(View.VISIBLE);
         onHandUpdated("South");
         onVisibleStartBar(true);
@@ -310,6 +324,33 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onContractDetermined(Contract contract) {
         isProcessingMove = false;
         gameActivityTop.setContract(contract);
+    }
+
+    private void setupBiddingHistory() {
+        RecyclerView rvBidding = findViewById(R.id.rv_bidding_history);
+        if (rvBidding != null) {
+            rvBidding.setLayoutManager(new GridLayoutManager(this, 4));
+            biddingHistoryAdapter = new BiddingHistoryAdapter(biddingBids);
+            rvBidding.setAdapter(biddingHistoryAdapter);
+        }
+
+        // Use PbnExporter to generate fake data
+        PbnExporter fakeExporter = new PbnExporter();
+        fakeExporter.addFakeAuction();
+        
+        biddingBids.clear();
+        // Assume West starts as in current logic
+        biddingBids.addAll(fakeExporter.getAuction());
+
+        // Pad with dashes to fill the grid (at least 32 items / 8 rows for scrolling test)
+        int minItems = 32;
+        while (biddingBids.size() < minItems || biddingBids.size() % 4 != 0) {
+            biddingBids.add("-");
+        }
+
+        if (biddingHistoryAdapter != null) {
+            biddingHistoryAdapter.notifyDataSetChanged();
+        }
     }
 
     private void setupWindowInsets() {
