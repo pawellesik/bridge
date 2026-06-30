@@ -94,8 +94,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         btnClaim = findViewById(R.id.btn_claim);
         loadingIndicator = findViewById(R.id.loading_indicator);
 
-        btnNewDeal = findViewById(R.id.btn_new_deal);
-
         gameActivityTop = new GameActivityTop(this);
         sharedPref = new SharedPref(this, gameActivityTop);
 
@@ -131,22 +129,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 return false;
             });
         }
-
-        btnNewDeal.setOnClickListener(v -> {
-            gameActivityTop.hideContract();
-            if (southAdapter != null) southAdapter.setCardsEnabled(true);
-            if (northAdapter != null) northAdapter.setCardsEnabled(true);
-            v.post(() -> {
-                gameController.startGame();
-            });
-            loadingIndicator.setVisibility(View.VISIBLE);
-            setTotalScore(sharedPref.getPrefTotalScore());
-            setupRecyclerView();
-
-            v.post(() -> {
-                gameController.dealCards();
-            });
-        });
 
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
