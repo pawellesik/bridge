@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Main Background -->
-    <item>
-        <shape>
-            <solid android:color="#FFFFFF" />
-            <corners
-                android:topLeftRadius="12dp"
-                android:topRightRadius="12dp" />
-        </shape>
-    </item>
-    <!-- Borders: Top, Left, Right (NO BOTTOM) -->
-    <item android:bottom="-2dp">
-        <shape>
-            <solid android:color="@android:color/transparent" />
-            <stroke
-                android:width="1dp"
-                android:color="#DDDDDD" />
-            <corners
-                android:topLeftRadius="12dp"
-                android:topRightRadius="12dp" />
-        </shape>
-    </item>
-</layer-list>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" />
+    <corners
+        android:topLeftRadius="12dp"
+        android:topRightRadius="12dp"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp" />
+    <stroke
+        android:width="1dp"
+        android:color="#DDDDDD" /> <!-- Matching the table grid lines -->
+</shape>

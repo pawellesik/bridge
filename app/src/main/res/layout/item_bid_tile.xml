@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bid_tile_container"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:padding="1dp">
+    android:layout_height="32dp"
+    android:padding="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bid_tile_inner"
@@ -29,13 +29,13 @@
                 android:gravity="center"
                 android:text="1"
                 android:textColor="#000000"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/iv_bid_suit"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_marginStart="1dp"
                 android:src="@drawable/spades"
                 android:visibility="gone" />
