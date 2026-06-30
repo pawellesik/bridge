@@ -67,6 +67,7 @@
         android:scrollbars="vertical"
         android:paddingBottom="100dp"
         android:clipToPadding="false"
+        android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bidding_header" />
 
