@@ -21,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="100dp"/> <!-- Adjusted to be below top_bar -->
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_hand_north"
         android:layout_width="match_parent"
@@ -109,11 +110,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- South Player Hand -->
-
-
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/start_bar"
@@ -249,5 +245,21 @@
             android:paddingEnd="8dp"
             android:layout_marginBottom="4dp"/>
     </LinearLayout>
+
+    <!-- Bidding Overlay - Covers from top to bottom of North cards -->
+    <include
+        android:id="@+id/bidding_overlay"
+        layout="@layout/overlay_bidding"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:elevation="60dp"
+        android:translationZ="50dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rv_hand_north"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

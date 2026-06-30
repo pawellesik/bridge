@@ -467,26 +467,6 @@ public class GameController {
         return minOptimalCode;
     }
 
-    private String determineTrickWinnerInternal(Map<String, Card> trickMap, Contract contract, String leaderName) {
-        Card leadCard = trickMap.get(leaderName);
-        if (leadCard == null) return players.keySet().iterator().next();
-
-        Suit ledSuit = leadCard.getSuit();
-        Suit trumpSuit = (contract == null || contract.isPass()) ? null : contract.getSuit();
-
-        String winnerName = leaderName;
-        Card bestCard = leadCard;
-
-        for (Map.Entry<String, Card> entry : trickMap.entrySet()) {
-            Card card = entry.getValue();
-            if (isBetterCard(card, bestCard, ledSuit, trumpSuit)) {
-                bestCard = card;
-                winnerName = entry.getKey();
-            }
-        }
-        return winnerName;
-    }
-
     private Map<String, List<Card>> getHandsMap() {
         Map<String, List<Card>> map = new HashMap<>();
         for (Player p : players.values()) {

@@ -41,9 +41,9 @@ public class StartActivity extends AppCompatActivity {
         findViewById(R.id.btn_lang_en).setOnClickListener(v -> changeLanguage("en"));
         findViewById(R.id.btn_lang_pl).setOnClickListener(v -> changeLanguage("pl"));
 
-        findViewById(R.id.btn_start).setOnClickListener(v -> launchGame());
-        findViewById(R.id.btn_single).setOnClickListener(v -> launchGame());
-        findViewById(R.id.btn_multiplayer).setOnClickListener(v -> launchGame());
+        findViewById(R.id.btn_start).setOnClickListener(v -> launchGame("quick"));
+        findViewById(R.id.btn_single).setOnClickListener(v -> launchGame("single"));
+        findViewById(R.id.btn_multiplayer).setOnClickListener(v -> launchGame("multi"));
 
 
         View moreContainer = findViewById(R.id.more_options_container);
@@ -54,9 +54,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btn_create_deal).setOnClickListener(v -> {
-            launchGame();
-        });
+        findViewById(R.id.btn_create_deal).setOnClickListener(v -> launchGame("create"));
 
         findViewById(R.id.btn_settings).setOnClickListener(v -> {
             Intent intent = new Intent(StartActivity.this, SettingsActivity.class);
@@ -68,7 +66,7 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    private void launchGame() {
+    private void launchGame(String mode) {
         View loadingIndicator = findViewById(R.id.loading_indicator);
         View menuContainer = findViewById(R.id.menu_container);
 
@@ -76,6 +74,7 @@ public class StartActivity extends AppCompatActivity {
         if (menuContainer != null) menuContainer.setVisibility(View.GONE);
 
         Intent intent = new Intent(StartActivity.this, GameActivity.class);
+        intent.putExtra("GAME_MODE", mode);
         startActivity(intent);
     }
 

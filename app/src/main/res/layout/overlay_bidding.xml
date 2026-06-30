@@ -4,14 +4,15 @@
     android:id="@+id/bidding_overlay_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bright_green_frame_black_sharp"
-    android:visibility="gone">
+    android:background="@drawable/bright_green_frame_black_sharp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bidding Overlay"
+        android:text="BIDDING PHASE"
         android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

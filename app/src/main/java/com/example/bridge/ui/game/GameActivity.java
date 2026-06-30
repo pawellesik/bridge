@@ -58,6 +58,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View loadingIndicator;
     private View btnNewDeal;
     private View historyOverlay;
+    private View biddingOverlay;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
     private boolean isProcessingMove = false;
@@ -98,6 +99,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         sharedPref = new SharedPref(this, gameActivityTop);
 
         historyOverlay = findViewById(R.id.history_overlay);
+        biddingOverlay = findViewById(R.id.bidding_overlay);
 
         setupRecyclerView();
 
@@ -179,6 +181,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 }
             }
         });
+
+        String gameMode = getIntent().getStringExtra("GAME_MODE");
+        if ("single".equals(gameMode) && biddingOverlay != null) {
+            biddingOverlay.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showExitConfirmationDialog() {
