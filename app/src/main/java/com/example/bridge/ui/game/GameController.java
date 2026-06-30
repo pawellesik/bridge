@@ -119,7 +119,6 @@ public class GameController {
         currentTrick = new Trick();
         playHistoryTrick = new ArrayList<>();
 
-        //this.initialPlayerHands.clear();
         callback.onUpdateLastTrickInTop(currentTrick.getCardsOnTableMap());
         callback.onScoreUpdated(snScore, weScore);
         callback.onClaimButtonVisibilityChanged(false);
@@ -292,7 +291,7 @@ public class GameController {
     private void playCardOpponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            Card bestCard = calculateBestCardInternal(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, trickLeaderName);
+            Card bestCard = calculateBestCard(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, trickLeaderName);
             if (bestCard == null) {
                 bestCard = hand.get((int) (Math.random() * hand.size()));
             }
@@ -302,7 +301,7 @@ public class GameController {
         }
     }
 
-    private Card calculateBestCardInternal(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, Contract contract, String leaderName) {
+    private Card calculateBestCard(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, Contract contract, String leaderName) {
         int[] ddsCards = new int[16];
         String[] handNames = {"North", "East", "South", "West"};
         for (int h = 0; h < 4; h++) {
@@ -486,25 +485,6 @@ public class GameController {
             }
         }
         return winnerName;
-    }
-
-    private String getNextPlayerName(String name) {
-        switch (name) {
-            case "North":
-                return "East";
-            case "East":
-                return "South";
-            case "South":
-                return "West";
-            case "West":
-                return "North";
-            default:
-                return "North";
-        }
-    }
-
-    private Card calculateBestCard(Player player) {
-        return calculateBestCardInternal(player.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, trickLeaderName);
     }
 
     private Map<String, List<Card>> getHandsMap() {
