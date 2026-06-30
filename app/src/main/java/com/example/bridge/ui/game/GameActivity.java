@@ -140,6 +140,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
+            setBottomNavVisibility(false);
             sharedPref.incrementGamesPlayed();
             sharedPref.clearSavedDeal();
 
@@ -230,16 +231,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void setBottomNavVisibility(boolean visible) {
+        View bottomNav = findViewById(R.id.bottom_navigation);
+        if (bottomNav != null) {
+            bottomNav.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
+    }
+
     @Override
     public void onVisibleStartBar(Boolean isVisible) {
-        View bottomNav = findViewById(R.id.bottom_navigation);
         if (isVisible) {
-            if (bottomNav != null) bottomNav.setVisibility(View.VISIBLE);
+            setBottomNavVisibility(true);
             startBar.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.GONE);
-
         } else {
-            if (bottomNav != null) bottomNav.setVisibility(View.GONE);
             startBar.setVisibility(View.GONE);
         }
     }
