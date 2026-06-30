@@ -326,76 +326,7 @@ public class GameActivityHistory {
 
 
 
-    public String formatHandToHtmlForSim(List<Card> hand, List<Card> previousTricksCards, List<Card> currentTrickCards) {
-        StringBuilder sb = new StringBuilder();
-        
-        // Use the same suit order as Player#resortHand to be consistent with the contract
-        Contract contract = gameController != null ? gameController.getCurrentContract() : new Contract(true);
-        com.example.bridge.model.Suit trumpSuit = (contract == null || contract.isPass()) ? null : contract.getSuit();
-        
-        final List<com.example.bridge.model.Suit> fullCycle = new ArrayList<>();
-        fullCycle.add(com.example.bridge.model.Suit.SPADES);
-        fullCycle.add(com.example.bridge.model.Suit.HEARTS);
-        fullCycle.add(com.example.bridge.model.Suit.CLUBS);
-        fullCycle.add(com.example.bridge.model.Suit.DIAMONDS);
 
-        final List<com.example.bridge.model.Suit> suitOrder = new ArrayList<>();
-        if (trumpSuit != null) {
-            int startIndex = fullCycle.indexOf(trumpSuit);
-            for (int i = 0; i < 4; i++) {
-                suitOrder.add(fullCycle.get((startIndex + i) % 4));
-            }
-        } else {
-            suitOrder.addAll(fullCycle);
-        }
-
-        for (int i = 0; i < suitOrder.size(); i++) {
-            com.example.bridge.model.Suit suit = suitOrder.get(i);
-            // ... rest of logic ...
-            String suitImageName;
-            switch (suit) {
-                case SPADES: suitImageName = "spades"; break;
-                case HEARTS: suitImageName = "heart"; break;
-                case DIAMONDS: suitImageName = "diamonds"; break;
-                case CLUBS: suitImageName = "clubs"; break;
-                default: suitImageName = "spades";
-            }
-
-            sb.append("<img src='").append(suitImageName).append("'/>&nbsp;");
-
-            sb.append("<b>");
-            boolean first = true;
-            
-            // Sort cards within the suit by rank (High to Low)
-            List<Card> suitCards = new ArrayList<>();
-            if (hand != null) {
-                for (Card card : hand) {
-                    if (card.getSuit() == suit) suitCards.add(card);
-                }
-            }
-            java.util.Collections.sort(suitCards, (c1, c2) -> c2.getRank().ordinal() - c1.getRank().ordinal());
-
-            for (Card card : suitCards) {
-                if (!first) sb.append("&nbsp;");
-
-                String cardColor = "black"; // Nie rzucone
-                if (previousTricksCards != null && previousTricksCards.contains(card)) {
-                    cardColor = "#999999"; // Rzucone w poprzednich lewach (szare)
-                } else if (currentTrickCards != null && currentTrickCards.contains(card)) {
-                    cardColor = "red"; // Obecnie rzucona (czerwona)
-                }
-
-                sb.append("<font color='").append(cardColor).append("'>")
-                        .append(card.getRank().display).append("</font>");
-                first = false;
-            }
-            sb.append("</b>");
-            if (i < suitOrder.size() - 1) {
-                sb.append("<br/>");
-            }
-        }
-        return sb.toString();
-    }
 
     public int getPlayerColumn(String name) {
         if ("West".equals(name)) return 0;

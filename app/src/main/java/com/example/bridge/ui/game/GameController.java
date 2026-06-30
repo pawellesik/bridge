@@ -39,6 +39,7 @@ public class GameController {
         void onScoreUpdated(int snScore, int weScore);
 
         void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim);
+
         void onClaimButtonVisibilityChanged(boolean visible);
     }
 
@@ -108,7 +109,7 @@ public class GameController {
         playCardOpponent(players.get(playerWinBidding));
     }
 
-    public Player getPlayerWinBidding(){//todo gdy ktos inny wygra lictacje to tutaj nalezy zmienic
+    public Player getPlayerWinBidding() {//todo gdy ktos inny wygra lictacje to tutaj nalezy zmienic
         return players.get("West");
     }
 
@@ -291,7 +292,7 @@ public class GameController {
     private void playCardOpponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            Card bestCard = calculateBestCard(playerOponent);
+            Card bestCard = calculateBestCardInternal(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, trickLeaderName);
             if (bestCard == null) {
                 bestCard = hand.get((int) (Math.random() * hand.size()));
             }
@@ -301,13 +302,6 @@ public class GameController {
         }
     }
 
-    public Contract getCurrentContract() {
-        return currentContract;
-    }
-
-    public void setCurrentContract(Contract currentContract) {
-        this.currentContract = currentContract;
-    }
 
     public List<Trick> calculateOptimalHistory(Map<String, List<Card>> initialHands, Contract contract) {
         // Przygotuj symulowane ręce
@@ -317,7 +311,7 @@ public class GameController {
         }
 
         List<Trick> history = new ArrayList<>();
-        String currentLeader = "West"; // Pierwszy lider
+        String currentLeader = getPlayerWinBidding().getName();
 
         for (int t = 0; t < 13; t++) {
             Trick trick = new Trick();
@@ -392,7 +386,7 @@ public class GameController {
                 ", trickRanks=" + java.util.Arrays.toString(trickRanks));
 
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
-        System.out.println("plesik" +resultTab.length);
+        System.out.println("plesik" + resultTab.length);
 
         boolean isFirstMove = cardsOnTableCount == 0;
 
