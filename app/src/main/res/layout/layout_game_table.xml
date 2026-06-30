@@ -33,6 +33,34 @@
         app:layout_constraintTop_toBottomOf="@id/name_north"
         tools:listitem="@layout/item_card" />
 
+    <TextView
+        android:id="@+id/name_south"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="@string/player_south"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@id/rv_hand_south"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="4dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_hand_south"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="80dp"
+        android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_card" />
+
     <!-- Center Table -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/table_center"
@@ -83,33 +111,9 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- South Player Hand -->
-    <TextView
-        android:id="@+id/name_south"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:text="@string/player_south"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@id/rv_hand_south"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="4dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_hand_south"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="240dp"
-        android:padding="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_card" />
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/start_bar"
