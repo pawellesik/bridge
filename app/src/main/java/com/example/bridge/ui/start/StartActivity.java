@@ -41,25 +41,9 @@ public class StartActivity extends AppCompatActivity {
         findViewById(R.id.btn_lang_en).setOnClickListener(v -> changeLanguage("en"));
         findViewById(R.id.btn_lang_pl).setOnClickListener(v -> changeLanguage("pl"));
 
-        View loadingIndicator = findViewById(R.id.loading_indicator);
-        View menuContainer = findViewById(R.id.menu_container);
-        View btnStart = findViewById(R.id.btn_start);
-        
-        btnStart.setOnClickListener(v -> {
-            if (loadingIndicator != null) loadingIndicator.setVisibility(View.VISIBLE);
-            if (menuContainer != null) menuContainer.setVisibility(View.GONE);
-
-            Intent intent = new Intent(StartActivity.this, GameActivity.class);
-            startActivity(intent);
-        });
-
-        findViewById(R.id.btn_single).setOnClickListener(v -> {
-            // Single player logic
-        });
-
-        findViewById(R.id.btn_multiplayer).setOnClickListener(v -> {
-            // Multiplayer logic
-        });
+        findViewById(R.id.btn_start).setOnClickListener(v -> launchGame());
+        findViewById(R.id.btn_single).setOnClickListener(v -> launchGame());
+        findViewById(R.id.btn_multiplayer).setOnClickListener(v -> launchGame());
 
 
         View moreContainer = findViewById(R.id.more_options_container);
@@ -71,7 +55,7 @@ public class StartActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btn_create_deal).setOnClickListener(v -> {
-            // Create deal logic
+            launchGame();
         });
 
         findViewById(R.id.btn_settings).setOnClickListener(v -> {
@@ -82,6 +66,17 @@ public class StartActivity extends AppCompatActivity {
         findViewById(R.id.btn_about).setOnClickListener(v -> {
             // Future use
         });
+    }
+
+    private void launchGame() {
+        View loadingIndicator = findViewById(R.id.loading_indicator);
+        View menuContainer = findViewById(R.id.menu_container);
+
+        if (loadingIndicator != null) loadingIndicator.setVisibility(View.VISIBLE);
+        if (menuContainer != null) menuContainer.setVisibility(View.GONE);
+
+        Intent intent = new Intent(StartActivity.this, GameActivity.class);
+        startActivity(intent);
     }
 
     @Override
