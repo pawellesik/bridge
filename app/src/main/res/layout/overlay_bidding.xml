@@ -4,8 +4,7 @@
     android:id="@+id/bidding_history_outer_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_bidding_container"
-    android:padding="1dp">
+    android:background="@drawable/bg_bidding_container">
 
     <!-- Table Header -->
     <LinearLayout

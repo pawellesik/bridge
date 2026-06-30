@@ -2,37 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bidding_controls_outline">
 
-    <!-- Left white border for tabs -->
-    <View
-        android:id="@+id/border_left"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@id/ll_levels"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ll_levels" />
-
-    <!-- Right white border for tabs -->
-    <View
-        android:id="@+id/border_right"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@id/ll_levels"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ll_levels" />
-
-    <!-- Level Tabs area - fully transparent container -->
+    <!-- Level Tabs area - Transparent gaps, within white border -->
     <LinearLayout
         android:id="@+id/ll_levels"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="36dp"
         android:orientation="horizontal"
+        android:paddingHorizontal="1dp"
         android:weightSum="7"
-        app:layout_constraintEnd_toStartOf="@id/border_right"
-        app:layout_constraintStart_toEndOf="@id/border_left"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -126,12 +106,15 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Main Bidding Box Area -->
+    <!-- Main Bidding Box Area - Green fill with rounded bottom corners -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bidding_box_container"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:background="@drawable/bg_bidding_controls_box_with_border"
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/bg_bidding_controls_green_fill"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_levels">
 
         <LinearLayout
@@ -142,7 +125,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="2dp">
 
-            <!-- Suits -->
+            <!-- Clubs Tile -->
             <LinearLayout
                 android:id="@+id/bid_clubs"
                 android:layout_width="0dp"
@@ -247,7 +230,6 @@
                     android:src="@drawable/spades" />
             </LinearLayout>
 
-            <!-- NT -->
             <TextView
                 android:id="@+id/bid_nt"
                 android:layout_width="0dp"
@@ -261,7 +243,6 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <!-- Double X -->
             <TextView
                 android:id="@+id/btn_bid_double_toggle"
                 android:layout_width="40dp"
@@ -274,13 +255,11 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <!-- Spacer -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            <!-- Pass Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_bid_pass"
                 android:layout_width="0dp"

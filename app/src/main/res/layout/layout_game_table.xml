@@ -220,7 +220,7 @@
         app:layout_constraintTop_toBottomOf="@id/system_status_bar_spacer"
         tools:visibility="visible" />
 
-    <!-- Bidding Controls Overlay - Overlaps only with tabs (36dp) -->
+    <!-- Bidding Controls Overlay - Perfect Vertical Alignment -->
     <include
         android:id="@+id/bidding_controls_overlay"
         layout="@layout/overlay_bidding_controls"
