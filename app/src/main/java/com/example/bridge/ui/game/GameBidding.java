@@ -36,9 +36,9 @@ public class GameBidding {
             }
         }
 
-        // Suit tiles and NT listeners
-        int[] suitTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt};
-        for (int id : suitTileIds) {
+        // Suit tiles, NT and Double (X) listeners
+        int[] interactiveTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt, R.id.btn_bid_double_toggle};
+        for (int id : interactiveTileIds) {
             View tile = controlsOverlay.findViewById(id);
             if (tile != null) {
                 tile.setOnClickListener(v -> toggleSuitSelection(id));
@@ -61,8 +61,8 @@ public class GameBidding {
     private void updateBiddingUI() {
         if (controlsOverlay == null) return;
 
-        int[] suitTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt};
-        for (int id : suitTileIds) {
+        int[] interactiveTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt, R.id.btn_bid_double_toggle};
+        for (int id : interactiveTileIds) {
             View tile = controlsOverlay.findViewById(id);
             if (tile != null) {
                 tile.setSelected(id == selectedSuitViewId);
