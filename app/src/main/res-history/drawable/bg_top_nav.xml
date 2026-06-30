@@ -4,9 +4,7 @@
     <item>
         <shape>
             <solid android:color="#00000000"/>
-            <corners
-                android:bottomLeftRadius="28dp"
-                android:bottomRightRadius="28dp"/>
+
             <stroke
                 android:width="1dp"
                 android:color="#33FFFFFF"/>
@@ -15,14 +13,10 @@
 
     <!-- Wypełnienie zakrywające górny stroke -->
     <item
-        android:left="1dp"
-        android:right="1dp"
         android:bottom="1dp">
         <shape>
             <solid android:color="#0F2111"/>
-            <corners
-                android:bottomLeftRadius="27dp"
-                android:bottomRightRadius="27dp"/>
+
         </shape>
     </item>
 
