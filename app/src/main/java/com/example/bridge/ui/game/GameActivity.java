@@ -72,6 +72,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        
+        // Wyłączenie automatycznego przyciemniania paska przez system i ustawienie koloru
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
+        getWindow().setNavigationBarColor(android.graphics.Color.parseColor("#0F170D"));
+
         setContentView(R.layout.activity_game);
         setupWindowInsets();
 
