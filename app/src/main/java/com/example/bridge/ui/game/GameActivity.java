@@ -184,7 +184,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             //todo
         }
     }
-
     private void initGameSingleMode() {
         initGameBase();
         gameActivityTop.hideContract();
@@ -192,7 +191,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         onHandUpdated("South");
         onVisibleStartBar(true);
     }
-
     private void initGameQiuckMode() {
         initGameBase();
         gameController.calculateAndSetTheBestContract();
