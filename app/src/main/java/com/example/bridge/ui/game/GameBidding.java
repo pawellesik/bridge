@@ -11,6 +11,8 @@ import com.example.bridge.model.Suit;
 public class GameBidding {
     private final GameActivity activity;
     private final View controlsOverlay;
+    private int currentLevel = 1;
+    private int selectedSuitViewId = View.NO_ID;
 
     public GameBidding(GameActivity activity, View controlsOverlay) {
         this.activity = activity;
@@ -33,12 +35,54 @@ public class GameBidding {
                 btn.setOnClickListener(v -> selectLevel(level));
             }
         }
+
+        // Suit tiles and NT listeners
+        int[] suitTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt};
+        for (int id : suitTileIds) {
+            View tile = controlsOverlay.findViewById(id);
+            if (tile != null) {
+                tile.setOnClickListener(v -> toggleSuitSelection(id));
+            }
+        }
         
         applyColors();
         selectLevel(1);
     }
 
+    private void toggleSuitSelection(int viewId) {
+        if (selectedSuitViewId == viewId) {
+            selectedSuitViewId = View.NO_ID;
+        } else {
+            selectedSuitViewId = viewId;
+        }
+        updateBiddingUI();
+    }
+
+    private void updateBiddingUI() {
+        if (controlsOverlay == null) return;
+
+        int[] suitTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt};
+        for (int id : suitTileIds) {
+            View tile = controlsOverlay.findViewById(id);
+            if (tile != null) {
+                tile.setSelected(id == selectedSuitViewId);
+            }
+        }
+
+        com.google.android.material.button.MaterialButton btnPass = controlsOverlay.findViewById(R.id.btn_bid_pass);
+        if (btnPass != null) {
+            if (selectedSuitViewId != View.NO_ID) {
+                btnPass.setText("BID");
+            } else {
+                btnPass.setText("PASS");
+            }
+        }
+    }
+
     public void selectLevel(int level) {
+        this.currentLevel = level;
+        selectedSuitViewId = View.NO_ID;
+        
         if (controlsOverlay == null) return;
 
         int[] levelBtnIds = {
@@ -61,6 +105,8 @@ public class GameBidding {
         
         TextView tvNt = controlsOverlay.findViewById(R.id.bid_nt);
         if (tvNt != null) tvNt.setText(levelStr + " " + activity.getString(R.string.suit_nt));
+        
+        updateBiddingUI();
     }
 
     private void updateTileText(int id, String text) {
