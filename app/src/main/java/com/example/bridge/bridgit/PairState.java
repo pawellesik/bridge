@@ -31,6 +31,10 @@ public class PairState {
         return firstToShow.containsKey(suit);
     }
 
+    public Set<Suit> getShownSuits() {
+        return firstToShow.keySet();
+    }
+
     public PositionState firstToShow(Suit suit) {
         return firstToShow.get(suit);
     }

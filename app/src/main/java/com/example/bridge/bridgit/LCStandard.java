@@ -1,17 +1,20 @@
 package com.example.bridge.bridgit;
 
+import java.util.*;
+
 public class LCStandard implements BiddingSystem {
     @Override
     public PositionCalls getPositionCalls(PositionState ps) {
-        if (ps.getBidRound() == 1) {
-            // In C# this checks Role == Opener and RoleRound == 1
-            // Since we start with Opener role, round 1 is the opening.
+        if (ps.getRole() == PositionState.PositionRole.Opener && ps.getRoleRound() == 1) {
             return Open.getPositionCalls(ps);
+        } else if (ps.getRole() == PositionState.PositionRole.Overcaller && ps.getRoleRound() == 1) {
+            return Overcall.getPositionCalls(ps);
+        } else if (ps.getRole() == PositionState.PositionRole.Responder && ps.getRoleRound() == 1) {
+            return Respond.getPositionCalls(ps);
+        } else {
+            PositionCalls calls = new PositionCalls(ps);
+            calls.addRules(Compete.compBids(ps));
+            return calls;
         }
-        
-        // Default to a simple PositionCalls with a Pass rule for now
-        PositionCalls defaultChoices = new PositionCalls(ps);
-        defaultChoices.addPassRule();
-        return defaultChoices;
     }
 }

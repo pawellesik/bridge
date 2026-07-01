@@ -9,9 +9,11 @@ public class PositionState {
     private final Direction direction;
     private final Hand hand;
     private PairState pairState;
+    
     private PositionRole role = PositionRole.Opener;
     private boolean roleAssigned = false;
     private int roleAssignedOffset = 0;
+
     private HandSummary publicHandSummary = new HandSummary();
     private HandSummary privateHandSummary;
     private final List<CallDetails> bids = new ArrayList<>();
@@ -21,28 +23,53 @@ public class PositionState {
         this.direction = direction;
         this.hand = hand;
         if (hand != null) {
-            HandSummary.ShowState showState = new HandSummary.ShowState();
-            StandardHandEvaluator.evaluate(hand, showState);
-            this.privateHandSummary = showState.handSummary;
+            HandSummary.ShowState showHand = new HandSummary.ShowState();
+            StandardHandEvaluator.evaluate(hand, showHand);
+            this.privateHandSummary = showHand.handSummary;
         }
     }
 
-    public Direction getDirection() { return direction; }
+    // Properties from C#
+    public boolean hasHand() { return privateHandSummary != null; }
+    public PairState getPairState() { return pairState; }
+    public PairState getOpponentsPairState() { return rightHandOpponent().getPairState(); }
     public BiddingState getBiddingState() { return biddingState; }
+    public PositionRole getRole() { return role; }
+    public void setRole(PositionRole role) { this.role = role; }
     public HandSummary getPublicHandSummary() { return publicHandSummary; }
-    public boolean hasHand() { return hand != null; }
-    public int getBidRound() { return bids.size() + 1; }
-    public int getCallCount() { return bids.size(); }
+
+    public boolean isPassed() { return bids.isEmpty() || bids.get(bids.size() - 1).getCall().equals(Call.Pass); }
+    public boolean isPassedHand() { return !bids.isEmpty() && bids.get(0).getCall().equals(Call.Pass); }
+    public boolean isDoubled() { return !bids.isEmpty() && bids.get(bids.size() - 1).getCall().equals(Call.Double); }
+
+    public Call.Bid getBid() {
+        if (bids.isEmpty()) return null;
+        Call last = bids.get(bids.size() - 1).getCall();
+        return (last instanceof Call.Bid) ? (Call.Bid) last : null;
+    }
+
+    public Direction getDirection() { return direction; }
     public int getSeat() { return (direction.ordinal() - biddingState.getDealer().getDirection().ordinal() + 4) % 4 + 1; }
     public boolean isVulnerable() { return pairState.areVulnerable(); }
+    public boolean isOurContract() { return biddingState.getContract().isOurs(this.direction); }
+    public boolean isOpponentsContract() { return biddingState.getContract().isOpponents(this.direction); }
+
+    public int getBidRound() { return bids.size() + 1; }
+    public int getRoleRound() { return getBidRound() - roleAssignedOffset; }
+    public int getCallCount() { return bids.size(); }
+    public CallDetails getCallDetails(int index) { return bids.get(index); }
+
+    public PositionState partner() { return biddingState.getPositions().get(direction.partner()); }
+    public PositionState rightHandOpponent() { return biddingState.getPositions().get(direction.rightHandOpponent()); }
+    public PositionState leftHandOpponent() { return biddingState.getPositions().get(direction.leftHandOpponent()); }
 
     public Call getBidHistory(int historyLevel) {
         if (bids.size() <= historyLevel) return null;
         return bids.get(bids.size() - 1 - historyLevel).getCall();
     }
 
-    public CallDetails getCallDetails(int index) {
-        return bids.get(index);
+    public boolean isForcedToBid() {
+        return pairState.isForcedToBid(this) && !Call.Pass.equals(rightHandOpponent().getBidHistory(0));
     }
 
     public PositionCalls getPositionCalls() {
@@ -52,47 +79,14 @@ public class PositionState {
         return pairState.getBiddingSystem().getPositionCalls(this);
     }
 
-    public PositionState leftHandOpponent() {
-        return biddingState.getPositions().get(direction.leftHandOpponent());
-    }
-
-    public PositionState rightHandOpponent() {
-        return biddingState.getPositions().get(direction.rightHandOpponent());
-    }
-
-    public PositionState partner() {
-        return biddingState.getPositions().get(direction.partner());
-    }
-
-    public boolean privateHandConforms(BidRule rule) {
-        return hasHand() && rule.satisfiesHandConstraints(this, privateHandSummary);
-    }
-
-    public List<Constraint> privateHandFailingConstraints(BidRule rule) {
-        if (!hasHand()) return Collections.emptyList();
-        return rule.failingHandConstraints(this, privateHandSummary);
-    }
-
-    public boolean isValidNextCall(Call call) {
-        return biddingState.getContract().isValid(call, direction);
-    }
-
-    public boolean isForcedToBid() {
-        return pairState.isForcedToBid(this) && !Call.Pass.equals(rightHandOpponent().getBidHistory(0));
-    }
-
-    public void setPairState(PairState ps) { this.pairState = ps; }
-    public PairState getPairState() { return pairState; }
-    public PairState getOpponentsPairState() { return rightHandOpponent().getPairState(); }
-
     public void makeCall(CallDetails cd) {
         biddingState.getContract().validateCall(cd.getCall(), direction);
         if (!(cd.getCall() instanceof Call.Pass) && !roleAssigned) {
             if (role == PositionRole.Opener) {
                 assignRole(PositionRole.Opener);
                 partner().assignRole(PositionRole.Responder);
-                leftHandOpponent().role = PositionRole.Overcaller;
-                partner().leftHandOpponent().role = PositionRole.Overcaller;
+                leftHandOpponent().setRole(PositionRole.Overcaller);
+                rightHandOpponent().setRole(PositionRole.Overcaller);
             } else if (role == PositionRole.Overcaller) {
                 assignRole(PositionRole.Overcaller);
                 partner().assignRole(PositionRole.Advancer);
@@ -147,4 +141,19 @@ public class PositionState {
         }
         return stateChanged;
     }
+
+    public boolean privateHandConforms(BidRule rule) {
+        return hasHand() && rule.satisfiesHandConstraints(this, privateHandSummary);
+    }
+
+    public List<Constraint> privateHandFailingConstraints(BidRule rule) {
+        if (!hasHand()) return Collections.emptyList();
+        return rule.failingHandConstraints(this, privateHandSummary);
+    }
+
+    public boolean isValidNextCall(Call call) {
+        return biddingState.getContract().isValid(call, direction);
+    }
+
+    public void setPairState(PairState ps) { this.pairState = ps; }
 }

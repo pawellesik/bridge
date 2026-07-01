@@ -1,20 +1,32 @@
 package com.example.bridge.bridgit.constraints;
 
 import com.example.bridge.bridgit.*;
-import java.util.function.*;
 
 public class SimpleStaticConstraint extends Constraint.StaticConstraint implements Constraint.IDescribeConstraint {
-    private final BiPredicate<Call, PositionState> eval;
-    private final BiFunction<Call, PositionState, String> getDescription;
+    
+    public interface EvalFunc {
+        boolean test(Call call, PositionState ps);
+    }
+    
+    public interface DescFunc {
+        String apply(Call call, PositionState ps);
+    }
+
+    private final EvalFunc eval;
+    private final DescFunc getDescription;
     private final String logDescription;
 
-    public SimpleStaticConstraint(BiPredicate<Call, PositionState> eval, BiFunction<Call, PositionState, String> getDescription, String logDescription) {
+    public SimpleStaticConstraint(EvalFunc eval, DescFunc getDescription, String logDescription) {
         this.eval = eval != null ? eval : (call, ps) -> true;
         this.getDescription = getDescription != null ? getDescription : (call, ps) -> null;
         this.logDescription = logDescription;
     }
 
-    public SimpleStaticConstraint(BiPredicate<Call, PositionState> eval, String description) {
+    public SimpleStaticConstraint(EvalFunc eval, DescFunc getDescription) {
+        this(eval, getDescription, null);
+    }
+
+    public SimpleStaticConstraint(EvalFunc eval, String description) {
         this(eval, (call, ps) -> description, null);
     }
 

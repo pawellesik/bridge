@@ -7,64 +7,46 @@ public class BridgitDemo {
     private static final String TAG = "BridgitDemo";
 
     public void runDemo() {
-        Log.i(TAG, "!!! Bridgit Java Dynamic Demo STARTED !!!");
+        Log.i(TAG, "!!! Bridgit Java Full Auction Demo STARTED !!!");
 
         try {
-            // 1. Create a Game
             Game game = new Game();
             game.setDealer(Direction.N);
             game.setVulnerable(Vulnerable.None);
 
-            // NORTH: 10 Spades (AKQJT98765), 1H(A), 1D(A), 1C(A) -> 22 HCP, 28 Starting
-            // EAST: 1S(4), 7 Hearts (KQJT987), 4D (KQJT), 1C(2) -> 12 HCP
+            // North: 16 HCP, 5 Spades (Opening 1S)
+            // East: 5 HCP (Pass)
+            // South: 10 HCP, 3 Spades (Response 2S)
+            // West: 9 HCP (Pass)
+            // Auction should be: 1S - P - 2S - P - P - P
             String dealStr = "N:AKQJT98765.A.A.A 4.KQJT987.KQJT.2 3.65.87659.KQJT9 2.432.432.876543";
+            dealStr = "N:K73.AT94.J82.854 AQ4.KQ.Q95.QT976 J865.863.KT763.J T92.J752.A4.AK32";
 
             game.parseDeal(dealStr, false);
-            Log.i(TAG, "Deal parsed successfully");
-
-            // 3. Initialize BiddingState
             BiddingState biddingState = new BiddingState(game);
-            Log.i(TAG, "BiddingState initialized");
 
-            // 4. Run dynamic simulation
-            while (!biddingState.getContract().isAuctionComplete()) {
-
+            int turns = 0;
+            while (!biddingState.getContract().isAuctionComplete() && turns < 15) {
+                turns++;
                 PositionState next = biddingState.getNextToAct();
-                
-                Log.i(TAG, "--- Decision turn for " + next.getDirection() + " ---");
-                
-                // DIAGNOSTIC: Log real private hand stats
-                Hand hand = game.getDeal().get(next.getDirection());
-                if (hand != null) {
-                    Map<Suit, Integer> counts = hand.countsBySuit();
-                    Log.i(TAG, "Hand: " + hand.toString());
-                    Log.i(TAG, "Stats -> HCP: " + hand.highCardPoints() + " | S:" + counts.get(Suit.Spades) + " H:" + counts.get(Suit.Hearts) + " D:" + counts.get(Suit.Diamonds) + " C:" + counts.get(Suit.Clubs));
-                }
-
                 PositionCalls choices = biddingState.getCallChoices();
                 CallDetails best = choices.getBestCall();
                 
-                Call callToMake = (best != null) ? best.getCall() : Call.Pass;
+                Call call = (best != null) ? best.getCall() : Call.Pass;
                 
-                Log.i(TAG, ">>> " + next.getDirection() + " CALLS: " + callToMake);
-                biddingState.makeCall(callToMake);
+                Log.i(TAG, "Turn " + turns + " | Player: " + next.getDirection() + 
+                           " | Role: " + next.getRole() + " (Round " + next.getRoleRound() + ")" +
+                           " | CALL: " + call);
                 
-                logStatus(biddingState);
+                biddingState.makeCall(call);
             }
 
-            Log.i(TAG, "!!! Bridgit Java Dynamic Demo COMPLETED SUCCESSFULY !!!");
+            Log.i(TAG, "Auction Finished in " + turns + " turns.");
+            Log.i(TAG, "Final Contract: " + biddingState.getContract().toString());
+            Log.i(TAG, "!!! Bridgit Java Full Auction Demo COMPLETED !!!");
 
         } catch (Exception e) {
-            Log.e(TAG, "CRASH in BridgitDemo: " + e.getMessage(), e);
-        }
-    }
-
-    private void logStatus(BiddingState state) {
-        try {
-            ContractState contract = state.getContract();
-            Log.i(TAG, "Status -> Contract: " + contract.toString() + " | Done: " + contract.isAuctionComplete());
-        } catch (Exception e) {
-            Log.e(TAG, "Error in logStatus: " + e.getMessage());
+            Log.e(TAG, "Demo CRASH: " + e.getMessage(), e);
         }
     }
 }

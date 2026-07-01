@@ -6,12 +6,21 @@ import java.util.function.Function;
 
 public abstract class Bidder {
 
+    // --- Core Call Features ---
     public static BidRule shows(Call call, Constraint... constraints) {
         return new BidRule(call, constraints);
     }
 
-    public static CallAnnotation alert(Call call, String text, Constraint.StaticConstraint... constraints) {
+    public static CallFeature alert(Call call, String text, Constraint.StaticConstraint... constraints) {
         return new CallAnnotation(call, CallAnnotation.AnnotationType.Alert, text, constraints);
+    }
+
+    public static CallFeature announce(Call call, String text, Constraint.StaticConstraint... constraints) {
+        return new CallAnnotation(call, CallAnnotation.AnnotationType.Announce, text, constraints);
+    }
+
+    public static CallFeature convention(Call call, String text, Constraint.StaticConstraint... constraints) {
+        return new CallAnnotation(call, CallAnnotation.AnnotationType.Convention, text, constraints);
     }
 
     public static CallFeature partnerBids(Function<PositionState, PositionCalls> factory) {
@@ -22,14 +31,25 @@ public abstract class Bidder {
         return new CallProperties(call, factory, false, false, false, null, constraints);
     }
 
+    public static CallFeatureGroup properties(Call call, Function<PositionState, PositionCalls> partnerBids, 
+                                            boolean forcing1Round, boolean forcingToGame, 
+                                            boolean agreeTrump, Suit trump,
+                                            String alert, String announce, String convention,
+                                            Constraint.StaticConstraint onlyIf) {
+        CallFeatureGroup group = new CallFeatureGroup();
+        group.addFeature(new CallProperties(call, partnerBids, forcing1Round, forcingToGame, agreeTrump, trump, onlyIf));
+        if (alert != null) group.addFeature(alert(call, alert, onlyIf));
+        if (announce != null) group.addFeature(announce(call, announce, onlyIf));
+        if (convention != null) group.addFeature(convention(call, convention, onlyIf));
+        return group;
+    }
+
+    // --- Static Constraints (Sytuacyjne) ---
     public static Constraint.StaticConstraint isSeat(int... seats) {
-        Set<Integer> seatSet = new HashSet<>();
-        for (int s : seats) seatSet.add(s);
-        return new SimpleStaticConstraint(
-            (call, ps) -> seatSet.contains(ps.getSeat()),
-            (call, ps) -> "seat " + Arrays.toString(seats),
-            null
-        );
+        return new SimpleStaticConstraint((call, ps) -> {
+            for (int s : seats) if (ps.getSeat() == s) return true;
+            return false;
+        }, (call, ps) -> "seat " + Arrays.toString(seats));
     }
 
     public static Constraint.StaticConstraint isLastBid(Call call) {
@@ -44,10 +64,27 @@ public abstract class Bidder {
         return new SimpleStaticConstraint((call, ps) -> !ps.isVulnerable(), "not vul");
     }
 
+    public static Constraint.StaticConstraint isJump(int... levels) {
+        return new JumpBid(levels);
+    }
+
+    public static Constraint.StaticConstraint isNewSuit(Suit suit) {
+        return new NewSuit(suit);
+    }
+
+    public static Constraint.StaticConstraint cueBid(Suit suit) {
+        return new CueBid(suit);
+    }
+
+    public static Constraint.StaticConstraint partner(Constraint c) {
+        return new PositionProxy(PositionProxy.RelativePosition.Partner, c);
+    }
+
     public static Constraint and(Constraint... constraints) {
         return new ConstraintGroup(constraints);
     }
 
+    // --- Dynamic Constraints (Karta) ---
     public static Constraint.HandConstraint points(int min, int max) {
         return new ShowsPoints(null, min, max, HasPoints.PointType.Starting);
     }
@@ -56,39 +93,31 @@ public abstract class Bidder {
         return new ShowsPoints(null, min, max, HasPoints.PointType.HighCard);
     }
 
+    public static Constraint.HandConstraint dummyPoints(int min, int max) {
+        return new ShowsPoints(null, min, max, HasPoints.PointType.Dummy);
+    }
+
+    public static Constraint.HandConstraint shape(int min, int max) {
+        return new ShowsShape(null, min, max);
+    }
+
     public static Constraint.HandConstraint shape(Suit suit, int min, int max) {
         return new ShowsShape(suit, min, max);
     }
 
-    public static Constraint.HandConstraint balanced() {
-        return new ShowsBalanced(true);
-    }
-
-    public static Constraint.HandConstraint flat() {
-        return new ShowsFlat(true);
-    }
+    public static Constraint.HandConstraint balanced = new ShowsBalanced(true);
+    public static Constraint.HandConstraint notBalanced = new ShowsBalanced(false);
+    public static Constraint.HandConstraint flat = new ShowsFlat(true);
 
     public static Constraint.HandConstraint quality(Suit suit, SuitQuality min, SuitQuality max) {
         return new ShowsQuality(suit, min, max);
     }
 
-    public static Constraint.HandConstraint losers(int min, int max, Suit suit) {
-        return new ShowsLosers(false, suit, min, max);
+    public static Constraint.HandConstraint fit(int count, Suit suit) {
+        return new PairShowsMinShape(suit, count, true);
     }
 
-    public static Constraint.StaticConstraint hasShownSuit(Suit suit, boolean eitherPartner) {
-        return new HasShownSuit(suit, eitherPartner);
-    }
-
-    public static Constraint.StaticConstraint isNewSuit(Suit suit) {
-        return new NewSuit(suit);
-    }
-
-    public static Constraint.StaticConstraint isJump(int... levels) {
-        return new JumpBid(levels);
-    }
-
-    public static Constraint partner(Constraint c) {
-        return new PositionProxy(PositionProxy.RelativePosition.Partner, c);
+    public static Constraint.HandConstraint pairPoints(int min, int max) {
+        return new PairShowsPoints(null, min, max);
     }
 }

@@ -24,6 +24,10 @@ public class Game {
     public void setDealer(Direction dealer) { this.dealer = dealer; }
     public Vulnerable getVulnerable() { return vulnerable; }
     public void setVulnerable(Vulnerable vulnerable) { this.vulnerable = vulnerable; }
+    public String getBidSystemNS() { return bidSystemNS; }
+    public void setBidSystemNS(String system) { this.bidSystemNS = system; }
+    public String getBidSystemEW() { return bidSystemEW; }
+    public void setBidSystemEW(String system) { this.bidSystemEW = system; }
     public Deal getDeal() { return deal; }
     public Auction getAuction() { return auction; }
     public Contract getContract() { return contract; }
