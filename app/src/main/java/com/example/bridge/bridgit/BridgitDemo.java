@@ -23,7 +23,7 @@ public class BridgitDemo {
             dealStr = "N:K73.AT94.J82.854 AQ4.KQ.Q95.QT976 J865.863.KT763.J T92.J752.A4.AK32";
             dealStr = "N:Q54.T5.AT983.K85 9862.K93.KQ52.76 T.AQ82.76.AJT942 AKJ73.J764.J4.Q3";
             dealStr = "N:862.AKJ8.5.JT873 3.75.AQJ74.Q9542 QJ7.Q92.KT962.K6 AKT954.T643.83.A";
-            dealStr = "N:9532.A2.K762.JT4 KT.KQT965.AJ3.K3 AQJ764.87.Q984.2 8.J43.T5.AQ98765";
+            dealStr = "N:J3.8.A8743.JT542 A762.AQ97.5.AQ63 KQT98.T65.KT2.97 54.KJ432.QJ96.K8";
 
 
 
@@ -36,10 +36,10 @@ public class BridgitDemo {
                 PositionState next = biddingState.getNextToAct();
                 PositionCalls choices = biddingState.getCallChoices();
                 CallDetails best = choices.getBestCall();
-                
+
                 Call call = (best != null) ? best.getCall() : Call.Pass;
-                
-                Log.i(TAG, "Turn " + turns + " | Player: " + next.getDirection() + 
+
+                Log.i(TAG, "Turn " + turns + " | Player: " + next.getDirection() +
                            " | Role: " + next.getRole() + " (Round " + next.getRoleRound() + ")" +
                            " | CALL: " + call);
                 
