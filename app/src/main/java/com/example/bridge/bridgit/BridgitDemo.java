@@ -14,8 +14,10 @@ public class BridgitDemo {
             game.setDealer(Direction.N);
             game.setVulnerable(Vulnerable.None);
 
-            // 2. Set up a deal (Standard PBN format: 13 cards per hand, T for 10)
-            String dealStr = "N:AKJ.Q9.T852.7432 965.AK82.KJ.QT65 T87432.J74.A6.A9 Q.T653.Q9743.KJ8";
+            // 2. Set up a deal (Standard PBN format: [FirstPlayer]:[Hand1] [Hand2] [Hand3] [Hand4])
+            // Hands follow clockwise order from the specified first player.
+            String dealStr = "N:Q9763.J.AJ82.T87 AT.AT.KQ63.A9432 J4.Q987652.7.Q65 K852.K43.T954.KJ";
+
             game.parseDeal(dealStr, false);
             Log.i(TAG, "Deal parsed successfully");
 
