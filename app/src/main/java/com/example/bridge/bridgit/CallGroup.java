@@ -62,6 +62,8 @@ public class CallGroup extends HashMap<Call, CallDetails> {
 
                         if (bestCall == null && feature instanceof BidRule) {
                             if (getPositionState().privateHandConforms((BidRule) feature)) {
+                                // 1:1 LOGGING (equivalent to C# DEBUG)
+                                android.util.Log.d("BridgitDemo", "Best call selected: " + call + " matches private hand.");
                                 bestCall = cd;
                             }
                         }

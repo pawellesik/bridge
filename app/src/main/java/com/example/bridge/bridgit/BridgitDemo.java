@@ -11,7 +11,6 @@ public class BridgitDemo {
 
         try {
             Game game = new Game();
-            game.setDealer(Direction.N);
             game.setVulnerable(Vulnerable.None);
 
             // North: 16 HCP, 5 Spades (Opening 1S)
@@ -29,7 +28,7 @@ public class BridgitDemo {
 
 
 
-            game.parseDeal(dealStr, false);
+            game.parseDeal(dealStr, true);
             BiddingState biddingState = new BiddingState(game);
 
             int turns = 0;

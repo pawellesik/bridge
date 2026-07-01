@@ -103,5 +103,35 @@ public abstract class Call implements Comparable<Call> {
         public int jumpOver(Bid other) {
             return (this.rawValue - other.rawValue - 1) / 5;
         }
+
+        public static final Bid _1C = new Bid(1, Suit.Clubs);
+        public static final Bid _1D = new Bid(1, Suit.Diamonds);
+        public static final Bid _1H = new Bid(1, Suit.Hearts);
+        public static final Bid _1S = new Bid(1, Suit.Spades);
+        public static final Bid _1NT = new Bid(1, Strain.NoTrump);
+
+        public static final Bid _2C = new Bid(2, Suit.Clubs);
+        public static final Bid _2D = new Bid(2, Suit.Diamonds);
+        public static final Bid _2H = new Bid(2, Suit.Hearts);
+        public static final Bid _2S = new Bid(2, Suit.Spades);
+        public static final Bid _2NT = new Bid(2, Strain.NoTrump);
+
+        public static final Bid _3C = new Bid(3, Suit.Clubs);
+        public static final Bid _3D = new Bid(3, Suit.Diamonds);
+        public static final Bid _3H = new Bid(3, Suit.Hearts);
+        public static final Bid _3S = new Bid(3, Suit.Spades);
+        public static final Bid _3NT = new Bid(3, Strain.NoTrump);
+
+        public static final Bid _4C = new Bid(4, Suit.Clubs);
+        public static final Bid _4D = new Bid(4, Suit.Diamonds);
+        public static final Bid _4H = new Bid(4, Suit.Hearts);
+        public static final Bid _4S = new Bid(4, Suit.Spades);
+        public static final Bid _4NT = new Bid(4, Strain.NoTrump);
+
+        public static final Bid _5C = new Bid(5, Suit.Clubs);
+        public static final Bid _5D = new Bid(5, Suit.Diamonds);
+        public static final Bid _5H = new Bid(5, Suit.Hearts);
+        public static final Bid _5S = new Bid(5, Suit.Spades);
+        public static final Bid _5NT = new Bid(5, Strain.NoTrump);
     }
 }

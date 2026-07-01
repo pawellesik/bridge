@@ -105,6 +105,10 @@ public abstract class Bidder {
         return new ShowsShape(suit, min, max);
     }
 
+    public static Constraint longestMajor(int max) {
+        return and(shape(Suit.Hearts, 0, max), shape(Suit.Spades, 0, max));
+    }
+
     public static Constraint.HandConstraint balanced = new ShowsBalanced(true);
     public static Constraint.HandConstraint notBalanced = new ShowsBalanced(false);
     public static Constraint.HandConstraint flat = new ShowsFlat(true);
@@ -117,7 +121,19 @@ public abstract class Bidder {
         return new PairShowsMinShape(suit, count, true);
     }
 
+    public static Constraint.HandConstraint fit(int count) {
+        return fit(count, null);
+    }
+
+    public static Constraint.HandConstraint fit() {
+        return fit(8, null);
+    }
+
     public static Constraint.HandConstraint pairPoints(int min, int max) {
         return new PairShowsPoints(null, min, max);
+    }
+
+    public static Constraint.HandConstraint pairPoints(Range range) {
+        return pairPoints(range.min, range.max);
     }
 }
