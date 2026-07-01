@@ -14,8 +14,8 @@ public class BridgitDemo {
             game.setDealer(Direction.N);
             game.setVulnerable(Vulnerable.None);
 
-            // 2. Set up a deal
-            String dealStr = "N:AKJ7.Q9.T852.743 965.AK82.KJ.QJ106 T8432.J74.A6.A95 Q.T10653.Q9743.K8";
+            // 2. Set up a deal (Standard PBN format: 13 cards per hand, T for 10)
+            String dealStr = "N:AKJ.Q9.T852.7432 965.AK82.KJ.QT65 T87432.J74.A6.A9 Q.T653.Q9743.KJ8";
             game.parseDeal(dealStr, false);
             Log.i(TAG, "Deal parsed successfully");
 

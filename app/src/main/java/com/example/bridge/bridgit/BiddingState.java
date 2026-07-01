@@ -44,7 +44,9 @@ public class BiddingState {
         PositionCalls choices = getCallChoices();
         if (!choices.containsKey(call)) {
             // Simplified: Add placeholder rule if not found
-            choices.put(call, new CallDetails(null, call)); // Mocked
+            CallDetails cd = new CallDetails(null, call);
+            cd.setPositionState(nextToAct);
+            choices.put(call, cd);
         }
         makeCall(choices.get(call));
     }
