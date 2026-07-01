@@ -5,59 +5,6 @@ import java.util.*;
 public class HandSummary extends State {
 
     public static class SuitSummary {
-        public Range shape;
-        public Range dummyPoints;
-        public Range longHandPoints;
-        public Integer ruleOf9Points;
-        public Range losers;
-        public Set<Integer> keyCards;
-        public Boolean haveQueen;
-        public Boolean stopped;
-        public Boolean firstRoundControl;
-        public Boolean secondRoundControl;
-        public Range quality;
-
-        public SuitSummary() {}
-
-        public SuitSummary(SuitSummary other) {
-            this.shape = other.shape;
-            this.dummyPoints = other.dummyPoints;
-            this.longHandPoints = other.longHandPoints;
-            this.ruleOf9Points = other.ruleOf9Points;
-            this.losers = other.losers;
-            this.keyCards = other.keyCards != null ? new HashSet<>(other.keyCards) : null;
-            this.haveQueen = other.haveQueen;
-            this.stopped = other.stopped;
-            this.firstRoundControl = other.firstRoundControl;
-            this.secondRoundControl = other.secondRoundControl;
-            this.quality = other.quality;
-        }
-
-        public void combine(SuitSummary other, CombineRule cr) {
-            this.shape = combineRange(this.shape, other.shape, cr);
-            this.dummyPoints = combineRange(this.dummyPoints, other.dummyPoints, cr);
-            this.longHandPoints = combineRange(this.longHandPoints, other.longHandPoints, cr);
-            this.ruleOf9Points = combineInt(this.ruleOf9Points, other.ruleOf9Points, cr);
-            this.losers = combineRange(this.losers, other.losers, cr);
-            this.keyCards = combineIntSet(this.keyCards, other.keyCards, cr);
-            this.haveQueen = combineBool(this.haveQueen, other.haveQueen, cr);
-            this.stopped = combineBool(this.stopped, other.stopped, cr);
-            this.firstRoundControl = combineBool(this.firstRoundControl, other.firstRoundControl, cr);
-            this.secondRoundControl = combineBool(this.secondRoundControl, other.secondRoundControl, cr);
-            this.quality = combineRange(this.quality, other.quality, cr);
-        }
-
-        public Range getShape() {
-            return shape != null ? shape : new Range(0, 13);
-        }
-
-        public void trimShape(int claimed) {
-            Range s = getShape();
-            if (s.max + claimed - s.min > 13) {
-                this.shape = new Range(s.min, 13 - claimed + s.min);
-            }
-        }
-        
         public static class ShowState {
             private final HandSummary handSummary;
             private final SuitSummary suitSummary;
@@ -113,53 +60,89 @@ public class HandSummary extends State {
                 suitSummary.secondRoundControl = combineBool(suitSummary.secondRoundControl, control, CombineRule.Show);
             }
         }
-    }
 
-    public Range highCardPoints;
-    public Range startingPoints;
-    public Range points;
-    public Range noTrumpLongHandPoints;
-    public Range noTrumpDummyPoints;
-    public Range losers;
-    public Boolean isBalanced;
-    public Boolean isFlat;
-    public Set<Integer> countAces;
-    public Set<Integer> countKings;
-    public final Map<Suit, SuitSummary> suits = new HashMap<>();
+        public Range shape;
+        public Range dummyPoints;
+        public Range longHandPoints;
+        public Integer ruleOf9Points;
+        public Range losers;
+        public Set<Integer> keyCards;
+        public Boolean haveQueen;
+        public Boolean stopped;
+        public Boolean firstRoundControl;
+        public Boolean secondRoundControl;
+        public Range quality;
 
-    public HandSummary() {
-        for (Suit s : Suit.values()) {
-            suits.put(s, new SuitSummary());
+        public SuitSummary() {}
+
+        public SuitSummary(SuitSummary other) {
+            this.shape = other.shape;
+            this.dummyPoints = other.dummyPoints;
+            this.longHandPoints = other.longHandPoints;
+            this.ruleOf9Points = other.ruleOf9Points;
+            this.losers = other.losers;
+            this.keyCards = other.keyCards != null ? new HashSet<>(other.keyCards) : null;
+            this.haveQueen = other.haveQueen;
+            this.stopped = other.stopped;
+            this.firstRoundControl = other.firstRoundControl;
+            this.secondRoundControl = other.secondRoundControl;
+            this.quality = other.quality;
         }
-    }
 
-    public HandSummary(HandSummary other) {
-        this.highCardPoints = other.highCardPoints;
-        this.startingPoints = other.startingPoints;
-        this.points = other.points;
-        this.noTrumpLongHandPoints = other.noTrumpLongHandPoints;
-        this.noTrumpDummyPoints = other.noTrumpDummyPoints;
-        this.losers = other.losers;
-        this.isBalanced = other.isBalanced;
-        this.isFlat = other.isFlat;
-        this.countAces = other.countAces != null ? new HashSet<>(other.countAces) : null;
-        this.countKings = other.countKings != null ? new HashSet<>(other.countKings) : null;
-        for (Suit s : Suit.values()) {
-            suits.put(s, new SuitSummary(other.suits.get(s)));
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SuitSummary that = (SuitSummary) o;
+            return Objects.equals(shape, that.shape) &&
+                    Objects.equals(dummyPoints, that.dummyPoints) &&
+                    Objects.equals(longHandPoints, that.longHandPoints) &&
+                    Objects.equals(ruleOf9Points, that.ruleOf9Points) &&
+                    Objects.equals(losers, that.losers) &&
+                    Objects.equals(keyCards, that.keyCards) &&
+                    Objects.equals(haveQueen, that.haveQueen) &&
+                    Objects.equals(stopped, that.stopped) &&
+                    Objects.equals(firstRoundControl, that.firstRoundControl) &&
+                    Objects.equals(secondRoundControl, that.secondRoundControl) &&
+                    Objects.equals(quality, that.quality);
         }
-    }
 
-    protected void showPoints(int min, int max) {
-        this.points = combineRange(this.points, new Range(min, max), CombineRule.Show);
+        @Override
+        public int hashCode() {
+            return Objects.hash(shape, dummyPoints, longHandPoints, ruleOf9Points, losers, keyCards, haveQueen, stopped, firstRoundControl, secondRoundControl, quality);
+        }
+
+        public void combine(SuitSummary other, CombineRule cr) {
+            this.shape = combineRange(this.shape, other.shape, cr);
+            this.dummyPoints = combineRange(this.dummyPoints, other.dummyPoints, cr);
+            this.longHandPoints = combineRange(this.longHandPoints, other.longHandPoints, cr);
+            this.ruleOf9Points = combineInt(this.ruleOf9Points, other.ruleOf9Points, cr);
+            this.losers = combineRange(this.losers, other.losers, cr);
+            this.keyCards = combineIntSet(this.keyCards, other.keyCards, cr);
+            this.haveQueen = combineBool(this.haveQueen, other.haveQueen, cr);
+            this.stopped = combineBool(this.stopped, other.stopped, cr);
+            this.firstRoundControl = combineBool(this.firstRoundControl, other.firstRoundControl, cr);
+            this.secondRoundControl = combineBool(this.secondRoundControl, other.secondRoundControl, cr);
+            this.quality = combineRange(this.quality, other.quality, cr);
+        }
+
+        public Range getShape() {
+            return shape != null ? shape : new Range(0, 13);
+        }
+
+        public void trimShape(int claimed) {
+            Range s = getShape();
+            if (s.max + claimed - s.min > 13) {
+                this.shape = new Range(s.min, 13 - claimed + s.min);
+            }
+        }
     }
 
     public static class ShowState {
         public final HandSummary handSummary;
         public final Map<Suit, SuitSummary.ShowState> suits = new HashMap<>();
 
-        public ShowState() {
-            this(null);
-        }
+        public ShowState() { this(null); }
 
         public ShowState(HandSummary startState) {
             this.handSummary = (startState == null) ? new HandSummary() : new HandSummary(startState);
@@ -209,6 +192,67 @@ public class HandSummary extends State {
         public void combine(HandSummary other, CombineRule cr) {
             handSummary.combine(other, cr);
         }
+    }
+
+    public Range highCardPoints;
+    public Range startingPoints;
+    public Range points;
+    public Range noTrumpLongHandPoints;
+    public Range noTrumpDummyPoints;
+    public Range losers;
+    public Boolean isBalanced;
+    public Boolean isFlat;
+    public Set<Integer> countAces;
+    public Set<Integer> countKings;
+    public final Map<Suit, SuitSummary> suits = new HashMap<>();
+
+    public HandSummary() {
+        for (Suit s : Suit.values()) {
+            suits.put(s, new SuitSummary());
+        }
+    }
+
+    public HandSummary(HandSummary other) {
+        this.highCardPoints = other.highCardPoints;
+        this.startingPoints = other.startingPoints;
+        this.points = other.points;
+        this.noTrumpLongHandPoints = other.noTrumpLongHandPoints;
+        this.noTrumpDummyPoints = other.noTrumpDummyPoints;
+        this.losers = other.losers;
+        this.isBalanced = other.isBalanced;
+        this.isFlat = other.isFlat;
+        this.countAces = other.countAces != null ? new HashSet<>(other.countAces) : null;
+        this.countKings = other.countKings != null ? new HashSet<>(other.countKings) : null;
+        for (Suit s : Suit.values()) {
+            suits.put(s, new SuitSummary(other.suits.get(s)));
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HandSummary that = (HandSummary) o;
+        return Objects.equals(highCardPoints, that.highCardPoints) &&
+                Objects.equals(startingPoints, that.startingPoints) &&
+                Objects.equals(points, that.points) &&
+                Objects.equals(noTrumpLongHandPoints, that.noTrumpLongHandPoints) &&
+                Objects.equals(noTrumpDummyPoints, that.noTrumpDummyPoints) &&
+                Objects.equals(losers, that.losers) &&
+                Objects.equals(isBalanced, that.isBalanced) &&
+                Objects.equals(isFlat, that.isFlat) &&
+                Objects.equals(countAces, that.countAces) &&
+                Objects.equals(countKings, that.countKings) &&
+                Objects.equals(suits, that.suits);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(highCardPoints, startingPoints, points, noTrumpLongHandPoints, noTrumpDummyPoints, losers, isBalanced, isFlat, countAces, countKings, suits);
+    }
+
+    protected void showPoints(int min, int max) {
+        this.points = combineRange(this.points, new Range(min, max), CombineRule.Show);
     }
 
     public void combine(HandSummary other, CombineRule cr) {

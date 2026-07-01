@@ -3,55 +3,45 @@ package com.example.bridge.bridgit;
 import com.example.bridge.bridgit.constraints.*;
 import java.util.*;
 
-public class Open {
+public class Open extends Bidder {
     public static PositionCalls getPositionCalls(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        
+
+        // Choices from C# logic:
+        choices.addRules(NoTrump.open(ps));
         choices.addRules(openSuit(ps));
         
-        // If not in 4th seat, we can pass if we don't have enough points
         if (ps.getSeat() != 4) {
-            choices.addRules(Collections.singletonList(
-                Bidder.shows(Call.Pass, new ShowsPoints(null, 0, 11, HasPoints.PointType.Starting))
-            ));
+            choices.addPassRule(points(0, 11));
         } else {
-            // In 4th seat, use Rule of 15 or similar (simplified to 12 pts for demo)
-            choices.addRules(Collections.singletonList(
-                Bidder.shows(Call.Pass, new ShowsPoints(null, 0, 11, HasPoints.PointType.Starting))
-            ));
+            choices.addRules(Collections.singletonList(shows(Call.Pass, isSeat(4), new PassIn4thSeat())));
+            choices.addPassRule(points(0, 11));
         }
-        
         return choices;
     }
 
     private static List<CallFeature> openSuit(PositionState ps) {
         List<CallFeature> rules = new ArrayList<>();
         
-        // Standard openings at level 1 (12-21 points)
-        // Rule order matters!
+        // C# OpenSuit priorities:
         
-        // 1. Majors (5+ cards)
-        rules.add(Bidder.shows(new Call.Bid(1, Suit.Spades), 
-            new ShowsPoints(null, 12, 21, HasPoints.PointType.Starting),
-            new ShowsShape(Suit.Spades, 5, 13)));
-            
-        rules.add(Bidder.shows(new Call.Bid(1, Suit.Hearts), 
-            new ShowsPoints(null, 12, 21, HasPoints.PointType.Starting),
-            new ShowsShape(Suit.Hearts, 5, 13)));
-            
-        // 2. 1NT (15-17 HCP, Balanced)
-        rules.add(Bidder.shows(new Call.Bid(1, Strain.NoTrump),
-            new ShowsPoints(null, 15, 17, HasPoints.PointType.HighCard),
-            new ShowsBalanced(true)));
-
-        // 3. Minors (preferred longer, or Diamonds if equal 3-3, or Clubs if equal 4-4)
-        rules.add(Bidder.shows(new Call.Bid(1, Suit.Diamonds), 
-            new ShowsPoints(null, 12, 21, HasPoints.PointType.Starting),
-            new ShowsShape(Suit.Diamonds, 3, 13)));
-
-        rules.add(Bidder.shows(new Call.Bid(1, Suit.Clubs), 
-            new ShowsPoints(null, 12, 21, HasPoints.PointType.Starting),
-            new ShowsShape(Suit.Clubs, 3, 13)));
+        // 1. Medium+ hands (17-21) - longest suit
+        rules.add(shows(new Call.Bid(1, Suit.Spades), points(17, 21), shape(Suit.Spades, 5, 13)));
+        rules.add(shows(new Call.Bid(1, Suit.Hearts), points(17, 21), shape(Suit.Hearts, 5, 13)));
+        
+        // 2. Minimum hands (12-16)
+        // 5+ Majors
+        rules.add(shows(new Call.Bid(1, Suit.Spades), points(12, 16), shape(Suit.Spades, 5, 13)));
+        rules.add(shows(new Call.Bid(1, Suit.Hearts), points(12, 16), shape(Suit.Hearts, 5, 13)));
+        
+        // 3. Minors (12-21)
+        // Better minor logic
+        rules.add(shows(new Call.Bid(1, Suit.Diamonds), points(12, 21), new BetterMinor(Suit.Diamonds)));
+        rules.add(shows(new Call.Bid(1, Suit.Clubs), points(12, 21), new BetterMinor(Suit.Clubs)));
+        
+        // 4. Default minor opening if not balanced and no major
+        rules.add(shows(new Call.Bid(1, Suit.Diamonds), points(12, 21), shape(Suit.Diamonds, 3, 13)));
+        rules.add(shows(new Call.Bid(1, Suit.Clubs), points(12, 21), shape(Suit.Clubs, 3, 13)));
             
         return rules;
     }

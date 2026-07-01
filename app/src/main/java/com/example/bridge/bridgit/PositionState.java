@@ -28,9 +28,11 @@ public class PositionState {
     }
 
     public Direction getDirection() { return direction; }
+    public BiddingState getBiddingState() { return biddingState; }
     public HandSummary getPublicHandSummary() { return publicHandSummary; }
     public boolean hasHand() { return hand != null; }
     public int getBidRound() { return bids.size() + 1; }
+    public int getCallCount() { return bids.size(); }
     public int getSeat() { return (direction.ordinal() - biddingState.getDealer().getDirection().ordinal() + 4) % 4 + 1; }
     public boolean isVulnerable() { return pairState.areVulnerable(); }
 
@@ -39,12 +41,23 @@ public class PositionState {
         return bids.get(bids.size() - 1 - historyLevel).getCall();
     }
 
+    public CallDetails getCallDetails(int index) {
+        return bids.get(index);
+    }
+
     public PositionCalls getPositionCalls() {
+        CallDetails lastPartnerCall = partner().getCallCount() > 0 ? partner().getCallDetails(partner().getCallCount() - 1) : null;
+        java.util.function.Function<PositionState, PositionCalls> bidFactory = lastPartnerCall != null ? lastPartnerCall.getBidsFactory() : null;
+        if (bidFactory != null) return bidFactory.apply(this);
         return pairState.getBiddingSystem().getPositionCalls(this);
     }
 
     public PositionState leftHandOpponent() {
         return biddingState.getPositions().get(direction.leftHandOpponent());
+    }
+
+    public PositionState rightHandOpponent() {
+        return biddingState.getPositions().get(direction.rightHandOpponent());
     }
 
     public PositionState partner() {
@@ -55,12 +68,22 @@ public class PositionState {
         return hasHand() && rule.satisfiesHandConstraints(this, privateHandSummary);
     }
 
+    public List<Constraint> privateHandFailingConstraints(BidRule rule) {
+        if (!hasHand()) return Collections.emptyList();
+        return rule.failingHandConstraints(this, privateHandSummary);
+    }
+
     public boolean isValidNextCall(Call call) {
         return biddingState.getContract().isValid(call, direction);
     }
 
+    public boolean isForcedToBid() {
+        return pairState.isForcedToBid(this) && !Call.Pass.equals(rightHandOpponent().getBidHistory(0));
+    }
+
     public void setPairState(PairState ps) { this.pairState = ps; }
     public PairState getPairState() { return pairState; }
+    public PairState getOpponentsPairState() { return rightHandOpponent().getPairState(); }
 
     public void makeCall(CallDetails cd) {
         biddingState.getContract().validateCall(cd.getCall(), direction);
@@ -77,7 +100,10 @@ public class PositionState {
         }
         bids.add(cd);
         pairState.updatePairProperties(cd);
-        repeatUpdatesUntilStable(cd);
+        if (repeatUpdatesUntilStable(cd)) {
+            biddingState.updateStateFromFirstBid();
+        }
+        pairState.updateLastShownSuit(cd.getCall(), this, cd.showHand());
     }
 
     private void assignRole(PositionRole role) {
@@ -86,13 +112,39 @@ public class PositionState {
         this.roleAssignedOffset = bids.size();
     }
 
-    private void repeatUpdatesUntilStable(CallDetails cd) {
+    public static class UpdateResult {
+        public boolean bidExists;
+        public boolean stateChanged;
+    }
+
+    public UpdateResult updateBidIndex(int bidIndex) {
+        UpdateResult res = new UpdateResult();
+        if (bidIndex >= bids.size()) {
+            res.bidExists = false;
+            res.stateChanged = false;
+            return res;
+        }
+        res.bidExists = true;
+        res.stateChanged = repeatUpdatesUntilStable(bids.get(bidIndex));
+        return res;
+    }
+
+    public boolean repeatUpdatesUntilStable(CallDetails cd) {
+        boolean stateChanged = false;
         for (int i = 0; i < 1000; i++) {
-            cd.pruneRules(this);
+            boolean pruned = cd.pruneRules(this);
+            stateChanged |= pruned;
+
             HandSummary.ShowState showState = new HandSummary.ShowState(publicHandSummary);
             showState.handSummary.combine(cd.showHand(), State.CombineRule.Merge);
-            if (publicHandSummary.equals(showState.handSummary)) return;
+
+            if (publicHandSummary.equals(showState.handSummary)) {
+                return stateChanged;
+            }
+            stateChanged = true;
+            pairState.updateShownSuits(cd.getCall(), this, showState.handSummary);
             publicHandSummary = showState.handSummary;
         }
+        return stateChanged;
     }
 }

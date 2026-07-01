@@ -27,6 +27,18 @@ public class PairState {
         return (ps == forcedPosition && ps.getBidRound() <= forcedThroughRound);
     }
 
+    public boolean haveShownSuit(Suit suit) {
+        return firstToShow.containsKey(suit);
+    }
+
+    public PositionState firstToShow(Suit suit) {
+        return firstToShow.get(suit);
+    }
+
+    public Suit lastShownSuit() {
+        return lastShownSuit;
+    }
+
     public void updateShownSuits(Call call, PositionState ps, HandSummary hs) {
         for (Suit suit : Card.Suits) {
             if (!firstToShow.containsKey(suit)) {
@@ -49,8 +61,20 @@ public class PairState {
         }
     }
 
-    public void updatePairProperties(CallDetails callDetails) {
-        // To be implemented when CallProperties and CallDetails are mature
+    public void updatePairProperties(CallDetails cd) {
+        CallProperties props = cd.getProperties();
+        if (props != null) {
+            if (props.isForcingToGame()) {
+                this.forcedToGame = true;
+            }
+            if (props.isForcing1Round()) {
+                this.forcedPosition = cd.getPositionState().partner();
+                this.forcedThroughRound = this.forcedPosition.getBidRound();
+            }
+            if (props.getTrumpSuit() != null) {
+                this.trumpSuit = props.getTrumpSuit();
+            }
+        }
     }
 
     public BiddingSystem getBiddingSystem() { return biddingSystem; }

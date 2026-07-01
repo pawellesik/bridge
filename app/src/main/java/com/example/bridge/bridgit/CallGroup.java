@@ -8,7 +8,7 @@ public class CallGroup extends HashMap<Call, CallDetails> {
     private final List<CallAnnotation> annotations = new ArrayList<>();
     private CallDetails bestCall = null;
 
-    public CallGroup(PositionCalls positionCalls) {
+    private CallGroup(PositionCalls positionCalls) {
         this.positionCalls = positionCalls;
     }
 
@@ -22,12 +22,16 @@ public class CallGroup extends HashMap<Call, CallDetails> {
         return positionCalls.getPositionState();
     }
 
+    public CallProperties getPartnerCalls() {
+        return partnerCalls;
+    }
+
     private void addRules(Iterable<CallFeature> features) {
         recurseAddRules(features);
         List<Call> calls = new ArrayList<>(this.keySet());
         for (Call call : calls) {
             CallDetails cd = this.get(call);
-            if (cd.getRules().isEmpty()) {
+            if (!cd.hasRules()) {
                 this.remove(call);
             } else {
                 cd.getAnnotations().addAll(this.annotations);

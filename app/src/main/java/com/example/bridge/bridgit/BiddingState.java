@@ -6,6 +6,8 @@ public class BiddingState {
     private final Map<Direction, PositionState> positions = new HashMap<>();
     private final PositionState dealer;
     private PositionState nextToAct;
+    private PositionState opener;
+    private Call.Bid openingBid;
     private final ContractState contract = new ContractState();
     private final Game game;
     private PositionCalls positionChoices = null;
@@ -25,6 +27,42 @@ public class BiddingState {
         }
         this.dealer = positions.get(game.getDealer());
         this.nextToAct = this.dealer;
+
+        if (game.getAuction() != null && !game.getAuction().isEmpty()) {
+            List<Call> calls = game.getAuction().getCalls();
+            game.getAuction().clear();
+            for (Call call : calls) {
+                makeCall(call);
+            }
+        }
+    }
+
+    public void updateStateFromFirstBid() {
+        for (int i = 0; i < 50; i++) {
+            PositionState position = dealer;
+            int bidIndex = 0;
+            boolean someStateChanged = false;
+            
+            while (true) {
+                PositionState.UpdateResult res = position.updateBidIndex(bidIndex);
+                someStateChanged |= res.stateChanged;
+                
+                position = position.leftHandOpponent();
+                if (position == dealer) {
+                    bidIndex++;
+                    boolean anyMoreBids = false;
+                    for (PositionState ps : positions.values()) {
+                        if (bidIndex < ps.getCallCount()) {
+                            anyMoreBids = true;
+                            break;
+                        }
+                    }
+                    if (!anyMoreBids) break;
+                }
+            }
+            if (!someStateChanged) return;
+        }
+        throw new RuntimeException("Unable to resolve to a stable state. Giving up");
     }
 
     public ContractState getContract() { return contract; }
@@ -43,7 +81,6 @@ public class BiddingState {
         contract.validateCall(call, nextToAct.getDirection());
         PositionCalls choices = getCallChoices();
         if (!choices.containsKey(call)) {
-            // Simplified: Add placeholder rule if not found
             CallDetails cd = new CallDetails(null, call);
             cd.setPositionState(nextToAct);
             choices.put(call, cd);
@@ -55,7 +92,26 @@ public class BiddingState {
         nextToAct.makeCall(cd);
         contract.makeCall(cd.getCall(), cd.getPositionState().getDirection());
         
+        if (openingBid == null && cd.getCall() instanceof Call.Bid) {
+            openingBid = (Call.Bid) cd.getCall();
+            opener = cd.getPositionState();
+        }
+
+        // Update the actual game object
+        game.getAuction().addCall(cd.getCall());
+        game.updateContractFromAuction();
+
+        if (contract.isAuctionComplete()) {
+            game.setContract(contract);
+            if (!contract.isPassedOut()) {
+                game.setDeclarer(contract.declarer);
+            }
+        }
+
         nextToAct = nextToAct.leftHandOpponent();
         positionChoices = null;
     }
+
+    public Call.Bid getOpeningBid() { return openingBid; }
+    public PositionState getOpener() { return opener; }
 }

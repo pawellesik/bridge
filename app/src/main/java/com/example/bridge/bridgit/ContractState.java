@@ -80,20 +80,16 @@ public class ContractState extends Contract {
         this.risk = Risk.Undoubled;
         this.callsRemaining = 3;
         this.declarer = by;
-        if (this.firstToNameStrain.containsKey(bid.getStrain())) {
-            for (Direction namedStrain : firstToNameStrain.get(bid.getStrain())) {
-                if (namedStrain == by) return;
-                if (namedStrain == by.partner()) {
-                    this.declarer = by.partner();
-                    return;
-                }
+        
+        List<Direction> directions = firstToNameStrain.computeIfAbsent(bid.getStrain(), k -> new ArrayList<>());
+        for (Direction namedStrain : directions) {
+            if (namedStrain == by) return;
+            if (namedStrain == by.partner()) {
+                this.declarer = by.partner();
+                return;
             }
-            firstToNameStrain.get(bid.getStrain()).add(by);
-        } else {
-            List<Direction> list = new ArrayList<>();
-            list.add(by);
-            firstToNameStrain.put(bid.getStrain(), list);
         }
+        directions.add(by);
     }
 
     public void makeCall(Call call, Direction by) {

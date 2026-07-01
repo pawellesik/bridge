@@ -1,6 +1,8 @@
 package com.example.bridge.bridgit;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CallDetails {
     private final Call call;
@@ -23,6 +25,10 @@ public class CallDetails {
     public CallProperties getProperties() { return properties; }
     public List<BidRule> getRules() { return rules; }
 
+    public boolean hasRules() {
+        return !rules.isEmpty();
+    }
+
     public void setPositionState(PositionState ps) {
         this.positionState = ps;
     }
@@ -35,6 +41,27 @@ public class CallDetails {
         } else if (feature instanceof CallAnnotation) {
             annotations.add((CallAnnotation) feature);
         }
+    }
+
+    public List<List<String>> getCallDescriptions() {
+        List<List<String>> descriptions = new ArrayList<>();
+        for (BidRule rule : rules) {
+            List<String> d = rule.constraintDescriptions(getPositionState());
+            if (d != null) {
+                descriptions.add(d);
+            }
+        }
+        return descriptions;
+    }
+
+    public Function<PositionState, PositionCalls> getBidsFactory() {
+        if (properties != null && properties.getPartnerBids() != null) {
+            return properties.getPartnerBids();
+        }
+        if (!this.call.equals(Call.Pass) && group != null && group.getPartnerCalls() != null) {
+            return group.getPartnerCalls().getPartnerBids();
+        }
+        return null;
     }
 
     public HandSummary showHand() {

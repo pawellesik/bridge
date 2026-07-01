@@ -24,7 +24,11 @@ public abstract class CallFeature {
     }
 
     public void addConstraint(Constraint constraint) {
-        if (constraint != null) {
+        if (constraint instanceof com.example.bridge.bridgit.constraints.ConstraintGroup) {
+            for (Constraint child : ((com.example.bridge.bridgit.constraints.ConstraintGroup) constraint).getChildConstraints()) {
+                addConstraint(child);
+            }
+        } else if (constraint != null) {
             this.constraints.add(constraint);
         }
     }
@@ -38,5 +42,17 @@ public abstract class CallFeature {
             }
         }
         return true;
+    }
+
+    public List<Constraint> failingStaticConstraints(PositionState ps) {
+        List<Constraint> failing = new ArrayList<>();
+        for (Constraint c : constraints) {
+            if (c instanceof Constraint.StaticConstraint) {
+                if (!((Constraint.StaticConstraint) c).conforms(this.call, ps)) {
+                    failing.add(c);
+                }
+            }
+        }
+        return failing;
     }
 }

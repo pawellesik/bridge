@@ -1,5 +1,7 @@
 package com.example.bridge.bridgit;
 
+import java.util.Objects;
+
 public class Range {
     public int min;
     public int max;
@@ -16,17 +18,16 @@ public class Range {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Range) {
-            Range other = (Range) obj;
-            return this.min == other.min && this.max == other.max;
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Range range = (Range) o;
+        return min == range.min && max == range.max;
     }
 
     @Override
     public int hashCode() {
-        return min * 31 + max;
+        return Objects.hash(min, max);
     }
 
     @Override
