@@ -1,5 +1,6 @@
 package com.example.bridge.bridgit;
 
+import com.example.bridge.bridgit.additional.SuitQuality;
 import java.util.*;
 
 public class HandSummary extends State {

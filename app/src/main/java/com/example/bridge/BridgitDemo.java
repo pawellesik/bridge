@@ -1,7 +1,14 @@
-package com.example.bridge.bridgit;
+package com.example.bridge;
 
 import android.util.Log;
-import java.util.Map;
+
+import com.example.bridge.bridgit.BiddingState;
+import com.example.bridge.bridgit.Call;
+import com.example.bridge.bridgit.CallDetails;
+import com.example.bridge.bridgit.Game;
+import com.example.bridge.bridgit.PositionCalls;
+import com.example.bridge.bridgit.PositionState;
+import com.example.bridge.bridgit.Vulnerable;
 
 public class BridgitDemo {
     private static final String TAG = "BridgitDemo";

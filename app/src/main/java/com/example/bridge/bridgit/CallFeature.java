@@ -1,5 +1,6 @@
 package com.example.bridge.bridgit;
 
+import com.example.bridge.bridgit.constraints.ConstraintGroup;
 import java.util.*;
 
 public abstract class CallFeature {
@@ -24,8 +25,8 @@ public abstract class CallFeature {
     }
 
     public void addConstraint(Constraint constraint) {
-        if (constraint instanceof com.example.bridge.bridgit.constraints.ConstraintGroup) {
-            for (Constraint child : ((com.example.bridge.bridgit.constraints.ConstraintGroup) constraint).getChildConstraints()) {
+        if (constraint instanceof ConstraintGroup) {
+            for (Constraint child : ((ConstraintGroup) constraint).getChildConstraints()) {
                 addConstraint(child);
             }
         } else if (constraint != null) {

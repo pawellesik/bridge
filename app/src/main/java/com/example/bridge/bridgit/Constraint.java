@@ -1,6 +1,6 @@
 package com.example.bridge.bridgit;
 
-import java.util.List;
+import java.util.*;
 
 public abstract class Constraint {
 
@@ -28,23 +28,23 @@ public abstract class Constraint {
         return this.getClass().getSimpleName();
     }
 
-    public interface IDescribeConstraint {
-        String describe(Call call, PositionState ps);
-    }
-
-    public interface IDescribeMultipleConstraints {
-        String describe(Call call, PositionState ps, List<Constraint> constraints);
-    }
-
-    public interface IShowsHand {
-        void showHand(Call call, PositionState ps, HandSummary.ShowState showHand);
-    }
-
     public static abstract class StaticConstraint extends Constraint {
         public abstract boolean conforms(Call call, PositionState ps);
     }
 
     public static abstract class HandConstraint extends Constraint {
         public abstract boolean conforms(Call call, PositionState ps, HandSummary hs);
+    }
+
+    public interface IShowsHand {
+        void showHand(Call call, PositionState ps, HandSummary.ShowState showHand);
+    }
+
+    public interface IDescribeConstraint {
+        String describe(Call call, PositionState ps);
+    }
+
+    public interface IDescribeMultipleConstraints {
+        String describe(Call call, PositionState ps, List<Constraint> constraints);
     }
 }
