@@ -152,6 +152,10 @@ public class HandSummary extends State {
             }
         }
 
+        public HandSummary getHandSummary() {
+            return handSummary;
+        }
+
         public void showStartingPoints(int min, int max) {
             handSummary.startingPoints = combineRange(handSummary.startingPoints, new Range(min, max), CombineRule.Show);
             handSummary.showPoints(min, max);
