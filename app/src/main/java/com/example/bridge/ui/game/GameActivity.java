@@ -105,6 +105,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
         gameBidding = new GameBidding(this, biddingControlsOverlay);
 
+        android.util.Log.i("BridgitDemo", "GameActivity onCreate - executing runDemo()");
+        new com.example.bridge.bridgit.BridgitDemo().runDemo();
+
         setupRecyclerView();
         setupBiddingHistory();
 
