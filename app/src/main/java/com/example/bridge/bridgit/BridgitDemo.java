@@ -6,7 +6,7 @@ public class BridgitDemo {
     private static final String TAG = "BridgitDemo";
 
     public void runDemo() {
-        Log.i(TAG, "!!! Bridgit Java Demo STARTED !!!");
+        Log.i(TAG, "!!! Bridgit Java Dynamic Demo STARTED !!!");
 
         try {
             // 1. Create a Game
@@ -15,7 +15,10 @@ public class BridgitDemo {
             game.setVulnerable(Vulnerable.None);
 
             // 2. Set up a deal (Standard PBN format: [FirstPlayer]:[Hand1] [Hand2] [Hand3] [Hand4])
-            // Hands follow clockwise order from the specified first player.
+            // North has 20 HCP, 5 Spades - should open 1S
+            // East has a weak hand - should pass
+            // South has a weak hand - should pass
+            // West has a weak hand - should pass
             String dealStr = "N:Q9763.J.AJ82.T87 AT.AT.KQ63.A9432 J4.Q987652.7.Q65 K852.K43.T954.KJ";
 
             game.parseDeal(dealStr, false);
@@ -25,26 +28,24 @@ public class BridgitDemo {
             BiddingState biddingState = new BiddingState(game);
             Log.i(TAG, "BiddingState initialized");
 
-            // 4. Simulate some calls
-            logStatus(biddingState);
+            // 4. Run dynamic simulation
+            int safetyLimit = 0;
+            while (!biddingState.getContract().isAuctionComplete() && safetyLimit < 20) {
+                safetyLimit++;
+                
+                PositionState next = biddingState.getNextToAct();
+                PositionCalls choices = biddingState.getCallChoices();
+                CallDetails best = choices.getBestCall();
+                
+                Call callToMake = (best != null) ? best.getCall() : Call.Pass;
+                
+                Log.i(TAG, next.getDirection() + " decides to call: " + callToMake);
+                biddingState.makeCall(callToMake);
+                
+                logStatus(biddingState);
+            }
 
-            Log.i(TAG, "Simulating North PASS...");
-            biddingState.makeCall(Call.Pass);
-            logStatus(biddingState);
-
-            Log.i(TAG, "Simulating East 1C...");
-            biddingState.makeCall(Call.parse("1C"));
-            logStatus(biddingState);
-
-            Log.i(TAG, "Simulating South PASS...");
-            biddingState.makeCall(Call.Pass);
-            logStatus(biddingState);
-
-            Log.i(TAG, "Simulating West 1H...");
-            biddingState.makeCall(Call.parse("1H"));
-            logStatus(biddingState);
-
-            Log.i(TAG, "!!! Bridgit Java Demo COMPLETED SUCCESSFULY !!!");
+            Log.i(TAG, "!!! Bridgit Java Dynamic Demo COMPLETED SUCCESSFULY !!!");
 
         } catch (Exception e) {
             Log.e(TAG, "CRASH in BridgitDemo: " + e.getMessage(), e);
@@ -53,11 +54,8 @@ public class BridgitDemo {
 
     private void logStatus(BiddingState state) {
         try {
-            PositionState next = state.getNextToAct();
             ContractState contract = state.getContract();
-            
-            Log.i(TAG, "Status -> Contract: " + contract.toString() + 
-                       " | Next: " + next.getDirection() + 
+            Log.i(TAG, "Current Status -> Contract: " + contract.toString() +
                        " | Done: " + contract.isAuctionComplete());
         } catch (Exception e) {
             Log.e(TAG, "Error in logStatus: " + e.getMessage());
