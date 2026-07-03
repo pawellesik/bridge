@@ -110,7 +110,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bidding_box_container"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="64dp"
         android:layout_marginHorizontal="1dp"
         android:layout_marginBottom="1dp"
         android:background="@drawable/bg_bidding_controls_green_fill"
@@ -129,7 +129,7 @@
             <LinearLayout
                 android:id="@+id/bid_clubs"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/sel_bid_tile"
@@ -155,7 +155,7 @@
             <LinearLayout
                 android:id="@+id/bid_diamonds"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/sel_bid_tile"
@@ -181,7 +181,7 @@
             <LinearLayout
                 android:id="@+id/bid_hearts"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/sel_bid_tile"
@@ -207,7 +207,7 @@
             <LinearLayout
                 android:id="@+id/bid_spades"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/sel_bid_tile"
@@ -233,7 +233,7 @@
             <TextView
                 android:id="@+id/bid_nt"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/sel_bid_tile"
@@ -246,7 +246,7 @@
             <TextView
                 android:id="@+id/btn_bid_double_toggle"
                 android:layout_width="40dp"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="1dp"
                 android:background="@drawable/sel_bid_tile"
                 android:gravity="center"
@@ -263,7 +263,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_bid_pass"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_weight="1.6"
                 android:backgroundTint="#4D7C4F"
