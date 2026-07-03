@@ -403,6 +403,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             });
         }
 
+        View statisticHeader = findViewById(R.id.statistic_header_container);
+        if (statisticHeader != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(statisticHeader, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), systemBars.top + (int) (8 * getResources().getDisplayMetrics().density), v.getPaddingRight(), (int) (8 * getResources().getDisplayMetrics().density));
+                return insets;
+            });
+        }
+
         View bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
             ViewCompat.setOnApplyWindowInsetsListener(bottomNav, (v, insets) -> {
