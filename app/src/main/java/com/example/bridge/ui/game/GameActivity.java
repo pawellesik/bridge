@@ -20,7 +20,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bridge.BridgitDemo;
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
 import com.example.bridge.core.PbnExporter;
@@ -104,9 +103,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
         gameBidding = new GameBidding(this, biddingControlsOverlay);
-
-        android.util.Log.i("BridgitDemo", "GameActivity onCreate - executing runDemo()");
-        new BridgitDemo().runDemo();
 
         setupRecyclerView();
         setupBiddingHistory();
