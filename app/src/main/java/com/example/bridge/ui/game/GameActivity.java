@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View loadingIndicator;
     private View historyOverlay;
     private View statisticOverlay;
+    private View settingsOverlay;
     private View biddingOverlay;
     private View biddingControlsOverlay;
     private final List<Card> displayHandSouth = new ArrayList<>();
@@ -102,6 +103,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         historyOverlay = findViewById(R.id.history_overlay);
         statisticOverlay = findViewById(R.id.statistic_overlay);
+        settingsOverlay = findViewById(R.id.settings_overlay);
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
         gameBidding = new GameBidding(this, biddingControlsOverlay);
@@ -117,21 +119,27 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 if (itemId == R.id.nav_game) {
                     historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.GONE);
+                    settingsOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     historyOverlay.setVisibility(View.VISIBLE);
                     statisticOverlay.setVisibility(View.GONE);
+                    settingsOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_statistic) {
                     historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.VISIBLE);
+                    settingsOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_settings) {
-                    startActivity(new Intent(this, SettingsActivity.class));
-                    return false;
+                    historyOverlay.setVisibility(View.GONE);
+                    statisticOverlay.setVisibility(View.GONE);
+                    settingsOverlay.setVisibility(View.VISIBLE);
+                    bottomNav.setVisibility(View.VISIBLE);
+                    return true;
                 }
                 return false;
             });
@@ -176,10 +184,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             @Override
             public void handleOnBackPressed() {
                 if ((historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE) ||
-                    (statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE)) {
+                    (statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE) ||
+                    (settingsOverlay != null && settingsOverlay.getVisibility() == View.VISIBLE)) {
                     
                     historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.GONE);
+                    settingsOverlay.setVisibility(View.GONE);
 
                     com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
                     if (bottomNav != null) {
@@ -406,6 +416,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         View statisticHeader = findViewById(R.id.statistic_header_container);
         if (statisticHeader != null) {
             ViewCompat.setOnApplyWindowInsetsListener(statisticHeader, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), systemBars.top + (int) (8 * getResources().getDisplayMetrics().density), v.getPaddingRight(), (int) (8 * getResources().getDisplayMetrics().density));
+                return insets;
+            });
+        }
+
+        View settingsHeader = findViewById(R.id.settings_header_container);
+        if (settingsHeader != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(settingsHeader, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(v.getPaddingLeft(), systemBars.top + (int) (8 * getResources().getDisplayMetrics().density), v.getPaddingRight(), (int) (8 * getResources().getDisplayMetrics().density));
                 return insets;
