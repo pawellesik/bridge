@@ -27,6 +27,13 @@
         android:layout_height="match_parent"
         tools:visibility="gone" />
 
+    <!-- Statistic Overlay -->
+    <include
+        layout="@layout/overlay_statistic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
+
     <ProgressBar
         android:id="@+id/loading_indicator"
         android:layout_width="wrap_content"

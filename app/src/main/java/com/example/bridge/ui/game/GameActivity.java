@@ -55,6 +55,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View btnClaim;
     private View loadingIndicator;
     private View historyOverlay;
+    private View statisticOverlay;
     private View biddingOverlay;
     private View biddingControlsOverlay;
     private final List<Card> displayHandSouth = new ArrayList<>();
@@ -100,6 +101,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         sharedPref = new SharedPref(this, gameActivityTop);
 
         historyOverlay = findViewById(R.id.history_overlay);
+        statisticOverlay = findViewById(R.id.statistic_overlay);
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
         gameBidding = new GameBidding(this, biddingControlsOverlay);
@@ -114,10 +116,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_game) {
                     historyOverlay.setVisibility(View.GONE);
+                    statisticOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     historyOverlay.setVisibility(View.VISIBLE);
+                    statisticOverlay.setVisibility(View.GONE);
+                    bottomNav.setVisibility(View.VISIBLE);
+                    return true;
+                } else if (itemId == R.id.nav_statistic) {
+                    historyOverlay.setVisibility(View.GONE);
+                    statisticOverlay.setVisibility(View.VISIBLE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_settings) {
@@ -166,8 +175,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE) {
+                if ((historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE) ||
+                    (statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE)) {
+                    
                     historyOverlay.setVisibility(View.GONE);
+                    statisticOverlay.setVisibility(View.GONE);
+
                     com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
                     if (bottomNav != null) {
                         bottomNav.setVisibility(View.VISIBLE);
