@@ -73,8 +73,10 @@ public class GameBidding {
         if (btnPass != null) {
             if (selectedSuitViewId != View.NO_ID) {
                 btnPass.setText("BID");
+                btnPass.setBackgroundTintList(ColorStateList.valueOf(0xFF2E5A88)); // Professional Blue for bidding
             } else {
                 btnPass.setText("PASS");
+                btnPass.setBackgroundTintList(ColorStateList.valueOf(0xFF4D7C4F)); // Traditional Green for pass
             }
         }
     }
