@@ -7,14 +7,11 @@ import com.example.bridge.R;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Suit;
 import com.example.bridge.model.Card;
-import com.example.bridge.model.Player;
-import com.example.bridge.model.Rank;
 import com.example.bridge.model.Trick;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.game.GameActivityTop;
+import com.example.bridge.ui.game.GameTop;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +28,11 @@ public class SharedPref {
     static final String KEY_HAS_SAVED_DEAL = "hasSavedDeal";
     public static final String KEY_HISTORY = "gameHistory";
 
-    GameActivityTop gameActivityTop;
+    GameTop gameTop;
     GameActivity gameActivity;
 
-    public SharedPref(GameActivity gameActivity, GameActivityTop gameActivityTop) {
-        this.gameActivityTop = gameActivityTop;
+    public SharedPref(GameActivity gameActivity, GameTop gameTop) {
+        this.gameTop = gameTop;
         this.gameActivity = gameActivity;
     }
 

@@ -11,7 +11,7 @@ import com.example.bridge.model.Contract;
 
 import java.util.Map;
 
-public class GameActivityTop {
+public class GameTop {
     private final View tvLastNorth, tvLastSouth, tvLastEast, tvLastWest;
     private final TextView tvScoreSN, tvScoreWE, tvMiddle1, tvMiddle2, tvMiddle3;
     private final TextView tvContract;
@@ -19,7 +19,7 @@ public class GameActivityTop {
     private final View contractContainer;
     private final GameActivity activity;
 
-    public GameActivityTop(GameActivity activity) {
+    public GameTop(GameActivity activity) {
         this.activity = activity;
 
         tvLastNorth = activity.findViewById(R.id.n_last_card);

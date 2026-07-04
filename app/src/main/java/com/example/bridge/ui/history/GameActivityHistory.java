@@ -1,7 +1,6 @@
 package com.example.bridge.ui.history;
 
 import android.graphics.Color;
-import android.text.Html;
 import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
@@ -12,10 +11,9 @@ import android.widget.TextView;
 
 import com.example.bridge.R;
 import com.example.bridge.model.Card;
-import com.example.bridge.model.Contract;
 import com.example.bridge.model.Trick;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.game.GameActivityTop;
+import com.example.bridge.ui.game.GameTop;
 import com.example.bridge.ui.game.GameController;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class GameActivityHistory {
 
     private final GameActivity activity;
     private final GameController gameController;
-    private GameActivityTop gameActivityTop;
+    private GameTop gameTop;
     private final View resultsOverlay;
     private final LinearLayout tableHistoryRes;
     private final LinearLayout tableHistoryHeader;
@@ -45,10 +43,10 @@ public class GameActivityHistory {
 
 
 
-    public GameActivityHistory(GameActivity gameActivity, GameController gameController, GameActivityTop gameActivityTop) {
+    public GameActivityHistory(GameActivity gameActivity, GameController gameController, GameTop gameTop) {
         this.activity = gameActivity;
         this.gameController = gameController;
-        this.gameActivityTop = gameActivityTop;
+        this.gameTop = gameTop;
 
         this.resultsOverlay = gameActivity.findViewById(R.id.results_overlay);
         this.tableHistoryRes = gameActivity.findViewById(R.id.table_history_res);
@@ -157,7 +155,7 @@ public class GameActivityHistory {
             simSnScore += claim;
         }
 
-        gameActivityTop.updateScores(simSnScore, simWeScore);
+        gameTop.updateScores(simSnScore, simWeScore);
         activity.onUpdateLastTrickInTop(currentTrickMap);
 
         // Reset backgrounds

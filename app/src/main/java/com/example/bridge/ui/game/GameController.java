@@ -3,7 +3,7 @@ package com.example.bridge.ui.game;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.bridge.BiddingManager;
+import com.example.bridge.ui.biddings.BiddingManager;
 import com.example.bridge.DdsSolver;
 import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;

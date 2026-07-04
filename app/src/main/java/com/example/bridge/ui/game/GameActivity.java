@@ -28,7 +28,6 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
-import com.example.bridge.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -64,7 +63,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private BiddingHistoryAdapter biddingHistoryAdapter;
     private final List<Card> displayHandNorth = new ArrayList<>();
     private boolean isProcessingMove = false;
-    private GameActivityTop gameActivityTop;
+    private GameTop gameTop;
     private GameController gameController;
     private SharedPref sharedPref;
     private String gameMode;
@@ -98,8 +97,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         btnClaim = findViewById(R.id.btn_claim);
         loadingIndicator = findViewById(R.id.loading_indicator);
 
-        gameActivityTop = new GameActivityTop(this);
-        sharedPref = new SharedPref(this, gameActivityTop);
+        gameTop = new GameTop(this);
+        sharedPref = new SharedPref(this, gameTop);
 
         historyOverlay = findViewById(R.id.history_overlay);
         statisticOverlay = findViewById(R.id.statistic_overlay);
@@ -222,7 +221,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
     private void initGameSingleMode() {
         initGameBase();
-        gameActivityTop.hideContract();
+        gameTop.hideContract();
         View topBar = findViewById(R.id.top_bar_container);
         if (topBar != null) topBar.setVisibility(View.GONE);
         biddingOverlay.setVisibility(View.VISIBLE);
@@ -258,11 +257,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void setTotalScore(int totalScore, int changeScore) {
-        gameActivityTop.setTotalScore(totalScore, changeScore);
+        gameTop.setTotalScore(totalScore, changeScore);
     }
 
     public void setTotalScore(int totalScore) {
-        gameActivityTop.setTotalScore(totalScore);
+        gameTop.setTotalScore(totalScore);
     }
 
     @Override
@@ -274,12 +273,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onScoreUpdated(int snScore, int weScore) {
-        gameActivityTop.updateScores(snScore, weScore);
+        gameTop.updateScores(snScore, weScore);
     }
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
-        gameActivityTop.updateScores(snScore, weScore);
+        gameTop.updateScores(snScore, weScore);
 
         if (southAdapter != null) southAdapter.setCardsEnabled(false);
         if (northAdapter != null) northAdapter.setCardsEnabled(false);
@@ -347,7 +346,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     @Override
     public void onContractDetermined(Contract contract) {
         isProcessingMove = false;
-        gameActivityTop.setContract(contract);
+        gameTop.setContract(contract);
     }
 
     private void setupBiddingHistory() {
@@ -510,13 +509,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         for (FrameLayout container : containers) {
             if (container != null) container.removeAllViews();
         }
-        gameActivityTop.setLastTrickInTop(trickCards);
+        gameTop.setLastTrickInTop(trickCards);
     }
 
     @Override
     public void onClearLastCards(List<Card> cardsOnTable) {
         if (cardsOnTable != null && cardsOnTable.size() > 1) {
-            gameActivityTop.clearLastCards();
+            gameTop.clearLastCards();
         }
     }
 

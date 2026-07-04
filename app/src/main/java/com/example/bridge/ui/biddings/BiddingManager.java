@@ -1,5 +1,6 @@
-package com.example.bridge;
+package com.example.bridge.ui.biddings;
 
+import com.example.bridge.DdsSolver;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
