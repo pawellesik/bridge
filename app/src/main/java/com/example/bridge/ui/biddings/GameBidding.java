@@ -127,7 +127,7 @@ public class GameBidding {
         }
     }
 
-    public void applyAuctionRules(BiddingHistory history) {
+    public void applyAuctionRules(GameBiddingHistory history) {
         if (controlsOverlay == null || history == null) return;
 
         List<String> auction = history.getAuction();

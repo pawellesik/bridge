@@ -28,7 +28,7 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
-import com.example.bridge.ui.biddings.BiddingHistory;
+import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
 import com.example.bridge.ui.settings.OverlaySettings;
@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private String gameMode;
     private GameBidding gameBidding;
     PbnExporter pbnExporter;
-    BiddingHistory biddingHistory;
+    GameBiddingHistory gameBiddingHistory;
     private OverlaySettings overlaySettings;
 
     @Override
@@ -226,11 +226,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             initGameSingleMode();
             initBiddingHistory();
 
-            biddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
-            biddingHistory.addFakeAuction();
+            gameBiddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
+            gameBiddingHistory.addFakeAuction();
 
-            biddingHistory.updateBiddingHistory();
-            gameBidding.applyAuctionRules(biddingHistory);
+            gameBiddingHistory.updateBiddingHistory();
+            gameBidding.applyAuctionRules(gameBiddingHistory);
         } else if ("multi".equals(gameMode)) {
             //todo
         }
@@ -386,8 +386,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void initBiddingHistory() {
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
         rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
-        biddingHistory = new BiddingHistory(this);
-        gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(biddingHistory.getAuction());
+        gameBiddingHistory = new GameBiddingHistory(this);
+        gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(gameBiddingHistory.getAuction());
         rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
     }
 

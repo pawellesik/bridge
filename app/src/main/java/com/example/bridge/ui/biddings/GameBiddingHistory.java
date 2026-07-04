@@ -10,7 +10,7 @@ import com.example.bridge.ui.game.GameActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BiddingHistory {
+public class GameBiddingHistory {
     private final List<String> auction = new ArrayList<>();
     private Player firstPlayer;
     private RecyclerView rvBiddingHistory;
@@ -18,7 +18,7 @@ public class BiddingHistory {
     private GameActivity gameActivity;
     private GameBidding gameBidding;
 
-    public BiddingHistory(GameActivity gameActivity) {
+    public GameBiddingHistory(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
         this.gameBidding = gameActivity.getGameBidding();
         this.rvBiddingHistory = gameActivity.getRvBiddingHistory();
