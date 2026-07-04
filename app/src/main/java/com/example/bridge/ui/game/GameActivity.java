@@ -524,6 +524,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
+
+    public void refreshAllColors() {
+
+        updateDisplayHandNorth();
+        updateDisplayHandSouth();
+
+    }
+
+
     private void updateDisplayHandSouth() {
         if (gameController.getPlayers().get("South") == null) return;
         List<Card> actualHand = gameController.getPlayers().get("South").getHand();
@@ -607,13 +616,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameController.cleanup();
     }
 
-    public CardAdapter getSouthAdapter() {
-        return southAdapter;
-    }
 
-    public CardAdapter getNorthAdapter() {
-        return northAdapter;
-    }
 }
 
 

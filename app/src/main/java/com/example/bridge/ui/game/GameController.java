@@ -41,6 +41,7 @@ public class GameController {
         void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim);
 
         void onClaimButtonVisibilityChanged(boolean visible);
+
     }
 
     private final Map<String, Player> players;
@@ -529,8 +530,6 @@ public class GameController {
         handler.removeCallbacksAndMessages(null);
     }
 
-    public void notifyCardStyleChanged() {
-        callback.onHandUpdated("North");
-        callback.onHandUpdated("South");
-    }
+
+
 }
