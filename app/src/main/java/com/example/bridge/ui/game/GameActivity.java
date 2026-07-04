@@ -186,9 +186,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             @Override
             public void handleOnBackPressed() {
                 if ((historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE) ||
-                    (statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE) ||
-                    (settingsOverlay != null && settingsOverlay.getVisibility() == View.VISIBLE)) {
-                    
+                        (statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE) ||
+                        (settingsOverlay != null && settingsOverlay.getVisibility() == View.VISIBLE)) {
+
                     historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.GONE);
                     settingsOverlay.setVisibility(View.GONE);
@@ -213,7 +213,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGame();
     }
 
-    private void initGame(){
+    private void initGame() {
         if ("quick".equals(gameMode)) {
             initGameQiuckMode();
         } else if ("single".equals(gameMode)) {
@@ -222,6 +222,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             //todo
         }
     }
+
     private void initGameSingleMode() {
         initGameBase();
         gameTop.hideContract();
@@ -231,6 +232,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         onHandUpdated("South");
         onVisibleStartBar(true);
     }
+
     private void initGameQiuckMode() {
         initGameBase();
         gameController.calculateAndSetTheBestContract();
@@ -363,7 +365,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         // Use PbnExporter to generate fake data
         PbnExporter fakeExporter = new PbnExporter();
         fakeExporter.addFakeAuction();
-        
+
         biddingBids.clear();
         // Assume West starts as in current logic
         biddingBids.addAll(fakeExporter.getAuction());
@@ -604,7 +606,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         super.onDestroy();
         gameController.cleanup();
     }
+
+    public CardAdapter getSouthAdapter() {
+        return southAdapter;
+    }
+
+    public CardAdapter getNorthAdapter() {
+        return northAdapter;
+    }
 }
+
+
 
     /*private void setupHistoryOverlay() {
         RecyclerView rvHistory = findViewById(R.id.rv_history_overlay);

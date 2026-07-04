@@ -121,7 +121,7 @@ public class GameController {
 
     public void playCard(Player player, Card card) {
         if (!player.isCurrentMove() || !isLegalMove(player, card)) {
-            return; // Reject moves if it's not the turn or illegal card
+            return;
         }
         player.setCurrentMove(false);
         player.removeCard(card);
@@ -132,7 +132,6 @@ public class GameController {
         callback.onCardPlayed(player, card);
         callback.onHandUpdated(player.getName());
         setNextPlayerCurrentMove(player);
-
     }
 
     private void checkClaimPossibility(Player player) {
@@ -287,7 +286,7 @@ public class GameController {
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
             Card bestCard = calculateBestCard(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, trickLeaderName);
             if (bestCard == null) {
-                bestCard = hand.get((int) (Math.random() * hand.size()));
+                bestCard = hand.get((int) (Math.random() * hand.size()));//todo wybrac mozna tylko do dozwolona karte a nie losowo
             }
 
             final Card finalCard = bestCard;
@@ -533,7 +532,5 @@ public class GameController {
     public void notifyCardStyleChanged() {
         callback.onHandUpdated("North");
         callback.onHandUpdated("South");
-        callback.onHandUpdated("East");
-        callback.onHandUpdated("West");
     }
 }
