@@ -417,7 +417,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     rvBiddingHistory.setClipToPadding(false);
 
                     // Scroll to the placeholder
-                    rvBiddingHistory.smoothScrollToPosition(auction.size() - 1);
+                    rvBiddingHistory.smoothScrollToPosition(auction.size() - 5);
                 });
             }
         }

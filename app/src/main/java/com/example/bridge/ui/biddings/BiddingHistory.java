@@ -45,5 +45,6 @@ public class BiddingHistory {
         auction.add("4H");
         auction.add("X");
         auction.add("Pass");
+
     }
 }
