@@ -223,6 +223,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             initGameSingleMode();
             initBiddingHistory();
 
+            biddingHistory.addFakeAuction();
+            biddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
             updateBiddingHistory();
             gameBidding.applyAuctionRules(biddingHistory);
         } else if ("multi".equals(gameMode)) {
@@ -363,8 +365,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void initBiddingHistory() {
         biddingHistory = new BiddingHistory();
-        biddingHistory.addFakeAuction();
-        biddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
 
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
         if (rvBiddingHistory != null) {
@@ -579,17 +579,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         updateDisplayHandNorth();
         updateDisplayHandSouth();
 
-        // Refresh bidding panel icons
         if (gameBidding != null) {
             gameBidding.applyColors();
         }
 
-        // Refresh bidding history
         if (gameBiddingHistoryAdapter != null) {
             gameBiddingHistoryAdapter.notifyDataSetChanged();
         }
 
-        // Refresh Top Bar contract color
         if (gameController != null && gameTop != null) {
             gameTop.setContract(gameController.getCurrentContract());
         }
