@@ -32,7 +32,8 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String bid = bids.get(position);
-        holder.bind(bid);
+        boolean isCurrent = (position == bids.size() - 1);
+        holder.bind(bid, isCurrent);
     }
 
     @Override
@@ -54,17 +55,29 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
              return v;
         }
 
-        void bind(String bid) {
+        void bind(String bid, boolean isCurrent) {
             // Default reset
+            tvLevel.setText(bid);
             tvLevel.setTextColor(0xFF000000);
             ivSuit.setVisibility(View.GONE);
             tvLevel.setAlpha(1.0f);
+            
             View inner = itemView.findViewById(R.id.bid_tile_inner);
-            if (inner != null) inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
+            if (inner != null) {
+                inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
+                if (isCurrent) {
+                    inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); // Solid Yellow
+                    tvLevel.setText(""); // Remove dash/text for the current active slot
+                } else {
+                    inner.setBackgroundTintList(null);
+                }
+            }
             
             if (bid == null || bid.isEmpty() || bid.equals("-")) {
-                tvLevel.setText("-");
-                tvLevel.setAlpha(0.2f); // Very muted dash for empty cells
+                if (!isCurrent) {
+                    tvLevel.setText("-");
+                    tvLevel.setAlpha(0.2f);
+                }
                 return;
             }
 

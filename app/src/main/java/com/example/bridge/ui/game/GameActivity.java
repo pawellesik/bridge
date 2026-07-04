@@ -375,7 +375,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (biddingHistory == null) return;
         List<String> auction = biddingHistory.getAuction();
 
-        // 1. Add leading dashes to align with the first bidder (Starting from West)
+        // 1. Align with the first bidder (West, North, East, South)
         if (biddingHistory.getFirstPlayer() != null) {
             int offset = 0;
             switch (biddingHistory.getFirstPlayer().getName()) {
@@ -390,7 +390,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 currentLeading++;
             }
 
-            // Adjust leading dashes
             if (currentLeading < offset) {
                 for (int i = 0; i < (offset - currentLeading); i++) auction.add(0, "-");
             } else if (currentLeading > offset) {
@@ -398,16 +397,28 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         }
 
-        // 2. Add trailing dashes to fill minimum rows and complete the last row
-        int minItems = 12;
-        while (auction.size() < minItems || auction.size() % 4 != 0) {
-            auction.add("-");
+        // 2. Remove trailing dashes and add one empty placeholder for the "next" bid
+        while (!auction.isEmpty() && "-".equals(auction.get(auction.size() - 1))) {
+            auction.remove(auction.size() - 1);
         }
+        auction.add(""); // Placeholder for the active yellow tile
 
         if (gameBiddingHistoryAdapter != null) {
             gameBiddingHistoryAdapter.notifyDataSetChanged();
+            
             if (rvBiddingHistory != null && !auction.isEmpty()) {
-                rvBiddingHistory.smoothScrollToPosition(auction.size() - 1);
+                rvBiddingHistory.post(() -> {
+                    // Extra padding so we can scroll the last row even higher
+                    int controlsHeight = (biddingControlsOverlay != null) ? biddingControlsOverlay.getHeight() : 0;
+                    float density = getResources().getDisplayMetrics().density;
+                    int extraSpace = (int) (80 * density); // Two rows (40dp each) of extra space
+                    
+                    rvBiddingHistory.setPadding(0, 0, 0, controlsHeight + extraSpace);
+                    rvBiddingHistory.setClipToPadding(false);
+
+                    // Scroll to the placeholder
+                    rvBiddingHistory.smoothScrollToPosition(auction.size() - 1);
+                });
             }
         }
     }
