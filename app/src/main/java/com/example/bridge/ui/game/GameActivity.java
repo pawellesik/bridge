@@ -222,6 +222,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
             initBiddingHistory();
+
+            updateBiddingHistory();
             gameBidding.applyAuctionRules(biddingHistory);
         } else if ("multi".equals(gameMode)) {
             //todo
@@ -370,7 +372,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(biddingHistory.getAuction() );
             rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
         }
-        updateBiddingHistory();
     }
 
     public void updateBiddingHistory() {
