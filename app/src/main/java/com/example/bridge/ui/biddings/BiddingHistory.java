@@ -42,7 +42,7 @@ public class BiddingHistory {
         auction.add("Pass");
         auction.add("3H");
         auction.add("Pass");
-        auction.add("4H");
+        auction.add("2NT");
         auction.add("X");
         auction.add("Pass");
 
