@@ -135,6 +135,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/iv_suit_n"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="2dp" />
+
             <TextView
                 android:id="@+id/tv_rank_n"
                 android:layout_width="wrap_content"
@@ -142,12 +148,6 @@
                 android:includeFontPadding="false"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/iv_suit_n"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="2dp" />
         </LinearLayout>
 
         <!-- West Last Card -->
@@ -165,6 +165,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/n_last_card">
 
+            <ImageView
+                android:id="@+id/iv_suit_w"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="2dp" />
+
             <TextView
                 android:id="@+id/tv_rank_w"
                 android:layout_width="wrap_content"
@@ -172,12 +178,6 @@
                 android:includeFontPadding="false"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/iv_suit_w"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="2dp" />
         </LinearLayout>
 
         <!-- East Last Card -->
@@ -192,6 +192,12 @@
             app:layout_constraintStart_toEndOf="@id/w_last_card"
             app:layout_constraintTop_toTopOf="@id/w_last_card">
 
+            <ImageView
+                android:id="@+id/iv_suit_e"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="2dp" />
+
             <TextView
                 android:id="@+id/tv_rank_e"
                 android:layout_width="wrap_content"
@@ -199,12 +205,6 @@
                 android:includeFontPadding="false"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/iv_suit_e"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="2dp" />
         </LinearLayout>
 
         <!-- South Last Card -->
@@ -220,6 +220,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/w_last_card">
 
+            <ImageView
+                android:id="@+id/iv_suit_s"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="2dp" />
+
             <TextView
                 android:id="@+id/tv_rank_s"
                 android:layout_width="wrap_content"
@@ -227,12 +233,6 @@
                 android:includeFontPadding="false"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/iv_suit_s"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="2dp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
