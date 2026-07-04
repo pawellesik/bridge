@@ -60,6 +60,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View settingsOverlay;
     private View biddingOverlay;
     private View biddingControlsOverlay;
+    private RecyclerView rvBiddingHistory;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<String> biddingBids = new ArrayList<>();
     private GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
@@ -117,7 +118,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingHistory.addFakeAuction();
 
         setupRecyclerView();
-        setupBiddingHistory();
 
         com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
@@ -224,6 +224,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             initGameQiuckMode();
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
+            initBiddingHistory();
         } else if ("multi".equals(gameMode)) {
             //todo
         }
@@ -360,19 +361,27 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameTop.setContract(contract);
     }
 
-    private void setupBiddingHistory() {
-        RecyclerView rvBidding = findViewById(R.id.rv_bidding_history);
-        if (rvBidding != null) {
-            rvBidding.setLayoutManager(new GridLayoutManager(this, 4));
+    private void initBiddingHistory() {
+        rvBiddingHistory = findViewById(R.id.rv_bidding_history);
+        if (rvBiddingHistory != null) {
+            rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
             gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(biddingBids);
-            rvBidding.setAdapter(gameBiddingHistoryAdapter);
+            rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
+        }
+        
+        // Initial load with current history (can be empty or fake)
+        if (biddingHistory != null) {
+            updateBiddingHistory(biddingHistory.getAuction());
+        }
+    }
+
+    public void updateBiddingHistory(List<String> auction) {
+        biddingBids.clear();
+        if (auction != null) {
+            biddingBids.addAll(auction);
         }
 
-        biddingBids.clear();
-        // Assume West starts as in current logic
-        biddingBids.addAll(biddingHistory.getAuction());
-
-        // Pad with dashes to fill the grid (at least 32 items / 8 rows for scrolling test)
+        // Pad with dashes to fill the grid (at least 32 items / 8 rows)
         int minItems = 32;
         while (biddingBids.size() < minItems || biddingBids.size() % 4 != 0) {
             biddingBids.add("-");
@@ -380,6 +389,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         if (gameBiddingHistoryAdapter != null) {
             gameBiddingHistoryAdapter.notifyDataSetChanged();
+            // Scroll to bottom so newest bid is visible
+            if (rvBiddingHistory != null && !biddingBids.isEmpty()) {
+                rvBiddingHistory.smoothScrollToPosition(biddingBids.size() - 1);
+            }
         }
     }
 
