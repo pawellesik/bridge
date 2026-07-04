@@ -1,5 +1,7 @@
 package com.example.bridge.ui.biddings;
 
+import com.example.bridge.model.Player;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,8 +10,17 @@ import java.util.Locale;
 
 public class BiddingHistory {
     private final List<String> auction = new ArrayList<>();
+    private Player firstPlayer;
 
     public BiddingHistory() {
+    }
+
+    public void setFirstPlayer(Player firstPlayer){
+        this.firstPlayer= firstPlayer;
+    }
+
+    public Player getFirstPlayer(){
+        return this.firstPlayer;
     }
 
     public List<String> getAuction() {
