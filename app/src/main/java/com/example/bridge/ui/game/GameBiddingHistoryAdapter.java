@@ -14,11 +14,11 @@ import com.example.bridge.model.Suit;
 
 import java.util.List;
 
-public class BiddingHistoryAdapter extends RecyclerView.Adapter<BiddingHistoryAdapter.ViewHolder> {
+public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingHistoryAdapter.ViewHolder> {
 
     private final List<String> bids;
 
-    public BiddingHistoryAdapter(List<String> bids) {
+    public GameBiddingHistoryAdapter(List<String> bids) {
         this.bids = bids;
     }
 

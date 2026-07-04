@@ -60,7 +60,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View biddingControlsOverlay;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<String> biddingBids = new ArrayList<>();
-    private BiddingHistoryAdapter biddingHistoryAdapter;
+    private GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandNorth = new ArrayList<>();
     private boolean isProcessingMove = false;
     private GameTop gameTop;
@@ -353,8 +353,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         RecyclerView rvBidding = findViewById(R.id.rv_bidding_history);
         if (rvBidding != null) {
             rvBidding.setLayoutManager(new GridLayoutManager(this, 4));
-            biddingHistoryAdapter = new BiddingHistoryAdapter(biddingBids);
-            rvBidding.setAdapter(biddingHistoryAdapter);
+            gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(biddingBids);
+            rvBidding.setAdapter(gameBiddingHistoryAdapter);
         }
 
         // Use PbnExporter to generate fake data
@@ -371,8 +371,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             biddingBids.add("-");
         }
 
-        if (biddingHistoryAdapter != null) {
-            biddingHistoryAdapter.notifyDataSetChanged();
+        if (gameBiddingHistoryAdapter != null) {
+            gameBiddingHistoryAdapter.notifyDataSetChanged();
         }
     }
 
