@@ -529,4 +529,11 @@ public class GameController {
     public void cleanup() {
         handler.removeCallbacksAndMessages(null);
     }
+
+    public void notifyCardStyleChanged() {
+        callback.onHandUpdated("North");
+        callback.onHandUpdated("South");
+        callback.onHandUpdated("East");
+        callback.onHandUpdated("West");
+    }
 }

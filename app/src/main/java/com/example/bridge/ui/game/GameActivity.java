@@ -28,6 +28,7 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
+import com.example.bridge.ui.settings.OverlaySettings;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -68,6 +69,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private SharedPref sharedPref;
     private String gameMode;
     private GameBidding gameBidding;
+    private OverlaySettings overlaySettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
         gameBidding = new GameBidding(this, biddingControlsOverlay);
+        overlaySettings = new OverlaySettings(this, settingsOverlay, gameController, gameBidding);
 
         setupRecyclerView();
         setupBiddingHistory();
