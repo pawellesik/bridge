@@ -111,7 +111,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
 
-        gameBidding = new GameBidding(this, biddingControlsOverlay, gameController);
+        gameBidding = new GameBidding(this, biddingControlsOverlay);
         overlaySettings = new OverlaySettings(this, settingsOverlay, gameController);
         pbnExporter = new PbnExporter();
 
@@ -408,6 +408,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (gameBiddingHistoryAdapter != null) {
             gameBiddingHistoryAdapter.notifyDataSetChanged();
             
+            // Sync Bidding Controls rules with new history
+            if (gameBidding != null && biddingHistory != null) {
+                gameBidding.applyAuctionRules(biddingHistory);
+            }
+
             if (rvBiddingHistory != null && !auction.isEmpty()) {
                 rvBiddingHistory.post(() -> {
                     // Extra padding so we can scroll the last row even higher

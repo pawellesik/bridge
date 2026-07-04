@@ -16,12 +16,10 @@ public class GameBidding {
     private final View controlsOverlay;
     private int currentLevel = 1;
     private int selectedSuitViewId = View.NO_ID;
-    private GameController gameController;
 
-    public GameBidding(GameActivity activity, View controlsOverlay, GameController gameController) {
+    public GameBidding(GameActivity activity, View controlsOverlay) {
         this.activity = activity;
         this.controlsOverlay = controlsOverlay;
-        this.gameController = gameController;
         setupListeners();
     }
 
@@ -104,6 +102,17 @@ public class GameBidding {
             }
         }
 
+        updateLevelUI(level);
+
+        // Apply auction rules after changing level
+        if (activity.biddingHistory != null) {
+            applyAuctionRules(activity.biddingHistory);
+        }
+
+        updateBiddingUI();
+    }
+
+    private void updateLevelUI(int level) {
         String levelStr = String.valueOf(level);
         updateTileText(R.id.bid_clubs_text, levelStr);
         updateTileText(R.id.bid_diamonds_text, levelStr);
@@ -113,12 +122,15 @@ public class GameBidding {
         TextView tvNt = controlsOverlay.findViewById(R.id.bid_nt);
         if (tvNt != null) tvNt.setText(levelStr + " " + activity.getString(R.string.suit_nt));
 
-        // Apply auction rules after changing level
-        if (activity.biddingHistory != null && gameController != null) {
-            applyAuctionRules(activity.biddingHistory);
+        // Sync tab selection states
+        int[] levelBtnIds = {
+                R.id.btn_level_1, R.id.btn_level_2, R.id.btn_level_3,
+                R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
+        };
+        for (int i = 0; i < levelBtnIds.length; i++) {
+            View btn = controlsOverlay.findViewById(levelBtnIds[i]);
+            if (btn != null) btn.setSelected((i + 1) == level);
         }
-
-        updateBiddingUI();
     }
 
     public void applyAuctionRules(BiddingHistory history) {
@@ -142,18 +154,13 @@ public class GameBidding {
             }
         }
 
-        // If current level is hidden, jump to first visible
-        if (firstVisibleLevel != -1 && controlsOverlay.findViewById(levelBtnIds[currentLevel - 1]).getVisibility() == View.GONE) {
-            currentLevel = firstVisibleLevel;
-            // Re-update tab selection states
-            for (int i = 0; i < levelBtnIds.length; i++) {
-                View btn = controlsOverlay.findViewById(levelBtnIds[i]);
-                if (btn != null) btn.setSelected((i + 1) == currentLevel);
-            }
+        // If current level is hidden or numerically too low, jump to first visible
+        if (firstVisibleLevel != -1 && (currentLevel < firstVisibleLevel || controlsOverlay.findViewById(levelBtnIds[currentLevel - 1]).getVisibility() == View.GONE)) {
+            this.currentLevel = firstVisibleLevel;
+            updateLevelUI(currentLevel);
         }
 
         // 2. Suit Tiles visibility for the CURRENT selected level
-        // Use INVISIBLE instead of GONE to keep button sizes consistent
         updateTileVisibility(R.id.bid_clubs, isLegalBid(currentLevel, "C", auction), false);
         updateTileVisibility(R.id.bid_diamonds, isLegalBid(currentLevel, "D", auction), false);
         updateTileVisibility(R.id.bid_hearts, isLegalBid(currentLevel, "H", auction), false);
