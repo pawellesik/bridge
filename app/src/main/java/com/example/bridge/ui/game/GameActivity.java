@@ -526,10 +526,23 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
 
     public void refreshAllColors() {
-
         updateDisplayHandNorth();
         updateDisplayHandSouth();
 
+        // Refresh bidding panel icons
+        if (gameBidding != null) {
+            gameBidding.applyColors();
+        }
+
+        // Refresh bidding history
+        if (gameBiddingHistoryAdapter != null) {
+            gameBiddingHistoryAdapter.notifyDataSetChanged();
+        }
+
+        // Refresh Top Bar contract color
+        if (gameController != null && gameTop != null) {
+            gameTop.setContract(gameController.getCurrentContract());
+        }
     }
 
 

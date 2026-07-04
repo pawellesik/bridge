@@ -108,6 +108,10 @@ public class GameController {
         return players.get("West");
     }
 
+    public Contract getCurrentContract() {
+        return currentContract;
+    }
+
     public void resetTable() {
         snScore = 0;
         weScore = 0;
