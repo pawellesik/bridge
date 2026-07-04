@@ -29,6 +29,8 @@ import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
 import com.example.bridge.ui.biddings.BiddingHistory;
+import com.example.bridge.ui.biddings.GameBidding;
+import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
 import com.example.bridge.ui.settings.OverlaySettings;
 
 import java.util.ArrayList;

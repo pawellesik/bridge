@@ -1,4 +1,4 @@
-package com.example.bridge.ui.game;
+package com.example.bridge.ui.biddings;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,7 +7,7 @@ import android.content.res.ColorStateList;
 
 import com.example.bridge.R;
 import com.example.bridge.model.Suit;
-import com.example.bridge.ui.biddings.BiddingHistory;
+import com.example.bridge.ui.game.GameActivity;
 
 import java.util.List;
 

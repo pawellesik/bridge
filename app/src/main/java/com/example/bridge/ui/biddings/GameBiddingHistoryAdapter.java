@@ -1,4 +1,4 @@
-package com.example.bridge.ui.game;
+package com.example.bridge.ui.biddings;
 
 import android.view.LayoutInflater;
 import android.view.View;

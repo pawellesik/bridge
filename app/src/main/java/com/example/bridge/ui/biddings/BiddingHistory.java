@@ -6,14 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.model.Player;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.game.GameBidding;
-import com.example.bridge.ui.game.GameBiddingHistoryAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class BiddingHistory {
     private final List<String> auction = new ArrayList<>();
