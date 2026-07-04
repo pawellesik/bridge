@@ -28,6 +28,7 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
+import com.example.bridge.ui.biddings.BiddingHistory;
 import com.example.bridge.ui.settings.OverlaySettings;
 
 import java.util.ArrayList;
@@ -69,6 +70,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private SharedPref sharedPref;
     private String gameMode;
     private GameBidding gameBidding;
+    PbnExporter pbnExporter;
+    BiddingHistory biddingHistory;
     private OverlaySettings overlaySettings;
 
     @Override
@@ -109,6 +112,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
         gameBidding = new GameBidding(this, biddingControlsOverlay);
         overlaySettings = new OverlaySettings(this, settingsOverlay, gameController, gameBidding);
+        pbnExporter = new PbnExporter();
+        biddingHistory = new BiddingHistory();
+        biddingHistory.addFakeAuction();
 
         setupRecyclerView();
         setupBiddingHistory();
@@ -362,13 +368,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             rvBidding.setAdapter(gameBiddingHistoryAdapter);
         }
 
-        // Use PbnExporter to generate fake data
-        PbnExporter fakeExporter = new PbnExporter();
-        fakeExporter.addFakeAuction();
-
         biddingBids.clear();
         // Assume West starts as in current logic
-        biddingBids.addAll(fakeExporter.getAuction());
+        biddingBids.addAll(biddingHistory.getAuction());
 
         // Pad with dashes to fill the grid (at least 32 items / 8 rows for scrolling test)
         int minItems = 32;

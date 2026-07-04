@@ -65,31 +65,6 @@ public class PbnExporter {
         return auction;
     }
 
-    public void addFakeAuction() {
-        auction.clear();
-        auction.add("Pass");
-        auction.add("1C");
-        auction.add("Pass");
-        auction.add("1H");
-        auction.add("Pass");
-        auction.add("1S");
-        auction.add("Pass");
-        auction.add("2NT");
-        auction.add("Pass");
-        auction.add("3C");
-        auction.add("Pass");
-        auction.add("3H");
-        auction.add("Pass");
-        auction.add("4H");
-        auction.add("X");
-        auction.add("Pass");
-        auction.add("Pass");
-        auction.add("XX");
-        auction.add("Pass");
-        auction.add("Pass");
-        auction.add("Pass");
-    }
-
     public void setMetadata(String event, String site, String board) {
         this.event = event;
         this.site = site;
