@@ -360,7 +360,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void initBiddingHistory() {
         biddingHistory = new BiddingHistory();
         biddingHistory.addFakeAuction();
-        biddingHistory.setFirstPlayer(gameController.getPlayers().get("West"));//todo
+        biddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
 
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
         if (rvBiddingHistory != null) {
@@ -372,16 +372,42 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void updateBiddingHistory() {
+        if (biddingHistory == null) return;
+        List<String> auction = biddingHistory.getAuction();
 
-        int minItems = 10;
-        while (biddingHistory.getAuction() .size() < minItems || biddingHistory.getAuction() .size() % 4 != 0) {
-            biddingHistory.getAuction() .add("-");
+        // 1. Add leading dashes to align with the first bidder (Starting from West)
+        if (biddingHistory.getFirstPlayer() != null) {
+            int offset = 0;
+            switch (biddingHistory.getFirstPlayer().getName()) {
+                case "West": offset = 0; break;
+                case "North": offset = 1; break;
+                case "East": offset = 2; break;
+                case "South": offset = 3; break;
+            }
+
+            int currentLeading = 0;
+            while (currentLeading < auction.size() && "-".equals(auction.get(currentLeading))) {
+                currentLeading++;
+            }
+
+            // Adjust leading dashes
+            if (currentLeading < offset) {
+                for (int i = 0; i < (offset - currentLeading); i++) auction.add(0, "-");
+            } else if (currentLeading > offset) {
+                for (int i = 0; i < (currentLeading - offset); i++) auction.remove(0);
+            }
         }
+
+        // 2. Add trailing dashes to fill minimum rows and complete the last row
+        int minItems = 12;
+        while (auction.size() < minItems || auction.size() % 4 != 0) {
+            auction.add("-");
+        }
+
         if (gameBiddingHistoryAdapter != null) {
             gameBiddingHistoryAdapter.notifyDataSetChanged();
-            // Scroll to bottom so newest bid is visible
-            if (rvBiddingHistory != null && !biddingHistory.getAuction() .isEmpty()) {
-                rvBiddingHistory.smoothScrollToPosition(biddingHistory.getAuction() .size() - 1);
+            if (rvBiddingHistory != null && !auction.isEmpty()) {
+                rvBiddingHistory.smoothScrollToPosition(auction.size() - 1);
             }
         }
     }
