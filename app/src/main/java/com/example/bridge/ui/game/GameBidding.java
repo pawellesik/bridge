@@ -120,7 +120,7 @@ public class GameBidding {
         updateTileText(R.id.bid_spades_text, levelStr);
 
         TextView tvNt = controlsOverlay.findViewById(R.id.bid_nt);
-        if (tvNt != null) tvNt.setText(levelStr + " " + activity.getString(R.string.suit_nt));
+        if (tvNt != null) tvNt.setText(levelStr + activity.getString(R.string.suit_nt));
 
         // Sync tab selection states
         int[] levelBtnIds = {

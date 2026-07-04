@@ -238,7 +238,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/sel_bid_tile"
                 android:gravity="center"
-                android:text="1 NT"
+                android:text="1NT"
                 android:textColor="#000000"
                 android:textSize="15sp"
                 android:textStyle="bold" />
