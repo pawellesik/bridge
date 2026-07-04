@@ -7,16 +7,21 @@ import android.content.res.ColorStateList;
 
 import com.example.bridge.R;
 import com.example.bridge.model.Suit;
+import com.example.bridge.ui.biddings.BiddingHistory;
+
+import java.util.List;
 
 public class GameBidding {
     private final GameActivity activity;
     private final View controlsOverlay;
     private int currentLevel = 1;
     private int selectedSuitViewId = View.NO_ID;
+    private GameController gameController;
 
-    public GameBidding(GameActivity activity, View controlsOverlay) {
+    public GameBidding(GameActivity activity, View controlsOverlay, GameController gameController) {
         this.activity = activity;
         this.controlsOverlay = controlsOverlay;
+        this.gameController = gameController;
         setupListeners();
     }
 
@@ -44,7 +49,7 @@ public class GameBidding {
                 tile.setOnClickListener(v -> toggleSuitSelection(id));
             }
         }
-        
+
         applyColors();
         selectLevel(1);
     }
@@ -84,7 +89,7 @@ public class GameBidding {
     public void selectLevel(int level) {
         this.currentLevel = level;
         selectedSuitViewId = View.NO_ID;
-        
+
         if (controlsOverlay == null) return;
 
         int[] levelBtnIds = {
@@ -104,11 +109,85 @@ public class GameBidding {
         updateTileText(R.id.bid_diamonds_text, levelStr);
         updateTileText(R.id.bid_hearts_text, levelStr);
         updateTileText(R.id.bid_spades_text, levelStr);
-        
+
         TextView tvNt = controlsOverlay.findViewById(R.id.bid_nt);
         if (tvNt != null) tvNt.setText(levelStr + " " + activity.getString(R.string.suit_nt));
-        
+
+        // Apply auction rules after changing level
+        if (activity.biddingHistory != null && gameController != null) {
+            applyAuctionRules(activity.biddingHistory);
+        }
+
         updateBiddingUI();
+    }
+
+    public void applyAuctionRules(BiddingHistory history) {
+        if (controlsOverlay == null || history == null) return;
+
+        List<String> auction = history.getAuction();
+
+        // 1. Level Tabs visibility
+        int[] levelBtnIds = {
+                R.id.btn_level_1, R.id.btn_level_2, R.id.btn_level_3,
+                R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
+        };
+        int firstVisibleLevel = -1;
+        for (int i = 0; i < levelBtnIds.length; i++) {
+            int lv = i + 1;
+            boolean anyLegal = isLegalBid(lv, "NT", auction);
+            View btn = controlsOverlay.findViewById(levelBtnIds[i]);
+            if (btn != null) {
+                btn.setVisibility(anyLegal ? View.VISIBLE : View.GONE);
+                if (anyLegal && firstVisibleLevel == -1) firstVisibleLevel = lv;
+            }
+        }
+
+        // If current level is hidden, jump to first visible
+        if (firstVisibleLevel != -1 && controlsOverlay.findViewById(levelBtnIds[currentLevel - 1]).getVisibility() == View.GONE) {
+            currentLevel = firstVisibleLevel;
+            // Re-update tab selection states
+            for (int i = 0; i < levelBtnIds.length; i++) {
+                View btn = controlsOverlay.findViewById(levelBtnIds[i]);
+                if (btn != null) btn.setSelected((i + 1) == currentLevel);
+            }
+        }
+
+        // 2. Suit Tiles visibility for the CURRENT selected level
+        // Use INVISIBLE instead of GONE to keep button sizes consistent
+        updateTileVisibility(R.id.bid_clubs, isLegalBid(currentLevel, "C", auction), false);
+        updateTileVisibility(R.id.bid_diamonds, isLegalBid(currentLevel, "D", auction), false);
+        updateTileVisibility(R.id.bid_hearts, isLegalBid(currentLevel, "H", auction), false);
+        updateTileVisibility(R.id.bid_spades, isLegalBid(currentLevel, "S", auction), false);
+        updateTileVisibility(R.id.bid_nt, isLegalBid(currentLevel, "NT", auction), false);
+
+        // 3. Double (X) button visibility
+        // Rule: Visible only if the bid immediately before was not a "Pass"
+        boolean canDouble = false;
+        if (auction.size() > 1) { // Index 0 is often leading dashes, the last real bid is at size-2
+            String lastBid = "";
+            for (int i = auction.size() - 2; i >= 0; i--) {
+                String b = auction.get(i);
+                if (b != null && !b.isEmpty() && !"-".equals(b)) {
+                    lastBid = b;
+                    break;
+                }
+            }
+            if (!lastBid.isEmpty() && !lastBid.equalsIgnoreCase("Pass") && !lastBid.equalsIgnoreCase("X") && !lastBid.equalsIgnoreCase("XX")) {
+                canDouble = true;
+            }
+        }
+        updateTileVisibility(R.id.btn_bid_double_toggle, canDouble, true);
+    }
+
+    private void updateTileVisibility(int id, boolean visible, boolean useGone) {
+        View tile = controlsOverlay.findViewById(id);
+        if (tile != null) {
+            if (visible) {
+                tile.setVisibility(View.VISIBLE);
+            } else {
+                tile.setVisibility(useGone ? View.GONE : View.INVISIBLE);
+            }
+        }
     }
 
     private void updateTileText(int id, String text) {
@@ -129,8 +208,46 @@ public class GameBidding {
         TextView tv = controlsOverlay.findViewById(textId);
         ImageView iv = controlsOverlay.findViewById(iconId);
         int color = suit.getColor(activity);
-        
+
         if (tv != null) tv.setTextColor(color);
         if (iv != null) iv.setImageTintList(ColorStateList.valueOf(color));
+    }
+
+    public boolean isLegalBid(int level, String suitCode, List<String> auction) {
+        String highestBid = null;
+        for (int i = auction.size() - 1; i >= 0; i--) {
+            String b = auction.get(i);
+            if (b != null && !b.isEmpty() && !b.equalsIgnoreCase("Pass") && !b.equalsIgnoreCase("X") && !b.equalsIgnoreCase("XX") && !b.equals("-")) {
+                highestBid = b;
+                break;
+            }
+        }
+
+        if (highestBid == null) return true; // No bids yet, any 1-7 is fine
+
+        int currentLevel = Integer.parseInt(highestBid.substring(0, 1));
+        String currentSuitCode = highestBid.substring(1).toUpperCase();
+
+        int currentWeight = (currentLevel * 10) + getSuitWeight(currentSuitCode);
+        int candidateWeight = (level * 10) + getSuitWeight(suitCode.toUpperCase());
+
+        return candidateWeight > currentWeight;
+    }
+
+    private int getSuitWeight(String code) {
+        switch (code) {
+            case "C":
+                return 1;
+            case "D":
+                return 2;
+            case "H":
+                return 3;
+            case "S":
+                return 4;
+            case "NT":
+                return 5;
+            default:
+                return 0;
+        }
     }
 }

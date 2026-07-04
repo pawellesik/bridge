@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 
 import com.example.bridge.R;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.game.GameBidding;
 import com.example.bridge.ui.game.GameController;
 
 public class OverlaySettings {
@@ -23,13 +22,11 @@ public class OverlaySettings {
     private final View overlay;
     private final SharedPreferences prefs;
     private final GameController gameController;
-    private final GameBidding gameBidding;
 
-    public OverlaySettings(GameActivity activity, View overlay, GameController gameController, GameBidding gameBidding) {
+    public OverlaySettings(GameActivity activity, View overlay, GameController gameController) {
         this.activity = activity;
         this.overlay = overlay;
         this.gameController = gameController;
-        this.gameBidding = gameBidding;
         this.prefs = activity.getSharedPreferences("BridgePrefs", Context.MODE_PRIVATE);
         setup();
     }

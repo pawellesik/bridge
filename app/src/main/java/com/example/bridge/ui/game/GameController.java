@@ -76,6 +76,10 @@ public class GameController {
         return this.players;
     }
 
+    public BiddingManager getBiddingManager() {
+        return biddingManager;
+    }
+
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
         resetTable();

@@ -110,8 +110,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         settingsOverlay = findViewById(R.id.settings_overlay);
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
-        gameBidding = new GameBidding(this, biddingControlsOverlay);
-        overlaySettings = new OverlaySettings(this, settingsOverlay, gameController, gameBidding);
+
+        gameBidding = new GameBidding(this, biddingControlsOverlay, gameController);
+        overlaySettings = new OverlaySettings(this, settingsOverlay, gameController);
         pbnExporter = new PbnExporter();
 
         setupRecyclerView();
@@ -221,6 +222,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
             initBiddingHistory();
+            gameBidding.applyAuctionRules(biddingHistory);
         } else if ("multi".equals(gameMode)) {
             //todo
         }
