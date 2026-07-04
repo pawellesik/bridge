@@ -61,8 +61,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View biddingOverlay;
     private View biddingControlsOverlay;
     private RecyclerView rvBiddingHistory;
+
+    GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
-    private GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandNorth = new ArrayList<>();
     private boolean isProcessingMove = false;
     private GameTop gameTop;
@@ -223,9 +224,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             initGameSingleMode();
             initBiddingHistory();
 
-            biddingHistory.addFakeAuction();
             biddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
-            updateBiddingHistory();
+            biddingHistory.addFakeAuction();
+
+            biddingHistory.updateBiddingHistory();
             gameBidding.applyAuctionRules(biddingHistory);
         } else if ("multi".equals(gameMode)) {
             //todo
@@ -363,73 +365,32 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameTop.setContract(contract);
     }
 
+    public GameBidding getGameBidding() {
+        return gameBidding;
+    }
+
+    public RecyclerView getRvBiddingHistory() {
+        return rvBiddingHistory;
+    }
+
+    public GameBiddingHistoryAdapter getGameBiddingHistoryAdapter() {
+        return gameBiddingHistoryAdapter;
+    }
+
+    public View getBiddingControlsOverlay() {
+        return biddingControlsOverlay;
+    }
+
     private void initBiddingHistory() {
-        biddingHistory = new BiddingHistory();
-
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
-        if (rvBiddingHistory != null) {
-            rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
-            gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(biddingHistory.getAuction() );
-            rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
-        }
+        rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
+        biddingHistory = new BiddingHistory(this);
+        gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(biddingHistory.getAuction());
+        rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
     }
 
-    public void updateBiddingHistory() {
-        if (biddingHistory == null) return;
-        List<String> auction = biddingHistory.getAuction();
 
-        // 1. Align with the first bidder (West, North, East, South)
-        if (biddingHistory.getFirstPlayer() != null) {
-            int offset = 0;
-            switch (biddingHistory.getFirstPlayer().getName()) {
-                case "West": offset = 0; break;
-                case "North": offset = 1; break;
-                case "East": offset = 2; break;
-                case "South": offset = 3; break;
-            }
 
-            int currentLeading = 0;
-            while (currentLeading < auction.size() && "-".equals(auction.get(currentLeading))) {
-                currentLeading++;
-            }
-
-            if (currentLeading < offset) {
-                for (int i = 0; i < (offset - currentLeading); i++) auction.add(0, "-");
-            } else if (currentLeading > offset) {
-                for (int i = 0; i < (currentLeading - offset); i++) auction.remove(0);
-            }
-        }
-
-        // 2. Remove trailing dashes and add one empty placeholder for the "next" bid
-        while (!auction.isEmpty() && "-".equals(auction.get(auction.size() - 1))) {
-            auction.remove(auction.size() - 1);
-        }
-        auction.add(""); // Placeholder for the active yellow tile
-
-        if (gameBiddingHistoryAdapter != null) {
-            gameBiddingHistoryAdapter.notifyDataSetChanged();
-            
-            // Sync Bidding Controls rules with new history
-            if (gameBidding != null && biddingHistory != null) {
-                gameBidding.applyAuctionRules(biddingHistory);
-            }
-
-            if (rvBiddingHistory != null && !auction.isEmpty()) {
-                rvBiddingHistory.post(() -> {
-                    // Extra padding so we can scroll the last row even higher
-                    int controlsHeight = (biddingControlsOverlay != null) ? biddingControlsOverlay.getHeight() : 0;
-                    float density = getResources().getDisplayMetrics().density;
-                    int extraSpace = (int) (80 * density); // Two rows (40dp each) of extra space
-                    
-                    rvBiddingHistory.setPadding(0, 0, 0, controlsHeight + extraSpace);
-                    rvBiddingHistory.setClipToPadding(false);
-
-                    // Scroll to the placeholder
-                    rvBiddingHistory.smoothScrollToPosition(auction.size() - 5);
-                });
-            }
-        }
-    }
 
     private void setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

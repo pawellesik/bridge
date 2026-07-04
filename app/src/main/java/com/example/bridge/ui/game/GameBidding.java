@@ -103,12 +103,6 @@ public class GameBidding {
         }
 
         updateLevelUI(level);
-
-        // Apply auction rules after changing level
-        if (activity.biddingHistory != null) {
-            applyAuctionRules(activity.biddingHistory);
-        }
-
         updateBiddingUI();
     }
 

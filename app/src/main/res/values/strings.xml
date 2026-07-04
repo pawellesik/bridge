@@ -36,7 +36,7 @@
     <string name="deal">Deal Cards</string>
     <string name="deal_cost">(cost 50 points)</string>
     <string name="score_deducted">-50 Points</string>
-    <string name="claim">I claim all the remaining tricks</string>
+    <string name="claim">I claim the rest</string>
     <string name="new_deal">New Deal</string>
     <string name="play_again">Play Again</string>
     <string name="auto_play_deal">Auto Play</string>
