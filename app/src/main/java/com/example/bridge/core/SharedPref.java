@@ -17,22 +17,15 @@ import java.util.Map;
 
 
 public class SharedPref {
-    public int getChangeScore() {
-        return changeScore;
-    }
-
     final int changeScore = -50;
     public static final String PREFS_NAME = "BridgePrefs";
     static final String KEY_CAREER_SCORE = "careerScore";
     static final String KEY_GAMES_PLAYED = "gamesPlayed";
     static final String KEY_HAS_SAVED_DEAL = "hasSavedDeal";
     public static final String KEY_HISTORY = "gameHistory";
-
-    GameTop gameTop;
     GameActivity gameActivity;
 
-    public SharedPref(GameActivity gameActivity, GameTop gameTop) {
-        this.gameTop = gameTop;
+    public SharedPref(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
     }
 
@@ -221,7 +214,7 @@ public class SharedPref {
         }
 
         setPrefChangeTotalScore(handScore);
-        gameActivity.setTotalScore(getPrefTotalScore(), handScore);
+        gameActivity.getGameTop().setTotalScore(getPrefTotalScore(), handScore);
     }
 
     private int getContractPkt(Suit suit, int cnt) {

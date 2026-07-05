@@ -19,28 +19,24 @@ import com.example.bridge.ui.game.GameController;
 
 public class OverlaySettings {
     private final GameActivity activity;
-    private final View overlay;
     private final SharedPreferences prefs;
-    private final GameController gameController;
 
-    public OverlaySettings(GameActivity activity, View overlay, GameController gameController) {
+    public OverlaySettings(GameActivity activity) {
         this.activity = activity;
-        this.overlay = overlay;
-        this.gameController = gameController;
         this.prefs = activity.getSharedPreferences("BridgePrefs", Context.MODE_PRIVATE);
         setup();
     }
 
     private void setup() {
-        if (overlay == null) return;
+        if (activity.getSettingsOverlay() == null) return;
         setupCardColors();
         setupQuickGame();
         setupSingleplayer();
         
-        View btnBack = overlay.findViewById(R.id.btn_back_settings);
+        View btnBack = activity.getSettingsOverlay().findViewById(R.id.btn_back_settings);
         if (btnBack != null) {
             btnBack.setOnClickListener(v -> {
-                overlay.setVisibility(View.GONE);
+                activity.getSettingsOverlay().setVisibility(View.GONE);
                 // Return to game view in bottom nav
                 com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = activity.findViewById(R.id.bottom_navigation);
                 if (bottomNav != null) {
@@ -52,13 +48,13 @@ public class OverlaySettings {
 
     private void setupCardColors() {
         boolean isColorful = prefs.getBoolean("card_colors_colorful", true);
-        RadioGroup rg = overlay.findViewById(R.id.rg_card_colors);
+        RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_card_colors);
         if (rg == null) return;
 
         if (isColorful) {
-            ((RadioButton) overlay.findViewById(R.id.rb_colorful)).setChecked(true);
+            ((RadioButton) activity.getSettingsOverlay().findViewById(R.id.rb_colorful)).setChecked(true);
         } else {
-            ((RadioButton) overlay.findViewById(R.id.rb_standard)).setChecked(true);
+            ((RadioButton) activity.getSettingsOverlay().findViewById(R.id.rb_standard)).setChecked(true);
         }
 
         rg.setOnCheckedChangeListener((group, checkedId) -> {
@@ -70,12 +66,12 @@ public class OverlaySettings {
 
     private void setupQuickGame() {
         String difficulty = prefs.getString("quick_game_difficulty", "Medium");
-        RadioGroup rg = overlay.findViewById(R.id.rg_difficulty);
+        RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_difficulty);
         if (rg == null) return;
         
-        if ("Easy".equals(difficulty)) ((RadioButton)overlay.findViewById(R.id.rb_easy)).setChecked(true);
-        else if ("Hard".equals(difficulty)) ((RadioButton)overlay.findViewById(R.id.rb_hard)).setChecked(true);
-        else ((RadioButton)overlay.findViewById(R.id.rb_medium)).setChecked(true);
+        if ("Easy".equals(difficulty)) ((RadioButton)activity.getSettingsOverlay().findViewById(R.id.rb_easy)).setChecked(true);
+        else if ("Hard".equals(difficulty)) ((RadioButton)activity.getSettingsOverlay().findViewById(R.id.rb_hard)).setChecked(true);
+        else ((RadioButton)activity.getSettingsOverlay().findViewById(R.id.rb_medium)).setChecked(true);
 
         rg.setOnCheckedChangeListener((group, checkedId) -> {
             String newDifficulty = "Medium";
@@ -86,7 +82,7 @@ public class OverlaySettings {
     }
 
     private void setupSingleplayer() {
-        Spinner spinner = overlay.findViewById(R.id.spinner_bidding_system);
+        Spinner spinner = activity.getSettingsOverlay().findViewById(R.id.spinner_bidding_system);
         if (spinner == null) return;
         
         String[] systems = {"SAYC", "WJ", "NAT+c"};

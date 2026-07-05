@@ -5,6 +5,8 @@ import com.example.bridge.model.Contract;
 import com.example.bridge.model.Rank;
 import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
+import com.example.bridge.ui.game.GameActivity;
+import com.example.bridge.ui.game.GameTop;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,8 +37,10 @@ public class PbnExporter {
     private int resultTricks;
     private final List<String> auction = new ArrayList<>();
     private List<Trick> playHistory = new ArrayList<>();
+    private GameActivity gameActivity;
 
-    public PbnExporter() {
+    public PbnExporter(GameActivity gameActivity) {
+        this.gameActivity = gameActivity;
         this.date = new SimpleDateFormat("yyyy.MM.dd", Locale.US).format(new Date());
     }
 

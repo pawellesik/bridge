@@ -106,7 +106,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         loadingIndicator = findViewById(R.id.loading_indicator);
 
         gameTop = new GameTop(this);
-        sharedPref = new SharedPref(this, gameTop);
+        sharedPref = new SharedPref(this);
 
         historyOverlay = findViewById(R.id.history_overlay);
         statisticOverlay = findViewById(R.id.statistic_overlay);
@@ -114,9 +114,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
 
-        gameBidding = new GameBidding(this, biddingControlsOverlay);
-        overlaySettings = new OverlaySettings(this, settingsOverlay, gameController);
-        pbnExporter = new PbnExporter();
+        gameBidding = new GameBidding(this);
+        overlaySettings = new OverlaySettings(this);
+        pbnExporter = new PbnExporter(this);
 
         setupRecyclerView();
 
@@ -183,7 +183,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         });
 
 
-
         btnClaim.setOnClickListener(v -> {
             if (isProcessingMove) return;
             isProcessingMove = true;
@@ -223,6 +222,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
 
+    public View getSettingsOverlay() {
+        return settingsOverlay;
+    }
+
+    public View getControlsOverlay(){
+        return getControlsOverlay();
+    }
 
     private void initGame() {
         if ("quick".equals(gameMode)) {
@@ -259,9 +265,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         onVisibleStartBar(true);
     }
 
-    public GameController getGameController(){
+    public GameController getGameController() {
         return gameController;
     }
+
     private void initGameBase() {
         Map<String, Player> players = new LinkedHashMap<>();
         players.put("North", new Player("North", playedCardContainerNorth));
@@ -282,12 +289,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 .show();
     }
 
-    public void setTotalScore(int totalScore, int changeScore) {
-        gameTop.setTotalScore(totalScore, changeScore);
-    }
-
-    public void setTotalScore(int totalScore) {
-        gameTop.setTotalScore(totalScore);
+    public GameTop getGameTop() {
+        return gameTop;
     }
 
     @Override
@@ -397,8 +400,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(gameBiddingHistory.getAuction());
         rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
     }
-
-
 
 
     private void setupWindowInsets() {
