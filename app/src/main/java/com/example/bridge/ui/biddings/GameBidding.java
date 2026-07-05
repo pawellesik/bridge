@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import com.example.bridge.R;
 import com.example.bridge.model.Suit;
 import com.example.bridge.ui.game.GameActivity;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -18,9 +19,12 @@ public class GameBidding {
     private int selectedSuitViewId = View.NO_ID;
     private GameBiddingHistory lastHistory;
 
+    private MaterialButton btnPass;
+
     public GameBidding(GameActivity activity, View controlsOverlay) {
         this.activity = activity;
         this.controlsOverlay = controlsOverlay;
+        btnPass = controlsOverlay.findViewById(R.id.btn_bid_pass);
         setupListeners();
     }
 
@@ -74,7 +78,6 @@ public class GameBidding {
             }
         }
 
-        com.google.android.material.button.MaterialButton btnPass = controlsOverlay.findViewById(R.id.btn_bid_pass);
         if (btnPass != null) {
             if (selectedSuitViewId != View.NO_ID) {
                 btnPass.setText("BID");
