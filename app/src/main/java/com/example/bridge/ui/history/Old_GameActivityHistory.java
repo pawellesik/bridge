@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GameActivityHistory {
+public class Old_GameActivityHistory {
 
     private final GameActivity activity;
     private final GameController gameController;
@@ -43,7 +43,7 @@ public class GameActivityHistory {
 
 
 
-    public GameActivityHistory(GameActivity gameActivity, GameController gameController, GameTop gameTop) {
+    public Old_GameActivityHistory(GameActivity gameActivity, GameController gameController, GameTop gameTop) {
         this.activity = gameActivity;
         this.gameController = gameController;
         this.gameTop = gameTop;

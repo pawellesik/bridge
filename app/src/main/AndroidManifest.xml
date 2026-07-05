@@ -28,11 +28,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.history.HistoryActivity"
+            android:name=".ui.history.Old_HistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.settings.SettingsActivity"
+            android:name=".ui.settings.Old_SettingsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

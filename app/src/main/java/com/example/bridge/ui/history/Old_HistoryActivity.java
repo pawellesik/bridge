@@ -32,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity {
+public class Old_HistoryActivity extends AppCompatActivity {
 
     private HistoryAdapter adapter;
     private List<JSONObject> fullHistoryList;

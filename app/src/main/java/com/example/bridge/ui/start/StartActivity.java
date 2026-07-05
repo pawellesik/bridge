@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.settings.SettingsActivity;
+import com.example.bridge.ui.settings.Old_SettingsActivity;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class StartActivity extends AppCompatActivity {
         findViewById(R.id.btn_create_deal).setOnClickListener(v -> launchGame("create"));
 
         findViewById(R.id.btn_settings).setOnClickListener(v -> {
-            Intent intent = new Intent(StartActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(StartActivity.this, Old_SettingsActivity.class);
             startActivity(intent);
         });
 

@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
 
-public class SettingsActivity extends AppCompatActivity {
+public class Old_SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
