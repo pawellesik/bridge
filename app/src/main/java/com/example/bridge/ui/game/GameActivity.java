@@ -643,12 +643,18 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             setBottomNavVisibility(true);
             initGameQiuckMode();
             //todo show result
+        } else if ("single".equals(gameMode)) {
+            onVisibleStartBar(true);
+            setBottomNavVisibility(true);
+            initGameSingleMode();
+            initBiddingHistory();
+
+            gameBiddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
+            gameBiddingHistory.addFakeAuction();
+
+            gameBiddingHistory.updateBiddingHistory();
+            gameBidding.applyAuctionRules(gameBiddingHistory);
         }
-
-        //if (southAdapter != null) southAdapter.setCardsEnabled(false);
-        //if (northAdapter != null) northAdapter.setCardsEnabled(false);
-
-
     }
 }
 
