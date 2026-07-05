@@ -361,11 +361,13 @@ public class GameBidding {
             }
 
             Contract contract = determineFinalContract();
+            activity.getGameController().getBiddingManager().sortHandsByContract(contract.getSuit());
             activity.onContractDetermined(contract);
 
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);
             activity.getBiddingOverlay().setVisibility(View.GONE);
             activity.onHandUpdated("North");
+            activity.onHandUpdated("South");
             activity.getTopBar().setVisibility(View.VISIBLE);
 
             v.post(() -> {

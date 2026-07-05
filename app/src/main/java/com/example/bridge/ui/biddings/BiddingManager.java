@@ -37,7 +37,7 @@ public class BiddingManager {
         }
 
         // Resort hands AFTER potential swaps, because addCards inside swaps resets sorting to Natural
-        sortHandsByContract(contractColorStr);
+        sortHandsByContract(Suit.getSuit(contractColorStr));
 
         int possibleTricks = simulateMaxTricks(contractColorStr);
         if (contractCount == 1 && !contractColorStr.equals("NT") && possibleTricks >= 8) {
@@ -176,25 +176,7 @@ public class BiddingManager {
         }
     }
 
-    private void sortHandsByContract(String contractColor) {
-        Suit trumpSuit = null;
-        if (contractColor != null) {
-            switch (contractColor) {
-                case "Spades":
-                    trumpSuit = Suit.SPADES;
-                    break;
-                case "Hearts":
-                    trumpSuit = Suit.HEARTS;
-                    break;
-                case "Diamonds":
-                    trumpSuit = Suit.DIAMONDS;
-                    break;
-                case "Clubs":
-                    trumpSuit = Suit.CLUBS;
-                    break;
-            }
-        }
-
+    public void sortHandsByContract(Suit trumpSuit) {
         for (Player player : players.values()) {
             player.resortHand(trumpSuit);
         }
