@@ -16,6 +16,7 @@ public class GameBiddingHistory {
     private RecyclerView rvBiddingHistory;
     private View biddingControlsOverlay;
     private GameActivity gameActivity;
+    private boolean showYellowTile = false;
 
     public GameBiddingHistory(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
@@ -86,7 +87,7 @@ public class GameBiddingHistory {
         while (!auction.isEmpty() && "-".equals(auction.get(auction.size() - 1))) {
             auction.remove(auction.size() - 1);
         }
-        auction.add(""); // Placeholder for the active yellow tile
+        auction.add(""); // Placeholder for the active tile
 
         if (gameActivity.getGameBiddingHistoryAdapter() != null) {
             gameActivity.getGameBiddingHistoryAdapter().notifyDataSetChanged();

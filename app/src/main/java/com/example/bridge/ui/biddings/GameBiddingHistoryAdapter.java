@@ -17,9 +17,15 @@ import java.util.List;
 public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingHistoryAdapter.ViewHolder> {
 
     private final List<String> bids;
+    private boolean highlightLast = false;
 
     public GameBiddingHistoryAdapter(List<String> bids) {
         this.bids = bids;
+    }
+
+    public void setHighlightLast(boolean highlight) {
+        this.highlightLast = highlight;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -33,7 +39,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String bid = bids.get(position);
         boolean isCurrent = (position == bids.size() - 1);
-        holder.bind(bid, isCurrent);
+        holder.bind(bid, isCurrent, highlightLast);
     }
 
     @Override
@@ -55,7 +61,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
              return v;
         }
 
-        void bind(String bid, boolean isCurrent) {
+        void bind(String bid, boolean isCurrent, boolean highlightLast) {
             // Default reset
             tvLevel.setText(bid);
             tvLevel.setTextColor(0xFF000000);
@@ -65,7 +71,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             View inner = itemView.findViewById(R.id.bid_tile_inner);
             if (inner != null) {
                 inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
-                if (isCurrent) {
+                if (isCurrent && highlightLast) {
                     inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); // Solid Yellow
                     tvLevel.setText(""); // Remove dash/text for the current active slot
                 } else {
@@ -74,10 +80,12 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             }
             
             if (bid == null || bid.isEmpty() || bid.equals("-")) {
-                if (!isCurrent) {
-                    tvLevel.setText("-");
-                    tvLevel.setAlpha(0.2f);
+                if (isCurrent) {
+                    tvLevel.setText(""); // Keep it empty (just borders)
+                    return;
                 }
+                tvLevel.setText("-");
+                tvLevel.setAlpha(0.2f);
                 return;
             }
 
