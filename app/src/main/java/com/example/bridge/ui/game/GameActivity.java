@@ -627,7 +627,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
-
+        if ("quick".equals(gameMode)) {
+            onVisibleStartBar(true);
+            setBottomNavVisibility(true);
+            initGameQiuckMode();
+            //todo show result
+        }
 
         //if (southAdapter != null) southAdapter.setCardsEnabled(false);
         //if (northAdapter != null) northAdapter.setCardsEnabled(false);
