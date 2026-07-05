@@ -16,6 +16,7 @@ public class GameBidding {
     private final View controlsOverlay;
     private int currentLevel = 1;
     private int selectedSuitViewId = View.NO_ID;
+    private GameBiddingHistory lastHistory;
 
     public GameBidding(GameActivity activity, View controlsOverlay) {
         this.activity = activity;
@@ -31,9 +32,9 @@ public class GameBidding {
                 R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
         };
 
-        for (int i = 0; i < levelBtnIds.length; i++) {
-            final int level = i + 1;
-            View btn = controlsOverlay.findViewById(levelBtnIds[i]);
+        for (int m = 0; m < levelBtnIds.length; m++) {
+            final int level = m + 1;
+            View btn = controlsOverlay.findViewById(levelBtnIds[m]);
             if (btn != null) {
                 btn.setOnClickListener(v -> selectLevel(level));
             }
@@ -90,19 +91,8 @@ public class GameBidding {
 
         if (controlsOverlay == null) return;
 
-        int[] levelBtnIds = {
-                R.id.btn_level_1, R.id.btn_level_2, R.id.btn_level_3,
-                R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
-        };
-
-        for (int i = 0; i < levelBtnIds.length; i++) {
-            View btn = controlsOverlay.findViewById(levelBtnIds[i]);
-            if (btn != null) {
-                btn.setSelected((i + 1) == level);
-            }
-        }
-
         updateLevelUI(level);
+        refreshSuitTilesVisibility();
         updateBiddingUI();
     }
 
@@ -114,7 +104,7 @@ public class GameBidding {
         updateTileText(R.id.bid_spades_text, levelStr);
 
         TextView tvNt = controlsOverlay.findViewById(R.id.bid_nt);
-        if (tvNt != null) tvNt.setText(levelStr + activity.getString(R.string.suit_nt));
+        if (tvNt != null) tvNt.setText(levelStr + " " + activity.getString(R.string.suit_nt));
 
         // Sync tab selection states
         int[] levelBtnIds = {
@@ -129,6 +119,7 @@ public class GameBidding {
 
     public void applyAuctionRules(GameBiddingHistory history) {
         if (controlsOverlay == null || history == null) return;
+        this.lastHistory = history;
 
         List<String> auction = history.getAuction();
 
@@ -138,10 +129,11 @@ public class GameBidding {
                 R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
         };
         int firstVisibleLevel = -1;
-        for (int i = 0; i < levelBtnIds.length; i++) {
-            int lv = i + 1;
+        int tabIdx = 0;
+        for (int id : levelBtnIds) {
+            int lv = ++tabIdx;
             boolean anyLegal = isLegalBid(lv, "NT", auction);
-            View btn = controlsOverlay.findViewById(levelBtnIds[i]);
+            View btn = controlsOverlay.findViewById(id);
             if (btn != null) {
                 btn.setVisibility(anyLegal ? View.VISIBLE : View.GONE);
                 if (anyLegal && firstVisibleLevel == -1) firstVisibleLevel = lv;
@@ -154,17 +146,11 @@ public class GameBidding {
             updateLevelUI(currentLevel);
         }
 
-        // 2. Suit Tiles visibility for the CURRENT selected level
-        updateTileVisibility(R.id.bid_clubs, isLegalBid(currentLevel, "C", auction), false);
-        updateTileVisibility(R.id.bid_diamonds, isLegalBid(currentLevel, "D", auction), false);
-        updateTileVisibility(R.id.bid_hearts, isLegalBid(currentLevel, "H", auction), false);
-        updateTileVisibility(R.id.bid_spades, isLegalBid(currentLevel, "S", auction), false);
-        updateTileVisibility(R.id.bid_nt, isLegalBid(currentLevel, "NT", auction), false);
+        refreshSuitTilesVisibility();
 
         // 3. Double (X) button visibility
-        // Rule: Visible only if the bid immediately before was not a "Pass"
         boolean canDouble = false;
-        if (auction.size() > 1) { // Index 0 is often leading dashes, the last real bid is at size-2
+        if (auction.size() > 1) {
             String lastBid = "";
             for (int i = auction.size() - 2; i >= 0; i--) {
                 String b = auction.get(i);
@@ -178,6 +164,17 @@ public class GameBidding {
             }
         }
         updateTileVisibility(R.id.btn_bid_double_toggle, canDouble, true);
+    }
+
+    private void refreshSuitTilesVisibility() {
+        if (lastHistory == null) return;
+        List<String> auction = lastHistory.getAuction();
+        
+        updateTileVisibility(R.id.bid_clubs, isLegalBid(currentLevel, "C", auction), false);
+        updateTileVisibility(R.id.bid_diamonds, isLegalBid(currentLevel, "D", auction), false);
+        updateTileVisibility(R.id.bid_hearts, isLegalBid(currentLevel, "H", auction), false);
+        updateTileVisibility(R.id.bid_spades, isLegalBid(currentLevel, "S", auction), false);
+        updateTileVisibility(R.id.bid_nt, isLegalBid(currentLevel, "NT", auction), false);
     }
 
     private void updateTileVisibility(int id, boolean visible, boolean useGone) {

@@ -16,11 +16,9 @@ public class GameBiddingHistory {
     private RecyclerView rvBiddingHistory;
     private View biddingControlsOverlay;
     private GameActivity gameActivity;
-    private GameBidding gameBidding;
 
     public GameBiddingHistory(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
-        this.gameBidding = gameActivity.getGameBidding();
         this.rvBiddingHistory = gameActivity.getRvBiddingHistory();
         this.biddingControlsOverlay = gameActivity.getBiddingControlsOverlay();
     }
