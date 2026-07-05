@@ -220,7 +220,7 @@ public class GameController {
             handler.postDelayed(() -> {
                 clearTable();
 
-                if (players.get("South").getHand().isEmpty()) {
+                if (isGameEnd()) {
                     callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick, 0);
                     return;
                 }
@@ -241,6 +241,15 @@ public class GameController {
             callback.onTurnChanged(nextPlayer.getName());
             checkOpponentMove(nextPlayer);
         }
+    }
+
+    private boolean isGameEnd() {
+        for (Player player : players.values()) {
+            if (player.getHand().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String determineTrickWinner() {
@@ -536,7 +545,6 @@ public class GameController {
     public void cleanup() {
         handler.removeCallbacksAndMessages(null);
     }
-
 
 
 }
