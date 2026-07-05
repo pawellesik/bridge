@@ -24,7 +24,9 @@ public class GameBidding {
     public GameBidding(GameActivity activity, View controlsOverlay) {
         this.activity = activity;
         this.controlsOverlay = controlsOverlay;
-        btnPass = controlsOverlay.findViewById(R.id.btn_bid_pass);
+        if (controlsOverlay != null) {
+            btnPass = controlsOverlay.findViewById(R.id.btn_bid_pass);
+        }
         setupListeners();
     }
 
@@ -51,6 +53,10 @@ public class GameBidding {
             if (tile != null) {
                 tile.setOnClickListener(v -> toggleSuitSelection(id));
             }
+        }
+
+        if (btnPass != null) {
+            btnPass.setOnClickListener(v -> handleBidOrPass());
         }
 
         applyColors();
@@ -279,22 +285,69 @@ public class GameBidding {
     }
 
     private void updateSelectionInHistory() {
+        if (lastHistory != null) {
+            lastHistory.updateBiddingHistory(getCurrentSelectionString());
+        }
+    }
+
+    private String getCurrentSelectionString() {
+        if (selectedSuitViewId == View.NO_ID) return null;
+
+        if (selectedSuitViewId == R.id.bid_clubs) return currentLevel + "C";
+        if (selectedSuitViewId == R.id.bid_diamonds) return currentLevel + "D";
+        if (selectedSuitViewId == R.id.bid_hearts) return currentLevel + "H";
+        if (selectedSuitViewId == R.id.bid_spades) return currentLevel + "S";
+        if (selectedSuitViewId == R.id.bid_nt) return currentLevel + "NT";
+        if (selectedSuitViewId == R.id.btn_bid_double_toggle) {
+            TextView tvDouble = controlsOverlay.findViewById(R.id.btn_bid_double_toggle);
+            return (tvDouble != null) ? tvDouble.getText().toString() : "X";
+        }
+        return null;
+    }
+
+    private void handleBidOrPass() {
         if (lastHistory == null) return;
 
-        String selection = null;
-        if (selectedSuitViewId != View.NO_ID) {
-            if (selectedSuitViewId == R.id.bid_clubs) selection = currentLevel + "C";
-            else if (selectedSuitViewId == R.id.bid_diamonds) selection = currentLevel + "D";
-            else if (selectedSuitViewId == R.id.bid_hearts) selection = currentLevel + "H";
-            else if (selectedSuitViewId == R.id.bid_spades) selection = currentLevel + "S";
-            else if (selectedSuitViewId == R.id.bid_nt) selection = currentLevel + "NT";
-            else if (selectedSuitViewId == R.id.btn_bid_double_toggle) {
-                TextView tvDouble = controlsOverlay.findViewById(R.id.btn_bid_double_toggle);
-                if (tvDouble != null) {
-                    selection = tvDouble.getText().toString();
-                }
+        String selection = getCurrentSelectionString();
+        String finalBid = (selection != null) ? selection : "Pass";
+
+        // 1. Add to history
+        lastHistory.getAuction().add(finalBid);
+
+        // 2. Refresh history UI and scroll
+        lastHistory.updateBiddingHistory(null, true);
+
+        // 3. Reset local selection
+        selectedSuitViewId = View.NO_ID;
+        updateBiddingUI();
+
+        // 4. Check for 3 passes (end of auction)
+        checkEndOfAuction();
+
+        // 5. Apply rules for next turn (if auction continues)
+        applyAuctionRules(lastHistory);
+    }
+
+    private void checkEndOfAuction() {
+        List<String> auction = lastHistory.getAuction();
+        if (auction.size() < 3) return;
+
+        int passCount = 0;
+        for (int i = auction.size() - 1; i >= 0; i--) {
+            String b = auction.get(i);
+            if ("Pass".equalsIgnoreCase(b)) {
+                passCount++;
+            } else if (!"-".equals(b)) {
+                break;
             }
         }
-        lastHistory.updateBiddingHistory(selection);
+
+        if (passCount >= 3) {
+            onAuctionFinished();
+        }
+    }
+
+    private void onAuctionFinished() {
+        // To be implemented
     }
 }
