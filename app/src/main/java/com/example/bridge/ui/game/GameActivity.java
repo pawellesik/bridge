@@ -173,10 +173,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             if ("single".equals(gameMode) && biddingControlsOverlay != null) {
                 biddingControlsOverlay.setVisibility(View.VISIBLE);
-                if (gameBiddingHistoryAdapter != null) {
-                    gameBiddingHistoryAdapter.setHighlightLast(true);
-                }
-                gameBidding.selectLevel(1);
+                gameBiddingHistoryAdapter.setHighlightLast(true);
+
             } else {
                 v.post(() -> {
                     gameController.startGame();

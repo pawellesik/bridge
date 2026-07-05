@@ -70,11 +70,16 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             
             View inner = itemView.findViewById(R.id.bid_tile_inner);
             if (inner != null) {
-                inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
                 if (isCurrent && highlightLast) {
+                    inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
                     inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); // Solid Yellow
                     tvLevel.setText(""); // Remove dash/text for the current active slot
+                } else if (isCurrent) {
+                    inner.setBackgroundResource(R.drawable.bg_bid_history_tile_white); // White with Black border
+                    inner.setBackgroundTintList(null);
+                    tvLevel.setText("");
                 } else {
+                    inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
                     inner.setBackgroundTintList(null);
                 }
             }
