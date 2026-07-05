@@ -112,9 +112,16 @@ public class GameController {
 
     public void onBiddingFinished(Contract contract, Player declarer) {
         this.currentContract = contract;
-        this.playerFirstPlayCard = getNextPlayer(declarer);
-        //todo jezeli wygral licytacje gracz N to pozamieniaj karty pomiedzy South z North i West z East
 
+        // If North won the bidding, we swap hands N<->S and E<->W
+        // This ensures the human player (South) is always the declarer if NS wins.
+        if ("North".equals(declarer.getName())) {
+            swapHands(players.get("North"), players.get("South"));
+            swapHands(players.get("East"), players.get("West"));
+            declarer = players.get("South"); // Now South is the declarer
+        }
+
+        this.playerFirstPlayCard = getNextPlayer(declarer);
 
         if (contract.getSuit() != null || contract.isNoTrump()) {
             biddingManager.sortHandsByContract(contract.getSuit());
@@ -125,6 +132,13 @@ public class GameController {
         callback.onHandUpdated("South");
 
         handler.postDelayed(this::startGame, 300);
+    }
+
+    private void swapHands(Player p1, Player p2) {
+        if (p1 == null || p2 == null) return;
+        List<Card> tempHand = new ArrayList<>(p1.getHand());
+        p1.setHandDirectly(new ArrayList<>(p2.getHand()));
+        p2.setHandDirectly(tempHand);
     }
 
     public void startGame() {
