@@ -123,7 +123,7 @@ public class GameBidding {
 
         List<String> auction = history.getAuction();
 
-        // 1. Level Tabs visibility
+        // 1. Level Tabs visibility and find the first possible level
         int[] levelBtnIds = {
                 R.id.btn_level_1, R.id.btn_level_2, R.id.btn_level_3,
                 R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
@@ -132,6 +132,7 @@ public class GameBidding {
         int tabIdx = 0;
         for (int id : levelBtnIds) {
             int lv = ++tabIdx;
+            // A level is legal if at least its highest bid (NT) is legal
             boolean anyLegal = isLegalBid(lv, "NT", auction);
             View btn = controlsOverlay.findViewById(id);
             if (btn != null) {
@@ -140,30 +141,53 @@ public class GameBidding {
             }
         }
 
-        // If current level is hidden or numerically too low, jump to first visible
-        if (firstVisibleLevel != -1 && (currentLevel < firstVisibleLevel || controlsOverlay.findViewById(levelBtnIds[currentLevel - 1]).getVisibility() == View.GONE)) {
+        // Always jump to and select the FIRST possible level when rules are applied (turn starts)
+        if (firstVisibleLevel != -1) {
             this.currentLevel = firstVisibleLevel;
             updateLevelUI(currentLevel);
         }
 
         refreshSuitTilesVisibility();
 
-        // 3. Double (X) button visibility
-        boolean canDouble = false;
-        if (auction.size() > 1) {
-            String lastBid = "";
-            for (int i = auction.size() - 2; i >= 0; i--) {
+        // 3. Double (X) / Redouble (XX) logic
+        boolean showDoubleBtn = false;
+        String doubleText = "X";
+        int doubleColor = 0xFFC62828; // Standard Red
+
+        if (!auction.isEmpty()) {
+            String lastMeaningfulBid = "";
+            for (int i = auction.size() - 1; i >= 0; i--) {
                 String b = auction.get(i);
-                if (b != null && !b.isEmpty() && !"-".equals(b)) {
-                    lastBid = b;
+                if (b != null && !b.isEmpty() && !"-".equals(b) && !b.equalsIgnoreCase("Pass")) {
+                    lastMeaningfulBid = b;
                     break;
                 }
             }
-            if (!lastBid.isEmpty() && !lastBid.equalsIgnoreCase("Pass") && !lastBid.equalsIgnoreCase("X") && !lastBid.equalsIgnoreCase("XX")) {
-                canDouble = true;
+
+            if (!lastMeaningfulBid.isEmpty()) {
+                if (lastMeaningfulBid.equalsIgnoreCase("X")) {
+                    showDoubleBtn = true;
+                    doubleText = "XX";
+                    doubleColor = 0xFF1565C0; // Professional Blue for Redouble
+                } else if (!lastMeaningfulBid.equalsIgnoreCase("XX")) {
+                    // It's a suit bid
+                    showDoubleBtn = true;
+                    doubleText = "X";
+                    doubleColor = 0xFFC62828;
+                }
             }
         }
-        updateTileVisibility(R.id.btn_bid_double_toggle, canDouble, true);
+
+        TextView tvDouble = controlsOverlay.findViewById(R.id.btn_bid_double_toggle);
+        if (tvDouble != null) {
+            tvDouble.setText(doubleText);
+            tvDouble.setTextColor(doubleColor);
+            tvDouble.setVisibility(showDoubleBtn ? View.VISIBLE : View.GONE);
+        }
+
+        // Reset suit selection for the new turn/history update
+        this.selectedSuitViewId = View.NO_ID;
+        updateBiddingUI();
     }
 
     private void refreshSuitTilesVisibility() {

@@ -49,8 +49,6 @@ public class GameBiddingHistory {
         auction.add("2NT");
         auction.add("X");
 
-        auction.add("3H");
-        auction.add("Pass");
     }
 
     public void updateBiddingHistory() {
