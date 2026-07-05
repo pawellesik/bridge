@@ -113,6 +113,8 @@ public class GameController {
     public void onBiddingFinished(Contract contract, Player declarer) {
         this.currentContract = contract;
         this.playerFirstPlayCard = getNextPlayer(declarer);
+        //todo jezeli wygral licytacje gracz N to pozamieniaj karty pomiedzy South z North i West z East
+
 
         if (contract.getSuit() != null || contract.isNoTrump()) {
             biddingManager.sortHandsByContract(contract.getSuit());
