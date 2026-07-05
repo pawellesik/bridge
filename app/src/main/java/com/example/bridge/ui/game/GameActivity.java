@@ -288,33 +288,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return gameTop;
     }
 
-    @Override
-    public void onClaimButtonVisibilityChanged(boolean visible) {
-        if (btnClaim != null) {
-            btnClaim.setVisibility(visible ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    @Override
-    public void onScoreUpdated(int snScore, int weScore) {
-        gameTop.updateScores(snScore, weScore);
-    }
-
-    @Override
-    public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
-
-
-        //if (southAdapter != null) southAdapter.setCardsEnabled(false);
-        //if (northAdapter != null) northAdapter.setCardsEnabled(false);
-
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     private void setBottomNavVisibility(boolean visible) {
         View bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
@@ -322,59 +295,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-    @Override
-    public void onVisibleStartBar(Boolean isVisible) {
-        if (isVisible) {
-            setBottomNavVisibility(true);
-            startBar.setVisibility(View.VISIBLE);
-            loadingIndicator.setVisibility(View.GONE);
-        } else {
-            startBar.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onTurnChanged(String playerName) {
-        if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
-        updateTurn(playerName);
-        if ("North".equals(playerName) || "South".equals(playerName)) {
-            isProcessingMove = false;
-        }
-    }
-
-    public void updateTurn(String playerName) {
-        nameNorth.setBackgroundResource(0);
-        nameSouth.setBackgroundResource(0);
-        nameEast.setBackgroundResource(0);
-        nameWest.setBackgroundResource(0);
-
-        if (playerName == null) return;
-
-        switch (playerName) {
-            case "North":
-                nameNorth.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-            case "South":
-                nameSouth.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-            case "East":
-                nameEast.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-            case "West":
-                nameWest.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-        }
-    }
-
-    @Override
-    public void onContractDetermined(Contract contract) {
-        isProcessingMove = false;
-        gameTop.setContract(contract);
-    }
-
-    public GameBidding getGameBidding() {
-        return gameBidding;
-    }
 
     public RecyclerView getRvBiddingHistory() {
         return rvBiddingHistory;
@@ -395,7 +315,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(gameBiddingHistory.getAuction());
         rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
     }
-
 
     private void setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -461,7 +380,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
-
     private void setupRecyclerView() {
         RecyclerView rvSouth = findViewById(R.id.rv_hand_south);
         RecyclerView rvNorth = findViewById(R.id.rv_hand_north);
@@ -510,37 +428,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return lm;
     }
 
-    @Override
-    public void onHandUpdated(String playerName) {
-        if ("North".equals(playerName)) {
-            updateDisplayHandNorth();
-        } else if ("South".equals(playerName)) {
-            updateDisplayHandSouth();
-        }
-    }
-
-    @Override
-    public void onCardPlayed(Player player, Card card) {
-        showPlayedCard(card, player.getPlayedCardContainer());
-    }
-
-    @Override
-    public void onUpdateLastTrickInTop(Map<String, Card> trickCards) {
-        FrameLayout[] containers = {playedCardContainerSouth, playedCardContainerNorth, playedCardContainerWest, playedCardContainerEast};
-        for (FrameLayout container : containers) {
-            if (container != null) container.removeAllViews();
-        }
-        gameTop.setLastTrickInTop(trickCards);
-    }
-
-    @Override
-    public void onClearLastCards(List<Card> cardsOnTable) {
-        if (cardsOnTable != null && cardsOnTable.size() > 1) {
-            gameTop.clearLastCards();
-        }
-    }
-
-
     public void refreshAllColors() {
         updateDisplayHandNorth();
         updateDisplayHandSouth();
@@ -557,7 +444,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameTop.setContract(gameController.getCurrentContract());
         }
     }
-
 
     private void updateDisplayHandSouth() {
         if (gameController.getPlayers().get("South") == null) return;
@@ -636,13 +522,118 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         container.addView(view);
     }
 
+    public void updateTurn(String playerName) {
+        nameNorth.setBackgroundResource(0);
+        nameSouth.setBackgroundResource(0);
+        nameEast.setBackgroundResource(0);
+        nameWest.setBackgroundResource(0);
+
+        if (playerName == null) return;
+
+        switch (playerName) {
+            case "North":
+                nameNorth.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
+            case "South":
+                nameSouth.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
+            case "East":
+                nameEast.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
+            case "West":
+                nameWest.setBackgroundResource(R.drawable.transparent_white_frame);
+                break;
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         gameController.cleanup();
     }
 
+    @Override
+    public void onHandUpdated(String playerName) {
+        if ("North".equals(playerName)) {
+            updateDisplayHandNorth();
+        } else if ("South".equals(playerName)) {
+            updateDisplayHandSouth();
+        }
+    }
 
+    @Override
+    public void onCardPlayed(Player player, Card card) {
+        showPlayedCard(card, player.getPlayedCardContainer());
+    }
+
+    @Override
+    public void onUpdateLastTrickInTop(Map<String, Card> trickCards) {
+        FrameLayout[] containers = {playedCardContainerSouth, playedCardContainerNorth, playedCardContainerWest, playedCardContainerEast};
+        for (FrameLayout container : containers) {
+            if (container != null) container.removeAllViews();
+        }
+        gameTop.setLastTrickInTop(trickCards);
+    }
+
+    @Override
+    public void onClearLastCards(List<Card> cardsOnTable) {
+        if (cardsOnTable != null && cardsOnTable.size() > 1) {
+            gameTop.clearLastCards();
+        }
+    }
+
+    @Override
+    public void onVisibleStartBar(Boolean isVisible) {
+        if (isVisible) {
+            setBottomNavVisibility(true);
+            startBar.setVisibility(View.VISIBLE);
+            loadingIndicator.setVisibility(View.GONE);
+        } else {
+            startBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onTurnChanged(String playerName) {
+        if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
+        updateTurn(playerName);
+        if ("North".equals(playerName) || "South".equals(playerName)) {
+            isProcessingMove = false;
+        }
+    }
+
+    @Override
+    public void onContractDetermined(Contract contract) {
+        isProcessingMove = false;
+        gameTop.setContract(contract);
+    }
+
+    @Override
+    public void onClaimButtonVisibilityChanged(boolean visible) {
+        if (btnClaim != null) {
+            btnClaim.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    @Override
+    public void onScoreUpdated(int snScore, int weScore) {
+        gameTop.updateScores(snScore, weScore);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
+
+
+        //if (southAdapter != null) southAdapter.setCardsEnabled(false);
+        //if (northAdapter != null) northAdapter.setCardsEnabled(false);
+
+
+    }
 }
 
 
