@@ -52,6 +52,7 @@ public class GameController {
     private final DdsSolver ddsSolver;
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
+    private boolean isGameRunning = false;
 
     public void setCurrentContract(Contract currentContract) {
         this.currentContract = currentContract;
@@ -88,6 +89,7 @@ public class GameController {
     public void dealCards() {
         handler.removeCallbacksAndMessages(null);
         resetTable();
+        isGameRunning = false;
         isAutoPlayMode = false;
         deck = new Deck();
 
@@ -125,6 +127,7 @@ public class GameController {
 
     public void startGame() {
         if (playerFirstPlayCard == null) return;
+        isGameRunning = true;
         playerFirstPlayCard.setCurrentMove(true);
         callback.onTurnChanged(playerFirstPlayCard.getName());
         playCardOpponent(playerFirstPlayCard);
@@ -148,7 +151,7 @@ public class GameController {
     }
 
     public void playCard(Player player, Card card) {
-        if (!player.isCurrentMove() || !isLegalMove(player, card)) {
+        if (!isGameRunning || !player.isCurrentMove() || !isLegalMove(player, card)) {
             return;
         }
         player.setCurrentMove(false);
@@ -198,6 +201,8 @@ public class GameController {
     }
 
     public void claimRest() {
+        if (!isGameRunning) return;
+        isGameRunning = false;
         int remainingTricks = players.get("South").getHand().size();
         snScore += remainingTricks;
 
@@ -241,6 +246,7 @@ public class GameController {
                 clearTable();
 
                 if (isGameEnd()) {
+                    isGameRunning = false;
                     callback.onGameEnded(snScore, weScore, currentContract, playHistoryTrick, 0);
                     return;
                 }

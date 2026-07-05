@@ -172,25 +172,33 @@ public class GameBidding {
         int doubleColor = 0xFFC62828; // Standard Red
 
         if (!auction.isEmpty()) {
+            int lastMeaningfulBidIndex = -1;
             String lastMeaningfulBid = "";
             for (int i = auction.size() - 1; i >= 0; i--) {
                 String b = auction.get(i);
                 if (b != null && !b.isEmpty() && !"-".equals(b) && !b.equalsIgnoreCase("Pass")) {
                     lastMeaningfulBid = b;
+                    lastMeaningfulBidIndex = i;
                     break;
                 }
             }
 
-            if (!lastMeaningfulBid.isEmpty()) {
-                if (lastMeaningfulBid.equalsIgnoreCase("X")) {
-                    showDoubleBtn = true;
-                    doubleText = "XX";
-                    doubleColor = 0xFF1565C0; // Professional Blue for Redouble
-                } else if (!lastMeaningfulBid.equalsIgnoreCase("XX")) {
-                    // It's a suit bid
-                    showDoubleBtn = true;
-                    doubleText = "X";
-                    doubleColor = 0xFFC62828;
+            if (lastMeaningfulBidIndex != -1) {
+                int currentPlayerAuctionIndex = auction.size();
+                // A player can only Double or Redouble if the last meaningful bid was from an opponent
+                boolean wasLastBidByOpponent = (currentPlayerAuctionIndex % 4 % 2) != (lastMeaningfulBidIndex % 4 % 2);
+
+                if (wasLastBidByOpponent) {
+                    if (lastMeaningfulBid.equalsIgnoreCase("X")) {
+                        showDoubleBtn = true;
+                        doubleText = "XX";
+                        doubleColor = 0xFF1565C0; // Professional Blue for Redouble
+                    } else if (!lastMeaningfulBid.equalsIgnoreCase("XX")) {
+                        // It's a suit bid
+                        showDoubleBtn = true;
+                        doubleText = "X";
+                        doubleColor = 0xFFC62828;
+                    }
                 }
             }
         }
