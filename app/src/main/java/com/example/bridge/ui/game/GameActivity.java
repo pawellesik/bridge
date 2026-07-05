@@ -304,13 +304,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
-        gameTop.updateScores(snScore, weScore);
 
-        if (southAdapter != null) southAdapter.setCardsEnabled(false);
-        if (northAdapter != null) northAdapter.setCardsEnabled(false);
 
-        View btnSave = findViewById(R.id.btn_save_game);
-        if (btnSave != null) btnSave.setVisibility(View.GONE);
+        //if (southAdapter != null) southAdapter.setCardsEnabled(false);
+        //if (northAdapter != null) northAdapter.setCardsEnabled(false);
+
+
     }
 
     @Override
