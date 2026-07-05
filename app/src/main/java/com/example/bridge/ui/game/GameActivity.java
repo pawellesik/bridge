@@ -62,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View settingsOverlay;
     private View biddingOverlay;
     private View biddingControlsOverlay;
+    private View topBar;
     private RecyclerView rvBiddingHistory;
 
     GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
@@ -103,6 +104,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         startBar = findViewById(R.id.start_bar);
         btn_deal = findViewById(R.id.btn_deal);
         btnClaim = findViewById(R.id.btn_claim);
+        topBar = findViewById(R.id.top_bar_container);
         loadingIndicator = findViewById(R.id.loading_indicator);
 
         gameTop = new GameTop(this);
@@ -225,6 +227,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return settingsOverlay;
     }
 
+    public View getTopBar(){
+        return topBar;
+    }
+
+    public String getGameMode(){
+        return gameMode;
+    }
+
     private void initGame() {
         if ("quick".equals(gameMode)) {
             initGameQiuckMode();
@@ -245,7 +255,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void initGameSingleMode() {
         initGameBase();
         gameTop.hideContract();
-        View topBar = findViewById(R.id.top_bar_container);
         if (topBar != null) topBar.setVisibility(View.GONE);
         biddingOverlay.setVisibility(View.VISIBLE);
         onHandUpdated("South");
@@ -307,7 +316,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public View getBiddingControlsOverlay() {
         return biddingControlsOverlay;
     }
-
+    public View getBiddingOverlay() {
+        return biddingOverlay;
+    }
     private void initBiddingHistory() {
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
         rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));

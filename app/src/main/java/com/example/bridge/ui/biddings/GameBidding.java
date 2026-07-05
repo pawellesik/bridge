@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.content.res.ColorStateList;
 
 import com.example.bridge.R;
+import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Suit;
 import com.example.bridge.ui.game.GameActivity;
@@ -347,10 +348,24 @@ public class GameBidding {
     }
 
     private void onAuctionFinished(View v) {
-        activity.getGameController().setPlayerWinBidding(getWinBidding());
-        v.post(() -> {
-            activity.getGameController().startGame();
-        });
+        if ("single".equals(activity.getGameMode())) {
+            activity.getGameController().setPlayerWinBidding(getWinBidding());
+            Contract contract = new Contract(1, Suit.CLUBS);//todo set Contract
+            activity.onContractDetermined(contract);
+
+            activity.getBiddingControlsOverlay().setVisibility(View.GONE);
+            activity.getBiddingOverlay().setVisibility(View.GONE);
+            activity.onHandUpdated("North");
+            activity.getTopBar().setVisibility(View.VISIBLE);
+
+
+            v.post(() -> {
+                activity.getGameController().startGame();
+            });
+        } else if ("multi".equals(activity.getGameMode())){
+            //todo
+        }
+
     }
 
     private Player getWinBidding() {
