@@ -18,9 +18,15 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
     private final List<String> bids;
     private boolean highlightLast = false;
+    private String previewSelection = "";
 
     public GameBiddingHistoryAdapter(List<String> bids) {
         this.bids = bids;
+    }
+
+    public void setPreviewSelection(String preview) {
+        this.previewSelection = (preview != null) ? preview : "";
+        notifyDataSetChanged();
     }
 
     public void setHighlightLast(boolean highlight) {
@@ -37,14 +43,18 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String bid = bids.get(position);
-        boolean isCurrent = (position == bids.size() - 1);
-        holder.bind(bid, isCurrent, highlightLast);
+        if (position < bids.size()) {
+            String bid = bids.get(position);
+            holder.bind(bid, false, false);
+        } else {
+            // This is the virtual "next" tile (the preview)
+            holder.bind(previewSelection, true, true);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return bids.size();
+        return bids.size() + 1; // Always show one extra tile for preview/placeholder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -63,32 +73,32 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
         void bind(String bid, boolean isCurrent, boolean highlightLast) {
             // Default reset
-            tvLevel.setText(bid);
+            tvLevel.setText("");
             tvLevel.setTextColor(0xFF000000);
             ivSuit.setVisibility(View.GONE);
             tvLevel.setAlpha(1.0f);
             
             View inner = itemView.findViewById(R.id.bid_tile_inner);
             if (inner != null) {
-                if (isCurrent && highlightLast) {
-                    inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
-                    inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); // Solid Yellow
-                    tvLevel.setText(""); // Remove dash/text for the current active slot
-                } else if (isCurrent) {
-                    inner.setBackgroundResource(R.drawable.bg_bid_history_tile_white); // White with Black border
-                    inner.setBackgroundTintList(null);
-                    tvLevel.setText("");
+                if (isCurrent) {
+                    if (highlightLast) {
+                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
+                        inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); // Solid Yellow
+                    } else {
+                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile_white); // White
+                        inner.setBackgroundTintList(null);
+                    }
                 } else {
                     inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
                     inner.setBackgroundTintList(null);
                 }
             }
             
-            if (bid == null || bid.isEmpty() || bid.equals("-")) {
-                if (isCurrent) {
-                    tvLevel.setText(""); // Keep it empty (just borders)
-                    return;
-                }
+            if (bid == null || bid.isEmpty()) {
+                return;
+            }
+
+            if (bid.equals("-")) {
                 tvLevel.setText("-");
                 tvLevel.setAlpha(0.2f);
                 return;

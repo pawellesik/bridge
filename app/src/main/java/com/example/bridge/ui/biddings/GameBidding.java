@@ -60,6 +60,7 @@ public class GameBidding {
             selectedSuitViewId = viewId;
         }
         updateBiddingUI();
+        updateSelectionInHistory();
     }
 
     private void updateBiddingUI() {
@@ -94,6 +95,7 @@ public class GameBidding {
         updateLevelUI(level);
         refreshSuitTilesVisibility();
         updateBiddingUI();
+        updateSelectionInHistory();
     }
 
     private void updateLevelUI(int level) {
@@ -271,5 +273,25 @@ public class GameBidding {
             default:
                 return 0;
         }
+    }
+
+    private void updateSelectionInHistory() {
+        if (lastHistory == null) return;
+
+        String selection = null;
+        if (selectedSuitViewId != View.NO_ID) {
+            if (selectedSuitViewId == R.id.bid_clubs) selection = currentLevel + "C";
+            else if (selectedSuitViewId == R.id.bid_diamonds) selection = currentLevel + "D";
+            else if (selectedSuitViewId == R.id.bid_hearts) selection = currentLevel + "H";
+            else if (selectedSuitViewId == R.id.bid_spades) selection = currentLevel + "S";
+            else if (selectedSuitViewId == R.id.bid_nt) selection = currentLevel + "NT";
+            else if (selectedSuitViewId == R.id.btn_bid_double_toggle) {
+                TextView tvDouble = controlsOverlay.findViewById(R.id.btn_bid_double_toggle);
+                if (tvDouble != null) {
+                    selection = tvDouble.getText().toString();
+                }
+            }
+        }
+        lastHistory.updateBiddingHistory(selection);
     }
 }

@@ -16,7 +16,6 @@ public class GameBiddingHistory {
     private RecyclerView rvBiddingHistory;
     private View biddingControlsOverlay;
     private GameActivity gameActivity;
-    private boolean showYellowTile = false;
 
     public GameBiddingHistory(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
@@ -35,7 +34,7 @@ public class GameBiddingHistory {
     public void addFakeAuction() {
         auction.clear();
         auction.add("Pass");
-        auction.add("1C");
+        /*auction.add("1C");
         auction.add("Pass");
         auction.add("1H");
         auction.add("Pass");
@@ -44,7 +43,7 @@ public class GameBiddingHistory {
         auction.add("2NT");
         auction.add("Pass");
         auction.add("3C");
-        /*auction.add("Pass");
+        auction.add("Pass");
         auction.add("3H");
         auction.add("Pass");
         auction.add("2NT");
@@ -53,6 +52,14 @@ public class GameBiddingHistory {
     }
 
     public void updateBiddingHistory() {
+        updateBiddingHistory(null, true);
+    }
+
+    public void updateBiddingHistory(String currentSelection) {
+        updateBiddingHistory(currentSelection, false);
+    }
+
+    public void updateBiddingHistory(String currentSelection, boolean shouldScroll) {
         // 1. Align with the first bidder (West, North, East, South)
         if (firstPlayer != null) {
             int offset = 0;
@@ -83,16 +90,17 @@ public class GameBiddingHistory {
             }
         }
 
-        // 2. Remove trailing dashes and add one empty placeholder for the "next" bid
+        // 2. Remove trailing dashes
         while (!auction.isEmpty() && "-".equals(auction.get(auction.size() - 1))) {
             auction.remove(auction.size() - 1);
         }
-        auction.add(""); // Placeholder for the active tile
 
         if (gameActivity.getGameBiddingHistoryAdapter() != null) {
+            // Update adapter's preview and data
+            gameActivity.getGameBiddingHistoryAdapter().setPreviewSelection(currentSelection);
             gameActivity.getGameBiddingHistoryAdapter().notifyDataSetChanged();
 
-            if (this.rvBiddingHistory != null && !auction.isEmpty()) {
+            if (this.rvBiddingHistory != null) {
                 rvBiddingHistory.post(() -> {
                     // Extra padding so we can scroll the last row even higher
                     int controlsHeight = (biddingControlsOverlay != null) ? biddingControlsOverlay.getHeight() : 0;
@@ -102,8 +110,10 @@ public class GameBiddingHistory {
                     rvBiddingHistory.setPadding(0, 0, 0, controlsHeight + extraSpace);
                     rvBiddingHistory.setClipToPadding(false);
 
-                    // Scroll to the placeholder
-                    rvBiddingHistory.smoothScrollToPosition(Math.max(0, auction.size() - 1));
+                    // Scroll only if requested (e.g. after a new bid is added)
+                    if (shouldScroll) {
+                        rvBiddingHistory.smoothScrollToPosition(auction.size());
+                    }
                 });
             }
         }
