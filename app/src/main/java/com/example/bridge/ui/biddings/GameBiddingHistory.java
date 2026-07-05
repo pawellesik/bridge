@@ -27,6 +27,16 @@ public class GameBiddingHistory {
         return auction;
     }
 
+    public int getCountAuction() {
+        int count=0;
+        for (String auction: auction){
+            if (!auction.equals("-")){
+                count++;
+            }
+        }
+        return count;
+    }
+
     public void addFakeAuction() {
         auction.clear();
         auction.add("Pass");
