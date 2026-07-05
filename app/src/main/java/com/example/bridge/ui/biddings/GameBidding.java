@@ -56,7 +56,7 @@ public class GameBidding {
         }
 
         if (btnPass != null) {
-            btnPass.setOnClickListener(v -> handleBidOrPass());
+            btnPass.setOnClickListener(v -> handleBidOrPass(v));
         }
 
         applyColors();
@@ -204,7 +204,7 @@ public class GameBidding {
     private void refreshSuitTilesVisibility() {
         if (lastHistory == null) return;
         List<String> auction = lastHistory.getAuction();
-        
+
         updateTileVisibility(R.id.bid_clubs, isLegalBid(currentLevel, "C", auction), false);
         updateTileVisibility(R.id.bid_diamonds, isLegalBid(currentLevel, "D", auction), false);
         updateTileVisibility(R.id.bid_hearts, isLegalBid(currentLevel, "H", auction), false);
@@ -305,7 +305,7 @@ public class GameBidding {
         return null;
     }
 
-    private void handleBidOrPass() {
+    private void handleBidOrPass(View v) {
         if (lastHistory == null) return;
 
         String selection = getCurrentSelectionString();
@@ -322,13 +322,13 @@ public class GameBidding {
         updateBiddingUI();
 
         // 4. Check for 3 passes (end of auction)
-        checkEndOfAuction();
+        checkEndOfAuction(v);
 
         // 5. Apply rules for next turn (if auction continues)
         applyAuctionRules(lastHistory);
     }
 
-    private void checkEndOfAuction() {
+    private void checkEndOfAuction(View v) {
         List<String> auction = lastHistory.getAuction();
         if (auction.size() < 3) return;
 
@@ -343,16 +343,18 @@ public class GameBidding {
         }
 
         if (passCount >= 3) {
-            onAuctionFinished();
+            onAuctionFinished(v);
         }
     }
 
-    private void onAuctionFinished() {
+    private void onAuctionFinished(View v) {
         activity.getGameController().setPlayerWinBidding(getWinBidding());
-        activity.getGameController().startGame();
+        v.post(() -> {
+            activity.getGameController().startGame();
+        });
     }
 
-    private Player getWinBidding(){
+    private Player getWinBidding() {
         return activity.getGameController().getPlayers().get("West"); //todo
     }
 
