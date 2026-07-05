@@ -356,22 +356,9 @@ public class GameBidding {
     private void onAuctionFinished(View v) {
         if ("single".equals(activity.getGameMode())) {
             Player declarer = getDeclarer();
-            if (declarer != null) {
-                activity.getGameController().setPlayerFirstPlayCard(getNextPlayer(declarer));
-            }
             Contract contract = determineFinalContract();
-            activity.getGameController().getBiddingManager().sortHandsByContract(contract.getSuit());
-            activity.getGameController().setCurrentContract(contract);
 
-            activity.getBiddingControlsOverlay().setVisibility(View.GONE);
-            activity.getBiddingOverlay().setVisibility(View.GONE);
-            activity.onHandUpdated("North");
-            activity.onHandUpdated("South");
-            activity.getTopBar().setVisibility(View.VISIBLE);
-
-            v.post(() -> {
-                activity.getGameController().startGame();
-            });
+            activity.getGameController().onBiddingFinished(contract, declarer);
         } else if ("multi".equals(activity.getGameMode())) {
             //todo
         }
@@ -459,21 +446,6 @@ public class GameBidding {
         String[] names = {"West", "North", "East", "South"};
         String name = names[index % 4];
         return activity.getGameController().getPlayers().get(name);
-    }
-
-    private Player getNextPlayer(Player player) {
-        if (player == null) return null;
-        String[] names = {"West", "North", "East", "South"};
-        int currentIndex = -1;
-        for (int i = 0; i < names.length; i++) {
-            if (names[i].equals(player.getName())) {
-                currentIndex = i;
-                break;
-            }
-        }
-        if (currentIndex == -1) return null;
-        String nextName = names[(currentIndex + 1) % 4];
-        return activity.getGameController().getPlayers().get(nextName);
     }
 
     private boolean isForcedBid() {

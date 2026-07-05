@@ -55,7 +55,6 @@ public class GameController {
 
     public void setCurrentContract(Contract currentContract) {
         this.currentContract = currentContract;
-        callback.onContractDetermined(currentContract);
     }
 
     private Contract currentContract = new Contract(true);
@@ -110,7 +109,23 @@ public class GameController {
         //callback.onTotalScore();
     }
 
+    public void onBiddingFinished(Contract contract, Player declarer) {
+        this.currentContract = contract;
+        this.playerFirstPlayCard = getNextPlayer(declarer);
+
+        if (contract.getSuit() != null || contract.isNoTrump()) {
+            biddingManager.sortHandsByContract(contract.getSuit());
+        }
+
+        callback.onContractDetermined(contract);
+        callback.onHandUpdated("North");
+        callback.onHandUpdated("South");
+
+        handler.postDelayed(this::startGame, 300);
+    }
+
     public void startGame() {
+        if (playerFirstPlayCard == null) return;
         playerFirstPlayCard.setCurrentMove(true);
         callback.onTurnChanged(playerFirstPlayCard.getName());
         playCardOpponent(playerFirstPlayCard);
@@ -259,13 +274,17 @@ public class GameController {
     }
 
     private String determineTrickWinner() {
-        Card leadCard = currentTrick.getCard(playerFirstPlayCard.getName());
-        if (leadCard == null) return players.keySet().iterator().next(); // Should not happen
+        if (currentTrick.getCardsOnTableMap().isEmpty()) return players.keySet().iterator().next();
+
+        // The first card played in the trick is the lead card
+        Map.Entry<String, Card> leadEntry = currentTrick.getCardsOnTableMap().entrySet().iterator().next();
+        String leaderName = leadEntry.getKey();
+        Card leadCard = leadEntry.getValue();
 
         Suit ledSuit = leadCard.getSuit();
         Suit trumpSuit = getTrumpSuit();
 
-        String winnerName = playerFirstPlayCard.getName();
+        String winnerName = leaderName;
         Card bestCard = leadCard;
 
         for (Map.Entry<String, Card> entry : currentTrick.getCardsOnTableMap().entrySet()) {
