@@ -238,7 +238,7 @@ public class GameBidding {
         if (activity.getBiddingControlsOverlay() == null) return;
 
         updateSuitTile(R.id.bid_clubs_text, R.id.bid_clubs_icon, Suit.CLUBS);
-        updateSuitTile(R.id.bid_diamonds_text, R.id.bid_clubs_icon, Suit.DIAMONDS); // Fix: icons should match if possible, but keeping consistency
+        updateSuitTile(R.id.bid_diamonds_text, R.id.bid_diamonds_icon, Suit.DIAMONDS);
         updateSuitTile(R.id.bid_hearts_text, R.id.bid_hearts_icon, Suit.HEARTS);
         updateSuitTile(R.id.bid_spades_text, R.id.bid_spades_icon, Suit.SPADES);
     }
