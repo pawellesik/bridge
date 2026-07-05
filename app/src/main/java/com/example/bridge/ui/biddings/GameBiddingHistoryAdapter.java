@@ -48,7 +48,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             holder.bind(bid, false, false);
         } else {
             // This is the virtual "next" tile (the preview)
-            holder.bind(previewSelection, true, true);
+            holder.bind(previewSelection, true, highlightLast);
         }
     }
 
