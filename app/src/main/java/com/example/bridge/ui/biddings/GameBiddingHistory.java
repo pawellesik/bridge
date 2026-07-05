@@ -1,7 +1,5 @@
 package com.example.bridge.ui.biddings;
 
-import android.view.View;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.model.Player;
@@ -14,13 +12,11 @@ public class GameBiddingHistory {
     private final List<String> auction = new ArrayList<>();
     private Player firstPlayer;
     private RecyclerView rvBiddingHistory;
-    private View biddingControlsOverlay;
     private GameActivity gameActivity;
 
     public GameBiddingHistory(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
         this.rvBiddingHistory = gameActivity.getRvBiddingHistory();
-        this.biddingControlsOverlay = gameActivity.getBiddingControlsOverlay();
     }
 
     public void setFirstPlayer(Player firstPlayer) {
@@ -102,17 +98,24 @@ public class GameBiddingHistory {
 
             if (this.rvBiddingHistory != null) {
                 rvBiddingHistory.post(() -> {
-                    // Extra padding so we can scroll the last row even higher
-                    int controlsHeight = (biddingControlsOverlay != null) ? biddingControlsOverlay.getHeight() : 0;
                     float density = gameActivity.getResources().getDisplayMetrics().density;
-                    int extraSpace = (int) (80 * density); // Two rows (40dp each) of extra space
+                    // The bidding controls overlap the bottom of the history by about 36dp (the tabs).
+                    // We set a padding so the bids don't get stuck behind the controls.
+                    int paddingBottom = (int) (40 * density);
 
-                    rvBiddingHistory.setPadding(0, 0, 0, controlsHeight + extraSpace);
+                    rvBiddingHistory.setPadding(0, 0, 0, paddingBottom);
                     rvBiddingHistory.setClipToPadding(false);
 
                     // Scroll only if requested (e.g. after a new bid is added)
-                    if (shouldScroll) {
-                        rvBiddingHistory.smoothScrollToPosition(auction.size());
+                    if (shouldScroll && rvBiddingHistory.getHeight() > 0) {
+                        int rowHeight = (int) (40 * density);
+                        int totalRows = (auction.size() + 4) / 4; // include the preview row
+                        int totalContentHeight = totalRows * rowHeight;
+                        int visibleArea = rvBiddingHistory.getHeight() - paddingBottom;
+
+                        if (totalContentHeight > visibleArea) {
+                            rvBiddingHistory.smoothScrollToPosition(auction.size());
+                        }
                     }
                 });
             }
