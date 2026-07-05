@@ -341,7 +341,7 @@ public class GameBidding {
                 break;
             }
         }
-System.out.println("plesik "+ lastHistory.getCountAuction());
+
         if (passCount >= 3 &&  lastHistory.getCountAuction()>3) {
             onAuctionFinished(v);
         }
