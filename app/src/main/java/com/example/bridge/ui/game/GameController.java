@@ -53,7 +53,7 @@ public class GameController {
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
     private Contract currentContract = new Contract(true);
-    private Player playerWinBidding;
+    private Player playerFirstPlayCard;
     private int snScore = 0;
     private int weScore = 0;
     private boolean isAutoPlayMode = false;
@@ -93,21 +93,21 @@ public class GameController {
         }
     }
 
-    public void setPlayerWinBidding(Player playerWinBidding) {
-        this.playerWinBidding = playerWinBidding;
+    public void setPlayerFirstPlayCard(Player playerFirstPlayCard) {
+        this.playerFirstPlayCard = playerFirstPlayCard;
     }
 
     public void calculateAndSetTheBestContract() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
-        playerWinBidding = players.get("West");
+        playerFirstPlayCard = players.get("West");
         //callback.onTotalScore();
     }
 
     public void startGame() {
-        playerWinBidding.setCurrentMove(true);
-        callback.onTurnChanged(playerWinBidding.getName());
-        playCardOpponent(playerWinBidding);
+        playerFirstPlayCard.setCurrentMove(true);
+        callback.onTurnChanged(playerFirstPlayCard.getName());
+        playCardOpponent(playerFirstPlayCard);
     }
 
 
@@ -195,7 +195,7 @@ public class GameController {
             return true;
         }
 
-        Card leadCard = currentTrick.getCard(playerWinBidding.getName());
+        Card leadCard = currentTrick.getCard(playerFirstPlayCard.getName());
         if (leadCard == null) return true;
 
         Suit ledSuit = leadCard.getSuit();
@@ -226,7 +226,7 @@ public class GameController {
                 }
 
                 Player nextPlayer = players.get(winnerName);
-                playerWinBidding = players.get(winnerName);
+                playerFirstPlayCard = players.get(winnerName);
                 nextPlayer.setCurrentMove(true);
 
                 callback.onTurnChanged(nextPlayer.getName());
@@ -253,13 +253,13 @@ public class GameController {
     }
 
     private String determineTrickWinner() {
-        Card leadCard = currentTrick.getCard(playerWinBidding.getName());
+        Card leadCard = currentTrick.getCard(playerFirstPlayCard.getName());
         if (leadCard == null) return players.keySet().iterator().next(); // Should not happen
 
         Suit ledSuit = leadCard.getSuit();
         Suit trumpSuit = getTrumpSuit();
 
-        String winnerName = playerWinBidding.getName();
+        String winnerName = playerFirstPlayCard.getName();
         Card bestCard = leadCard;
 
         for (Map.Entry<String, Card> entry : currentTrick.getCardsOnTableMap().entrySet()) {
@@ -301,7 +301,7 @@ public class GameController {
     private void playCardOpponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            Card bestCard = calculateBestCard(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, playerWinBidding);
+            Card bestCard = calculateBestCard(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, playerFirstPlayCard);
             if (bestCard == null) {
                 bestCard = hand.get((int) (Math.random() * hand.size()));//todo wybrac mozna tylko do dozwolona karte a nie losowo
             }

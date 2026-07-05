@@ -349,8 +349,9 @@ public class GameBidding {
 
     private void onAuctionFinished(View v) {
         if ("single".equals(activity.getGameMode())) {
-            activity.getGameController().setPlayerWinBidding(getWinBidding());
-            Contract contract = new Contract(1, Suit.CLUBS);//todo set Contract
+            activity.getGameController().setPlayerFirstPlayCard(getPlayerFirstPlayCard());
+
+            Contract contract = determineFinalContract();
             activity.onContractDetermined(contract);
 
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);
@@ -368,8 +369,80 @@ public class GameBidding {
 
     }
 
-    private Player getWinBidding() {
-        return activity.getGameController().getPlayers().get("West"); //todo
+    private Contract determineFinalContract() {
+        if (lastHistory == null) return new Contract(true);
+        List<String> auction = lastHistory.getAuction();
+
+        String lastBid = null;
+        for (int i = auction.size() - 1; i >= 0; i--) {
+            String b = auction.get(i);
+            if (isRealBid(b)) {
+                lastBid = b;
+                break;
+            }
+        }
+
+        if (lastBid == null) return new Contract(true);
+
+        int level = Integer.parseInt(lastBid.substring(0, 1));
+        String suitCode = getSuitCode(lastBid);
+        Suit suit = null;
+        if (!suitCode.equals("NT")) {
+            switch (suitCode) {
+                case "C": suit = Suit.CLUBS; break;
+                case "D": suit = Suit.DIAMONDS; break;
+                case "H": suit = Suit.HEARTS; break;
+                case "S": suit = Suit.SPADES; break;
+            }
+        }
+        return new Contract(level, suit);
+    }
+
+    private Player getPlayerFirstPlayCard() {
+        if (lastHistory == null) return null;
+        List<String> auction = lastHistory.getAuction();
+
+        int lastBidIndex = -1;
+        for (int i = auction.size() - 1; i >= 0; i--) {
+            String b = auction.get(i);
+            if (isRealBid(b)) {
+                lastBidIndex = i;
+                break;
+            }
+        }
+
+        if (lastBidIndex == -1) return null;
+
+        String lastBid = auction.get(lastBidIndex);
+        String suitCode = getSuitCode(lastBid);
+        int winningSide = lastBidIndex % 2;
+
+        for (int i = 0; i <= lastBidIndex; i++) {
+            String b = auction.get(i);
+            if (isRealBid(b) && (i % 2 == winningSide)) {
+                if (getSuitCode(b).equals(suitCode)) {
+                    return getPlayerAtAuctionIndex(i+1);
+                }
+            }
+        }
+
+        return getPlayerAtAuctionIndex(lastBidIndex+1);
+    }
+
+    private boolean isRealBid(String b) {
+        return b != null && !b.isEmpty() && !b.equalsIgnoreCase("Pass") &&
+                !b.equalsIgnoreCase("X") && !b.equalsIgnoreCase("XX") && !b.equals("-");
+    }
+
+    private String getSuitCode(String bid) {
+        if (bid == null || bid.length() < 2) return "";
+        return bid.substring(1).toUpperCase();
+    }
+
+    private Player getPlayerAtAuctionIndex(int index) {
+        String[] names = {"West", "North", "East", "South"};
+        String name = names[index % 4];
+        return activity.getGameController().getPlayers().get(name);
     }
 
 }
