@@ -361,7 +361,6 @@ public class GameBidding {
             }
             Contract contract = determineFinalContract();
             activity.getGameController().getBiddingManager().sortHandsByContract(contract.getSuit());
-            activity.onContractDetermined(contract);
             activity.getGameController().setCurrentContract(contract);
 
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);

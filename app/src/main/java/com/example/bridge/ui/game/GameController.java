@@ -55,6 +55,7 @@ public class GameController {
 
     public void setCurrentContract(Contract currentContract) {
         this.currentContract = currentContract;
+        callback.onContractDetermined(currentContract);
     }
 
     private Contract currentContract = new Contract(true);
@@ -103,7 +104,7 @@ public class GameController {
     }
 
     public void calculateAndSetTheBestContract() {
-        currentContract = biddingManager.determineBestContract();
+        setCurrentContract(biddingManager.determineBestContract());
         callback.onContractDetermined(currentContract);
         playerFirstPlayCard = players.get("West");
         //callback.onTotalScore();
