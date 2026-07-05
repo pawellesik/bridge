@@ -222,6 +222,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGame();
     }
 
+
+
     private void initGame() {
         if ("quick".equals(gameMode)) {
             initGameQiuckMode();
@@ -257,6 +259,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         onVisibleStartBar(true);
     }
 
+    public GameController getGameController(){
+        return gameController;
+    }
     private void initGameBase() {
         Map<String, Player> players = new LinkedHashMap<>();
         players.put("North", new Player("North", playedCardContainerNorth));

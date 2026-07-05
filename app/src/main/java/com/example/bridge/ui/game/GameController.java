@@ -93,6 +93,10 @@ public class GameController {
         }
     }
 
+    public void setPlayerWinBidding(Player playerWinBidding) {
+        this.playerWinBidding = playerWinBidding;
+    }
+
     public void calculateAndSetTheBestContract() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);

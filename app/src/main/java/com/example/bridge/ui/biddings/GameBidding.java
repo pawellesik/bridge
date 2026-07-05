@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.content.res.ColorStateList;
 
 import com.example.bridge.R;
+import com.example.bridge.model.Player;
 import com.example.bridge.model.Suit;
 import com.example.bridge.ui.game.GameActivity;
 import com.google.android.material.button.MaterialButton;
@@ -18,7 +19,6 @@ public class GameBidding {
     private int currentLevel = 1;
     private int selectedSuitViewId = View.NO_ID;
     private GameBiddingHistory lastHistory;
-
     private MaterialButton btnPass;
 
     public GameBidding(GameActivity activity, View controlsOverlay) {
@@ -348,6 +348,12 @@ public class GameBidding {
     }
 
     private void onAuctionFinished() {
-        // To be implemented
+        activity.getGameController().setPlayerWinBidding(getWinBidding());
+        activity.getGameController().startGame();
     }
+
+    private Player getWinBidding(){
+        return activity.getGameController().getPlayers().get("West"); //todo
+    }
+
 }
