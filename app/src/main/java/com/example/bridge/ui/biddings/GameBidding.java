@@ -23,14 +23,14 @@ public class GameBidding {
 
     public GameBidding(GameActivity activity) {
         this.activity = activity;
-        if (activity.getControlsOverlay() != null) {
-            btnPass = activity.getControlsOverlay().findViewById(R.id.btn_bid_pass);
+        if (activity.getBiddingControlsOverlay() != null) {
+            btnPass = activity.getBiddingControlsOverlay().findViewById(R.id.btn_bid_pass);
         }
         setupListeners();
     }
 
     private void setupListeners() {
-        if (activity.getControlsOverlay() == null) return;
+        if (activity.getBiddingControlsOverlay() == null) return;
 
         int[] levelBtnIds = {
                 R.id.btn_level_1, R.id.btn_level_2, R.id.btn_level_3,
@@ -39,7 +39,7 @@ public class GameBidding {
 
         for (int m = 0; m < levelBtnIds.length; m++) {
             final int level = m + 1;
-            View btn = activity.getControlsOverlay().findViewById(levelBtnIds[m]);
+            View btn = activity.getBiddingControlsOverlay().findViewById(levelBtnIds[m]);
             if (btn != null) {
                 btn.setOnClickListener(v -> selectLevel(level));
             }
@@ -48,7 +48,7 @@ public class GameBidding {
         // Suit tiles, NT and Double (X) listeners
         int[] interactiveTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt, R.id.btn_bid_double_toggle};
         for (int id : interactiveTileIds) {
-            View tile = activity.getControlsOverlay().findViewById(id);
+            View tile = activity.getBiddingControlsOverlay().findViewById(id);
             if (tile != null) {
                 tile.setOnClickListener(v -> toggleSuitSelection(id));
             }
@@ -73,11 +73,11 @@ public class GameBidding {
     }
 
     private void updateBiddingUI() {
-        if (activity.getControlsOverlay() == null) return;
+        if (activity.getBiddingControlsOverlay() == null) return;
 
         int[] interactiveTileIds = {R.id.bid_clubs, R.id.bid_diamonds, R.id.bid_hearts, R.id.bid_spades, R.id.bid_nt, R.id.btn_bid_double_toggle};
         for (int id : interactiveTileIds) {
-            View tile = activity.getControlsOverlay().findViewById(id);
+            View tile = activity.getBiddingControlsOverlay().findViewById(id);
             if (tile != null) {
                 tile.setSelected(id == selectedSuitViewId);
             }
@@ -98,7 +98,7 @@ public class GameBidding {
         this.currentLevel = level;
         selectedSuitViewId = View.NO_ID;
 
-        if (activity.getControlsOverlay() == null) return;
+        if (activity.getBiddingControlsOverlay() == null) return;
 
         updateLevelUI(level);
         refreshSuitTilesVisibility();
@@ -113,7 +113,7 @@ public class GameBidding {
         updateTileText(R.id.bid_hearts_text, levelStr);
         updateTileText(R.id.bid_spades_text, levelStr);
 
-        TextView tvNt = activity.getControlsOverlay().findViewById(R.id.bid_nt);
+        TextView tvNt = activity.getBiddingControlsOverlay().findViewById(R.id.bid_nt);
         if (tvNt != null) tvNt.setText(levelStr + " " + activity.getString(R.string.suit_nt));
 
         // Sync tab selection states
@@ -122,13 +122,13 @@ public class GameBidding {
                 R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
         };
         for (int i = 0; i < levelBtnIds.length; i++) {
-            View btn = activity.getControlsOverlay().findViewById(levelBtnIds[i]);
+            View btn = activity.getBiddingControlsOverlay().findViewById(levelBtnIds[i]);
             if (btn != null) btn.setSelected((i + 1) == level);
         }
     }
 
     public void applyAuctionRules(GameBiddingHistory history) {
-        if (activity.getControlsOverlay() == null || history == null) return;
+        if (activity.getBiddingControlsOverlay() == null || history == null) return;
         this.lastHistory = history;
 
         List<String> auction = history.getAuction();
@@ -144,7 +144,7 @@ public class GameBidding {
             int lv = ++tabIdx;
             // A level is legal if at least its highest bid (NT) is legal
             boolean anyLegal = isLegalBid(lv, "NT", auction);
-            View btn = activity.getControlsOverlay().findViewById(id);
+            View btn = activity.getBiddingControlsOverlay().findViewById(id);
             if (btn != null) {
                 btn.setVisibility(anyLegal ? View.VISIBLE : View.GONE);
                 if (anyLegal && firstVisibleLevel == -1) firstVisibleLevel = lv;
@@ -188,7 +188,7 @@ public class GameBidding {
             }
         }
 
-        TextView tvDouble = activity.getControlsOverlay().findViewById(R.id.btn_bid_double_toggle);
+        TextView tvDouble = activity.getBiddingControlsOverlay().findViewById(R.id.btn_bid_double_toggle);
         if (tvDouble != null) {
             tvDouble.setText(doubleText);
             tvDouble.setTextColor(doubleColor);
@@ -212,7 +212,7 @@ public class GameBidding {
     }
 
     private void updateTileVisibility(int id, boolean visible, boolean useGone) {
-        View tile = activity.getControlsOverlay().findViewById(id);
+        View tile = activity.getBiddingControlsOverlay().findViewById(id);
         if (tile != null) {
             if (visible) {
                 tile.setVisibility(View.VISIBLE);
@@ -223,12 +223,12 @@ public class GameBidding {
     }
 
     private void updateTileText(int id, String text) {
-        TextView tv = activity.getControlsOverlay().findViewById(id);
+        TextView tv = activity.getBiddingControlsOverlay().findViewById(id);
         if (tv != null) tv.setText(text);
     }
 
     public void applyColors() {
-        if (activity.getControlsOverlay() == null) return;
+        if (activity.getBiddingControlsOverlay() == null) return;
 
         updateSuitTile(R.id.bid_clubs_text, R.id.bid_clubs_icon, Suit.CLUBS);
         updateSuitTile(R.id.bid_diamonds_text, R.id.bid_diamonds_icon, Suit.DIAMONDS);
@@ -237,8 +237,8 @@ public class GameBidding {
     }
 
     private void updateSuitTile(int textId, int iconId, Suit suit) {
-        TextView tv = activity.getControlsOverlay().findViewById(textId);
-        ImageView iv = activity.getControlsOverlay().findViewById(iconId);
+        TextView tv = activity.getBiddingControlsOverlay().findViewById(textId);
+        ImageView iv = activity.getBiddingControlsOverlay().findViewById(iconId);
         int color = suit.getColor(activity);
 
         if (tv != null) tv.setTextColor(color);
@@ -298,7 +298,7 @@ public class GameBidding {
         if (selectedSuitViewId == R.id.bid_spades) return currentLevel + "S";
         if (selectedSuitViewId == R.id.bid_nt) return currentLevel + "NT";
         if (selectedSuitViewId == R.id.btn_bid_double_toggle) {
-            TextView tvDouble = activity.getControlsOverlay().findViewById(R.id.btn_bid_double_toggle);
+            TextView tvDouble = activity.getBiddingControlsOverlay().findViewById(R.id.btn_bid_double_toggle);
             return (tvDouble != null) ? tvDouble.getText().toString() : "X";
         }
         return null;

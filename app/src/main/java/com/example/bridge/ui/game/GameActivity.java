@@ -221,13 +221,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGame();
     }
 
-
     public View getSettingsOverlay() {
         return settingsOverlay;
-    }
-
-    public View getControlsOverlay(){
-        return getControlsOverlay();
     }
 
     private void initGame() {
