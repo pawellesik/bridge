@@ -397,10 +397,18 @@ public class GameBidding {
         Suit suit = null;
         if (!suitCode.equals("NT")) {
             switch (suitCode) {
-                case "C": suit = Suit.CLUBS; break;
-                case "D": suit = Suit.DIAMONDS; break;
-                case "H": suit = Suit.HEARTS; break;
-                case "S": suit = Suit.SPADES; break;
+                case "C":
+                    suit = Suit.CLUBS;
+                    break;
+                case "D":
+                    suit = Suit.DIAMONDS;
+                    break;
+                case "H":
+                    suit = Suit.HEARTS;
+                    break;
+                case "S":
+                    suit = Suit.SPADES;
+                    break;
             }
         }
         return new Contract(level, suit);
