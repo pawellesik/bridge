@@ -38,9 +38,9 @@ public class GameBidding {
                 R.id.btn_level_4, R.id.btn_level_5, R.id.btn_level_6, R.id.btn_level_7
         };
 
-        for (int m = 0; m < levelBtnIds.length; m++) {
-            final int level = m + 1;
-            View btn = activity.getBiddingControlsOverlay().findViewById(levelBtnIds[m]);
+        for (int i = 0; i < levelBtnIds.length; i++) {
+            final int level = i + 1;
+            View btn = activity.getBiddingControlsOverlay().findViewById(levelBtnIds[i]);
             if (btn != null) {
                 btn.setOnClickListener(v -> selectLevel(level));
             }
@@ -88,9 +88,15 @@ public class GameBidding {
             if (selectedSuitViewId != View.NO_ID) {
                 btnPass.setText("BID");
                 btnPass.setBackgroundTintList(ColorStateList.valueOf(0xFF2E5A88)); // Professional Blue for bidding
+                btnPass.setVisibility(View.VISIBLE);
             } else {
                 btnPass.setText("PASS");
                 btnPass.setBackgroundTintList(ColorStateList.valueOf(0xFF4D7C4F)); // Traditional Green for pass
+                if (isForcedBid()) {
+                    btnPass.setVisibility(View.INVISIBLE);
+                } else {
+                    btnPass.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -232,7 +238,7 @@ public class GameBidding {
         if (activity.getBiddingControlsOverlay() == null) return;
 
         updateSuitTile(R.id.bid_clubs_text, R.id.bid_clubs_icon, Suit.CLUBS);
-        updateSuitTile(R.id.bid_diamonds_text, R.id.bid_diamonds_icon, Suit.DIAMONDS);
+        updateSuitTile(R.id.bid_diamonds_text, R.id.bid_clubs_icon, Suit.DIAMONDS); // Fix: icons should match if possible, but keeping consistency
         updateSuitTile(R.id.bid_hearts_text, R.id.bid_hearts_icon, Suit.HEARTS);
         updateSuitTile(R.id.bid_spades_text, R.id.bid_spades_icon, Suit.SPADES);
     }
@@ -342,14 +348,17 @@ public class GameBidding {
             }
         }
 
-        if (passCount >= 3 &&  lastHistory.getCountAuction()>3) {
+        if (passCount >= 3 && lastHistory.getCountAuction() > 3) {
             onAuctionFinished(v);
         }
     }
 
     private void onAuctionFinished(View v) {
         if ("single".equals(activity.getGameMode())) {
-            activity.getGameController().setPlayerFirstPlayCard(getPlayerFirstPlayCard());
+            Player declarer = getDeclarer();
+            if (declarer != null) {
+                activity.getGameController().setPlayerFirstPlayCard(getNextPlayer(declarer));
+            }
 
             Contract contract = determineFinalContract();
             activity.onContractDetermined(contract);
@@ -359,14 +368,12 @@ public class GameBidding {
             activity.onHandUpdated("North");
             activity.getTopBar().setVisibility(View.VISIBLE);
 
-
             v.post(() -> {
                 activity.getGameController().startGame();
             });
-        } else if ("multi".equals(activity.getGameMode())){
+        } else if ("multi".equals(activity.getGameMode())) {
             //todo
         }
-
     }
 
     private Contract determineFinalContract() {
@@ -398,7 +405,7 @@ public class GameBidding {
         return new Contract(level, suit);
     }
 
-    private Player getPlayerFirstPlayCard() {
+    private Player getDeclarer() {
         if (lastHistory == null) return null;
         List<String> auction = lastHistory.getAuction();
 
@@ -415,18 +422,18 @@ public class GameBidding {
 
         String lastBid = auction.get(lastBidIndex);
         String suitCode = getSuitCode(lastBid);
-        int winningSide = lastBidIndex % 2;
+        int winningSide = lastBidIndex % 4 % 2;
 
         for (int i = 0; i <= lastBidIndex; i++) {
             String b = auction.get(i);
-            if (isRealBid(b) && (i % 2 == winningSide)) {
+            if (isRealBid(b) && (i % 4 % 2 == winningSide)) {
                 if (getSuitCode(b).equals(suitCode)) {
-                    return getPlayerAtAuctionIndex(i+1);
+                    return getPlayerAtAuctionIndex(i);
                 }
             }
         }
 
-        return getPlayerAtAuctionIndex(lastBidIndex+1);
+        return getPlayerAtAuctionIndex(lastBidIndex);
     }
 
     private boolean isRealBid(String b) {
@@ -445,4 +452,28 @@ public class GameBidding {
         return activity.getGameController().getPlayers().get(name);
     }
 
+    private Player getNextPlayer(Player player) {
+        if (player == null) return null;
+        String[] names = {"West", "North", "East", "South"};
+        int currentIndex = -1;
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].equals(player.getName())) {
+                currentIndex = i;
+                break;
+            }
+        }
+        if (currentIndex == -1) return null;
+        String nextName = names[(currentIndex + 1) % 4];
+        return activity.getGameController().getPlayers().get(nextName);
+    }
+
+    private boolean isForcedBid() {
+        if (lastHistory == null) return false;
+        if (lastHistory.getCountAuction() != 3) return false;
+
+        for (String b : lastHistory.getAuction()) {
+            if (!"-".equals(b) && !"Pass".equalsIgnoreCase(b)) return false;
+        }
+        return true;
+    }
 }

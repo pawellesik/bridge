@@ -28,9 +28,9 @@ public class GameBiddingHistory {
     }
 
     public int getCountAuction() {
-        int count=0;
-        for (String auction: auction){
-            if (!auction.equals("-")){
+        int count = 0;
+        for (String b : auction) {
+            if (!"-".equals(b)) {
                 count++;
             }
         }
