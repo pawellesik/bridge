@@ -182,6 +182,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         });
 
+
+
         btnClaim.setOnClickListener(v -> {
             if (isProcessingMove) return;
             isProcessingMove = true;

@@ -53,7 +53,7 @@ public class GameController {
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
     private Contract currentContract = new Contract(true);
-    private String trickLeaderName;
+    private Player playerWinBidding;
     private int snScore = 0;
     private int weScore = 0;
     private boolean isAutoPlayMode = false;
@@ -96,21 +96,16 @@ public class GameController {
     public void calculateAndSetTheBestContract() {
         currentContract = biddingManager.determineBestContract();
         callback.onContractDetermined(currentContract);
-        trickLeaderName = getPlayerWinBidding().getName();
+        playerWinBidding = players.get("West");
         //callback.onTotalScore();
     }
 
     public void startGame() {
-        String playerWinBidding = getPlayerWinBidding().getName();
-        trickLeaderName = playerWinBidding;
-        players.get(playerWinBidding).setCurrentMove(true);
-        callback.onTurnChanged(playerWinBidding);
-        playCardOpponent(players.get(playerWinBidding));
+        playerWinBidding.setCurrentMove(true);
+        callback.onTurnChanged(playerWinBidding.getName());
+        playCardOpponent(playerWinBidding);
     }
 
-    public Player getPlayerWinBidding() {//todo gdy ktos inny wygra lictacje to tutaj nalezy zmienic
-        return players.get("West");
-    }
 
     public Contract getCurrentContract() {
         return currentContract;
@@ -196,7 +191,7 @@ public class GameController {
             return true;
         }
 
-        Card leadCard = currentTrick.getCard(trickLeaderName);
+        Card leadCard = currentTrick.getCard(playerWinBidding.getName());
         if (leadCard == null) return true;
 
         Suit ledSuit = leadCard.getSuit();
@@ -227,7 +222,7 @@ public class GameController {
                 }
 
                 Player nextPlayer = players.get(winnerName);
-                trickLeaderName = winnerName;
+                playerWinBidding = players.get(winnerName);
                 nextPlayer.setCurrentMove(true);
 
                 callback.onTurnChanged(nextPlayer.getName());
@@ -245,13 +240,13 @@ public class GameController {
     }
 
     private String determineTrickWinner() {
-        Card leadCard = currentTrick.getCard(trickLeaderName);
+        Card leadCard = currentTrick.getCard(playerWinBidding.getName());
         if (leadCard == null) return players.keySet().iterator().next(); // Should not happen
 
         Suit ledSuit = leadCard.getSuit();
         Suit trumpSuit = getTrumpSuit();
 
-        String winnerName = trickLeaderName;
+        String winnerName = playerWinBidding.getName();
         Card bestCard = leadCard;
 
         for (Map.Entry<String, Card> entry : currentTrick.getCardsOnTableMap().entrySet()) {
@@ -293,7 +288,7 @@ public class GameController {
     private void playCardOpponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            Card bestCard = calculateBestCard(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, trickLeaderName);
+            Card bestCard = calculateBestCard(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, playerWinBidding);
             if (bestCard == null) {
                 bestCard = hand.get((int) (Math.random() * hand.size()));//todo wybrac mozna tylko do dozwolona karte a nie losowo
             }
@@ -303,7 +298,7 @@ public class GameController {
         }
     }
 
-    private Card calculateBestCard(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, Contract contract, String leaderName) {
+    private Card calculateBestCard(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, Contract contract, Player leaderName) {
         int[] ddsCards = new int[16];
         String[] handNames = {"North", "East", "South", "West"};
         for (int h = 0; h < 4; h++) {
@@ -317,7 +312,7 @@ public class GameController {
         }
 
         int trump = getTrumpDdsIndex(contract);
-        int leaderIdx = getPlayerDdsIndex(leaderName);
+        int leaderIdx = getPlayerDdsIndex(leaderName.getName());
 
         int[] trickSuits = {-1, -1, -1};
         int[] trickRanks = {0, 0, 0};
