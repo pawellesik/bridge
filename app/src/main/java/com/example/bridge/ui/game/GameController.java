@@ -52,6 +52,11 @@ public class GameController {
     private final DdsSolver ddsSolver;
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
+
+    public void setCurrentContract(Contract currentContract) {
+        this.currentContract = currentContract;
+    }
+
     private Contract currentContract = new Contract(true);
     private Player playerFirstPlayCard;
     private int snScore = 0;
