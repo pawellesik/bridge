@@ -44,11 +44,11 @@ public class GameBiddingHistory {
         auction.add("2NT");
         auction.add("Pass");
         auction.add("3C");
-        auction.add("Pass");
+        /*auction.add("Pass");
         auction.add("3H");
         auction.add("Pass");
         auction.add("2NT");
-        auction.add("X");
+        auction.add("X");*/
 
     }
 
@@ -103,7 +103,7 @@ public class GameBiddingHistory {
                     rvBiddingHistory.setClipToPadding(false);
 
                     // Scroll to the placeholder
-                    rvBiddingHistory.smoothScrollToPosition(auction.size() - 5);
+                    rvBiddingHistory.smoothScrollToPosition(Math.max(0, auction.size() - 1));
                 });
             }
         }
