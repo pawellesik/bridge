@@ -106,7 +106,6 @@ public class GameController {
         setCurrentContract(biddingManager.determineBestContract());
         callback.onContractDetermined(currentContract);
         playerFirstPlayCard = players.get("West");
-        //callback.onTotalScore();
     }
 
     public void onBiddingFinished(Contract contract, Player declarer) {
