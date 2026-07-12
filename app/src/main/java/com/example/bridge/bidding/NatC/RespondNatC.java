@@ -105,7 +105,7 @@ public class RespondNatC extends NatC {
 
     public static PositionCalls oneHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        Call[] raises = new Call[]{Bid._2H, Bid._3H, Bid._4H};
+        Call[] raises = new Call[]{Bid._2H, Bid._3H, Bid._4H, Bid._2S, Bid._3S, Bid._4S};
         if (ps.isPassedHand()) {
             choices.addRules(
                     partnerBids(OpenBid2NatC::responderChangedSuits),
