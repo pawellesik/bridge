@@ -1,9 +1,9 @@
 package com.example.bridge.bidding.TestBridgeBidder;
 
-import com.example.bridge.bidding.BridgeBidder.Tools.Direction;
-import com.example.bridge.bidding.BridgeBidder.Tools.Game;
-import com.example.bridge.bidding.BridgeBidder.Tools.Scoring;
-import com.example.bridge.bidding.BridgeBidder.Tools.Vulnerable;
+import com.example.bridge.bidding.Tools.Direction;
+import com.example.bridge.bidding.Tools.Game;
+import com.example.bridge.bidding.Tools.Scoring;
+import com.example.bridge.bidding.Tools.Vulnerable;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

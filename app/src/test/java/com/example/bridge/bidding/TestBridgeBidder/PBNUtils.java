@@ -1,9 +1,9 @@
 package com.example.bridge.bidding.TestBridgeBidder;
 
-import com.example.bridge.bidding.BridgeBidder.Tools.PBN.FromString;
-import com.example.bridge.bidding.BridgeBidder.Tools.Call;
-import com.example.bridge.bidding.BridgeBidder.Tools.Direction;
-import com.example.bridge.bidding.BridgeBidder.Tools.Game;
+import com.example.bridge.bidding.Tools.PBN.FromString;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.Direction;
+import com.example.bridge.bidding.Tools.Game;
 
 import java.util.ArrayList;
 import java.util.List;

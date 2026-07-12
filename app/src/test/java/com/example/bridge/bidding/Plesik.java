@@ -1,16 +1,16 @@
 package com.example.bridge.bidding;
 
-import com.example.bridge.bidding.BridgeBidder.Tools.BiddingState;
-import com.example.bridge.bidding.BridgeBidder.Tools.Call;
-import com.example.bridge.bidding.BridgeBidder.Tools.CallDetails;
-import com.example.bridge.bidding.BridgeBidder.Tools.Direction;
-import com.example.bridge.bidding.BridgeBidder.Tools.Game;
-import com.example.bridge.bidding.BridgeBidder.Tools.Hand;
-import com.example.bridge.bidding.BridgeBidder.Tools.HandSummary;
-import com.example.bridge.bidding.BridgeBidder.Tools.PositionCalls;
-import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
-import com.example.bridge.bidding.BridgeBidder.Tools.Range;
-import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
+import com.example.bridge.bidding.Tools.BiddingState;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallDetails;
+import com.example.bridge.bidding.Tools.Direction;
+import com.example.bridge.bidding.Tools.Game;
+import com.example.bridge.bidding.Tools.Hand;
+import com.example.bridge.bidding.Tools.HandSummary;
+import com.example.bridge.bidding.Tools.PositionCalls;
+import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
+import com.example.bridge.bidding.Tools.Suit;
 
 import org.junit.Test;
 

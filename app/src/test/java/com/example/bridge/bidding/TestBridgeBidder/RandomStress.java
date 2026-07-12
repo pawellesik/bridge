@@ -1,10 +1,10 @@
 package com.example.bridge.bidding.TestBridgeBidder;
 
-import com.example.bridge.bidding.BridgeBidder.Tools.BiddingState;
-import com.example.bridge.bidding.BridgeBidder.Tools.Call;
-import com.example.bridge.bidding.BridgeBidder.Tools.CallDetails;
-import com.example.bridge.bidding.BridgeBidder.Tools.Game;
-import com.example.bridge.bidding.BridgeBidder.Tools.PositionCalls;
+import com.example.bridge.bidding.Tools.BiddingState;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallDetails;
+import com.example.bridge.bidding.Tools.Game;
+import com.example.bridge.bidding.Tools.PositionCalls;
 
 import org.junit.Test;
 
