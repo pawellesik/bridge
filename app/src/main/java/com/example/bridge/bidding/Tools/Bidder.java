@@ -176,6 +176,23 @@ public abstract class Bidder {
     public static StaticConstraint rho(Constraint constraint) { return new PositionProxy(PositionProxy.RelativePosition.RHO, constraint); }
     public static StaticConstraint hasShownSuit(Suit suit, boolean eitherPartner) { return new HasShownSuit(suit, eitherPartner); }
     public static final StaticConstraint IS_PARTNERS_SUIT = partner(hasShownSuit(null, false));
+
+    public static HandConstraint partnerLastSuitShape(int min, int max) {
+        return new HandConstraint() {
+            @Override
+            public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+                Suit lastSuit = ps.getPairState().getLastShownSuit();
+                if (lastSuit == null) return false;
+                Range shape = hs.getSuits().get(lastSuit).getShape();
+                return shape.getMax() >= min && shape.getMin() <= max;
+            }
+        };
+    }
+
+    public static HandConstraint partnerLastSuitShape(Range range) {
+        return partnerLastSuitShape(range.getMin(), range.getMax());
+    }
+
     public static StaticConstraint isPartnersSuit() { return IS_PARTNERS_SUIT; }
     public static StaticConstraint isPassedHand() { return new SimpleStaticConstraint((call, ps) -> ps.isPassedHand(), "passed hand"); }
 

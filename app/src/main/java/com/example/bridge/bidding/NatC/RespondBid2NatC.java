@@ -17,8 +17,8 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(partnerBids(OpenBid3NatC::thirdBid),
                 shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.responderClubJumpMinorChangeMajor _4S")),
                 shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _4H")),
-                shows(Bid._3NT,  pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
-                shows(Bid._3NT,  id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
+                shows(Bid._3NT, partnerLastSuitShape(0, 2), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT"))
         );
         return choices;
     }
