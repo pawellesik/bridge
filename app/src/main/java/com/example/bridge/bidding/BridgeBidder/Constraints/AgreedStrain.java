@@ -1,6 +1,10 @@
 package com.example.bridge.bidding.BridgeBidder.Constraints;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.StaticConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.Strain;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 
 /**
  * Constraint sprawdzający czy aktualna linia licytacji dotyczy uzgodnionego koloru (atutu).

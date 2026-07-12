@@ -1,6 +1,13 @@
 package com.example.bridge.bidding.BridgeBidder.Constraints;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.HandConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.HandSummary;
+import com.example.bridge.bidding.BridgeBidder.Tools.IDescribeConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.IShowsHand;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.Range;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 
 /**
  * Klasa implementująca Metodę Liczenia Przegranych (Losing Trick Count - LTC).

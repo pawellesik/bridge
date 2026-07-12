@@ -1,6 +1,9 @@
 package com.example.bridge.bidding.BridgeBidder.Constraints;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Bid;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.StaticConstraint;
 
 /**
  * Constraint sprawdzający historię licytacji.

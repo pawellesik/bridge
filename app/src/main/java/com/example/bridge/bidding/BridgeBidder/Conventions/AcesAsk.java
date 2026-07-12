@@ -1,14 +1,14 @@
 package com.example.bridge.bidding.BridgeBidder.Conventions;
 
-import com.example.bridge.bidding.BridgeBidder.Bid;
-import com.example.bridge.bidding.BridgeBidder.Bidder;
-import com.example.bridge.bidding.BridgeBidder.Call;
-import com.example.bridge.bidding.BridgeBidder.CallFeature;
+import com.example.bridge.bidding.BridgeBidder.Tools.Bid;
+import com.example.bridge.bidding.BridgeBidder.Tools.Bidder;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.CallFeature;
 import com.example.bridge.bidding.BridgeBidder.LCStandard.UserText;
-import com.example.bridge.bidding.BridgeBidder.PositionCalls;
-import com.example.bridge.bidding.BridgeBidder.PositionState;
-import com.example.bridge.bidding.BridgeBidder.Range;
-import com.example.bridge.bidding.BridgeBidder.Suit;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionCalls;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.Range;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 
 import java.util.ArrayList;
 import java.util.List;

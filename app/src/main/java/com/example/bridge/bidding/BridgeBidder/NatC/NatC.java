@@ -1,6 +1,11 @@
 package com.example.bridge.bidding.BridgeBidder.NatC;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Bidder;
+import com.example.bridge.bidding.BridgeBidder.Tools.IBiddingSystem;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionCalls;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionRole;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.Range;
 
 public class NatC extends Bidder implements IBiddingSystem {
     @Override

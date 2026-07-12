@@ -1,8 +1,7 @@
 package com.example.bridge.bidding.BridgeBidder.WJSimple;
 
-import com.example.bridge.bidding.BridgeBidder.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionCalls;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
 
 public class OpenBid3WJSimple extends WJSimple {
     public static PositionCalls thirdBid(PositionState ps) {

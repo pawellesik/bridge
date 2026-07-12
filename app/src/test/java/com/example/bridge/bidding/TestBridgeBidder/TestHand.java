@@ -1,6 +1,8 @@
 package com.example.bridge.bidding.TestBridgeBidder;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Hand;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 

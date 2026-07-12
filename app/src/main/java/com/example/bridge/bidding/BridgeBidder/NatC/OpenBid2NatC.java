@@ -1,7 +1,11 @@
 package com.example.bridge.bidding.BridgeBidder.NatC;
 
-import com.example.bridge.bidding.BridgeBidder.*;
 import com.example.bridge.bidding.BridgeBidder.Conventions.AcesAsk;
+import com.example.bridge.bidding.BridgeBidder.Tools.Bid;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionCalls;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 
 public class OpenBid2NatC extends OpenNatC {
 

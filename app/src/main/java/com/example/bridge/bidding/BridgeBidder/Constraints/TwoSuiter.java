@@ -1,7 +1,13 @@
 package com.example.bridge.bidding.BridgeBidder.Constraints;
 
-import com.example.bridge.bidding.BridgeBidder.*;
-import java.util.Map;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.HandConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.HandSummary;
+import com.example.bridge.bidding.BridgeBidder.Tools.IDescribeConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.IShowsHand;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.Range;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 
 /**
  * Sprawdza czy ręka posiada "drugi kolor" o określonej długości.

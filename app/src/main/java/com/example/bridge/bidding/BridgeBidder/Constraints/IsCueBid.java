@@ -1,6 +1,9 @@
 package com.example.bridge.bidding.BridgeBidder.Constraints;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.StaticConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 
 /**
  * Sprawdza czy dana odzywka jest Cue-bidem (licytacją koloru przeciwnika).

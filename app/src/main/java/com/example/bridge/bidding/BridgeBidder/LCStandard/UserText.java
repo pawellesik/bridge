@@ -1,6 +1,6 @@
 package com.example.bridge.bidding.BridgeBidder.LCStandard;
 
-import com.example.bridge.bidding.BridgeBidder.Suit;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 
 public class UserText {
     public static final String AcesAsc = "Ask about aces";

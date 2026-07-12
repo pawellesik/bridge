@@ -1,7 +1,7 @@
 package com.example.bridge.bidding.TestBridgeBidder;
 
-import com.example.bridge.bidding.BridgeBidder.Strain;
-import com.example.bridge.bidding.BridgeBidder.Suit;
+import com.example.bridge.bidding.BridgeBidder.Tools.Strain;
+import com.example.bridge.bidding.BridgeBidder.Tools.Suit;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

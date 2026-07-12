@@ -1,6 +1,11 @@
 package com.example.bridge.bidding.BridgeBidder.Constraints;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.HandConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.HandSummary;
+import com.example.bridge.bidding.BridgeBidder.Tools.PairSummary;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.StaticConstraint;
 
 /**
  * Techniczna klasa służąca do debugowania procesu licytacji.

@@ -1,6 +1,10 @@
 package com.example.bridge.bidding.BridgeBidder.Constraints;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.Constraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.IDescribeConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.StaticConstraint;
 
 /**
  * Techniczna klasa pozwalająca na delegowanie sprawdzenia warunku na inną pozycję przy stole.

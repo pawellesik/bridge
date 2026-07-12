@@ -2,7 +2,7 @@ package com.example.bridge.bidding.TestBridgeBidder;
 
 import static org.junit.Assert.assertEquals;
 
-import com.example.bridge.bidding.BridgeBidder.BridgeBidder;
+import com.example.bridge.bidding.BridgeBidder.Tools.BridgeBidder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

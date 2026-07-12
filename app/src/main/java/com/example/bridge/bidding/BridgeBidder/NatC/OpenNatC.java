@@ -1,6 +1,12 @@
 package com.example.bridge.bidding.BridgeBidder.NatC;
 
-import com.example.bridge.bidding.BridgeBidder.*;
+import com.example.bridge.bidding.BridgeBidder.Tools.Bid;
+import com.example.bridge.bidding.BridgeBidder.Tools.Call;
+import com.example.bridge.bidding.BridgeBidder.Tools.CallFeature;
+import com.example.bridge.bidding.BridgeBidder.Tools.HandConstraint;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionCalls;
+import com.example.bridge.bidding.BridgeBidder.Tools.PositionState;
+import com.example.bridge.bidding.BridgeBidder.Tools.Range;
 
 import java.util.ArrayList;
 import java.util.List;
