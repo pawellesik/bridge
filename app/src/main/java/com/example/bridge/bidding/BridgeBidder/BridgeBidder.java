@@ -1,0 +1,45 @@
+package com.example.bridge.bidding.BridgeBidder;
+
+public class BridgeBidder {
+    public static String suggestBid(String deal, String vulnerable, String auction) {
+        return suggestBid(deal, vulnerable, auction, "TwoOverOneGameForce", "TwoOverOneGameForce");
+    }
+
+    public static String suggestBid(String deal, String vulnerable, String auction, String bidSystemNS, String bidSystemEW) {
+        CallDetails callDetails = null;
+        Game game = Game.parse(deal, vulnerable);
+        game.parseAuction(auction);
+        if (bidSystemNS.equals("TwoOverOneGameForce") || bidSystemEW.equals("TwoOverOneGameForce")) {
+            callDetails = suggestCall(game);
+        } else if (bidSystemNS.equals("NatC") && bidSystemEW.equals("NatC")) {
+            game.bidSystemNS = "NatC";
+            game.bidSystemEW = "NatC";
+            callDetails = suggestCall(game);
+        } else {
+            throw new IllegalArgumentException("Unknown bidding system ");
+        }
+
+        return callDetails.getCall().toString();
+    }
+
+    public static CallDetails suggestCall(Game game) {
+        return suggestCall(game, false);
+    }
+
+    public static CallDetails suggestCall(Game game, boolean throwExceptionIfNoBestCall) {
+        BiddingState biddingState = new BiddingState(game);
+        if (!biddingState.getNextToAct().hasHand()) {
+            throw new RuntimeException("Can not suggest next bid when position has no defined hand.");
+        }
+        PositionCalls choices = biddingState.getCallChoices();
+        if (choices.getBestCall() != null) return choices.getBestCall();
+        if (throwExceptionIfNoBestCall) {
+            throw new RuntimeException("No suggested call given by bidding system.");
+        }
+
+        if (!choices.containsKey(Call.PASS)) {
+            choices.addPassRule();
+        }
+        return choices.get(Call.PASS);
+    }
+}

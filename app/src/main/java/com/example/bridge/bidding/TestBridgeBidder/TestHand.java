@@ -1,0 +1,19 @@
+package com.example.bridge.bidding.TestBridgeBidder;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class TestHand {
+
+    @Test
+    public void basic() {
+        Hand hand = Hand.parse("AKQ.654.543.AKQJ");
+        assertEquals(19, hand.highCardPoints());
+        assertTrue(hand.isBalanced());
+        assertTrue(hand.is4333());
+        assertEquals(Integer.valueOf(4), hand.countsBySuit().get(Suit.Clubs));
+        assertEquals(6, hand.losers());
+        assertEquals(0, hand.losers(Suit.Spades));
+    }
+}

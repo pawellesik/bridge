@@ -1,0 +1,41 @@
+package com.example.bridge.bidding.TestBridgeBidder;
+
+import com.example.licytacja.moje.BridgeBidder.Direction;
+import com.example.licytacja.moje.BridgeBidder.Pair;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
+public class TestDirection {
+
+    @Test
+    public void testLeftHandOpponent() {
+        assertEquals(Direction.E, Direction.N.leftHandOpponent());
+        assertEquals(Direction.S, Direction.E.leftHandOpponent());
+        assertEquals(Direction.W, Direction.S.leftHandOpponent());
+        assertEquals(Direction.N, Direction.W.leftHandOpponent());
+    }
+
+    @Test
+    public void testPartner() {
+        assertEquals(Direction.N, Direction.S.partner());
+        assertEquals(Direction.E, Direction.W.partner());
+        assertEquals(Direction.S, Direction.N.partner());
+        assertEquals(Direction.W, Direction.E.partner());
+    }
+
+    @Test
+    public void testRightHandOpponent() {
+        assertEquals(Direction.W, Direction.N.rightHandOpponent());
+        assertEquals(Direction.N, Direction.E.rightHandOpponent());
+        assertEquals(Direction.E, Direction.S.rightHandOpponent());
+        assertEquals(Direction.S, Direction.W.rightHandOpponent());
+    }
+
+    @Test
+    public void testPair() {
+        assertEquals(Pair.NS, Direction.N.pair());
+        assertEquals(Pair.EW, Direction.E.pair());
+        assertEquals(Pair.NS, Direction.S.pair());
+        assertEquals(Pair.EW, Direction.W.pair());
+    }
+}

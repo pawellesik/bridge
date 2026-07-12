@@ -1,0 +1,37 @@
+% Cleaned by CleanPBN
+[Event "NatC Trfel 1"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK9.K4T.QJT3.842 Q76.K7.9876.T987 T2.QJT3.T5432.98 32.6543.AJ5.6542"]
+[Declarer "N"]
+[Contract "1NT"]
+[Auction "N"]
+1C PASS 1D PASS
+1NT PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 2"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK9.KT4.QJT3.842 Q76.K7.9876.T987 T2.KQJT3.T543.98 32.6543.AJ5.6542"]
+[Declarer "N"]
+[Contract "1NT"]
+[Auction "N"]
+1C PASS 1D PASS
+1NT PASS 2H PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 3"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK9.KT43.QJT3.82 Q76.K7.9876.T987 T2.KQJT3.A543.98 32.6543.AJ5.6542"]
+[Declarer "N"]
+[Contract "2H"]
+[Auction "N"]
+1C PASS 1H PASS
+2H PASS
+
+

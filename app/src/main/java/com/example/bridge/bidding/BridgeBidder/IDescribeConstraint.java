@@ -1,0 +1,5 @@
+package com.example.bridge.bidding.BridgeBidder;
+
+public interface IDescribeConstraint {
+    String describe(Call call, PositionState ps);
+}

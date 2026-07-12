@@ -1,0 +1,49 @@
+package com.example.bridge.bidding.BridgeBidder.Constraints;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+import java.util.*;
+
+/**
+ * Klasa odpowiadająca za sprawdzanie liczby asów w ręce gracza.
+ * Używana głównie w licytacji naturalnej oraz prostych konwencjach pytających o asy (np. Gerber).
+ */
+public class Aces extends HandConstraint implements IShowsHand, IDescribeConstraint {
+    // Przechowuje zbiór akceptowalnych liczb asów (np. {0, 4} dla odpowiedzi 4C w Gerberze)
+    private final Set<Integer> count = new HashSet<>();
+
+    /**
+     * @param count Lista dopuszczalnych liczb asów.
+     */
+    public Aces(int... count) {
+        for (int c : count) this.count.add(c);
+    }
+
+    /**
+     * Sprawdza, czy aktualna ręka (hs) posiada liczbę asów pasującą do zdefiniowanych kryteriów.
+     */
+    @Override
+    public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+        Set<Integer> aces = hs.getCountAces();
+        if (aces == null) return true; // Jeśli brak danych o asach, nie blokujemy licytacji
+        for (int c : count) {
+            if (aces.contains(c)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Aktualizuje wiedzę publiczną o ręce, informując partnera o liczbie posiadanych asów.
+     */
+    @Override
+    public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand) {
+        showHand.showCountAces(count);
+    }
+
+    /**
+     * Zwraca czytelny opis dla logów, np. "[1] Ace" lub "[0, 3] Aces".
+     */
+    @Override
+    public String describe(Call call, PositionState ps) {
+        return count.toString() + " Ace" + (count.size() == 1 && count.contains(1) ? "" : "s");
+    }
+}

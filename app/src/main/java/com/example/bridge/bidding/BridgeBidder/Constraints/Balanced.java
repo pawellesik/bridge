@@ -1,0 +1,40 @@
+package com.example.bridge.bidding.BridgeBidder.Constraints;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+
+/**
+ * Klasa określająca czy ręka jest zrównoważona (bez singli i renonsów).
+ * Ręka zrównoważona może posiadać co najwyżej jeden dubleton.
+ */
+public class Balanced {
+    /**
+     * Pokazuje i opisuje zrównoważony charakter ręki.
+     */
+    public static class ShowsBalanced extends HandConstraint implements IShowsHand, IDescribeConstraint {
+        private final boolean desiredValue;
+
+        public ShowsBalanced(boolean desiredValue) {
+            this.desiredValue = desiredValue;
+        }
+
+        @Override
+        public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+            return hs.getIsBalanced() == null || hs.getIsBalanced() == desiredValue;
+        }
+
+        @Override
+        public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand) {
+            showHand.showIsBalanced(desiredValue);
+            if (desiredValue) {
+                for (Suit suit : Suit.values()) {
+                    showHand.getSuits().get(suit).showShape(2, 5);
+                }
+            }
+        }
+
+        @Override
+        public String describe(Call call, PositionState ps) {
+            return desiredValue ? "balanced" : "not balanced";
+        }
+    }
+}

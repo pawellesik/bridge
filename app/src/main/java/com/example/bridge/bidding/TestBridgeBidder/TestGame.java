@@ -1,0 +1,42 @@
+package com.example.bridge.bidding.TestBridgeBidder;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class TestGame {
+
+    @Test
+    public void basic() {
+        Game game = new Game();
+        assertNull(game.event);
+        assertEquals(Vulnerable.None, game.vulnerable);
+        assertEquals(Direction.N, game.dealer);
+        assertEquals(Scoring.MP, game.scoring);
+        assertNull(game.getDeal().get(Direction.N));
+    }
+
+    @Test
+    public void testStandardBoard() {
+        Game game = new Game();
+        game.setStandardBoard(1);
+        assertEquals(Direction.N, game.dealer);
+        assertEquals(Vulnerable.None, game.vulnerable);
+        
+        game.setStandardBoard(2);
+        assertEquals(Direction.E, game.dealer);
+        assertEquals(Vulnerable.NS, game.vulnerable);
+
+        game.setStandardBoard(3);
+        assertEquals(Direction.S, game.dealer);
+        assertEquals(Vulnerable.EW, game.vulnerable);
+
+        game.setStandardBoard(4);
+        assertEquals(Direction.W, game.dealer);
+        assertEquals(Vulnerable.All, game.vulnerable);
+
+        game.setStandardBoard(5);
+        assertEquals(Direction.N, game.dealer);
+        assertEquals(Vulnerable.NS, game.vulnerable);
+    }
+}

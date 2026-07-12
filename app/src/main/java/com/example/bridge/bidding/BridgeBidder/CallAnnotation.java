@@ -1,0 +1,22 @@
+package com.example.bridge.bidding.BridgeBidder;
+
+public class CallAnnotation extends CallFeature {
+    public enum AnnotationType { Alert, Announce, Convention }
+
+    private final String text;
+    private final AnnotationType type;
+
+    public CallAnnotation(Call call, AnnotationType type, String text, StaticConstraint... constraints) {
+        super(call, (Constraint[]) constraints);
+        this.type = type;
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public AnnotationType getType() {
+        return type;
+    }
+}

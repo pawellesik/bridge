@@ -1,0 +1,39 @@
+package com.example.bridge.bidding.BridgeBidder.Constraints;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+
+/**
+ * Sprawdza czy dany kolor został już wcześniej "pokazany" (zalicytowany) w trakcie licytacji.
+ */
+public class HasShownSuit extends StaticConstraint {
+    private final Suit suit;         // Kolor do sprawdzenia
+    private final boolean eitherPartner; // Czy sprawdzamy dowolnego partnera (true) czy konkretnego (false)
+
+    public HasShownSuit(Suit suit, boolean eitherPartner) {
+        this.suit = suit;
+        this.eitherPartner = eitherPartner;
+    }
+
+    @Override
+    public boolean conforms(Call call, PositionState ps) {
+        Suit s = getSuit(this.suit, call);
+        if (s != null) {
+            PositionState firstToShow = ps.getPairState().firstToShow(s);
+            if (firstToShow == null) return false;
+            return eitherPartner || firstToShow == ps;
+        }
+        return false;
+    }
+
+    @Override
+    public String getLogDescription(Call call, PositionState ps) {
+        Suit s = getSuit(this.suit, call);
+        if (s != null) {
+            if (eitherPartner) {
+                return ps.getDirection().pair().name() + " has shown " + s.toSymbol();
+            }
+            return ps.getDirection().name() + " has shown " + s.toSymbol();
+        }
+        return null;
+    }
+}

@@ -1,0 +1,24 @@
+% Cleaned by CleanPBN
+[Event "NatC Deal diamond 1"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK98.AK.QJT432.4 Q76.K7.9876.T987 AQ.AJT3.T5432.98 32.6543.AJ5.6542"]
+[Declarer "N"]
+[Contract "4S"]
+[Auction "N"]
+1D PASS 3D PASS
+5D PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Deal diamond 2"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K985.T43.AKQT2.3 Q76.K7.9876.T987 AT32.AJT98.J5.T3 32.6543.AJ5.6542"]
+[Declarer "N"]
+[Contract "4S"]
+[Auction "N"]
+1D PASS 1H PASS
+1S PASS 2S PASS
+PASS

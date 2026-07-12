@@ -1,0 +1,6 @@
+package com.example.bridge.bidding.BridgeBidder;
+
+@FunctionalInterface
+public interface CallFeaturesFactory {
+    Iterable<CallFeature> apply(PositionState ps);
+}

@@ -1,0 +1,25 @@
+package com.example.bridge.bidding.TestBridgeBidder;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+import org.junit.Test;
+
+public class RandomStress {
+
+    @Test
+    public void test1000Deals() {
+        for (int i = 0; i < 1000; i++) {
+            Game game = new Game();
+            game.dealRandomHands();
+            BiddingState biddingState = new BiddingState(game);
+            while (!biddingState.getContract().isAuctionComplete()) {
+                PositionCalls callChoices = biddingState.getCallChoices();
+                CallDetails call = callChoices.getBestCall();
+                if (call == null) {
+                    callChoices.addPassRule();
+                    call = callChoices.get(Call.PASS);
+                }
+                biddingState.makeCall(call);
+            }
+        }
+    }
+}

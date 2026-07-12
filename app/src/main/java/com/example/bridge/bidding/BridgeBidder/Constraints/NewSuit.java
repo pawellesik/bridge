@@ -1,0 +1,29 @@
+package com.example.bridge.bidding.BridgeBidder.Constraints;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+
+/**
+ * Sprawdza czy licytowany kolor jest nowym kolorem dla danej pary.
+ * Nowy kolor to taki, którego nikt z pary wcześniej nie zalicytował naturalnie.
+ */
+public class NewSuit extends StaticConstraint implements IDescribeConstraint {
+    private final Suit suit; // Kolor do sprawdzenia (null jeśli sprawdzamy kolor aktualnej odzywki)
+
+    public NewSuit(Suit suit) {
+        this.suit = suit;
+    }
+
+    @Override
+    public boolean conforms(Call call, PositionState ps) {
+        Suit s = getSuit(this.suit, call);
+        if (s != null) {
+            return ps.getPairState().firstToShow(s) == null;
+        }
+        return false;
+    }
+
+    @Override
+    public String describe(Call call, PositionState ps) {
+        return "new suit";
+    }
+}

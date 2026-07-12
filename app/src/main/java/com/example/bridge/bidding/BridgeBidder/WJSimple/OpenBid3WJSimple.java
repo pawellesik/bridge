@@ -1,0 +1,13 @@
+package com.example.bridge.bidding.BridgeBidder.WJSimple;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class OpenBid3WJSimple extends WJSimple {
+    public static PositionCalls thirdBid(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteWJSimple::compBids);
+        return choices;
+    }
+}

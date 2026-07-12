@@ -1,0 +1,29 @@
+package com.example.bridge.bidding.TestBridgeBidder;
+
+public class PBNTest {
+    private String expectedCall;
+    private String deal;
+    private String vulnerable;
+    private String auction;
+    private String name;
+
+    public String getExpectedCall() { return expectedCall; }
+    public void setExpectedCall(String expectedCall) { this.expectedCall = expectedCall; }
+
+    public String getDeal() { return deal; }
+    public void setDeal(String deal) { this.deal = deal; }
+
+    public String getVulnerable() { return vulnerable; }
+    public void setVulnerable(String vulnerable) { this.vulnerable = vulnerable; }
+
+    public String getAuction() { return auction; }
+    public void setAuction(String auction) { this.auction = auction; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}

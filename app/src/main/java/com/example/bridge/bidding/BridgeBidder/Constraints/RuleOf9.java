@@ -1,0 +1,33 @@
+package com.example.bridge.bidding.BridgeBidder.Constraints;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+
+/**
+ * Implementacja brydżowej Reguły Dziewięciu.
+ * Służy do oceny, czy po wejściu przeciwnika należy go skontrować karnie.
+ * Sumuje się poziom odzywki przeciwnika, liczbę posiadanych atutów (w jego kolorze)
+ * oraz liczbę honorów w tym kolorze. Jeśli suma >= 9, należy kontrować.
+ */
+public class RuleOf9 extends HandConstraint implements IDescribeConstraint {
+    @Override
+    public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+        if (ps.isOpponentsContract() && ps.getBiddingState().getContract().getBid() != null) {
+            Bid oppsBid = ps.getBiddingState().getContract().getBid();
+            Suit oppsSuit = oppsBid.getSuit();
+            if (oppsSuit != null) {
+                int level = oppsBid.getLevel();
+                Integer ruleOf9Points = hs.getSuits().get(oppsSuit).getRuleOf9Points();
+                if (ruleOf9Points != null) {
+                    return (level + ruleOf9Points >= 9);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String describe(Call call, PositionState ps) {
+        return "rule of 9";
+    }
+}

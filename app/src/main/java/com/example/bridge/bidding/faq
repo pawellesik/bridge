@@ -1,0 +1,126 @@
+DOKUMENTACJA METOD LICYTACJI (Bidder.java)
+========================================
+
+1. PUNKTY I SIŁA RĘKI
+---------------------
+• points(min, max) - Punkty licytacyjne (HCP + punkty za długość). Podstawowa siła ręki.
+• points(Range) - Punkty licytacyjne przy użyciu zdefiniowanego zakresu (np. Minimum, Maximum).
+• highCardPoints(min, max) - Punkty za same figury (HCP: A=4, K=3, Q=2, J=1).
+• highCardPoints(Range) - Punkty honorowe (HCP) przy użyciu zakresu.
+• pairPoints(min, max) - Suma punktów licytacyjnych obu partnerów (prywatne + obiecane przez partnera).
+• pairPoints(Range) - Suma punktów licytacyjnych pary przy użyciu zakresu.
+• pairPoints(Suit, min, max) - Suma punktów licytacyjnych pary przy założeniu konkretnego atutu.
+• pairHighCardPoints(min, max) - Suma punktów honorowych (HCP) całej pary.
+• dummyPoints(min, max) - Punkty dla dziadka (HCP + bonus za krótkości przy uzgodnionym fitu).
+• dummyPoints(Suit, min, max) - Punkty dla dziadka przy konkretnym kolorze atutowym.
+• dummyPoints(Range) - Punkty dla dziadka przy użyciu zakresu.
+
+2. SKŁAD RĘKI (SHAPE)
+---------------------
+• shape(min, max) - Liczba kart w aktualnie licytowanym kolorze (mianie).
+• shape(Suit, min, max) - Liczba kart w konkretnym kolorze (np. Suit.Hearts).
+• shape(count) - Dokładna liczba kart w aktualnym kolorze (np. shape(5) to dokładnie 5 kart).
+• shape(Suit, count) - Dokładna liczba kart w wybranym kolorze.
+• BALANCED - Ręka zrównoważona (brak singla/renonsu, najwyżej jeden dubleton).
+• NOT_BALANCED - Ręka niezrównoważona (posiada co najmniej jednego singla lub renons).
+• FLAT - Idealnie zrównoważona ręka w układzie 4-3-3-3.
+• NOT_FLAT - Ręka niebędąca w układzie 4-3-3-3.
+• hasShortness(min, max) - Liczba posiadanych krótkości (singli i renonsów) w ręce.
+• secondSuit(exclude, min) - Posiadanie drugiego koloru (poza wykluczonym) o danej minimalnej długości.
+• twoSuiter(min) - Ręka dwukolorowa (posiadanie co najmniej dwóch kolorów o min. długości).
+• REVERSE_SHAPE - Specyficzny układ wymagany do licytacji rewersu (zazwyczaj 5-4 lub więcej).
+
+3. RELACJE MIĘDZY KOLORAMI
+--------------------------
+• LONGEST_SUIT - Aktualnie licytowany kolor jest najdłuższym kolorem w ręce (lub jednym z najdłuższych).
+• longerThan(Suit worse) - Licytowany kolor jest o min. 1 kartę dłuższy od wskazanego koloru.
+• longerOrEqualTo(Suit worse) - Licytowany kolor jest co najmniej tak długi jak wskazany.
+• longer(Suit better, Suit worse) - Pierwszy podany kolor jest dłuższy od drugiego.
+• longerOrEqual(Suit better, Suit worse) - Pierwszy podany kolor jest dłuższy lub równy drugiemu.
+• betterThan(Suit worse) - Kolor jest lepszy (dłuższy lub przy tej samej długości silniejszy) od wskazanego.
+• betterOrEqualTo(Suit worse) - Kolor jest lepszy lub równy jakościowo wskazanemu.
+• betterMinor() - Wybór lepszego (dłuższego lub silniejszego) koloru młodszego (C lub D).
+• longestMajor(max) - Oba kolory starsze (Kier i Pik) mają maksymalnie 'max' kart.
+
+4. JAKOŚĆ KOLORU (SUIT QUALITY)
+-------------------------------
+• quality(min, max) - Zakres jakości honorowej koloru (od Poor, przez Decent, Good, Excellent, po Solid).
+• quality(Suit, min, max) - Jakość honorowa w konkretnym kolorze.
+• DECENT_PLUS_SUIT - Kolor co najmniej przyzwoity (posiada minimum 1-2 figury).
+• GOOD_PLUS_SUIT - Dobry kolor (posiada silne figury, min. dwa wysokie honory).
+• EXCELLENT_PLUS_SUIT - Bardzo mocny kolor (np. A-K-J, K-Q-J lub A-K-Q).
+• BAD_SUIT - Słaby kolor pod względem honorów (same blotki lub bardzo niskie figury).
+• showsBadSuit(Suit) - Informuje, że konkretny kolor jest niskiej jakości.
+
+5. ASY, KRÓLE I KONTROLA
+------------------------
+• aces(count...) - Posiadanie określonej liczby asów w ręce (np. aces(1, 2)).
+• pairAces(count...) - Suma asów w połączonych rękach obu partnerów.
+• kings(count...) - Posiadanie określonej liczby króli w ręce.
+• pairKings(count...) - Suma króli w połączonych rękach obu partnerów.
+• sumPairAcesAndKings(min, max) - Łączna liczba asów i króli całej pary w zadanym zakresie.
+• keyCards(Suit, count...) - Liczba kluczowych kart (4 asy + król atutowy) dla konkretnego koloru.
+• pairKeyCards(Suit, hasQueen, count...) - Liczba kluczowych kart pary (można uwzględnić posiadanie damy atutowej).
+• OPPS_STOPPED - Posiadanie zatrzymania (np. As, Kx, Qxx) w kolorze licytowanym przez przeciwników.
+• OPPS_NOT_STOPPED - Brak pewnego zatrzymania w kolorze przeciwnika.
+• stopped(Suit) - Sprawdza posiadanie zatrzymania w konkretnym kolorze.
+
+6. HISTORIA I SYTUACJA PRZY STOLE (STATIC CONSTRAINTS)
+------------------------------------------------------
+• isSeat(seats...) - Pozycja, na której licytujesz (1, 2, 3 lub 4 po rozdaniu).
+• isLastBid(Call) - Ostatnią odzywką zgłoszoną przy stole była dokładnie ta odzywka.
+• isLastBid(level, Suit/Strain) - Ostatnia odzywka była na określonym poziomie w danym kolorze/bezie.
+• isOpeningBid(Bid) - Sprawdza, czy wskazana odzywka otworzyła licytację w tym rozdaniu.
+• IS_CUE_BID - Odzywka w kolorze licytowanym wcześniej przez przeciwnika (Cue-bid).
+• IS_NEW_SUIT - Licytacja koloru, który nie był wcześniej zgłoszony przez Twoją parę.
+• IS_REVERSE_BID - Odzywka będąca rewersem (pokazująca silną rękę 5-4+ i wymuszająca licytację).
+• IS_REBID - Powtórzenie koloru, który już wcześniej sam licytowałeś.
+• IS_NOT_REBID - Licytacja czegoś innego niż powtórzenie własnego koloru.
+• IS_FORCED_TO_BID - Sytuacja, w której system lub partner zmusza Cię do licytacji (nie możesz spasować).
+• IS_FORCED_TO_GAME - Sytuacja forsingu do końcówki (licytacja musi trwać aż do osiągnięcia poziomu końcówki).
+• IS_OPPS_CONTRACT - Obecnie najwyższa odzywka należy do przeciwników.
+• IS_OUR_CONTRACT - Obecnie najwyższa odzywka należy do Twojej pary.
+• CONTRACT_IS_AGREED_STRAIN - Obecny kontrakt jest w kolorze, który para uznała za atutowy.
+• isJump(levels...) - Odzywka z przeskokiem (0=bez, 1=pojedynczy, 2=podwójny przeskok).
+• IS_NON_JUMP - Odzywka na najniższym możliwym poziomie (bez żadnego przeskoku).
+• IS_ANY_JUMP - Dowolna odzywka z przeskokiem (pojedynczym lub większym).
+• IS_JUMP_SHIFT - Skok w nowym kolorze (często pokazuje bardzo silną rękę).
+• isPassedHand() - Gracz, który na swojej pierwszej pozycji spasował (nie otworzył licytacji).
+
+7. ZAŁOŻENIA I RELACJE MIĘDZY GRACZAMI
+--------------------------------------
+• IS_VUL / IS_NOT_VUL - Twoja para jest po partii / przed partią.
+• IS_FAV_VUL - Założenia korzystne (My przed partią, Przeciwnicy po partii).
+• IS_UNFAV_VUL - Założenia niekorzystne (My po partii, Przeciwnicy przed partią).
+• BOTH_VUL / BOTH_NOT_VUL - Wszyscy są po partii / nikt nie jest po partii.
+• partner(Constraint) - Przenosi sprawdzenie warunku na rękę partnera (na podstawie jego licytacji).
+• rho(Constraint) / lho(Constraint) - Sprawdza warunek dla przeciwnika z prawej / lewej strony.
+• hasShownSuit(Suit, eitherPartner) - Czy dany gracz (lub ktokolwiek z pary) pokazał już ten kolor.
+• IS_PARTNERS_SUIT - Kolor, który chcesz licytować, był już wcześniej zgłoszony przez partnera.
+• isPartnersSuit() - Statyczny warunek sprawdzający, czy licytujemy kolor partnera.
+
+8. FIT I WSPÓLNA LICYTACJA
+--------------------------
+• fit() - Posiadanie fitu (łącznie min. 8 kart w parze) w kolorze, który licytujesz.
+• fit(count) - Posiadanie fitu o konkretnej, minimalnej łącznej liczbie kart (np. fit(9)).
+• fit(Suit) - Posiadanie fitu (8+) w konkretnym kolorze.
+• FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki.
+• agreedStrain(Strains...) - Sprawdza, czy para uzgodniła już dany kolor jako atut.
+• raisePartner(Suit, jump, fit) - Podniesienie koloru partnera z określeniem przeskoku i fitu.
+• raisePartner() - Standardowe podniesienie koloru partnera na najniższym poziomie z fitem 8+.
+
+9. OPERATORY LOGICZNE I NARZĘDZIA
+---------------------------------
+• shows(Call, Constraints...) - Podstawowa reguła: "taka odzywka obiecuje takie warunki".
+• properties(...) - Definiuje zaawansowane cechy: forsing, uzgodnienie atutu, alerty, konwencje.
+• propertiesForcingToGame(...) - Skrót dla odzywek forsujących do końcówki.
+• propertiesAgreeTrump(...) - Skrót dla odzywek uzgadniających kolor atutowy.
+• partnerBids(...) - Wskazuje, jaka metoda ma zostać użyta do obsługi kolejnej odzywki partnera.
+• alert(Call, text) / announce(Call, text) - Dodaje informację o alercie lub zapowiedzi dla danej odzywki.
+• convention(text) - Oznacza odzywkę jako sztuczną (konwencyjną) z podaniem nazwy.
+• and(Constraints...) - Wszystkie podane warunki muszą być spełnione (iloczyn logiczny).
+• staticAnd(StaticConstraints...) - Specjalna wersja 'and' dla warunków statycznych.
+• or(Constraints...) - Wystarczy, że jeden z podanych warunków jest spełniony (suma logiczna).
+• not(Constraint) - Odwrócenie warunku (np. not(BALANCED) to ręka niezrównoważona).
+• id(String) - Nadaje unikalny identyfikator regule (pomocne przy debugowaniu).
+• note(String) - Dodaje tekstowy opis/notatkę do odzywki widoczną w systemie.

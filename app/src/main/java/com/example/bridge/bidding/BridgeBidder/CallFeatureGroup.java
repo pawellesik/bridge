@@ -1,0 +1,16 @@
+package com.example.bridge.bidding.BridgeBidder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CallFeatureGroup extends CallFeature {
+    private final List<CallFeature> features = new ArrayList<>();
+
+    public CallFeatureGroup() {
+        super(null);
+    }
+
+    public List<CallFeature> getFeatures() {
+        return features;
+    }
+}

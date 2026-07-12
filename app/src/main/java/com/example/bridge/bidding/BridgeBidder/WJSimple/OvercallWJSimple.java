@@ -1,0 +1,13 @@
+package com.example.bridge.bidding.BridgeBidder.WJSimple;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class OvercallWJSimple extends WJSimple {
+    public static Iterable<CallFeature> overcall(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
+        bids.add(shows(Call.PASS));
+        return bids;
+    }
+}

@@ -1,0 +1,46 @@
+package com.example.bridge.bidding.TestBridgeBidder;
+
+import com.example.licytacja.moje.BridgeBidder.BridgeBidder;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
+public class InvalidArguments {
+
+    @Test
+    public void testSuggestBid() {
+        assertEquals("1H", BridgeBidder.suggestBid("N:872.KQJ95.AK.952 - - -", "NS", ""));
+        assertEquals("2H", BridgeBidder.suggestBid("N:872.KQJ95.AK.952 - 953.T42.QJ4.AQ73 -", "NS", "1H Pass"));
+        assertEquals("2H", BridgeBidder.suggestBid("N:- - 953.T42.QJ4.AQ73 -", "NS", "1H Pass"));
+        assertEquals("Pass", BridgeBidder.suggestBid("N:872.KQJ95.AK.952 - - -", "NS", "1H Pass 2H Pass"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNullParams1() {
+        BridgeBidder.suggestBid(null, "NS", "");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNullParams2() {
+        BridgeBidder.suggestBid("N:872.KQJ95.AK.952 - - -", null, "");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testInvalidDealer() {
+        BridgeBidder.suggestBid("X:872.KQJ95.AK.952 - - -", "NS", "");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testInvalidDealerTag() {
+        BridgeBidder.suggestBid("N 872.KQJ95.AK.952 - - -", "NS", "");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testTooFewCards() {
+        BridgeBidder.suggestBid("N:72.KQJ95.AK.952 - - -", "NS", "");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testOnlyThreeSuits() {
+        BridgeBidder.suggestBid("N:872.KQJ95.AK952 - - -", "NS", "");
+    }
+}

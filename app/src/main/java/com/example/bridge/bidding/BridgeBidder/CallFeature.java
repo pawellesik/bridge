@@ -1,0 +1,57 @@
+package com.example.bridge.bidding.BridgeBidder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class CallFeature {
+    private final Call call;
+    private final List<Constraint> constraints = new ArrayList<>();
+
+    protected CallFeature(Call call, Constraint... constraints) {
+        this.call = call;
+        for (Constraint constraint : constraints) {
+            addConstraint(constraint);
+        }
+    }
+
+    public Call getCall() {
+        return call;
+    }
+
+    public List<Constraint> getConstraints() {
+        return constraints;
+    }
+
+    public void addConstraint(Constraint constraint) {
+        if (constraint instanceof ConstraintGroup) {
+            for (Constraint child : ((ConstraintGroup) constraint).getChildConstraints()) {
+                addConstraint(child);
+            }
+        } else if (constraint != null) {
+            this.constraints.add(constraint);
+        }
+    }
+
+    public boolean satisfiesStaticConstraints(PositionState ps) {
+        for (Constraint constraint : constraints) {
+            if (constraint instanceof StaticConstraint) {
+                if (!((StaticConstraint) constraint).conforms(this.call, ps)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public List<Constraint> failingStaticConstraints(PositionState ps) {
+        List<Constraint> failingConstraints = new ArrayList<>();
+        for (Constraint constraint : constraints) {
+            if (constraint instanceof StaticConstraint) {
+                if (!((StaticConstraint) constraint).conforms(this.call, ps)) {
+                    failingConstraints.add(constraint);
+                }
+            }
+        }
+        return failingConstraints;
+    }
+}

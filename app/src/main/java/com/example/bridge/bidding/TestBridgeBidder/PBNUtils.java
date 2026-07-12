@@ -1,0 +1,39 @@
+package com.example.bridge.bidding.TestBridgeBidder;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+import com.example.licytacja.moje.BridgeBidder.PBN.FromString;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PBNUtils {
+    public static List<PBNTest> importTests(String text) {
+        List<PBNTest> tests = new ArrayList<>();
+        List<Game> games = FromString.parseGames(text);
+        for (Game game : games) {
+            List<Call> auction = game.getAuction().getCalls();
+            StringBuilder bidHistory = new StringBuilder();
+            Direction direction = game.dealer;
+            for (int i = 0; i < auction.size(); i++) {
+                Call call = auction.get(i);
+                if (game.getDeal().get(direction) != null) {
+                    int bidNumber = 1 + i / 4;
+                    String event = game.tags.get("Event");
+                    String testName = event != null ? event : "Unknown Event";
+                    if (game.board != 0) {
+                        testName += " Board " + game.board;
+                    }
+                    PBNTest test = new PBNTest();
+                    test.setAuction(bidHistory.toString().trim());
+                    test.setDeal(game.getDeal().toString());
+                    test.setVulnerable(game.vulnerable.toString());
+                    test.setExpectedCall(call.toString());
+                    test.setName(testName + " (Seat " + direction + ", Bid " + bidNumber + ")");
+                    tests.add(test);
+                }
+                direction = direction.leftHandOpponent();
+                bidHistory.append(call.toString()).append(" ");
+            }
+        }
+        return tests;
+    }
+}

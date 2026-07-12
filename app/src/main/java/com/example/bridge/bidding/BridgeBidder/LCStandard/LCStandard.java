@@ -1,0 +1,27 @@
+package com.example.bridge.bidding.BridgeBidder.LCStandard;
+
+import com.example.licytacja.moje.BridgeBidder.*;
+
+public class LCStandard extends Bidder implements IBiddingSystem {
+    @Override
+    public PositionCalls getPositionCalls(PositionState ps) {
+        if (ps.getRole() == PositionRole.Opener && ps.getRoleRound() == 1) {
+            return Open.getOpenPositionCalls(ps);
+        } else if (ps.getRole() == PositionRole.Overcaller && ps.getRoleRound() == 1) {
+            return Overcall.getOvercallPositionCalls(ps);
+        } else {
+            PositionCalls calls = new PositionCalls(ps);
+            calls.addRules(Compete::compBids);
+            return calls;
+        }
+    }
+
+    public static final Range PAIR_GAME_INVITE = new Range(23, 24);
+    public static final Range PAIR_GAME = new Range(25, 31);
+
+    public static final Range LESS_THAN_OVERCALL = new Range(0, 17);
+    public static final Range OVERCALL_1_LEVEL = new Range(7, 17);
+    public static final Range OVERCALL_STRONG_2_LEVEL = new Range(13, 17);
+    public static final Range OVERCALL_WEAK_2_LEVEL = new Range(7, 11);
+    public static final Range OVERCALL_WEAK_3_LEVEL = new Range(7, 11);
+}

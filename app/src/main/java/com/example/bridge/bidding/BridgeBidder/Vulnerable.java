@@ -1,0 +1,5 @@
+package com.example.bridge.bidding.BridgeBidder;
+
+public enum Vulnerable {
+    None, NS, EW, All
+}

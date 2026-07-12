@@ -1,0 +1,178 @@
+% Cleaned by CleanPBN
+[Event "NatC Deal 1"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K9854.T92.AKQJ.3 Q76.K7.9876.T987 AJT9.AQJ.KQ432.2 32.6543.AJ5.6542"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1S Pass 4C Pass
+4H Pass 4NT Pass
+5H Pass 5S Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal 2"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K9854.A92.AKQJ.3 Q76.T7.9876.T987 AJT9.KQJ.AK543.2 32.6543.QJ2.6542"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1S Pass 4C Pass
+4S Pass 4NT Pass
+5H Pass 7S Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal 3"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K9854.K92.AKQJ.3 Q76.T7.9876.T987 AJT9.AQJ.AK543.2 32.6543.QJ2.6542"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1S Pass 4C Pass
+4H Pass 4NT Pass
+5S Pass 7S Pass
+
+% Cleaned by CleanPBN
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQJ82.7632.A4.KT T65.9854.T7.8652 K73.AT.K9865.AQ7 94.KQJ.QJ32.J943"]
+[Declarer "N"]
+[Contract "6S"]
+[Auction "N"]
+1S Pass 4C Pass
+4S Pass 4NT Pass
+5D Pass 6S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "2"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQJ82.7632.A4.KT T65.9854.T7.8652 K73.A.K98653.AQ7 94.KQJT.QJ2.J943"]
+[Declarer "N"]
+[Contract "6S"]
+[Auction "N"]
+1S Pass 4C Pass
+4S Pass 4NT Pass
+5D Pass 6S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal 10"]
+[Board "3"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQJ82.7632.AJ.T7 T65.9854.T7.8652 K73.A.K98653.AKQ 94.KQJT.QJ2.J943"]
+[Declarer "N"]
+[Contract "6S"]
+[Auction "N"]
+1S Pass 4C Pass
+4S Pass 4NT Pass
+5C Pass 6S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "4"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQJ82.7632.AJ.T7 T65.98.T753.8652 K73.A54.K986.AKQ 94.KQJT.QJ2.J943"]
+[Declarer "N"]
+[Contract "6S"]
+[Auction "N"]
+1S Pass 4C Pass
+4S Pass 4NT Pass
+5C Pass 6S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "5"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QJ873.QJ763.AQ.7 T65.98.T753.8652 AK2.A5.KJ986.AKQ 94.KT42.42.JT943"]
+[Declarer "N"]
+[Contract "6S"]
+[Auction "N"]
+1S Pass 4C Pass
+4H Pass 4NT Pass
+5C Pass 7S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "6"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ873.763.AK86.7 T65.98.T753.8652 AJ2.QJ5.QJ92.AKQ 94.AKT42.4.JT943"]
+[Declarer "N"]
+[Contract "6S"]
+[Auction "N"]
+1S Pass 4C Pass
+4H Pass 4NT Pass
+5H Pass 5S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "7"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ873.Q76.K86.Q7 T65.98.T754.8652 AJ2.J53.QJ932.AK 94.AKT42.A.JT943"]
+[Declarer "N"]
+[Contract "4S"]
+[Auction "N"]
+1S Pass 4C Pass
+4D Pass 4S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "8"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ873.Q76.K86.Q7 T65.98.T754.K865 AJ2.AJ532.QJ9.A2 94.KT4.A32.JT943"]
+[Declarer "N"]
+[Contract "4S"]
+[Auction "N"]
+1S Pass 4C Pass
+4D Pass 4H Pass
+5C Pass 5S Pass
+
+% Cleaned by CleanPBN
+[Board "9"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AT876.A9.AT7.Q86 KQ3.Q876.8654.K7 J52.KJ53.KQJ9.AJ 94.T42.32.T95432"]
+[Declarer "N"]
+[Contract "5S"]
+[Auction "N"]
+1S Pass 4C Pass
+4NT Pass 5C Pass
+5D Pass 5S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "10"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AT876.A95.AT.Q86 KQ3.Q8763.865.K7 J52.KJ.KQJ974.AJ 94.T42.32.T95432"]
+[Declarer "N"]
+[Contract "5S"]
+[Auction "N"]
+1S Pass 4C Pass
+4NT Pass 5C Pass
+5D Pass 5S Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Board "10"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AT876.A95.AT.Q86 KQ3.Q8763.865.K7 J52.KJT.KQJ974.A 94.T42.32.T95432"]
+[Declarer "N"]
+[Contract "4S"]
+[Auction "N"]
+1S Pass 3S Pass
+4S Pass
