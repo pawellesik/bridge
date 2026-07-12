@@ -25,6 +25,7 @@ public class RespondNatC extends NatC {
         choices.addRules(
                 partnerBids(OpenBid2NatC::responderClub),
                 properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, true),
+                properties(new Call[]{Bid._3D, Bid._3C}, OpenBid2NatC::responderClubJumpMinor, true),
                 shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
                 shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _1H")),
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _1H")),
@@ -33,8 +34,8 @@ public class RespondNatC extends NatC {
 
                 shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _2H")),
                 shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _2H")),
-                shows(Bid._3D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _3D")),
-                shows(Bid._3C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _3C")),
+                shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _3D")),
+                shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _3C")),
 
                 shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3H")),
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3H")),

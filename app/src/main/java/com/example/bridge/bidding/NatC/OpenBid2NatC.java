@@ -19,7 +19,22 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._1NT, shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), highCardPoints(12, 17), id("OpenBid2NatC.responderNegat _1NT")),
                 shows(Bid._1S, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1S")),
                 shows(Bid._1H, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1H"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 
+    public static PositionCalls responderClubJumpMinor(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                partnerBids(RespondBid2NatC::secondBidToGame),
+                properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::responderClubJumpMinorChangeMajor),
+
+                shows(Bid._3H, shape(4, 11), highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3H")),
+                shows(Bid._3S, shape(4, 11), highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3S")),
+                shows(Bid._5D, fit(), highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _3H")),
+                shows(Bid._5C, fit(), highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _3S"))
 
         );
         choices.addRules(CompeteNatC::compBids);
@@ -37,6 +52,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._2S, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
                     shows(Bid._3H, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
                     shows(Bid._3S, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _3S"))
+
             );
         } else {
             return responderChangedSuits(ps);

@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.TestBridgeBidder;
+package com.example.bridge.bidding.TestBridgeBidder.runTests;
 
 import static org.junit.Assert.assertEquals;
 

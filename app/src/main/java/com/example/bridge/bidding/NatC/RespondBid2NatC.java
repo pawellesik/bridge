@@ -12,7 +12,16 @@ import java.util.List;
 
 public class RespondBid2NatC extends RespondNatC {
 
-
+    public static PositionCalls responderClubJumpMinorChangeMajor(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(partnerBids(OpenBid3NatC::thirdBid),
+                shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.responderClubJumpMinorChangeMajor _4S")),
+                shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _4H")),
+                shows(Bid._3NT,  pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
+                shows(Bid._3NT,  id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
+        );
+        return choices;
+    }
     public static PositionCalls colorAfterPass(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(partnerBids(OpenBid3NatC::thirdBid),

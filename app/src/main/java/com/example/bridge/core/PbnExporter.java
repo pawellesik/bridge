@@ -214,11 +214,19 @@ public class PbnExporter {
     public void todoBiding() {
         Game game = new Game();
 
-        gameActivity.getGameController().getPlayers().get("N").getHand();
-        gameActivity.getGameController().getPlayers().get("S").getHand();
+        if (gameActivity == null || gameActivity.getGameController() == null) return;
+        Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
+        if (players == null) return;
 
-        game.getDeal().put(Direction.N, Hand.parse("AK9.K4T.QJT3.842"));
-        game.getDeal().put(Direction.S, Hand.parse("T2.QJT3.T5432.98"));
+        com.example.bridge.model.Player playerN = players.get("North");
+        com.example.bridge.model.Player playerS = players.get("South");
+
+        if (playerN != null) {
+            game.getDeal().put(Direction.N, Hand.parse(formatHand(playerN.getHand())));
+        }
+        if (playerS != null) {
+            game.getDeal().put(Direction.S, Hand.parse(formatHand(playerS.getHand())));
+        }
 
 
         game.dealer = Direction.N;
@@ -227,9 +235,9 @@ public class PbnExporter {
 
         BiddingState state = new BiddingState(game);
 
-        System.out.println("AI North trzyma rękę: " + game.getDeal().get(Direction.N));
-        System.out.println("AI South trzyma rękę: " + game.getDeal().get(Direction.S));
-        System.out.println("--- Rozpoczynamy licytację ---\n");
+        System.out.println("plesik AI North trzyma rękę: " + game.getDeal().get(Direction.N));
+        System.out.println("plesik AI South trzyma rękę: " + game.getDeal().get(Direction.S));
+        System.out.println("plesik --- Rozpoczynamy licytację ---\n");
 
         // 4. Pętla licytacji aż do końca (3 pasy)
         while (!state.getContract().isAuctionComplete()) {
@@ -240,16 +248,16 @@ public class PbnExporter {
                 CallDetails best = choices.getBestCall();
 
                 if (best == null) {
-                    System.err.println("BŁĄD: AI " + turn + " nie wie co zalicytować!");
+                    System.err.println("plesik BŁĄD: AI " + turn + " nie wie co zalicytować!");
                     break;
                 }
 
-                System.out.println(turn + " licytuje: " + best.getCall());
+                System.out.println(turn + "plesik  licytuje: " + best.getCall());
                 String ruleId = best.getMatchedLogID(state.getNextToAct());
                 if (ruleId != null) {
-                    System.out.println("   [ID: " + ruleId + "]");
+                    System.out.println("plesik    [ID: " + ruleId + "]");
                 }
-                System.out.println("   [Uzasadnienie: " + best.getDescription(state.getNextToAct()) + "]");
+                System.out.println("plesik    [Uzasadnienie: " + best.getDescription(state.getNextToAct()) + "]");
                 state.makeCall(best);
                 //printPublicKnowledge(state);
             } else {
