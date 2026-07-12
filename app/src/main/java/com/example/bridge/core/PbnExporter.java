@@ -1,5 +1,12 @@
 package com.example.bridge.core;
 
+import com.example.bridge.bidding.Tools.BiddingState;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallDetails;
+import com.example.bridge.bidding.Tools.Direction;
+import com.example.bridge.bidding.Tools.Game;
+import com.example.bridge.bidding.Tools.Hand;
+import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Rank;
@@ -30,7 +37,7 @@ public class PbnExporter {
     private String south = "User";
     private String dealer = "W";
     private String vulnerable = "None";
-    
+
     private Map<String, List<Card>> initialHands;
     private Contract contract;
     private String declarer;
@@ -113,7 +120,7 @@ public class PbnExporter {
         if (!playHistory.isEmpty() && !playHistory.get(0).getCardsOnTable().isEmpty()) {
             String leadDirection = findLeadDirection(playHistory.get(0));
             sb.append(String.format(Locale.US, "[Play \"%s\"]\n", formatDirection(leadDirection)));
-            
+
             for (Trick trick : playHistory) {
                 if (trick.getCardsOnTable().size() == 4) {
                     sb.append(formatTrickPlay(trick)).append("\n");
@@ -127,7 +134,7 @@ public class PbnExporter {
     private String formatDeal() {
         StringBuilder sb = new StringBuilder();
         sb.append(dealer).append(":");
-        
+
         String[] directions = {"West", "North", "East", "South"};
         for (int i = 0; i < 4; i++) {
             sb.append(formatHand(initialHands.get(directions[i])));
@@ -176,10 +183,18 @@ public class PbnExporter {
         String leader = findLeadDirection(trick);
         String[] order;
         switch (leader) {
-            case "North": order = new String[]{"North", "East", "South", "West"}; break;
-            case "East":  order = new String[]{"East", "South", "West", "North"}; break;
-            case "South": order = new String[]{"South", "West", "North", "East"}; break;
-            default:      order = new String[]{"West", "North", "East", "South"}; break;
+            case "North":
+                order = new String[]{"North", "East", "South", "West"};
+                break;
+            case "East":
+                order = new String[]{"East", "South", "West", "North"};
+                break;
+            case "South":
+                order = new String[]{"South", "West", "North", "East"};
+                break;
+            default:
+                order = new String[]{"West", "North", "East", "South"};
+                break;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -194,5 +209,52 @@ public class PbnExporter {
             if (i < 3) sb.append(" ");
         }
         return sb.toString();
+    }
+
+    public void todoBiding() {
+        Game game = new Game();
+
+        gameActivity.getGameController().getPlayers().get("N").getHand();
+        gameActivity.getGameController().getPlayers().get("S").getHand();
+
+        game.getDeal().put(Direction.N, Hand.parse("AK9.K4T.QJT3.842"));
+        game.getDeal().put(Direction.S, Hand.parse("T2.QJT3.T5432.98"));
+
+
+        game.dealer = Direction.N;
+        game.bidSystemNS = "NatC";
+        game.bidSystemEW = "NatC";
+
+        BiddingState state = new BiddingState(game);
+
+        System.out.println("AI North trzyma rękę: " + game.getDeal().get(Direction.N));
+        System.out.println("AI South trzyma rękę: " + game.getDeal().get(Direction.S));
+        System.out.println("--- Rozpoczynamy licytację ---\n");
+
+        // 4. Pętla licytacji aż do końca (3 pasy)
+        while (!state.getContract().isAuctionComplete()) {
+            Direction turn = state.getNextToAct().getDirection();
+
+            if (turn == Direction.N || turn == Direction.S) {
+                PositionCalls choices = state.getCallChoices();
+                CallDetails best = choices.getBestCall();
+
+                if (best == null) {
+                    System.err.println("BŁĄD: AI " + turn + " nie wie co zalicytować!");
+                    break;
+                }
+
+                System.out.println(turn + " licytuje: " + best.getCall());
+                String ruleId = best.getMatchedLogID(state.getNextToAct());
+                if (ruleId != null) {
+                    System.out.println("   [ID: " + ruleId + "]");
+                }
+                System.out.println("   [Uzasadnienie: " + best.getDescription(state.getNextToAct()) + "]");
+                state.makeCall(best);
+                //printPublicKnowledge(state);
+            } else {
+                state.makeCall(Call.PASS);
+            }
+        }
     }
 }
