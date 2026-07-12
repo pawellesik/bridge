@@ -193,6 +193,21 @@ public abstract class Bidder {
         return partnerLastSuitShape(range.getMin(), range.getMax());
     }
 
+    public static HandConstraint othersAtLeast(int min) {
+        return new HandConstraint() {
+            @Override
+            public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+                Suit lastSuit = ps.getPairState().getLastShownSuit();
+                for (Suit s : Suit.values()) {
+                    if (s != lastSuit) {
+                        if (hs.getSuits().get(s).getShape().getMin() < min) return false;
+                    }
+                }
+                return true;
+            }
+        };
+    }
+
     public static StaticConstraint isPartnersSuit() { return IS_PARTNERS_SUIT; }
     public static StaticConstraint isPassedHand() { return new SimpleStaticConstraint((call, ps) -> ps.isPassedHand(), "passed hand"); }
 
