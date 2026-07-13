@@ -13,6 +13,8 @@ import com.example.bridge.model.Rank;
 import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
 import com.example.bridge.ui.game.GameActivity;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -110,6 +112,65 @@ public class Pbn {
         this.north = north;
         this.east = east;
         this.south = south;
+    }
+
+    public String getBoard() {
+        return board;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public List<Trick> getPlayHistory() {
+        return playHistory;
+    }
+
+    public int getResultTricks() {
+        return resultTricks;
+    }
+
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("Event", event);
+            json.put("Site", site);
+            json.put("Date", date);
+            json.put("Board", board);
+            json.put("West", west);
+            json.put("North", north);
+            json.put("East", east);
+            json.put("South", south);
+            json.put("Dealer", dealer);
+            json.put("Vulnerable", vulnerable);
+
+            if (initialHands != null) {
+                json.put("Deal", formatDeal());
+            }
+
+            if (contract != null) {
+                json.put("Declarer", formatDirection(declarer));
+                json.put("Contract", formatContract(contract));
+                json.put("Result", resultTricks);
+            }
+
+            if (!auction.isEmpty()) {
+                json.put("Auction", new JSONArray(auction));
+            }
+
+            if (!playHistory.isEmpty()) {
+                JSONArray playArray = new JSONArray();
+                for (Trick trick : playHistory) {
+                    if (trick.getCardsOnTable().size() == 4) {
+                        playArray.put(formatTrickPlay(trick));
+                    }
+                }
+                json.put("Play", playArray);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
     public String generatePbn() {

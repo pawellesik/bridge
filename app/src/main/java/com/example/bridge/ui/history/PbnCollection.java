@@ -1,6 +1,10 @@
 package com.example.bridge.ui.history;
 
 import com.example.bridge.ui.game.GameActivity;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 public class PbnCollection {
     private GameActivity gameActivity;
 
@@ -58,6 +62,30 @@ public class PbnCollection {
         return pbn;
     }
 
+    public String generateJsonExport() {
+        try {
+            JSONArray jsonArray = new JSONArray();
+            List<Pbn> allPbns = new ArrayList<>();
+            allPbns.add(pbn);
+            allPbns.add(pbnNatC);
+            allPbns.add(pbnNoSystem);
+            allPbns.add(pbnWj2025Simple);
+            allPbns.add(pbnWj2025);
+            allPbns.add(pbnLCStandard);
 
+            for (Pbn p : allPbns) {
+                if (p != null) {
+                    JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("system", p.getBoard()); 
+                    jsonObj.put("data", p.toJsonObject()); // Teraz przekazujemy obiekt, nie String
+                    jsonArray.put(jsonObj);
+                }
+            }
+            return jsonArray.toString(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{}";
+        }
+    }
 }
 
