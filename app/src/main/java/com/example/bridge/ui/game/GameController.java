@@ -3,7 +3,7 @@ package com.example.bridge.ui.game;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.bridge.ui.biddings.BiddingManager;
+import com.example.bridge.ui.biddings.QuickGameBidding;
 import com.example.bridge.DdsSolver;
 import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
@@ -48,7 +48,7 @@ public class GameController {
     private Deck deck;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final GameCallback callback;
-    private final BiddingManager biddingManager;
+    private final QuickGameBidding quickGameBidding;
     private final DdsSolver ddsSolver;
     private Trick currentTrick = new Trick();
     private List<Trick> playHistoryTrick = new ArrayList<>();
@@ -75,15 +75,15 @@ public class GameController {
         this.deck = new Deck();
         this.ddsSolver = new DdsSolver();
         this.ddsSolver.initDds();
-        this.biddingManager = new BiddingManager(players, callback, ddsSolver);
+        this.quickGameBidding = new QuickGameBidding(players, callback, ddsSolver);
     }
 
     public Map<String, Player> getPlayers() {
         return this.players;
     }
 
-    public BiddingManager getBiddingManager() {
-        return biddingManager;
+    public QuickGameBidding getBiddingManager() {
+        return quickGameBidding;
     }
 
     public void dealCards() {
@@ -105,7 +105,7 @@ public class GameController {
     }
 
     public void calculateAndSetTheBestContract() {
-        setCurrentContract(biddingManager.determineBestContract());
+        setCurrentContract(quickGameBidding.determineBestContract());
         callback.onContractDetermined(currentContract, players.get("South"));
         playerFirstPlayCard = players.get("West");
     }
@@ -124,7 +124,7 @@ public class GameController {
         this.playerFirstPlayCard = getNextPlayer(declarer);
 
         if (contract.getSuit() != null || contract.isNoTrump()) {
-            biddingManager.sortHandsByContract(contract.getSuit());
+            quickGameBidding.sortHandsByContract(contract.getSuit());
         }
 
         callback.onContractDetermined(contract, declarer);

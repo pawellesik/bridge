@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BiddingManager {
+public class QuickGameBidding {
 
     private final Map<String, Player> players;
     private final GameController.GameCallback callback;
     private final DdsSolver ddsSolver;
 
-    public BiddingManager(Map<String, Player> players, GameController.GameCallback callback, DdsSolver ddsSolver) {
+    public QuickGameBidding(Map<String, Player> players, GameController.GameCallback callback, DdsSolver ddsSolver) {
         this.players = players;
         this.callback = callback;
         this.ddsSolver = ddsSolver;
