@@ -28,7 +28,7 @@ public class PbnCollection {
     public PbnCollection(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
 
-        this.pbn = new Pbn(gameActivity, "Current");
+        this.pbn = new Pbn(gameActivity, "QuckGame");
         this.pbnNoSystem = new Pbn(gameActivity, "NoSystem");
         this.pbnNatC = new Pbn(gameActivity, "NatC");
         this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
@@ -60,21 +60,33 @@ public class PbnCollection {
             game.getDeal().put(Direction.S, Hand.parse(pbnNatC.formatHand(playerS.getHand())));
         }
 
+        // Ustawiamy dealera na North dla symulacji i zapisujemy w PbnNatC
         game.dealer = Direction.N;
+        pbnNatC.setDealer("N");
+        
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "NatC";
 
         BiddingState state = new BiddingState(game);
 
+        // Pętla licytacji - obsługujemy wszystkie pozycje
         while (!state.getContract().isAuctionComplete()) {
             Direction turn = state.getNextToAct().getDirection();
-            PositionCalls choices = state.getCallChoices();
-            CallDetails best = choices.getBestCall();
+            
+            Call callToMake;
+            // Dla N i S sprawdzamy co zalicytuje system NatC
+            if (turn == Direction.N || turn == Direction.S) {
+                PositionCalls choices = state.getCallChoices();
+                CallDetails best = choices.getBestCall();
+                callToMake = (best != null) ? best.getCall() : Call.PASS;
+            } else {
+                // Dla E i W (brak rąk w symulacji) wymuszamy pas
+                callToMake = Call.PASS;
+            }
 
-            if (best == null) break;
-
-            pbnNatC.addBid(best.getCall().toString());
-            state.makeCall(best);
+            // Zapisujemy licytację w PbnNatC
+            pbnNatC.addBid(callToMake.toString());
+            state.makeCall(callToMake);
         }
 
         if (!state.getContract().isPassedOut()) {
