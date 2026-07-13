@@ -1,10 +1,20 @@
 package com.example.bridge.ui.history;
 
 import com.example.bridge.ui.game.GameActivity;
+import com.example.bridge.bidding.Tools.BiddingState;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallDetails;
+import com.example.bridge.bidding.Tools.Direction;
+import com.example.bridge.bidding.Tools.Game;
+import com.example.bridge.bidding.Tools.Hand;
+import com.example.bridge.bidding.Tools.PositionCalls;
+import com.example.bridge.model.Contract;
+import com.example.bridge.model.Suit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 public class PbnCollection {
     private GameActivity gameActivity;
 
@@ -29,19 +39,68 @@ public class PbnCollection {
     public void initAllPbn() {
         pbn.initNewGame();
         pbnNatC.initNewGame();
-        //pbnNoSystem.initNewGame();
-        //pbnWj2025Simple.initNewGame();
-        //pbnWj2025.initNewGame();
-        //pbnLCStandard.initNewGame();
 
         gameActivity.getGameController().calculateAndSetTheBestContract();
         pbn.setContract(gameActivity.getGameController().getCurrentContract(), "South");
 
-
-        pbnNatC.todoBiding();
+        runNatCBidding();
     }
-    public GameActivity getGameActivity() {
-        return gameActivity;
+
+    private void runNatCBidding() {
+        Game game = new Game();
+        Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
+        
+        com.example.bridge.model.Player playerN = players.get("North");
+        com.example.bridge.model.Player playerS = players.get("South");
+
+        if (playerN != null) {
+            game.getDeal().put(Direction.N, Hand.parse(pbnNatC.formatHand(playerN.getHand())));
+        }
+        if (playerS != null) {
+            game.getDeal().put(Direction.S, Hand.parse(pbnNatC.formatHand(playerS.getHand())));
+        }
+
+        game.dealer = Direction.N;
+        game.bidSystemNS = "NatC";
+        game.bidSystemEW = "NatC";
+
+        BiddingState state = new BiddingState(game);
+
+        while (!state.getContract().isAuctionComplete()) {
+            Direction turn = state.getNextToAct().getDirection();
+            PositionCalls choices = state.getCallChoices();
+            CallDetails best = choices.getBestCall();
+
+            if (best == null) break;
+
+            pbnNatC.addBid(best.getCall().toString());
+            state.makeCall(best);
+        }
+
+        if (!state.getContract().isPassedOut()) {
+            com.example.bridge.bidding.Tools.Bid finalBid = state.getContract().getBid();
+            Direction declarerDir = state.getContract().getDeclarer();
+            
+            Suit modelSuit = null;
+            if (finalBid.getStrain() != com.example.bridge.bidding.Tools.Strain.NoTrump) {
+                modelSuit = Suit.valueOf(finalBid.getStrain().name().toUpperCase());
+            }
+            
+            Contract modelContract = new Contract(finalBid.getLevel(), modelSuit);
+            pbnNatC.setContract(modelContract, dirToString(declarerDir));
+        } else {
+            pbnNatC.setContract(new Contract(true), null);
+        }
+    }
+
+    private String dirToString(Direction dir) {
+        switch (dir) {
+            case N: return "North";
+            case E: return "East";
+            case S: return "South";
+            case W: return "West";
+            default: return "";
+        }
     }
     public Pbn getPbnNoSystem() {
         return pbnNoSystem;

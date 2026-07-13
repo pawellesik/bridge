@@ -241,7 +241,7 @@ public class Pbn {
         return sb.toString();
     }
 
-    private String formatHand(List<Card> hand) {
+    public String formatHand(List<Card> hand) {
         if (hand == null) return "";
         StringBuilder sb = new StringBuilder();
         Suit[] suits = {Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS};
