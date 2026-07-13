@@ -22,13 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
-import com.example.bridge.core.PbnExporter;
+import com.example.bridge.ui.history.PbnExporter;
 import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
 import com.example.bridge.model.Trick;
-import com.example.bridge.ui.biddings.BiddingManager;
 import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
@@ -75,7 +74,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private SharedPref sharedPref;
     private String gameMode;
     private GameBidding gameBidding;
-    PbnExporter pbnExporter;
+    PbnExporter pbnExporter, pbnExporterNatC ;
+
     GameBiddingHistory gameBiddingHistory;
     private OverlaySettings overlaySettings;
 
@@ -120,6 +120,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBidding = new GameBidding(this);
         overlaySettings = new OverlaySettings(this);
         pbnExporter = new PbnExporter(this);
+        pbnExporterNatC = new PbnExporter(this);
 
         setupRecyclerView();
 
@@ -267,7 +268,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGameBase();
         gameController.calculateAndSetTheBestContract();
 
-        pbnExporter.todoBiding();//todo
+        pbnExporter.
+
+        pbnExporterNatC.todoBiding();//todo delete in future
 
         onHandUpdated("North");
         onHandUpdated("South");

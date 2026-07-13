@@ -1,4 +1,4 @@
-package com.example.bridge.core;
+package com.example.bridge.ui.history;
 
 import com.example.bridge.bidding.Tools.BiddingState;
 import com.example.bridge.bidding.Tools.Call;
@@ -13,7 +13,6 @@ import com.example.bridge.model.Rank;
 import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.game.GameTop;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,9 +21,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Class for collecting game data and exporting it to PBN (Portable Bridge Notation) format.
- */
 public class PbnExporter {
 
     private String event = "Casual Game";
