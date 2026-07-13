@@ -68,10 +68,10 @@ public class PbnCollection {
             List<Pbn> allPbns = new ArrayList<>();
             allPbns.add(pbn);
             allPbns.add(pbnNatC);
-            allPbns.add(pbnNoSystem);
-            allPbns.add(pbnWj2025Simple);
-            allPbns.add(pbnWj2025);
-            allPbns.add(pbnLCStandard);
+            //allPbns.add(pbnNoSystem);
+            //allPbns.add(pbnWj2025Simple);
+            //allPbns.add(pbnWj2025);
+            //allPbns.add(pbnLCStandard);
 
             for (Pbn p : allPbns) {
                 if (p != null) {
