@@ -23,7 +23,21 @@ public class PbnCollection {
     }
 
     public void initAllPbn() {
+        pbn.initNewGame();
+        pbnNoSystem.initNewGame();
+        pbnNatC.initNewGame();
+        pbnWj2025Simple.initNewGame();
+        pbnWj2025.initNewGame();
+        pbnLCStandard.initNewGame();
 
+        // Obecnie rozgrywany system (Current) - w trybie Quick Mode używamy heurystyki
+        gameActivity.getGameController().calculateAndSetTheBestContract();
+        
+        // Synchronizujemy PBN 'Current' z wyliczonym kontraktem
+        pbn.setContract(gameActivity.getGameController().getCurrentContract(), "South");
+
+        // Tutaj w przyszłości będzie automatyczne liczenie pozostałych systemów
+        // pbnNatC.todoBiding(); // Przykład wywołania licytacji dla NatC
     }
     public GameActivity getGameActivity() {
         return gameActivity;

@@ -257,10 +257,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void initGameQiuckMode() {
         initGameBase();
-        gameController.calculateAndSetTheBestContract();
 
         pbnCollection.initAllPbn();
-
 
         onHandUpdated("North");
         onHandUpdated("South");
