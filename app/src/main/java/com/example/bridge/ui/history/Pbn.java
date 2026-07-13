@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class PbnExporter {
+public class Pbn {
 
     private String event = "Casual Game";
     private String site = "Bridge App";
@@ -42,23 +42,20 @@ public class PbnExporter {
     private List<Trick> playHistory = new ArrayList<>();
     private GameActivity gameActivity;
 
-    public PbnExporter(GameActivity gameActivity) {
+    public Pbn(GameActivity gameActivity, String board) {
         this.gameActivity = gameActivity;
         this.date = new SimpleDateFormat("yyyy.MM.dd", Locale.US).format(new Date());
+        this.board = board;
     }
 
-    public void initNewGame(Map<String, List<Card>> hands, String dealer, String vulnerable) {
+    public void initNewGame() {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         this.event = timestamp;
         this.site = "Bridge App";
-        this.board = "1";
-        this.dealer = dealer;
-        this.vulnerable = vulnerable;
 
-        // Create a deep copy of the hands because they will be cleared during play
         this.initialHands = new java.util.HashMap<>();
-        if (hands != null) {
-            for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
+        if (gameActivity.getGameController().getHandsMap() != null) {
+            for (Map.Entry<String, List<Card>> entry : gameActivity.getGameController().getHandsMap().entrySet()) {
                 this.initialHands.put(entry.getKey(), new ArrayList<>(entry.getValue()));
             }
         }
@@ -68,6 +65,7 @@ public class PbnExporter {
         this.contract = null;
         this.declarer = null;
     }
+
     public void setContract(Contract contract, String declarer) {
         this.contract = contract;
         this.declarer = declarer;

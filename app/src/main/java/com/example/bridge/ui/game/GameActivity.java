@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
-import com.example.bridge.ui.history.PbnExporter;
+import com.example.bridge.ui.history.Pbn;
 import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
@@ -31,6 +31,7 @@ import com.example.bridge.model.Trick;
 import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
+import com.example.bridge.ui.history.PbnCollection;
 import com.example.bridge.ui.settings.OverlaySettings;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private SharedPref sharedPref;
     private String gameMode;
     private GameBidding gameBidding;
-    public PbnExporter pbnExporter, pbnExporterNatC;
+    private PbnCollection pbnCollection;
 
     GameBiddingHistory gameBiddingHistory;
     private OverlaySettings overlaySettings;
@@ -119,8 +120,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         gameBidding = new GameBidding(this);
         overlaySettings = new OverlaySettings(this);
-        pbnExporter = new PbnExporter(this);
-        pbnExporterNatC = new PbnExporter(this);
+        pbnCollection = new PbnCollection(this);
+
 
         setupRecyclerView();
 
@@ -229,14 +230,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return settingsOverlay;
     }
 
-    public View getTopBar(){
+    public View getTopBar() {
         return topBar;
     }
 
-    public String getGameMode(){
+    public String getGameMode() {
         return gameMode;
     }
-
 
     private void initGame() {
         if ("quick".equals(gameMode)) {
@@ -255,10 +255,20 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
     }
 
+    private void initGameQiuckMode() {
+        initGameBase();
+        gameController.calculateAndSetTheBestContract();
+
+        pbnCollection.initAllPbn();
+
+
+        onHandUpdated("North");
+        onHandUpdated("South");
+        onVisibleStartBar(true);
+    }
+
     private void initGameSingleMode() {
         initGameBase();
-
-        pbnExporter.initNewGame(gameController.getHandsMap(), "W", "None");
 
         gameTop.hideContract();
         if (topBar != null) topBar.setVisibility(View.GONE);
@@ -267,21 +277,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         onVisibleStartBar(true);
     }
 
-    private void initGameQiuckMode() {
-        initGameBase();
-        gameController.calculateAndSetTheBestContract();
-
-        pbnExporter.initNewGame(gameController.getHandsMap(), "W", "None");
-
-        pbnExporterNatC.todoBiding();//todo delete in future
-
-        onHandUpdated("North");
-        onHandUpdated("South");
-        onVisibleStartBar(true);
-    }
-
     public GameController getGameController() {
         return gameController;
+    }
+
+    public PbnCollection getPbnCollection() {
+        return this.pbnCollection;
     }
 
     private void initGameBase() {
@@ -327,9 +328,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public View getBiddingControlsOverlay() {
         return biddingControlsOverlay;
     }
+
     public View getBiddingOverlay() {
         return biddingOverlay;
     }
+
     private void initBiddingHistory() {
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
         rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
@@ -629,8 +632,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         isProcessingMove = false;
         gameTop.setContract(contract);
 
-        if (pbnExporter != null) {
-            pbnExporter.setContract(contract, declarer != null ? declarer.getName() : "South");
+        if (pbnCollection.getPbn() != null) {
+            pbnCollection.getPbn().setContract(contract, declarer != null ? declarer.getName() : "South");
         }
 
         // Architectural safety: UI updates itself in response to the state change
@@ -664,15 +667,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
-        if (pbnExporter != null) {
-            String decl = pbnExporter.getDeclarer();
+        if (pbnCollection != null) {
+            String decl = pbnCollection.getPbn().getDeclarer();
             if ("West".equals(decl) || "East".equals(decl)) {
-                pbnExporter.setResult(weScore);
+                pbnCollection.getPbn().setResult(weScore);
             } else {
-                pbnExporter.setResult(snScore);
+                pbnCollection.getPbn().setResult(snScore);
             }
-            pbnExporter.setPlayHistory(history);
-            android.util.Log.d("PBN_EXPORT", pbnExporter.generatePbn());//todo to delete
+            pbnCollection.getPbn().setPlayHistory(history);
+            android.util.Log.d("PBN_EXPORT", pbnCollection.getPbn().generatePbn());//todo to delete
         }
 
         if ("quick".equals(gameMode)) {
