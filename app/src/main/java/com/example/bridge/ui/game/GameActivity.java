@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private SharedPref sharedPref;
     private String gameMode;
     private GameBidding gameBidding;
-    PbnExporter pbnExporter, pbnExporterNatC ;
+    public PbnExporter pbnExporter, pbnExporterNatC;
 
     GameBiddingHistory gameBiddingHistory;
     private OverlaySettings overlaySettings;
@@ -257,6 +257,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void initGameSingleMode() {
         initGameBase();
+
+        pbnExporter.initNewGame(gameController.getHandsMap(), "W", "None");
+
         gameTop.hideContract();
         if (topBar != null) topBar.setVisibility(View.GONE);
         biddingOverlay.setVisibility(View.VISIBLE);
@@ -268,7 +271,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGameBase();
         gameController.calculateAndSetTheBestContract();
 
-        pbnExporter.
+        pbnExporter.initNewGame(gameController.getHandsMap(), "W", "None");
 
         pbnExporterNatC.todoBiding();//todo delete in future
 
@@ -622,9 +625,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onContractDetermined(Contract contract) {
+    public void onContractDetermined(Contract contract, Player declarer) {
         isProcessingMove = false;
         gameTop.setContract(contract);
+
+        if (pbnExporter != null) {
+            pbnExporter.setContract(contract, declarer != null ? declarer.getName() : "South");
+        }
 
         // Architectural safety: UI updates itself in response to the state change
         if (biddingControlsOverlay != null) {
@@ -657,6 +664,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
+        if (pbnExporter != null) {
+            String decl = pbnExporter.getDeclarer();
+            if ("West".equals(decl) || "East".equals(decl)) {
+                pbnExporter.setResult(weScore);
+            } else {
+                pbnExporter.setResult(snScore);
+            }
+            pbnExporter.setPlayHistory(history);
+            android.util.Log.d("PBN_EXPORT", pbnExporter.generatePbn());
+        }
+
         if ("quick".equals(gameMode)) {
             onVisibleStartBar(true);
             setBottomNavVisibility(true);

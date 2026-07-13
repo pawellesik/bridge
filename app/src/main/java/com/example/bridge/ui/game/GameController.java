@@ -30,7 +30,7 @@ public class GameController {
 
         void onClearLastCards(List<Card> cardsOnTable);
 
-        void onContractDetermined(Contract contract);
+        void onContractDetermined(Contract contract, Player declarer);
 
         void onVisibleStartBar(Boolean isVisible);
 
@@ -106,7 +106,7 @@ public class GameController {
 
     public void calculateAndSetTheBestContract() {
         setCurrentContract(biddingManager.determineBestContract());
-        callback.onContractDetermined(currentContract);
+        callback.onContractDetermined(currentContract, players.get("South"));
         playerFirstPlayCard = players.get("West");
     }
 
@@ -127,7 +127,7 @@ public class GameController {
             biddingManager.sortHandsByContract(contract.getSuit());
         }
 
-        callback.onContractDetermined(contract);
+        callback.onContractDetermined(contract, declarer);
         callback.onHandUpdated("North");
         callback.onHandUpdated("South");
 
@@ -523,7 +523,7 @@ public class GameController {
         return minOptimalCode;
     }
 
-    private Map<String, List<Card>> getHandsMap() {
+    public Map<String, List<Card>> getHandsMap() {
         Map<String, List<Card>> map = new HashMap<>();
         for (Player p : players.values()) {
             map.put(p.getName(), p.getHand());

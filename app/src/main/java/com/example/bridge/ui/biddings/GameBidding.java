@@ -327,6 +327,7 @@ public class GameBidding {
 
         // 1. Add to history
         lastHistory.getAuction().add(finalBid);
+        activity.pbnExporter.addBid(finalBid);
 
         // 2. Refresh history UI and scroll
         lastHistory.updateBiddingHistory(null, true);

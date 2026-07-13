@@ -47,6 +47,20 @@ public class PbnExporter {
         this.date = new SimpleDateFormat("yyyy.MM.dd", Locale.US).format(new Date());
     }
 
+    public void initNewGame(Map<String, List<Card>> hands, String dealer, String vulnerable) {
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        this.event = timestamp;
+        this.site = "Bridge App";
+        this.board = "1";
+        this.dealer = dealer;
+        this.vulnerable = vulnerable;
+        this.initialHands = hands;
+        this.auction.clear();
+        this.playHistory = new ArrayList<>();
+        this.contract = null;
+        this.declarer = null;
+    }
+
     public void setInitialHands(Map<String, List<Card>> hands) {
         this.initialHands = hands;
     }
@@ -54,6 +68,10 @@ public class PbnExporter {
     public void setContract(Contract contract, String declarer) {
         this.contract = contract;
         this.declarer = declarer;
+    }
+
+    public String getDeclarer() {
+        return declarer;
     }
 
     public void setResult(int tricksWonByDeclarerSide) {
@@ -76,6 +94,21 @@ public class PbnExporter {
         this.event = event;
         this.site = site;
         this.board = board;
+    }
+
+    public void setDealer(String dealer) {
+        this.dealer = dealer;
+    }
+
+    public void setVulnerable(String vulnerable) {
+        this.vulnerable = vulnerable;
+    }
+
+    public void setPlayerNames(String west, String north, String east, String south) {
+        this.west = west;
+        this.north = north;
+        this.east = east;
+        this.south = south;
     }
 
     public String generatePbn() {
@@ -105,7 +138,7 @@ public class PbnExporter {
 
         // Auction
         if (!auction.isEmpty()) {
-            sb.append("[Auction \"W\"]\n");
+            sb.append(String.format(Locale.US, "[Auction \"%s\"]\n", formatDirection(dealer)));
             for (int i = 0; i < auction.size(); i++) {
                 sb.append(auction.get(i)).append(i % 4 == 3 ? "\n" : " ");
             }
