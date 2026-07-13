@@ -54,17 +54,20 @@ public class PbnExporter {
         this.board = "1";
         this.dealer = dealer;
         this.vulnerable = vulnerable;
-        this.initialHands = hands;
+
+        // Create a deep copy of the hands because they will be cleared during play
+        this.initialHands = new java.util.HashMap<>();
+        if (hands != null) {
+            for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
+                this.initialHands.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+            }
+        }
+
         this.auction.clear();
         this.playHistory = new ArrayList<>();
         this.contract = null;
         this.declarer = null;
     }
-
-    public void setInitialHands(Map<String, List<Card>> hands) {
-        this.initialHands = hands;
-    }
-
     public void setContract(Contract contract, String declarer) {
         this.contract = contract;
         this.declarer = declarer;
@@ -161,12 +164,19 @@ public class PbnExporter {
     }
 
     private String formatDeal() {
+        if (initialHands == null) return "";
         StringBuilder sb = new StringBuilder();
         sb.append(dealer).append(":");
 
         String[] directions = {"West", "North", "East", "South"};
+        int startIdx = 0;
+        if ("N".equals(dealer)) startIdx = 1;
+        else if ("E".equals(dealer)) startIdx = 2;
+        else if ("S".equals(dealer)) startIdx = 3;
+
         for (int i = 0; i < 4; i++) {
-            sb.append(formatHand(initialHands.get(directions[i])));
+            int currentIdx = (startIdx + i) % 4;
+            sb.append(formatHand(initialHands.get(directions[currentIdx])));
             if (i < 3) sb.append(" ");
         }
         return sb.toString();
@@ -177,10 +187,18 @@ public class PbnExporter {
         StringBuilder sb = new StringBuilder();
         Suit[] suits = {Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS};
         for (int i = 0; i < 4; i++) {
+            Suit currentSuit = suits[i];
+            List<Card> suitCards = new ArrayList<>();
             for (Card card : hand) {
-                if (card.getSuit() == suits[i]) {
-                    sb.append(formatRank(card.getRank()));
+                if (card.getSuit() == currentSuit) {
+                    suitCards.add(card);
                 }
+            }
+            // Sort ranks descending for PBN (A, K, Q, J, T, 9, ...)
+            suitCards.sort((c1, c2) -> Integer.compare(c2.getRank().ordinal(), c1.getRank().ordinal()));
+
+            for (Card card : suitCards) {
+                sb.append(formatRank(card.getRank()));
             }
             if (i < 3) sb.append(".");
         }

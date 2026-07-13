@@ -672,7 +672,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 pbnExporter.setResult(snScore);
             }
             pbnExporter.setPlayHistory(history);
-            android.util.Log.d("PBN_EXPORT", pbnExporter.generatePbn());
+            android.util.Log.d("PBN_EXPORT", pbnExporter.generatePbn());//todo to delete
         }
 
         if ("quick".equals(gameMode)) {
