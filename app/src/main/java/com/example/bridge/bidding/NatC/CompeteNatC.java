@@ -28,7 +28,7 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3C, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("CompeteNatC.compBids _3C")));
         bids.add(shows(Bid._3D, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("CompeteNatC.compBids _3D")));
 
-        bids.add(shows(Bid._3NT, OPPS_STOPPED, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _3NT")));
+        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _3NT")));
 
         bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5C")));
         bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5D")));

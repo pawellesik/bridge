@@ -4,14 +4,21 @@ public class CallProperties extends CallFeature {
     private final PositionCallsFactory partnerBids;
     private final boolean forcing1Round;
     private final boolean forcingToGame;
+    private final boolean isInvite;
     private Suit trumpSuit = null;
 
     public CallProperties(Call call, PositionCallsFactory partnerBids, boolean forcing1Round, boolean forcingToGame,
                           boolean agreeTrump, Suit trump, StaticConstraint... constraints) {
+        this(call, partnerBids, forcing1Round, forcingToGame, false, agreeTrump, trump, constraints);
+    }
+
+    public CallProperties(Call call, PositionCallsFactory partnerBids, boolean forcing1Round, boolean forcingToGame,
+                          boolean isInvite, boolean agreeTrump, Suit trump, StaticConstraint... constraints) {
         super(call, (Constraint[]) constraints);
         this.partnerBids = partnerBids;
         this.forcing1Round = forcing1Round;
         this.forcingToGame = forcingToGame;
+        this.isInvite = isInvite;
         
         // Priorytet ma jawnie przekazany kolor 'trump'. 
         // Jeśli go nie ma, a agreeTrump jest true, bierzemy kolor z samej odzywki.
@@ -32,6 +39,10 @@ public class CallProperties extends CallFeature {
 
     public boolean isForcingToGame() {
         return forcingToGame;
+    }
+
+    public boolean isInvite() {
+        return isInvite;
     }
 
     public Suit getTrumpSuit() {

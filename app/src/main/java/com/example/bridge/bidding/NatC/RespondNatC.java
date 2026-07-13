@@ -159,13 +159,13 @@ public class RespondNatC extends NatC {
     public static PositionCalls oneSpade(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-        Call[] raises = new Call[]{Bid._2S, Bid._3S, Bid._4S, Bid._2H, Bid._3H, Bid._4H};
         if (ps.isPassedHand()) {
             choices.addRules(
                     partnerBids(OpenBid2NatC::responderChangedSuits),
-                    propertiesAgreeTrump(raises, OpenBid2NatC::responderRaisedMajor, true),
-                    propertiesAgreeTrump(new Call[]{Bid._1NT}, OpenBid2NatC::responder1NT, true),
-                    propertiesAgreeTrump(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NT, true),
+                    properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderRaisedMajor, false),
+                    properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::responderRaisedMajor, false),
+                    properties(new Call[]{Bid._1NT}, OpenBid2NatC::responder1NT, true),
+                    properties(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NT, true),
 
                     shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneSpade _2S")),
                     shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), id("RespondNatC.oneSpade _3S")),
@@ -185,7 +185,8 @@ public class RespondNatC extends NatC {
             choices.addRules(SolidSuitNatC.BIDS(ps));
             choices.addRules(
                     partnerBids(OpenBid2NatC::responderChangedSuits),
-                    propertiesAgreeTrump(raises, OpenBid2NatC::responderRaisedMajor, true),
+                    properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderRaisedMajor, true),
+                    properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::responderRaisedMajor, true),
 
                     shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneSpade _2S")),
                     shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(Suit.Spades, 0, 2), shape(5, 10), id("RespondNatC.oneSpade _2H")),

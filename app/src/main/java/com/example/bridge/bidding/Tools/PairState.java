@@ -8,6 +8,7 @@ public class PairState {
     private final IBiddingSystem biddingSystem;
     private final boolean areVulnerable;
     private boolean forcedToGame = false;
+    private boolean invitedToGame = false;
     private PositionState forcedPosition = null;
     private int forcedThroughRound = 0;
     private final Map<Suit, PositionState> firstToShow = new EnumMap<>(Suit.class);
@@ -83,6 +84,9 @@ public class PairState {
             if (props.isForcingToGame()) {
                 forcedToGame = true;
             }
+            if (props.isInvite()) {
+                invitedToGame = true;
+            }
             if (props.isForcing1Round()) {
                 forcedPosition = callDetails.getPositionState().getPartner();
                 forcedThroughRound = callDetails.getPositionState().getPartner().getBidRound();
@@ -95,6 +99,10 @@ public class PairState {
 
     public boolean isForcedToGame() {
         return forcedToGame;
+    }
+
+    public boolean isInvitedToGame() {
+        return invitedToGame;
     }
 
     public Suit getTrumpSuit() {

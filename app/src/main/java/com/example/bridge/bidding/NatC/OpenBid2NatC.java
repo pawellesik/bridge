@@ -111,8 +111,10 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2H, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajor _2H")),
                 shows(Bid._2S, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajor _2S")),
 
-                shows(Call.PASS, id("OpenBid2NatC.responderRaisedMajor _PASS"))
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME_INVITE), partnerLastSuitShape(0,2), othersAtLeast(3), id("OpenBid2NatC.responderRaisedMajor _3NT"))
+
         );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
