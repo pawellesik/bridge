@@ -16,12 +16,6 @@ public class OverlayHistoryGame {
     public OverlayHistoryGame(GameActivity activity) {
         this.activity = activity;
         this.root = activity.findViewById(R.id.history_game_overlay);
-        initViews();
-    }
-
-    private void initViews() {
-        if (root == null) return;
-        // Basic initialization, similar to OverlayHistory
     }
 
     public void showGame(int dbId) {
@@ -35,10 +29,12 @@ public class OverlayHistoryGame {
     private void loadGameData(int dbId) {
         new Thread(() -> {
             try {
-                com.example.bridge.core.db.GameRecord record = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getById(dbId);
-                if (record != null) {
-                    android.util.Log.d("plesik", "Loaded game: " + record.system + " - " + record.gameData);
-                    // Update UI with game data here (on main thread)
+                java.util.List<com.example.bridge.core.db.GameRecord> records = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getGamesByDealId(dbId);
+                if (records != null && !records.isEmpty()) {
+                    for (com.example.bridge.core.db.GameRecord record : records) {
+                        android.util.Log.d("plesik", "Loaded game system: " + record.system + " - " + record.gameData);
+                    }
+
                 }
             } catch (Exception e) {
                 android.util.Log.e("plesik", "Error loading game data", e);
