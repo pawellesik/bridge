@@ -64,7 +64,7 @@ public class OverlayHistory {
 
         String json = activity.getSharedPreferences(SharedPref.PREFS_NAME, Context.MODE_PRIVATE)
                 .getString(SharedPref.KEY_HISTORY, "[]");
-
+        System.out.println("plesik "+json.toString());
         fullHistoryList.clear();
         try {
             JSONArray mainArray = new JSONArray(json);
