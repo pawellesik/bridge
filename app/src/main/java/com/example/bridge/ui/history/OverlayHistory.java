@@ -63,11 +63,9 @@ public class OverlayHistory {
     }
 
     public void refresh() {
-        System.out.print("plesik refresh");
         new Thread(() -> {
             try {
                 List<GameRecord> records = AppDatabase.getInstance(activity).gameDao().getAllUniqueGames();
-                System.out.print("plesik "+records.toString());
                 List<JSONObject> loadedList = new ArrayList<>();
                 for (GameRecord record : records) {
                     JSONObject gameData = new JSONObject(record.gameData);
@@ -85,7 +83,7 @@ public class OverlayHistory {
                     applyFilters();
                 });
             } catch (Exception e) {
-                e.printStackTrace();
+                android.util.Log.e("plesik", "Błąd podczas odświeżania historii: " + e.getMessage(), e);
             }
         }).start();
     }
