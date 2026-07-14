@@ -56,5 +56,15 @@ public class SharedPref {
         prefs.edit().putInt(KEY_GAMES_PLAYED, count).apply();
     }
 
+    public void saveGameHistory(String historyJson) {
+        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        prefs.edit().putString(KEY_HISTORY, historyJson).apply();
+    }
+
+    public String getGameHistory() {
+        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(KEY_HISTORY, "");
+    }
+
 
 }
