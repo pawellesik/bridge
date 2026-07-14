@@ -38,11 +38,11 @@ public class PbnCollection {
 
     public void initAllPbn() {
         pbn.initNewGame();
-        pbnNatC.initNewGame();
 
         gameActivity.getGameController().calculateAndSetTheBestContract();
         pbn.setContract(gameActivity.getGameController().getCurrentContract(), "South");
 
+        pbnNatC.initNewGame();
         runNatCBidding();
     }
 

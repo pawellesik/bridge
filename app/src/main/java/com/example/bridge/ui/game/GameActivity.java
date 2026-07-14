@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
-import com.example.bridge.ui.history.Pbn;
 import com.example.bridge.core.SharedPref;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
@@ -243,7 +242,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             initGameQiuckMode();
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
-            initBiddingHistory();
+            initBiddingUi();
 
             gameBiddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
             gameBiddingHistory.addFakeAuction();
@@ -331,7 +330,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return biddingOverlay;
     }
 
-    private void initBiddingHistory() {
+    private void initBiddingUi() {
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
         rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
         gameBiddingHistory = new GameBiddingHistory(this);
@@ -687,7 +686,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             onVisibleStartBar(true);
             setBottomNavVisibility(true);
             initGameSingleMode();
-            initBiddingHistory();
+            initBiddingUi();
 
             gameBiddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
             gameBiddingHistory.addFakeAuction();
