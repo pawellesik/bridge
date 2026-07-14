@@ -28,7 +28,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.history.Old_HistoryActivity"
+            android:name=".ui.history.HistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

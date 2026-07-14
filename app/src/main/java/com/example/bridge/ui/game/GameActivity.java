@@ -30,6 +30,7 @@ import com.example.bridge.model.Trick;
 import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
+import com.example.bridge.ui.history.OverlayHistory;
 import com.example.bridge.ui.history.PbnCollection;
 import com.example.bridge.ui.settings.OverlaySettings;
 
@@ -57,7 +58,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View startBar;
     private View btnClaim;
     private View loadingIndicator;
-    private View historyOverlay;
     private View statisticOverlay;
     private View settingsOverlay;
     private View biddingOverlay;
@@ -65,6 +65,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View topBar;
     private RecyclerView rvBiddingHistory;
 
+    private View historyOverlay;
+    private OverlayHistory historyController;
     GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
@@ -120,7 +122,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBidding = new GameBidding(this);
         overlaySettings = new OverlaySettings(this);
         pbnCollection = new PbnCollection(this);
-
+        historyController = new OverlayHistory(this);
 
         setupRecyclerView();
 
@@ -130,27 +132,28 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             bottomNav.setOnItemSelectedListener(item -> {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_game) {
-                    historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.GONE);
                     settingsOverlay.setVisibility(View.GONE);
+                    historyOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     historyOverlay.setVisibility(View.VISIBLE);
+                    historyController.refresh();
                     statisticOverlay.setVisibility(View.GONE);
                     settingsOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_statistic) {
-                    historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.VISIBLE);
                     settingsOverlay.setVisibility(View.GONE);
+                    historyOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_settings) {
-                    historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.GONE);
                     settingsOverlay.setVisibility(View.VISIBLE);
+                    historyOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 }
@@ -196,13 +199,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if ((historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE) ||
-                        (statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE) ||
-                        (settingsOverlay != null && settingsOverlay.getVisibility() == View.VISIBLE)) {
+                if ((statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE) ||
+                        (settingsOverlay != null && settingsOverlay.getVisibility() == View.VISIBLE) ||
+                        (historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE)) {
 
-                    historyOverlay.setVisibility(View.GONE);
                     statisticOverlay.setVisibility(View.GONE);
                     settingsOverlay.setVisibility(View.GONE);
+                    historyOverlay.setVisibility(View.GONE);
 
                     com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
                     if (bottomNav != null) {
@@ -674,7 +677,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             String jsonExport = pbnCollection.generateJsonExport();
             android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
-            sharedPref.saveGameHistory(jsonExport);
+            com.example.bridge.ui.history.HistoryActivity.saveGameToHistory(this, jsonExport);
         }
 
         if ("quick".equals(gameMode)) {

@@ -54,9 +54,14 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         try {
             JSONObject item = items.get(position);
-            String contractStr = item.getString("contract");
-            int snTricks = item.optInt("snScore", 0);
-            int points = item.optInt("points", 0);
+            
+            // Handle the {system: "...", data: {...}} wrapper if present
+            JSONObject data = item.has("data") ? item.getJSONObject("data") : item;
+            String systemName = item.optString("system", "");
+
+            String contractStr = data.optString("Contract", "PASS");
+            int snTricks = data.optInt("Result", 0);
+            int points = data.optInt("points", 0); // Might not be in Pbn yet
 
             if (contractStr.toUpperCase().contains("PASS")) {
                 holder.tvContract.setText(R.string.contract_pass);
@@ -64,7 +69,12 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                 holder.ivSuit.setVisibility(View.GONE);
                 holder.tvResultSymbol.setText("");
             } else {
-                String[] parts = contractStr.split(" ");
+                String displayContract = contractStr;
+                if (!systemName.isEmpty()) {
+                    displayContract = systemName + ": " + contractStr;
+                }
+                
+                String[] parts = contractStr.split("(?<=\\d)(?=\\D)"); // Split after number
                 if (parts.length >= 2) {
                     holder.tvContract.setText(parts[0]);
                     String suitPart = parts[1].toUpperCase();
@@ -75,12 +85,22 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                         holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                     } else {
                         try {
-                            Suit suit = Suit.valueOf(suitPart);
-                            holder.ivSuit.setVisibility(View.VISIBLE);
-                            holder.ivSuit.setImageResource(suit.resId);
-                            int suitColor = suit.getColor(holder.itemView.getContext());
-                            holder.ivSuit.setColorFilter(suitColor);
-                            holder.tvContract.setTextColor(suitColor);
+                            // Extract first char for Suit.valueOf if needed, or mapping
+                            Suit suit = null;
+                            if (suitPart.startsWith("S")) suit = Suit.SPADES;
+                            else if (suitPart.startsWith("H")) suit = Suit.HEARTS;
+                            else if (suitPart.startsWith("D")) suit = Suit.DIAMONDS;
+                            else if (suitPart.startsWith("C")) suit = Suit.CLUBS;
+
+                            if (suit != null) {
+                                holder.ivSuit.setVisibility(View.VISIBLE);
+                                holder.ivSuit.setImageResource(suit.resId);
+                                int suitColor = suit.getColor(holder.itemView.getContext());
+                                holder.ivSuit.setColorFilter(suitColor);
+                                holder.tvContract.setTextColor(suitColor);
+                            } else {
+                                throw new Exception();
+                            }
                         } catch (Exception e) {
                             holder.ivSuit.setVisibility(View.GONE);
                             holder.tvContract.setText(contractStr);
@@ -89,17 +109,22 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                     }
 
                     // Calculate result symbol: S=, S+1, S-1
-                    int required = Integer.parseInt(parts[0]) + 6;
-                    int diff = snTricks - required;
-                    String symbol = " S";
-                    if (diff == 0) symbol += "=";
-                    else if (diff > 0) symbol += "+" + diff;
-                    else symbol += diff; // diff is negative
-                    holder.tvResultSymbol.setText(symbol);
+                    try {
+                        int level = Integer.parseInt(parts[0].replaceAll("\\D", ""));
+                        int required = level + 6;
+                        int diff = snTricks - required;
+                        String symbol = " S";
+                        if (diff == 0) symbol += "=";
+                        else if (diff > 0) symbol += "+" + diff;
+                        else symbol += diff; 
+                        holder.tvResultSymbol.setText(symbol);
+                    } catch (Exception e) {
+                        holder.tvResultSymbol.setText("");
+                    }
                     holder.tvResultSymbol.setTextColor(android.graphics.Color.BLACK);
 
                 } else {
-                    holder.tvContract.setText(contractStr);
+                    holder.tvContract.setText(displayContract);
                     holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                     holder.ivSuit.setVisibility(View.GONE);
                     holder.tvResultSymbol.setText("");
@@ -115,7 +140,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                 holder.tvPoints.setTextColor(android.graphics.Color.WHITE);
             }
 
-            holder.tvDate.setText(item.getString("date"));
+            holder.tvDate.setText(data.optString("Date", ""));
 
             boolean isSaved = item.optBoolean("isSaved", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
