@@ -11,7 +11,7 @@
     android:visibility="gone"
     tools:visibility="visible">
 
-    <!-- Header -->
+    <!-- Header (Black bar) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/history_game_header_container"
         android:layout_width="match_parent"
@@ -21,166 +21,210 @@
         android:paddingHorizontal="8dp"
         android:paddingVertical="8dp"
         android:translationZ="100dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Content (Cross Layout: N, S, E, W and Bidding Center) -->
+    <!-- Top Area for Hands (Cross) -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hands_history"
+        android:id="@+id/layout_hands_history_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:paddingTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/history_game_header_container">
 
-        <!-- Center Piece (Bidding Box) -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_center_history"
-            android:layout_width="140dp"
+        <!-- guidelines for 3 equal columns -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_33"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="120dp"
-            android:background="#A0E0E0E0"
-            app:layout_constraintBottom_toTopOf="@+id/tv_south_cards_history"
-            app:layout_constraintEnd_toStartOf="@+id/tv_east_cards_history"
-            app:layout_constraintStart_toEndOf="@+id/tv_west_cards_history"
-            app:layout_constraintTop_toBottomOf="@+id/tv_north_cards_history">
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3333" />
 
-            <!-- Direction Headers (W N E S) -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_66"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6666" />
+
+        <!-- Center: Bidding -->
+        <LinearLayout
+            android:id="@+id/layout_center_history"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="#D0E0E0E0"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/box_south"
+            app:layout_constraintEnd_toStartOf="@+id/guide_66"
+            app:layout_constraintStart_toStartOf="@+id/guide_33"
+            app:layout_constraintTop_toBottomOf="@+id/box_north">
+
             <LinearLayout
-                android:id="@+id/layout_bidding_header_history"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#E0E0E0"
-                    android:gravity="center"
-                    android:text="W"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#C62828"
-                    android:gravity="center"
-                    android:text="N"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#E0E0E0"
-                    android:gravity="center"
-                    android:text="E"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#C62828"
-                    android:gravity="center"
-                    android:text="S"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+                android:layout_height="22dp"
+                android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#E0E0E0" android:gravity="center" android:text="W" android:textColor="@color/black" android:textSize="10sp" android:textStyle="bold" />
+                <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#C62828" android:gravity="center" android:text="N" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" />
+                <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#E0E0E0" android:gravity="center" android:text="E" android:textColor="@color/black" android:textSize="10sp" android:textStyle="bold" />
+                <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="#C62828" android:gravity="center" android:text="S" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_bidding_history_compact"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:padding="4dp"
                 android:textColor="@color/black"
                 android:textSize="11sp"
-                app:layout_constraintTop_toBottomOf="@id/layout_bidding_header_history"
                 tools:text="Pas 1BA Pas Pas\nPas" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <!-- North -->
-        <TextView
-            android:id="@+id/tv_north_cards_history"
-            android:layout_width="120dp"
+        <LinearLayout
+            android:id="@+id/box_north"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:lineSpacingExtra="2dp"
-            android:minHeight="80dp"
-            android:padding="4dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="♠ 10 4\n♥ D 4\n♦ 8 6 5 4 2\n♣ K 8 5 2" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/layout_center_history"
+            app:layout_constraintEnd_toEndOf="@id/layout_center_history"
+            app:layout_constraintStart_toStartOf="@id/layout_center_history"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="NORTH"
+                android:textColor="#CCFFFFFF"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_north_cards_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:minHeight="70dp"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="♠ 10 4\n♥ D 4\n♦ 8 6 5 4 2\n♣ K 8 5 2" />
+        </LinearLayout>
 
         <!-- West -->
-        <TextView
-            android:id="@+id/tv_west_cards_history"
-            android:layout_width="110dp"
+        <LinearLayout
+            android:id="@+id/box_west"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:lineSpacingExtra="2dp"
-            android:minHeight="80dp"
-            android:padding="4dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@id/layout_center_history"
+            app:layout_constraintEnd_toStartOf="@id/layout_center_history"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/layout_center_history"
-            tools:text="♠ W 7 6 5 2\n♥ 3\n♦ K 10 7\n♣ W 10 6 3" />
+            app:layout_constraintTop_toTopOf="@id/layout_center_history">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="WEST"
+                android:textColor="#CCFFFFFF"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_west_cards_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:minHeight="70dp"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="♠ W 7 6 5 2\n♥ 3\n♦ K 10 7\n♣ W 10 6 3" />
+        </LinearLayout>
 
         <!-- East -->
-        <TextView
-            android:id="@+id/tv_east_cards_history"
-            android:layout_width="110dp"
+        <LinearLayout
+            android:id="@+id/box_east"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:lineSpacingExtra="2dp"
-            android:minHeight="80dp"
-            android:padding="4dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@id/layout_center_history"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/layout_center_history"
-            tools:text="♠ AK 3\n♥ W 10 9 5 2\n♦ AD 3\n♣ D 4" />
+            app:layout_constraintStart_toEndOf="@id/layout_center_history"
+            app:layout_constraintTop_toTopOf="@id/layout_center_history">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="EAST"
+                android:textColor="#CCFFFFFF"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_east_cards_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:minHeight="70dp"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="♠ AK 3\n♥ W 10 9 5 2\n♦ AD 3\n♣ D 4" />
+        </LinearLayout>
 
         <!-- South -->
-        <TextView
-            android:id="@+id/tv_south_cards_history"
-            android:layout_width="120dp"
+        <LinearLayout
+            android:id="@+id/box_south"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/white"
-            android:lineSpacingExtra="2dp"
-            android:minHeight="80dp"
-            android:padding="4dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_center_history"
-            tools:text="♠ D 9 8\n♥ AK 8 7 6\n♦ W 9\n♣ A 9 7" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/layout_center_history"
+            app:layout_constraintStart_toStartOf="@id/layout_center_history"
+            app:layout_constraintTop_toBottomOf="@id/layout_center_history">
+
+            <TextView
+                android:id="@+id/tv_south_cards_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:minHeight="70dp"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="♠ D 9 8\n♥ AK 8 7 6\n♦ W 9\n♣ A 9 7" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="SOUTH"
+                android:textColor="#CCFFFFFF"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Simulation Bar -->
+    <!-- Controls -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/simulation_bar_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         app:cardBackgroundColor="#2E7D32"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/layout_hands_history">
+        app:layout_constraintTop_toBottomOf="@id/layout_hands_history_container">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -194,72 +238,57 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
                 android:text="&lt;&lt;"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                app:rippleColor="#40FFFFFF" />
+                android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_prev_trick_history"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
                 android:text="&lt;"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                app:rippleColor="#40FFFFFF" />
+                android:textStyle="bold" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_trick_info_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:background="@drawable/bright_green_frame_black"
                 android:backgroundTint="#1B5E20"
-                android:gravity="center"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp">
-
-                <TextView
-                    android:id="@+id/tv_trick_info_history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trick 0 / 13"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="4dp"
+                android:text="Trick 0 / 13"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_next_trick_history"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
                 android:text="&gt;"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                app:rippleColor="#40FFFFFF" />
+                android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_last_trick_history"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
                 android:text="&gt;&gt;"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                app:rippleColor="#40FFFFFF" />
+                android:textStyle="bold" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- History Header -->
     <LinearLayout
         android:id="@+id/table_history_header_history"
         android:layout_width="match_parent"
@@ -267,50 +296,12 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:background="#A5D6A7"
-        android:divider="@drawable/history_divider"
         android:orientation="horizontal"
-        android:showDividers="middle"
         app:layout_constraintTop_toBottomOf="@+id/simulation_bar_history">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="@string/player_west"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="@string/player_north"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="@string/player_east"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="@string/player_south"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="4dp" android:text="W" android:textColor="@color/black" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="4dp" android:text="N" android:textColor="@color/black" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="4dp" android:text="E" android:textColor="@color/black" android:textStyle="bold" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="4dp" android:text="S" android:textColor="@color/black" android:textStyle="bold" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -322,14 +313,11 @@
         android:background="#C8E6C9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/table_history_header_history">
-
         <LinearLayout
             android:id="@+id/table_history_content_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@drawable/history_divider"
-            android:orientation="vertical"
-            android:showDividers="middle"></LinearLayout>
+            android:orientation="vertical" />
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
