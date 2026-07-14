@@ -8,12 +8,10 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
-import com.example.bridge.core.SharedPref;
 import com.example.bridge.core.db.AppDatabase;
 import com.example.bridge.core.db.GameRecord;
 import com.example.bridge.ui.game.GameActivity;
@@ -24,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OverlayHistory {
+public class OverlayHistoryList {
 
     private final GameActivity activity;
     private final View root;
@@ -35,7 +33,7 @@ public class OverlayHistory {
     private CheckBox cbOnlySaved;
     private Spinner spinnerLevel, spinnerSuit, spinnerResult;
 
-    public OverlayHistory(GameActivity activity) {
+    public OverlayHistoryList(GameActivity activity) {
         this.activity = activity;
         this.root = activity.findViewById(R.id.history_overlay);
         initViews();

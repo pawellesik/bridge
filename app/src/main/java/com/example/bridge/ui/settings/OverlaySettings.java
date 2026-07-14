@@ -33,17 +33,7 @@ public class OverlaySettings {
         setupQuickGame();
         setupSingleplayer();
         
-        View btnBack = activity.getSettingsOverlay().findViewById(R.id.btn_back_settings);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> {
-                activity.getSettingsOverlay().setVisibility(View.GONE);
-                // Return to game view in bottom nav
-                com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = activity.findViewById(R.id.bottom_navigation);
-                if (bottomNav != null) {
-                    bottomNav.setSelectedItemId(R.id.nav_game);
-                }
-            });
-        }
+
     }
 
     private void setupCardColors() {

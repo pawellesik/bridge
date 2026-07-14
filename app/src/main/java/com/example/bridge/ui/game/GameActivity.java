@@ -30,7 +30,7 @@ import com.example.bridge.model.Trick;
 import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
-import com.example.bridge.ui.history.OverlayHistory;
+import com.example.bridge.ui.history.OverlayHistoryList;
 import com.example.bridge.ui.history.PbnCollection;
 import com.example.bridge.ui.settings.OverlaySettings;
 
@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private RecyclerView rvBiddingHistory;
 
     private View historyOverlay;
-    private OverlayHistory overlayHistory;
+    private OverlayHistoryList overlayHistoryList;
     GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBidding = new GameBidding(this);
         overlaySettings = new OverlaySettings(this);
         pbnCollection = new PbnCollection(this);
-        overlayHistory = new OverlayHistory(this);
+        overlayHistoryList = new OverlayHistoryList(this);
 
         setupRecyclerView();
 
@@ -139,7 +139,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     historyOverlay.setVisibility(View.VISIBLE);
-                    overlayHistory.refresh();
+                    overlayHistoryList.refresh();
                     statisticOverlay.setVisibility(View.GONE);
                     settingsOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
@@ -677,7 +677,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             String jsonExport = pbnCollection.generateJsonExport();
             android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
-            overlayHistory.saveGameToHistory(this, jsonExport);
+            overlayHistoryList.saveGameToHistory(this, jsonExport);
         }
 
         if ("quick".equals(gameMode)) {
