@@ -672,8 +672,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 pbnCollection.getPbn().setResult(snScore);
             }
             pbnCollection.getPbn().setPlayHistory(history);
-            
-            // Logowanie całego JSONa z pbnCollection
+
             android.util.Log.d("PBN_EXPORT_JSON", pbnCollection.generateJsonExport());
         }
 
