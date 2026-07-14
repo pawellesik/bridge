@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
 import com.example.bridge.core.SharedPref;
+import com.example.bridge.core.db.AppDatabase;
+import com.example.bridge.core.db.GameRecord;
 import com.example.bridge.ui.game.GameActivity;
 
 import org.json.JSONArray;
@@ -61,44 +63,29 @@ public class OverlayHistory {
     }
 
     public void refresh() {
-
-        String json = activity.getSharedPreferences(SharedPref.PREFS_NAME, Context.MODE_PRIVATE)
-                .getString(SharedPref.KEY_HISTORY, "[]");
-        System.out.println("plesik "+json.toString());
-        fullHistoryList.clear();
-        try {
-            JSONArray mainArray = new JSONArray(json);
-            for (int i = 0; i < mainArray.length(); i++) {
-                Object item = mainArray.get(i);
-                if (item instanceof JSONArray) {
-                    // It's a batch of systems for one game, take only the first one for the list
-                    JSONArray batch = (JSONArray) item;
-                    if (batch.length() > 0) {
-                        fullHistoryList.add(batch.getJSONObject(0));
-                    }
-                } else if (item instanceof JSONObject) {
-                    // Support for old flat format
-                    fullHistoryList.add((JSONObject) item);
+        new Thread(() -> {
+            try {
+                List<GameRecord> records = AppDatabase.getInstance(activity).gameDao().getAllUniqueGames();
+                List<JSONObject> loadedList = new ArrayList<>();
+                for (GameRecord record : records) {
+                    JSONObject gameData = new JSONObject(record.gameData);
+                    JSONObject wrapper = new JSONObject();
+                    wrapper.put("system", record.system);
+                    wrapper.put("data", gameData);
+                    wrapper.put("isSaved", record.isSaved);
+                    wrapper.put("db_id", record.id); // Store ID for deletions/updates
+                    loadedList.add(wrapper);
                 }
+
+                activity.runOnUiThread(() -> {
+                    fullHistoryList.clear();
+                    fullHistoryList.addAll(loadedList);
+                    applyFilters();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            // Sort descending by Date (YYYY.MM.DD HH:mm:ss)
-            fullHistoryList.sort((a, b) -> {
-                try {
-                    JSONObject dataA = a.has("data") ? a.getJSONObject("data") : a;
-                    JSONObject dataB = b.has("data") ? b.getJSONObject("data") : b;
-                    String dateA = dataA.optString("Date", "");
-                    String dateB = dataB.optString("Date", "");
-                    return dateB.compareTo(dateA);
-                } catch (Exception e) {
-                    return 0;
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        applyFilters();
+        }).start();
     }
 
     private void setupFilters() {
@@ -188,12 +175,23 @@ public class OverlayHistory {
     }
 
     private void toggleSave(int position) {
-        try {
-            JSONObject item = filteredList.get(position);
-            item.put("isSaved", !item.optBoolean("isSaved", false));
-            saveHistory();
-            applyFilters();
-        } catch (Exception e) { e.printStackTrace(); }
+        new Thread(() -> {
+            try {
+                JSONObject item = filteredList.get(position);
+                int dbId = item.optInt("db_id", -1);
+                if (dbId != -1) {
+                    boolean newSaveStatus = !item.optBoolean("isSaved", false);
+                    AppDatabase.getInstance(activity).gameDao().updateSaveStatus(dbId, newSaveStatus);
+                    
+                    activity.runOnUiThread(() -> {
+                        try {
+                            item.put("isSaved", newSaveStatus);
+                            adapter.notifyItemChanged(position);
+                        } catch (Exception e) {}
+                    });
+                }
+            } catch (Exception e) { e.printStackTrace(); }
+        }).start();
     }
 
     private void showDeleteDialog(int position) {
@@ -201,24 +199,26 @@ public class OverlayHistory {
                 .setTitle(R.string.delete_confirm_title)
                 .setMessage(R.string.delete_confirm_message)
                 .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    JSONObject itemToRemove = filteredList.get(position);
-                    fullHistoryList.remove(itemToRemove);
-                    saveHistory();
-                    applyFilters();
+                    new Thread(() -> {
+                        try {
+                            JSONObject itemToRemove = filteredList.get(position);
+                            int dbId = itemToRemove.optInt("db_id", -1);
+                            if (dbId != -1) {
+                                AppDatabase.getInstance(activity).gameDao().deleteById(dbId);
+                                activity.runOnUiThread(() -> {
+                                    fullHistoryList.remove(itemToRemove);
+                                    applyFilters();
+                                });
+                            }
+                        } catch (Exception e) { e.printStackTrace(); }
+                    }).start();
                 })
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
 
     private void saveHistory() {
-        /*JSONArray array = new JSONArray();
-        for (JSONObject obj : fullHistoryList) {
-            array.put(obj);
-        }
-        activity.getSharedPreferences(SharedPref.PREFS_NAME, Context.MODE_PRIVATE)
-                .edit()
-                .putString(SharedPref.KEY_HISTORY, array.toString())
-                .apply();*/
+        // No longer needed with Room as we save per game
     }
 
     public void setVisibility(int visibility) {
@@ -229,27 +229,27 @@ public class OverlayHistory {
     }
 
     public void saveGameToHistory(Context context, String gameJson) {
-        try {
-            android.content.SharedPreferences prefs = context.getSharedPreferences(SharedPref.PREFS_NAME, Context.MODE_PRIVATE);
-            String existing = prefs.getString(SharedPref.KEY_HISTORY, "[]");
-            JSONArray oldHistoryArray = new JSONArray(existing);
+        new Thread(() -> {
+            try {
+                JSONArray batch = new JSONArray(gameJson);
+                long now = System.currentTimeMillis();
+                AppDatabase db = AppDatabase.getInstance(context);
 
-            JSONArray updatedHistory = new JSONArray();
+                for (int i = 0; i < batch.length(); i++) {
+                    JSONObject obj = batch.getJSONObject(i);
+                    
+                    GameRecord record = new GameRecord();
+                    record.timestamp = now;
+                    record.system = obj.optString("system");
+                    record.gameData = obj.optJSONObject("data").toString();
+                    record.isSaved = false;
 
-            JSONArray newGamesBatch = new JSONArray(gameJson);
-            if (newGamesBatch.length() > 0) {
-                updatedHistory.put(newGamesBatch);
+                    db.gameDao().insert(record);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            for (int i = 0; i < oldHistoryArray.length(); i++) {
-                updatedHistory.put(oldHistoryArray.get(i));
-            }
-            System.out.println("plesik saveGameToHistory "+updatedHistory.toString());
-            prefs.edit().putString(SharedPref.KEY_HISTORY, updatedHistory.toString()).apply();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     public int getVisibility() {
