@@ -181,7 +181,7 @@ public class OverlayHistory {
                 int dbId = item.optInt("db_id", -1);
                 if (dbId != -1) {
                     boolean newFavoriteStatus = !item.optBoolean("isFavorite", false);
-                    AppDatabase.getInstance(activity).gameDao().updateSaveStatus(dbId, newFavoriteStatus);
+                    AppDatabase.getInstance(activity).gameDao().updateFavoriteStatus(dbId, newFavoriteStatus);
                     
                     activity.runOnUiThread(() -> {
                         try {

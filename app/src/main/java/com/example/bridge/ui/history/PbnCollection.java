@@ -28,7 +28,7 @@ public class PbnCollection {
     public PbnCollection(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
 
-        this.pbn = new Pbn(gameActivity, "QuckGame");
+        this.pbn = new Pbn(gameActivity, "MyGame");
         this.pbnNoSystem = new Pbn(gameActivity, "NoSystem");
         this.pbnNatC = new Pbn(gameActivity, "NatC");
         this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
