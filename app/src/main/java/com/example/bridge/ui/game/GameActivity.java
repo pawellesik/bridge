@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private RecyclerView rvBiddingHistory;
 
     private View historyOverlay;
-    private OverlayHistory historyController;
+    private OverlayHistory overlayHistory;
     GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBidding = new GameBidding(this);
         overlaySettings = new OverlaySettings(this);
         pbnCollection = new PbnCollection(this);
-        historyController = new OverlayHistory(this);
+        overlayHistory = new OverlayHistory(this);
 
         setupRecyclerView();
 
@@ -139,7 +139,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     historyOverlay.setVisibility(View.VISIBLE);
-                    historyController.refresh();
+                    overlayHistory.refresh();
                     statisticOverlay.setVisibility(View.GONE);
                     settingsOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
