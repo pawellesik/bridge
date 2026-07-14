@@ -37,11 +37,11 @@ public class OverlayHistoryGame {
             try {
                 com.example.bridge.core.db.GameRecord record = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getById(dbId);
                 if (record != null) {
-                    android.util.Log.d("OverlayHistoryGame", "Loaded game: " + record.system + " - " + record.gameData);
+                    android.util.Log.d("plesik", "Loaded game: " + record.system + " - " + record.gameData);
                     // Update UI with game data here (on main thread)
                 }
             } catch (Exception e) {
-                android.util.Log.e("OverlayHistoryGame", "Error loading game data", e);
+                android.util.Log.e("plesik", "Error loading game data", e);
             }
         }).start();
     }

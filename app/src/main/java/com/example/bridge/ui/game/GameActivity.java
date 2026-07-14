@@ -133,6 +133,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (bottomNav != null) {
             bottomNav.setSelectedItemId(R.id.nav_game);
             bottomNav.setOnItemSelectedListener(item -> {
+                if (overlayHistoryGame != null) overlayHistoryGame.hide();
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_game) {
                     statisticOverlay.setVisibility(View.GONE);
