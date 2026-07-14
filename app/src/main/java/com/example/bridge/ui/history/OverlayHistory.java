@@ -228,6 +228,34 @@ public class OverlayHistory {
         }
     }
 
+    public void saveGameToHistory(Context context, String gameJson) {
+        try {
+            android.content.SharedPreferences prefs = context.getSharedPreferences(SharedPref.PREFS_NAME, Context.MODE_PRIVATE);
+            String existing = prefs.getString(SharedPref.KEY_HISTORY, "[]");
+            JSONArray oldHistoryArray = new JSONArray(existing);
+
+            // Tworzymy NOWĄ tablicę, która będzie zawierać zaktualizowaną historię
+            JSONArray updatedHistory = new JSONArray();
+
+            // 1. Najpierw dodajemy NOWĄ paczkę (paczka będzie na indeksie 0)
+            JSONArray newGamesBatch = new JSONArray(gameJson);
+            if (newGamesBatch.length() > 0) {
+                updatedHistory.put(newGamesBatch);
+            }
+
+            // 2. Potem kopiujemy wszystkie STARE paczki po kolei
+            for (int i = 0; i < oldHistoryArray.length(); i++) {
+                updatedHistory.put(oldHistoryArray.get(i));
+            }
+
+            // Zapisujemy nową tablicę (najnowsze są teraz na początku)
+            prefs.edit().putString(SharedPref.KEY_HISTORY, updatedHistory.toString()).apply();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getVisibility() {
         return root != null ? root.getVisibility() : View.GONE;
     }

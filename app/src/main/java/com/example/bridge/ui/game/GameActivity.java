@@ -677,7 +677,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             String jsonExport = pbnCollection.generateJsonExport();
             android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
-            com.example.bridge.ui.history.HistoryActivity.saveGameToHistory(this, jsonExport);
+            overlayHistory.saveGameToHistory(this, jsonExport);
         }
 
         if ("quick".equals(gameMode)) {
