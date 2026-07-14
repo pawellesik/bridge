@@ -35,7 +35,6 @@ public class PbnCollection {
         this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
         this.pbnLCStandard = new Pbn(gameActivity, "LCStandard");
     }
-
     public void initAllPbn() {
         pbn.initNewGame();
 
