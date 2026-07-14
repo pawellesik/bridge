@@ -72,7 +72,7 @@ public class OverlayHistory {
                     JSONObject wrapper = new JSONObject();
                     wrapper.put("system", record.system);
                     wrapper.put("data", gameData);
-                    wrapper.put("isSaved", record.isSaved);
+                    wrapper.put("isFavorite", record.isFavorite);
                     wrapper.put("db_id", record.id); // Store ID for deletions/updates
                     loadedList.add(wrapper);
                 }
@@ -242,7 +242,7 @@ public class OverlayHistory {
                     record.timestamp = now;
                     record.system = obj.optString("system");
                     record.gameData = obj.optJSONObject("data").toString();
-                    record.isSaved = false;
+                    record.isFavorite = false;
 
                     db.gameDao().insert(record);
                 }

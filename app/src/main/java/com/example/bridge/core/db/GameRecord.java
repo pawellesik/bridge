@@ -11,5 +11,5 @@ public class GameRecord {
     public long timestamp;   // To allow grouping systems from the same deal
     public String system;    // "QuckGame", "NatC", etc.
     public String gameData;  // The game data JSON as String
-    public boolean isSaved;  // Is it marked as favorite
+    public boolean isFavorite;  // Is it marked as favorite
 }

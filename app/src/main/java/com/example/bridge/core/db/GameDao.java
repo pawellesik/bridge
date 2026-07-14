@@ -27,6 +27,6 @@ public interface GameDao {
     @Query("DELETE FROM game_history WHERE id = :gameId")
     void deleteById(int gameId);
 
-    @Query("UPDATE game_history SET isSaved = :saved WHERE id = :gameId")
-    void updateSaveStatus(int gameId, boolean saved);
+    @Query("UPDATE game_history SET isFavorite = :favorite WHERE id = :gameId")
+    void updateSaveStatus(int gameId, boolean favorite);
 }
