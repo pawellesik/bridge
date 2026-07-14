@@ -52,7 +52,10 @@ public class OverlayHistoryList {
         if (rvHistory != null) {
             rvHistory.setLayoutManager(new LinearLayoutManager(activity));
             adapter = new HistoryListAdapter(filteredList, this::showDeleteDialog, this::toggleSave, item -> {
-                // Handle item click - e.g., replay or show details
+                int dbId = item.optInt("db_id", -1);
+                if (dbId != -1 && activity.getOverlayHistoryGame() != null) {
+                    activity.getOverlayHistoryGame().showGame(dbId);
+                }
             });
             rvHistory.setAdapter(adapter);
         }

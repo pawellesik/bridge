@@ -12,6 +12,9 @@ public interface GameDao {
     @Insert
     long insert(GameRecord record);
 
+    @Query("SELECT * FROM game_history WHERE id = :gameId")
+    GameRecord getById(int gameId);
+
     @Query("SELECT * FROM game_history where system ='MyGame' GROUP BY timestamp ORDER BY timestamp DESC")
     List<GameRecord> getAllUniqueGames();
 

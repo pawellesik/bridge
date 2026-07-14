@@ -30,6 +30,7 @@ import com.example.bridge.model.Trick;
 import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
+import com.example.bridge.ui.history.OverlayHistoryGame;
 import com.example.bridge.ui.history.OverlayHistoryList;
 import com.example.bridge.ui.history.PbnCollection;
 import com.example.bridge.ui.settings.OverlaySettings;
@@ -67,6 +68,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private View historyOverlay;
     private OverlayHistoryList overlayHistoryList;
+    private OverlayHistoryGame overlayHistoryGame;
     GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
@@ -123,6 +125,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         overlaySettings = new OverlaySettings(this);
         pbnCollection = new PbnCollection(this);
         overlayHistoryList = new OverlayHistoryList(this);
+        overlayHistoryGame = new OverlayHistoryGame(this);
 
         setupRecyclerView();
 
@@ -199,6 +202,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                if (overlayHistoryGame != null && overlayHistoryGame.isVisible()) {
+                    overlayHistoryGame.hide();
+                    return;
+                }
                 if ((statisticOverlay != null && statisticOverlay.getVisibility() == View.VISIBLE) ||
                         (settingsOverlay != null && settingsOverlay.getVisibility() == View.VISIBLE) ||
                         (historyOverlay != null && historyOverlay.getVisibility() == View.VISIBLE)) {
@@ -274,6 +281,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingOverlay.setVisibility(View.VISIBLE);
         onHandUpdated("South");
         onVisibleStartBar(true);
+    }
+
+    public OverlayHistoryGame getOverlayHistoryGame() {
+        return overlayHistoryGame;
     }
 
     public GameController getGameController() {
