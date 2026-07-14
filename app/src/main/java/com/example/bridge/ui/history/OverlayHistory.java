@@ -63,9 +63,11 @@ public class OverlayHistory {
     }
 
     public void refresh() {
+        System.out.print("plesik refresh");
         new Thread(() -> {
             try {
                 List<GameRecord> records = AppDatabase.getInstance(activity).gameDao().getAllUniqueGames();
+                System.out.print("plesik "+records.toString());
                 List<JSONObject> loadedList = new ArrayList<>();
                 for (GameRecord record : records) {
                     JSONObject gameData = new JSONObject(record.gameData);
@@ -217,16 +219,6 @@ public class OverlayHistory {
                 .show();
     }
 
-    private void saveHistory() {
-        // No longer needed with Room as we save per game
-    }
-
-    public void setVisibility(int visibility) {
-        if (root != null) {
-            root.setVisibility(visibility);
-            if (visibility == View.VISIBLE) refresh();
-        }
-    }
 
     public void saveGameToHistory(Context context, String gameJson) {
         new Thread(() -> {

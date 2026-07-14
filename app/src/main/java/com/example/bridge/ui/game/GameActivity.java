@@ -128,6 +128,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         if (bottomNav != null) {
+            System.out.print("plesik nav_game");
             bottomNav.setSelectedItemId(R.id.nav_game);
             bottomNav.setOnItemSelectedListener(item -> {
                 int itemId = item.getItemId();
@@ -138,6 +139,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     bottomNav.setVisibility(View.VISIBLE);
                     return true;
                 } else if (itemId == R.id.nav_history) {
+                    System.out.print("plesik nav_history");
                     historyOverlay.setVisibility(View.VISIBLE);
                     overlayHistory.refresh();
                     statisticOverlay.setVisibility(View.GONE);
