@@ -66,14 +66,34 @@ public class OverlayHistory {
 
         fullHistoryList.clear();
         try {
-            if (json.trim().startsWith("[")) {
-                JSONArray array = new JSONArray(json);
-                for (int i = 0; i < array.length(); i++) {
-                    fullHistoryList.add(array.getJSONObject(i));
+            JSONArray mainArray = new JSONArray(json);
+            for (int i = 0; i < mainArray.length(); i++) {
+                Object item = mainArray.get(i);
+                if (item instanceof JSONArray) {
+                    // It's a batch of systems for one game, take only the first one for the list
+                    JSONArray batch = (JSONArray) item;
+                    if (batch.length() > 0) {
+                        fullHistoryList.add(batch.getJSONObject(0));
+                    }
+                } else if (item instanceof JSONObject) {
+                    // Support for old flat format
+                    fullHistoryList.add((JSONObject) item);
                 }
-            } else if (json.trim().startsWith("{")) {
-                fullHistoryList.add(new JSONObject(json));
             }
+
+            // Sort descending by Date (YYYY.MM.DD HH:mm:ss)
+            fullHistoryList.sort((a, b) -> {
+                try {
+                    JSONObject dataA = a.has("data") ? a.getJSONObject("data") : a;
+                    JSONObject dataB = b.has("data") ? b.getJSONObject("data") : b;
+                    String dateA = dataA.optString("Date", "");
+                    String dateB = dataB.optString("Date", "");
+                    return dateB.compareTo(dateA);
+                } catch (Exception e) {
+                    return 0;
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -241,24 +241,12 @@ public class HistoryActivity extends AppCompatActivity {
         try {
             android.content.SharedPreferences prefs = context.getSharedPreferences(SharedPref.PREFS_NAME, Context.MODE_PRIVATE);
             String existing = prefs.getString(SharedPref.KEY_HISTORY, "[]");
-            JSONArray historyArray;
-            if (existing.trim().startsWith("[")) {
-                historyArray = new JSONArray(existing);
-            } else {
-                historyArray = new JSONArray();
-                if (!existing.isEmpty() && existing.startsWith("{")) {
-                    historyArray.put(new JSONObject(existing));
-                }
-            }
+            JSONArray historyArray = new JSONArray(existing);
 
-            JSONArray newGames = new JSONArray(gameJson);
-            for (int i = 0; i < newGames.length(); i++) {
-                JSONObject game = newGames.getJSONObject(i);
-                // Add timestamp if not present
-                if (!game.has("timestamp")) {
-                    game.put("timestamp", System.currentTimeMillis());
-                }
-                historyArray.put(game);
+            // Save the entire collection of systems as one game entry
+            JSONArray newGamesBatch = new JSONArray(gameJson);
+            if (newGamesBatch.length() > 0) {
+                historyArray.put(newGamesBatch);
             }
 
             prefs.edit().putString(SharedPref.KEY_HISTORY, historyArray.toString()).apply();
