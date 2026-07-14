@@ -211,14 +211,14 @@ public class OverlayHistory {
     }
 
     private void saveHistory() {
-        JSONArray array = new JSONArray();
+        /*JSONArray array = new JSONArray();
         for (JSONObject obj : fullHistoryList) {
             array.put(obj);
         }
         activity.getSharedPreferences(SharedPref.PREFS_NAME, Context.MODE_PRIVATE)
                 .edit()
                 .putString(SharedPref.KEY_HISTORY, array.toString())
-                .apply();
+                .apply();*/
     }
 
     public void setVisibility(int visibility) {
@@ -234,21 +234,17 @@ public class OverlayHistory {
             String existing = prefs.getString(SharedPref.KEY_HISTORY, "[]");
             JSONArray oldHistoryArray = new JSONArray(existing);
 
-            // Tworzymy NOWĄ tablicę, która będzie zawierać zaktualizowaną historię
             JSONArray updatedHistory = new JSONArray();
 
-            // 1. Najpierw dodajemy NOWĄ paczkę (paczka będzie na indeksie 0)
             JSONArray newGamesBatch = new JSONArray(gameJson);
             if (newGamesBatch.length() > 0) {
                 updatedHistory.put(newGamesBatch);
             }
 
-            // 2. Potem kopiujemy wszystkie STARE paczki po kolei
             for (int i = 0; i < oldHistoryArray.length(); i++) {
                 updatedHistory.put(oldHistoryArray.get(i));
             }
-
-            // Zapisujemy nową tablicę (najnowsze są teraz na początku)
+            System.out.println("plesik saveGameToHistory "+updatedHistory.toString());
             prefs.edit().putString(SharedPref.KEY_HISTORY, updatedHistory.toString()).apply();
 
         } catch (Exception e) {
