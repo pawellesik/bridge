@@ -170,7 +170,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             onVisibleStartBar(false);
             setBottomNavVisibility(false);
             sharedPref.incrementGamesPlayed();
-            sharedPref.clearSavedDeal();
 
             southAdapter.setCardsEnabled(true);
             northAdapter.setCardsEnabled(true);
