@@ -24,15 +24,15 @@
         app:layout_constraintTop_toTopOf="parent">
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Top Area for Hands (Cross) -->
+    <!-- Cross Layout Area -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_hands_history_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:paddingVertical="40dp"
         app:layout_constraintTop_toBottomOf="@id/history_game_header_container">
 
-        <!-- guidelines for 3 equal columns -->
+        <!-- Column Guidelines -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_33"
             android:layout_width="wrap_content"
@@ -47,17 +47,17 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.6666" />
 
-        <!-- Center: Bidding -->
+        <!-- CENTER: Bidding Box (Reference for everything) -->
         <LinearLayout
             android:id="@+id/layout_center_history"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:background="#D0E0E0E0"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/box_south"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guide_66"
             app:layout_constraintStart_toStartOf="@+id/guide_33"
-            app:layout_constraintTop_toBottomOf="@+id/box_north">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,137 +80,111 @@
                 tools:text="Pas 1BA Pas Pas\nPas" />
         </LinearLayout>
 
-        <!-- North -->
-        <LinearLayout
-            android:id="@+id/box_north"
+        <!-- NORTH Cards -->
+        <TextView
+            android:id="@+id/tv_north_cards_history"
             android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@android:color/white"
+            android:padding="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/layout_center_history"
+            app:layout_constraintEnd_toEndOf="@+id/layout_center_history"
+            app:layout_constraintStart_toStartOf="@+id/layout_center_history"
+            tools:text="♠ 10 4\n♥ D 4\n♦ 8 6 5 4 2\n♣ K 8 5 2" />
+
+        <TextView
+            android:id="@+id/label_north"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/layout_center_history"
-            app:layout_constraintEnd_toEndOf="@id/layout_center_history"
-            app:layout_constraintStart_toStartOf="@id/layout_center_history"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginBottom="2dp"
+            android:text="NORTH"
+            android:textColor="#CCFFFFFF"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_north_cards_history"
+            app:layout_constraintStart_toStartOf="@+id/tv_north_cards_history" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:text="NORTH"
-                android:textColor="#CCFFFFFF"
-                android:textSize="9sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_north_cards_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:minHeight="70dp"
-                android:padding="4dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:text="♠ 10 4\n♥ D 4\n♦ 8 6 5 4 2\n♣ K 8 5 2" />
-        </LinearLayout>
-
-        <!-- West -->
-        <LinearLayout
-            android:id="@+id/box_west"
+        <!-- WEST Cards -->
+        <TextView
+            android:id="@+id/tv_west_cards_history"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/layout_center_history"
-            app:layout_constraintEnd_toStartOf="@id/layout_center_history"
+            android:layout_height="100dp"
+            android:background="@android:color/white"
+            android:padding="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/layout_center_history"
+            app:layout_constraintEnd_toStartOf="@+id/layout_center_history"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/layout_center_history">
+            app:layout_constraintTop_toTopOf="@+id/layout_center_history"
+            tools:text="♠ W 7 6 5 2\n♥ 3\n♦ K 10 7\n♣ W 10 6 3" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:text="WEST"
-                android:textColor="#CCFFFFFF"
-                android:textSize="9sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_west_cards_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:minHeight="70dp"
-                android:padding="4dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:text="♠ W 7 6 5 2\n♥ 3\n♦ K 10 7\n♣ W 10 6 3" />
-        </LinearLayout>
-
-        <!-- East -->
-        <LinearLayout
-            android:id="@+id/box_east"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/label_west"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/layout_center_history"
+            android:layout_marginBottom="2dp"
+            android:text="WEST"
+            android:textColor="#CCFFFFFF"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_west_cards_history"
+            app:layout_constraintStart_toStartOf="@+id/tv_west_cards_history" />
+
+        <!-- EAST Cards -->
+        <TextView
+            android:id="@+id/tv_east_cards_history"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@android:color/white"
+            android:padding="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/layout_center_history"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/layout_center_history"
-            app:layout_constraintTop_toTopOf="@id/layout_center_history">
+            app:layout_constraintStart_toEndOf="@+id/layout_center_history"
+            app:layout_constraintTop_toTopOf="@+id/layout_center_history"
+            tools:text="♠ AK 3\n♥ W 10 9 5 2\n♦ AD 3\n♣ D 4" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:text="EAST"
-                android:textColor="#CCFFFFFF"
-                android:textSize="9sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_east_cards_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:minHeight="70dp"
-                android:padding="4dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:text="♠ AK 3\n♥ W 10 9 5 2\n♦ AD 3\n♣ D 4" />
-        </LinearLayout>
-
-        <!-- South -->
-        <LinearLayout
-            android:id="@+id/box_south"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/label_east"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/layout_center_history"
-            app:layout_constraintStart_toStartOf="@id/layout_center_history"
-            app:layout_constraintTop_toBottomOf="@id/layout_center_history">
+            android:layout_marginBottom="2dp"
+            android:text="EAST"
+            android:textColor="#CCFFFFFF"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_east_cards_history"
+            app:layout_constraintStart_toStartOf="@+id/tv_east_cards_history" />
 
-            <TextView
-                android:id="@+id/tv_south_cards_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:minHeight="70dp"
-                android:padding="4dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:text="♠ D 9 8\n♥ AK 8 7 6\n♦ W 9\n♣ A 9 7" />
+        <!-- SOUTH Cards -->
+        <TextView
+            android:id="@+id/tv_south_cards_history"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@android:color/white"
+            android:padding="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/layout_center_history"
+            app:layout_constraintStart_toStartOf="@+id/layout_center_history"
+            app:layout_constraintTop_toBottomOf="@+id/layout_center_history"
+            tools:text="♠ D 9 8\n♥ AK 8 7 6\n♦ W 9\n♣ A 9 7" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="SOUTH"
-                android:textColor="#CCFFFFFF"
-                android:textSize="9sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/label_south"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="SOUTH"
+            android:textColor="#CCFFFFFF"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_south_cards_history"
+            app:layout_constraintTop_toBottomOf="@+id/tv_south_cards_history" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
