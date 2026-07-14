@@ -133,7 +133,7 @@ public class OverlayHistory {
 
         for (JSONObject gameWrapper : fullHistoryList) {
             try {
-                if (onlySaved && !gameWrapper.optBoolean("isSaved", false)) continue;
+                if (onlySaved && !gameWrapper.optBoolean("isFavorite", false)) continue;
 
                 JSONObject game = gameWrapper.has("data") ? gameWrapper.getJSONObject("data") : gameWrapper;
                 String contractStr = game.optString("Contract", game.optString("contract", "PASS"));
@@ -180,12 +180,12 @@ public class OverlayHistory {
                 JSONObject item = filteredList.get(position);
                 int dbId = item.optInt("db_id", -1);
                 if (dbId != -1) {
-                    boolean newSaveStatus = !item.optBoolean("isSaved", false);
-                    AppDatabase.getInstance(activity).gameDao().updateSaveStatus(dbId, newSaveStatus);
+                    boolean newFavoriteStatus = !item.optBoolean("isFavorite", false);
+                    AppDatabase.getInstance(activity).gameDao().updateSaveStatus(dbId, newFavoriteStatus);
                     
                     activity.runOnUiThread(() -> {
                         try {
-                            item.put("isSaved", newSaveStatus);
+                            item.put("isFavorite", newFavoriteStatus);
                             adapter.notifyItemChanged(position);
                         } catch (Exception e) {}
                     });
