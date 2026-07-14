@@ -22,7 +22,7 @@
 
     <!-- History Overlay -->
     <include
-        layout="@layout/overlay_history"
+        layout="@layout/overlay_history_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:visibility="gone" />
@@ -30,6 +30,13 @@
     <!-- Statistic Overlay -->
     <include
         layout="@layout/overlay_statistic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
+
+    <!-- History Game Detail Overlay -->
+    <include
+        layout="@layout/overlay_history_game"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:visibility="gone" />
