@@ -27,7 +27,7 @@ public class Pbn {
 
     private String event = "Casual Game";
     private String site = "Bridge App";
-    private final String date;
+    private String date;
     private String board = "1";
     private String west = "Robot";
     private String north = "Robot";
@@ -46,13 +46,14 @@ public class Pbn {
 
     public Pbn(GameActivity gameActivity, String board) {
         this.gameActivity = gameActivity;
-        this.date = new SimpleDateFormat("yyyy.MM.dd", Locale.US).format(new Date());
+        this.date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.US).format(new Date());
         this.board = board;
     }
 
     public void initNewGame() {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         this.event = timestamp;
+        this.date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.US).format(new Date());
         this.site = "Bridge App";
 
         this.initialHands = new java.util.HashMap<>();
