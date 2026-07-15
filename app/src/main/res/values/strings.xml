@@ -88,4 +88,8 @@
     <string name="nav_history">History</string>
     <string name="nav_statistic">Statistic</string>
     <string name="nav_settings">Settings</string>
+    <string name="history_col_name">Name</string>
+    <string name="history_col_contract">Contract</string>
+    <string name="history_col_my">My</string>
+    <string name="history_col_opps">Opps</string>
 </resources>
