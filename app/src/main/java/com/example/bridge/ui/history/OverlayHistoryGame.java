@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bridge.R;
+import com.example.bridge.core.db.GameRecord;
 import com.example.bridge.ui.game.GameActivity;
 import org.json.JSONObject;
 
@@ -29,9 +30,9 @@ public class OverlayHistoryGame {
     private void loadGameData(int dbId) {
         new Thread(() -> {
             try {
-                java.util.List<com.example.bridge.core.db.GameRecord> records = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getGamesByDealId(dbId);
+                java.util.List<GameRecord> records = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getGamesByDealId(dbId);
                 if (records != null && !records.isEmpty()) {
-                    for (com.example.bridge.core.db.GameRecord record : records) {
+                    for (GameRecord record : records) {
                         android.util.Log.d("plesik", "Loaded game system: " + record.system + " - " + record.gameData);
                     }
 
