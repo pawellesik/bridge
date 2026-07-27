@@ -40,7 +40,6 @@ public class OverlayHistoryGame {
                         Pbn pbn = new Pbn(activity, record.system);
                         pbn.loadFromJsonObject(new JSONObject(record.gameData));
                         loadedPbns.add(pbn);
-                        android.util.Log.d("plesik", "Reconstructed PBN for system: " + record.system);
                     }
                     
                     activity.runOnUiThread(() -> {
