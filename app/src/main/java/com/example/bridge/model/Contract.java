@@ -44,18 +44,37 @@ public class Contract {
     }
 
     public static Contract fromString(String contractStr) {
-        if (contractStr == null || contractStr.equalsIgnoreCase("PASS")) {
+        if (contractStr == null || contractStr.equalsIgnoreCase("PASS") || contractStr.isEmpty()) {
             return new Contract(true);
         }
         try {
-            String[] parts = contractStr.split(" ");
-            int level = Integer.parseInt(parts[0]);
-            if (parts.length < 2 || parts[1].equalsIgnoreCase("NT")) {
+            // Remove any extra spaces and split by space or just take parts
+            String clean = contractStr.trim();
+            int level;
+            String suitPart;
+
+            if (clean.contains(" ")) {
+                String[] parts = clean.split(" ");
+                level = Integer.parseInt(parts[0]);
+                suitPart = parts[1].toUpperCase();
+            } else {
+                // Handle formats like "4S" or "1NT"
+                level = Character.getNumericValue(clean.charAt(0));
+                suitPart = clean.substring(1).toUpperCase();
+            }
+
+            if (suitPart.equals("NT") || suitPart.equals("BA") || suitPart.equals("NOTRUMP")) {
                 return new Contract(level, null);
             }
-            String suitPart = parts[1].toUpperCase();
-            if (suitPart.endsWith("S")) suitPart = suitPart.substring(0, suitPart.length() - 1);
 
+            // Handle PBN shorthands: S, H, D, C
+            if (suitPart.equals("S")) return new Contract(level, Suit.SPADES);
+            if (suitPart.equals("H")) return new Contract(level, Suit.HEARTS);
+            if (suitPart.equals("D")) return new Contract(level, Suit.DIAMONDS);
+            if (suitPart.equals("C")) return new Contract(level, Suit.CLUBS);
+
+            // Handle full names or plurals
+            if (suitPart.endsWith("S")) suitPart = suitPart.substring(0, suitPart.length() - 1);
             for (Suit s : Suit.values()) {
                 if (s.name().startsWith(suitPart)) {
                     return new Contract(level, s);

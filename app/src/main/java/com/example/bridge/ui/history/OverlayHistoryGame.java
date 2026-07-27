@@ -73,7 +73,7 @@ public class OverlayHistoryGame {
                 if (tvName != null) tvName.setText(pbn.getBoard());
                 
                 // Wyświetlamy jako 'MyGame' lub inny system, wyróżniamy aktywny
-                if ("Current".equals(pbn.getBoard())) {
+                if ("MyGame".equals(pbn.getBoard())) {
                     row.setActivated(true);
                 }
 
@@ -85,7 +85,7 @@ public class OverlayHistoryGame {
                         String suitSymbol = c.isNoTrump() ? "NT" : c.getSuit().symbol;
                         String declChar = (pbn.getDeclarer() != null && !pbn.getDeclarer().isEmpty()) 
                                 ? String.valueOf(pbn.getDeclarer().charAt(0)) : "";
-                        tvContract.setText(String.format("%d%s %s", c.getLevel(), suitSymbol, declChar));
+                        tvContract.setText(String.format(java.util.Locale.US, "%d%s %s", c.getLevel(), suitSymbol, declChar));
                     }
                 }
 
