@@ -42,4 +42,14 @@ public enum Suit {
         }
         return null;
     }
+
+    public static Suit fromPbnLetter(char c) {
+        switch (c) {
+            case 'S': return SPADES;
+            case 'H': return HEARTS;
+            case 'D': return DIAMONDS;
+            case 'C': return CLUBS;
+        }
+        return null;
+    }
 }

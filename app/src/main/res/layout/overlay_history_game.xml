@@ -24,14 +24,13 @@
         app:layout_constraintTop_toTopOf="parent">
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Cross Layout Area -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_hands_history_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/history_game_header_container">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_hands_history_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintTop_toBottomOf="@id/history_game_header_container">
 
         <!-- Column Guidelines -->
         <androidx.constraintlayout.widget.Guideline
@@ -55,6 +54,8 @@
             android:layout_height="100dp"
             android:background="#D0E0E0E0"
             android:orientation="vertical"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guide_66"
             app:layout_constraintStart_toStartOf="@+id/guide_33"
@@ -477,7 +478,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="0dp"
-                    android:background="@color/white"
+                    android:background="@drawable/divider_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/line_1"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -485,7 +486,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="0dp"
-                    android:background="@color/white"
+                    android:background="@drawable/divider_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/line_2"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -493,7 +494,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="0dp"
-                    android:background="@color/white"
+                    android:background="@drawable/divider_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/line_3"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -501,7 +502,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="0dp"
-                    android:background="@color/white"
+                    android:background="@drawable/divider_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/line_4"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -509,7 +510,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="0dp"
-                    android:background="@color/white"
+                    android:background="@drawable/divider_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/line_5"
                     app:layout_constraintTop_toTopOf="parent" />

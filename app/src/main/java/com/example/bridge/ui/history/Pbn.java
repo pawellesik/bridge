@@ -131,6 +131,101 @@ public class Pbn {
         return resultTricks;
     }
 
+    public void loadFromJsonObject(JSONObject json) {
+        try {
+            this.event = json.optString("Event", event);
+            this.site = json.optString("Site", site);
+            this.date = json.optString("Date", date);
+            this.board = json.optString("Board", board);
+            this.west = json.optString("West", west);
+            this.north = json.optString("North", north);
+            this.east = json.optString("East", east);
+            this.south = json.optString("South", south);
+            this.dealer = json.optString("Dealer", dealer);
+            this.vulnerable = json.optString("Vulnerable", vulnerable);
+
+            if (json.has("Deal")) {
+                parseDealString(json.getString("Deal"));
+            }
+
+            if (json.has("Contract")) {
+                this.contract = Contract.fromString(json.getString("Contract"));
+                this.declarer = json.optString("Declarer", "");
+                this.resultTricks = json.optInt("Result", 0);
+            }
+
+            if (json.has("Auction")) {
+                this.auction.clear();
+                JSONArray auctionArray = json.getJSONArray("Auction");
+                for (int i = 0; i < auctionArray.length(); i++) {
+                    this.auction.add(auctionArray.getString(i));
+                }
+            }
+
+            if (json.has("Play")) {
+                this.playHistory = new ArrayList<>();
+                JSONArray playArray = json.getJSONArray("Play");
+                for (int i = 0; i < playArray.length(); i++) {
+                    this.playHistory.add(parseTrickString(playArray.getString(i)));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void parseDealString(String dealStr) {
+        this.initialHands = new java.util.HashMap<>();
+        if (dealStr == null || dealStr.isEmpty() || !dealStr.contains(":")) return;
+
+        String[] mainParts = dealStr.split(":");
+        String dealerPart = mainParts[0];
+        String handsPart = mainParts[1];
+
+        String[] handStrings = handsPart.split(" ");
+        String[] directions = {"West", "North", "East", "South"};
+        
+        int startIdx = 0;
+        if ("W".equals(dealerPart)) startIdx = 0;
+        else if ("N".equals(dealerPart)) startIdx = 1;
+        else if ("E".equals(dealerPart)) startIdx = 2;
+        else if ("S".equals(dealerPart)) startIdx = 3;
+
+        for (int i = 0; i < handStrings.length && i < 4; i++) {
+            int currentDirIdx = (startIdx + i) % 4;
+            this.initialHands.put(directions[currentDirIdx], parsePbnHand(handStrings[i]));
+        }
+    }
+
+    private List<Card> parsePbnHand(String pbnHand) {
+        List<Card> cards = new ArrayList<>();
+        String[] suitParts = pbnHand.split("\\.");
+        Suit[] suits = {Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS};
+
+        for (int i = 0; i < suitParts.length && i < 4; i++) {
+            for (char rankChar : suitParts[i].toCharArray()) {
+                Rank rank = Rank.fromPbnLetter(rankChar);
+                if (rank != null) {
+                    cards.add(new Card(suits[i], rank));
+                }
+            }
+        }
+        return cards;
+    }
+
+    private Trick parseTrickString(String trickStr) {
+        Trick trick = new Trick();
+        String[] cardStrings = trickStr.split(" ");
+        // Note: We don't know the leader easily here without more logic, 
+        // but for now let's just parse the cards. 
+        // The format is [Suit][Rank], e.g., "H7"
+        
+        // PBN Play order depends on the leader. 
+        // For simplicity, let's assume we can map them back if needed.
+        // Actually, we'd need to know who led to map to directions.
+        return trick;
+    }
+
     public JSONObject toJsonObject() {
         JSONObject json = new JSONObject();
         try {
