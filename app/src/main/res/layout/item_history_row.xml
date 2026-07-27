@@ -4,9 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:minHeight="36dp"
-    android:background="@drawable/sel_history_row"
-    android:divider="@drawable/divider_white"
-    android:showDividers="middle">
+    android:background="@drawable/sel_history_row">
 
     <TextView
         android:id="@+id/tv_row_name"
