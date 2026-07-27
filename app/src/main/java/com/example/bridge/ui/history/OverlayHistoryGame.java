@@ -14,6 +14,7 @@ public class OverlayHistoryGame {
     private final View root;
     private int currentDbId = -1;
     private final java.util.List<Pbn> reconstructedPbnList = new java.util.ArrayList<>();
+    private Pbn selectedPbn = null;
 
     public OverlayHistoryGame(GameActivity activity) {
         this.activity = activity;
@@ -44,6 +45,16 @@ public class OverlayHistoryGame {
                     
                     activity.runOnUiThread(() -> {
                         reconstructedPbnList.addAll(loadedPbns);
+                        // Domyślnie zaznaczamy MyGame (Current)
+                        for (Pbn p : reconstructedPbnList) {
+                            if ("MyGame".equals(p.getBoard())) {
+                                selectedPbn = p;
+                                break;
+                            }
+                        }
+                        if (selectedPbn == null && !reconstructedPbnList.isEmpty()) {
+                            selectedPbn = reconstructedPbnList.get(0);
+                        }
                         updateUi();
                     });
                 }
@@ -75,9 +86,13 @@ public class OverlayHistoryGame {
 
                 if (tvName != null) tvName.setText(pbn.getBoard());
                 
-                if ("MyGame".equals(pbn.getBoard())) {
-                    row.setActivated(true);
-                }
+                // Zaznaczanie wiersza
+                row.setActivated(pbn == selectedPbn);
+                row.setOnClickListener(v -> {
+                    selectedPbn = pbn;
+                    updateUi(); // Odśwież widok, aby zmienić tło wiersza
+                    // Tutaj możesz dodać wywołanie odświeżania kart na górze
+                });
 
                 if (pbn.getContract() != null) {
                     com.example.bridge.model.Contract c = pbn.getContract();
