@@ -79,13 +79,22 @@ public class OverlayHistoryGame {
 
                 if (tvContract != null && pbn.getContract() != null) {
                     com.example.bridge.model.Contract c = pbn.getContract();
+                    tvContract.setBackgroundResource(R.drawable.bright_green_frame_black_sharp);
+                    
                     if (c.isPass()) {
                         tvContract.setText(R.string.contract_pass);
+                        tvContract.setTextColor(android.graphics.Color.BLACK);
                     } else {
                         String suitSymbol = c.isNoTrump() ? "NT" : c.getSuit().symbol;
                         String declChar = (pbn.getDeclarer() != null && !pbn.getDeclarer().isEmpty()) 
                                 ? String.valueOf(pbn.getDeclarer().charAt(0)) : "";
                         tvContract.setText(String.format(java.util.Locale.US, "%d%s %s", c.getLevel(), suitSymbol, declChar));
+                        
+                        if (!c.isNoTrump()) {
+                            tvContract.setTextColor(c.getSuit().getColor(activity));
+                        } else {
+                            tvContract.setTextColor(android.graphics.Color.BLACK);
+                        }
                     }
                 }
 
