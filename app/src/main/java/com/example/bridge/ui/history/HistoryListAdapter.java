@@ -142,11 +142,11 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             holder.tvDate.setText(data.optString("Date", ""));
 
-            boolean isSaved = item.optBoolean("isSaved", false);
+            boolean isFavorite = item.optBoolean("isFavorite", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
             card.setCardBackgroundColor(android.graphics.Color.parseColor("#122614"));
 
-            if (isSaved) {
+            if (isFavorite) {
                 card.setStrokeColor(android.graphics.Color.parseColor("#FFC107"));
                 card.setStrokeWidth(3);
                 holder.btnToggleSave.setImageResource(R.drawable.ic_star);

@@ -47,13 +47,7 @@ public class Game {
     public static Game parse(String dealStr, String vulnerableStr) {
         Game game = new Game();
         game.parseDeal(dealStr, true);
-        if (vulnerableStr != null) {
-            try {
-                game.vulnerable = Vulnerable.valueOf(vulnerableStr);
-            } catch (IllegalArgumentException e) {
-                // Handle different names for Vulnerable if necessary
-            }
-        }
+        game.vulnerable = Vulnerable.valueOf(vulnerableStr);
         return game;
     }
 

@@ -232,13 +232,18 @@ public class OverlayHistoryList {
                     GameRecord record = new GameRecord();
                     record.timestamp = now;
                     record.system = obj.optString("system");
-                    record.gameData = obj.optJSONObject("data").toString();
+                    JSONObject data = obj.optJSONObject("data");
+                    if (data != null) {
+                        record.gameData = data.toString();
+                    } else {
+                        record.gameData = obj.toString();
+                    }
                     record.isFavorite = false;
 
                     db.gameDao().insert(record);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                android.util.Log.e("plesik", "Błąd podczas zapisu historii: " + e.getMessage(), e);
             }
         }).start();
     }
