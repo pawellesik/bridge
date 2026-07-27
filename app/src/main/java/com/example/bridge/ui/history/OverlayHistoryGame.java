@@ -26,7 +26,6 @@ public class OverlayHistoryGame {
             loadGameData(dbId);
         }
     }
-
     private void loadGameData(int dbId) {
         new Thread(() -> {
             try {
