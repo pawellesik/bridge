@@ -86,7 +86,17 @@ public class OverlayHistoryGame {
                 if (tvName != null) tvName.setText(pbn.getBoard());
                 
                 // Zaznaczanie wiersza
-                row.setActivated(pbn == selectedPbn);
+                boolean isSelected = (pbn == selectedPbn);
+                row.setActivated(isSelected);
+                
+                // Ustawiamy biały kolor tekstu dla zaznaczonego wiersza
+                int textColor = isSelected ? android.graphics.Color.WHITE : android.graphics.Color.BLACK;
+                if (tvName != null) tvName.setTextColor(textColor);
+                if (tvMy1 != null) tvMy1.setTextColor(textColor);
+                if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
+                if (tvMy2 != null) tvMy2.setTextColor(textColor);
+                if (tvOpps2 != null) tvOpps2.setTextColor(textColor);
+
                 row.setOnClickListener(v -> {
                     selectedPbn = pbn;
                     updateUi(); // Odśwież widok, aby zmienić tło wiersza
