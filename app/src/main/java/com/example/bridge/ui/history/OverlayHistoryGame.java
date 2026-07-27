@@ -64,7 +64,10 @@ public class OverlayHistoryGame {
                 View row = inflater.inflate(R.layout.item_history_row, tableContent, false);
                 
                 TextView tvName = row.findViewById(R.id.tv_row_name);
-                TextView tvContract = row.findViewById(R.id.tv_row_contract);
+                TextView tvContractLevel = row.findViewById(R.id.tv_row_contract);
+                android.widget.ImageView ivSuit = row.findViewById(R.id.iv_row_suit);
+                TextView tvResultSymbol = row.findViewById(R.id.tv_row_result_symbol);
+
                 TextView tvMy1 = row.findViewById(R.id.tv_row_my1);
                 TextView tvOpps1 = row.findViewById(R.id.tv_row_opps1);
                 TextView tvMy2 = row.findViewById(R.id.tv_row_my2);
@@ -72,28 +75,49 @@ public class OverlayHistoryGame {
 
                 if (tvName != null) tvName.setText(pbn.getBoard());
                 
-                // Wyświetlamy jako 'MyGame' lub inny system, wyróżniamy aktywny
                 if ("MyGame".equals(pbn.getBoard())) {
                     row.setActivated(true);
                 }
 
-                if (tvContract != null && pbn.getContract() != null) {
+                if (pbn.getContract() != null) {
                     com.example.bridge.model.Contract c = pbn.getContract();
-                    tvContract.setBackgroundResource(R.drawable.bright_green_frame_black_sharp);
-                    
                     if (c.isPass()) {
-                        tvContract.setText(R.string.contract_pass);
-                        tvContract.setTextColor(android.graphics.Color.BLACK);
+                        if (tvContractLevel != null) {
+                            tvContractLevel.setText(R.string.contract_pass);
+                            tvContractLevel.setTextColor(android.graphics.Color.BLACK);
+                        }
+                        if (ivSuit != null) ivSuit.setVisibility(View.GONE);
                     } else {
-                        String suitSymbol = c.isNoTrump() ? "NT" : c.getSuit().symbol;
-                        String declChar = (pbn.getDeclarer() != null && !pbn.getDeclarer().isEmpty()) 
-                                ? String.valueOf(pbn.getDeclarer().charAt(0)) : "";
-                        tvContract.setText(String.format(java.util.Locale.US, "%d%s %s", c.getLevel(), suitSymbol, declChar));
+                        if (tvContractLevel != null) {
+                            tvContractLevel.setText(String.valueOf(c.getLevel()));
+                        }
                         
-                        if (!c.isNoTrump()) {
-                            tvContract.setTextColor(c.getSuit().getColor(activity));
-                        } else {
-                            tvContract.setTextColor(android.graphics.Color.BLACK);
+                        if (ivSuit != null) {
+                            if (c.isNoTrump()) {
+                                ivSuit.setVisibility(View.GONE);
+                                tvContractLevel.setText(c.getLevel() + "NT");
+                                tvContractLevel.setTextColor(android.graphics.Color.BLACK);
+                            } else {
+                                ivSuit.setVisibility(View.VISIBLE);
+                                ivSuit.setImageResource(c.getSuit().resId);
+                                int suitColor = c.getSuit().getColor(activity);
+                                ivSuit.setColorFilter(suitColor);
+                                tvContractLevel.setTextColor(suitColor);
+                            }
+                        }
+
+                        if (tvResultSymbol != null) {
+                            String declChar = (pbn.getDeclarer() != null && !pbn.getDeclarer().isEmpty()) 
+                                    ? String.valueOf(pbn.getDeclarer().charAt(0)) : "";
+                            
+                            int diff = pbn.getResultTricks() - (c.getLevel() + 6);
+                            String resultStr = " " + declChar;
+                            if (diff == 0) resultStr += "=";
+                            else if (diff > 0) resultStr += "+" + diff;
+                            else resultStr += diff;
+                            
+                            tvResultSymbol.setText(resultStr);
+                            tvResultSymbol.setTextColor(android.graphics.Color.BLACK);
                         }
                     }
                 }
