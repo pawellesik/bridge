@@ -39,6 +39,8 @@ public class OverlayHistoryGame {
                     for (GameRecord record : records) {
                         Pbn pbn = new Pbn(activity, record.system);
                         pbn.loadFromJsonObject(new JSONObject(record.gameData));
+
+                        android.util.Log.e("plesik",  record.gameData.toString());
                         loadedPbns.add(pbn);
                     }
                     

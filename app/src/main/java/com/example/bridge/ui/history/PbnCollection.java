@@ -53,7 +53,7 @@ public class PbnCollection {
         runNatCBidding(pbnNatC, "N");
 
         pbnNatCRev.initNewGame();
-        runNatCBidding(pbnNatCRev, "N");
+        runNatCBidding(pbnNatCRev, "S");
 
     }
 
