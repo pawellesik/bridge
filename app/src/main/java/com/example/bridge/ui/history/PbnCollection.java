@@ -10,7 +10,6 @@ import com.example.bridge.bidding.Tools.Hand;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.DdsSolver;
 import com.example.bridge.model.Card;
-import com.example.bridge.model.Rank;
 import com.example.bridge.model.Trick;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Suit;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+
 public class PbnCollection {
     private GameActivity gameActivity;
 
@@ -31,17 +30,20 @@ public class PbnCollection {
     private Pbn pbnWj2025Simple;
     private Pbn pbnWj2025;
     private Pbn pbnLCStandard;
+    private Pbn pbnLCStandardRev;
 
     public PbnCollection(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
 
         this.pbn = new Pbn(gameActivity, "MyGame");
-        this.pbnNoSystem = new Pbn(gameActivity, "NoSystem");
+        //this.pbnNoSystem = new Pbn(gameActivity, "NoSystem");
         this.pbnNatC = new Pbn(gameActivity, "NatC");
         this.pbnNatCRev = new Pbn(gameActivity, "NatC Rev");
-        this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
-        this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
+
         this.pbnLCStandard = new Pbn(gameActivity, "LCStandard");
+        this.pbnLCStandardRev = new Pbn(gameActivity, "LCStandard Rev");
+        //this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
+        //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
     }
     public void initAllPbn() {
         pbn.initNewGame();
@@ -50,14 +52,20 @@ public class PbnCollection {
         pbn.setContract(gameActivity.getGameController().getCurrentContract(), "South");
 
         pbnNatC.initNewGame();
-        runNatCBidding(pbnNatC, "N");
+        runBidding(pbnNatC, "N", "NatC");
 
         pbnNatCRev.initNewGame();
-        runNatCBidding(pbnNatCRev, "S");
+        runBidding(pbnNatCRev, "S", "NatC");
+
+        this.pbnLCStandard.initNewGame();
+        runBidding(pbnLCStandard, "N", "LC-Basic");
+
+        this.pbnLCStandardRev.initNewGame();
+        runBidding(pbnLCStandardRev, "S", "LC-Basic");
 
     }
 
-    private void runNatCBidding(Pbn pbnNatC, String dealerDirection) {
+    private void runBidding(Pbn pbnNatC, String dealerDirection, String biddingSystem) {
         Game game = new Game();
         Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
         
@@ -79,8 +87,8 @@ public class PbnCollection {
 
         pbnNatC.setDealer(dealerDirection);
         
-        game.bidSystemNS = "NatC";
-        game.bidSystemEW = "NatC";
+        game.bidSystemNS = biddingSystem;
+        game.bidSystemEW = biddingSystem;
 
         BiddingState state = new BiddingState(game);
 
@@ -333,10 +341,8 @@ public class PbnCollection {
             allPbns.add(pbn);
             allPbns.add(pbnNatC);
             allPbns.add(pbnNatCRev);
-            //allPbns.add(pbnNoSystem);
-            //allPbns.add(pbnWj2025Simple);
-            //allPbns.add(pbnWj2025);
-            //allPbns.add(pbnLCStandard);
+            allPbns.add(pbnLCStandard);
+            allPbns.add(pbnLCStandardRev);
 
             for (Pbn p : allPbns) {
                 if (p != null) {
