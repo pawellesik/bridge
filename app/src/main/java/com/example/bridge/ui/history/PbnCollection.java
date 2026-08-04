@@ -27,6 +27,7 @@ public class PbnCollection {
     private Pbn pbn;
     private Pbn pbnNoSystem;
     private Pbn pbnNatC;
+    private Pbn pbnNatCRev;
     private Pbn pbnWj2025Simple;
     private Pbn pbnWj2025;
     private Pbn pbnLCStandard;
@@ -37,6 +38,7 @@ public class PbnCollection {
         this.pbn = new Pbn(gameActivity, "MyGame");
         this.pbnNoSystem = new Pbn(gameActivity, "NoSystem");
         this.pbnNatC = new Pbn(gameActivity, "NatC");
+        this.pbnNatCRev = new Pbn(gameActivity, "NatC Rev");
         this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
         this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
         this.pbnLCStandard = new Pbn(gameActivity, "LCStandard");
@@ -48,10 +50,14 @@ public class PbnCollection {
         pbn.setContract(gameActivity.getGameController().getCurrentContract(), "South");
 
         pbnNatC.initNewGame();
-        runNatCBidding();
+        runNatCBidding(pbnNatC, "N");
+
+        pbnNatCRev.initNewGame();
+        runNatCBidding(pbnNatCRev, "N");
+
     }
 
-    private void runNatCBidding() {
+    private void runNatCBidding(Pbn pbnNatC, String dealerDirection) {
         Game game = new Game();
         Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
         
@@ -65,9 +71,13 @@ public class PbnCollection {
             game.getDeal().put(Direction.S, Hand.parse(pbnNatC.formatHand(playerS.getHand())));
         }
 
-        // Ustawiamy dealera na North dla symulacji i zapisujemy w PbnNatC
-        game.dealer = Direction.N;
-        pbnNatC.setDealer("N");
+        if (dealerDirection.equals("N")) {
+            game.dealer = Direction.N;
+        } else if (dealerDirection.equals("S")){
+            game.dealer = Direction.S;
+        }
+
+        pbnNatC.setDealer(dealerDirection);
         
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "NatC";
@@ -322,6 +332,7 @@ public class PbnCollection {
             List<Pbn> allPbns = new ArrayList<>();
             allPbns.add(pbn);
             allPbns.add(pbnNatC);
+            allPbns.add(pbnNatCRev);
             //allPbns.add(pbnNoSystem);
             //allPbns.add(pbnWj2025Simple);
             //allPbns.add(pbnWj2025);
