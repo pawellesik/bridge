@@ -69,6 +69,10 @@ public class Pbn {
         this.declarer = null;
     }
 
+    public Map<String, List<Card>> getInitialHands() {
+        return initialHands;
+    }
+
     public void setContract(Contract contract, String declarer) {
         this.contract = contract;
         this.declarer = declarer;

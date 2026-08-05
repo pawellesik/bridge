@@ -19,9 +19,16 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     private final List<String> bids;
     private boolean highlightLast = false;
     private String previewSelection = "";
+    private final int layoutId;
+    private boolean showPreviewTile = true;
 
     public GameBiddingHistoryAdapter(List<String> bids) {
+        this(bids, R.layout.item_bid_tile);
+    }
+
+    public GameBiddingHistoryAdapter(List<String> bids, int layoutId) {
         this.bids = bids;
+        this.layoutId = layoutId;
     }
 
     public void setPreviewSelection(String preview) {
@@ -34,10 +41,15 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         notifyDataSetChanged();
     }
 
+    public void setShowPreviewTile(boolean show) {
+        this.showPreviewTile = show;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bid_tile, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
         return new ViewHolder(view);
     }
 
@@ -54,7 +66,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
     @Override
     public int getItemCount() {
-        return bids.size() + 1; // Always show one extra tile for preview/placeholder
+        return bids.size() + (showPreviewTile ? 1 : 0);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

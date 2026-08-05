@@ -7,22 +7,43 @@ import com.example.bridge.R;
 import com.example.bridge.core.db.GameRecord;
 import com.example.bridge.ui.game.GameActivity;
 import org.json.JSONObject;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class OverlayHistoryGame {
 
     private final GameActivity activity;
     private final View root;
-    private int currentDbId = -1;
     private final java.util.List<Pbn> reconstructedPbnList = new java.util.ArrayList<>();
     private Pbn selectedPbn = null;
+
+    private TextView tvNorthCards, tvSouthCards, tvEastCards, tvWestCards;
+    private androidx.recyclerview.widget.RecyclerView rvBiddingHistory;
+    private com.example.bridge.ui.biddings.GameBiddingHistoryAdapter biddingAdapter;
+    private final List<String> biddingList = new ArrayList<>();
 
     public OverlayHistoryGame(GameActivity activity) {
         this.activity = activity;
         this.root = activity.findViewById(R.id.history_game_overlay);
+        if (root != null) {
+            tvNorthCards = root.findViewById(R.id.tv_north_cards_history);
+            tvSouthCards = root.findViewById(R.id.tv_south_cards_history);
+            tvEastCards = root.findViewById(R.id.tv_east_cards_history);
+            tvWestCards = root.findViewById(R.id.tv_west_cards_history);
+            
+            rvBiddingHistory = root.findViewById(R.id.rv_bidding_history_history);
+            if (rvBiddingHistory != null) {
+                rvBiddingHistory.setLayoutManager(new androidx.recyclerview.widget.GridLayoutManager(activity, 4));
+                biddingAdapter = new com.example.bridge.ui.biddings.GameBiddingHistoryAdapter(biddingList, R.layout.item_bid_tile_compact);
+                biddingAdapter.setShowPreviewTile(false);
+                rvBiddingHistory.setAdapter(biddingAdapter);
+            }
+        }
     }
 
     public void showGame(int dbId) {
-        this.currentDbId = dbId;
         if (root != null) {
             root.setVisibility(View.VISIBLE);
             loadGameData(dbId);
@@ -67,6 +88,9 @@ public class OverlayHistoryGame {
 
     private void updateUi() {
         if (root == null) return;
+        
+        updateSelectedGameDetails();
+
         android.widget.LinearLayout tableContent = root.findViewById(R.id.table_history_content_history);
         if (tableContent != null) {
             tableContent.removeAllViews();
@@ -102,7 +126,6 @@ public class OverlayHistoryGame {
                 row.setOnClickListener(v -> {
                     selectedPbn = pbn;
                     updateUi(); // Odśwież widok, aby zmienić tło wiersza
-                    // Tutaj możesz dodać wywołanie odświeżania kart na górze
                 });
 
                 if (pbn.getContract() != null) {
@@ -157,6 +180,81 @@ public class OverlayHistoryGame {
                 tableContent.addView(row);
             }
         }
+    }
+
+    private void updateSelectedGameDetails() {
+        if (selectedPbn == null) return;
+
+        // Bidding history
+        updateBiddingHistory(selectedPbn);
+
+        // Hands
+        Map<String, List<com.example.bridge.model.Card>> hands = selectedPbn.getInitialHands();
+        if (hands != null) {
+            if (tvNorthCards != null) tvNorthCards.setText(formatHandForDisplay(hands.get("North")));
+            if (tvSouthCards != null) tvSouthCards.setText(formatHandForDisplay(hands.get("South")));
+            if (tvEastCards != null) tvEastCards.setText(formatHandForDisplay(hands.get("East")));
+            if (tvWestCards != null) tvWestCards.setText(formatHandForDisplay(hands.get("West")));
+        }
+    }
+
+    private void updateBiddingHistory(Pbn pbn) {
+        if (biddingAdapter == null) return;
+        
+        biddingList.clear();
+        List<String> auction = pbn.getAuction();
+        if (auction != null && !auction.isEmpty()) {
+            String dealer = pbn.toJsonObject().optString("Dealer", "W");
+            int offset = 0;
+            if ("N".equals(dealer)) offset = 1;
+            else if ("E".equals(dealer)) offset = 2;
+            else if ("S".equals(dealer)) offset = 3;
+
+            for (int i = 0; i < offset; i++) {
+                biddingList.add("-");
+            }
+            biddingList.addAll(auction);
+        }
+        biddingAdapter.setPreviewSelection(""); // Hide preview in history
+        biddingAdapter.notifyDataSetChanged();
+    }
+
+
+    private String formatHandForDisplay(java.util.List<com.example.bridge.model.Card> hand) {
+        if (hand == null) return "";
+        StringBuilder sb = new StringBuilder();
+        com.example.bridge.model.Suit[] suits = {
+                com.example.bridge.model.Suit.SPADES,
+                com.example.bridge.model.Suit.HEARTS,
+                com.example.bridge.model.Suit.DIAMONDS,
+                com.example.bridge.model.Suit.CLUBS
+        };
+        String[] suitSymbols = {"♠", "♥", "♦", "♣"};
+
+        for (int i = 0; i < 4; i++) {
+            sb.append(suitSymbols[i]).append(" ");
+            com.example.bridge.model.Suit currentSuit = suits[i];
+            java.util.List<com.example.bridge.model.Card> suitCards = new java.util.ArrayList<>();
+            for (com.example.bridge.model.Card card : hand) {
+                if (card.getSuit() == currentSuit) {
+                    suitCards.add(card);
+                }
+            }
+            // Sort ranks descending
+            suitCards.sort((c1, c2) -> Integer.compare(c2.getRank().ordinal(), c1.getRank().ordinal()));
+
+            for (int j = 0; j < suitCards.size(); j++) {
+                sb.append(formatRank(suitCards.get(j).getRank()));
+                if (j < suitCards.size() - 1) sb.append(" ");
+            }
+            if (i < 3) sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    private String formatRank(com.example.bridge.model.Rank rank) {
+        if (rank == com.example.bridge.model.Rank.TEN) return "10";
+        return rank.display;
     }
 
     public java.util.List<Pbn> getReconstructedPbnList() {

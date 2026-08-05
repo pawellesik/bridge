@@ -111,15 +111,13 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_bidding_history_compact"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_bidding_history_history"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="4dp"
-                android:textColor="@color/black"
-                android:textSize="11sp"
-                tools:text="Pas 1BA Pas Pas\nPas" />
+                android:padding="2dp"
+                android:clipToPadding="false"
+                tools:listitem="@layout/item_bid_tile" />
         </LinearLayout>
 
         <!-- NORTH Cards -->
