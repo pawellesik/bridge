@@ -46,10 +46,11 @@ public class PbnCollection {
         //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
     }
     public void initAllPbn() {
-        pbn.initNewGame();
 
         gameActivity.getGameController().calculateAndSetTheBestContract();
         Contract contract = gameActivity.getGameController().getCurrentContract();
+
+        pbn.initNewGame();
         pbn.setContract(contract, "South");
         pbn.setDealer("N");
 

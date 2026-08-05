@@ -182,22 +182,29 @@ public class Pbn {
         this.initialHands = new java.util.HashMap<>();
         if (dealStr == null || dealStr.isEmpty() || !dealStr.contains(":")) return;
 
-        String[] mainParts = dealStr.split(":");
-        String dealerPart = mainParts[0];
-        String handsPart = mainParts[1];
+        String[] mainParts = dealStr.split(":", 2);
+        String dealerPart = mainParts[0].trim().toUpperCase();
+        String handsPart = mainParts[1].trim();
 
-        String[] handStrings = handsPart.split(" ");
-        String[] directions = {"West", "North", "East", "South"};
+        String[] handStrings = handsPart.split("\\s+");
+        String[] directions = {"North", "East", "South", "West"};
         
-        int startIdx = 0;
-        if ("W".equals(dealerPart)) startIdx = 0;
-        else if ("N".equals(dealerPart)) startIdx = 1;
-        else if ("E".equals(dealerPart)) startIdx = 2;
-        else if ("S".equals(dealerPart)) startIdx = 3;
+        int startIdx = getDirectionIndex(dealerPart);
 
         for (int i = 0; i < handStrings.length && i < 4; i++) {
             int currentDirIdx = (startIdx + i) % 4;
             this.initialHands.put(directions[currentDirIdx], parsePbnHand(handStrings[i]));
+        }
+    }
+
+    private int getDirectionIndex(String d) {
+        if (d == null || d.isEmpty()) return 0;
+        char firstChar = d.toUpperCase().charAt(0);
+        switch (firstChar) {
+            case 'E': return 1;
+            case 'S': return 2;
+            case 'W': return 3;
+            default: return 0; // North
         }
     }
 
@@ -325,17 +332,16 @@ public class Pbn {
     private String formatDeal() {
         if (initialHands == null) return "";
         StringBuilder sb = new StringBuilder();
-        sb.append(dealer).append(":");
+        String d = (dealer != null && !dealer.isEmpty()) ? dealer.substring(0, 1).toUpperCase() : "N";
+        sb.append(d).append(":");
 
-        String[] directions = {"West", "North", "East", "South"};
-        int startIdx = 0;
-        if ("N".equals(dealer)) startIdx = 1;
-        else if ("E".equals(dealer)) startIdx = 2;
-        else if ("S".equals(dealer)) startIdx = 3;
+        String[] directions = {"North", "East", "South", "West"};
+        int startIdx = getDirectionIndex(d);
 
         for (int i = 0; i < 4; i++) {
             int currentIdx = (startIdx + i) % 4;
-            sb.append(formatHand(initialHands.get(directions[currentIdx])));
+            List<Card> hand = initialHands.get(directions[currentIdx]);
+            sb.append(formatHand(hand));
             if (i < 3) sb.append(" ");
         }
         return sb.toString();
