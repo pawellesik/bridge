@@ -49,7 +49,25 @@ public class PbnCollection {
         pbn.initNewGame();
 
         gameActivity.getGameController().calculateAndSetTheBestContract();
-        pbn.setContract(gameActivity.getGameController().getCurrentContract(), "South");
+        Contract contract = gameActivity.getGameController().getCurrentContract();
+        pbn.setContract(contract, "South");
+        pbn.setDealer("N");
+
+        if (contract != null) {
+            if (contract.isPass()) {
+                pbn.addBid("Pass"); // North
+                pbn.addBid("Pass"); // East
+                pbn.addBid("Pass"); // South
+                pbn.addBid("Pass"); // West
+            } else {
+                pbn.addBid("Pass"); // North
+                pbn.addBid("Pass"); // East
+                pbn.addBid(contract.toString()); // South
+                pbn.addBid("Pass"); // West
+                pbn.addBid("Pass"); // North
+                pbn.addBid("Pass"); // East
+            }
+        }
 
         pbnNatC.initNewGame();
         runBidding(pbnNatC, "N", "NatC");
