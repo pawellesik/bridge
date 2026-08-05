@@ -86,7 +86,7 @@ public class OverlayHistoryGame {
         }).start();
     }
 
-    private void updateUi() {
+    public void updateUi() {
         if (root == null) return;
         
         updateSelectedGameDetails();
@@ -191,10 +191,10 @@ public class OverlayHistoryGame {
         // Hands
         Map<String, List<com.example.bridge.model.Card>> hands = selectedPbn.getInitialHands();
         if (hands != null) {
-            if (tvNorthCards != null) tvNorthCards.setText(formatHandForDisplay(hands.get("North")));
-            if (tvSouthCards != null) tvSouthCards.setText(formatHandForDisplay(hands.get("South")));
-            if (tvEastCards != null) tvEastCards.setText(formatHandForDisplay(hands.get("East")));
-            if (tvWestCards != null) tvWestCards.setText(formatHandForDisplay(hands.get("West")));
+            updateHandTextView(tvNorthCards, hands.get("North"));
+            updateHandTextView(tvSouthCards, hands.get("South"));
+            updateHandTextView(tvEastCards, hands.get("East"));
+            updateHandTextView(tvWestCards, hands.get("West"));
         }
     }
 
@@ -220,36 +220,61 @@ public class OverlayHistoryGame {
     }
 
 
-    private String formatHandForDisplay(java.util.List<com.example.bridge.model.Card> hand) {
-        if (hand == null) return "";
-        StringBuilder sb = new StringBuilder();
+    private void updateHandTextView(TextView tv, List<com.example.bridge.model.Card> hand) {
+        if (tv == null) return;
+        tv.setTextColor(android.graphics.Color.BLACK); // Wymuszamy czarny kolor bazowy dla cyfr i liter
+        tv.setText(formatHandForDisplay(hand), android.widget.TextView.BufferType.SPANNABLE);
+    }
+
+    private android.text.SpannableStringBuilder formatHandForDisplay(java.util.List<com.example.bridge.model.Card> hand) {
+        android.text.SpannableStringBuilder ssb = new android.text.SpannableStringBuilder();
+        if (hand == null) return ssb;
+
         com.example.bridge.model.Suit[] suits = {
                 com.example.bridge.model.Suit.SPADES,
                 com.example.bridge.model.Suit.HEARTS,
                 com.example.bridge.model.Suit.DIAMONDS,
                 com.example.bridge.model.Suit.CLUBS
         };
-        String[] suitSymbols = {"♠", "♥", "♦", "♣"};
+        // Używamy Variation Selector-15 (\uFE0E), aby wymusić renderowanie tekstowe symboli.
+        // Pozwala to na ich poprawne kolorowanie (standardowe emoji ignorują ForegroundColorSpan).
+        String[] suitSymbols = {"♠\uFE0E", "♥\uFE0E", "♦\uFE0E", "♣\uFE0E"};
 
         for (int i = 0; i < 4; i++) {
-            sb.append(suitSymbols[i]).append(" ");
+            int symbolStart = ssb.length();
+            ssb.append(suitSymbols[i]); // Dodajemy symbol
+            int symbolEnd = ssb.length();
+            
+            // Nakładamy kolor TYLKO na symbol (pobieramy go bezpośrednio z logiki Suit)
             com.example.bridge.model.Suit currentSuit = suits[i];
+            int suitColor = currentSuit.getColor(activity);
+            
+            ssb.setSpan(new android.text.style.ForegroundColorSpan(suitColor), 
+                    symbolStart, symbolEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            
+            ssb.append(" "); // Odstęp po symbolu
+            int cardsStart = ssb.length();
+
             java.util.List<com.example.bridge.model.Card> suitCards = new java.util.ArrayList<>();
             for (com.example.bridge.model.Card card : hand) {
                 if (card.getSuit() == currentSuit) {
                     suitCards.add(card);
                 }
             }
-            // Sort ranks descending
             suitCards.sort((c1, c2) -> Integer.compare(c2.getRank().ordinal(), c1.getRank().ordinal()));
 
             for (int j = 0; j < suitCards.size(); j++) {
-                sb.append(formatRank(suitCards.get(j).getRank()));
-                if (j < suitCards.size() - 1) sb.append(" ");
+                ssb.append(formatRank(suitCards.get(j).getRank()));
+                if (j < suitCards.size() - 1) ssb.append(" ");
             }
-            if (i < 3) sb.append("\n");
+
+            // Wymuszamy czarny kolor dla wszystkich kart w tej linii
+            ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), 
+                    cardsStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            if (i < 3) ssb.append("\n");
         }
-        return sb.toString();
+        return ssb;
     }
 
     private String formatRank(com.example.bridge.model.Rank rank) {

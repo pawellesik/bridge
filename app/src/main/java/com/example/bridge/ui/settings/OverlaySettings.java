@@ -49,6 +49,7 @@ public class OverlaySettings {
 
         rg.setOnCheckedChangeListener((group, checkedId) -> {
             boolean colorful = (checkedId == R.id.rb_colorful);
+            android.util.Log.d("plesik", "Saving card_colors_colorful: " + colorful);
             prefs.edit().putBoolean("card_colors_colorful", colorful).commit();
             activity.refreshAllColors();
         });

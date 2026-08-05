@@ -488,6 +488,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (gameController != null && gameTop != null) {
             gameTop.setContract(gameController.getCurrentContract());
         }
+
+        if (overlayHistoryGame != null && overlayHistoryGame.isVisible()) {
+            overlayHistoryGame.updateUi();
+        }
     }
 
     private void updateDisplayHandSouth() {
