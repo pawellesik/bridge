@@ -9,7 +9,7 @@
         android:id="@+id/bid_tile_inner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_bid_history_tile">
+        android:background="@drawable/bg_bid_history_tile_compact">
 
         <LinearLayout
             android:layout_width="wrap_content"

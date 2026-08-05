@@ -57,10 +57,10 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position < bids.size()) {
             String bid = bids.get(position);
-            holder.bind(bid, false, false);
+            holder.bind(bid, false, false, layoutId);
         } else {
             // This is the virtual "next" tile (the preview)
-            holder.bind(previewSelection, true, highlightLast);
+            holder.bind(previewSelection, true, highlightLast, layoutId);
         }
     }
 
@@ -83,7 +83,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
              return v;
         }
 
-        void bind(String bid, boolean isCurrent, boolean highlightLast) {
+        void bind(String bid, boolean isCurrent, boolean highlightLast, int layoutId) {
             // Default reset
             tvLevel.setText("");
             tvLevel.setTextColor(0xFF000000);
@@ -101,7 +101,11 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
                         inner.setBackgroundTintList(null);
                     }
                 } else {
-                    inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
+                    if (layoutId == R.layout.item_bid_tile_compact) {
+                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile_compact);
+                    } else {
+                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
+                    }
                     inner.setBackgroundTintList(null);
                 }
             }
