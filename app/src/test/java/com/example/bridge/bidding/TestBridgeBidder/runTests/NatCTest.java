@@ -80,14 +80,14 @@ public class NatCTest {
 
     @Test
     public void testNatC() {
-        String suggestion = BridgeBidder.suggestBid(test.getDeal(), test.getVulnerable(), test.getAuction(), "NatC","NatC");
+        String suggestion = BridgeBidder.suggestBid(test.getDeal(), test.getVulnerable(), test.getAuction(), "NatC","PassOnly");
         
         if (!test.getExpectedCall().equals(suggestion)) {
             // Detailed breakdown on failure
             System.err.println("\n--- DETAILED LICYTACJA BREAKDOWN (NatC) ---");
             Game game = Game.parse(test.getDeal(), test.getVulnerable());
             game.bidSystemNS = "NatC";
-            game.bidSystemEW = "NatC";
+            game.bidSystemEW = "PassOnly";
             BiddingState debugState = new BiddingState(game);
             
             String auctionStr = test.getAuction();

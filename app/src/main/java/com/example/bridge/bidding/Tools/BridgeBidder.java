@@ -6,19 +6,12 @@ public class BridgeBidder {
     }
 
     public static String suggestBid(String deal, String vulnerable, String auction, String bidSystemNS, String bidSystemEW) {
-        CallDetails callDetails = null;
         Game game = Game.parse(deal, vulnerable);
         game.parseAuction(auction);
-        if (bidSystemNS.equals("TwoOverOneGameForce") || bidSystemEW.equals("TwoOverOneGameForce")) {
-            callDetails = suggestCall(game);
-        } else if (bidSystemNS.equals("NatC") && bidSystemEW.equals("NatC")) {
-            game.bidSystemNS = "NatC";
-            game.bidSystemEW = "NatC";
-            callDetails = suggestCall(game);
-        } else {
-            throw new IllegalArgumentException("Unknown bidding system ");
-        }
-
+        game.bidSystemNS = bidSystemNS;
+        game.bidSystemEW = bidSystemEW;
+        
+        CallDetails callDetails = suggestCall(game);
         return callDetails.getCall().toString();
     }
 

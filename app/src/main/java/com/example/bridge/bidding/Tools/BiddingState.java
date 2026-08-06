@@ -46,6 +46,9 @@ public class BiddingState {
         else if (bidSystem.equals("NatC")){
             return new NatC();
         }
+        else if (bidSystem.equals("PassOnly")) {
+            return new PassOnlySystem();
+        }
         throw new IllegalArgumentException("Unknown bidding system " + bidSystem);
     }
 
