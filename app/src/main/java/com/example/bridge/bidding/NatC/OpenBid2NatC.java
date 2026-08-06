@@ -14,7 +14,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 partnerBids(OpenBid2NatC::responderChangedSuits),
-                properties(new Call[]{Bid._1NT}, RespondBid2NatC::colorAfterPass),
+                properties(new Call[]{Bid._1NT, Bid._2NT}, RespondBid2NatC::colorAfterPass),
 
                 shows(Bid._1NT, shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), OpenBidding, id("OpenBid2NatC.responderNegat _1NT")),
                 shows(Bid._1S, shape(4, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits _1S")),
@@ -28,7 +28,8 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2D, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderChangedSuits _2D")),
                 shows(Bid._2C, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderChangedSuits _2C")),
                 shows(Bid._3D, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _3D")),
-                shows(Bid._3C, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _3C"))
+                shows(Bid._3C, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _3C")),
+                shows(Bid._2NT, OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _2NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

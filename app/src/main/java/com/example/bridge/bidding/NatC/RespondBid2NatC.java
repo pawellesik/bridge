@@ -31,6 +31,10 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._2H, shape(5, 10), id("RespondBid2NatC.colorAfterPass _2H")),
                 shows(Bid._2D, shape(5, 10), id("RespondBid2NatC.colorAfterPass _2D")),
                 shows(Bid._2C, shape(5, 10), id("RespondBid2NatC.colorAfterPass _2C")),
+
+                shows(Bid._3S, shape(4, 10), highCardPoints(5, 6), id("RespondBid2NatC.colorAfterPass _3S")),
+                shows(Bid._3H, shape(4, 10), highCardPoints(5, 6), id("RespondBid2NatC.colorAfterPass _3H")),
+
                 shows(Call.PASS, id("RespondBid2NatC.colorAfterPass PASS"))
         );
 
