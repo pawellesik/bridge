@@ -90,3 +90,15 @@ PASS PASS
 1D PASS 2H PASS
 3H PASS 4H PASS
 PASS PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Deal kier 8"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK85.QJT8.AT92.6 T732.93.K53.A973 4.AK542.QJ8.QJ84 QJ96.76.764.KT52"]
+[Declarer "S"]
+[Contract "2H"]
+[Auction "N"]
+1C PASS 2H PASS
+4H PASS PASS PASS
