@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.NatC;
 
+import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
@@ -77,6 +78,7 @@ public class RespondBid2NatC extends RespondNatC {
 
     public static PositionCalls secondBidToGame(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4H"),
                 shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME)),

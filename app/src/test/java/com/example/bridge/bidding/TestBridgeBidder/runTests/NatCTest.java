@@ -3,6 +3,11 @@ package com.example.bridge.bidding.TestBridgeBidder.runTests;
 import static org.junit.Assert.assertEquals;
 
 import com.example.bridge.bidding.Tools.BridgeBidder;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallDetails;
+import com.example.bridge.bidding.Tools.BiddingState;
+import com.example.bridge.bidding.Tools.Game;
+import com.example.bridge.bidding.Tools.PositionCalls;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,13 +81,41 @@ public class NatCTest {
     @Test
     public void testNatC() {
         String suggestion = BridgeBidder.suggestBid(test.getDeal(), test.getVulnerable(), test.getAuction(), "NatC","NatC");
+        
         if (!test.getExpectedCall().equals(suggestion)) {
+            // Detailed breakdown on failure
+            System.err.println("\n--- DETAILED LICYTACJA BREAKDOWN (NatC) ---");
+            Game game = Game.parse(test.getDeal(), test.getVulnerable());
+            game.bidSystemNS = "NatC";
+            game.bidSystemEW = "NatC";
+            BiddingState debugState = new BiddingState(game);
+            
+            String auctionStr = test.getAuction();
+            if (auctionStr != null && !auctionStr.trim().isEmpty()) {
+                String[] existingAuction = auctionStr.split("\\s+");
+                for (String bidStr : existingAuction) {
+                    if (bidStr.trim().isEmpty()) continue;
+                    PositionCalls choices = debugState.getCallChoices();
+                    Call actualCall = Call.parse(bidStr);
+                    CallDetails details = choices.get(actualCall);
+                    
+                    String logId = (details != null) ? details.getMatchedLogID(debugState.getNextToAct()) : "UNKNOWN";
+                    System.err.println(debugState.getNextToAct().getDirection() + " licytuje: " + bidStr + " [LogID: " + logId + "]");
+                    
+                    debugState.makeCall(actualCall);
+                }
+            }
+            
+            PositionCalls suggestionChoices = debugState.getCallChoices();
+            CallDetails suggestedDetails = suggestionChoices.getBestCall();
+            String suggestedLogId = (suggestedDetails != null) ? suggestedDetails.getMatchedLogID(debugState.getNextToAct()) : "NONE";
+            
             String msg = "FAILURE: " + test.getName() + "\n" +
-                         "  Auction:  " + test.getAuction() + "\n" +
-                         "  Deal:     " + test.getDeal() + "\n" +
-                         "  Vulnerable: " + test.getVulnerable() + "\n" +
-                         "  Expected: " + test.getExpectedCall() + "\n" +
-                         "  Actual:   " + suggestion + "\n";
+                         "  Auction:      " + test.getAuction() + "\n" +
+                         "  Deal:         " + test.getDeal() + "\n" +
+                         "  Vulnerable:   " + test.getVulnerable() + "\n" +
+                         "  Expected:     " + test.getExpectedCall() + "\n" +
+                         "  Actual:       " + suggestion + " [LogID: " + suggestedLogId + "]\n";
             System.err.println(msg);
             assertEquals(msg, test.getExpectedCall(), suggestion);
         }
