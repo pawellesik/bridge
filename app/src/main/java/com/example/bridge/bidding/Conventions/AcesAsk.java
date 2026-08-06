@@ -24,8 +24,8 @@ public class AcesAsk extends Bidder {
     public static Iterable<CallFeature> initiateConvention(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
-        bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP, points(ASK_ACES), id("AcesAsk 1"), pairHighCardPoints(HIGHT_GAME)));
-        bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(SLAM_OR_BETTER), id("AcesAsk 2")));
+        bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP, points(ASK_ACES), id(" initiateConventionAcesAsk 1"), pairHighCardPoints(HIGHT_GAME)));
+        bids.add(shows(Bid._4C, FIT_8_PLUS, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConvention AcesAsk 2")));
         return bids;
     }
 
@@ -38,7 +38,7 @@ public class AcesAsk extends Bidder {
     public static Iterable<CallFeature> initiateConventionBlok(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
-        bids.add(shows(Bid._4NT, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(SLAM_OR_BETTER), id("AcesAsk 2")));
+        bids.add(shows(Bid._4NT, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 1")));
         return bids;
     }
 

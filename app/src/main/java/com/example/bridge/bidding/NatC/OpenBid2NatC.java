@@ -57,12 +57,11 @@ public class OpenBid2NatC extends OpenNatC {
         if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
             choices.addRules(
                     AcesAsk.initiateConvention(ps),
-
+                    partnerBids(RespondBid2NatC::secondBidToGame),
                     shows(Bid._2H, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
                     shows(Bid._2S, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
                     shows(Bid._3H, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
                     shows(Bid._3S, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _3S"))
-
             );
         } else {
             return responderChangedSuits(ps);
@@ -74,7 +73,8 @@ public class OpenBid2NatC extends OpenNatC {
     public static PositionCalls responderChangedSuits(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(
+
+                choices.addRules(
                 properties(new Call[]{Bid._3S, Bid._3H}, RespondBid2NatC::secondBidToGame),
                 partnerBids(RespondBid2NatC::secondBid),
 

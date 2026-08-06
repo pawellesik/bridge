@@ -78,6 +78,7 @@ public class RespondBid2NatC extends RespondNatC {
 
     public static PositionCalls secondBidToGame(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4H"),
