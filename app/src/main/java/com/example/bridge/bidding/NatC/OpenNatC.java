@@ -17,7 +17,7 @@ public class OpenNatC extends NatC {
     public static final HandConstraint OpeningWeakBidding = highCardPoints(7, 11);
     public static final HandConstraint OpeningStrongBidding = highCardPoints(18, 40);
     public static final HandConstraint OpeningStrongBiddingRange = highCardPoints(18, 40);
-    public static final HandConstraint OpenAfterPass = highCardPoints(11, 11);
+    public static final HandConstraint OpenAfterPass = highCardPoints(10, 11);
     public static final HandConstraint DontOpen = highCardPoints(0, 9);
     public static final Range Rebid1NT = new Range(12, 15);
     public static final Range Rebid2NT = new Range(18, 20);
@@ -50,10 +50,10 @@ public class OpenNatC extends NatC {
         bids.add(shows(Bid._1C, OpenBidding, id("OpenNatC.openSuit _1C")));
 
         if (ps.isPassedHand()) {
-            bids.add(shows(Bid._1S, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit _1S")));
-            bids.add(shows(Bid._1H, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit _1H")));
-            bids.add(shows(Bid._1D, OpenAfterPass, shape(5, 10), id("OpenNatC.openSuit _1D")));
-            bids.add(shows(Bid._1C, OpenAfterPass, id("OpenNatC.openSuit _1C")));
+            bids.add(shows(Bid._1S, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit OpenAfterPass _1S")));
+            bids.add(shows(Bid._1H, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit OpenAfterPass _1H")));
+            bids.add(shows(Bid._1D, OpenAfterPass, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1D")));
+            bids.add(shows(Bid._1C, OpenAfterPass, id("OpenNatC.openSuit OpenAfterPass _1C")));
         }
         bids.add(shows(Call.PASS, isSeat(4), DontOpen, id("OpenNatC.openSuit _PASS")));
 
