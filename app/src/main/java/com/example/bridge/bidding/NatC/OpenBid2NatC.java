@@ -113,8 +113,14 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
+                propertiesAgreeTrump(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::openerInvitedGame, false),
                 shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), fit(), id("RespondNatC.oneSpade _5D")),
                 shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), fit(), id("RespondNatC.oneSpade _5C")),
+
+                shows(Bid._3H, pairHighCardPoints(PAIR_GAME), shape(4,10), id("RespondNatC.oneSpade _3H")),
+                shows(Bid._3S, pairHighCardPoints(PAIR_GAME), shape(4,10), id("RespondNatC.oneSpade _3S")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, id("RespondNatC.oneSpade _3NT")),
+
                 shows(Call.PASS, id("OpenBid2NatC.responderRaisedMajor _PASS"))
         );
         return choices;
