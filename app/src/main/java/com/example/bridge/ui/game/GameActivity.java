@@ -660,7 +660,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             pbnCollection.getPbn().setContract(contract, declarer != null ? declarer.getName() : "South");
         }
 
-        // Architectural safety: UI updates itself in response to the state change
         if (biddingControlsOverlay != null) {
             biddingControlsOverlay.setVisibility(View.GONE);
         }

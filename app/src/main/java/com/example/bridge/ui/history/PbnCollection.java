@@ -13,8 +13,10 @@ import com.example.bridge.model.Card;
 import com.example.bridge.model.Trick;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Suit;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,27 +26,43 @@ public class PbnCollection {
     private GameActivity gameActivity;
 
     private Pbn pbn;
-    private Pbn pbnNoSystem;
     private Pbn pbnNatC;
     private Pbn pbnNatCRev;
     private Pbn pbnWj2025Simple;
     private Pbn pbnWj2025;
     private Pbn pbnLCStandard;
     private Pbn pbnLCStandardRev;
+    private Pbn twoOverOneGameForce;
+    private Pbn twoOverOneGameForceRev;
 
     public PbnCollection(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
 
         this.pbn = new Pbn(gameActivity, "MyGame");
+        this.pbn.setPlayerNames("MyGame W", "MyGame N", "MyGame E", "MyGame S");
         //this.pbnNoSystem = new Pbn(gameActivity, "NoSystem");
         this.pbnNatC = new Pbn(gameActivity, "NatC");
+        this.pbnNatC.setPlayerNames("NatC W", "NatC N", "NatC E", "NatC S");
+
         this.pbnNatCRev = new Pbn(gameActivity, "NatC Rev");
+        this.pbnNatCRev.setPlayerNames("NatC Rev W", "NatC Rev N", "NatC Rev E", "NatC Rev S");
 
         this.pbnLCStandard = new Pbn(gameActivity, "LCStandard");
+        this.pbnLCStandard.setPlayerNames("LCStandard W", "LCStandard N", "LCStandard E", "LCStandard S");
+
         this.pbnLCStandardRev = new Pbn(gameActivity, "LCStandard Rev");
+        this.pbnLCStandardRev.setPlayerNames("LCStandard Rev W", "LCStandard Rev N", "LCStandard Rev E", "LCStandard Rev S");
+
+        this.twoOverOneGameForce = new Pbn(gameActivity, "TwoOverOneGameForce");
+        this.twoOverOneGameForce.setPlayerNames("TwoOverOneGameForce W", "TwoOverOneGameForce N", "TwoOverOneGameForce E", "TwoOverOneGameForce S");
+
+        this.twoOverOneGameForceRev = new Pbn(gameActivity, "TwoOverOneGameForce");
+        this.twoOverOneGameForceRev.setPlayerNames("TwoOverOneGameForce W", "TwoOverOneGameForce N", "TwoOverOneGameForce E", "TwoOverOneGameForce S");
+
         //this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
         //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
     }
+
     public void initAllPbn() {
 
         gameActivity.getGameController().calculateAndSetTheBestContract();
@@ -70,10 +88,10 @@ public class PbnCollection {
             }
         }
 
-        pbnNatC.initNewGame();
+        this.pbnNatC.initNewGame();
         runBidding(pbnNatC, "N", "NatC");
 
-        pbnNatCRev.initNewGame();
+        this.pbnNatCRev.initNewGame();
         runBidding(pbnNatCRev, "S", "NatC");
 
         this.pbnLCStandard.initNewGame();
@@ -82,30 +100,36 @@ public class PbnCollection {
         this.pbnLCStandardRev.initNewGame();
         runBidding(pbnLCStandardRev, "S", "LC-Basic");
 
+        this.twoOverOneGameForce.initNewGame();
+        runBidding(twoOverOneGameForce, "S", "TwoOverOneGameForce");
+
+        this.twoOverOneGameForceRev.initNewGame();
+        runBidding(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
+
     }
 
-    private void runBidding(Pbn pbnNatC, String dealerDirection, String biddingSystem) {
+    private void runBidding(Pbn pbn, String dealerDirection, String biddingSystem) {
         Game game = new Game();
         Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
-        
+
         com.example.bridge.model.Player playerN = players.get("North");
         com.example.bridge.model.Player playerS = players.get("South");
 
         if (playerN != null) {
-            game.getDeal().put(Direction.N, Hand.parse(pbnNatC.formatHand(playerN.getHand())));
+            game.getDeal().put(Direction.N, Hand.parse(pbn.formatHand(playerN.getHand())));
         }
         if (playerS != null) {
-            game.getDeal().put(Direction.S, Hand.parse(pbnNatC.formatHand(playerS.getHand())));
+            game.getDeal().put(Direction.S, Hand.parse(pbn.formatHand(playerS.getHand())));
         }
 
         if (dealerDirection.equals("N")) {
             game.dealer = Direction.N;
-        } else if (dealerDirection.equals("S")){
+        } else if (dealerDirection.equals("S")) {
             game.dealer = Direction.S;
         }
 
-        pbnNatC.setDealer(dealerDirection);
-        
+        pbn.setDealer(dealerDirection);
+
         game.bidSystemNS = biddingSystem;
         game.bidSystemEW = biddingSystem;
 
@@ -114,9 +138,8 @@ public class PbnCollection {
         // Pętla licytacji - obsługujemy wszystkie pozycje
         while (!state.getContract().isAuctionComplete()) {
             Direction turn = state.getNextToAct().getDirection();
-            
+
             Call callToMake;
-            // Dla N i S sprawdzamy co zalicytuje system NatC
             if (turn == Direction.N || turn == Direction.S) {
                 PositionCalls choices = state.getCallChoices();
                 CallDetails best = choices.getBestCall();
@@ -126,28 +149,26 @@ public class PbnCollection {
                 callToMake = Call.PASS;
             }
 
-            // Zapisujemy licytację w PbnNatC
-            pbnNatC.addBid(callToMake.toString());
+            pbn.addBid(callToMake.toString());
             state.makeCall(callToMake);
         }
 
         if (!state.getContract().isPassedOut()) {
             com.example.bridge.bidding.Tools.Bid finalBid = state.getContract().getBid();
             Direction declarerDir = state.getContract().getDeclarer();
-            
+
             Suit modelSuit = null;
             if (finalBid.getStrain() != com.example.bridge.bidding.Tools.Strain.NoTrump) {
                 modelSuit = Suit.valueOf(finalBid.getStrain().name().toUpperCase());
             }
-            
+
             Contract modelContract = new Contract(finalBid.getLevel(), modelSuit);
             String declarerName = dirToString(declarerDir);
-            pbnNatC.setContract(modelContract, declarerName);
+            pbn.setContract(modelContract, declarerName);
 
-            // Symulacja rozgrywki dla systemu NatC
-            simulateRobotPlay(pbnNatC, modelContract, declarerName);
+            simulateRobotPlay(pbn, modelContract, declarerName);
         } else {
-            pbnNatC.setContract(new Contract(true), null);
+            pbn.setContract(new Contract(true), null);
         }
     }
 
@@ -176,7 +197,7 @@ public class PbnCollection {
 
             String currentLeader = playerOrder[(declarerIdx + 1) % 4];
             int trumpDds = (contract.isNoTrump() || contract.isPass()) ? 4 : mapSuitToDdsIndex(contract.getSuit());
-            
+
             List<Trick> playHistory = new ArrayList<>();
             int nsTricks = 0;
 
@@ -207,7 +228,7 @@ public class PbnCollection {
             }
 
             targetPbn.setPlayHistory(playHistory);
-            
+
             int declarerTricks;
             if ("North".equals(declarerName) || "South".equals(declarerName)) {
                 declarerTricks = nsTricks;
@@ -245,7 +266,7 @@ public class PbnCollection {
 
         int[] resultTab = solver.calcBestCards(ddsCards, trump, leaderIdx, trickSuits, trickRanks);
         if (resultTab == null || resultTab.length == 0) return null;
-        
+
         int result = resultTab[0];
         int resSuitIdx = result / 100;
         int resRankVal = result % 100;
@@ -296,59 +317,81 @@ public class PbnCollection {
 
     private int getPlayerDdsIndex(String name) {
         switch (name) {
-            case "North": return 0;
-            case "East": return 1;
-            case "South": return 2;
-            case "West": return 3;
-            default: return 0;
+            case "North":
+                return 0;
+            case "East":
+                return 1;
+            case "South":
+                return 2;
+            case "West":
+                return 3;
+            default:
+                return 0;
         }
     }
 
     private int mapSuitToDdsIndex(Suit suit) {
         if (suit == null) return 0;
         switch (suit) {
-            case SPADES: return 0;
-            case HEARTS: return 1;
-            case DIAMONDS: return 2;
-            case CLUBS: return 3;
-            default: return 0;
+            case SPADES:
+                return 0;
+            case HEARTS:
+                return 1;
+            case DIAMONDS:
+                return 2;
+            case CLUBS:
+                return 3;
+            default:
+                return 0;
         }
     }
 
     private String getNextPlayerName(String name) {
         switch (name) {
-            case "North": return "East";
-            case "East": return "South";
-            case "South": return "West";
-            case "West": return "North";
-            default: return "North";
+            case "North":
+                return "East";
+            case "East":
+                return "South";
+            case "South":
+                return "West";
+            case "West":
+                return "North";
+            default:
+                return "North";
         }
     }
 
     private String dirToString(Direction dir) {
         switch (dir) {
-            case N: return "North";
-            case E: return "East";
-            case S: return "South";
-            case W: return "West";
-            default: return "";
+            case N:
+                return "North";
+            case E:
+                return "East";
+            case S:
+                return "South";
+            case W:
+                return "West";
+            default:
+                return "";
         }
     }
-    public Pbn getPbnNoSystem() {
-        return pbnNoSystem;
-    }
+
     public Pbn getPbnNatC() {
         return pbnNatC;
     }
+
     public Pbn getPbnWj2025Simple() {
         return pbnWj2025Simple;
     }
+
     public Pbn getPbnWj2025() {
         return pbnWj2025;
     }
+
     public Pbn getPbnLCStandard() {
         return pbnLCStandard;
     }
+
     public Pbn getPbn() {
         return pbn;
     }
@@ -362,11 +405,13 @@ public class PbnCollection {
             allPbns.add(pbnNatCRev);
             allPbns.add(pbnLCStandard);
             allPbns.add(pbnLCStandardRev);
+            allPbns.add(twoOverOneGameForce);
+            allPbns.add(twoOverOneGameForceRev);
 
             for (Pbn p : allPbns) {
                 if (p != null) {
                     JSONObject jsonObj = new JSONObject();
-                    jsonObj.put("system", p.getBoard()); 
+                    jsonObj.put("system", p.getBoard());
                     jsonObj.put("data", p.toJsonObject()); // Teraz przekazujemy obiekt, nie String
                     jsonArray.put(jsonObj);
                 }
