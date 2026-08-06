@@ -213,3 +213,16 @@ PASS PASS
 PASS PASS 1S PASS
 3S PASS 4S PASS
 PASS PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Deal 17"]
+[Board "2"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KJT96.4.943.KT85 Q2.J95.AK87.7432 A743.K873.JT5.AJ 85.AQT62.Q62.Q96"]
+[Declarer "N"]
+[Contract "3S"]
+[Auction "N"]
+PASS PASS 1C PASS
+1S PASS 2S PASS
+PASS PASS
