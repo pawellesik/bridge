@@ -8,6 +8,7 @@ import com.example.bridge.bidding.LCStandard.UserText;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
+import com.example.bridge.bidding.Tools.Strain;
 import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class AcesAsk extends Bidder {
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP, points(ASK_ACES), id(" initiateConventionAcesAsk 1"), pairHighCardPoints(HIGHT_GAME)));
         bids.add(shows(Bid._4C, FIT_8_PLUS, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConvention AcesAsk 2")));
+        bids.add(shows(Bid._4C, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConvention AcesAsk 3")));
+
         return bids;
     }
 
@@ -39,6 +42,8 @@ public class AcesAsk extends Bidder {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4NT, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 1")));
+        bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
+
         return bids;
     }
 
@@ -135,13 +140,15 @@ public class AcesAsk extends Bidder {
         Bid nextBidWithTrump = getNextBidWithTrump(partnerCall, suit);
         if (suit != null) {
             choices.addRules(
-                    shows(new Bid(7, suit), sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 1")),
-                    shows(new Bid(7, suit), pairAces(4), pairKings(3), pairPoints(GRAND_SLAM), id("AcesAsk tryGrandSlam 2")),
-                    shows(new Bid(6, suit), pairAces(4), pairKings(3), pairPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 2")),
-                    shows(new Bid(6, suit), sumPairAcesAndKings(7), id("AcesAsk tryGrandSlam 3")),
+                    shows(new Bid(7, suit), FIT_8_PLUS, sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 1")),
+                    shows(new Bid(7, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairPoints(GRAND_SLAM), id("AcesAsk tryGrandSlam 2")),
+                    shows(new Bid(6, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 2")),
+                    shows(new Bid(6, suit), FIT_8_PLUS, sumPairAcesAndKings(7), id("AcesAsk tryGrandSlam 3")),
                     shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("AcesAsk tryGrandSlam 4")),
-                    shows(new Bid(6, suit), secondSuit(suit, 6), hasShortness(0, 1), sumPairAcesAndKings(6, 7), id("AcesAsk tryGrandSlam 5")),
-                    shows(nextBidWithTrump, sumPairAcesAndKings("Suma asów i króli mniejsza od 6", 1, 6), id("AcesAsk tryGrandSlam 6"))
+                    shows(new Bid(6, suit), FIT_8_PLUS, secondSuit(suit, 6), hasShortness(0, 1), sumPairAcesAndKings(6, 7), id("AcesAsk tryGrandSlam 5")),
+                    shows(nextBidWithTrump, FIT_8_PLUS, sumPairAcesAndKings("Suma asów i króli mniejsza od 6", 1, 6), id("AcesAsk tryGrandSlam 6")),
+                    shows(new Bid(7, Strain.NoTrump), pairPoints(GRAND_SLAM), sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 7")),
+                    shows(new Bid(6, Strain.NoTrump), pairPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 8"))
             );
             return choices;
         }
