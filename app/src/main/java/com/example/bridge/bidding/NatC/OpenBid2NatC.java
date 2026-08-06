@@ -16,9 +16,19 @@ public class OpenBid2NatC extends OpenNatC {
                 partnerBids(OpenBid2NatC::responderChangedSuits),
                 properties(new Call[]{Bid._1NT}, RespondBid2NatC::colorAfterPass),
 
-                shows(Bid._1NT, shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), highCardPoints(12, 17), id("OpenBid2NatC.responderNegat _1NT")),
-                shows(Bid._1S, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1S")),
-                shows(Bid._1H, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1H"))
+                shows(Bid._1NT, shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), OpenBidding, id("OpenBid2NatC.responderNegat _1NT")),
+                shows(Bid._1S, shape(4, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits _1S")),
+                shows(Bid._1H, shape(4, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits _1H")),
+                shows(Bid._1S, shape(4, 11), OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _1S")),
+                shows(Bid._1H, shape(4, 11), OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _1H")),
+                shows(Bid._2S, shape(5, 11), OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _1S")),
+                shows(Bid._2H, shape(5, 11), OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _1H")),
+                shows(Bid._2D, shape(5, 11),  OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _2D")),
+                shows(Bid._2C, shape(5, 11),  OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _2C")),
+                shows(Bid._2D, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderChangedSuits _2D")),
+                shows(Bid._2C, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderChangedSuits _2C")),
+                shows(Bid._3D, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _3D")),
+                shows(Bid._3C, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

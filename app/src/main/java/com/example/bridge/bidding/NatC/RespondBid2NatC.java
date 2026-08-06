@@ -28,6 +28,8 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(partnerBids(OpenBid3NatC::thirdBid),
                 shows(Bid._2S, shape(5, 10), id("RespondBid2NatC.colorAfterPass _2S")),
                 shows(Bid._2H, shape(5, 10), id("RespondBid2NatC.colorAfterPass _2H")),
+                shows(Bid._2D, shape(5, 10), id("RespondBid2NatC.colorAfterPass _2D")),
+                shows(Bid._2C, shape(5, 10), id("RespondBid2NatC.colorAfterPass _2C")),
                 shows(Call.PASS, id("RespondBid2NatC.colorAfterPass PASS"))
         );
 
