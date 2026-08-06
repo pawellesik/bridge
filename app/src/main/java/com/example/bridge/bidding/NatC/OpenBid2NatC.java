@@ -58,10 +58,10 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     AcesAsk.initiateConvention(ps),
                     partnerBids(RespondBid2NatC::secondBidToGame),
-                    shows(Bid._2H, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
-                    shows(Bid._2S, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
-                    shows(Bid._3H, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
-                    shows(Bid._3S, isJump(1), highCardPoints(OpeningStrongBiddingRange), shape(5, 10), id("OpenBid2NatC.responderClub _3S"))
+                    shows(Bid._2H, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
+                    shows(Bid._2S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
+                    shows(Bid._3H, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
+                    shows(Bid._3S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3S"))
             );
         } else {
             return responderChangedSuits(ps);
@@ -77,6 +77,9 @@ public class OpenBid2NatC extends OpenNatC {
                 choices.addRules(
                 properties(new Call[]{Bid._3S, Bid._3H}, RespondBid2NatC::secondBidToGame),
                 partnerBids(RespondBid2NatC::secondBid),
+
+                shows(Bid._2H, fit(ps.getPartner().getBid().getSuit()), OpenBidding, id("OpenBid2NatC.responderChangedSuits _2H")),
+                shows(Bid._2S, fit(ps.getPartner().getBid().getSuit()), OpenBidding, id("OpenBid2NatC.responderChangedSuits _2S")),
 
                 shows(Bid._1S, IS_NEW_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1S")),
                 shows(Bid._1H, IS_NEW_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1H")),

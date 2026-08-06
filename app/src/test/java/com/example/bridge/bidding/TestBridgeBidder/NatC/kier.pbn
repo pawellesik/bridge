@@ -9,3 +9,16 @@
 [Auction "N"]
 1H PASS 2S PASS
 4S PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Deal kier 2"]
+[Board "1"]
+[Dealer "S"]
+[Vulnerable "None"]
+[Deal "S:74.AJT652.QJ973. J653.Q7.A52.T972 AT92.9843.K.AQJ3 KQ8.K.T864.K8654"]
+[Declarer "S"]
+[Contract "2H"]
+[Auction "N"]
+PASS PASS 1C PASS
+1H PASS 2H PASS
+PASS PASS

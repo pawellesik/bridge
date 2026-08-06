@@ -16,7 +16,8 @@ public class OpenNatC extends NatC {
     public static final HandConstraint OpenBidding = highCardPoints(12, 17);
     public static final HandConstraint OpeningWeakBidding = highCardPoints(7, 11);
     public static final HandConstraint OpeningStrongBidding = highCardPoints(18, 40);
-    public static final Range OpeningStrongBiddingRange = new Range (18, 40);
+    //public static final Range OpeningStrongBiddingRange = new Range (18, 40);
+    public static final HandConstraint OpeningStrongBiddingRange = highCardPoints(18, 40);
     public static final HandConstraint OpenAfterPass = highCardPoints(11, 11);
     public static final HandConstraint DontOpen = highCardPoints(0, 9);
     public static final Range Rebid1NT = new Range(12, 15);
