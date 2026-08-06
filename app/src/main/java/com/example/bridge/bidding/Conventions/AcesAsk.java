@@ -86,6 +86,7 @@ public class AcesAsk extends Bidder {
     public static PositionCalls askKing(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         Suit suit = getAgreedSuit(ps);
+        System.out.println("plesik "+suit.toString());
         if (suit != null) {
             if (suit.isMinor()) {
                 choices.addRules(
