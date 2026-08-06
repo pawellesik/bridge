@@ -73,7 +73,6 @@ public class OpenBid2NatC extends OpenNatC {
     public static PositionCalls responderChangedSuits(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-        System.out.println("plesik "+ps.getPartner().getPublicHandSummary().getHighCardPoints().toString());
                 choices.addRules(
                 properties(new Call[]{Bid._3S, Bid._3H}, RespondBid2NatC::secondBidToGame),
                 partnerBids(RespondBid2NatC::secondBid),
@@ -90,11 +89,14 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2S, IS_NEW_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _2S")),
                 shows(Bid._2H, IS_NEW_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _2H")),
 
-                shows(Bid._3S, IS_NEW_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits _3S")),
-                shows(Bid._3H, IS_NEW_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits _3H")),
+                shows(Bid._3S, IS_NEW_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3S")),
+                shows(Bid._3H, IS_NEW_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3H")),
 
-                shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3S")),
-                shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3H")),
+                //shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3S")),
+                //shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3H")),
+
+                shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_REBID _3S")),
+                shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_REBID _3H")),
 
                 shows(Bid._4H,  fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4H")),
                 shows(Bid._4S,  fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4S"))

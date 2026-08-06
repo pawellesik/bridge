@@ -134,7 +134,6 @@ public class RespondNatC extends NatC {
                     propertiesAgreeTrump(raises, OpenBid2NatC::responderRaisedMajor, true),
 
                     shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneHeart _2H")),
-                    shows(Bid._2S, highCardPoints(MINIMUM_HAND), shape(Suit.Hearts, 0, 2), shape(5, 10), id("RespondNatC.oneHeart _2S 1")),
 
                     shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), id("RespondNatC.oneHeart _3H")),
                     shows(Bid._2S, highCardPoints(JUMP_HAND), shape(Suit.Hearts, 0, 2), shape(5, 10), id("RespondNatC.oneHeart _2S 2")),
