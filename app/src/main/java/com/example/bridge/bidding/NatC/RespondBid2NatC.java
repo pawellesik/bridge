@@ -87,6 +87,7 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(
                 shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4H"),
                 shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4S"),
+
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3NT")),
                 shows(Call.PASS), id("RespondBid2NatC.secondBidToGame PASS"));
 
