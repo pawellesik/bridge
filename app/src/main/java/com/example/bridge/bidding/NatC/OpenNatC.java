@@ -49,7 +49,7 @@ public class OpenNatC extends NatC {
         bids.add(shows(Bid._1D, OpenBidding, shape(5, 10), id("OpenNatC.openSuit _1D")));
         bids.add(shows(Bid._1C, OpenBidding, id("OpenNatC.openSuit _1C")));
 
-        if (ps.isPassedHand()) {
+        if (ps.getSeat() >= 3) {
             bids.add(shows(Bid._1S, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit OpenAfterPass _1S")));
             bids.add(shows(Bid._1H, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit OpenAfterPass _1H")));
             bids.add(shows(Bid._1D, OpenAfterPass, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1D")));
