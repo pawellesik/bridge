@@ -90,6 +90,6 @@
     <string name="nav_settings">Settings</string>
     <string name="history_col_name">Name</string>
     <string name="history_col_contract">Contract</string>
-    <string name="history_col_my">My</string>
-    <string name="history_col_opps">Opps</string>
+    <string name="history_col_my">We</string>
+    <string name="history_col_opps">They</string>
 </resources>
