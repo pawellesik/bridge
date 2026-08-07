@@ -43,6 +43,8 @@ public class Pbn {
     private final List<String> auction = new ArrayList<>();
     private List<Trick> playHistory = new ArrayList<>();
     private GameActivity gameActivity;
+    private int score = 0;
+    private int imp = 0;
 
     public Pbn(GameActivity gameActivity, String board) {
         this.gameActivity = gameActivity;
@@ -151,6 +153,75 @@ public class Pbn {
         return resultTricks;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setImp(int imp) {
+        this.imp = imp;
+    }
+
+    public int getImp() {
+        return imp;
+    }
+
+    public void calculateAndSetScore() {
+        if (contract == null || contract.isPass()) {
+            this.score = 0;
+            return;
+        }
+
+        int level = contract.getLevel();
+        int requiredTricks = level + 6;
+        int diff = resultTricks - requiredTricks;
+
+        if (diff < 0) {
+            // Kontrakt wpadł (Wpadki przed partią: -50 za każdą lewę)
+            this.score = diff * 50;
+            return;
+        }
+
+        // Kontrakt ugrany
+        int trickPoints;
+        Suit suit = contract.getSuit();
+
+        if (contract.isNoTrump()) {
+            trickPoints = 40 + (level - 1) * 30;
+        } else if (suit == Suit.SPADES || suit == Suit.HEARTS) {
+            trickPoints = level * 30;
+        } else { // DIAMONDS or CLUBS
+            trickPoints = level * 20;
+        }
+
+        int currentScore = trickPoints;
+
+        // Premia za ugraną końcówkę lub częściówkę
+        if (trickPoints >= 100) {
+            currentScore += 300; // Końcówka przed partią
+        } else {
+            currentScore += 50;  // Częściówka
+        }
+
+        // Nadróbki (Overtricks) przed partią
+        if (diff > 0) {
+            if (contract.isNoTrump() || suit == Suit.SPADES || suit == Suit.HEARTS) {
+                currentScore += diff * 30;
+            } else {
+                currentScore += diff * 20;
+            }
+        }
+
+        // Premie szlemowe (Slam bonuses) przed partią
+        if (level == 6) currentScore += 500;      // Mały szlem
+        else if (level == 7) currentScore += 1000; // Wielki szlem
+
+        this.score = currentScore;
+    }
+
     public void loadFromJsonObject(JSONObject json) {
         try {
             this.event = json.optString("Event", event);
@@ -172,6 +243,8 @@ public class Pbn {
                 this.contract = Contract.fromString(json.getString("Contract"));
                 this.declarer = json.optString("Declarer", "");
                 this.resultTricks = json.optInt("Result", 0);
+                this.score = json.optInt("Score", 0);
+                this.imp = json.optInt("Imp", 0);
             }
 
             if (json.has("Auction")) {
@@ -275,6 +348,8 @@ public class Pbn {
                 json.put("Declarer", formatDirection(declarer));
                 json.put("Contract", formatContract(contract));
                 json.put("Result", resultTricks);
+                json.put("Score", score);
+                json.put("Imp", imp);
             }
 
             if (!auction.isEmpty()) {
@@ -319,6 +394,8 @@ public class Pbn {
             sb.append(String.format(Locale.US, "[Declarer \"%s\"]\n", formatDirection(declarer)));
             sb.append(String.format(Locale.US, "[Contract \"%s\"]\n", formatContract(contract)));
             sb.append(String.format(Locale.US, "[Result \"%d\"]\n", resultTricks));
+            sb.append(String.format(Locale.US, "[Score \"%d\"]\n", score));
+            sb.append(String.format(Locale.US, "[Imp \"%d\"]\n", imp));
         }
 
         // Auction

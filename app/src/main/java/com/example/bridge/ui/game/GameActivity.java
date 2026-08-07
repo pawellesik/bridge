@@ -699,6 +699,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
             pbnCollection.getPbn().setPlayHistory(history);
 
+            pbnCollection.getPbn().calculateAndSetScore();
+
             String jsonExport = pbnCollection.generateJsonExport();
             android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
             overlayHistoryList.saveGameToHistory(this, jsonExport);

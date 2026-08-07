@@ -171,6 +171,24 @@ public class PbnCollection {
             pbn.setContract(modelContract, declarerName);
 
             simulateRobotPlay(pbn, modelContract, declarerName);
+
+            // Obliczanie IMP (porównanie MyGame z systemami automatycznymi)
+            int myScore = pbn.getScore();
+            pbnNatC.setImp(calculateImp(pbnNatC.getScore() - myScore));
+            pbnNatCRev.setImp(calculateImp(pbnNatCRev.getScore() - myScore));
+            pbnLCStandard.setImp(calculateImp(pbnLCStandard.getScore() - myScore));
+            pbnLCStandardRev.setImp(calculateImp(pbnLCStandardRev.getScore() - myScore));
+            twoOverOneGameForce.setImp(calculateImp(twoOverOneGameForce.getScore() - myScore));
+            twoOverOneGameForceRev.setImp(calculateImp(twoOverOneGameForceRev.getScore() - myScore));
+            
+            // Obliczanie IMP (różnica między MyGame a aktualnym systemem)
+            if (pbn.getScore() != 0 && pbnNatC.getScore() != 0) {
+                // Uproszczone obliczanie IMP na potrzeby wyświetlania
+                int diff = pbn.getScore() - pbnNatC.getScore();
+                int imp = calculateImp(diff);
+                pbn.setImp(imp);
+                pbnNatC.setImp(-imp);
+            }
         } else {
             pbn.setContract(new Contract(true), null);
         }
@@ -241,9 +259,43 @@ public class PbnCollection {
             }
             targetPbn.setResult(declarerTricks);
 
+            // Obliczanie punktacji (Score) zgodnie z zasadami brydża (przed partią)
+            targetPbn.calculateAndSetScore();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private int calculateImp(int diff) {
+        int adiff = Math.abs(diff);
+        int imp = 0;
+        if (adiff < 20) imp = 0;
+        else if (adiff < 50) imp = 1;
+        else if (adiff < 90) imp = 2;
+        else if (adiff < 130) imp = 3;
+        else if (adiff < 170) imp = 4;
+        else if (adiff < 220) imp = 5;
+        else if (adiff < 270) imp = 6;
+        else if (adiff < 320) imp = 7;
+        else if (adiff < 370) imp = 8;
+        else if (adiff < 430) imp = 9;
+        else if (adiff < 500) imp = 10;
+        else if (adiff < 600) imp = 11;
+        else if (adiff < 750) imp = 12;
+        else if (adiff < 900) imp = 13;
+        else if (adiff < 1100) imp = 14;
+        else if (adiff < 1300) imp = 15;
+        else if (adiff < 1500) imp = 16;
+        else if (adiff < 1750) imp = 17;
+        else if (adiff < 2000) imp = 18;
+        else if (adiff < 2250) imp = 19;
+        else if (adiff < 2500) imp = 20;
+        else if (adiff < 3000) imp = 21;
+        else if (adiff < 3500) imp = 22;
+        else if (adiff < 4000) imp = 23;
+        else imp = 24;
+        return diff < 0 ? -imp : imp;
     }
 
     private Card calculateBestCardForSim(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, int trump, String leaderName, DdsSolver solver) {

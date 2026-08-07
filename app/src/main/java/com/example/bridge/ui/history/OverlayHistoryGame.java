@@ -119,7 +119,19 @@ public class OverlayHistoryGame {
                 if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
                 if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
                 
-                // Zaznaczanie wiersza
+                // Displaying Scores and IMPs
+                if (tvMy1 != null) {
+                    int score = pbn.getScore();
+                    tvMy1.setText(score != 0 ? String.valueOf(score) : "0");
+                }
+                if (tvOpps1 != null) tvOpps1.setText("-"); // Placeholder for now
+
+                if (tvMy2 != null) {
+                    int imp = pbn.getImp();
+                    String impStr = (imp > 0 ? "+" : "") + imp;
+                    tvMy2.setText(impStr);
+                }
+                if (tvOpps2 != null) tvOpps2.setText("-"); // Placeholder for now
                 boolean isSelected = (pbn == selectedPbn);
                 row.setActivated(isSelected);
                 
@@ -179,12 +191,6 @@ public class OverlayHistoryGame {
                         }
                     }
                 }
-
-                // Temporary placeholder for scores until logic is added to Pbn
-                if (tvMy1 != null) tvMy1.setText("-");
-                if (tvOpps1 != null) tvOpps1.setText("-");
-                if (tvMy2 != null) tvMy2.setText("-");
-                if (tvOpps2 != null) tvOpps2.setText("-");
 
                 tableContent.addView(row);
             }
