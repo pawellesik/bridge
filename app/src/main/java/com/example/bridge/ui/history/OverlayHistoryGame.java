@@ -96,9 +96,15 @@ public class OverlayHistoryGame {
             tableContent.removeAllViews();
             android.view.LayoutInflater inflater = android.view.LayoutInflater.from(activity);
 
+            int index = 0;
             for (Pbn pbn : reconstructedPbnList) {
                 View row = inflater.inflate(R.layout.item_history_row, tableContent, false);
                 
+                // Zebra effect - co drugi wiersz ma delikatnie inne tło (stan selected)
+                if (!pbn.equals(selectedPbn)) {
+                    row.setSelected(index % 2 != 0);
+                }
+                index++;
                 TextView tvNameNorth = row.findViewById(R.id.tv_row_name_north);
                 TextView tvNameSouth = row.findViewById(R.id.tv_row_name_south);
                 TextView tvContractLevel = row.findViewById(R.id.tv_row_contract);

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:minHeight="36dp"
+    android:layout_marginBottom="1dp"
     android:background="@drawable/sel_history_row"
     android:divider="@drawable/divider_white"
     android:showDividers="middle">
