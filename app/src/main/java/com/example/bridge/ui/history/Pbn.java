@@ -119,6 +119,22 @@ public class Pbn {
         this.south = south;
     }
 
+    public String getNorth() {
+        return north;
+    }
+
+    public String getSouth() {
+        return south;
+    }
+
+    public String getWest() {
+        return west;
+    }
+
+    public String getEast() {
+        return east;
+    }
+
     public String getBoard() {
         return board;
     }

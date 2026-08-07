@@ -99,7 +99,8 @@ public class OverlayHistoryGame {
             for (Pbn pbn : reconstructedPbnList) {
                 View row = inflater.inflate(R.layout.item_history_row, tableContent, false);
                 
-                TextView tvName = row.findViewById(R.id.tv_row_name);
+                TextView tvNameNorth = row.findViewById(R.id.tv_row_name_north);
+                TextView tvNameSouth = row.findViewById(R.id.tv_row_name_south);
                 TextView tvContractLevel = row.findViewById(R.id.tv_row_contract);
                 android.widget.ImageView ivSuit = row.findViewById(R.id.iv_row_suit);
                 TextView tvResultSymbol = row.findViewById(R.id.tv_row_result_symbol);
@@ -109,7 +110,8 @@ public class OverlayHistoryGame {
                 TextView tvMy2 = row.findViewById(R.id.tv_row_my2);
                 TextView tvOpps2 = row.findViewById(R.id.tv_row_opps2);
 
-                if (tvName != null) tvName.setText(pbn.getBoard());
+                if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
+                if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
                 
                 // Zaznaczanie wiersza
                 boolean isSelected = (pbn == selectedPbn);
@@ -117,7 +119,8 @@ public class OverlayHistoryGame {
                 
                 // Ustawiamy biały kolor tekstu dla zaznaczonego wiersza
                 int textColor = isSelected ? android.graphics.Color.WHITE : android.graphics.Color.BLACK;
-                if (tvName != null) tvName.setTextColor(textColor);
+                if (tvNameNorth != null) tvNameNorth.setTextColor(textColor);
+                if (tvNameSouth != null) tvNameSouth.setTextColor(textColor);
                 if (tvMy1 != null) tvMy1.setTextColor(textColor);
                 if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
                 if (tvMy2 != null) tvMy2.setTextColor(textColor);
