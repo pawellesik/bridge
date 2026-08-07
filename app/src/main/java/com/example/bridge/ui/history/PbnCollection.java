@@ -40,7 +40,7 @@ public class PbnCollection {
 
         this.pbn = new Pbn(gameActivity, "MyGame");
         this.pbn.setPlayerNames("MyGame W", "MyGame N", "MyGame E", "MyGame S");
-        //this.pbnNoSystem = new Pbn(gameActivity, "NoSystem");
+
         this.pbnNatC = new Pbn(gameActivity, "NatC");
         this.pbnNatC.setPlayerNames("NatC W", "NatC N", "NatC E", "NatC S");
 
@@ -81,7 +81,11 @@ public class PbnCollection {
             } else {
                 pbn.addBid("Pass"); // North
                 pbn.addBid("Pass"); // East
-                pbn.addBid(contract.toString()); // South
+
+                String suitChar = contract.isNoTrump() ? "NT" : contract.getSuit().name().substring(0, 1).toUpperCase();
+                String formattedBid = contract.getLevel() + suitChar;
+                
+                pbn.addBid(formattedBid); // South
                 pbn.addBid("Pass"); // West
                 pbn.addBid("Pass"); // North
                 pbn.addBid("Pass"); // East
