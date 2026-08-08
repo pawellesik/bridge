@@ -62,7 +62,9 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._2H, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
                     shows(Bid._2S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
                     shows(Bid._3H, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
-                    shows(Bid._3S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3S"))
+                    shows(Bid._3S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3S")),
+                    shows(Bid._4H, isJump(1), OpeningStrongBiddingRange, shape(6, 10), id("OpenBid2NatC.responderClub _3H")),
+                    shows(Bid._4S, isJump(1), OpeningStrongBiddingRange, shape(6, 10), id("OpenBid2NatC.responderClub _3H"))
             );
         } else {
             return responderChangedSuits(ps);
