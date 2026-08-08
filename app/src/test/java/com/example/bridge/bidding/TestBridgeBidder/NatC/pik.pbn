@@ -226,3 +226,27 @@ PASS PASS
 PASS PASS 1C PASS
 1S PASS 2S PASS
 PASS PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Deal 19"]
+[Board "2"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A96.KT.AK743.K87 KT.A975.QT.QJ653 QJ542.J62.82.AT4 873.Q843.J965.92"]
+[Declarer "N"]
+[Contract "3S"]
+[Auction "N"]
+1NT PASS 2S PASS
+PASS PASS
+
+% Cleaned by CleanPBN
+[Event "NatC Deal 19"]
+[Board "2"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A96.KT.AK743.K87 KT.A975.QT.QJ653 QJ542.J62.82.AT4 873.Q843.J965.92"]
+[Declarer "N"]
+[Contract "3S"]
+[Auction "N"]
+1NT PASS 2S PASS
+4S PASS PASS PASS

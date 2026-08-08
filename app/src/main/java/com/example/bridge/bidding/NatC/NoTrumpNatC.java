@@ -91,10 +91,10 @@ public class NoTrumpNatC extends Bidder {
             bids.add(partnerBids((PositionCallsFactory) this::openerRebid));
             bids.add(partnerBids(Bid._4NT, CompeteNatC::compBids));
 
-            bids.add(shows(Bid._2C, shape(5, 11), ntd.RR.lessThanInvite, id("NoTrumpNatC.Natural1NTNatC 2C")));
-            bids.add(shows(Bid._2D, shape(5, 11), ntd.RR.lessThanInvite, id("NoTrumpNatC.Natural1NTNatC 2D")));
-            bids.add(shows(Bid._2H, shape(5, 11), ntd.RR.lessThanInvite, id("NoTrumpNatC.Natural1NTNatC 2H")));
-            bids.add(shows(Bid._2S, shape(5, 11), ntd.RR.lessThanInvite, id("NoTrumpNatC.Natural1NTNatC 2S")));
+            bids.add(shows(Bid._2C, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 2C")));
+            bids.add(shows(Bid._2D, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 2D")));
+            bids.add(shows(Bid._2H, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2H")));
+            bids.add(shows(Bid._2S, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2S")));
 
             bids.add(shows(Bid._2NT, ntd.RR.inviteGame, longestMajor(4), id("NoTrumpNatC.Natural1NTNatC 2NT")));
 
@@ -120,10 +120,15 @@ public class NoTrumpNatC extends Bidder {
 
             choices.addRules(shows(Call.PASS, partner(isLastBid(Bid._3NT)), id("NoTrumpNatC.openerRebid PASS")));
             choices.addRules(shows(Call.PASS, ntd.OR.dontAcceptInvite, partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid PASS")));
-            choices.addRules(shows(Call.PASS, partner(isLastBid(Bid._2C)), id("NoTrumpNatC.openerRebid PASS")));
-            choices.addRules(shows(Call.PASS, partner(isLastBid(Bid._2D)), id("NoTrumpNatC.openerRebid PASS")));
-            choices.addRules(shows(Call.PASS, partner(isLastBid(Bid._2H)), id("NoTrumpNatC.openerRebid PASS")));
-            choices.addRules(shows(Call.PASS, partner(isLastBid(Bid._2S)), id("NoTrumpNatC.openerRebid PASS")));
+            choices.addRules(shows(Call.PASS, ntd.OR.dontAcceptInvite, partner(isLastBid(Bid._2C)), id("NoTrumpNatC.openerRebid PASS")));
+            choices.addRules(shows(Call.PASS, ntd.OR.dontAcceptInvite, partner(isLastBid(Bid._2D)), id("NoTrumpNatC.openerRebid PASS")));
+            choices.addRules(shows(Call.PASS, ntd.OR.dontAcceptInvite, partner(isLastBid(Bid._2H)), id("NoTrumpNatC.openerRebid PASS")));
+            choices.addRules(shows(Call.PASS, ntd.OR.dontAcceptInvite, partner(isLastBid(Bid._2S)), id("NoTrumpNatC.openerRebid PASS")));
+
+            choices.addRules(shows(Bid._4H, ntd.OR.acceptInvite, partner(isLastBid(Bid._2H)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4H"));
+            choices.addRules(shows(Bid._4S, ntd.OR.acceptInvite, partner(isLastBid(Bid._2S)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4S"));
+            choices.addRules(shows(Bid._5D, ntd.OR.acceptInvite, partner(isLastBid(Bid._2H)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4H"));
+            choices.addRules(shows(Bid._5C, ntd.OR.acceptInvite, partner(isLastBid(Bid._2S)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4S"));
 
             choices.addRules(properties(Bid._3H, true));
             choices.addRules(properties(Bid._3S, true));
