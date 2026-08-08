@@ -38,7 +38,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _3C")),
 
                 shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3H")),
-                shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3H")),
+                shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3S")),
 
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), id("RespondNatC.oneClub _2NT")),
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), id("RespondNatC.oneClub _1NT"))
