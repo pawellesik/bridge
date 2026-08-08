@@ -123,7 +123,36 @@ public class OverlayHistoryGame {
                 if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
                 if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
                 
-                if (tvMy1 != null && tvOpps1 != null) {
+                boolean isMyGame = "MyGame".equals(pbn.getBoard());
+                boolean isSelected = (pbn == selectedPbn);
+                
+                row.setActivated(isSelected);
+                if (isSelected) {
+                    selectedRowView = row;
+                }
+                
+                // Ustawiamy kolory i style dla wyróżnienia MyGame
+                int textColor;
+                if (isSelected) {
+                    textColor = android.graphics.Color.WHITE;
+                } else if (isMyGame) {
+                    textColor = android.graphics.Color.parseColor("#C62828"); // Czerwony dla Twojej gry
+                } else {
+                    textColor = android.graphics.Color.BLACK;
+                }
+
+                if (tvNameNorth != null) {
+                    tvNameNorth.setTextColor(textColor);
+                    if (isMyGame) tvNameNorth.setTypeface(null, android.graphics.Typeface.BOLD_ITALIC);
+                    else tvNameNorth.setTypeface(null, android.graphics.Typeface.BOLD);
+                }
+                if (tvNameSouth != null) {
+                    tvNameSouth.setTextColor(textColor);
+                    if (isMyGame) tvNameSouth.setTypeface(null, android.graphics.Typeface.BOLD_ITALIC);
+                    else tvNameSouth.setTypeface(null, android.graphics.Typeface.BOLD);
+                }
+
+                if (tvMy1 != null) {
                     int score = pbn.getScore();
                     if (score > 0) {
                         tvMy1.setText(String.valueOf(score));
@@ -135,27 +164,17 @@ public class OverlayHistoryGame {
                         tvMy1.setText("0");
                         tvOpps1.setText("");
                     }
+                    tvMy1.setTextColor(textColor);
                 }
+                if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
 
                 if (tvImp != null) {
                     int imp = pbn.getImp();
                     String impStr = (imp > 0 ? "+" : "") + imp;
                     if (imp == 0) impStr = "0";
                     tvImp.setText(impStr);
+                    tvImp.setTextColor(textColor);
                 }
-
-                boolean isSelected = (pbn == selectedPbn);
-                row.setActivated(isSelected);
-                if (isSelected) {
-                    selectedRowView = row;
-                }
-                
-                int textColor = isSelected ? android.graphics.Color.WHITE : android.graphics.Color.BLACK;
-                if (tvNameNorth != null) tvNameNorth.setTextColor(textColor);
-                if (tvNameSouth != null) tvNameSouth.setTextColor(textColor);
-                if (tvMy1 != null) tvMy1.setTextColor(textColor);
-                if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
-                if (tvImp != null) tvImp.setTextColor(textColor);
 
                 row.setOnClickListener(v -> {
                     selectedPbn = pbn;
