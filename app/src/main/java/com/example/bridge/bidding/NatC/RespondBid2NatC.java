@@ -52,7 +52,6 @@ public class RespondBid2NatC extends RespondNatC {
         bids.add(shows(Bid._2S, fit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _2S")));
         bids.add(shows(Bid._2H, fit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _2H")));
 
-        // Dodajemy cały zestaw reguł konkurencyjnych i wymuszonych z CompeteNatC
         for (CallFeature cf : CompeteNatC.compBids(ps)) {
             bids.add(cf);
         }
