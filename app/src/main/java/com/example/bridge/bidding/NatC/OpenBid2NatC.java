@@ -44,8 +44,8 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._3H, shape(4, 11), highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3H")),
                 shows(Bid._3S, shape(4, 11), highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3S")),
-                shows(Bid._5D, fit(), highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _3H")),
-                shows(Bid._5C, fit(), highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _3S"))
+                shows(Bid._5D, fit(), highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _5D")),
+                shows(Bid._5C, fit(), highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _5C"))
 
         );
         choices.addRules(CompeteNatC::compBids);
