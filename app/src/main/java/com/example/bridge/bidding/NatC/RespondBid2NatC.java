@@ -51,32 +51,10 @@ public class RespondBid2NatC extends RespondNatC {
         bids.add(shows(Bid._2S, fit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _2S")));
         bids.add(shows(Bid._2H, fit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _2H")));
 
-        //bids.add(shows(Bid._2S, raisePartner(), points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._3S, raisePartner(null, 1, 8), points(MEDIUM_HAND)));
-        //bids.add(shows(Bid._4S, raisePartner(null, 1, 8), points(RAISE_TO_4M)));
-
-        //bids.add(shows(Bid._2C, IS_REBID, shape(6, 11), points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._2D, IS_REBID, shape(6, 11), points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._2H, IS_REBID, shape(6, 11), points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._2S, IS_REBID, shape(6, 11), points(MINIMUM_HAND)));
-
-        //bids.add(shows(Bid._3C, IS_REBID, shape(6, 11), points(MEDIUM_HAND)));
-        //bids.add(shows(Bid._3D, IS_REBID, shape(6, 11), points(MEDIUM_HAND)));
-        //bids.add(shows(Bid._3H, IS_REBID, shape(6, 11), points(MEDIUM_HAND)));
-        //bids.add(shows(Bid._3S, IS_REBID, shape(6, 11), points(MEDIUM_HAND)));
-
-        //bids.add(shows(Bid._1NT, points(MINIMUM_HAND)));
-
-        //bids.add(shows(Bid._2C, FIT_8_PLUS, IS_NOT_REBID, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._2D, FIT_8_PLUS, IS_NOT_REBID, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._2H, FIT_8_PLUS, IS_NOT_REBID, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._2S, FIT_8_PLUS, IS_NOT_REBID, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-
-        //bids.add(shows(Bid._3C, FIT_8_PLUS, IS_NOT_REBID, IS_NON_JUMP, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._3D, FIT_8_PLUS, IS_NOT_REBID, IS_NON_JUMP, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._3H, FIT_8_PLUS, IS_NOT_REBID, IS_NON_JUMP, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-        //bids.add(shows(Bid._3S, FIT_8_PLUS, IS_NOT_REBID, IS_NON_JUMP, IS_FORCED_TO_BID, points(MINIMUM_HAND)));
-        bids.add(shows(Call.PASS));
+        // Dodajemy cały zestaw reguł konkurencyjnych i wymuszonych z CompeteNatC
+        for (CallFeature cf : CompeteNatC.compBids(ps)) {
+            bids.add(cf);
+        }
 
         return bids;
     }
