@@ -208,6 +208,17 @@ public abstract class Bidder {
         };
     }
 
+    public static StaticConstraint partnerLastBidLevel(int level) {
+        return new SimpleStaticConstraint((call, ps) -> {
+            Call last = ps.getPartner().getLastCall();
+            return (last instanceof Bid && ((Bid) last).getLevel() == level);
+        }, (call, ps) -> "partner's last bid at level " + level);
+    }
+
+    public static HandConstraint noFit() {
+        return fit(8, null, false);
+    }
+
     public static StaticConstraint isPartnersSuit() { return IS_PARTNERS_SUIT; }
     public static StaticConstraint isPassedHand() { return new SimpleStaticConstraint((call, ps) -> ps.isPassedHand(), "passed hand"); }
 
