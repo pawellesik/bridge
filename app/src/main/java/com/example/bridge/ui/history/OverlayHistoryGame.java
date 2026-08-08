@@ -287,27 +287,39 @@ public class OverlayHistoryGame {
                 com.example.bridge.model.Suit.CLUBS
         };
         String[] suitSymbols = {"♠\uFE0E", "♥\uFE0E", "♦\uFE0E", "♣\uFE0E"};
+
+        // Konfiguracja punktu zatrzymania tabulacji (TabStopSpan)
+        // 20dp powinno wystarczyć, aby pomieścić symbol koloru i wyrównać figury blisko siebie
+        float tabOffset = 20 * activity.getResources().getDisplayMetrics().density;
+        ssb.setSpan(new android.text.style.TabStopSpan.Standard((int) tabOffset), 0, 0, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         for (int i = 0; i < 4; i++) {
             int symbolStart = ssb.length();
             ssb.append(suitSymbols[i]);
             int symbolEnd = ssb.length();
+            
             com.example.bridge.model.Suit currentSuit = suits[i];
             int suitColor = currentSuit.getColor(activity);
             ssb.setSpan(new android.text.style.ForegroundColorSpan(suitColor), 
                     symbolStart, symbolEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ssb.append(" ");
+            
+            ssb.append("\t"); // Używamy tabulatora zamiast spacji
             int cardsStart = ssb.length();
+
             java.util.List<com.example.bridge.model.Card> suitCards = new java.util.ArrayList<>();
             for (com.example.bridge.model.Card card : hand) {
                 if (card.getSuit() == currentSuit) suitCards.add(card);
             }
             suitCards.sort((c1, c2) -> Integer.compare(c2.getRank().ordinal(), c1.getRank().ordinal()));
+
             for (int j = 0; j < suitCards.size(); j++) {
                 ssb.append(formatRank(suitCards.get(j).getRank()));
                 if (j < suitCards.size() - 1) ssb.append(" ");
             }
+
             ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), 
                     cardsStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
             if (i < 3) ssb.append("\n");
         }
         return ssb;

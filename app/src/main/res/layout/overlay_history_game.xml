@@ -127,6 +127,7 @@
             android:layout_height="100dp"
             android:background="#D0E0E0E0"
             android:padding="4dp"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/layout_center_history"
             app:layout_constraintEnd_toEndOf="@+id/layout_center_history"
@@ -155,6 +156,7 @@
             android:layout_height="100dp"
             android:background="#D0E0E0E0"
             android:padding="4dp"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/layout_center_history"
             app:layout_constraintEnd_toStartOf="@+id/layout_center_history"
@@ -184,6 +186,7 @@
             android:layout_height="100dp"
             android:background="#D0E0E0E0"
             android:padding="4dp"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/layout_center_history"
             app:layout_constraintEnd_toEndOf="parent"
@@ -213,6 +216,7 @@
             android:layout_height="100dp"
             android:background="#D0E0E0E0"
             android:padding="4dp"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/layout_center_history"
             app:layout_constraintStart_toStartOf="@+id/layout_center_history"
@@ -368,7 +372,8 @@
                 android:padding="4dp"
                 android:text="@string/history_col_name"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -378,7 +383,8 @@
                 android:padding="4dp"
                 android:text="@string/history_col_contract"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -388,7 +394,8 @@
                 android:padding="4dp"
                 android:text="@string/history_col_my"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -398,7 +405,8 @@
                 android:padding="4dp"
                 android:text="@string/history_col_opps"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -408,7 +416,8 @@
                 android:padding="4dp"
                 android:text="@string/history_col_imp"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
