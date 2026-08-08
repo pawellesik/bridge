@@ -53,11 +53,11 @@ public class PbnCollection {
         this.pbnLCStandardRev = new Pbn(gameActivity, "LCStandard Rev");
         this.pbnLCStandardRev.setPlayerNames("LCStandard Rev W", "LCStandard Rev N", "LCStandard Rev E", "LCStandard Rev S");
 
-        this.twoOverOneGameForce = new Pbn(gameActivity, "TwoOverOneGameForce");
-        this.twoOverOneGameForce.setPlayerNames("TwoOverOneGameForce W", "TwoOverOneGameForce N", "TwoOverOneGameForce E", "TwoOverOneGameForce S");
+        this.twoOverOneGameForce = new Pbn(gameActivity, "2/1 GF (S)");
+        this.twoOverOneGameForce.setPlayerNames("2/1 GF W", "2/1 GF N", "2/1 GF E", "2/1 GF S");
 
-        this.twoOverOneGameForceRev = new Pbn(gameActivity, "TwoOverOneGameForce");
-        this.twoOverOneGameForceRev.setPlayerNames("TwoOverOneGameForce W", "TwoOverOneGameForce N", "TwoOverOneGameForce E", "TwoOverOneGameForce S");
+        this.twoOverOneGameForceRev = new Pbn(gameActivity, "2/1 GF (N)");
+        this.twoOverOneGameForceRev.setPlayerNames("2/1 GF W", "2/1 GF N", "2/1 GF E", "2/1 GF S");
 
         //this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
         //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
@@ -172,25 +172,37 @@ public class PbnCollection {
 
             simulateRobotPlay(pbn, modelContract, declarerName);
 
-            // Obliczanie IMP (porównanie MyGame z systemami automatycznymi)
-            int myScore = pbn.getScore();
-            pbnNatC.setImp(calculateImp(pbnNatC.getScore() - myScore));
-            pbnNatCRev.setImp(calculateImp(pbnNatCRev.getScore() - myScore));
-            pbnLCStandard.setImp(calculateImp(pbnLCStandard.getScore() - myScore));
-            pbnLCStandardRev.setImp(calculateImp(pbnLCStandardRev.getScore() - myScore));
-            twoOverOneGameForce.setImp(calculateImp(twoOverOneGameForce.getScore() - myScore));
-            twoOverOneGameForceRev.setImp(calculateImp(twoOverOneGameForceRev.getScore() - myScore));
-            
-            // Obliczanie IMP (różnica między MyGame a aktualnym systemem)
-            if (pbn.getScore() != 0 && pbnNatC.getScore() != 0) {
-                // Uproszczone obliczanie IMP na potrzeby wyświetlania
-                int diff = pbn.getScore() - pbnNatC.getScore();
-                int imp = calculateImp(diff);
-                pbn.setImp(imp);
-                pbnNatC.setImp(-imp);
-            }
         } else {
             pbn.setContract(new Contract(true), null);
+        }
+    }
+
+    public void calculateAllImps() {
+        List<Pbn> allPbns = new ArrayList<>();
+        if (pbn != null) allPbns.add(pbn);
+        if (pbnNatC != null) allPbns.add(pbnNatC);
+        if (pbnNatCRev != null) allPbns.add(pbnNatCRev);
+        if (pbnLCStandard != null) allPbns.add(pbnLCStandard);
+        if (pbnLCStandardRev != null) allPbns.add(pbnLCStandardRev);
+        if (twoOverOneGameForce != null) allPbns.add(twoOverOneGameForce);
+        if (twoOverOneGameForceRev != null) allPbns.add(twoOverOneGameForceRev);
+
+        if (allPbns.isEmpty()) return;
+
+        // 1. Liczymy średnią (datum)
+        int totalScore = 0;
+        int count = 0;
+        for (Pbn p : allPbns) {
+            totalScore += p.getScore();
+            count++;
+        }
+        
+        int datum = totalScore / count;
+
+        // 2. Każdy wynik porównujemy z datum i zamieniamy różnicę na IMP
+        for (Pbn p : allPbns) {
+            int diff = p.getScore() - datum;
+            p.setImp(calculateImp(diff));
         }
     }
 

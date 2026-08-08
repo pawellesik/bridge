@@ -124,3 +124,7 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 • not(Constraint) - Odwrócenie warunku (np. not(BALANCED) to ręka niezrównoważona).
 • id(String) - Nadaje unikalny identyfikator regule (pomocne przy debugowaniu).
 • note(String) - Dodaje tekstowy opis/notatkę do odzywki widoczną w systemie.
+
+
+do logow np
+android.util.Log.d("PBN_EXPORT_JSON", jsonExport);

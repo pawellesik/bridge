@@ -701,6 +701,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             pbnCollection.getPbn().calculateAndSetScore();
 
+            // Obliczamy IMPy metodą Butler (średnia ze wszystkich systemów)
+            pbnCollection.calculateAllImps();
+
             String jsonExport = pbnCollection.generateJsonExport();
             android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
             overlayHistoryList.saveGameToHistory(this, jsonExport);
