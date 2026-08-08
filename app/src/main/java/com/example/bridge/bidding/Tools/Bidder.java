@@ -215,10 +215,6 @@ public abstract class Bidder {
         }, (call, ps) -> "partner's last bid at level " + level);
     }
 
-    public static HandConstraint noFit() {
-        return fit(8, null, false);
-    }
-
     public static StaticConstraint isPartnersSuit() { return IS_PARTNERS_SUIT; }
     public static StaticConstraint isPassedHand() { return new SimpleStaticConstraint((call, ps) -> ps.isPassedHand(), "passed hand"); }
 

@@ -36,6 +36,7 @@ public class CompeteNatC extends NatC {
         for (CallFeature cf : ForcedBidNatC.bids(ps)) {
             bids.add(cf);
         }
+
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
         return bids;
     }
