@@ -15,11 +15,12 @@
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:KT32.AK64.AQ.T63 Q76.K7.9876.T987 A4.32.KT95.Q9852 32.6543.AJ5.6542"]
+[Deal "N:KT32.AK64.AQ.T63 Q76.K7.9876.T987 A4.32.JT95.KQ852 32.6543.AJ5.6542"]
 [Declarer "N"]
 [Contract "Pass"]
 [Auction "N"]
-1NT Pass 3NT Pass
+1NT Pass 2C Pass
+5C Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC bezAtu 3"]
@@ -70,3 +71,15 @@ Pass Pass
 1D Pass 2S Pass
 3C Pass 3NT Pass
 Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC bezAtu 7"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT32.AK64.AQ3.T6 Q76.K7.9876.T987 64.32.KT95.AQ985 32.6543.AJ5.6542"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1NT Pass 2C Pass
+3NT Pass Pass Pass
