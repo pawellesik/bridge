@@ -22,6 +22,7 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._3NT, othersAtLeast(3), partnerLastSuitShape(0, 1), pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
                 shows(Call.PASS)
         );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
     public static PositionCalls colorAfterPass(PositionState ps) {
@@ -37,7 +38,7 @@ public class RespondBid2NatC extends RespondNatC {
 
                 shows(Call.PASS, id("RespondBid2NatC.colorAfterPass PASS"))
         );
-
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 

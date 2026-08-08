@@ -123,7 +123,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3D, shape(7,10), IS_ANY_JUMP,  id("OpenBid2NatC.responderChangedSuits fit _3D"))
 
                 );
-        //choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
