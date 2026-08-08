@@ -49,6 +49,7 @@ public class OverlayHistoryGame {
             loadGameData(dbId);
         }
     }
+
     private void loadGameData(int dbId) {
         new Thread(() -> {
             try {
@@ -60,14 +61,16 @@ public class OverlayHistoryGame {
                     for (GameRecord record : records) {
                         Pbn pbn = new Pbn(activity, record.system);
                         pbn.loadFromJsonObject(new JSONObject(record.gameData));
-
-                        android.util.Log.e("plesik",  record.gameData.toString());
                         loadedPbns.add(pbn);
                     }
                     
                     activity.runOnUiThread(() -> {
                         reconstructedPbnList.addAll(loadedPbns);
-                        // Domyślnie zaznaczamy MyGame (Current)
+                        
+                        // Sortowanie po IMP malejąco
+                        reconstructedPbnList.sort((p1, p2) -> Integer.compare(p2.getImp(), p1.getImp()));
+
+                        // Domyślnie zaznaczamy MyGame
                         for (Pbn p : reconstructedPbnList) {
                             if ("MyGame".equals(p.getBoard())) {
                                 selectedPbn = p;
@@ -97,14 +100,15 @@ public class OverlayHistoryGame {
             android.view.LayoutInflater inflater = android.view.LayoutInflater.from(activity);
 
             int index = 0;
+            View selectedRowView = null;
             for (Pbn pbn : reconstructedPbnList) {
                 View row = inflater.inflate(R.layout.item_history_row, tableContent, false);
                 
-                // Zebra effect - co drugi wiersz ma delikatnie inne tło (stan selected)
                 if (!pbn.equals(selectedPbn)) {
                     row.setSelected(index % 2 != 0);
                 }
                 index++;
+
                 TextView tvNameNorth = row.findViewById(R.id.tv_row_name_north);
                 TextView tvNameSouth = row.findViewById(R.id.tv_row_name_south);
                 TextView tvContractLevel = row.findViewById(R.id.tv_row_contract);
@@ -118,7 +122,6 @@ public class OverlayHistoryGame {
                 if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
                 if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
                 
-                // Displaying Scores and IMPs
                 if (tvMy1 != null && tvOpps1 != null) {
                     int score = pbn.getScore();
                     if (score > 0) {
@@ -139,10 +142,13 @@ public class OverlayHistoryGame {
                     if (imp == 0) impStr = "0";
                     tvImp.setText(impStr);
                 }
+
                 boolean isSelected = (pbn == selectedPbn);
                 row.setActivated(isSelected);
+                if (isSelected) {
+                    selectedRowView = row;
+                }
                 
-                // Ustawiamy biały kolor tekstu dla zaznaczonego wiersza
                 int textColor = isSelected ? android.graphics.Color.WHITE : android.graphics.Color.BLACK;
                 if (tvNameNorth != null) tvNameNorth.setTextColor(textColor);
                 if (tvNameSouth != null) tvNameSouth.setTextColor(textColor);
@@ -152,7 +158,7 @@ public class OverlayHistoryGame {
 
                 row.setOnClickListener(v -> {
                     selectedPbn = pbn;
-                    updateUi(); // Odśwież widok, aby zmienić tło wiersza
+                    updateUi();
                 });
 
                 if (pbn.getContract() != null) {
@@ -197,19 +203,28 @@ public class OverlayHistoryGame {
                         }
                     }
                 }
-
                 tableContent.addView(row);
+            }
+
+            if (selectedRowView != null) {
+                View finalRow = selectedRowView;
+                androidx.core.widget.NestedScrollView scrollView = root.findViewById(R.id.scroll_history_history);
+                if (scrollView != null) {
+                    scrollView.post(() -> {
+                        int rowTop = finalRow.getTop();
+                        int rowHeight = finalRow.getHeight();
+                        int scrollHeight = scrollView.getHeight();
+                        int scrollTo = rowTop - (scrollHeight / 2) + (rowHeight / 2);
+                        scrollView.smoothScrollTo(0, Math.max(0, scrollTo));
+                    });
+                }
             }
         }
     }
 
     private void updateSelectedGameDetails() {
         if (selectedPbn == null) return;
-
-        // Bidding history
         updateBiddingHistory(selectedPbn);
-
-        // Hands
         Map<String, List<com.example.bridge.model.Card>> hands = selectedPbn.getInitialHands();
         if (hands != null) {
             updateHandTextView(tvNorthCards, hands.get("North"));
@@ -221,7 +236,6 @@ public class OverlayHistoryGame {
 
     private void updateBiddingHistory(Pbn pbn) {
         if (biddingAdapter == null) return;
-        
         biddingList.clear();
         List<String> auction = pbn.getAuction();
         if (auction != null && !auction.isEmpty()) {
@@ -230,69 +244,50 @@ public class OverlayHistoryGame {
             if ("N".equals(dealer)) offset = 1;
             else if ("E".equals(dealer)) offset = 2;
             else if ("S".equals(dealer)) offset = 3;
-
-            for (int i = 0; i < offset; i++) {
-                biddingList.add("-");
-            }
+            for (int i = 0; i < offset; i++) biddingList.add("-");
             biddingList.addAll(auction);
         }
-        biddingAdapter.setPreviewSelection(""); // Hide preview in history
+        biddingAdapter.setPreviewSelection("");
         biddingAdapter.notifyDataSetChanged();
     }
 
-
     private void updateHandTextView(TextView tv, List<com.example.bridge.model.Card> hand) {
         if (tv == null) return;
-        tv.setTextColor(android.graphics.Color.BLACK); // Wymuszamy czarny kolor bazowy dla cyfr i liter
+        tv.setTextColor(android.graphics.Color.BLACK);
         tv.setText(formatHandForDisplay(hand), android.widget.TextView.BufferType.SPANNABLE);
     }
 
     private android.text.SpannableStringBuilder formatHandForDisplay(java.util.List<com.example.bridge.model.Card> hand) {
         android.text.SpannableStringBuilder ssb = new android.text.SpannableStringBuilder();
         if (hand == null) return ssb;
-
         com.example.bridge.model.Suit[] suits = {
                 com.example.bridge.model.Suit.SPADES,
                 com.example.bridge.model.Suit.HEARTS,
                 com.example.bridge.model.Suit.DIAMONDS,
                 com.example.bridge.model.Suit.CLUBS
         };
-        // Używamy Variation Selector-15 (\uFE0E), aby wymusić renderowanie tekstowe symboli.
-        // Pozwala to na ich poprawne kolorowanie (standardowe emoji ignorują ForegroundColorSpan).
         String[] suitSymbols = {"♠\uFE0E", "♥\uFE0E", "♦\uFE0E", "♣\uFE0E"};
-
         for (int i = 0; i < 4; i++) {
             int symbolStart = ssb.length();
-            ssb.append(suitSymbols[i]); // Dodajemy symbol
+            ssb.append(suitSymbols[i]);
             int symbolEnd = ssb.length();
-            
-            // Nakładamy kolor TYLKO na symbol (pobieramy go bezpośrednio z logiki Suit)
             com.example.bridge.model.Suit currentSuit = suits[i];
             int suitColor = currentSuit.getColor(activity);
-            
             ssb.setSpan(new android.text.style.ForegroundColorSpan(suitColor), 
                     symbolStart, symbolEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            
-            ssb.append(" "); // Odstęp po symbolu
+            ssb.append(" ");
             int cardsStart = ssb.length();
-
             java.util.List<com.example.bridge.model.Card> suitCards = new java.util.ArrayList<>();
             for (com.example.bridge.model.Card card : hand) {
-                if (card.getSuit() == currentSuit) {
-                    suitCards.add(card);
-                }
+                if (card.getSuit() == currentSuit) suitCards.add(card);
             }
             suitCards.sort((c1, c2) -> Integer.compare(c2.getRank().ordinal(), c1.getRank().ordinal()));
-
             for (int j = 0; j < suitCards.size(); j++) {
                 ssb.append(formatRank(suitCards.get(j).getRank()));
                 if (j < suitCards.size() - 1) ssb.append(" ");
             }
-
-            // Wymuszamy czarny kolor dla wszystkich kart w tej linii
             ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), 
                     cardsStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
             if (i < 3) ssb.append("\n");
         }
         return ssb;
@@ -308,9 +303,7 @@ public class OverlayHistoryGame {
     }
 
     public void hide() {
-        if (root != null) {
-            root.setVisibility(View.GONE);
-        }
+        if (root != null) root.setVisibility(View.GONE);
     }
 
     public boolean isVisible() {
