@@ -229,6 +229,36 @@ public abstract class Bidder {
     public static HandConstraint fit(Suit suit, boolean desiredValue) { return fit(8, suit, desiredValue); }
     public static final HandConstraint FIT_8_PLUS = fit(8);
     public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true);
+    public static final HandConstraint PAIR_BALANCED = new HandConstraint() {
+        @Override
+        public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+            for (Suit suit : Suit.values()) {
+                // Sprawdzamy czy partner licytował ten kolor (czy jest to jego kolor)
+                boolean partnerHasSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
+                
+                if (!partnerHasSuit) {
+                    // Jeśli partner nie licytował, my musimy mieć "coś" (decent quality lub stop)
+                    // Wykorzystujemy existing quality logic: 1 = Poor, 2 = Decent, 3 = Good, 4 = Excellent, 5 = Solid
+                    Range quality = hs.getSuits().get(suit).getQuality();
+                    if (quality.getMax() < SuitQuality.Decent.ordinal()) {
+                        return false; 
+                    }
+                    
+                    // Sprawdzamy zatrzymanie, jeśli system je wyliczył
+                    Boolean stopped = hs.getSuits().get(suit).getStopped();
+                    if (stopped != null && !stopped && hs.getSuits().get(suit).getShape().getMin() < 2) {
+                        return false;
+                    }
+
+                    // Brak renonsu w kolorze partnera (jeśli nie licytował)
+                    if (hs.getSuits().get(suit).getShape().getMin() == 0) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    };
     public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false);
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);
     public static final HandConstraint NOT_FLAT = new Flat.ShowsFlat(false);
