@@ -2,17 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="36dp"
+    android:minHeight="40dp"
     android:background="@drawable/sel_history_row"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:divider="@drawable/divider_white"
+    android:showDividers="middle">
 
-    <!-- Kolumna 1: Nazwy graczy -->
+    <!-- Kolumna 1: Gracze (Players) -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="2.0"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="2dp">
         <TextView
             android:id="@+id/tv_row_name_north"
             android:layout_width="match_parent"
@@ -30,8 +33,6 @@
             android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
-
-    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#FFFFFF" />
 
     <!-- Kolumna 2: Kontrakt -->
     <FrameLayout
@@ -71,9 +72,7 @@
         </LinearLayout>
     </FrameLayout>
 
-    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#FFFFFF" />
-
-    <!-- Kolumna 3: My1 -->
+    <!-- Kolumna 3: My (Score) -->
     <TextView
         android:id="@+id/tv_row_my1"
         android:layout_width="0dp"
@@ -84,9 +83,7 @@
         android:textSize="12sp"
         android:padding="4dp" />
 
-    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#FFFFFF" />
-
-    <!-- Kolumna 4: Opps1 -->
+    <!-- Kolumna 4: Oni (Score) -->
     <TextView
         android:id="@+id/tv_row_opps1"
         android:layout_width="0dp"
@@ -97,30 +94,16 @@
         android:textSize="12sp"
         android:padding="4dp" />
 
-    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#FFFFFF" />
-
-    <!-- Kolumna 5: My2 -->
+    <!-- Kolumna 5: Imp -->
     <TextView
-        android:id="@+id/tv_row_my2"
+        android:id="@+id/tv_row_imp"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="12sp"
-        android:padding="4dp" />
-
-    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#FFFFFF" />
-
-    <!-- Kolumna 6: Opps2 -->
-    <TextView
-        android:id="@+id/tv_row_opps2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:padding="4dp" />
+        android:padding="4dp"
+        android:textStyle="bold" />
 
 </LinearLayout>

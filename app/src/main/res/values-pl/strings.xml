@@ -88,8 +88,9 @@
     <string name="nav_history">Historia</string>
     <string name="nav_statistic">Statystyki</string>
     <string name="nav_settings">Ustawienia</string>
-    <string name="history_col_name">Nazwa</string>
+    <string name="history_col_name">Gracze</string>
     <string name="history_col_contract">Kontrakt</string>
     <string name="history_col_my">My</string>
     <string name="history_col_opps">Oni</string>
+    <string name="history_col_imp">Imp</string>
 </resources>

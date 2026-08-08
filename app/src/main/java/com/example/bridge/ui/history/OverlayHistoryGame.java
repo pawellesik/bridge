@@ -113,25 +113,32 @@ public class OverlayHistoryGame {
 
                 TextView tvMy1 = row.findViewById(R.id.tv_row_my1);
                 TextView tvOpps1 = row.findViewById(R.id.tv_row_opps1);
-                TextView tvMy2 = row.findViewById(R.id.tv_row_my2);
-                TextView tvOpps2 = row.findViewById(R.id.tv_row_opps2);
+                TextView tvImp = row.findViewById(R.id.tv_row_imp);
 
                 if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
                 if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
                 
                 // Displaying Scores and IMPs
-                if (tvMy1 != null) {
+                if (tvMy1 != null && tvOpps1 != null) {
                     int score = pbn.getScore();
-                    tvMy1.setText(score != 0 ? String.valueOf(score) : "0");
+                    if (score > 0) {
+                        tvMy1.setText(String.valueOf(score));
+                        tvOpps1.setText("");
+                    } else if (score < 0) {
+                        tvMy1.setText("");
+                        tvOpps1.setText(String.valueOf(Math.abs(score)));
+                    } else {
+                        tvMy1.setText("0");
+                        tvOpps1.setText("");
+                    }
                 }
-                if (tvOpps1 != null) tvOpps1.setText("-"); // Placeholder for now
 
-                if (tvMy2 != null) {
+                if (tvImp != null) {
                     int imp = pbn.getImp();
                     String impStr = (imp > 0 ? "+" : "") + imp;
-                    tvMy2.setText(impStr);
+                    if (imp == 0) impStr = "0";
+                    tvImp.setText(impStr);
                 }
-                if (tvOpps2 != null) tvOpps2.setText("-"); // Placeholder for now
                 boolean isSelected = (pbn == selectedPbn);
                 row.setActivated(isSelected);
                 
@@ -141,8 +148,7 @@ public class OverlayHistoryGame {
                 if (tvNameSouth != null) tvNameSouth.setTextColor(textColor);
                 if (tvMy1 != null) tvMy1.setTextColor(textColor);
                 if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
-                if (tvMy2 != null) tvMy2.setTextColor(textColor);
-                if (tvOpps2 != null) tvOpps2.setTextColor(textColor);
+                if (tvImp != null) tvImp.setTextColor(textColor);
 
                 row.setOnClickListener(v -> {
                     selectedPbn = pbn;
