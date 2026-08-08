@@ -123,7 +123,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3D, shape(7,10), IS_ANY_JUMP,  id("OpenBid2NatC.responderChangedSuits fit _3D"))
 
                 );
-        choices.addRules(CompeteNatC::compBids);
+        //choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -141,6 +141,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Call.PASS, id("OpenBid2NatC.responderRaisedMajor _PASS"))
         );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -183,6 +184,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responder1NT _3NT")),
                 shows(Call.PASS)
         );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -204,6 +206,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3NT, FIT_8_PLUS, pairPoints(PAIR_GAME), id("OpenBid2NatC.responder2NT _3NT")),
                 shows(Call.PASS, id("OpenBid2NatC.responder2NT _PASS"))
         );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 }

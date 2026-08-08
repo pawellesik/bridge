@@ -70,6 +70,7 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3NT")),
                 shows(Call.PASS), id("RespondBid2NatC.secondBidToGame PASS"));
 
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -80,7 +81,7 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4S")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME)),
                 shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS")));
-
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
