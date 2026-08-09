@@ -71,12 +71,17 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3H, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
                     shows(Bid._3S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3S")),
 
-                    shows(Bid._3H, isJump(1), OpeningStrongBiddingRange, fit(), id("OpenBid2NatC.responderClub _3H")),
-                    shows(Bid._3S, isJump(1), OpeningStrongBiddingRange, fit(), id("OpenBid2NatC.responderClub _3S")),
+                    shows(Bid._3H, fit(), isJump(1), OpeningStrongBiddingRange, id("OpenBid2NatC.responderClub _3H")),
+                    shows(Bid._3S, fit(), isJump(1), OpeningStrongBiddingRange, id("OpenBid2NatC.responderClub _3S")),
 
-                    shows(Bid._4H, isJump(1), OpeningStrongBiddingRange, shape(6, 10), id("OpenBid2NatC.responderClub _3H")),
-                    shows(Bid._4S, isJump(1), OpeningStrongBiddingRange, shape(6, 10), id("OpenBid2NatC.responderClub _3H")),
-                    shows(Bid._3NT, isJump(1), OpeningStrongBiddingRange, id("OpenBid2NatC.responderClub _3H"))
+                    shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _4H")),
+                    shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _4S")),
+
+                    shows(Bid._4H, isJump(1), OpeningStrongBiddingRange, shape(6, 10), id("OpenBid2NatC.responderClub _4H")),
+                    shows(Bid._4S, isJump(1), OpeningStrongBiddingRange, shape(6, 10), id("OpenBid2NatC.responderClub _4H")),
+
+                    shows(Bid._3NT, isJump(1), PAIR_BALANCED, OpeningStrongBiddingRange, id("OpenBid2NatC.responderClub _3NT")),
+                    shows(Bid._3NT, isJump(1), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _3NT"))
             );
         } else {
             return responderChangedSuits(ps);
