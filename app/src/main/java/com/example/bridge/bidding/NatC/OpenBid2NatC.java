@@ -65,6 +65,8 @@ public class OpenBid2NatC extends OpenNatC {
                     partnerBids(RespondBid2NatC::secondBidToGame),
                     shows(Bid._2H, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
                     shows(Bid._2S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
+                    shows(Bid._3C, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3C")),
+                    shows(Bid._3D, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3D")),
                     shows(Bid._3H, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
                     shows(Bid._3S, isJump(1), OpeningStrongBiddingRange, shape(5, 10), id("OpenBid2NatC.responderClub _3S")),
                     shows(Bid._4H, isJump(1), OpeningStrongBiddingRange, shape(6, 10), id("OpenBid2NatC.responderClub _3H")),
@@ -128,8 +130,10 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3D, shape(7,10), IS_ANY_JUMP,  id("OpenBid2NatC.responderChangedSuits fit _3D")),
 
                 shows(Bid._3D, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits shape _3C")),
-                shows(Bid._3C, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits shape _3D"))
+                shows(Bid._3C, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits shape _3D")),
 
+                shows(Bid._2C, shape(5,10), id("OpenBid2NatC.responderChangedSuits _2C")),
+                shows(Bid._2D, shape(5,10), id("OpenBid2NatC.responderChangedSuits _2D"))
                 );
         choices.addRules(CompeteNatC::compBids);
         return choices;
