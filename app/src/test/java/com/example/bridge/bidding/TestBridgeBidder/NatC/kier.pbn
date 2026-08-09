@@ -190,7 +190,9 @@ Pass Pass
 [Contract "4H"]
 [Auction "N"]
 1C Pass 2H Pass
-3H Pass 4H Pass
+3H Pass 4C Pass
+4S Pass 4NT Pass
+5D Pass 6H Pass
 Pass Pass
 
 % Cleaned by CleanPBN

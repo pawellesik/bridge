@@ -109,7 +109,7 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 • noFit() Sprawdza czy nie mamy fitu do ostatniej odzywki partenra
 • fit(count) - Posiadanie fitu o konkretnej, minimalnej łącznej liczbie kart (np. fit(9)).
 • fit(Suit) - Posiadanie fitu (8+) w konkretnym kolorze.
-• FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki.
+• FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki. (uwaga sprawdza fit w kolorze ktory sami licytujemy)
 • agreedStrain(Strains...) - Sprawdza, czy para uzgodniła już dany kolor jako atut.
 • raisePartner(Suit, jump, fit) - Podniesienie koloru partnera z określeniem przeskoku i fitu.
 • raisePartner() - Standardowe podniesienie koloru partnera na najniższym poziomie z fitem 8+.
