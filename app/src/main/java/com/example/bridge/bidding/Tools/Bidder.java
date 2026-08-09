@@ -233,27 +233,22 @@ public abstract class Bidder {
         @Override
         public boolean conforms(Call call, PositionState ps, HandSummary hs) {
             for (Suit suit : Suit.values()) {
-                // Sprawdzamy czy partner licytował ten kolor (czy jest to jego kolor)
+                // Sprawdzamy czy partner licytował ten kolor
                 boolean partnerHasSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
                 
                 if (!partnerHasSuit) {
-                    // Jeśli partner nie licytował, my musimy mieć "coś" (decent quality lub stop)
-                    // Wykorzystujemy existing quality logic: 1 = Poor, 2 = Decent, 3 = Good, 4 = Excellent, 5 = Solid
                     Range quality = hs.getSuits().get(suit).getQuality();
-                    if (quality.getMax() < SuitQuality.Decent.ordinal()) {
+                    int count = hs.getSuits().get(suit).getShape().getMin();
+                    
+                    // Akceptujemy kolor jeśli:
+                    // 1. Jest przyzwoitej jakości (Decent+)
+                    // 2. LUB mamy w nim min 3 karty (uznajemy, że to wystarczy do BALANCED)
+                    if (quality.getMax() < SuitQuality.Decent.ordinal() && 
+                        count < 3) {
                         return false; 
                     }
                     
-                    // Sprawdzamy zatrzymanie, jeśli system je wyliczył
-                    Boolean stopped = hs.getSuits().get(suit).getStopped();
-                    if (stopped != null && !stopped && hs.getSuits().get(suit).getShape().getMin() < 2) {
-                        return false;
-                    }
-
-                    // Brak renonsu w kolorze partnera (jeśli nie licytował)
-                    if (hs.getSuits().get(suit).getShape().getMin() == 0) {
-                        return false;
-                    }
+                    if (count == 0) return false; // Renons wyklucza zrównoważenie
                 }
             }
             return true;
