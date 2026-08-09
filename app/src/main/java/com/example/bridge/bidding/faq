@@ -105,6 +105,7 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 8. FIT I WSPÓLNA LICYTACJA
 --------------------------
 • fit() - Posiadanie fitu (łącznie min. 8 kart w parze) w kolorze, który licytujesz.
+• noFit() Sprawdza czy nie mamy fitu do ostatniej odzywki partenra
 • fit(count) - Posiadanie fitu o konkretnej, minimalnej łącznej liczbie kart (np. fit(9)).
 • fit(Suit) - Posiadanie fitu (8+) w konkretnym kolorze.
 • FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki.
