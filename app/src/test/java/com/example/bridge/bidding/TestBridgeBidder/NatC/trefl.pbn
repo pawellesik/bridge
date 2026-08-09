@@ -100,3 +100,29 @@ Pass Pass 1C Pass
 5D Pass 5H Pass
 6C Pass 7C Pass
 Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal Trfel 9"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ76.KQ7.KQ.AJ62 JT932.53.J8643.8 A54.AT94.5.KQ974 8.J862.AT972.T53"]
+[Declarer "N"]
+[Contract "4H"]
+[Auction "N"]
+1C Pass 3C Pass
+5C Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal Trfel 10"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ76.KQJ.KQ.AJ62 JT932.53.J8643.8 A54.AT94.5.KQ974 8.J862.AT972.T53"]
+[Declarer "N"]
+[Contract "4H"]
+[Auction "N"]
+1C Pass 3C Pass
+4NT Pass 5H Pass
+5S Pass 6C Pass
+Pass Pass
