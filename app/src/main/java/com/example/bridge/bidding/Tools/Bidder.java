@@ -150,6 +150,17 @@ public abstract class Bidder {
     public static final StaticConstraint IS_OUR_CONTRACT = new SimpleStaticConstraint((call, ps) -> ps.isOurContract(), "our contract");
     public static final StaticConstraint CONTRACT_IS_AGREED_STRAIN = new SimpleStaticConstraint((call, ps) -> { Call contractBid = ps.getBiddingState().getContract().getBid(); if (contractBid instanceof Bid) { Bid bid = (Bid) contractBid; return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == ps.getPairState().getLastShownSuit(); } return false; });
 
+    public static final StaticConstraint PARTNER_DID_NOT_SIGN_OFF = new SimpleStaticConstraint((call, ps) -> {
+        Call last = ps.getPartner().getLastCall();
+        if (!(last instanceof Bid)) return true;
+        Bid b = (Bid) last;
+        // Za końcówkę (sign-off) uznajemy: 3NT, 4H, 4S oraz wszystkie odzywki na wysokości 5 lub wyżej
+        boolean isGame = (b.getLevel() == 3 && b.getStrain() == Strain.NoTrump) ||
+                         (b.getLevel() == 4 && (b.getSuit() == Suit.Hearts || b.getSuit() == Suit.Spades)) ||
+                         (b.getLevel() >= 5);
+        return !isGame;
+    }, "partner did not sign off");
+
     public static StaticConstraint id(String id) { return new LogID(id); }
     public static Constraint note(String text) { return new Note(text); }
     public static Constraint and(Constraint... constraints) { return new ConstraintGroup(constraints); }

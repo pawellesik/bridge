@@ -34,6 +34,9 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5C")));
         bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5D")));
 
+        bids.add(shows(Bid._5C, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _5C")));
+        bids.add(shows(Bid._5D, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _5D")));
+
         for (CallFeature cf : ForcedBidNatC.bids(ps)) {
             bids.add(cf);
         }
