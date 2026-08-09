@@ -42,8 +42,8 @@ public class OpenBid2NatC extends OpenNatC {
                 partnerBids(RespondBid2NatC::secondBidToGame),
                 properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::responderClubJumpMinorChangeMajor),
 
-                shows(Bid._3H, shape(4, 11), highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3H")),
-                shows(Bid._3S, shape(4, 11), highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3S")),
+                shows(Bid._3H, shape(4, 11), DECENT_PLUS_SUIT, highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3H")),
+                shows(Bid._3S, shape(4, 11), DECENT_PLUS_SUIT, highCardPoints(12, 17), id("OpenBid2NatC.responderClubJumpMinor _3S")),
 
                 shows(Bid._4H, GOOD_PLUS_SUIT, shape(6, 11), hasShortness(1,1), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _3H")),
                 shows(Bid._4S, GOOD_PLUS_SUIT, shape(6, 11), hasShortness(1,1), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMinor _3S")),

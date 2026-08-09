@@ -79,6 +79,7 @@ public class RespondNatC extends NatC {
 
             );
         } else {
+            choices.addRules(AcesAsk.initiateConvention(ps));
             choices.addRules(
                     partnerBids(OpenBid2NatC::responderChangedSuits),
                     properties(new Call[]{Bid._3D}, OpenBid2NatC::responderRaisedMinor, true),
