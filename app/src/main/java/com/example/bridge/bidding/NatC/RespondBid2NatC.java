@@ -67,6 +67,11 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4H"),
                 shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4S"),
 
+                shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.secondBidToGame _3S")),
+                shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.secondBidToGame _3H")),
+                shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3S")),
+                shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3H")),
+
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3NT")),
                 shows(Call.PASS), id("RespondBid2NatC.secondBidToGame PASS"));
 
