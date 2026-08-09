@@ -38,6 +38,7 @@ public class OpenBid2NatC extends OpenNatC {
     public static PositionCalls responderClubJumpMinor(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 partnerBids(RespondBid2NatC::secondBidToGame),
                 properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::responderClubJumpMinorChangeMajor),

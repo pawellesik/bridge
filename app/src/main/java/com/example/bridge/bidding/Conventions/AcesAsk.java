@@ -1,5 +1,7 @@
 package com.example.bridge.bidding.Conventions;
 
+import static com.example.bridge.bidding.NatC.OpenNatC.OpeningStrongBidding;
+
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.Call;
@@ -27,7 +29,7 @@ public class AcesAsk extends Bidder {
         bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP, points(ASK_ACES), pairHighCardPoints(HIGHT_GAME), id(" initiateConventionAcesAsk 1")));
         bids.add(shows(Bid._4C, FIT_8_PLUS, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConvention AcesAsk 2")));
         bids.add(shows(Bid._4C, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConvention AcesAsk 3")));
-        bids.add(shows(Bid._4C, FIT_8_PLUS, hasMultipleShortness(2, 0, 1), secondSuit(ps.getPartner().getBid().getSuit(), 5), points(15,30), id("initiateConvention AcesAsk 4")));
+        //bids.add(shows(Bid._4C, FIT_8_PLUS, hasMultipleShortness(2, 0, 1), secondSuit(ps.getPartner().getBid().getSuit(), 5), points(15,30), id("initiateConvention AcesAsk 4")));
 
         return bids;
     }
@@ -43,6 +45,7 @@ public class AcesAsk extends Bidder {
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4NT, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 1")));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
+        bids.add(shows(Bid._4NT, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP,  secondSuit(ps.getPartner().getBid().getSuit(), 5), OpeningStrongBidding, id("initiateConventionBlok AcesAsk 3")));
 
         return bids;
     }

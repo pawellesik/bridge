@@ -81,6 +81,22 @@ PASS PASS 1C PASS
 [Contract "4H"]
 [Auction "N"]
 Pass Pass 1C Pass
-3C Pass 4C Pass
-4D Pass 4H Pass
-5C Pass Pass Pass
+3C Pass 4NT Pass
+5C Pass 5D Pass
+5NT Pass 6C Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal Trfel 8"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A86.J3.K95.K8754 A952.T64.T642.T3 K4.AKJ932.A8.AQ8 KQT73.87.Q75.962"]
+[Declarer "N"]
+[Contract "4H"]
+[Auction "N"]
+Pass Pass 1C Pass
+3C Pass 4NT Pass
+5D Pass 5H Pass
+6C Pass 7C Pass
+Pass Pass
