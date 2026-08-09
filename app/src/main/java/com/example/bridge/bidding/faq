@@ -26,7 +26,8 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 • NOT_BALANCED - Ręka niezrównoważona (posiada co najmniej jednego singla lub renons).
 • FLAT - Idealnie zrównoważona ręka w układzie 4-3-3-3.
 • NOT_FLAT - Ręka niebędąca w układzie 4-3-3-3.
-• hasShortness(min, max) - Liczba posiadanych krótkości (singli i renonsów) w ręce.
+• hasShortness(min, max) - krótkości w jakimkowiek kolorze (singli i renonsów) w ręce.
+• hasMultipleShortness(count, min, max)  - Liczba krókości
 • secondSuit(exclude, min) - Posiadanie drugiego koloru (poza wykluczonym) o danej minimalnej długości.
 • twoSuiter(min) - Ręka dwukolorowa (posiadanie co najmniej dwóch kolorów o min. długości).
 • REVERSE_SHAPE - Specyficzny układ wymagany do licytacji rewersu (zazwyczaj 5-4 lub więcej).

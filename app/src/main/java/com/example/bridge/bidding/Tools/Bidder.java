@@ -321,6 +321,21 @@ public abstract class Bidder {
     public static HandConstraint secondSuit(Suit exclude, int min) { return new TwoSuiter(exclude, min); }
     public static HandConstraint twoSuiter(int min) { return new TwoSuiter(null, min); }
     public static HandConstraint hasShortness(int min, int max) { return new HasShortness(min, max); }
+    public static HandConstraint hasMultipleShortness(int count, int min, int max) {
+        return new HandConstraint() {
+            @Override
+            public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+                int found = 0;
+                for (Suit s : Suit.values()) {
+                    Range shape = hs.getSuits().get(s).getShape();
+                    if (shape.getMin() <= max && shape.getMax() >= min) {
+                        found++;
+                    }
+                }
+                return found >= count;
+            }
+        };
+    }
 
     public static final HandConstraint OPPS_STOPPED = new OppsStopped.ShowsOppsStopped(true);
     public static final HandConstraint OPPS_NOT_STOPPED = new OppsStopped.ShowsOppsStopped(false);
