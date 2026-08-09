@@ -118,11 +118,11 @@ public class RespondNatC extends NatC {
             choices.addRules(
                     partnerBids(OpenBid2NatC::responderChangedSuits),
                     propertiesAgreeTrump(raises, OpenBid2NatC::responderRaisedMajor, true),
-                    propertiesAgreeTrump(new Call[]{Bid._1NT}, OpenBid2NatC::responder1NT, true),
-                    propertiesAgreeTrump(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NT, true),
+                    properties(new Call[]{Bid._1NT}, OpenBid2NatC::responder1NT, false),
+                    properties(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NT, false),
 
                     shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneHeart _2H")),
-                    shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), fit(), id("RespondNatC.oneHeart _3H")),
+                    shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), fit(),   id("RespondNatC.oneHeart _3H")),
 
                     shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), id("RespondNatC.oneHeart _2S")),
                     shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), id("RespondNatC.oneHeart _3D")),
@@ -170,7 +170,7 @@ public class RespondNatC extends NatC {
         if (ps.isPassedHand()) {
             choices.addRules(
                     partnerBids(OpenBid2NatC::responderChangedSuits),
-                    properties(raises, OpenBid2NatC::responderRaisedMajor, false),
+                    propertiesAgreeTrump(raises, OpenBid2NatC::responderRaisedMajor, true),
                     properties(new Call[]{Bid._1NT}, OpenBid2NatC::responder1NT, true),
                     properties(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NT, true),
 
@@ -192,8 +192,7 @@ public class RespondNatC extends NatC {
             choices.addRules(SolidSuitNatC.BIDS(ps));
             choices.addRules(
                     partnerBids(OpenBid2NatC::responderChangedSuits),
-                    properties(raises, OpenBid2NatC::responderRaisedMajor, true),
-                   // properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::responderRaisedMajor, true),
+                    propertiesAgreeTrump(raises, OpenBid2NatC::responderRaisedMajor, true),
 
                     shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneSpade _2S")),
                     shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(Suit.Spades, 0, 2), shape(5, 10), id("RespondNatC.oneSpade _2H")),
