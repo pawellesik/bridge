@@ -103,17 +103,17 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._4H,  hasShortness(1,2), secondSuit(Suit.Hearts, 5), fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _4H")),
                 shows(Bid._4S,  hasShortness(1,2), secondSuit(Suit.Spades,5), fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _4S")),
 
-                shows(Bid._2H, fit(), OpenBidding, id("OpenBid2NatC.responderChangedSuits _2H")),
-                shows(Bid._2S, fit(), OpenBidding, id("OpenBid2NatC.responderChangedSuits _2S")),
+                shows(Bid._2H, fit(), OpenBidding, id("OpenBid2NatC.responderChangedSuits OpenBidding _2H")),
+                shows(Bid._2S, fit(), OpenBidding, id("OpenBid2NatC.responderChangedSuits OpenBidding _2S")),
 
                 shows(Bid._1S, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1S")),
                 shows(Bid._1H, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1H")),
 
-                shows(Bid._2S, IS_REBID, shape(6, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits _2S")),
-                shows(Bid._2H, IS_REBID, shape(6, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits _2H")),
+                shows(Bid._2S, IS_REBID, shape(6, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits IS_REBID _2S")),
+                shows(Bid._2H, IS_REBID, shape(6, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits IS_REBID _2H")),
 
-                shows(Bid._2S, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _2S")),
-                shows(Bid._2H, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _2H")),
+                shows(Bid._2S, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _2S")),
+                shows(Bid._2H, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _2H")),
 
                 shows(Bid._4H, IS_NEW_SUIT, shape(5, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _4H")),
 
