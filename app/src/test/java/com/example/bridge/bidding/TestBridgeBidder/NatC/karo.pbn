@@ -57,7 +57,7 @@ PASS PASS
 [Contract "4S"]
 [Auction "S"]
 1C PASS 1D PASS
-2C PASS 3C PASS
+2C PASS 3D PASS
 PASS PASS
 
 % Cleaned by CleanPBN
@@ -147,4 +147,29 @@ Pass Pass
 [Contract "Pass"]
 [Auction "N"]
 1D Pass 3D Pass
+Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC diamond 10"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:Q9.QJ97.2.AQT432 AJT754.T853.5.K8 82.K4.AQ9764.975 K63.A62.KJT83.J6"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+Pass Pass 1D Pass
+3C Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC diamond 11"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:Q9.QJ97.2.AQT432 AJT754.T853.5.K8 852.K4.AQ9764.97 K63.A62.KJT83.J6"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+Pass Pass 1D Pass
+3C Pass 3D Pass
 Pass Pass

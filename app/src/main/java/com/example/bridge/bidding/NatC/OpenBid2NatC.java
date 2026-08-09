@@ -17,19 +17,19 @@ public class OpenBid2NatC extends OpenNatC {
                 properties(new Call[]{Bid._1NT, Bid._2NT}, RespondBid2NatC::colorAfterPass),
 
                 shows(Bid._1NT, shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), OpenBidding, id("OpenBid2NatC.responderNegat _1NT")),
-                shows(Bid._1S, shape(4, 11), DECENT_PLUS_SUIT,  OpenBidding, id("OpenBid2NatC.responderChangedSuits _1S")),
-                shows(Bid._1H, shape(4, 11), DECENT_PLUS_SUIT, OpenBidding, id("OpenBid2NatC.responderChangedSuits _1H")),
-                shows(Bid._1S, shape(4, 11), DECENT_PLUS_SUIT, OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _1S")),
-                shows(Bid._1H, shape(4, 11), DECENT_PLUS_SUIT, OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _1H")),
-                shows(Bid._2S, shape(5, 11), DECENT_PLUS_SUIT, OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _1S")),
-                shows(Bid._2H, shape(5, 11), DECENT_PLUS_SUIT, OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _1H")),
-                shows(Bid._2D, shape(5, 11),  OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _2D")),
-                shows(Bid._2C, shape(5, 11),  OpenAfterPass, id("OpenBid2NatC.responderChangedSuits _2C")),
-                shows(Bid._2D, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderChangedSuits _2D")),
-                shows(Bid._2C, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderChangedSuits _2C")),
-                shows(Bid._3D, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _3D")),
-                shows(Bid._3C, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _3C")),
-                shows(Bid._2NT, OpeningStrongBidding, id("OpenBid2NatC.responderChangedSuits _2NT"))
+                shows(Bid._1S, shape(4, 11), DECENT_PLUS_SUIT,  OpenBidding, id("OpenBid2NatC.responderNegat _1S")),
+                shows(Bid._1H, shape(4, 11), DECENT_PLUS_SUIT, OpenBidding, id("OpenBid2NatC.responderNegat _1H")),
+                shows(Bid._1S, shape(4, 11), DECENT_PLUS_SUIT, OpenAfterPass, id("OpenBid2NatC.responderNegat _1S")),
+                shows(Bid._1H, shape(4, 11), DECENT_PLUS_SUIT, OpenAfterPass, id("OpenBid2NatC.responderNegat _1H")),
+                shows(Bid._2S, shape(5, 11), DECENT_PLUS_SUIT, OpeningStrongBidding, id("OpenBid2NatC.responderNegat _1S")),
+                shows(Bid._2H, shape(5, 11), DECENT_PLUS_SUIT, OpeningStrongBidding, id("OpenBid2NatC.responderNegat _1H")),
+                shows(Bid._2D, shape(5, 11),  OpenAfterPass, id("OpenBid2NatC.responderNegat _2D")),
+                shows(Bid._2C, shape(5, 11),  OpenAfterPass, id("OpenBid2NatC.responderNegat _2C")),
+                shows(Bid._2D, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderNegat _2D")),
+                shows(Bid._2C, shape(5, 11),  OpenBidding, id("OpenBid2NatC.responderNegat _2C")),
+                shows(Bid._3D, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderNegat _3D")),
+                shows(Bid._3C, shape(5, 11),  OpeningStrongBidding, id("OpenBid2NatC.responderNegat _3C")),
+                shows(Bid._2NT, OpeningStrongBidding, id("OpenBid2NatC.responderNegat _2NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -132,19 +132,21 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3S, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3S")),
                 shows(Bid._3H, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3H")),
 
-                shows(Bid._3C, fit(), id("OpenBid2NatC.responderChangedSuits fit _3C")),
-                shows(Bid._3D, fit(),  id("OpenBid2NatC.responderChangedSuits fit _3D")),
+                shows(Bid._3C, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3C")),
+                shows(Bid._3D, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3D")),
 
                 shows(Bid._3C, twoSuiter(5), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3C")),
                 shows(Bid._3D, twoSuiter(5), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3D")),
 
-                shows(Bid._3D, shape(7,10), IS_ANY_JUMP,  id("OpenBid2NatC.responderChangedSuits fit _3D")),
+                shows(Bid._3D, shape(7,10), IS_ANY_JUMP,  id("OpenBid2NatC.responderChangedSuits IS_ANY_JUMP fit _3D")),
 
                 shows(Bid._3D, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits shape _3C")),
                 shows(Bid._3C, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits shape _3D")),
 
                 shows(Bid._2C, DECENT_PLUS_SUIT, shape(5,10), id("OpenBid2NatC.responderChangedSuits _2C")),
-                shows(Bid._2D, DECENT_PLUS_SUIT, shape(5,10), id("OpenBid2NatC.responderChangedSuits _2D"))
+                shows(Bid._2D, DECENT_PLUS_SUIT, shape(5,10), id("OpenBid2NatC.responderChangedSuits _2D")),
+
+                shows(Bid._3D, noFit(), DECENT_PLUS_SUIT, shape(6,10), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderChangedSuits _3D"))
                 );
         choices.addRules(CompeteNatC::compBids);
         return choices;
