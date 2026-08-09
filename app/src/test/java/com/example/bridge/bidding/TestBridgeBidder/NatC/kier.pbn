@@ -163,9 +163,8 @@ Pass Pass
 [Contract "4H"]
 [Auction "N"]
 Pass Pass 1C Pass
-3C Pass 4C Pass
-4D Pass 4H Pass
-5C Pass Pass Pass
+3C Pass 4H Pass
+Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal kier 15"]
