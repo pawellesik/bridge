@@ -16,7 +16,6 @@ import java.util.List;
 
 public class AcesAsk extends Bidder {
     private static final Range ASK_ACES = new Range(16, 40);
-
     private static final Range HIGHT_GAME = new Range(28, 40);
     private static final Range SLAM_OR_BETTER = new Range(32, 40);
     private static final Range GRAND_SLAM = new Range(36, 40);
@@ -25,9 +24,10 @@ public class AcesAsk extends Bidder {
     public static Iterable<CallFeature> initiateConvention(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
-        bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP, points(ASK_ACES), id(" initiateConventionAcesAsk 1"), pairHighCardPoints(HIGHT_GAME)));
+        bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP, points(ASK_ACES), pairHighCardPoints(HIGHT_GAME), id(" initiateConventionAcesAsk 1")));
         bids.add(shows(Bid._4C, FIT_8_PLUS, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConvention AcesAsk 2")));
         bids.add(shows(Bid._4C, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConvention AcesAsk 3")));
+        bids.add(shows(Bid._4C, FIT_8_PLUS, hasShortness(1,2), secondSuit(ps.getPartner().getBid().getSuit(), 5), points(15,30), id("initiateConvention AcesAsk 4")));
 
         return bids;
     }
