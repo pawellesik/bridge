@@ -22,6 +22,7 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 • shape(count) - Dokładna liczba kart w aktualnym kolorze (np. shape(5) to dokładnie 5 kart).
 • shape(Suit, count) - Dokładna liczba kart w wybranym kolorze.
 • BALANCED - Ręka zrównoważona (brak singla/renonsu, najwyżej jeden dubleton).
+• PAIR_BALANCED- Ręka zrównoważona, może być singiel koloru który partner głośił
 • NOT_BALANCED - Ręka niezrównoważona (posiada co najmniej jednego singla lub renons).
 • FLAT - Idealnie zrównoważona ręka w układzie 4-3-3-3.
 • NOT_FLAT - Ręka niebędąca w układzie 4-3-3-3.
@@ -29,6 +30,7 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 • secondSuit(exclude, min) - Posiadanie drugiego koloru (poza wykluczonym) o danej minimalnej długości.
 • twoSuiter(min) - Ręka dwukolorowa (posiadanie co najmniej dwóch kolorów o min. długości).
 • REVERSE_SHAPE - Specyficzny układ wymagany do licytacji rewersu (zazwyczaj 5-4 lub więcej).
+• othersAtLeast - sprawdza minimalną długość we wszystkich kolorach poza ostatnio licytowanym przez partnera.
 
 3. RELACJE MIĘDZY KOLORAMI
 --------------------------
