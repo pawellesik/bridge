@@ -30,7 +30,7 @@ public class NoTrumpNatC extends Bidder {
             OR.lessThanSuperAccept = and(highCardPoints(15, 16), points(15, 17));
             OR.superAccept = and(highCardPoints(17, 17), points(17, 18));
 
-            RR.lessThanInvite = points(0, 7);
+            RR.lessThanInvite = points(0, 6);
             RR.inviteGame = points(8, 9);
             RR.inviteOrBetter = points(8, 40);
             RR.game = points(10, 15);
@@ -89,10 +89,13 @@ public class NoTrumpNatC extends Bidder {
             List<CallFeature> bids = new ArrayList<>();
 
             bids.add(partnerBids((PositionCallsFactory) this::openerRebid));
-            bids.add(partnerBids(Bid._4NT, CompeteNatC::compBids));
 
-            bids.add(shows(Bid._2C, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 2C")));
-            bids.add(shows(Bid._2D, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 2D")));
+            bids.add(shows(Bid._2C, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2C")));
+            bids.add(shows(Bid._2D, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2D")));
+
+            bids.add(shows(Bid._3C, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 2C")));
+            bids.add(shows(Bid._3D, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 2D")));
+
             bids.add(shows(Bid._2H, DECENT_PLUS_SUIT, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2H")));
             bids.add(shows(Bid._2S, DECENT_PLUS_SUIT, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2S")));
 
@@ -104,8 +107,6 @@ public class NoTrumpNatC extends Bidder {
             bids.add(shows(Bid._3S, ntd.RR.gameOrBetter, shape(5, 11), id("NoTrumpNatC.Natural1NTNatC 3S")));
 
             bids.add(shows(Bid._3NT, ntd.RR.game, longestMajor(4), id("NoTrumpNatC.Natural1NTNatC 3NT")));
-
-            bids.add(shows(Bid._4NT, ntd.RR.inviteSlam, id("NoTrumpNatC.Natural1NTNatC 4NT")));
 
             bids.add(shows(Bid._6NT, FLAT, ntd.RR.smallSlam, id("NoTrumpNatC.Natural1NTNatC 6NT")));
             bids.add(shows(Bid._6NT, BALANCED, shape(Suit.Hearts, 2, 3), shape(Suit.Spades, 2, 3), ntd.RR.smallSlam, id("NoTrumpNatC.Natural1NTNatC 6NT")));

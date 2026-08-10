@@ -146,3 +146,40 @@ Pass Pass
 [Auction "N"]
 1C Pass 2NT Pass
 3NT Pass Pass Pass
+
+
+% Cleaned by CleanPBN
+[Event "NatC bezAtu 13"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQJ.7.KT6.KJ9874 K873.Q62.95432.Q T95.AKJ985.QJ.A2 642.T43.A87.T653"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1C Pass 2H Pass
+3NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC bezAtu 14"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK973.K.KT83.K32 Q54.65.QJ9764.94 T6.AQ9742..AQ875 J82.JT83.A52.JT6"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1S Pass 3H Pass
+3NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC bezAtu 15"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQT96.K.AQ32.Q62 74.872.K854.T954 K.AJT64.T97.AJ83 J8532.Q953.J6.K7"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1S Pass 3H Pass
+3NT Pass Pass Pass
