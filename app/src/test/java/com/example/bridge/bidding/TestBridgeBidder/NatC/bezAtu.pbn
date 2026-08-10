@@ -82,8 +82,8 @@ Pass Pass
 [Declarer "N"]
 [Contract "Pass"]
 [Auction "N"]
-1NT Pass 3C Pass
-3NT Pass Pass Pass
+1NT Pass 2C Pass
+2S Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC bezAtu 8"]
