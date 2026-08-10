@@ -105,7 +105,7 @@ public class NoTrumpNatC extends Bidder {
             return bids;
         }
 
-        private PositionCalls sopenerRebid(PositionState ps) {
+        private PositionCalls openerRebid(PositionState ps) {
             PositionCalls choices = new PositionCalls(ps);
 
             choices.addRules(partnerBids((CallFeaturesFactory) this::responderRebid));
@@ -125,10 +125,12 @@ public class NoTrumpNatC extends Bidder {
                     shows(Bid._4C, fit(), partner(isLastBid(Bid._3C)), id("NoTrumpNatC.openerRebid 4C"))
             );
 
-            shows(Bid._2H, partner(isLastBid(Bid._2C)), shape(4, 5), shape(Suit.Clubs, 0, 2), id("NoTrumpNatC.openerRebid 2H"));
-            shows(Bid._2H, partner(isLastBid(Bid._2D)), shape(4, 5), shape(Suit.Diamonds, 0, 2), id("NoTrumpNatC.openerRebid 2H"));
-            shows(Bid._2S, partner(isLastBid(Bid._2C)), shape(4, 5), shape(Suit.Clubs, 0, 2), id("NoTrumpNatC.openerRebid 2S"));
-            shows(Bid._2S, partner(isLastBid(Bid._2D)), shape(4, 5), shape(Suit.Diamonds, 0, 2), id("NoTrumpNatC.openerRebid 2S"));
+            choices.addRules(
+                    shows(Bid._2H, partner(isLastBid(Bid._2C)), shape(4, 5), shape(Suit.Clubs, 0, 2), id("NoTrumpNatC.openerRebid 2H")),
+                    shows(Bid._2H, partner(isLastBid(Bid._2D)), shape(4, 5), shape(Suit.Diamonds, 0, 2), id("NoTrumpNatC.openerRebid 2H")),
+                    shows(Bid._2S, partner(isLastBid(Bid._2C)), shape(4, 5), shape(Suit.Clubs, 0, 2), id("NoTrumpNatC.openerRebid 2S")),
+                    shows(Bid._2S, partner(isLastBid(Bid._2D)), shape(4, 5), shape(Suit.Diamonds, 0, 2), id("NoTrumpNatC.openerRebid 2S"))
+            );
 
             choices.addRules(properties(Bid._3H, true),
                     shows(Bid._3H, partner(isLastBid(Bid._2NT)), ntd.OR.acceptInvite, shape(5, 10), id("NoTrumpNatC.openerRebid 3H")));
