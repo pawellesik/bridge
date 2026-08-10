@@ -17,7 +17,7 @@ public class OpenBid3NatC extends OpenNatC {
 
         bids.add(shows(Bid._4S, fit(), OpeningStrongBidding, id("OpenBid3NatC.thirdBid _4S")));
         bids.add(shows(Bid._4H, fit(), OpeningStrongBidding, id("OpenBid3NatC.thirdBid _4H")));
-        bids.add(shows(Bid._3NT, BALANCED, OpeningStrongBidding, id("OpenBid3NatC.thirdBid _3NT")));
+        bids.add(shows(Bid._3NT, BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBid _3NT")));
 
         bids.add(shows(Call.PASS, partner(isJump(1)), OpenBidding));
 
