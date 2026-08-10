@@ -120,8 +120,8 @@ public class NoTrumpNatC extends Bidder {
             choices.addRules(shows(Bid._4S, ntd.OR.acceptInvite, partner(isLastBid(Bid._2S)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4S"));
 
             choices.addRules(propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, this::inviteMinor, true));
-            choices.addRules(shows(Bid._4D, partner(isLastBid(Bid._3D)), shape(3, 5)), id("NoTrumpNatC.openerRebid 5D"));
-            choices.addRules(shows(Bid._4C, partner(isLastBid(Bid._3C)), shape(3, 5)), id("NoTrumpNatC.openerRebid 5C"));
+            choices.addRules(shows(Bid._4D, partner(isLastBid(Bid._3D)), shape(3, 5), id("NoTrumpNatC.openerRebid 4D")));
+            choices.addRules(shows(Bid._4C, partner(isLastBid(Bid._3C)), shape(3, 5), id("NoTrumpNatC.openerRebid 4C")));
 
             choices.addRules(properties(Bid._3H, true));
             choices.addRules(properties(Bid._3S, true));
@@ -156,9 +156,9 @@ public class NoTrumpNatC extends Bidder {
             choices.addRules(AcesAsk.initiateConvention(ps));
             choices.addRules(AcesAsk.initiateConventionBlok(ps));
             choices.addRules(
-
-
-                    shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS")));
+                    shows(Bid._5C, partner(isLastBid(Bid._4C)), id("NoTrumpNatC.inviteMinor 5C")),
+                    shows(Bid._5D, partner(isLastBid(Bid._4D)), id("NoTrumpNatC.inviteMinor 5D"))
+            );
             choices.addRules(CompeteNatC::compBids);
             return choices;
         }
