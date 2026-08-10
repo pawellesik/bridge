@@ -28,15 +28,12 @@ public class NoTrumpNatC extends Bidder {
             OR.dontAcceptInvite = highCardPoints(15, 15);
             OR.acceptInvite = highCardPoints(16, 17);
 
-            RR.lessThanInvite = points(0, 6);
-            RR.inviteGame = points(8, 9);
-            RR.gameOrBetter = points(10, 40);
-            RR.inviteSlam = points(16, 17);
-            RR.smallSlam = points(18, 19);
-            RR.grandSlam = points(20, 40);
-
-            RR.smallSlamAsDummy = dummyPoints(17, 20);
-            RR.grandSlamAsDummy = dummyPoints(21, 40);
+            RR.lessThanInvite = highCardPoints(0, 6);
+            RR.inviteGame = highCardPoints(8, 9);
+            RR.gameOrBetter = highCardPoints(10, 40);
+            RR.inviteSlam = highCardPoints(16, 17);
+            RR.smallSlam = highCardPoints(18, 19);
+            RR.grandSlam = highCardPoints(20, 40);
         }
     }
 
@@ -110,8 +107,8 @@ public class NoTrumpNatC extends Bidder {
 
         private PositionCalls openerRebid(PositionState ps) {
             PositionCalls choices = new PositionCalls(ps);
-            choices.addRules(partnerBids((CallFeaturesFactory) this::responderRebid));
 
+            choices.addRules(partnerBids((CallFeaturesFactory) this::responderRebid));
             choices.addRules(shows(Call.PASS, partner(isLastBid(Bid._3NT)), id("NoTrumpNatC.openerRebid PASS")));
             choices.addRules(shows(Call.PASS, ntd.OR.dontAcceptInvite, partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid PASS")));
             choices.addRules(shows(Call.PASS, ntd.OR.dontAcceptInvite, partner(isLastBid(Bid._2C)), id("NoTrumpNatC.openerRebid PASS")));
@@ -121,13 +118,15 @@ public class NoTrumpNatC extends Bidder {
 
             choices.addRules(shows(Bid._4H, ntd.OR.acceptInvite, partner(isLastBid(Bid._2H)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4H"));
             choices.addRules(shows(Bid._4S, ntd.OR.acceptInvite, partner(isLastBid(Bid._2S)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4S"));
-            choices.addRules(shows(Bid._5D, ntd.OR.acceptInvite, partner(isLastBid(Bid._3D)), shape(3, 5)), id("NoTrumpNatC.openerRebid 5D"));
-            choices.addRules(shows(Bid._5C, ntd.OR.acceptInvite, partner(isLastBid(Bid._3C)), shape(3, 5)), id("NoTrumpNatC.openerRebid 5C"));
+
+            choices.addRules(propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, this::inviteMinor, true));
+            choices.addRules(shows(Bid._4D, partner(isLastBid(Bid._3D)), shape(3, 5)), id("NoTrumpNatC.openerRebid 5D"));
+            choices.addRules(shows(Bid._4C, partner(isLastBid(Bid._3C)), shape(3, 5)), id("NoTrumpNatC.openerRebid 5C"));
 
             choices.addRules(properties(Bid._3H, true));
             choices.addRules(properties(Bid._3S, true));
-            choices.addRules(shows(Bid._3H, partner(isLastBid(Bid._2NT)), ntd.OR.acceptInvite, shape(5,10), id("NoTrumpNatC.openerRebid 3H")));
-            choices.addRules(shows(Bid._3S, partner(isLastBid(Bid._2NT)), ntd.OR.acceptInvite, shape(5,10), id("NoTrumpNatC.openerRebid 3S")));
+            choices.addRules(shows(Bid._3H, partner(isLastBid(Bid._2NT)), ntd.OR.acceptInvite, shape(5, 10), id("NoTrumpNatC.openerRebid 3H")));
+            choices.addRules(shows(Bid._3S, partner(isLastBid(Bid._2NT)), ntd.OR.acceptInvite, shape(5, 10), id("NoTrumpNatC.openerRebid 3S")));
 
             choices.addRules(shows(Bid._3NT, ntd.OR.acceptInvite, partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid 3NT")));
             choices.addRules(shows(Bid._3NT, partner(isLastBid(Bid._3H)), shape(Suit.Hearts, 0, 2)), id("NoTrumpNatC.openerRebid 3NT"));
@@ -151,7 +150,20 @@ public class NoTrumpNatC extends Bidder {
             bids.add(shows(Call.PASS));
             return bids;
         }
+
+        public PositionCalls inviteMinor(PositionState ps) {
+            PositionCalls choices = new PositionCalls(ps);
+            choices.addRules(AcesAsk.initiateConvention(ps));
+            choices.addRules(AcesAsk.initiateConventionBlok(ps));
+            choices.addRules(
+
+
+                    shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS")));
+            choices.addRules(CompeteNatC::compBids);
+            return choices;
+        }
     }
+
 
     public static Iterable<CallFeature> open(PositionState ps) {
         return OneNoTrumpBidderNatC.open(ps);

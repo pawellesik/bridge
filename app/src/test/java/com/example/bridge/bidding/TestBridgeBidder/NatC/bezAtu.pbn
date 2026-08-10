@@ -20,7 +20,8 @@
 [Contract "Pass"]
 [Auction "N"]
 1NT Pass 3C Pass
-5C Pass Pass Pass
+4C Pass 5C Pass
+Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC bezAtu 3"]
