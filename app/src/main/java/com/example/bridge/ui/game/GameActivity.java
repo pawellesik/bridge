@@ -69,6 +69,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private View historyOverlay;
     private OverlayHistoryList overlayHistoryList;
     private OverlayHistoryGame overlayHistoryGame;
+    private OverlaySettings overlaySettings;
     GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
@@ -81,7 +82,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private PbnCollection pbnCollection;
 
     GameBiddingHistory gameBiddingHistory;
-    private OverlaySettings overlaySettings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
