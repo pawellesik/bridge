@@ -91,12 +91,28 @@ public class GameController {
         resetTable();
         isGameRunning = false;
         isAutoPlayMode = false;
-        deck = new Deck();
 
-        for (Player player : players.values()) {
-            player.clearHand();
-            player.addCards(deck.deal(13));
-            player.setCurrentMove(false);
+        boolean strongHandFound = false;
+        int attempts = 0;
+
+        while (!strongHandFound && attempts < 1000) {
+            attempts++;
+            deck = new Deck();
+            for (Player player : players.values()) {
+                player.clearHand();
+                player.addCards(deck.deal(13));
+                player.setCurrentMove(false);
+            }
+
+            Player south = players.get("South");
+            Player north = players.get("North");
+            
+            if (south != null && north != null) {
+                int combinedHCP = south.calculateHCP() + north.calculateHCP();
+                if (combinedHCP >= 20) {
+                    strongHandFound = true;
+                }
+            }
         }
     }
 

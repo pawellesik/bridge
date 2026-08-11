@@ -259,8 +259,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
             initBiddingUi();
-        }
- else if ("multi".equals(gameMode)) {
+        } else if ("multi".equals(gameMode)) {
             //todo
         }
     }
