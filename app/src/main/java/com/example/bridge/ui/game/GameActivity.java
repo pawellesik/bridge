@@ -189,6 +189,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if ("single".equals(gameMode) && biddingControlsOverlay != null) {
                 biddingControlsOverlay.setVisibility(View.VISIBLE);
                 gameBiddingHistoryAdapter.setHighlightLast(true);
+                singleBidding.start();
 
             } else {
                 v.post(() -> {
@@ -258,8 +259,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
             initBiddingUi();
-            singleBidding.start();
-        } else if ("multi".equals(gameMode)) {
+        }
+ else if ("multi".equals(gameMode)) {
             //todo
         }
     }
