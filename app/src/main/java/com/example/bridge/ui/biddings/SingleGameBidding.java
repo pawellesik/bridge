@@ -36,25 +36,21 @@ public class SingleGameBidding {
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);
         }
 
-        // 2. Reset PBN i set basic info
-        activity.getPbnCollection().getPbn().initNewGame();
-        activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
-        
         Game game = new Game();
 
-        // 3. Random dealer
+        // 2. Random dealer
         Direction[] dirs = Direction.values();
         Direction dealerDir = dirs[(int) (Math.random() * 4)];
-        game.dealer = dealerDir;
+        game.dealer = Direction.S;//dealerDir;
         
-        // 4. Sync PBN Dealer (Crucial for correct JSON export alignment)
+        // 3. Sync PBN Dealer (Crucial for correct JSON export alignment)
         activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
 
-        // 5. Set bidding systems
+        // 4. Set bidding systems
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "PassOnly";
 
-        // 6. Set hands
+        // 5. Set hands
         Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
         game.getDeal().put(Direction.N, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("North"))));
         game.getDeal().put(Direction.E, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("East"))));
@@ -63,7 +59,7 @@ public class SingleGameBidding {
 
         liveBiddingState = new BiddingState(game);
 
-        // 7. Set first player in UI history
+        // 6. Set first player in UI history
         String firstPlayerName = "West";
         if (dealerDir == Direction.N) firstPlayerName = "North";
         else if (dealerDir == Direction.E) firstPlayerName = "East";

@@ -91,7 +91,7 @@ public class PbnCollection {
         }
     }
     public void initAllPbn() {
-        pbn.initNewGame();
+        //pbn.initNewGame();
 
         this.pbnNatC.initNewGame();
         runBidding(pbnNatC, "N", "NatC");
