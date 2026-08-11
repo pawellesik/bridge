@@ -96,9 +96,20 @@ public class GameBiddingHistory {
             }
         }
 
-        // 2. Remove trailing dashes
-        while (!auction.isEmpty() && "-".equals(auction.get(auction.size() - 1))) {
-            auction.remove(auction.size() - 1);
+        // 2. Remove trailing dashes (only if they are NOT leading alignment dashes)
+        int lastRealBidIndex = -1;
+        for (int i = auction.size() - 1; i >= 0; i--) {
+            if (!"-".equals(auction.get(i))) {
+                lastRealBidIndex = i;
+                break;
+            }
+        }
+
+        // If there are only dashes, keep them for alignment based on offset
+        if (lastRealBidIndex != -1) {
+            while (auction.size() > lastRealBidIndex + 1) {
+                auction.remove(auction.size() - 1);
+            }
         }
 
         if (gameActivity.getGameBiddingHistoryAdapter() != null) {

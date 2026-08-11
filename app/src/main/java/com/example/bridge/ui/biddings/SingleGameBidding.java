@@ -40,8 +40,8 @@ public class SingleGameBidding {
 
         // 2. Random dealer
         Direction[] dirs = Direction.values();
-        Direction dealerDir = dirs[(int) (Math.random() * 4)];
-        game.dealer = Direction.S;//dealerDir;
+        Direction dealerDir = Direction.S; // Ustawione na sztywno S zgodnie z Twoją prośbą
+        game.dealer = dealerDir;
         
         // 3. Sync PBN Dealer (Crucial for correct JSON export alignment)
         activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
