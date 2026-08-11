@@ -91,26 +91,26 @@ public class PbnCollection {
         }
     }
     public void initAllPbn() {
-        //pbn.initNewGame();
+        Map<String, List<Card>> hands = gameActivity.getGameController().getHandsMap();
+        pbn.initNewGame(hands);
 
-        this.pbnNatC.initNewGame();
+        this.pbnNatC.initNewGame(hands);
         runBidding(pbnNatC, "N", "NatC");
 
-        this.pbnNatCRev.initNewGame();
+        this.pbnNatCRev.initNewGame(hands);
         runBidding(pbnNatCRev, "S", "NatC");
 
-        this.pbnLCStandard.initNewGame();
+        this.pbnLCStandard.initNewGame(hands);
         runBidding(pbnLCStandard, "N", "LC-Basic");
 
-        this.pbnLCStandardRev.initNewGame();
+        this.pbnLCStandardRev.initNewGame(hands);
         runBidding(pbnLCStandardRev, "S", "LC-Basic");
 
-        this.twoOverOneGameForce.initNewGame();
+        this.twoOverOneGameForce.initNewGame(hands);
         runBidding(twoOverOneGameForce, "S", "TwoOverOneGameForce");
 
-        this.twoOverOneGameForceRev.initNewGame();
+        this.twoOverOneGameForceRev.initNewGame(hands);
         runBidding(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
-
     }
 
     private void runBidding(Pbn pbn, String dealerDirection, String biddingSystem) {

@@ -54,16 +54,15 @@ public class Pbn {
         this.board = board;
     }
 
-    public void initNewGame() {
-        // Korzystamy z czasu ustawionego w konstruktorze lub odświeżamy go, jeśli to zupełnie nowe rozdanie
+    public void initNewGame(Map<String, List<Card>> hands) {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         this.event = timestamp;
         this.date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.US).format(new Date());
         this.site = "Bridge App";
 
         this.initialHands = new java.util.HashMap<>();
-        if (gameActivity.getGameController().getHandsMap() != null) {
-            for (Map.Entry<String, List<Card>> entry : gameActivity.getGameController().getHandsMap().entrySet()) {
+        if (hands != null) {
+            for (Map.Entry<String, List<Card>> entry : hands.entrySet()) {
                 this.initialHands.put(entry.getKey(), new ArrayList<>(entry.getValue()));
             }
         }
@@ -72,6 +71,10 @@ public class Pbn {
         this.playHistory = new ArrayList<>();
         this.contract = null;
         this.declarer = null;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
     }
 
     public Map<String, List<Card>> getInitialHands() {
