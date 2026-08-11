@@ -64,6 +64,9 @@ public class PbnCollection {
     }
 
     public void initQiuckPbn(){
+        Map<String, List<Card>> hands = gameActivity.getGameController().getHandsMap();
+        pbn.initNewGame(hands);
+
         gameActivity.getGameController().calculateAndSetTheBestContract();
         Contract contract = gameActivity.getGameController().getCurrentContract();
 

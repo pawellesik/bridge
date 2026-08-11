@@ -2,7 +2,6 @@ package com.example.bridge.ui.history;
 
 import android.view.View;
 import android.widget.TextView;
-import androidx.recyclerview.widget.RecyclerView;
 import com.example.bridge.R;
 import com.example.bridge.core.db.GameRecord;
 import com.example.bridge.ui.game.GameActivity;
@@ -10,13 +9,12 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class OverlayHistoryGame {
 
     private final GameActivity activity;
     private final View root;
-    private final java.util.List<Pbn> reconstructedPbnList = new java.util.ArrayList<>();
+    private final List<Pbn> reconstructedPbnList = new ArrayList<>();
     private Pbn selectedPbn = null;
 
     private TextView tvNorthCards, tvSouthCards, tvEastCards, tvWestCards;
@@ -44,46 +42,60 @@ public class OverlayHistoryGame {
     }
 
     public void showGame(int dbId) {
-        if (root != null) {
-            root.setVisibility(View.VISIBLE);
-            loadGameData(dbId);
-        }
+        if (root == null) return;
+        loadGameData(dbId);
+    }
+
+    public void hide() {
+        if (root == null) return;
+        root.setVisibility(View.GONE);
+        clearViews();
+    }
+
+    private void clearViews() {
+        if (tvNorthCards != null) tvNorthCards.setText("");
+        if (tvSouthCards != null) tvSouthCards.setText("");
+        if (tvEastCards != null) tvEastCards.setText("");
+        if (tvWestCards != null) tvWestCards.setText("");
+        biddingList.clear();
+        if (biddingAdapter != null) biddingAdapter.notifyDataSetChanged();
+        selectedPbn = null;
+        reconstructedPbnList.clear();
+        android.widget.LinearLayout tableContent = root.findViewById(R.id.table_history_content_history);
+        if (tableContent != null) tableContent.removeAllViews();
     }
 
     private void loadGameData(int dbId) {
         new Thread(() -> {
             try {
-                java.util.List<GameRecord> records = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getGamesByDealId(dbId);
-                activity.runOnUiThread(() -> reconstructedPbnList.clear());
-
-                if (records != null && !records.isEmpty()) {
-                    java.util.List<Pbn> loadedPbns = new java.util.ArrayList<>();
+                List<GameRecord> records = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getGamesByDealId(dbId);
+                List<Pbn> loadedPbns = new ArrayList<>();
+                if (records != null) {
                     for (GameRecord record : records) {
-                        android.util.Log.d("plesik", record.gameData.toString());
                         Pbn pbn = new Pbn(activity, record.system);
                         pbn.loadFromJsonObject(new JSONObject(record.gameData));
                         loadedPbns.add(pbn);
                     }
-                    
-                    activity.runOnUiThread(() -> {
-                        reconstructedPbnList.addAll(loadedPbns);
-                        
-                        // Sortowanie po IMP malejąco
-                        reconstructedPbnList.sort((p1, p2) -> Integer.compare(p2.getImp(), p1.getImp()));
-
-                        // Domyślnie zaznaczamy MyGame
-                        for (Pbn p : reconstructedPbnList) {
-                            if ("MyGame".equals(p.getBoard())) {
-                                selectedPbn = p;
-                                break;
-                            }
-                        }
-                        if (selectedPbn == null && !reconstructedPbnList.isEmpty()) {
-                            selectedPbn = reconstructedPbnList.get(0);
-                        }
-                        updateUi();
-                    });
                 }
+                
+                activity.runOnUiThread(() -> {
+                    reconstructedPbnList.clear();
+                    reconstructedPbnList.addAll(loadedPbns);
+                    reconstructedPbnList.sort((p1, p2) -> Integer.compare(p2.getImp(), p1.getImp()));
+
+                    selectedPbn = null;
+                    for (Pbn p : reconstructedPbnList) {
+                        if ("MyGame".equals(p.getBoard())) {
+                            selectedPbn = p;
+                            break;
+                        }
+                    }
+                    if (selectedPbn == null && !reconstructedPbnList.isEmpty()) {
+                        selectedPbn = reconstructedPbnList.get(0);
+                    }
+                    updateUi();
+                    root.setVisibility(View.VISIBLE);
+                });
             } catch (Exception e) {
                 android.util.Log.e("plesik", "Error loading game data", e);
             }
@@ -93,6 +105,7 @@ public class OverlayHistoryGame {
     public void updateUi() {
         if (root == null) return;
         
+        // Bezpośrednie odświeżenie detali (karty i licytacja)
         updateSelectedGameDetails();
 
         android.widget.LinearLayout tableContent = root.findViewById(R.id.table_history_content_history);
@@ -104,125 +117,20 @@ public class OverlayHistoryGame {
             View selectedRowView = null;
             for (Pbn pbn : reconstructedPbnList) {
                 View row = inflater.inflate(R.layout.item_history_row, tableContent, false);
-                
-                if (!pbn.equals(selectedPbn)) {
-                    row.setSelected(index % 2 != 0);
-                }
+                if (!pbn.equals(selectedPbn)) row.setSelected(index % 2 != 0);
                 index++;
 
-                TextView tvNameNorth = row.findViewById(R.id.tv_row_name_north);
-                TextView tvNameSouth = row.findViewById(R.id.tv_row_name_south);
-                TextView tvContractLevel = row.findViewById(R.id.tv_row_contract);
-                android.widget.ImageView ivSuit = row.findViewById(R.id.iv_row_suit);
-                TextView tvResultSymbol = row.findViewById(R.id.tv_row_result_symbol);
-
-                TextView tvMy1 = row.findViewById(R.id.tv_row_my1);
-                TextView tvOpps1 = row.findViewById(R.id.tv_row_opps1);
-                TextView tvImp = row.findViewById(R.id.tv_row_imp);
-
-                if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
-                if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
+                setupRow(row, pbn);
                 
-                boolean isMyGame = "MyGame".equals(pbn.getBoard());
-                boolean isSelected = (pbn == selectedPbn);
-                
-                row.setActivated(isSelected);
-                if (isSelected) {
+                if (pbn == selectedPbn) {
+                    row.setActivated(true);
                     selectedRowView = row;
                 }
                 
-                // Ustawiamy kolory i style dla wyróżnienia MyGame
-                int textColor;
-                if (isSelected) {
-                    textColor = android.graphics.Color.WHITE;
-                } else if (isMyGame) {
-                    textColor = android.graphics.Color.parseColor("#C62828"); // Czerwony dla Twojej gry
-                } else {
-                    textColor = android.graphics.Color.BLACK;
-                }
-
-                if (tvNameNorth != null) {
-                    tvNameNorth.setTextColor(textColor);
-                    if (isMyGame) tvNameNorth.setTypeface(null, android.graphics.Typeface.BOLD_ITALIC);
-                    else tvNameNorth.setTypeface(null, android.graphics.Typeface.BOLD);
-                }
-                if (tvNameSouth != null) {
-                    tvNameSouth.setTextColor(textColor);
-                    if (isMyGame) tvNameSouth.setTypeface(null, android.graphics.Typeface.BOLD_ITALIC);
-                    else tvNameSouth.setTypeface(null, android.graphics.Typeface.BOLD);
-                }
-
-                if (tvMy1 != null) {
-                    int score = pbn.getScore();
-                    if (score > 0) {
-                        tvMy1.setText(String.valueOf(score));
-                        tvOpps1.setText("");
-                    } else if (score < 0) {
-                        tvMy1.setText("");
-                        tvOpps1.setText(String.valueOf(Math.abs(score)));
-                    } else {
-                        tvMy1.setText("0");
-                        tvOpps1.setText("");
-                    }
-                    tvMy1.setTextColor(textColor);
-                }
-                if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
-
-                if (tvImp != null) {
-                    int imp = pbn.getImp();
-                    String impStr = (imp > 0 ? "+" : "") + imp;
-                    if (imp == 0) impStr = "0";
-                    tvImp.setText(impStr);
-                    tvImp.setTextColor(textColor);
-                }
-
                 row.setOnClickListener(v -> {
                     selectedPbn = pbn;
                     updateUi();
                 });
-
-                if (pbn.getContract() != null) {
-                    com.example.bridge.model.Contract c = pbn.getContract();
-                    if (c.isPass()) {
-                        if (tvContractLevel != null) {
-                            tvContractLevel.setText(R.string.contract_pass);
-                            tvContractLevel.setTextColor(android.graphics.Color.BLACK);
-                        }
-                        if (ivSuit != null) ivSuit.setVisibility(View.GONE);
-                    } else {
-                        if (tvContractLevel != null) {
-                            tvContractLevel.setText(String.valueOf(c.getLevel()));
-                        }
-                        
-                        if (ivSuit != null) {
-                            if (c.isNoTrump()) {
-                                ivSuit.setVisibility(View.GONE);
-                                tvContractLevel.setText(c.getLevel() + "NT");
-                                tvContractLevel.setTextColor(android.graphics.Color.BLACK);
-                            } else {
-                                ivSuit.setVisibility(View.VISIBLE);
-                                ivSuit.setImageResource(c.getSuit().resId);
-                                int suitColor = c.getSuit().getColor(activity);
-                                ivSuit.setColorFilter(suitColor);
-                                tvContractLevel.setTextColor(suitColor);
-                            }
-                        }
-
-                        if (tvResultSymbol != null) {
-                            String declChar = (pbn.getDeclarer() != null && !pbn.getDeclarer().isEmpty()) 
-                                    ? String.valueOf(pbn.getDeclarer().charAt(0)) : "";
-                            
-                            int diff = pbn.getResultTricks() - (c.getLevel() + 6);
-                            String resultStr = " " + declChar;
-                            if (diff == 0) resultStr += "=";
-                            else if (diff > 0) resultStr += "+" + diff;
-                            else resultStr += diff;
-                            
-                            tvResultSymbol.setText(resultStr);
-                            tvResultSymbol.setTextColor(android.graphics.Color.BLACK);
-                        }
-                    }
-                }
                 tableContent.addView(row);
             }
 
@@ -231,12 +139,71 @@ public class OverlayHistoryGame {
                 androidx.core.widget.NestedScrollView scrollView = root.findViewById(R.id.scroll_history_history);
                 if (scrollView != null) {
                     scrollView.post(() -> {
-                        int rowTop = finalRow.getTop();
-                        int rowHeight = finalRow.getHeight();
-                        int scrollHeight = scrollView.getHeight();
-                        int scrollTo = rowTop - (scrollHeight / 2) + (rowHeight / 2);
+                        int scrollTo = finalRow.getTop() - (scrollView.getHeight() / 2) + (finalRow.getHeight() / 2);
                         scrollView.smoothScrollTo(0, Math.max(0, scrollTo));
                     });
+                }
+            }
+        }
+    }
+
+    private void setupRow(View row, Pbn pbn) {
+        TextView tvNameNorth = row.findViewById(R.id.tv_row_name_north);
+        TextView tvNameSouth = row.findViewById(R.id.tv_row_name_south);
+        TextView tvContractLevel = row.findViewById(R.id.tv_row_contract);
+        android.widget.ImageView ivSuit = row.findViewById(R.id.iv_row_suit);
+        TextView tvResultSymbol = row.findViewById(R.id.tv_row_result_symbol);
+        TextView tvMy1 = row.findViewById(R.id.tv_row_my1);
+        TextView tvOpps1 = row.findViewById(R.id.tv_row_opps1);
+        TextView tvImp = row.findViewById(R.id.tv_row_imp);
+
+        if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
+        if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
+        
+        boolean isMyGame = "MyGame".equals(pbn.getBoard());
+        boolean isSelected = (pbn == selectedPbn);
+        int textColor = isSelected ? android.graphics.Color.WHITE : (isMyGame ? android.graphics.Color.parseColor("#C62828") : android.graphics.Color.BLACK);
+        
+        if (tvNameNorth != null) {
+            tvNameNorth.setTextColor(textColor);
+            tvNameNorth.setTypeface(null, isMyGame ? android.graphics.Typeface.BOLD_ITALIC : android.graphics.Typeface.BOLD);
+        }
+        if (tvNameSouth != null) {
+            tvNameSouth.setTextColor(textColor);
+            tvNameSouth.setTypeface(null, isMyGame ? android.graphics.Typeface.BOLD_ITALIC : android.graphics.Typeface.BOLD);
+        }
+
+        if (tvMy1 != null) {
+            int score = pbn.getScore();
+            if (score > 0) { tvMy1.setText(String.valueOf(score)); tvOpps1.setText(""); }
+            else if (score < 0) { tvMy1.setText(""); tvOpps1.setText(String.valueOf(Math.abs(score))); }
+            else { tvMy1.setText("0"); tvOpps1.setText(""); }
+            tvMy1.setTextColor(textColor);
+        }
+        if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
+        if (tvImp != null) {
+            int imp = pbn.getImp();
+            tvImp.setText((imp > 0 ? "+" : "") + imp);
+            tvImp.setTextColor(textColor);
+        }
+
+        if (pbn.getContract() != null) {
+            com.example.bridge.model.Contract c = pbn.getContract();
+            if (c.isPass()) {
+                if (tvContractLevel != null) { tvContractLevel.setText(R.string.contract_pass); tvContractLevel.setTextColor(android.graphics.Color.BLACK); }
+                if (ivSuit != null) ivSuit.setVisibility(View.GONE);
+            } else {
+                if (tvContractLevel != null) tvContractLevel.setText(String.valueOf(c.getLevel()));
+                if (ivSuit != null) {
+                    if (c.isNoTrump()) { ivSuit.setVisibility(View.GONE); tvContractLevel.setText(c.getLevel() + "NT"); tvContractLevel.setTextColor(android.graphics.Color.BLACK); }
+                    else { ivSuit.setVisibility(View.VISIBLE); ivSuit.setImageResource(c.getSuit().resId); int suitColor = c.getSuit().getColor(activity); ivSuit.setColorFilter(suitColor); tvContractLevel.setTextColor(suitColor); }
+                }
+                if (tvResultSymbol != null) {
+                    String declChar = (pbn.getDeclarer() != null && !pbn.getDeclarer().isEmpty()) ? String.valueOf(pbn.getDeclarer().charAt(0)) : "";
+                    int diff = pbn.getResultTricks() - (c.getLevel() + 6);
+                    String res = " " + declChar + (diff == 0 ? "=" : (diff > 0 ? "+" + diff : String.valueOf(diff)));
+                    tvResultSymbol.setText(res);
+                    tvResultSymbol.setTextColor(android.graphics.Color.BLACK);
                 }
             }
         }
@@ -261,9 +228,9 @@ public class OverlayHistoryGame {
         if (auction != null && !auction.isEmpty()) {
             String dealer = pbn.toJsonObject().optString("Dealer", "W");
             int offset = 0;
-            if ("N".equals(dealer)) offset = 1;
-            else if ("E".equals(dealer)) offset = 2;
-            else if ("S".equals(dealer)) offset = 3;
+            if ("North".equals(dealer) || "N".equals(dealer)) offset = 1;
+            else if ("East".equals(dealer) || "E".equals(dealer)) offset = 2;
+            else if ("South".equals(dealer) || "S".equals(dealer)) offset = 3;
             for (int i = 0; i < offset; i++) biddingList.add("-");
             biddingList.addAll(auction);
         }
@@ -287,39 +254,23 @@ public class OverlayHistoryGame {
                 com.example.bridge.model.Suit.CLUBS
         };
         String[] suitSymbols = {"♠\uFE0E", "♥\uFE0E", "♦\uFE0E", "♣\uFE0E"};
-
-        // Konfiguracja punktu zatrzymania tabulacji (TabStopSpan)
-        // 20dp powinno wystarczyć, aby pomieścić symbol koloru i wyrównać figury blisko siebie
         float tabOffset = 20 * activity.getResources().getDisplayMetrics().density;
         ssb.setSpan(new android.text.style.TabStopSpan.Standard((int) tabOffset), 0, 0, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         for (int i = 0; i < 4; i++) {
             int symbolStart = ssb.length();
             ssb.append(suitSymbols[i]);
-            int symbolEnd = ssb.length();
-            
-            com.example.bridge.model.Suit currentSuit = suits[i];
-            int suitColor = currentSuit.getColor(activity);
-            ssb.setSpan(new android.text.style.ForegroundColorSpan(suitColor), 
-                    symbolStart, symbolEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            
-            ssb.append("\t"); // Używamy tabulatora zamiast spacji
+            int suitColor = suits[i].getColor(activity);
+            ssb.setSpan(new android.text.style.ForegroundColorSpan(suitColor), symbolStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssb.append("\t");
             int cardsStart = ssb.length();
-
-            java.util.List<com.example.bridge.model.Card> suitCards = new java.util.ArrayList<>();
-            for (com.example.bridge.model.Card card : hand) {
-                if (card.getSuit() == currentSuit) suitCards.add(card);
-            }
+            List<com.example.bridge.model.Card> suitCards = new ArrayList<>();
+            for (com.example.bridge.model.Card card : hand) if (card.getSuit() == suits[i]) suitCards.add(card);
             suitCards.sort((c1, c2) -> Integer.compare(c2.getRank().ordinal(), c1.getRank().ordinal()));
-
             for (int j = 0; j < suitCards.size(); j++) {
                 ssb.append(formatRank(suitCards.get(j).getRank()));
                 if (j < suitCards.size() - 1) ssb.append(" ");
             }
-
-            ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), 
-                    cardsStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+            ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), cardsStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             if (i < 3) ssb.append("\n");
         }
         return ssb;
@@ -328,14 +279,6 @@ public class OverlayHistoryGame {
     private String formatRank(com.example.bridge.model.Rank rank) {
         if (rank == com.example.bridge.model.Rank.TEN) return "10";
         return rank.display;
-    }
-
-    public java.util.List<Pbn> getReconstructedPbnList() {
-        return reconstructedPbnList;
-    }
-
-    public void hide() {
-        if (root != null) root.setVisibility(View.GONE);
     }
 
     public boolean isVisible() {
