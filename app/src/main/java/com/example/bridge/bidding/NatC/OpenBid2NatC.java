@@ -157,6 +157,10 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3S, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3S")),
                 shows(Bid._3H, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3H")),
 
+                shows(Bid._3S, shape(7, 11), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits weak _3S")),
+                shows(Bid._3H, shape(7, 11), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits weak _3H")),
+                shows(Bid._3D, shape(7, 11), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits weak _3S")),
+
                 shows(Bid._3C, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3C")),
                 shows(Bid._3D, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3D")),
 
