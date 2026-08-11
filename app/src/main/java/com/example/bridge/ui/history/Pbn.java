@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class Pbn {
 
-    private String event = "Casual Game";
+    private String event;
     private String site = "Bridge App";
     private String date;
     private String board = "1";
@@ -48,11 +48,14 @@ public class Pbn {
 
     public Pbn(GameActivity gameActivity, String board) {
         this.gameActivity = gameActivity;
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        this.event = timestamp;
         this.date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.US).format(new Date());
         this.board = board;
     }
 
     public void initNewGame() {
+        // Korzystamy z czasu ustawionego w konstruktorze lub odświeżamy go, jeśli to zupełnie nowe rozdanie
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         this.event = timestamp;
         this.date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.US).format(new Date());
