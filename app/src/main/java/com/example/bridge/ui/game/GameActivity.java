@@ -30,12 +30,11 @@ import com.example.bridge.model.Trick;
 import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
-import com.example.bridge.ui.biddings.SingleBidding;
+import com.example.bridge.ui.biddings.SingleGameBidding;
 import com.example.bridge.ui.history.OverlayHistoryGame;
 import com.example.bridge.ui.history.OverlayHistoryList;
 import com.example.bridge.ui.history.PbnCollection;
 import com.example.bridge.ui.settings.OverlaySettings;
-import com.example.bridge.bidding.Tools.Direction;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -82,7 +81,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private String gameMode;
     private GameBidding gameBidding;
     private PbnCollection pbnCollection;
-    private SingleBidding singleBidding;
+    private SingleGameBidding singleGameBidding;
 
     GameBiddingHistory gameBiddingHistory;
 
@@ -126,7 +125,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
 
         gameBidding = new GameBidding(this);
-        singleBidding = new SingleBidding(this);
+        singleGameBidding = new SingleGameBidding(this);
         overlaySettings = new OverlaySettings(this);
         pbnCollection = new PbnCollection(this);
         overlayHistoryList = new OverlayHistoryList(this);
@@ -189,7 +188,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if ("single".equals(gameMode) && biddingControlsOverlay != null) {
                 biddingControlsOverlay.setVisibility(View.VISIBLE);
                 gameBiddingHistoryAdapter.setHighlightLast(true);
-                singleBidding.start();
+                singleGameBidding.start();
 
             } else {
                 v.post(() -> {
@@ -290,8 +289,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return gameBidding;
     }
 
-    public SingleBidding getSingleBidding() {
-        return singleBidding;
+    public SingleGameBidding getSingleBidding() {
+        return singleGameBidding;
     }
 
     public GameBiddingHistory getGameBiddingHistory() {

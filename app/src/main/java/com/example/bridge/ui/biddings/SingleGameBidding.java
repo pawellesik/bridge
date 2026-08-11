@@ -21,12 +21,12 @@ import com.example.bridge.ui.game.GameActivity;
 import java.util.List;
 import java.util.Map;
 
-public class SingleBidding {
+public class SingleGameBidding {
     private final GameActivity activity;
     private BiddingState liveBiddingState;
     private final Handler handler = new Handler(Looper.getMainLooper());
 
-    public SingleBidding(GameActivity activity) {
+    public SingleGameBidding(GameActivity activity) {
         this.activity = activity;
     }
 
