@@ -43,7 +43,7 @@ public class CompeteNatC extends NatC {
             for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
                 bids.add(cf);
             }
-        }//to check
+        }
 
         for (CallFeature cf : ForcedBidNatC.bids(ps)) {
             bids.add(cf);
