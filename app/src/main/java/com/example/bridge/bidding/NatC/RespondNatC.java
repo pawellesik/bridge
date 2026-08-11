@@ -25,9 +25,10 @@ public class RespondNatC extends NatC {
         choices.addRules(
                 partnerBids(OpenBid2NatC::responderClub),
                 properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, true),
+                //properties(new Call[]{Bid._2H, Bid._2S}, OpenBid2NatC::responderClubJumpMajor, true),
                 properties(new Call[]{Bid._3D, Bid._3C}, OpenBid2NatC::responderClubJumpMinor, true),
-                shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
 
+                shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
                 shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1H")),
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1S")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _2D")),
