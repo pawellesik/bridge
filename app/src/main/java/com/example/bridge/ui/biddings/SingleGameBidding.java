@@ -31,25 +31,30 @@ public class SingleGameBidding {
     }
 
     public void start() {
-        // 1. Reset PBN and set basic info
+        // 1. Ukrywamy kontrolki na start, aby gracz nie licytował poza kolejnością
+        if (activity.getBiddingControlsOverlay() != null) {
+            activity.getBiddingControlsOverlay().setVisibility(View.GONE);
+        }
+
+        // 2. Reset PBN i set basic info
         activity.getPbnCollection().getPbn().initNewGame();
         activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
         
         Game game = new Game();
 
-        // 2. Random dealer
+        // 3. Random dealer
         Direction[] dirs = Direction.values();
         Direction dealerDir = dirs[(int) (Math.random() * 4)];
         game.dealer = dealerDir;
         
-        // 3. Sync PBN Dealer (Crucial for correct JSON export alignment)
+        // 4. Sync PBN Dealer (Crucial for correct JSON export alignment)
         activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
 
-        // 4. Set bidding systems
+        // 5. Set bidding systems
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "PassOnly";
 
-        // 5. Set hands
+        // 6. Set hands
         Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
         game.getDeal().put(Direction.N, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("North"))));
         game.getDeal().put(Direction.E, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("East"))));
@@ -58,7 +63,7 @@ public class SingleGameBidding {
 
         liveBiddingState = new BiddingState(game);
 
-        // 6. Set first player in UI history
+        // 7. Set first player in UI history
         String firstPlayerName = "West";
         if (dealerDir == Direction.N) firstPlayerName = "North";
         else if (dealerDir == Direction.E) firstPlayerName = "East";
@@ -66,6 +71,9 @@ public class SingleGameBidding {
 
         activity.getGameBiddingHistory().setFirstPlayer(activity.getGameController().getPlayers().get(firstPlayerName));
         activity.getGameBiddingHistory().getAuction().clear();
+        
+        // Inicjalizacja widoku bez żółtego podświetlenia (pokaże się w handleNextTurn)
+        activity.getGameBiddingHistoryAdapter().setHighlightLast(false);
         activity.getGameBiddingHistory().updateBiddingHistory();
 
         handleNextTurn();
@@ -78,6 +86,9 @@ public class SingleGameBidding {
 
         if (nextToAct == Direction.S) {
             // Human turn (South)
+            activity.getGameBiddingHistoryAdapter().setHighlightLast(true);
+            activity.getGameBiddingHistory().updateBiddingHistory();
+            
             activity.getGameBidding().applyAuctionRules(activity.getGameBiddingHistory());
             if (activity.getBiddingControlsOverlay() != null) {
                 activity.getBiddingControlsOverlay().setVisibility(View.VISIBLE);
@@ -86,6 +97,9 @@ public class SingleGameBidding {
         }
 
         // Robot turn
+        activity.getGameBiddingHistoryAdapter().setHighlightLast(false);
+        activity.getGameBiddingHistory().updateBiddingHistory();
+
         if (activity.getBiddingControlsOverlay() != null) {
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);
         }
