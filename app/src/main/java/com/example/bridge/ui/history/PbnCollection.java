@@ -63,6 +63,29 @@ public class PbnCollection {
         //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
     }
 
+    public void initAllPbn() {
+        pbn.initNewGame();
+
+        this.pbnNatC.initNewGame();
+        runBidding(pbnNatC, "N", "NatC");
+
+        this.pbnNatCRev.initNewGame();
+        runBidding(pbnNatCRev, "S", "NatC");
+
+        this.pbnLCStandard.initNewGame();
+        runBidding(pbnLCStandard, "N", "LC-Basic");
+
+        this.pbnLCStandardRev.initNewGame();
+        runBidding(pbnLCStandardRev, "S", "LC-Basic");
+
+        this.twoOverOneGameForce.initNewGame();
+        runBidding(twoOverOneGameForce, "S", "TwoOverOneGameForce");
+
+        this.twoOverOneGameForceRev.initNewGame();
+        runBidding(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
+
+    }
+
     public void initQiuckPbn(){
         gameActivity.getGameController().calculateAndSetTheBestContract();
         Contract contract = gameActivity.getGameController().getCurrentContract();
@@ -89,29 +112,6 @@ public class PbnCollection {
                 pbn.addBid("Pass"); // East
             }
         }
-
-    }
-    public void initAllPbn() {
-        pbn.initNewGame();
-
-        this.pbnNatC.initNewGame();
-        runBidding(pbnNatC, "N", "NatC");
-
-        this.pbnNatCRev.initNewGame();
-        runBidding(pbnNatCRev, "S", "NatC");
-
-        this.pbnLCStandard.initNewGame();
-        runBidding(pbnLCStandard, "N", "LC-Basic");
-
-        this.pbnLCStandardRev.initNewGame();
-        runBidding(pbnLCStandardRev, "S", "LC-Basic");
-
-        this.twoOverOneGameForce.initNewGame();
-        runBidding(twoOverOneGameForce, "S", "TwoOverOneGameForce");
-
-        this.twoOverOneGameForceRev.initNewGame();
-        runBidding(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
-
     }
 
     private void runBidding(Pbn pbn, String dealerDirection, String biddingSystem) {
