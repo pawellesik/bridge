@@ -277,6 +277,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void initGameSingleMode() {
         initGameBase();
 
+        pbnCollection.initAllPbn();
+
         gameTop.hideContract();
         if (topBar != null) topBar.setVisibility(View.GONE);
         biddingOverlay.setVisibility(View.VISIBLE);
