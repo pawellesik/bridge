@@ -258,7 +258,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             initGameQiuckMode();
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
-            initBiddingUi();
         } else if ("multi".equals(gameMode)) {
             //todo
         }
@@ -276,7 +275,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     private void initGameSingleMode() {
         initGameBase();
-
+        initBiddingUi();
         pbnCollection.initAllPbn();
 
         gameTop.hideContract();
@@ -715,11 +714,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             pbnCollection.getPbn().calculateAndSetScore();
 
-            // Obliczamy IMPy metodą Butler (średnia ze wszystkich systemów)
             pbnCollection.calculateAllImps();
 
             String jsonExport = pbnCollection.generateJsonExport();
-            android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
+            android.util.Log.d("plesik", jsonExport);
             overlayHistoryList.saveGameToHistory(this, jsonExport);
         }
 
@@ -731,7 +729,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("single".equals(gameMode)) {
             onVisibleStartBar(true);
             setBottomNavVisibility(true);
-            initGame();
+            initGameSingleMode();
         }
     }
 }
