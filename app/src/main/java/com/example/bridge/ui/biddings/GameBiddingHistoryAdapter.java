@@ -59,8 +59,10 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             String bid = bids.get(position);
             holder.bind(bid, false, false, layoutId);
         } else {
-            // This is the virtual "next" tile (the preview)
-            holder.bind(previewSelection, true, highlightLast, layoutId);
+            // To jest kafelek "następny" (preview/turn indicator)
+            // Pokazujemy żółte podświetlenie tylko jeśli jest kolej South (użytkownika)
+            boolean isSouthTurn = (position % 4 == 3);
+            holder.bind(previewSelection, true, highlightLast && isSouthTurn, layoutId);
         }
     }
 
