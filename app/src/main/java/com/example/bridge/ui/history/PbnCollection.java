@@ -63,34 +63,36 @@ public class PbnCollection {
         //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
     }
 
-    public void initAllPbn() {
-
+    public void initQiuckPbn(){
         gameActivity.getGameController().calculateAndSetTheBestContract();
         Contract contract = gameActivity.getGameController().getCurrentContract();
 
-        pbn.initNewGame();
         pbn.setContract(contract, "South");
-        pbn.setDealer("N");
+        pbn.setDealer("N"); //zaczyna licytacje
 
         if (contract != null) {
             if (contract.isPass()) {
-                pbn.addBid("Pass"); // North
-                pbn.addBid("Pass"); // East
-                pbn.addBid("Pass"); // South
-                pbn.addBid("Pass"); // West
+                pbn.addBid("Pass");
+                pbn.addBid("Pass");
+                pbn.addBid("Pass");
+                pbn.addBid("Pass");
             } else {
                 pbn.addBid("Pass"); // North
                 pbn.addBid("Pass"); // East
 
                 String suitChar = contract.isNoTrump() ? "NT" : contract.getSuit().name().substring(0, 1).toUpperCase();
                 String formattedBid = contract.getLevel() + suitChar;
-                
+
                 pbn.addBid(formattedBid); // South
                 pbn.addBid("Pass"); // West
                 pbn.addBid("Pass"); // North
                 pbn.addBid("Pass"); // East
             }
         }
+
+    }
+    public void initAllPbn() {
+        pbn.initNewGame();
 
         this.pbnNatC.initNewGame();
         runBidding(pbnNatC, "N", "NatC");

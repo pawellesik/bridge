@@ -267,6 +267,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGameBase();
 
         pbnCollection.initAllPbn();
+        pbnCollection.initQiuckPbn();
 
         onHandUpdated("North");
         onHandUpdated("South");
