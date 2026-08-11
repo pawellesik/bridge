@@ -329,6 +329,13 @@ public class GameBidding {
         lastHistory.getAuction().add(finalBid);
         activity.getPbnCollection().getPbn().addBid(finalBid);
 
+        // SYNC LIVE STATE (for single mode)
+        if ("single".equals(activity.getGameMode())) {
+            // Need to convert finalBid string to com.example.bridge.bidding.Tools.Call
+            com.example.bridge.bidding.Tools.Call call = com.example.bridge.bidding.Tools.Call.parse(finalBid);
+            activity.getSingleBidding().syncManualBid(call);
+        }
+
         // 2. Refresh history UI and scroll
         lastHistory.updateBiddingHistory(null, true);
 
@@ -336,11 +343,13 @@ public class GameBidding {
         selectedSuitViewId = View.NO_ID;
         updateBiddingUI();
 
-        // 4. Check for 3 passes (end of auction)
-        checkEndOfAuction(v);
+        if (!"single".equals(activity.getGameMode())) {
+            // 4. Check for 3 passes (end of auction)
+            checkEndOfAuction(v);
 
-        // 5. Apply rules for next turn (if auction continues)
-        applyAuctionRules(lastHistory);
+            // 5. Apply rules for next turn (if auction continues)
+            applyAuctionRules(lastHistory);
+        }
     }
 
     private void checkEndOfAuction(View v) {

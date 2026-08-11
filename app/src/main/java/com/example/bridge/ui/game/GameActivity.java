@@ -30,10 +30,12 @@ import com.example.bridge.model.Trick;
 import com.example.bridge.ui.biddings.GameBiddingHistory;
 import com.example.bridge.ui.biddings.GameBidding;
 import com.example.bridge.ui.biddings.GameBiddingHistoryAdapter;
+import com.example.bridge.ui.biddings.SingleBidding;
 import com.example.bridge.ui.history.OverlayHistoryGame;
 import com.example.bridge.ui.history.OverlayHistoryList;
 import com.example.bridge.ui.history.PbnCollection;
 import com.example.bridge.ui.settings.OverlaySettings;
+import com.example.bridge.bidding.Tools.Direction;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -80,6 +82,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private String gameMode;
     private GameBidding gameBidding;
     private PbnCollection pbnCollection;
+    private SingleBidding singleBidding;
 
     GameBiddingHistory gameBiddingHistory;
 
@@ -123,6 +126,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
 
         gameBidding = new GameBidding(this);
+        singleBidding = new SingleBidding(this);
         overlaySettings = new OverlaySettings(this);
         pbnCollection = new PbnCollection(this);
         overlayHistoryList = new OverlayHistoryList(this);
@@ -254,12 +258,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("single".equals(gameMode)) {
             initGameSingleMode();
             initBiddingUi();
-
-            gameBiddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
-            gameBiddingHistory.addFakeAuction();
-
-            gameBiddingHistory.updateBiddingHistory();
-            gameBidding.applyAuctionRules(gameBiddingHistory);
+            singleBidding.start();
         } else if ("multi".equals(gameMode)) {
             //todo
         }
@@ -283,6 +282,18 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingOverlay.setVisibility(View.VISIBLE);
         onHandUpdated("South");
         onVisibleStartBar(true);
+    }
+
+    public GameBidding getGameBidding() {
+        return gameBidding;
+    }
+
+    public SingleBidding getSingleBidding() {
+        return singleBidding;
+    }
+
+    public GameBiddingHistory getGameBiddingHistory() {
+        return gameBiddingHistory;
     }
 
     public OverlayHistoryGame getOverlayHistoryGame() {
@@ -718,14 +729,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("single".equals(gameMode)) {
             onVisibleStartBar(true);
             setBottomNavVisibility(true);
-            initGameSingleMode();
-            initBiddingUi();
-
-            gameBiddingHistory.setFirstPlayer(gameController.getPlayers().get("East"));//todo
-            gameBiddingHistory.addFakeAuction();
-
-            gameBiddingHistory.updateBiddingHistory();
-            gameBidding.applyAuctionRules(gameBiddingHistory);
+            initGame();
         }
     }
 }
