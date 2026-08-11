@@ -31,19 +31,25 @@ public class SingleBidding {
     }
 
     public void start() {
+        // 1. Reset PBN and set basic info
         activity.getPbnCollection().getPbn().initNewGame();
+        activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
+        
         Game game = new Game();
 
-        // Random dealer
+        // 2. Random dealer
         Direction[] dirs = Direction.values();
         Direction dealerDir = dirs[(int) (Math.random() * 4)];
         game.dealer = dealerDir;
+        
+        // 3. Sync PBN Dealer (Crucial for correct JSON export alignment)
+        activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
 
-        // Set bidding systems
+        // 4. Set bidding systems
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "PassOnly";
 
-        // Set hands
+        // 5. Set hands
         Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
         game.getDeal().put(Direction.N, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("North"))));
         game.getDeal().put(Direction.E, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("East"))));
@@ -52,7 +58,7 @@ public class SingleBidding {
 
         liveBiddingState = new BiddingState(game);
 
-        // Set first player in UI history
+        // 6. Set first player in UI history
         String firstPlayerName = "West";
         if (dealerDir == Direction.N) firstPlayerName = "North";
         else if (dealerDir == Direction.E) firstPlayerName = "East";
