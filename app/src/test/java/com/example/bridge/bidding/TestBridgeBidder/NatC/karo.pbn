@@ -74,7 +74,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 5"]
+[Event "NatC Deal diamond 6"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -87,7 +87,7 @@ Pass PASS 1D PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 6"]
+[Event "NatC Deal diamond 7"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -99,7 +99,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 6"]
+[Event "NatC Deal diamond 8"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -108,11 +108,10 @@ PASS PASS
 [Contract "3D"]
 [Auction "N"]
 1D PASS 2NT PASS
-3D PASS 3NT PASS
-PASS PASS
+3D PASS PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 7"]
+[Event "NatC diamond 9"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -124,7 +123,7 @@ PASS PASS
 5D Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 8"]
+[Event "NatC diamond 10"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -138,7 +137,7 @@ PASS PASS
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 9"]
+[Event "NatC diamond 11"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -150,7 +149,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 10"]
+[Event "NatC diamond 12"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -162,7 +161,7 @@ Pass Pass 1D Pass
 3C Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 11"]
+[Event "NatC diamond 13"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -175,7 +174,7 @@ Pass Pass 1D Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 12"]
+[Event "NatC diamond 14"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -188,7 +187,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 13"]
+[Event "NatC diamond 15"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -203,7 +202,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 14"]
+[Event "NatC diamond 16"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -218,7 +217,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 15"]
+[Event "NatC diamond 17"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
