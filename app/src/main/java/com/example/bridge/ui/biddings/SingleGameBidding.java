@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
+import com.example.bridge.R;
 import com.example.bridge.bidding.Tools.BiddingState;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallDetails;
@@ -34,6 +35,12 @@ public class SingleGameBidding {
         // 1. Ukrywamy kontrolki na start, aby gracz nie licytował poza kolejnością
         if (activity.getBiddingControlsOverlay() != null) {
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);
+        }
+
+        // 2. Ukrywamy wybór systemu licytacyjnego po rozpoczęciu gry
+        View selectionContainer = activity.findViewById(R.id.system_selection_container);
+        if (selectionContainer != null) {
+            selectionContainer.setVisibility(View.GONE);
         }
 
         Game game = new Game();

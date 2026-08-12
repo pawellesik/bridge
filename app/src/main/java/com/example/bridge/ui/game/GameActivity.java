@@ -363,6 +363,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBiddingHistory = new GameBiddingHistory(this);
         gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(gameBiddingHistory.getAuction());
         rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
+
+        // Uwidocznienie wyboru systemu przy inicjalizacji UI licytacji
+        View selectionContainer = findViewById(R.id.system_selection_container);
+        if (selectionContainer != null) {
+            selectionContainer.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupWindowInsets() {
