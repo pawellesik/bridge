@@ -78,13 +78,15 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(
                 shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4H"),
                 shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME)), id("RespondBid2NatC.secondBidToGame _4S"),
+                shows(Bid._5C, fit(), pairHighCardPoints(PAIR_MINOR_GAME)), id("RespondBid2NatC.secondBidToGame _5C"),
+                shows(Bid._5D, fit(), pairHighCardPoints(PAIR_MINOR_GAME)), id("RespondBid2NatC.secondBidToGame _5D"),
 
                 shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.secondBidToGame _3S")),
                 shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.secondBidToGame _3H")),
                 shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3S")),
                 shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3H")),
 
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3NT")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGame _3NT")),
                 shows(Call.PASS), id("RespondBid2NatC.secondBidToGame PASS"));
 
         choices.addRules(CompeteNatC::compBids);
