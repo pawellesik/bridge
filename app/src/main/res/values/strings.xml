@@ -93,4 +93,5 @@
     <string name="history_col_my">We</string>
     <string name="history_col_opps">They</string>
     <string name="history_col_imp">Imp</string>
+    <string name="filter_mode_all">Mode</string>
 </resources>

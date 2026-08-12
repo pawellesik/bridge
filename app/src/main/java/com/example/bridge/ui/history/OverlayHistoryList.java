@@ -115,7 +115,11 @@ public class OverlayHistoryList {
         resultAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerResult.setAdapter(resultAdapter);
 
-        String[] modeOptions = { "Mode", "Just Declare", "Single Player" };
+        String[] modeOptions = {
+                activity.getString(R.string.filter_mode_all),
+                activity.getString(R.string.quick_game),
+                activity.getString(R.string.single_player)
+        };
         ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, modeOptions);
         modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMode.setAdapter(modeAdapter);
