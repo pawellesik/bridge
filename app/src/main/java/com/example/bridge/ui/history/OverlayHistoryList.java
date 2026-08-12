@@ -149,11 +149,17 @@ public class OverlayHistoryList {
             try {
                 if (onlySaved && !gameWrapper.optBoolean("isFavorite", false)) continue;
 
-                // Mode filter
+                // Mode filter (index 0 is "All")
                 if (selectedModeIdx > 0) {
-                    String gameMode = gameWrapper.optString("gameMode", "");
-                    if (selectedModeIdx == 1 && !gameMode.equalsIgnoreCase("Quick Game")) continue;
-                    if (selectedModeIdx == 2 && !gameMode.equalsIgnoreCase("Single Player")) continue;
+                    String modeInRecord = gameWrapper.optString("gameMode", "");
+                    
+                    // Jeśli rekord jest stary i nie ma zapisanego trybu, traktujemy go jako Quick Game
+                    if (modeInRecord.isEmpty() || modeInRecord.equals("Unknown") || modeInRecord.equals("null")) {
+                        modeInRecord = "quick";
+                    }
+
+                    if (selectedModeIdx == 1 && !modeInRecord.equalsIgnoreCase("quick")) continue;
+                    if (selectedModeIdx == 2 && !modeInRecord.equalsIgnoreCase("single")) continue;
                 }
 
                 JSONObject game = gameWrapper.has("data") ? gameWrapper.getJSONObject("data") : gameWrapper;
