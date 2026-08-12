@@ -13,6 +13,7 @@ import java.util.List;
 public class CompeteNatC extends NatC {
 
     public static Iterable<CallFeature> compBids(PositionState ps) {
+        Bid partnerBid = ps.getPartner().getBid();
 
         List<CallFeature> bids = new ArrayList<>();
         bids.add(shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _4H")));
@@ -31,15 +32,11 @@ public class CompeteNatC extends NatC {
 
         bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids PAIR_BALANCED _3NT")));
 
-        Bid partnerBid = ps.getPartner().getBid();
         if (partnerBid != null && partnerBid.getSuit() != null) {
             bids.add(shows(Bid._3NT, PAIR_BALANCED, secondSuit(partnerBid.getSuit(), 5), pairHighCardPoints(PAIR_GAME_INVITE), id("CompeteNatC.compBids PAIR_BALANCED _3NT")));
         }
 
-        Call partnerLastCall = ps.getPartner().getLastCall();
-        boolean partnerBidMajorGame = Bid._4H.equals(partnerLastCall) || Bid._4S.equals(partnerLastCall);
-
-        if (!partnerBidMajorGame) {
+        if (!Bid._4H.equals(partnerBid) || Bid._4S.equals(partnerBid)) {
             bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5C")));
             bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5D")));
 
@@ -47,7 +44,7 @@ public class CompeteNatC extends NatC {
             bids.add(shows(Bid._5D, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _5D")));
         }
 
-        if (partnerBidMajorGame) {
+        if (Bid._4H.equals(partnerBid) || Bid._4S.equals(partnerBid)) {
             for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
                 bids.add(cf);
             }
