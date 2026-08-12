@@ -64,6 +64,10 @@ public class RespondBid2NatC extends RespondNatC {
         bids.add(shows(Bid._2S, noFit(), IS_REBID, shape(6,10), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _2S")));
         bids.add(shows(Bid._2H, noFit(), IS_REBID, shape(6,10), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _2H")));
 
+        bids.add(shows(Bid._3C, noFit(), IS_REBID, shape(6,10), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _3C")));
+        bids.add(shows(Bid._3D, noFit(), IS_REBID, shape(6,10), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBid _3D")));
+
+
         for (CallFeature cf : CompeteNatC.compBids(ps)) {
             bids.add(cf);
         }
