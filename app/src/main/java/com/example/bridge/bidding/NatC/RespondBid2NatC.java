@@ -20,6 +20,9 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _4H")),
                 shows(Bid._3NT, othersAtLeast(3), partnerLastSuitShape(0, 3), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
                 shows(Bid._3NT, othersAtLeast(3), partnerLastSuitShape(0, 1), pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.responderClubJumpMinorChangeMajor _3NT")),
+                shows(Bid._4S, GOOD_PLUS_SUIT, shape(3,3), partner(isLastBid(Bid._3S)), pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.responderClubJumpMinorChangeMajor GOOD_PLUS_SUIT _4S")),
+                shows(Bid._4H, GOOD_PLUS_SUIT, shape(3,3), partner(isLastBid(Bid._3H)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.responderClubJumpMinorChangeMajor GOOD_PLUS_SUIT _4H")),
+
                 shows(Call.PASS)
         );
         choices.addRules(CompeteNatC::compBids);
