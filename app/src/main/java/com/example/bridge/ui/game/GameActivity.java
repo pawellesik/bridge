@@ -362,6 +362,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
         gameBiddingHistory = new GameBiddingHistory(this);
         gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(gameBiddingHistory.getAuction());
+        gameBiddingHistoryAdapter.setShowPreviewTile(false); // Ukrywamy pusty kwadrat przed startem
         rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
 
         // Uwidocznienie wyboru systemu przy inicjalizacji UI licytacji

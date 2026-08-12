@@ -59,10 +59,11 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             String bid = bids.get(position);
             holder.bind(bid, false, false, layoutId);
         } else {
-            // To jest kafelek "następny" (preview/turn indicator)
-            // Pokazujemy żółte podświetlenie tylko jeśli jest kolej South (użytkownika)
-            boolean isSouthTurn = (position % 4 == 3);
-            holder.bind(previewSelection, true, highlightLast && isSouthTurn, layoutId);
+            // Kafelek podglądu (następny ruch)
+            // W trybie Singleplayer highlightLast jest sterowane przez SingleGameBidding
+            // i powinno być widoczne tylko gdy kolej South (kolumna 3)
+            boolean isSouthColumn = (position % 4 == 3);
+            holder.bind(previewSelection, true, highlightLast && isSouthColumn, layoutId);
         }
     }
 

@@ -78,7 +78,8 @@ public class SingleGameBidding {
         activity.getGameBiddingHistory().setFirstPlayer(activity.getGameController().getPlayers().get(firstPlayerName));
         activity.getGameBiddingHistory().getAuction().clear();
         
-        // Inicjalizacja widoku bez żółtego podświetlenia (pokaże się w handleNextTurn)
+        // Pokazujemy kafelki licytacji dopiero teraz
+        activity.getGameBiddingHistoryAdapter().setShowPreviewTile(true);
         activity.getGameBiddingHistoryAdapter().setHighlightLast(false);
         activity.getGameBiddingHistory().updateBiddingHistory();
 
@@ -92,23 +93,27 @@ public class SingleGameBidding {
 
         if (nextToAct == Direction.S) {
             // Human turn (South)
-            activity.getGameBiddingHistoryAdapter().setHighlightLast(true);
-            activity.getGameBiddingHistory().updateBiddingHistory();
-            
-            activity.getGameBidding().applyAuctionRules(activity.getGameBiddingHistory());
-            if (activity.getBiddingControlsOverlay() != null) {
-                activity.getBiddingControlsOverlay().setVisibility(View.VISIBLE);
-            }
+            activity.runOnUiThread(() -> {
+                activity.getGameBiddingHistoryAdapter().setHighlightLast(true);
+                activity.getGameBiddingHistory().updateBiddingHistory();
+                
+                activity.getGameBidding().applyAuctionRules(activity.getGameBiddingHistory());
+                if (activity.getBiddingControlsOverlay() != null) {
+                    activity.getBiddingControlsOverlay().setVisibility(View.VISIBLE);
+                }
+            });
             return;
         }
 
         // Robot turn
-        activity.getGameBiddingHistoryAdapter().setHighlightLast(false);
-        activity.getGameBiddingHistory().updateBiddingHistory();
+        activity.runOnUiThread(() -> {
+            activity.getGameBiddingHistoryAdapter().setHighlightLast(false);
+            activity.getGameBiddingHistory().updateBiddingHistory();
 
-        if (activity.getBiddingControlsOverlay() != null) {
-            activity.getBiddingControlsOverlay().setVisibility(View.GONE);
-        }
+            if (activity.getBiddingControlsOverlay() != null) {
+                activity.getBiddingControlsOverlay().setVisibility(View.GONE);
+            }
+        });
 
         handler.postDelayed(() -> {
             PositionCalls choices = liveBiddingState.getCallChoices();
