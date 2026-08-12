@@ -22,7 +22,7 @@ public class NatC extends Bidder implements IBiddingSystem {
     public static final Range PAIR_GAME_INVITE = new Range(23, 24);
     public static final Range PAIR_GAME = new Range(25, 31);
     public static final Range PAIR_MINOR_GAME = new Range(27, 31);
-    public static final Range PAIR_LOW_GAME = new Range(19, 24);
+    public static final Range PAIR_LOW_GAME = new Range(16, 24);
 
 }
 
