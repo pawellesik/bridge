@@ -29,8 +29,8 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3C, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("CompeteNatC.compBids _3C")));
         bids.add(shows(Bid._3D, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("CompeteNatC.compBids _3D")));
 
-        bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _3NT")));
-        bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME_INVITE), id("CompeteNatC.compBids _3NT")));
+        bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids PAIR_BALANCED _3NT")));
+        bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME_INVITE), id("CompeteNatC.compBids PAIR_BALANCED _3NT")));
 
         Call partnerLastCall = ps.getPartner().getLastCall();
         boolean partnerBidMajorGame = Bid._4H.equals(partnerLastCall) || Bid._4S.equals(partnerLastCall);
