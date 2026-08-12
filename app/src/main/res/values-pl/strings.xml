@@ -27,10 +27,10 @@
     <string name="card_colors_standard">2 Kolory (Standardowe)</string>
     <string name="about">O aplikacji</string>
     <string name="quit">Wyjdź</string>
-    <string name="player_north">Północ</string>
-    <string name="player_south">Południe</string>
-    <string name="player_east">Wschód</string>
-    <string name="player_west">Zachód</string>
+    <string name="player_north">North</string>
+    <string name="player_south">South</string>
+    <string name="player_east">East</string>
+    <string name="player_west">West</string>
     <string name="suit_desc">Kolor</string>
     <string name="Start">Rozegraj</string>
     <string name="deal">Rozdaj Karty</string>
@@ -52,8 +52,8 @@
     <string name="delete_confirm_message">Czy na pewno chcesz trwale usunąć to rozdanie z historii? Tej operacji nie można cofnąć!</string>
     <string name="result_label">Wynik: %1$d</string>
     <string name="score_label">PUNKTY:</string>
-    <string name="we_label">ZW: %1$d</string>
-    <string name="sn_label">PP: %1$d</string>
+    <string name="we_label">WE: %1$d</string>
+    <string name="sn_label">SN: %1$d</string>
     <string name="claimed_tricks_label">Płn. Płd. wzięli</string>
     <string name="claimed_tricks_count">%1$d lewy.</string>
     <string name="claimed_trick_count">%1$d lewę.</string>
