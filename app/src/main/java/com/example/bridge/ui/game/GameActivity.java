@@ -730,23 +730,22 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             
             // 2. Zapis do bazy i przejście do historii
             overlayHistoryList.saveGameToHistory(this, jsonExport, firstId -> {
-                // To wywoła się na UI Thread dzięki runOnUiThread w OverlayHistoryList
                 if (firstId != -1 && overlayHistoryGame != null) {
-                    overlayHistoryGame.showGame(firstId);
-                }
-                
-                // Ukrywamy loading dopiero gdy nakładka historii jest gotowa (showGame sama ustawi widoczność root)
-                if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
+                    overlayHistoryGame.showGame(firstId, () -> {
+                        // Ten callback wywoła się dopiero gdy historia jest widoczna i załadowana
+                        if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
 
-                // 3. W tle inicjujemy nową grę, aby po zamknięciu historii stół był gotowy
-                if ("quick".equals(gameMode)) {
-                    onVisibleStartBar(true);
-                    setBottomNavVisibility(true);
-                    initGameQiuckMode();
-                } else if ("single".equals(gameMode)) {
-                    onVisibleStartBar(true);
-                    setBottomNavVisibility(true);
-                    initGameSingleMode();
+                        // 3. Dopiero teraz (gdy historia zasłania stół) przygotowujemy nową grę
+                        if ("quick".equals(gameMode)) {
+                            onVisibleStartBar(true);
+                            setBottomNavVisibility(true);
+                            initGameQiuckMode();
+                        } else if ("single".equals(gameMode)) {
+                            onVisibleStartBar(true);
+                            setBottomNavVisibility(true);
+                            initGameSingleMode();
+                        }
+                    });
                 }
             });
         }

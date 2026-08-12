@@ -12,6 +12,10 @@ import java.util.ArrayList;
 
 public class OverlayHistoryGame {
 
+    public interface OnUIReadyListener {
+        void onReady();
+    }
+
     private final GameActivity activity;
     private final View root;
     private final List<Pbn> reconstructedPbnList = new ArrayList<>();
@@ -42,8 +46,12 @@ public class OverlayHistoryGame {
     }
 
     public void showGame(int dbId) {
+        showGame(dbId, null);
+    }
+
+    public void showGame(int dbId, OnUIReadyListener listener) {
         if (root == null) return;
-        loadGameData(dbId);
+        loadGameData(dbId, listener);
     }
 
     public void hide() {
@@ -65,14 +73,13 @@ public class OverlayHistoryGame {
         if (tableContent != null) tableContent.removeAllViews();
     }
 
-    private void loadGameData(int dbId) {
+    private void loadGameData(int dbId, OnUIReadyListener listener) {
         new Thread(() -> {
             try {
                 List<GameRecord> records = com.example.bridge.core.db.AppDatabase.getInstance(activity).gameDao().getGamesByDealId(dbId);
                 List<Pbn> loadedPbns = new ArrayList<>();
                 if (records != null) {
                     for (GameRecord record : records) {
-                        android.util.Log.d("plesik", record.gameData.toString());
                         Pbn pbn = new Pbn(activity, record.system);
                         pbn.loadFromJsonObject(new JSONObject(record.gameData));
                         loadedPbns.add(pbn);
@@ -96,6 +103,10 @@ public class OverlayHistoryGame {
                     }
                     updateUi();
                     root.setVisibility(View.VISIBLE);
+                    
+                    if (listener != null) {
+                        listener.onReady();
+                    }
                 });
             } catch (Exception e) {
                 android.util.Log.e("plesik", "Error loading game data", e);
@@ -105,10 +116,7 @@ public class OverlayHistoryGame {
 
     public void updateUi() {
         if (root == null) return;
-        
-        // Bezpośrednie odświeżenie detali (karty i licytacja)
         updateSelectedGameDetails();
-
         android.widget.LinearLayout tableContent = root.findViewById(R.id.table_history_content_history);
         if (tableContent != null) {
             tableContent.removeAllViews();
@@ -120,21 +128,17 @@ public class OverlayHistoryGame {
                 View row = inflater.inflate(R.layout.item_history_row, tableContent, false);
                 if (!pbn.equals(selectedPbn)) row.setSelected(index % 2 != 0);
                 index++;
-
                 setupRow(row, pbn);
-                
                 if (pbn == selectedPbn) {
                     row.setActivated(true);
                     selectedRowView = row;
                 }
-                
                 row.setOnClickListener(v -> {
                     selectedPbn = pbn;
                     updateUi();
                 });
                 tableContent.addView(row);
             }
-
             if (selectedRowView != null) {
                 View finalRow = selectedRowView;
                 androidx.core.widget.NestedScrollView scrollView = root.findViewById(R.id.scroll_history_history);
