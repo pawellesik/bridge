@@ -197,7 +197,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         });
 
-
         btnClaim.setOnClickListener(v -> {
             if (isProcessingMove) return;
             isProcessingMove = true;
@@ -236,8 +235,46 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             }
         });
 
+        setupSystemSelectionListeners();
+
         gameMode = getIntent().getStringExtra("GAME_MODE");
         initGame();
+    }
+
+    private void setupSystemSelectionListeners() {
+        View cardWj = findViewById(R.id.system_wj);
+        View cardSayc = findViewById(R.id.system_sayc);
+        View cardNatc = findViewById(R.id.system_natc);
+
+        if (cardWj == null) return;
+
+        View.OnClickListener listener = v -> {
+            resetSystemSelection();
+            v.setBackgroundResource(R.drawable.bg_system_card_selected);
+            int checkId = -1;
+            int vid = v.getId();
+            if (vid == R.id.system_wj) checkId = R.id.iv_wj_check;
+            else if (vid == R.id.system_sayc) checkId = R.id.iv_sayc_check;
+            else if (vid == R.id.system_natc) checkId = R.id.iv_natc_check;
+            
+            View check = findViewById(checkId);
+            if (check != null) check.setVisibility(View.VISIBLE);
+        };
+
+        cardWj.setOnClickListener(listener);
+        cardSayc.setOnClickListener(listener);
+        cardNatc.setOnClickListener(listener);
+    }
+
+    private void resetSystemSelection() {
+        int[] cardIds = {R.id.system_wj, R.id.system_sayc, R.id.system_natc};
+        int[] checkIds = {R.id.iv_wj_check, R.id.iv_sayc_check, R.id.iv_natc_check};
+        for (int i = 0; i < cardIds.length; i++) {
+            View card = findViewById(cardIds[i]);
+            if (card != null) card.setBackgroundResource(R.drawable.bg_system_card_unselected);
+            View check = findViewById(checkIds[i]);
+            if (check != null) check.setVisibility(View.GONE);
+        }
     }
 
     public View getSettingsOverlay() {
