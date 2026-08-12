@@ -165,8 +165,8 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3C, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3C")),
                 shows(Bid._3D, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3D")),
 
-                shows(Bid._3C, twoSuiter(5), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3C")),
-                shows(Bid._3D, twoSuiter(5), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3D")),
+                shows(Bid._3C, twoSuiter(5), shape(5,10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3C")),
+                shows(Bid._3D, twoSuiter(5), shape(5,10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3D")),
 
                 shows(Bid._3D, shape(7, 10), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits IS_ANY_JUMP fit _3D")),
 
@@ -175,6 +175,8 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._2C, DECENT_PLUS_SUIT, shape(5, 10), id("OpenBid2NatC.responderChangedSuits _2C")),
                 shows(Bid._2D, DECENT_PLUS_SUIT, shape(5, 10), id("OpenBid2NatC.responderChangedSuits _2D")),
+
+                shows(Bid._3C, shape(5,10), partner(isLastBid(Bid._2NT)), id("OpenBid2NatC.responderChangedSuits twoSuiter _3C")),
 
                 shows(Bid._3D, noFit(), DECENT_PLUS_SUIT, shape(6, 10), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderChangedSuits _3D"))
         );

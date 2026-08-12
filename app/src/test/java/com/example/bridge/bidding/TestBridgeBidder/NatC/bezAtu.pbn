@@ -212,3 +212,16 @@ Pass Pass
 4C Pass 4H Pass
 4S Pass 5C Pass
 6NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC bezAtu 18"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K3.Q86.975.AKQ32 AQ86.J7.JT42.T96 J74.AT42.AK83.J4 T952.K953.Q6.J85"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1C Pass 2NT Pass
+3C Pass 3NT Pass
+Pass Pass
