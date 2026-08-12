@@ -262,18 +262,20 @@ public abstract class Bidder {
                 boolean partnerHasSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
                 
                 if (!partnerHasSuit) {
-                    Range quality = hs.getSuits().get(suit).getQuality();
                     int count = hs.getSuits().get(suit).getShape().getMin();
-                    
-                    // Akceptujemy kolor jeśli:
-                    // 1. Jest przyzwoitej jakości (Decent+)
-                    // 2. LUB mamy w nim min 3 karty (uznajemy, że to wystarczy do BALANCED)
-                    if (quality.getMax() < SuitQuality.Decent.ordinal() && 
-                        count < 3) {
-                        return false; 
-                    }
-                    
+                    int hcpSuit = hs.getSuits().get(suit).getHighCardPoints().getMin();
+
                     if (count == 0) return false; // Renons wyklucza zrównoważenie
+                    
+                    // Nowe warunki jakości koloru dla ręki zrównoważonej:
+                    // Singleton musi być asem (4 HCP)
+                    if (count == 1 && hcpSuit < 4) return false;
+                    // Dubleton musi mieć min. króla (3 HCP)
+                    if (count == 2 && hcpSuit < 3) return false;
+                    // Trójka musi mieć min. damę (2 HCP)
+                    if (count == 3 && hcpSuit < 2) return false;
+                    // Czwórka musi mieć min. waleta (1 HCP)
+                    if (count == 4 && hcpSuit < 1) return false;
                 }
             }
             return true;

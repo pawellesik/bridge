@@ -76,6 +76,7 @@ public class HandEvaluator {
             for (Suit suit : Suit.values()) {
                 int dp = hcp + audreyDummyPoints(hand, suit);
                 int c = counts.get(suit);
+                int hcpSuit = hand.highCardPoints(suit);
                 SuitQuality q = quality(hand, suit);
                 int ltc = hand.losers(suit);
                 
@@ -84,6 +85,7 @@ public class HandEvaluator {
                 suitShow.showDummyPoints(dp, dp);
                 suitShow.showLongHandPoints(startPoints, startPoints);
                 suitShow.showQuality(q, q);
+                suitShow.showHighCardPoints(hcpSuit, hcpSuit);
                 suitShow.showLosers(ltc, ltc);
                 
                 int keyCards = (int) countAces;

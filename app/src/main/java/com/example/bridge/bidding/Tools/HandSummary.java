@@ -97,6 +97,10 @@ public class HandSummary extends State {
                 suitSummary.quality = combineRange(suitSummary.quality, new Range(min.ordinal(), max.ordinal()), CombineRule.Show);
             }
 
+            public void showHighCardPoints(int min, int max) {
+                suitSummary.highCardPoints = combineRange(suitSummary.highCardPoints, new Range(min, max), CombineRule.Show);
+            }
+
             public void showLosers(int min, int max) {
                 suitSummary.losers = combineRange(suitSummary.losers, new Range(min, max), CombineRule.Show);
             }
@@ -130,6 +134,7 @@ public class HandSummary extends State {
         private Range dummyPoints;
         private Range longHandPoints;
         private Range quality;
+        private Range highCardPoints;
         private Range losers;
         private Set<Integer> keyCards;
         private Boolean haveQueen;
@@ -145,6 +150,7 @@ public class HandSummary extends State {
             this.dummyPoints = other.dummyPoints;
             this.longHandPoints = other.longHandPoints;
             this.quality = other.quality;
+            this.highCardPoints = other.highCardPoints;
             this.losers = other.losers;
             this.keyCards = other.keyCards != null ? new HashSet<>(other.keyCards) : null;
             this.haveQueen = other.haveQueen;
@@ -195,6 +201,7 @@ public class HandSummary extends State {
             this.dummyPoints = combineRange(this.dummyPoints, other.dummyPoints, cr);
             this.longHandPoints = combineRange(this.longHandPoints, other.longHandPoints, cr);
             this.quality = combineRange(this.quality, other.quality, cr);
+            this.highCardPoints = combineRange(this.highCardPoints, other.highCardPoints, cr);
             this.losers = combineRange(this.losers, other.losers, cr);
             this.haveQueen = combineBool(this.haveQueen, other.haveQueen, cr);
             this.stopped = combineBool(this.stopped, other.stopped, cr);
@@ -210,6 +217,10 @@ public class HandSummary extends State {
 
         public Range getQuality() {
             return quality != null ? quality : new Range(SuitQuality.Poor.ordinal(), SuitQuality.Solid.ordinal());
+        }
+
+        public Range getHighCardPoints() {
+            return highCardPoints != null ? highCardPoints : new Range(0, 10);
         }
 
         public void trimShape(int claimed) {
