@@ -28,7 +28,7 @@ public class NoTrumpNatC extends Bidder {
             OR.dontAcceptInvite = highCardPoints(15, 15);
             OR.acceptInvite = highCardPoints(16, 17);
 
-            RR.lessThanInvite = highCardPoints(0, 6);
+            RR.lessThanInvite = highCardPoints(0, 7);
             RR.inviteGame = highCardPoints(8, 9);
             RR.gameOrBetter = highCardPoints(10, 40);
             RR.inviteSlam = highCardPoints(16, 17);
@@ -85,6 +85,9 @@ public class NoTrumpNatC extends Bidder {
 
             bids.add(shows(Bid._3C, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 3C")));
             bids.add(shows(Bid._3D, GOOD_PLUS_SUIT, shape(5, 11), ntd.RR.gameOrBetter, id("NoTrumpNatC.Natural1NTNatC 3D")));
+
+            bids.add(shows(Bid._2H, DECENT_PLUS_SUIT, shape(7, 11), ntd.RR.lessThanInvite, id("NoTrumpNatC.Natural1NTNatC 2H")));
+            bids.add(shows(Bid._2S, DECENT_PLUS_SUIT, shape(7, 11), ntd.RR.lessThanInvite, id("NoTrumpNatC.Natural1NTNatC 2S")));
 
             bids.add(shows(Bid._2H, DECENT_PLUS_SUIT, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2H")));
             bids.add(shows(Bid._2S, DECENT_PLUS_SUIT, shape(5, 11), ntd.RR.inviteGame, id("NoTrumpNatC.Natural1NTNatC 2S")));
