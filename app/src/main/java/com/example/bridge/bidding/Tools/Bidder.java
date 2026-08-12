@@ -272,10 +272,9 @@ public abstract class Bidder {
                     if (count == 1 && hcpSuit < 4) return false;
                     // Dubleton musi mieć min. króla (3 HCP)
                     if (count == 2 && hcpSuit < 3) return false;
-                    // Trójka musi mieć min. damę (2 HCP)
-                    if (count == 3 && hcpSuit < 2) return false;
-                    // Czwórka musi mieć min. waleta (1 HCP)
-                    if (count == 4 && hcpSuit < 1) return false;
+                    // Trójka musi mieć min. waleta (1 HCP)
+                    if (count == 3 && hcpSuit < 1) return false;
+                    // Czwórka i więcej - akceptujemy zawsze
                 }
             }
             return true;
