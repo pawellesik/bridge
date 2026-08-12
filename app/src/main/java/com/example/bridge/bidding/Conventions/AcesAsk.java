@@ -36,7 +36,7 @@ public class AcesAsk extends Bidder {
     private static Suit getAgreedSuit(PositionState ps) {
         Suit trump = ps.getPairState().getTrumpSuit();
         if (trump != null) return trump;
-        return ps.getPairState().getLastShownSuit();
+        return null;
     }
 
     public static Iterable<CallFeature> initiateConventionBlok(PositionState ps) {
