@@ -61,7 +61,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             String contractStr = data.optString("Contract", "PASS");
             int snTricks = data.optInt("Result", 0);
-            int points = data.optInt("points", 0); // Might not be in Pbn yet
+            int imp = data.optInt("Imp", 0);
 
             if (contractStr.toUpperCase().contains("PASS")) {
                 holder.tvContract.setText(R.string.contract_pass);
@@ -131,12 +131,12 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                 }
             }
 
-            // Points display
-            if (points != 0) {
-                holder.tvPoints.setText((points > 0 ? "+" : "") + points);
-                holder.tvPoints.setTextColor(points > 0 ? android.graphics.Color.parseColor("#FFD700") : android.graphics.Color.parseColor("#FF5252"));
+            // IMP display
+            if (imp != 0) {
+                holder.tvPoints.setText((imp > 0 ? "+" : "") + imp + " IMP");
+                holder.tvPoints.setTextColor(imp > 0 ? android.graphics.Color.parseColor("#4CAF50") : android.graphics.Color.parseColor("#FF5252"));
             } else {
-                holder.tvPoints.setText("0");
+                holder.tvPoints.setText("0 IMP");
                 holder.tvPoints.setTextColor(android.graphics.Color.WHITE);
             }
 
