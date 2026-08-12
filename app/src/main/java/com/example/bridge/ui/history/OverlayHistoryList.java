@@ -219,12 +219,17 @@ public class OverlayHistoryList {
     }
 
 
-    public void saveGameToHistory(Context context, String gameJson) {
+    public interface OnGameSavedListener {
+        void onSaved(int firstId);
+    }
+
+    public void saveGameToHistory(Context context, String gameJson, OnGameSavedListener listener) {
         new Thread(() -> {
             try {
                 JSONArray batch = new JSONArray(gameJson);
                 long now = System.currentTimeMillis();
                 AppDatabase db = AppDatabase.getInstance(context);
+                int firstId = -1;
 
                 for (int i = 0; i < batch.length(); i++) {
                     JSONObject obj = batch.getJSONObject(i);
@@ -240,7 +245,13 @@ public class OverlayHistoryList {
                     }
                     record.isFavorite = false;
 
-                    db.gameDao().insert(record);
+                    long id = db.gameDao().insert(record);
+                    if (i == 0) firstId = (int) id;
+                }
+
+                if (listener != null) {
+                    int finalFirstId = firstId;
+                    activity.runOnUiThread(() -> listener.onSaved(finalFirstId));
                 }
             } catch (Exception e) {
                 android.util.Log.e("plesik", "Błąd podczas zapisu historii: " + e.getMessage(), e);

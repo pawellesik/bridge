@@ -709,6 +709,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
+        // 1. Natychmiastowe pokazanie ładowania na UI thread
+        if (loadingIndicator != null) {
+            loadingIndicator.bringToFront();
+            loadingIndicator.setVisibility(View.VISIBLE);
+        }
+
         if (pbnCollection != null) {
             String decl = pbnCollection.getPbn().getDeclarer();
             if ("West".equals(decl) || "East".equals(decl)) {
@@ -717,25 +723,32 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                 pbnCollection.getPbn().setResult(snScore);
             }
             pbnCollection.getPbn().setPlayHistory(history);
-
             pbnCollection.getPbn().calculateAndSetScore();
-
             pbnCollection.calculateAllImps();
 
             String jsonExport = pbnCollection.generateJsonExport();
-            android.util.Log.d("plesik", jsonExport);
-            overlayHistoryList.saveGameToHistory(this, jsonExport);
-        }
+            
+            // 2. Zapis do bazy i przejście do historii
+            overlayHistoryList.saveGameToHistory(this, jsonExport, firstId -> {
+                // To wywoła się na UI Thread dzięki runOnUiThread w OverlayHistoryList
+                if (firstId != -1 && overlayHistoryGame != null) {
+                    overlayHistoryGame.showGame(firstId);
+                }
+                
+                // Ukrywamy loading dopiero gdy nakładka historii jest gotowa (showGame sama ustawi widoczność root)
+                if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
 
-        if ("quick".equals(gameMode)) {
-            onVisibleStartBar(true);
-            setBottomNavVisibility(true);
-            initGameQiuckMode();
-            //todo show result
-        } else if ("single".equals(gameMode)) {
-            onVisibleStartBar(true);
-            setBottomNavVisibility(true);
-            initGameSingleMode();
+                // 3. W tle inicjujemy nową grę, aby po zamknięciu historii stół był gotowy
+                if ("quick".equals(gameMode)) {
+                    onVisibleStartBar(true);
+                    setBottomNavVisibility(true);
+                    initGameQiuckMode();
+                } else if ("single".equals(gameMode)) {
+                    onVisibleStartBar(true);
+                    setBottomNavVisibility(true);
+                    initGameSingleMode();
+                }
+            });
         }
     }
 }
