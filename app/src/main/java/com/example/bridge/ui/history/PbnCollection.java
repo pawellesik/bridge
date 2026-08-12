@@ -65,7 +65,7 @@ public class PbnCollection {
 
     public void initQiuckPbn(){
         Map<String, List<Card>> hands = gameActivity.getGameController().getHandsMap();
-        pbn.initNewGame(hands);
+        pbn.initNewGame(hands, gameActivity.getGameMode());
 
         gameActivity.getGameController().calculateAndSetTheBestContract();
         Contract contract = gameActivity.getGameController().getCurrentContract();
@@ -95,24 +95,27 @@ public class PbnCollection {
     }
     public void initAllPbn() {
         Map<String, List<Card>> hands = gameActivity.getGameController().getHandsMap();
-        pbn.initNewGame(hands);
 
-        this.pbnNatC.initNewGame(hands);
+        String gameMode = gameActivity.getGameMode();
+
+        pbn.initNewGame(hands, gameMode);
+
+        this.pbnNatC.initNewGame(hands, gameMode);
         runBidding(pbnNatC, "N", "NatC");
 
-        this.pbnNatCRev.initNewGame(hands);
+        this.pbnNatCRev.initNewGame(hands, gameMode);
         runBidding(pbnNatCRev, "S", "NatC");
 
-        this.pbnLCStandard.initNewGame(hands);
+        this.pbnLCStandard.initNewGame(hands, gameMode);
         runBidding(pbnLCStandard, "N", "LC-Basic");
 
-        this.pbnLCStandardRev.initNewGame(hands);
+        this.pbnLCStandardRev.initNewGame(hands, gameMode);
         runBidding(pbnLCStandardRev, "S", "LC-Basic");
 
-        this.twoOverOneGameForce.initNewGame(hands);
+        this.twoOverOneGameForce.initNewGame(hands, gameMode);
         runBidding(twoOverOneGameForce, "S", "TwoOverOneGameForce");
 
-        this.twoOverOneGameForceRev.initNewGame(hands);
+        this.twoOverOneGameForceRev.initNewGame(hands, gameMode);
         runBidding(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
     }
 

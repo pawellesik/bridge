@@ -26,7 +26,7 @@ import java.util.Map;
 public class Pbn {
 
     private String event;
-    private String site = "Bridge App";
+    private String gameMode = "Bridge App";
     private String date;
     private String board = "1";
     private String west = "Robot";
@@ -54,11 +54,11 @@ public class Pbn {
         this.board = board;
     }
 
-    public void initNewGame(Map<String, List<Card>> hands) {
+    public void initNewGame(Map<String, List<Card>> hands, String gameMode) {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         this.event = timestamp;
         this.date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.US).format(new Date());
-        this.site = "Bridge App";
+        this.gameMode = gameMode != null ? gameMode : "Bridge App";
 
         this.initialHands = new java.util.HashMap<>();
         if (hands != null) {
@@ -75,6 +75,14 @@ public class Pbn {
 
     public void setEvent(String event) {
         this.event = event;
+    }
+
+    public void setGameMode(String gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public String getGameMode() {
+        return gameMode;
     }
 
     public Map<String, List<Card>> getInitialHands() {
@@ -106,9 +114,9 @@ public class Pbn {
         return auction;
     }
 
-    public void setMetadata(String event, String site, String board) {
+    public void setMetadata(String event, String gameMode, String board) {
         this.event = event;
-        this.site = site;
+        this.gameMode = gameMode;
         this.board = board;
     }
 
@@ -231,7 +239,7 @@ public class Pbn {
     public void loadFromJsonObject(JSONObject json) {
         try {
             this.event = json.optString("Event", event);
-            this.site = json.optString("Site", site);
+            this.gameMode = json.optString("GameMode", gameMode);
             this.date = json.optString("Date", date);
             this.board = json.optString("Board", board);
             this.west = json.optString("West", west);
@@ -336,7 +344,7 @@ public class Pbn {
         JSONObject json = new JSONObject();
         try {
             json.put("Event", event);
-            json.put("Site", site);
+            json.put("GameMode", gameMode);
             json.put("Date", date);
             json.put("Board", board);
             json.put("West", west);
@@ -382,7 +390,7 @@ public class Pbn {
 
         // Standard Tags
         sb.append(String.format(Locale.US, "[Event \"%s\"]\n", event));
-        sb.append(String.format(Locale.US, "[Site \"%s\"]\n", site));
+        sb.append(String.format(Locale.US, "[GameMode \"%s\"]\n", gameMode));
         sb.append(String.format(Locale.US, "[Date \"%s\"]\n", date));
         sb.append(String.format(Locale.US, "[Board \"%s\"]\n", board));
         sb.append(String.format(Locale.US, "[West \"%s\"]\n", west));

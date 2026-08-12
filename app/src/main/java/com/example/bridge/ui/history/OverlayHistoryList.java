@@ -74,7 +74,8 @@ public class OverlayHistoryList {
                     wrapper.put("system", record.system);
                     wrapper.put("data", gameData);
                     wrapper.put("isFavorite", record.isFavorite);
-                    wrapper.put("db_id", record.id); // Store ID for deletions/updates
+                    wrapper.put("db_id", record.id);
+                    wrapper.put("gameMode", record.gameMode);
                     loadedList.add(wrapper);
                 }
 
@@ -244,6 +245,7 @@ public class OverlayHistoryList {
                         record.gameData = obj.toString();
                     }
                     record.isFavorite = false;
+                    record.gameMode = data != null ? data.optString("GameMode", "Unknown") : "Unknown";
 
                     long id = db.gameDao().insert(record);
                     if (i == 0) firstId = (int) id;

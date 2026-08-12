@@ -12,4 +12,5 @@ public class GameRecord {
     public String system;    // "QuckGame", "NatC", etc.
     public String gameData;  // The game data JSON as String
     public boolean isFavorite;  // Is it marked as favorite
+    public String gameMode;   // "Quick Game" or "Single Player"
 }

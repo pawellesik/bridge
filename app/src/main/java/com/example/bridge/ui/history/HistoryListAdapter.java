@@ -58,6 +58,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             // Handle the {system: "...", data: {...}} wrapper if present
             JSONObject data = item.has("data") ? item.getJSONObject("data") : item;
             String systemName = item.optString("system", "");
+            String gameModeLabel = data.optString("GameMode", "");
 
             String contractStr = data.optString("Contract", "PASS");
             int snTricks = data.optInt("Result", 0);
@@ -65,12 +66,18 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             if (contractStr.toUpperCase().contains("PASS")) {
                 holder.tvContract.setText(R.string.contract_pass);
+                if (!gameModeLabel.isEmpty()) {
+                    holder.tvContract.setText(gameModeLabel + ": " + holder.tvContract.getText());
+                }
                 holder.tvContract.setTextColor(android.graphics.Color.BLACK);
                 holder.ivSuit.setVisibility(View.GONE);
                 holder.tvResultSymbol.setText("");
             } else {
                 String displayContract = contractStr;
-                if (!systemName.isEmpty()) {
+                if (!gameModeLabel.isEmpty()) {
+                    displayContract = gameModeLabel + ": " + contractStr;
+                }
+                else if (!systemName.isEmpty()) {
                     displayContract = systemName + ": " + contractStr;
                 }
                 
