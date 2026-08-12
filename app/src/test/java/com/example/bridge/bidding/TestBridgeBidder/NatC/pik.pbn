@@ -263,3 +263,15 @@ PASS PASS
 1C Pass 1S Pass
 2H Pass 2S Pass
 Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal pik 22"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKQT64.Q.8.A9432 J32.AKT.AJ5432.K 98.J52.KT96.QJ65 75.987643.Q7.T87"]
+[Declarer "N"]
+[Contract "4H"]
+[Auction "N"]
+1S Pass 1NT Pass
+2S Pass Pass Pass
