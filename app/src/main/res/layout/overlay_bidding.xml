@@ -88,7 +88,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginHorizontal="6dp"
-                android:src="@drawable/ic_history"
+                android:src="@drawable/ic_gavel"
                 app:tint="#1B2E1D" />
 
             <TextView
