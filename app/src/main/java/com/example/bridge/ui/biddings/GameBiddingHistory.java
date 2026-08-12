@@ -37,26 +37,6 @@ public class GameBiddingHistory {
         return count;
     }
 
-    public void addFakeAuction() {
-        auction.clear();
-        auction.add("Pass");
-        /*auction.add("1C");
-        auction.add("Pass");
-        auction.add("1H");
-        auction.add("Pass");
-        auction.add("1S");
-        auction.add("Pass");
-        auction.add("2NT");
-        auction.add("Pass");
-        auction.add("3C");
-        auction.add("Pass");
-        auction.add("3H");
-        auction.add("Pass");
-        auction.add("2NT");
-        auction.add("X");*/
-
-    }
-
     public void updateBiddingHistory() {
         updateBiddingHistory(null, true);
     }
