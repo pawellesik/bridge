@@ -54,11 +54,11 @@ public class AcesAsk extends Bidder {
         choices.addRules(
                 properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S, Bid._5NT}, AcesAsk::askKing, true),
 
-                shows(Bid._5C, aces(0)),
-                shows(Bid._5D, aces(1)),
-                shows(Bid._5H, aces(2)),
-                shows(Bid._5S, aces(3)),
-                shows(Bid._5NT, aces(4))
+                shows(Bid._5C, aces(0), id("respondCountAcesBlok 0")),
+                shows(Bid._5D, aces(1), id("respondCountAcesBlok 1")),
+                shows(Bid._5H, aces(2), id("respondCountAcesBlok 2")),
+                shows(Bid._5S, aces(3), id("respondCountAcesBlok 3")),
+                shows(Bid._5NT, aces(4), id("respondCountAcesBlok 4"))
         );
         return choices;
     }
@@ -68,11 +68,11 @@ public class AcesAsk extends Bidder {
         choices.addRules(
                 properties(new Call[]{Bid._4D, Bid._4H, Bid._4S, Bid._4NT, Bid._5C}, AcesAsk::askKing, true),
 
-                shows(Bid._4D, aces(0)),
-                shows(Bid._4H, aces(1)),
-                shows(Bid._4S, aces(2)),
-                shows(Bid._4NT, aces(3)),
-                shows(Bid._5C, aces(4))
+                shows(Bid._4D, aces(0), id("respondCountAces 0")),
+                shows(Bid._4H, aces(1), id("respondCountAces 1")),
+                shows(Bid._4S, aces(2), id("respondCountAces 2")),
+                shows(Bid._4NT, aces(3), id("respondCountAces 3")),
+                shows(Bid._5C, aces(4), id("respondCountAces 4"))
         );
         return choices;
 
@@ -85,33 +85,33 @@ public class AcesAsk extends Bidder {
         if (suit != null) {
             if (suit.isMinor()) {
                 choices.addRules(
-                        shows(new Bid(5, suit), pairAces(1)),
-                        shows(new Bid(5, suit), pairAces(2))
+                        shows(new Bid(5, suit), pairAces(1), id("askKing isMinor 1 5")),
+                        shows(new Bid(5, suit), pairAces(2), id("askKing isMinor 2 5"))
                 );
             } else if (suit.isMajor()) {
                 choices.addRules(
-                        shows(new Bid(4, suit), pairAces(1)),
-                        shows(new Bid(4, suit), pairAces(2)));
+                        shows(new Bid(4, suit), pairAces(1), id("askKing isMajor 1 4")),
+                        shows(new Bid(4, suit), pairAces(2), id("askKing isMajor 2 4")));
 
             }
             Bid bid = getNextBidWithoutTrump(partnerCall, suit);
             choices.addRules(
                     properties(bid, AcesAsk::respondKings, true),
-                    shows(bid, pairAces(3)),
-                    shows(bid, pairAces(4)));
+                    shows(bid, pairAces(3), id("askKing isMajor 3")),
+                    shows(bid, pairAces(4), id("askKing isMajor 4")));
 
-            choices.addRules(shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN));
+            choices.addRules(shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("askKing CONTRACT_IS_AGREED_STRAIN")));
             choices.addRules(shows(Call.PASS));
         } else {
             Bid bid = (Bid) Call.getNextCall(partnerCall);
             choices.addRules(
                     properties(bid, AcesAsk::respondKings, true),
-                    shows(Bid._4NT, pairAces(1)),
-                    shows(Bid._4NT, pairAces(2)),
-                    shows(Bid._5NT, pairAces(1)),
-                    shows(Bid._5NT, pairAces(2)),
-                    shows(bid, pairAces(3)),
-                    shows(bid, pairAces(4)));
+                    shows(Bid._4NT, pairAces(1), id("askKing 4NT 1")),
+                    shows(Bid._4NT, pairAces(2), id("askKing 4NT 2")),
+                    shows(Bid._5NT, pairAces(1), id("askKing 5NT 1")),
+                    shows(Bid._5NT, pairAces(2), id("askKing 5NT 2")),
+                    shows(bid, pairAces(3), id("askKing 3")),
+                    shows(bid, pairAces(4), id("askKing 4")));
 
             choices.addRules(shows(Call.PASS));
         }
@@ -130,11 +130,11 @@ public class AcesAsk extends Bidder {
 
         choices.addRules(
                 properties(new Call[]{call0Kings, call1Kings, call2Kings, call3Kings, call4Kings}, AcesAsk::tryGrandSlam, false),
-                shows(call0Kings, kings(0)),
-                shows(call1Kings, kings(1)),
-                shows(call2Kings, kings(2)),
-                shows(call3Kings, kings(3)),
-                shows(call4Kings, kings(4))
+                shows(call0Kings, kings(0), id("respondKings 0")),
+                shows(call1Kings, kings(1), id("respondKings 1")),
+                shows(call2Kings, kings(2), id("respondKings 2")),
+                shows(call3Kings, kings(3), id("respondKings 3")),
+                shows(call4Kings, kings(4), id("respondKings 4"))
         );
         return choices;
     }
@@ -159,11 +159,11 @@ public class AcesAsk extends Bidder {
 
         } else {
             choices.addRules(
-                    shows(Bid._7NT, pairHighCardPoints(GRAND_SLAM), pairAces(4), pairKings(3,4)),
-                    shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7)),
+                    shows(Bid._7NT, pairHighCardPoints(GRAND_SLAM), pairAces(4), pairKings(3, 4), id("AcesAsk tryGrandSlam 7NT")),
+                    shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7), id("AcesAsk tryGrandSlam 6NT")),
                     shows(Bid._5NT)
 
-                    );
+            );
         }
 
 
@@ -207,482 +207,4 @@ public class AcesAsk extends Bidder {
         }
         return (Bid) Call.PASS;
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
