@@ -29,6 +29,43 @@ public class SingleGameBidding {
 
     public SingleGameBidding(GameActivity activity) {
         this.activity = activity;
+        setupSystemSelectionListeners();
+    }
+
+    private void setupSystemSelectionListeners() {
+        View cardWj = activity.findViewById(R.id.system_wj);
+        View cardSayc = activity.findViewById(R.id.system_sayc);
+        View cardNatc = activity.findViewById(R.id.system_natc);
+
+        if (cardWj == null) return;
+
+        View.OnClickListener listener = v -> {
+            resetSystemSelection();
+            v.setBackgroundResource(R.drawable.bg_system_card_selected);
+            int checkId = -1;
+            int vid = v.getId();
+            if (vid == R.id.system_wj) checkId = R.id.iv_wj_check;
+            else if (vid == R.id.system_sayc) checkId = R.id.iv_sayc_check;
+            else if (vid == R.id.system_natc) checkId = R.id.iv_natc_check;
+
+            View check = activity.findViewById(checkId);
+            if (check != null) check.setVisibility(View.VISIBLE);
+        };
+
+        cardWj.setOnClickListener(listener);
+        cardSayc.setOnClickListener(listener);
+        cardNatc.setOnClickListener(listener);
+    }
+
+    private void resetSystemSelection() {
+        int[] cardIds = {R.id.system_wj, R.id.system_sayc, R.id.system_natc};
+        int[] checkIds = {R.id.iv_wj_check, R.id.iv_sayc_check, R.id.iv_natc_check};
+        for (int i = 0; i < cardIds.length; i++) {
+            View card = activity.findViewById(cardIds[i]);
+            if (card != null) card.setBackgroundResource(R.drawable.bg_system_card_unselected);
+            View check = activity.findViewById(checkIds[i]);
+            if (check != null) check.setVisibility(View.GONE);
+        }
     }
 
     public void start() {
