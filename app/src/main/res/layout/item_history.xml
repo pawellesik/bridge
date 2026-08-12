@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_history"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,16 +21,30 @@
         android:paddingVertical="2dp"
         android:paddingHorizontal="8dp">
 
+        <!-- Game Mode Icon -->
+        <ImageView
+            android:id="@+id/iv_history_game_mode"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:padding="2dp"
+            android:alpha="0.7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FFFFFF"
+            tools:src="@drawable/ic_arrow" />
+
         <!-- Compact Contract Container (White) -->
         <LinearLayout
             android:id="@+id/history_contract_container"
             android:layout_width="74dp"
             android:layout_height="22dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/bright_green_frame_black_sharp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_history_game_mode"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView

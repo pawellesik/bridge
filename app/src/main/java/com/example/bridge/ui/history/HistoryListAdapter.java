@@ -149,6 +149,15 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             holder.tvDate.setText(data.optString("Date", ""));
 
+            // Game Mode Icon
+            if (gameModeLabel.equalsIgnoreCase("quick")) {
+                holder.ivGameMode.setImageResource(R.drawable.ic_arrow);
+            } else if (gameModeLabel.equalsIgnoreCase("single")) {
+                holder.ivGameMode.setImageResource(R.drawable.ic_person);
+            } else {
+                holder.ivGameMode.setImageResource(R.drawable.ic_arrow); // Default
+            }
+
             boolean isFavorite = item.optBoolean("isFavorite", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
             card.setCardBackgroundColor(android.graphics.Color.parseColor("#122614"));
@@ -181,7 +190,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvContract, tvResultSymbol, tvPoints, tvDate;
-        ImageView ivSuit;
+        ImageView ivSuit, ivGameMode;
         ImageButton btnDelete, btnToggleSave;
 
         ViewHolder(View itemView) {
@@ -191,6 +200,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             tvPoints = itemView.findViewById(R.id.tv_history_points);
             tvDate = itemView.findViewById(R.id.tv_history_date);
             ivSuit = itemView.findViewById(R.id.iv_history_suit);
+            ivGameMode = itemView.findViewById(R.id.iv_history_game_mode);
             btnDelete = itemView.findViewById(R.id.btn_delete_history);
             btnToggleSave = itemView.findViewById(R.id.btn_toggle_save);
         }
