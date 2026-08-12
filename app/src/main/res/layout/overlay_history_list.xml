@@ -24,26 +24,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
-            android:id="@+id/spinner_result_filter_overlay"
+            android:id="@+id/spinner_mode_filter_overlay"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:background="@drawable/bg_spinner_settings"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/spinner_level_filter_overlay"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/spinner_level_filter_overlay"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="4dp"
             android:background="@drawable/bg_spinner_settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/spinner_suit_filter_overlay"
-            app:layout_constraintHorizontal_weight="0.8"
-            app:layout_constraintStart_toEndOf="@+id/spinner_result_filter_overlay"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
@@ -53,9 +41,33 @@
             android:layout_marginStart="4dp"
             android:background="@drawable/bg_spinner_settings"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cb_filter_saved_overlay"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_result_filter_overlay"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/spinner_level_filter_overlay"
+            app:layout_constraintStart_toEndOf="@+id/spinner_mode_filter_overlay"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner_result_filter_overlay"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/bg_spinner_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_level_filter_overlay"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/spinner_suit_filter_overlay"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner_level_filter_overlay"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/bg_spinner_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cb_filter_saved_overlay"
+            app:layout_constraintHorizontal_weight="0.8"
+            app:layout_constraintStart_toEndOf="@+id/spinner_result_filter_overlay"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.checkbox.MaterialCheckBox

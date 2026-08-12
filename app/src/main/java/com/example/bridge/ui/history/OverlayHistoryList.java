@@ -31,7 +31,7 @@ public class OverlayHistoryList {
     private final List<JSONObject> filteredList = new ArrayList<>();
     private TextView tvEmpty;
     private CheckBox cbOnlySaved;
-    private Spinner spinnerLevel, spinnerSuit, spinnerResult;
+    private Spinner spinnerLevel, spinnerSuit, spinnerResult, spinnerMode;
 
     public OverlayHistoryList(GameActivity activity) {
         this.activity = activity;
@@ -48,6 +48,7 @@ public class OverlayHistoryList {
         spinnerLevel = root.findViewById(R.id.spinner_level_filter_overlay);
         spinnerSuit = root.findViewById(R.id.spinner_suit_filter_overlay);
         spinnerResult = root.findViewById(R.id.spinner_result_filter_overlay);
+        spinnerMode = root.findViewById(R.id.spinner_mode_filter_overlay);
 
         if (rvHistory != null) {
             rvHistory.setLayoutManager(new LinearLayoutManager(activity));
@@ -91,7 +92,7 @@ public class OverlayHistoryList {
     }
 
     private void setupFilters() {
-        if (spinnerLevel == null || spinnerSuit == null || spinnerResult == null || cbOnlySaved == null) return;
+        if (spinnerLevel == null || spinnerSuit == null || spinnerResult == null || spinnerMode == null || cbOnlySaved == null) return;
 
         String[] levelOptions = { activity.getString(R.string.filter_level_all), "1", "2", "3", "4", "5", "6", "7" };
         ArrayAdapter<String> levelAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, levelOptions);
@@ -114,6 +115,11 @@ public class OverlayHistoryList {
         resultAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerResult.setAdapter(resultAdapter);
 
+        String[] modeOptions = { "Mode", "Just Declare", "Single Player" };
+        ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, modeOptions);
+        modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMode.setAdapter(modeAdapter);
+
         cbOnlySaved.setOnCheckedChangeListener((buttonView, isChecked) -> applyFilters());
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
@@ -124,6 +130,7 @@ public class OverlayHistoryList {
         spinnerLevel.setOnItemSelectedListener(listener);
         spinnerSuit.setOnItemSelectedListener(listener);
         spinnerResult.setOnItemSelectedListener(listener);
+        spinnerMode.setOnItemSelectedListener(listener);
     }
 
     private void applyFilters() {
@@ -132,10 +139,18 @@ public class OverlayHistoryList {
         int selectedLevelIdx = spinnerLevel.getSelectedItemPosition();
         int selectedSuitIdx = spinnerSuit.getSelectedItemPosition();
         int resultType = spinnerResult.getSelectedItemPosition();
+        int selectedModeIdx = spinnerMode.getSelectedItemPosition();
 
         for (JSONObject gameWrapper : fullHistoryList) {
             try {
                 if (onlySaved && !gameWrapper.optBoolean("isFavorite", false)) continue;
+
+                // Mode filter
+                if (selectedModeIdx > 0) {
+                    String gameMode = gameWrapper.optString("gameMode", "");
+                    if (selectedModeIdx == 1 && !gameMode.equalsIgnoreCase("Quick Game")) continue;
+                    if (selectedModeIdx == 2 && !gameMode.equalsIgnoreCase("Single Player")) continue;
+                }
 
                 JSONObject game = gameWrapper.has("data") ? gameWrapper.getJSONObject("data") : gameWrapper;
                 String contractStr = game.optString("Contract", game.optString("contract", "PASS"));

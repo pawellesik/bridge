@@ -6,13 +6,13 @@
     <string name="deal_cards">Rozdaj Karty</string>
     <string name="quick_game">Szybka Gra</string>
     <string name="quick_game_text">Zagraj szybkie rozdanie bez licytacji</string>
-    <string name="single_player">Jednoosobowo</string>
+    <string name="single_player">Gra Jednoosobowa</string>
     <string name="difficulty_level">Poziom trudności</string>
     <string name="difficulty_easy">Łatwy</string>
     <string name="difficulty_medium">Średni</string>
     <string name="difficulty_hard">Trudny</string>
     <string name="bidding_system">System licytacji</string>
-    <string name="multiplayer">Weloosobowo</string>
+    <string name="multiplayer">Gra Wieloosobowa</string>
     <string name="more">Więcej</string>
     <string name="create_deal">Stwórz Rozdanie</string>
     <string name="history_games">Historia Gier</string>
