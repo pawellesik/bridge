@@ -90,6 +90,7 @@ partner(isLastBid(Bid._2NT))
 • IS_ANY_JUMP - Dowolna odzywka z przeskokiem (pojedynczym lub większym).
 • IS_JUMP_SHIFT - Skok w nowym kolorze (często pokazuje bardzo silną rękę).
 • isPassedHand() - Gracz, który na swojej pierwszej pozycji spasował (nie otworzył licytacji).
+• Call.getNextCall(partnerCall) - zwraca kolejna odzywke od poprzedniej partnera
 
 7. ZAŁOŻENIA I RELACJE MIĘDZY GRACZAMI
 --------------------------------------

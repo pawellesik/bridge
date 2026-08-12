@@ -27,8 +27,8 @@ public class AcesAsk extends Bidder {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), IS_ANY_JUMP, points(ASK_ACES), pairHighCardPoints(HIGHT_GAME), id(" initiateConventionAcesAsk 1")));
-        bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), hasMultipleShortness(2, 0, 1), secondSuit(ps.getPartner().getBid().getSuit(), 5), points(15,30), id("initiateConvention AcesAsk 2")));
-        bids.add(shows(Bid._4C, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER) , id("initiateConvention AcesAsk 3")));
+        bids.add(shows(Bid._4C, fit(ps.getPartner().getBid().getSuit()), hasMultipleShortness(2, 0, 1), secondSuit(ps.getPartner().getBid().getSuit(), 5), points(15, 30), id("initiateConvention AcesAsk 2")));
+        bids.add(shows(Bid._4C, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), BALANCED, id("initiateConvention AcesAsk 3")));
 
         return bids;
     }
@@ -51,43 +51,37 @@ public class AcesAsk extends Bidder {
 
     public static PositionCalls respondCountAcesBlok(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        Suit suit = getAgreedSuit(ps);
-        if (suit != null) {
-            choices.addRules(
-                    properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S, Bid._5NT}, AcesAsk::askKing, true),
+        choices.addRules(
+                properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S, Bid._5NT}, AcesAsk::askKing, true),
 
-                    shows(Bid._5C, aces(0)),
-                    shows(Bid._5D, aces(1)),
-                    shows(Bid._5H, aces(2)),
-                    shows(Bid._5S, aces(3)),
-                    shows(Bid._5NT, aces(4))
-            );
-            return choices;
-        }
-        throw new RuntimeException("This should never happen. No agreed suit.");
+                shows(Bid._5C, aces(0)),
+                shows(Bid._5D, aces(1)),
+                shows(Bid._5H, aces(2)),
+                shows(Bid._5S, aces(3)),
+                shows(Bid._5NT, aces(4))
+        );
+        return choices;
     }
 
     public static PositionCalls respondCountAces(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        Suit suit = getAgreedSuit(ps);
-        if (suit != null) {
-            choices.addRules(
-                    properties(new Call[]{Bid._4D, Bid._4H, Bid._4S, Bid._4NT, Bid._5C}, AcesAsk::askKing, true),
+        choices.addRules(
+                properties(new Call[]{Bid._4D, Bid._4H, Bid._4S, Bid._4NT, Bid._5C}, AcesAsk::askKing, true),
 
-                    shows(Bid._4D, aces(0)),
-                    shows(Bid._4H, aces(1)),
-                    shows(Bid._4S, aces(2)),
-                    shows(Bid._4NT, aces(3)),
-                    shows(Bid._5C, aces(4))
-            );
-            return choices;
-        }
-        throw new RuntimeException("This should never happen. No agreed suit.");
+                shows(Bid._4D, aces(0)),
+                shows(Bid._4H, aces(1)),
+                shows(Bid._4S, aces(2)),
+                shows(Bid._4NT, aces(3)),
+                shows(Bid._5C, aces(4))
+        );
+        return choices;
+
     }
 
     public static PositionCalls askKing(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         Suit suit = getAgreedSuit(ps);
+        Call partnerCall = ps.getPartner().getLastCall();
         if (suit != null) {
             if (suit.isMinor()) {
                 choices.addRules(
@@ -100,7 +94,6 @@ public class AcesAsk extends Bidder {
                         shows(new Bid(4, suit), pairAces(2)));
 
             }
-            Call partnerCall = ps.getPartner().getLastCall();
             Bid bid = getNextBidWithoutTrump(partnerCall, suit);
             choices.addRules(
                     properties(bid, AcesAsk::respondKings, true),
@@ -109,9 +102,20 @@ public class AcesAsk extends Bidder {
 
             choices.addRules(shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN));
             choices.addRules(shows(Call.PASS));
-            return choices;
+        } else {
+            Bid bid = (Bid) Call.getNextCall(partnerCall);
+            choices.addRules(
+                    properties(bid, AcesAsk::respondKings, true),
+                    shows(Bid._4NT, pairAces(1)),
+                    shows(Bid._4NT, pairAces(2)),
+                    shows(Bid._5NT, pairAces(1)),
+                    shows(Bid._5NT, pairAces(2)),
+                    shows(bid, pairAces(3)),
+                    shows(bid, pairAces(4)));
+
+            choices.addRules(shows(Call.PASS));
         }
-        throw new RuntimeException("No agreed suit in askKing");
+        return choices;
     }
 
     public static PositionCalls respondKings(PositionState ps) {
@@ -143,18 +147,27 @@ public class AcesAsk extends Bidder {
         if (suit != null) {
             choices.addRules(
                     shows(new Bid(7, suit), FIT_8_PLUS, sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 1")),
-                    shows(new Bid(7, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairPoints(GRAND_SLAM), id("AcesAsk tryGrandSlam 2")),
-                    shows(new Bid(6, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 2")),
+                    shows(new Bid(7, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(GRAND_SLAM), id("AcesAsk tryGrandSlam 2")),
+                    shows(new Bid(6, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 2")),
                     shows(new Bid(6, suit), FIT_8_PLUS, sumPairAcesAndKings(7), id("AcesAsk tryGrandSlam 3")),
                     shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("AcesAsk tryGrandSlam 4")),
                     shows(new Bid(6, suit), FIT_8_PLUS, secondSuit(suit, 6), hasShortness(0, 1), sumPairAcesAndKings(6, 7), id("AcesAsk tryGrandSlam 5")),
                     shows(nextBidWithTrump, FIT_8_PLUS, sumPairAcesAndKings("Suma asów i króli mniejsza od 6", 1, 6), id("AcesAsk tryGrandSlam 6")),
-                    shows(new Bid(7, Strain.NoTrump), pairPoints(GRAND_SLAM), sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 7")),
-                    shows(new Bid(6, Strain.NoTrump), pairPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 8"))
+                    shows(new Bid(7, Strain.NoTrump), pairHighCardPoints(GRAND_SLAM), sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 7")),
+                    shows(new Bid(6, Strain.NoTrump), pairHighCardPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 8"))
             );
-            return choices;
+
+        } else {
+            choices.addRules(
+                    shows(Bid._7NT, pairHighCardPoints(GRAND_SLAM), pairAces(4), pairKings(3,4)),
+                    shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7)),
+                    shows(Bid._5NT)
+
+                    );
         }
-        throw new RuntimeException("This should not happen");
+
+
+        return choices;
     }
 
     private static Bid getNextBidWithoutTrump(Call partnerCall, Suit suit) {
