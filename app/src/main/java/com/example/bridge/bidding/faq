@@ -135,3 +135,5 @@ partner(isLastBid(Bid._2NT))
 
 do logow np
 android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
+
+ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape().getMin();
