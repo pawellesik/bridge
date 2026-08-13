@@ -53,6 +53,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._4S, GOOD_PLUS_SUIT, shape(6, 11), hasShortness(1, 1), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderClubJumpMajor GOOD_PLUS_SUIT _4S")),
 
                 shows(Bid._3NT, isJump(1), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _3NT"))
+
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
