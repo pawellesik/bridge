@@ -238,11 +238,21 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                //properties(new Call[]{Bid._3S, Bid._3H}, RespondBid2NatC::secondBidToGame),
+                properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidLongHeart),
+                properties(new Call[]{Bid._2NT}, RespondBid2NatC::secondBidSearchSuitAfter2NTHeart),
+                propertiesAgreeTrump(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidInviteMinorHeart, true),
 
-                //shows(Bid._3C, noFit(), DECENT_PLUS_SUIT, shape(6, 10), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderChangedSuits _3C")),
-                //shows(Bid._3D, noFit(), DECENT_PLUS_SUIT, shape(6, 10), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderChangedSuits _3D"))
-        );
+                shows(Bid._3H, noFit(), shape(7, 10), id("OpenBid2NatC.responderChangedSuits _3H")),
+
+                shows(Bid._2S, fit(), id("OpenBid2NatC.responderRaisedMajorHeart _2S")),
+                shows(Bid._2H, shape(6, 10), id("OpenBid2NatC.responderRaisedMajorHeart _2H")),
+                shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderRaisedMajorHeart _2NT")),
+                shows(Bid._3NT, PAIR_BALANCED, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _3NT")),
+
+                shows(Bid._3C, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3C")),
+                shows(Bid._3D, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3D"))
+
+                );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }

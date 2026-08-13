@@ -115,6 +115,34 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
+    public static PositionCalls secondBidLongHeart(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4H")),
+                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4H")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME)),
+                shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS")));
+        return choices;
+    }
+
+    public static PositionCalls secondBidSearchSuitAfter2NTHeart(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+
+
+              );
+        return choices;
+    }
+
+    public static PositionCalls secondBidInviteMinorHeart(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._5C, CONTRACT_IS_AGREED_STRAIN, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5C")),
+                shows(Bid._5D, CONTRACT_IS_AGREED_STRAIN, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5D"))
+        );
+        return choices;
+    }
+
 }
 
 

@@ -14,8 +14,7 @@ import java.util.List;
 public class OpenNatC extends NatC {
 
     public static final HandConstraint OpenBidding = highCardPoints(12, 17);
-
-    public static final HandConstraint OpeningInviteBidding = highCardPoints(14, 17);
+    public static final HandConstraint OpeningInviteBidding = highCardPoints(15, 17);
     public static final HandConstraint OpeningWeakBidding = highCardPoints(7, 11);
     public static final HandConstraint OpeningStrongBidding = highCardPoints(18, 40);
     public static final HandConstraint OpeningStrongBiddingRange = highCardPoints(18, 40);
