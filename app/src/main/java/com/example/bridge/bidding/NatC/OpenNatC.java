@@ -14,6 +14,8 @@ import java.util.List;
 public class OpenNatC extends NatC {
 
     public static final HandConstraint OpenBidding = highCardPoints(12, 17);
+
+    public static final HandConstraint OpeningInviteBidding = highCardPoints(14, 17);
     public static final HandConstraint OpeningWeakBidding = highCardPoints(7, 11);
     public static final HandConstraint OpeningStrongBidding = highCardPoints(18, 40);
     public static final HandConstraint OpeningStrongBiddingRange = highCardPoints(18, 40);
@@ -44,14 +46,14 @@ public class OpenNatC extends NatC {
 
         bids.add(shows(Bid._1C, OpeningStrongBidding));
 
-        bids.add(shows(Bid._1S, OpenBidding, shape(5, 8), id("OpenNatC.openSuit _1S")));
-        bids.add(shows(Bid._1H, OpenBidding, shape(5, 8), id("OpenNatC.openSuit _1H")));
+        bids.add(shows(Bid._1S, OpenBidding, shape(5, 10), id("OpenNatC.openSuit _1S")));
+        bids.add(shows(Bid._1H, OpenBidding, shape(5, 10), id("OpenNatC.openSuit _1H")));
         bids.add(shows(Bid._1D, OpenBidding, shape(5, 10), id("OpenNatC.openSuit _1D")));
         bids.add(shows(Bid._1C, OpenBidding, id("OpenNatC.openSuit _1C")));
 
         if (ps.getSeat() >= 3) {
-            bids.add(shows(Bid._1S, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit OpenAfterPass _1S")));
-            bids.add(shows(Bid._1H, OpenAfterPass, shape(5, 8), id("OpenNatC.openSuit OpenAfterPass _1H")));
+            bids.add(shows(Bid._1S, OpenAfterPass, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1S")));
+            bids.add(shows(Bid._1H, OpenAfterPass, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1H")));
             bids.add(shows(Bid._1D, OpenAfterPass, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1D")));
             bids.add(shows(Bid._1C, OpenAfterPass, id("OpenNatC.openSuit OpenAfterPass _1C")));
         }
