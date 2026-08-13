@@ -87,7 +87,8 @@ partner(isLastBid(Bid._2NT))
 • CONTRACT_IS_AGREED_STRAIN - Obecny kontrakt jest w kolorze, który para uznała za atutowy.
 • isJump(levels...) - Odzywka z przeskokiem (0=bez, 1=pojedynczy, 2=podwójny przeskok).
 • IS_NON_JUMP - Odzywka na najniższym możliwym poziomie (bez żadnego przeskoku).
-• IS_ANY_JUMP - Dowolna odzywka z przeskokiem (pojedynczym lub większym).
+• IS_ANY_JUMP - Odzywka jest z przeskokiem która tereaz daje
+• LAST_BID_WAS_JUMP- ostatnia odzywka partnera była z przeskokiem (jezeli chce spradzic odzywke partnera to powinienem dac partner(LAST_BID_WAS_JUMP))
 • IS_JUMP_SHIFT - Skok w nowym kolorze (często pokazuje bardzo silną rękę).
 • isPassedHand() - Gracz, który na swojej pierwszej pozycji spasował (nie otworzył licytacji).
 • Call.getNextCall(partnerCall) - zwraca kolejna odzywke od poprzedniej partnera
@@ -108,7 +109,7 @@ partner(isLastBid(Bid._2NT))
 8. FIT I WSPÓLNA LICYTACJA
 --------------------------
 • fit() - Posiadanie fitu (łącznie min. 8 kart w parze) w kolorze, który licytujesz.
-• noFit() Sprawdza czy nie mamy fitu do ostatniej odzywki partenra
+• noFit() Sprawdza czy nie mamy fitu do ostatniej odzywki partenra(tak)
 • fit(count) - Posiadanie fitu o konkretnej, minimalnej łącznej liczbie kart (np. fit(9)).
 • fit(Suit) - Posiadanie fitu (8+) w konkretnym kolorze.
 • FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki. (uwaga sprawdza fit w kolorze ktory sami licytujemy)

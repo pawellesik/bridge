@@ -69,6 +69,9 @@ public class BiddingState {
     }
 
     public void makeCall(CallDetails callDetails) {
+        if (callDetails.getCall() instanceof Bid) {
+            callDetails.setJumpLevel(contract.isJump((Bid) callDetails.getCall()));
+        }
         callDetails.getPositionState().makeCall(callDetails);
         contract.makeCall(callDetails.getCall(), callDetails.getPositionState().getDirection());
         

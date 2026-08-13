@@ -10,10 +10,19 @@ public class CallDetails {
     private final List<BidRule> rules = new ArrayList<>();
     private CallProperties properties = null;
     private final CallGroup group;
+    private int jumpLevel = 0;
 
     public CallDetails(CallGroup group, Call call) {
         this.group = group;
         this.call = call;
+    }
+
+    public void setJumpLevel(int jumpLevel) {
+        this.jumpLevel = jumpLevel;
+    }
+
+    public int getJumpLevel() {
+        return jumpLevel;
     }
 
     public Call getCall() {

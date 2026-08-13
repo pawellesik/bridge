@@ -36,13 +36,12 @@ public class CompeteNatC extends NatC {
             bids.add(shows(Bid._3NT, PAIR_BALANCED, secondSuit(partnerBid.getSuit(), 5), pairHighCardPoints(PAIR_GAME_INVITE), id("CompeteNatC.compBids PAIR_BALANCED _3NT")));
         }
 
-        if (!Bid._4H.equals(partnerBid) || Bid._4S.equals(partnerBid)) {
-            bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5C")));
-            bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5D")));
+        bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5C")));
+        bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5D")));
 
-            bids.add(shows(Bid._5C, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _5C")));
-            bids.add(shows(Bid._5D, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _5D")));
-        }
+        bids.add(shows(Bid._5C, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _5C")));
+        bids.add(shows(Bid._5D, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _5D")));
+
 
         if (Bid._4H.equals(partnerBid) || Bid._4S.equals(partnerBid)) {
             for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {

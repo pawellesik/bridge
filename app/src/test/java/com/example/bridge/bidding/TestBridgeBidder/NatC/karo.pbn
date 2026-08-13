@@ -8,7 +8,9 @@
 [Contract "4S"]
 [Auction "N"]
 1D PASS 3D PASS
-5D PASS
+4C PASS 4S Pass
+4NT Pass 5C Pass
+5D PAss Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal diamond 2"]
@@ -23,7 +25,7 @@
 2H PASS PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 2"]
+[Event "NatC Deal diamond 3"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -35,7 +37,7 @@
 3S PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 3"]
+[Event "NatC Deal diamond 4"]
 [Board "1"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -44,11 +46,10 @@
 [Contract "4S"]
 [Auction "S"]
 1D PASS 3D PASS
-3S PASS 3NT PASS
-PASS PASS
+5D PASS PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 4"]
+[Event "NatC Deal diamond 5"]
 [Board "1"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -61,7 +62,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 5"]
+[Event "NatC Deal diamond 6"]
 [Board "1"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -74,7 +75,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 6"]
+[Event "NatC Deal diamond 7"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -87,7 +88,7 @@ Pass PASS 1D PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 7"]
+[Event "NatC Deal diamond 8"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -99,7 +100,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 8"]
+[Event "NatC Deal diamond 9"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -107,11 +108,11 @@ PASS PASS
 [Declarer "N"]
 [Contract "3D"]
 [Auction "N"]
-1D PASS 2NT PASS
-3D PASS PASS PASS
+1D PASS 3NT PASS
+PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 9"]
+[Event "NatC diamond 10"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -123,7 +124,7 @@ PASS PASS
 5D Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 10"]
+[Event "NatC diamond 11"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -137,7 +138,7 @@ PASS PASS
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 11"]
+[Event "NatC diamond 12"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -146,10 +147,10 @@ Pass Pass
 [Contract "Pass"]
 [Auction "N"]
 1D Pass 3D Pass
-Pass Pass
+3NT Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 12"]
+[Event "NatC diamond 13"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -157,15 +158,14 @@ Pass Pass
 [Declarer "N"]
 [Contract "Pass"]
 [Auction "N"]
-Pass Pass 1D Pass
-3C Pass Pass Pass
+Pass Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 13"]
+[Event "NatC diamond 14"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:Q9.QJ97.2.AQT432 AJT754.T853.5.K8 852.K4.AQ9764.97 K63.A62.KJT83.J6"]
+[Deal "N:Q9.QJ97.2.AQT432 AJT754.T853.5.K8 852.K4.AQJ764.97 K63.A62.KJT83.J6"]
 [Declarer "N"]
 [Contract "Pass"]
 [Auction "N"]
@@ -174,7 +174,7 @@ Pass Pass 1D Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 14"]
+[Event "NatC diamond 15"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -187,7 +187,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 15"]
+[Event "NatC diamond 16"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -202,7 +202,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 16"]
+[Event "NatC diamond 17"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -217,7 +217,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 17"]
+[Event "NatC diamond 18"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]

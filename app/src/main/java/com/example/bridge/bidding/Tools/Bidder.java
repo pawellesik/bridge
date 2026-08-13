@@ -352,6 +352,7 @@ public abstract class Bidder {
     public static final StaticConstraint IS_DOUBLE_JUMP = isJump(2);
     public static final StaticConstraint IS_ANY_JUMP = isJump(1, 2);
     public static final StaticConstraint IS_JUMP_SHIFT = staticAnd(IS_SINGLE_JUMP, new NewSuit(null));
+    public static final StaticConstraint LAST_BID_WAS_JUMP = new com.example.bridge.bidding.Constraints.LastBidWasJump(1);
 
     public static final StaticConstraint IS_VUL = new SimpleStaticConstraint((call, ps) -> ps.isVulnerable(), "vul");
     public static final StaticConstraint IS_NOT_VUL = not(IS_VUL);

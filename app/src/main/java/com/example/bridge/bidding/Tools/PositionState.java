@@ -220,6 +220,11 @@ public class PositionState {
         return getBidHistory(0);
     }
 
+    public CallDetails getLastCallDetails() {
+        if (bids.isEmpty()) return null;
+        return bids.get(bids.size() - 1);
+    }
+
     public Call getBidHistory(int historyLevel) {
         if (bids.size() <= historyLevel) {
             return null;

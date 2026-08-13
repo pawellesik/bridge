@@ -129,8 +129,8 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._4H, hasShortness(1, 2), secondSuit(Suit.Hearts, 5), fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _4H")),
                 shows(Bid._4S, hasShortness(1, 2), secondSuit(Suit.Spades, 5), fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _4S")),
 
-                shows(Bid._2H, fit(), OpenBidding, id("OpenBid2NatC.responderChangedSuits OpenBidding _2H")),
-                shows(Bid._2S, fit(), OpenBidding, id("OpenBid2NatC.responderChangedSuits OpenBidding _2S")),
+                shows(Bid._2H, fit(), IS_NON_JUMP, OpenBidding, id("OpenBid2NatC.responderChangedSuits OpenBidding _2H")),
+                shows(Bid._2S, fit(), IS_NON_JUMP, OpenBidding, id("OpenBid2NatC.responderChangedSuits OpenBidding _2S")),
 
                 shows(Bid._1S, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1S")),
                 shows(Bid._1H, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits _1H")),
@@ -138,35 +138,29 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2S, IS_REBID, shape(6, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits IS_REBID _2S")),
                 shows(Bid._2H, IS_REBID, shape(6, 11), OpenBidding, id("OpenBid2NatC.responderChangedSuits IS_REBID _2H")),
 
-                shows(Bid._2S, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _2S")),
-                shows(Bid._2H, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _2H")),
+                shows(Bid._2S, IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, shape(4, 11), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _2S")),
+                shows(Bid._2H, IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, shape(4, 11), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _2H")),
 
-                shows(Bid._4H, IS_NEW_SUIT, shape(5, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _4H")),
+                shows(Bid._3S, IS_NEW_SUIT, shape(4, 11), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3S")),
+                shows(Bid._3H, IS_NEW_SUIT, shape(4, 11), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3H")),
 
-                shows(Bid._3S, IS_NEW_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3S")),
-                shows(Bid._3H, IS_NEW_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3H")),
+                shows(Bid._3S, IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, shape(4, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3S")),
+                shows(Bid._3H, IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, shape(4, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3H")),
 
-                shows(Bid._3S, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3S")),
-                shows(Bid._3H, IS_NEW_SUIT, DECENT_PLUS_SUIT, shape(4, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits IS_NEW_SUIT _3H")),
+                shows(Bid._3S, IS_REBID, shape(6, 11), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3S")),
+                shows(Bid._3H, IS_REBID, shape(6, 11), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3H")),
 
-                shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3S")),
-                shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits _3H")),
+                shows(Bid._3S, IS_REBID, shape(6, 11), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits _3S")),
+                shows(Bid._3H, IS_REBID, shape(6, 11), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits _3H")),
 
-                shows(Bid._3S, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits _3S")),
-                shows(Bid._3H, IS_REBID, shape(6, 11), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuits _3H")),
+                shows(Bid._3S, fit(), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3S")),
+                shows(Bid._3H, fit(), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3H")),
 
-                shows(Bid._3S, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3S")),
-                shows(Bid._3H, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3H")),
+                shows(Bid._3C, fit(), pairHighCardPoints(PAIR_GAME_INVITE), IS_NON_JUMP, id("OpenBid2NatC.responderChangedSuits fit _3C")),
+                shows(Bid._3D, fit(), pairHighCardPoints(PAIR_GAME_INVITE), IS_NON_JUMP, id("OpenBid2NatC.responderChangedSuits fit _3D")),
 
-                shows(Bid._3S, shape(7, 11), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits weak _3S")),
-                shows(Bid._3H, shape(7, 11), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits weak _3H")),
-                shows(Bid._3D, shape(7, 11), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits weak _3S")),
-
-                shows(Bid._3C, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3C")),
-                shows(Bid._3D, fit(), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits fit _3D")),
-
-                shows(Bid._3C, twoSuiter(5), shape(5,10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3C")),
-                shows(Bid._3D, twoSuiter(5), shape(5,10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3D")),
+                shows(Bid._3C, twoSuiter(5), shape(5,10), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3C")),
+                shows(Bid._3D, twoSuiter(5), shape(5,10), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderChangedSuits twoSuiter _3D")),
 
                 shows(Bid._3D, shape(7, 10), IS_ANY_JUMP, id("OpenBid2NatC.responderChangedSuits IS_ANY_JUMP fit _3D")),
 
@@ -178,6 +172,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._3C, shape(5,10), partner(isLastBid(Bid._2NT)), id("OpenBid2NatC.responderChangedSuits twoSuiter _3C")),
 
+                shows(Bid._3C, noFit(), DECENT_PLUS_SUIT, shape(6, 10), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderChangedSuits _3C")),
                 shows(Bid._3D, noFit(), DECENT_PLUS_SUIT, shape(6, 10), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderChangedSuits _3D"))
         );
         choices.addRules(CompeteNatC::compBids);

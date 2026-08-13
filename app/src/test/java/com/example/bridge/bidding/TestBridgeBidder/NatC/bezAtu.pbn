@@ -120,8 +120,10 @@ Pass Pass
 [Contract "Pass"]
 [Auction "N"]
 1H Pass 2S Pass
-3H Pass 3S Pass
-3NT Pass Pass Pass
+3H Pass 4H Pass
+4NT Pass 5H Pass
+5S Pass 6C Pass
+6H Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC bezAtu 11"]
@@ -146,8 +148,9 @@ Pass Pass
 [Contract "Pass"]
 [Auction "N"]
 1C Pass 2NT Pass
-3NT Pass Pass Pass
-
+4C Pass 4H Pass
+4S Pass 5D Pass
+6NT Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC bezAtu 13"]
