@@ -73,7 +73,22 @@ public class PairPoints {
     public boolean dynamicallyConforms(Call call, PositionState ps, HandSummary hs, boolean highCard) {
         Range posPoints = getPoints(call, ps, hs, highCard);
         Range partnerPoints = getPoints(call, ps.getPartner(), ps.getPartner().getPublicHandSummary(), highCard);
-        return (posPoints.getMax() + partnerPoints.getMin() >= min && posPoints.getMin() + partnerPoints.getMin() <= max);
+        
+        int minP = partnerPoints.getMin();
+        int maxP = partnerPoints.getMax();
+        int width = maxP - minP;
+        int partnerExpected;
+
+        // Jeśli zakres partnera jest precyzyjny (różnica do 8 pkt), bierzemy średnią.
+        // Zapobiega to absurdalnym wynikom przy zakresach typu 12-40 (unlimited).
+        if (width <= 8) {
+            partnerExpected = (minP + maxP) / 2;
+        } else {
+            // Dla szerokich zakresów przyjmujemy bezpieczne założenie: min + 2 pkt "nadziei".
+            partnerExpected = minP + 2;
+        }
+        
+        return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
     }
 
     public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand, boolean highCard) {
