@@ -301,10 +301,17 @@ public abstract class Bidder {
         Call contractBid = ps.getBiddingState().getContract().getBid();
         if (contractBid instanceof Bid) {
             Bid bid = (Bid) contractBid;
-            return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == ps.getPairState().getLastShownSuit();
+            // Zmiana: Teraz sprawdza jawnie uzgodniony trumpSuit w stanie pary, 
+            // a nie tylko ostatnio pokazany kolor.
+            Suit agreedTrump = ps.getPairState().getTrumpSuit();
+            return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == agreedTrump;
         }
         return false;
     });
+
+    public static CallFeature setTrumpColor(Suit suit) {
+        return properties((Call) null, null, false, false, true, suit, null, null, null, null);
+    }
 
     public static final StaticConstraint PARTNER_DID_NOT_SIGN_OFF = new SimpleStaticConstraint((call, ps) -> {
         Call last = ps.getPartner().getLastCall();
