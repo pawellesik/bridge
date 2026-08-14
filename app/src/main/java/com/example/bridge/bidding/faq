@@ -74,6 +74,7 @@
 --------------------------
 • fit() - Posiadanie fitu (łącznie min. 8 kart w parze) w kolorze, który licytujesz.
 • noFit() Sprawdza czy nie mamy fitu do ostatniej odzywki partenra(tak)
+• partner(noFit())- pokazuje że partner swoja ostatnia odzywka pokazał że nie ma fita do naszej odzywki jeszcze przed
 • fit(count) - Posiadanie fitu o konkretnej, minimalnej łącznej liczbie kart (np. fit(9)).
 • fit(Suit) - Posiadanie fitu (8+) w konkretnym kolorze.
 • FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki. (uwaga sprawdza fit w kolorze ktory sami licytujemy)

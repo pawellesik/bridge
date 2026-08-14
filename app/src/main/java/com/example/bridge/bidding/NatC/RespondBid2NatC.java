@@ -144,6 +144,22 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._5C, CONTRACT_IS_AGREED_STRAIN, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5C")),
                 shows(Bid._5D, CONTRACT_IS_AGREED_STRAIN, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5D"))
         );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidInviteMajorHeart(PositionState ps) {
+        //odpowiedzi na: Bid._1H ->
+        //                          Bid._3C, Bid._3D, Bid._2S ->
+        //                                                      Bid._3S, Bid._4S -->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+        //myśle że nic nie trzeba dodawać
+
+          );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 

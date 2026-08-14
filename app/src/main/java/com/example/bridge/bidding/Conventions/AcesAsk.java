@@ -48,7 +48,8 @@ public class AcesAsk extends Bidder {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, ps.getPartner().getBid().getSuit(), null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(ps.getPartner().getBid().getSuit()), secondSuit(ps.getPartner().getBid().getSuit(), 5), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 1")));
-        bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 1")));
+        bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
+        bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 3")));
 
         //bids.add(shows(Bid._4NT, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 1")));
         //bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
