@@ -247,7 +247,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2S, fit(), id("OpenBid2NatC.responderRaisedMajorHeart _2S")),
                 shows(Bid._2H, shape(6, 10), id("OpenBid2NatC.responderRaisedMajorHeart _2H")),
                 shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderRaisedMajorHeart _2NT")),
-                shows(Bid._3NT, PAIR_BALANCED, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _3NT")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _3NT")),
 
                 shows(Bid._3C, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3C")),
                 shows(Bid._3D, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3D"))
