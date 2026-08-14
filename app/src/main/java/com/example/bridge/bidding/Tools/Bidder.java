@@ -379,8 +379,24 @@ public abstract class Bidder {
         return new PositionProxy(PositionProxy.RelativePosition.Partner, constraint);
     }
 
+    public static StaticConstraint partner(HandConstraint constraint) {
+        return new PositionProxy(PositionProxy.RelativePosition.Partner, constraint);
+    }
+
     public static StaticConstraint rho(Constraint constraint) {
         return new PositionProxy(PositionProxy.RelativePosition.RHO, constraint);
+    }
+
+    public static StaticConstraint rho(HandConstraint constraint) {
+        return new PositionProxy(PositionProxy.RelativePosition.RHO, constraint);
+    }
+
+    public static StaticConstraint lho(Constraint constraint) {
+        return new PositionProxy(PositionProxy.RelativePosition.LHO, constraint);
+    }
+
+    public static StaticConstraint lho(HandConstraint constraint) {
+        return new PositionProxy(PositionProxy.RelativePosition.LHO, constraint);
     }
 
     public static StaticConstraint hasShownSuit(Suit suit, boolean eitherPartner) {

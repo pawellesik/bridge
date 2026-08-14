@@ -2,6 +2,7 @@ package com.example.bridge.bidding.Constraints;
 
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.Constraint;
+import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.IDescribeConstraint;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.StaticConstraint;
@@ -21,11 +22,11 @@ public class PositionProxy extends StaticConstraint implements IDescribeConstrai
     }
 
     private final RelativePosition relativePosition;
-    private final StaticConstraint constraint; // Warunek, który ma zostać sprawdzony dla wskazanej pozycji
+    private final Constraint constraint; // Warunek, który ma zostać sprawdzony dla wskazanej pozycji
 
     public PositionProxy(RelativePosition relativePosition, Constraint constraint) {
         this.relativePosition = relativePosition;
-        this.constraint = (StaticConstraint) constraint;
+        this.constraint = constraint;
     }
 
     private PositionState getPosition(PositionState positionState) {
@@ -39,7 +40,18 @@ public class PositionProxy extends StaticConstraint implements IDescribeConstrai
 
     @Override
     public boolean conforms(Call call, PositionState ps) {
-        return constraint.conforms(call, getPosition(ps));
+        PositionState targetPs = getPosition(ps);
+        if (targetPs == null) return false;
+
+        if (constraint instanceof StaticConstraint) {
+            return ((StaticConstraint) constraint).conforms(call, targetPs);
+        } else if (constraint instanceof HandConstraint) {
+            // Gdy sprawdzamy HandConstraint dla innej pozycji (partner/przeciwnik),
+            // musimy bazować na ich wiedzy publicznej (PublicHandSummary),
+            // ponieważ nie widzą oni nawzajem swoich prywatnych kart.
+            return ((HandConstraint) constraint).conforms(call, targetPs, targetPs.getPublicHandSummary());
+        }
+        return false;
     }
 
     private String getPositionName() {
