@@ -156,4 +156,6 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
+
+
 }

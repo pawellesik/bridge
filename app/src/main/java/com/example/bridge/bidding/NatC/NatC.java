@@ -10,13 +10,15 @@ import com.example.bridge.bidding.Tools.Range;
 public class NatC extends Bidder implements IBiddingSystem {
     @Override
     public PositionCalls getPositionCalls(PositionState ps) {
+        PositionCalls choices;
         if (ps.getRole() == PositionRole.Opener && ps.getRoleRound() == 1) {
-            return OpenNatC.getOpenPositionCalls(ps);
+            choices = OpenNatC.getOpenPositionCalls(ps);
         } else {
-            PositionCalls calls = new PositionCalls(ps);
-            calls.addRules(CompeteNatC::compBids);
-            return calls;
+            choices = new PositionCalls(ps);
         }
+        choices.addRules(CompeteNatC::compBids);
+
+        return choices;
     }
 
     public static final Range PAIR_GAME_INVITE = new Range(23, 24);
