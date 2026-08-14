@@ -122,6 +122,7 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4H")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME)),
                 shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS")));
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -131,6 +132,7 @@ public class RespondBid2NatC extends RespondNatC {
 
 
               );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -149,10 +151,15 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._3S, noFit(), shape(6,10), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _3S")),
-                shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _4H")),
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.secondBidToGameHeart _3NT"))
+                properties(new Call[]{Bid._3S}, OpenBid3NatC::thirdBidToGameHeart, false),
+                shows(Bid._3S, noFit(), shape(6,10), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _3S"))
+
+
+                //jest w compBids:
+                //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _4H")),
+                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.secondBidToGameHeart _3NT"))
           );
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 

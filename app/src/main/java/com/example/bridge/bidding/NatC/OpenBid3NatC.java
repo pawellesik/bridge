@@ -1,8 +1,10 @@
 package com.example.bridge.bidding.NatC;
 
+import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
+import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 
 import java.util.ArrayList;
@@ -27,6 +29,20 @@ public class OpenBid3NatC extends OpenNatC {
             bids.add(cf);
         }
         return bids;
+    }
+
+    public static PositionCalls thirdBidToGameHeart(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S"))
+
+
+                //jest w compBids:
+                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S")),
+                );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
     }
 }
 
