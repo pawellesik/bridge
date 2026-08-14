@@ -277,7 +277,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3NT"))
 
         );
-        choices.addRules(CompeteNatC::compBids);
+        //choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 

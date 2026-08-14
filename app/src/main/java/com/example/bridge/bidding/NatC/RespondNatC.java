@@ -135,7 +135,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT"))
         );
-        choices.addRules(CompeteNatC::compBids);
+        //choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
