@@ -94,8 +94,8 @@ PASS PASS 1S PASS
 [Contract "3S"]
 [Auction "N"]
 PASS PASS 1S PASS
-3D PASS 4H PASS
-PASS PASS
+3D PASS 3H PASS
+4H PASS PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Deal pik 9"]
@@ -107,7 +107,8 @@ PASS PASS
 [Contract "3S"]
 [Auction "N"]
 PASS PASS 1S PASS
-3S PASS 4S PASS
+3S PASS 4C PASS
+
 
 % Cleaned by CleanPBN
 [Event "NatC Deal pik 10"]
