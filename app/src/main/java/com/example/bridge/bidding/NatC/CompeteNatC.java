@@ -32,15 +32,13 @@ public class CompeteNatC extends NatC {
 
         bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids PAIR_BALANCED _3NT")));
 
-        if (partnerBid != null && partnerBid.getSuit() != null) {
-            bids.add(shows(Bid._3NT, PAIR_BALANCED, secondSuit(partnerBid.getSuit(), 5), pairHighCardPoints(PAIR_GAME_INVITE), id("CompeteNatC.compBids PAIR_BALANCED _3NT")));
-        }
-
         bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5C")));
         bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5D")));
 
         bids.add(shows(Bid._5C, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _5C")));
         bids.add(shows(Bid._5D, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _5D")));
+
+        bids.add(shows(Bid._2S, shape(3, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._2H)), partner(shape(Suit.Spades, 4, 10)), id("CompeteNatC.compBids _2S")));
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
         return bids;

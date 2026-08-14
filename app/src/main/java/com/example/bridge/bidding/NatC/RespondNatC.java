@@ -132,8 +132,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3D")),
 
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT"))
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -145,6 +144,7 @@ public class RespondNatC extends NatC {
                 propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2NatC::responderRaisedMajorSpade, true),
                 properties(new Call[]{Bid._2H, Bid._2C, Bid._2D, Bid._1NT}, OpenBid2NatC::responderChangedSuitsSpade, false),
                 properties(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2NatC::responderRaiseChangedSuitsSpade, false),
+                //properties(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NTSpade, false),
 
                 shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneHeart _2S")),
                 shows(Bid._3S, highCardPoints(JUMP_HAND), fit(), id("RespondNatC.oneHeart _3S")),
@@ -158,9 +158,8 @@ public class RespondNatC extends NatC {
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3D")),
 
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Spades, 0, 2), id("RespondNatC.oneHeart _2NT"))
-        );
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT"))
+         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
