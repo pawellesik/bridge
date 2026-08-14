@@ -1,7 +1,5 @@
-DOKUMENTACJA METOD LICYTACJI (Bidder.java)
-========================================
-
 1. PUNKTY I SIŁA RĘKI
+---------------------
 • highCardPoints(min, max) - Punkty za same figury (HCP: A=4, K=3, Q=2, J=1).
 • highCardPoints(Range) - Punkty honorowe (HCP) przy użyciu zakresu.
 • pairHighCardPoints(min, max) - Suma punktów honorowych (HCP) całej pary.
@@ -23,10 +21,86 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 • secondSuit(exclude, min) - Posiadanie drugiego koloru (poza wykluczonym) o danej minimalnej długości.
 • twoSuiter(min) - Ręka dwukolorowa (posiadanie co najmniej dwóch kolorów o min. długości).
 
+3. RELACJE MIĘDZY KOLORAMI
+--------------------------
+• LONGEST_SUIT - Aktualnie licytowany kolor jest najdłuższym kolorem w ręce (lub jednym z najdłuższych).
+• longerThan(Suit worse) - Licytowany kolor jest o min. 1 kartę dłuższy od wskazanego koloru.
+• longerOrEqualTo(Suit worse) - Licytowany kolor jest co najmniej tak długi jak wskazany.
+• longer(Suit better, Suit worse) - Pierwszy podany kolor jest dłuższy od drugiego.
+• longerOrEqual(Suit better, Suit worse) - Pierwszy podany kolor jest dłuższy lub równy drugiemu.
+• betterThan(Suit worse) - Kolor jest lepszy (dłuższy lub przy tej samej długości silniejszy) od wskazanego.
+• betterOrEqualTo(Suit worse) - Kolor jest lepszy lub równy jakościowo wskazanemu.
+• betterMinor() - Wybór lepszego (dłuższego lub silniejszego) koloru młodszego (C lub D).
+• longestMajor(max) - Oba kolory starsze (Kier i Pik) mają maksymalnie 'max' kart.
 
+4. JAKOŚĆ KOLORU (SUIT QUALITY)
+-------------------------------
+• DECENT_PLUS_SUIT - Kolor co najmniej przyzwoity (posiada minimum 1-2 figury).
+• GOOD_PLUS_SUIT - Dobry kolor (posiada silne figury, min. dwa wysokie honory).
+• EXCELLENT_PLUS_SUIT - Bardzo mocny kolor (np. A-K-J, K-Q-J lub A-K-Q).
+• BAD_SUIT - Słaby kolor pod względem honorów (same blotki lub bardzo niskie figury).
 
+5. ASY, KRÓLE I KONTROLA
+------------------------
+• aces(count...) - Posiadanie określonej liczby asów w ręce (np. aces(1, 2)).
+• pairAces(count...) - Suma asów w połączonych rękach obu partnerów.
+• kings(count...) - Posiadanie określonej liczby króli w ręce.
+• pairKings(count...) - Suma króli w połączonych rękach obu partnerów.
+• sumPairAcesAndKings(min, max) - Łączna liczba asów i króli całej pary w zadanym zakresie.
 
+6. HISTORIA I SYTUACJA PRZY STOLE (STATIC CONSTRAINTS)
+------------------------------------------------------
+• partner(isLastBid(Bid._2NT))
+• isLastBid(level, Suit/Strain) - Ostatnia odzywka była na określonym poziomie w danym kolorze/bezie.
+• isOpeningBid(Bid) - Sprawdza, czy wskazana odzywka otworzyła licytację w tym rozdaniu.
+• IS_NEW_SUIT - Licytacja koloru, który nie był wcześniej zgłoszony przez Twoją parę.
+• IS_REBID - Powtórzenie koloru, który już wcześniej sam licytowałeś.
+• IS_FORCED_TO_BID - Sytuacja, w której system lub partner zmusza Cię do licytacji (nie możesz spasować). (ustawienie forcing1Round na true)
+• IS_FORCED_TO_GAME - Sytuacja forsingu do końcówki (licytacja musi trwać aż do osiągnięcia poziomu końcówki). (propertiesForcingToGame)
+• CONTRACT_IS_AGREED_STRAIN - Obecny kontrakt jest w kolorze, który para uznała za atutowy.
+• isJump(levels...) - Odzywka z przeskokiem (0=bez, 1=pojedynczy, 2=podwójny przeskok).
+• IS_NON_JUMP - Odzywka na najniższym możliwym poziomie (bez żadnego przeskoku).
+• IS_ANY_JUMP - Odzywka jest z przeskokiem która tereaz daje
+• LAST_BID_WAS_JUMP- ostatnia odzywka partnera była z przeskokiem (jezeli chce spradzic odzywke partnera to powinienem dac partner(LAST_BID_WAS_JUMP))
 
+7. ZAŁOŻENIA I RELACJE MIĘDZY GRACZAMI
+--------------------------------------
+• hasShownSuit(Suit, eitherPartner) - Czy dany gracz (lub ktokolwiek z pary) pokazał już ten kolor.
+• IS_PARTNERS_SUIT - Kolor, który chcesz licytować, był już wcześniej zgłoszony przez partnera.
+• isPartnersSuit() - Statyczny warunek sprawdzający, czy licytujemy kolor partnera.
+• PARTNER_DID_NOT_SIGN_OFF - sprawdza czy partner zalicytowal koncowkę 3NT, 4H, 4S
+
+8. FIT I WSPÓLNA LICYTACJA
+--------------------------
+• fit() - Posiadanie fitu (łącznie min. 8 kart w parze) w kolorze, który licytujesz.
+• noFit() Sprawdza czy nie mamy fitu do ostatniej odzywki partenra(tak)
+• fit(count) - Posiadanie fitu o konkretnej, minimalnej łącznej liczbie kart (np. fit(9)).
+• fit(Suit) - Posiadanie fitu (8+) w konkretnym kolorze.
+• FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki. (uwaga sprawdza fit w kolorze ktory sami licytujemy)
+• agreedStrain(Strains...) - Sprawdza, czy para uzgodniła już dany kolor jako atut.
+
+9. OPERATORY LOGICZNE I NARZĘDZIA
+---------------------------------
+• shows(Call, Constraints...) - Podstawowa reguła: "taka odzywka obiecuje takie warunki".
+
+• properties(...) - Definiuje zaawansowane cechy: forsing, uzgodnienie atutu, alerty, konwencje.
+• propertiesForcingToGame(...) - Skrót dla odzywek forsujących do końcówki.
+• propertiesAgreeTrump(...) - Skrót dla odzywek uzgadniających kolor atutowy.
+• partnerBids(...) - Wskazuje, jaka metoda ma zostać użyta do obsługi kolejnej odzywki partnera.
+
+• and(Constraints...) - Wszystkie podane warunki muszą być spełnione (iloczyn logiczny).
+• staticAnd(StaticConstraints...) - Specjalna wersja 'and' dla warunków statycznych.
+• or(Constraints...) - Wystarczy, że jeden z podanych warunków jest spełniony (suma logiczna).
+• not(Constraint) - Odwrócenie warunku (np. not(BALANCED) to ręka niezrównoważona).
+
+• id(String) - Nadaje unikalny identyfikator regule (pomocne przy debugowaniu).
+• note(String) - Dodaje tekstowy opis/notatkę do odzywki widoczną w systemie.
+
+=====================================================================================================
+=====================================================================================================
+=====================================================================================================
+=====================================================================================================
+=====================================================================================================
 =====================================================================================================
 
 nieużywane przezemnie:
