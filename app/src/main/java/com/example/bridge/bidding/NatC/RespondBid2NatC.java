@@ -156,8 +156,7 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-        //myśle że nic nie trzeba dodawać
-
+        //myśle że nic nie trzeba dodawać licytacja powinna sie zakonczyc na 4S, 5S, 6S lub 7S
           );
         choices.addRules(CompeteNatC::compBids);
         return choices;
