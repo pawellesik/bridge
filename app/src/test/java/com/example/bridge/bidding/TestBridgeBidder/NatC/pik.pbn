@@ -157,7 +157,8 @@ PASS PASS PASS
 [Contract "4S"]
 [Auction "N"]
 1C PASS 2NT PASS
-3S PASS PASS PASS
+3S PASS 4S PASS
+PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Deal pik 14"]
@@ -212,8 +213,10 @@ PASS PASS
 [Contract "3S"]
 [Auction "N"]
 PASS PASS 1S PASS
-3S PASS 4S PASS
-PASS PASS
+3S PASS 4C PASS
+4S PASS 4NT pass
+5C pass 5S pass
+pass pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal pik 18"]
@@ -288,4 +291,4 @@ Pass Pass
 [Auction "N"]
 PASS PASS 1S PASS
 3D PASS 4H PASS
-4S PASS PASS PASS
+4S pass pass pass
