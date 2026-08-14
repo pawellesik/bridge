@@ -265,13 +265,15 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._3S, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
                 shows(Bid._4S, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
-                shows(Bid._3H, noFit(), shape(6,10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
+                shows(Bid._3H, noFit(), shape(6,10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
                 shows(Bid._4C, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
                 shows(Bid._4D, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
 
                 shows(Bid._5C, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5C")),
-                shows(Bid._5D, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5D"))
+                shows(Bid._5D, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5D")),
+
+                shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3NT"))
 
         );
         choices.addRules(CompeteNatC::compBids);
