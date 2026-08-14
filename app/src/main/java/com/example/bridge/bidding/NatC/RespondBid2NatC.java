@@ -163,12 +163,15 @@ public class RespondBid2NatC extends RespondNatC {
     }
 
     public static PositionCalls secondBidToGameHeart(PositionState ps) {
+        //odpowiedzi na: Bid._1H ->
+        //                          Bid._3C, Bid._3D, Bid._2S ->
+        //                                                     Bid._3H ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 properties(new Call[]{Bid._3S}, OpenBid3NatC::thirdBidToGameHeart, false),
-                shows(Bid._3S, noFit(), shape(6,10), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _3S"))
-
+                shows(Bid._3S, noFit(), shape(4,10), not(myLastBid(Bid._2S)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
+                shows(Bid._3S, noFit(), shape(6,10), IS_REBID, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _3S"))
 
                 //jest w compBids:
                 //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _4H")),

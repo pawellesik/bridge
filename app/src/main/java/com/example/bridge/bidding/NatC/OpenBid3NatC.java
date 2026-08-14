@@ -32,11 +32,14 @@ public class OpenBid3NatC extends OpenNatC {
     }
 
     public static PositionCalls thirdBidToGameHeart(PositionState ps) {
+        //odpowiedzi na: Bid._1H ->
+        //                          Bid._3C, Bid._3D, Bid._2S ->
+        //                                                     Bid._3H ->
+        //                                                              Bid._3S ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S"))
-
 
                 //jest w compBids:
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S")),
