@@ -108,6 +108,10 @@ public class PairState {
     public Suit getTrumpSuit() {
         return trumpSuit;
     }
+
+    public void setTrumpSuit(Suit suit) {
+        this.trumpSuit = suit;
+    }
 }
 
 

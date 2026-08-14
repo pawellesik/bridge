@@ -31,6 +31,7 @@ import com.example.bridge.bidding.Constraints.PositionProxy;
 import com.example.bridge.bidding.Constraints.ReverseShape;
 import com.example.bridge.bidding.Constraints.RuleOf17;
 import com.example.bridge.bidding.Constraints.RuleOf9;
+import com.example.bridge.bidding.Constraints.SetTrumpSuit;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Constraints.SumPairAcesAndKings;
 import com.example.bridge.bidding.Constraints.TakeoutSuit;
@@ -313,8 +314,8 @@ public abstract class Bidder {
         return false;
     });
 
-    public static CallFeature setTrumpColor(Suit suit) {
-        return properties((Call) null, null, false, false, true, suit, null, null, null, null);
+    public static HandConstraint setTrumpColor(Suit suit) {
+        return new SetTrumpSuit(suit);
     }
 
     public static final StaticConstraint PARTNER_DID_NOT_SIGN_OFF = new SimpleStaticConstraint((call, ps) -> {
