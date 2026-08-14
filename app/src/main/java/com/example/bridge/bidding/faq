@@ -2,18 +2,45 @@ DOKUMENTACJA METOD LICYTACJI (Bidder.java)
 ========================================
 
 1. PUNKTY I SIŁA RĘKI
+• highCardPoints(min, max) - Punkty za same figury (HCP: A=4, K=3, Q=2, J=1).
+• highCardPoints(Range) - Punkty honorowe (HCP) przy użyciu zakresu.
+• pairHighCardPoints(min, max) - Suma punktów honorowych (HCP) całej pary.
+
+2. SKŁAD RĘKI (SHAPE)
+---------------------
+• shape(min, max) - Liczba kart w aktualnie licytowanym kolorze (mianie).
+• shape(Suit, min, max) - Liczba kart w konkretnym kolorze (np. Suit.Hearts).
+• shape(count) - Dokładna liczba kart w aktualnym kolorze (np. shape(5) to dokładnie 5 kart).
+• shape(Suit, count) - Dokładna liczba kart w wybranym kolorze.
+• BALANCED - Ręka zrównoważona (brak singla/renonsu, najwyżej jeden dubleton).
+• PAIR_BALANCED- Ręka zrównoważona, może być singiel koloru który partner głosił
+• othersAtLeast - sprawdza minimalną długość we wszystkich kolorach poza ostatnio licytowanym przez partnera.
+• NOT_BALANCED - Ręka niezrównoważona (posiada co najmniej jednego singla lub renons).
+• FLAT - Idealnie zrównoważona ręka w układzie 4-3-3-3.
+• NOT_FLAT - Ręka niebędąca w układzie 4-3-3-3.
+• hasShortness(min, max) - krótkości w jakimkowiek kolorze (singli i renonsów) w ręce.
+• hasMultipleShortness(count, min, max)  - Liczba krókości
+• secondSuit(exclude, min) - Posiadanie drugiego koloru (poza wykluczonym) o danej minimalnej długości.
+• twoSuiter(min) - Ręka dwukolorowa (posiadanie co najmniej dwóch kolorów o min. długości).
+
+
+
+
+
+=====================================================================================================
+
+nieużywane przezemnie:
+1. PUNKTY I SIŁA RĘKI
 ---------------------
 • points(min, max) - Punkty licytacyjne (HCP + punkty za długość). Podstawowa siła ręki.
 • points(Range) - Punkty licytacyjne przy użyciu zdefiniowanego zakresu (np. Minimum, Maximum).
-• highCardPoints(min, max) - Punkty za same figury (HCP: A=4, K=3, Q=2, J=1).
-• highCardPoints(Range) - Punkty honorowe (HCP) przy użyciu zakresu.
 • pairPoints(min, max) - Suma punktów licytacyjnych obu partnerów (prywatne + obiecane przez partnera).
 • pairPoints(Range) - Suma punktów licytacyjnych pary przy użyciu zakresu.
 • pairPoints(Suit, min, max) - Suma punktów licytacyjnych pary przy założeniu konkretnego atutu.
-• pairHighCardPoints(min, max) - Suma punktów honorowych (HCP) całej pary.
 • dummyPoints(min, max) - Punkty dla dziadka (HCP + bonus za krótkości przy uzgodnionym fitu).
 • dummyPoints(Suit, min, max) - Punkty dla dziadka przy konkretnym kolorze atutowym.
 • dummyPoints(Range) - Punkty dla dziadka przy użyciu zakresu.
+
 
 2. SKŁAD RĘKI (SHAPE)
 ---------------------
