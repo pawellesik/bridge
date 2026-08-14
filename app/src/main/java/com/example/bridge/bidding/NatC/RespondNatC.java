@@ -152,14 +152,14 @@ public class RespondNatC extends NatC {
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2H")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2C")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2D")),
-                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _1NT")),
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Spades, 0, 2), id("RespondNatC.oneHeart _1NT")),
 
                 shows(Bid._3H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3H")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3D")),
 
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT"))
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Spades, 0, 2), id("RespondNatC.oneHeart _2NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

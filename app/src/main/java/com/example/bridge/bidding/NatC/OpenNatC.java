@@ -56,7 +56,7 @@ public class OpenNatC extends NatC {
             bids.add(shows(Bid._1D, OpenBiddingThirtSeat, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1D")));
             bids.add(shows(Bid._1C, OpenBiddingThirtSeat, id("OpenNatC.openSuit OpenAfterPass _1C")));
         }
-        bids.add(shows(Call.PASS, id("OpenNatC.openSuit _PASS")));
+        bids.add(shows(Call.PASS, DontOpen, id("OpenNatC.openSuit _PASS")));
 
         return bids;
     }
