@@ -128,9 +128,35 @@ public class RespondNatC extends NatC {
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2D")),
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _1NT")),
 
+                shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _2S")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3D")),
-                shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _2S")),
+
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+    public static PositionCalls oneSpade(PositionState ps) {//to test
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2NatC::responderRaisedMajorSpade, true),
+                properties(new Call[]{Bid._2H, Bid._2C, Bid._2D, Bid._1NT}, OpenBid2NatC::responderChangedSuitsSpade, false),
+                properties(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2NatC::responderRaiseChangedSuitsSpade, false),
+
+                shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneHeart _2S")),
+                shows(Bid._3S, highCardPoints(JUMP_HAND), fit(), id("RespondNatC.oneHeart _3S")),
+
+                shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2H")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2C")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2D")),
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _1NT")),
+
+                shows(Bid._3H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3H")),
+                shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3C")),
+                shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3D")),
 
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneHeart _3NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT"))
@@ -139,6 +165,19 @@ public class RespondNatC extends NatC {
         return choices;
     }
 
+    public static Iterable<CallFeature> weakOpen(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
+        for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) bids.add(cf);
+        bids.add(shows(Bid._4H, FIT_8_PLUS, ruleOf17()));
+        bids.add(shows(Bid._4H, fit(10)));
+        bids.add(shows(Bid._4S, FIT_8_PLUS, ruleOf17()));
+        bids.add(shows(Bid._4S, fit(10)));
+        bids.add(shows(Call.PASS));
+        return bids;
+    }
+
+
+/*
     public static PositionCalls oneHeartOld(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         Call[] raises = new Call[]{Bid._2H, Bid._3H, Bid._4H};
@@ -191,7 +230,7 @@ public class RespondNatC extends NatC {
         return choices;
     }
 
-    public static PositionCalls oneSpade(PositionState ps) {
+    public static PositionCalls oneSpadeOld(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         Call[] raises = new Call[]{Bid._2S, Bid._3S, Bid._4S};
         choices.addRules(AcesAsk.initiateConvention(ps));
@@ -245,17 +284,7 @@ public class RespondNatC extends NatC {
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
-
-    public static Iterable<CallFeature> weakOpen(PositionState ps) {
-        List<CallFeature> bids = new ArrayList<>();
-        for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) bids.add(cf);
-        bids.add(shows(Bid._4H, FIT_8_PLUS, ruleOf17()));
-        bids.add(shows(Bid._4H, fit(10)));
-        bids.add(shows(Bid._4S, FIT_8_PLUS, ruleOf17()));
-        bids.add(shows(Bid._4S, fit(10)));
-        bids.add(shows(Call.PASS));
-        return bids;
-    }
+*/
 
 }
 
