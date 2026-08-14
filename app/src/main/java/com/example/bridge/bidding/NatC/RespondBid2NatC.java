@@ -149,9 +149,9 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._3S, noFit(), shape(6,10), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
-                shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4H")),
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME),id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3NT"))
+                shows(Bid._3S, noFit(), shape(6,10), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _3S")),
+                shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _4H")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.secondBidToGameHeart _3NT"))
           );
         return choices;
     }

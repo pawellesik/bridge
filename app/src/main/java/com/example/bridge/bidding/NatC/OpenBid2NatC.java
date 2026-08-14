@@ -256,7 +256,6 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
-
     public static PositionCalls responderRaiseChangedSuitsHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
