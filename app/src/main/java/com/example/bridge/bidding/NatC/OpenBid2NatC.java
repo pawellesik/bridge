@@ -275,7 +275,6 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinorHeart, true),
                 propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2NatC::secondBidInviteMajorHeart, true),
-
                 properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidToGameHeart, false),
 
                 shows(Bid._3S, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
