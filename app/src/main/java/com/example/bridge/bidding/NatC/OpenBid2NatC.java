@@ -120,6 +120,7 @@ public class OpenBid2NatC extends OpenNatC {
     public static PositionCalls responderChangedSuits(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
+
         choices.addRules(
                 properties(new Call[]{Bid._3S, Bid._3H}, RespondBid2NatC::secondBidToGame),
                 partnerBids(RespondBid2NatC::secondBid),
@@ -201,17 +202,18 @@ public class OpenBid2NatC extends OpenNatC {
     public static PositionCalls responderRaisedMajor(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
+
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::openerInvitedGame, false),
 
-                shows(Bid._4H, FIT_8_PLUS, pairPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4H")),
-                shows(Bid._4S, FIT_8_PLUS, pairPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4S")),
+                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4H")),
+                shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4S")),
 
-                shows(Bid._3H, FIT_8_PLUS, pairPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3H")),
-                shows(Bid._3S, FIT_8_PLUS, pairPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3S")),
+                shows(Bid._3H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3H")),
+                shows(Bid._3S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3S")),
 
-                shows(Bid._3H, shape(6, 10), pairPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3H")),
-                shows(Bid._3S, shape(6, 10), pairPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3S")),
+                shows(Bid._3H, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3H")),
+                shows(Bid._3S, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3S")),
 
                 shows(Bid._2H, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajor _2H")),
                 shows(Bid._2S, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajor _2S")),

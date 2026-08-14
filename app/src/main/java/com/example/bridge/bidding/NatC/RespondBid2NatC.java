@@ -106,6 +106,7 @@ public class RespondBid2NatC extends RespondNatC {
 
     public static PositionCalls openerInvitedGame(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+
         choices.addRules(
                 shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4H")),
                 shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4S")),
