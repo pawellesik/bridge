@@ -18,12 +18,12 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
-                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 2H")),
-                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 2S")),
-                shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3H")),
-                shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3S")),
-                shows(Bid._5D, OpeningLowBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 5D")),
-                shows(Bid._4D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 4D"))
+                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
+                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2S")),
+                shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
+                shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
+                shows(Bid._5D, OpeningLowBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D")),
+                shows(Bid._4D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderdTrumpMinorDiamod 4D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
