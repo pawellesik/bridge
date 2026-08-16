@@ -17,6 +17,13 @@ public class CompeteNatC extends NatC {
         Bid partnerBid = ps.getPartner().getBid();
 
         List<CallFeature> bids = new ArrayList<>();
+        for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
+            bids.add(cf);
+        }
+        for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+            bids.add(cf);
+        }
+
         bids.add(shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _4H")));
         bids.add(shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _4S")));
 
