@@ -302,8 +302,7 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(
                 properties(new Call[]{Bid._3S}, OpenBid3NatC::thirdBidToGameHeart, false),
                 shows(Bid._3S, noFit(), shape(4, 10), not(myLastBid(Bid._2S)), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
-                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidToGameHeart _3S")),
-                shows(Bid._4H, fit(), id("RespondBid2NatC.secondBidToGameHeart _4H"))
+                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidToGameHeart _3S"))
                 //jest w compBids:
                 //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _4H")),
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.secondBidToGameHeart _3NT"))

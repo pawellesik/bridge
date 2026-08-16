@@ -330,8 +330,7 @@ Pass Pass 1S Pass
 [Declarer "N"]
 [Contract "Pass"]
 [Auction "N"]
-Pass Pass 1S Pass
-2D Pass
+Pass Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "atC Deal pik 27"]

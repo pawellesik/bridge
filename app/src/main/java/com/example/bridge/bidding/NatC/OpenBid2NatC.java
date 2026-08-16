@@ -200,7 +200,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                     shows(Bid._3S, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
                     shows(Bid._4S, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
-                    shows(Bid._3H, noFit(), shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
+                    shows(Bid._3H, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
                     shows(Bid._3S, shape(5, 10), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
 
@@ -241,10 +241,9 @@ public class OpenBid2NatC extends OpenNatC {
 
                     shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
-                    shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
-                    shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
+                    shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
+                    shows(Bid._3S, IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
 
-                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3C")),
                     shows(Bid._3D, noFit(), shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
 
                     shows(Bid._4C, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
