@@ -319,8 +319,8 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._3H, noFit(), IS_REBID, id("RespondBid2NatC.secondBidToGameMinorHeart _3H")),
-                shows(Bid._3S, noFit(), IS_REBID, id("RespondBid2NatC.secondBidToGameMinorHeart _3S"))
+                shows(Bid._3H, noFit(), IS_REBID, shape(6,10), id("RespondBid2NatC.secondBidToGameMinorHeart _3H")),
+                shows(Bid._3S, noFit(), IS_REBID, shape(6,10), id("RespondBid2NatC.secondBidToGameMinorHeart _3S"))
 
         );
         choices.addRules(CompeteNatC::compBids);
