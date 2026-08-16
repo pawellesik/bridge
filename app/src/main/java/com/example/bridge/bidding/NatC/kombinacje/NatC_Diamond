@@ -20,12 +20,19 @@
 			
 			3NT
 
-		
 	3C ->
 		3D, 3H, 3S ->
 					3S, 5C, 5D
 		
 		5C, 3NT
 	
-	3S, 3H, 2NT, 1NT
+	3S, 3H -> 
+			4H, 4S
+
+	
+	1NT -> 
+		2D, 2C, 2H, 2S ->
+		
+	
+	2NT -> TODO !
 	
