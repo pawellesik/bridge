@@ -62,6 +62,8 @@
 • IS_NON_JUMP - Odzywka na najniższym możliwym poziomie (bez żadnego przeskoku).
 • IS_ANY_JUMP - Odzywka jest z przeskokiem która tereaz daje
 • LAST_BID_WAS_JUMP- ostatnia odzywka partnera była z przeskokiem (jezeli chce spradzic odzywke partnera to powinienem dac partner(LAST_BID_WAS_JUMP))
+• setTrumpColor() - ustawia sie kolor atutowy w show
+
 
 7. ZAŁOŻENIA I RELACJE MIĘDZY GRACZAMI
 --------------------------------------
