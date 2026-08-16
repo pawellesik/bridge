@@ -104,10 +104,10 @@ public class RespondBid2NatC extends RespondNatC {
         //              Bid._2D, Bid._2C, Bid._2H, Bid._2S
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-
+                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGame1NTDiamond),
                 shows(Call.PASS, fit(), id("RespondBid2NatC.secondBid1NTDiamods Pass")),
-                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2S")),
-                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2H"))
+                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2H")),
+                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

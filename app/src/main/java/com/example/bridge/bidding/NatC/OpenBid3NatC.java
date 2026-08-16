@@ -21,9 +21,27 @@ public class OpenBid3NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 shows(Call.PASS, fit(), id("OpenBid2NatC.secondBidNoAgreeTrumpDiamods Pass")),
-                shows(Bid._2S, noFit(), IS_REBID, shape(6,10), id("OpenBid3NatC.thirdBid _2S")),
-                shows(Bid._3D, noFit(), shape(6,10), id("OpenBid3NatC.thirdBid _3D")),
-                shows(Bid._3C, noFit(), shape(6,10), id("OpenBid3NatC.thirdBid _3C"))
+                shows(Bid._2S, noFit(), IS_REBID, shape(6, 10), id("OpenBid3NatC.thirdBid _2S")),
+                shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid3NatC.thirdBid _3D")),
+                shows(Bid._3C, noFit(), shape(6, 10), id("OpenBid3NatC.thirdBid _3C"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls thirdBidToGame1NTDiamond(PositionState ps) {
+        //1D ->
+        //     Bid._1NT->
+        //              Bid._2D, Bid._2C, Bid._2H, Bid._2S->
+        //                                                 Bid._2H, Bid._2S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                shows(Call.PASS, fit(), id("OpenBid3NatC.thirdBidToGame1NTDiamond Pass")),
+                shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _2S")),
+                shows(Bid._3C, noFit(), shape(5,10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3C")),
+                shows(Bid._3D, noFit(), shape(2), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3D")),
+                shows(Bid._2NT, noFit(), PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame1NTDiamond _2NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
