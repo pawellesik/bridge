@@ -37,7 +37,6 @@ public class NoTrumpNatC extends Bidder {
         }
     }
 
-
     public static class OneNoTrumpBidderNatC extends Bidder {
         public static final OneNoTrumpBidderNatC OPEN = new OneNoTrumpBidderNatC(new Open1NTDescription());
 

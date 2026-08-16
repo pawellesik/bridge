@@ -166,10 +166,12 @@ public class RespondNatC extends NatC {
     public static Iterable<CallFeature> weakOpen(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) bids.add(cf);
-        bids.add(shows(Bid._4H, FIT_8_PLUS, ruleOf17()));
-        bids.add(shows(Bid._4H, fit(10)));
-        bids.add(shows(Bid._4S, FIT_8_PLUS, ruleOf17()));
-        bids.add(shows(Bid._4S, fit(10)));
+        bids.add(shows(Bid._4H, FIT_8_PLUS, setTrumpColor(Suit.Hearts), ruleOf17(), id("RespondNatC.weakOpen _4H")));
+        bids.add(shows(Bid._4H, fit(10), setTrumpColor(Suit.Hearts), id("RespondNatC.weakOpen _4H")));
+        bids.add(shows(Bid._4S, FIT_8_PLUS, setTrumpColor(Suit.Spades), ruleOf17(), id("RespondNatC.weakOpen _4S")));
+        bids.add(shows(Bid._4S, fit(10), setTrumpColor(Suit.Spades), id("RespondNatC.weakOpen _4S")));
+        bids.add(shows(Bid._5C, fit(10), pairHighCardPoints(PAIR_MINOR_GAME), setTrumpColor(Suit.Clubs), id("RespondNatC.weakOpen _5C")));
+        bids.add(shows(Bid._5D, fit(10), pairHighCardPoints(PAIR_MINOR_GAME), setTrumpColor(Suit.Diamonds), id("RespondNatC.weakOpen _5C")));
         bids.add(shows(Call.PASS));
         return bids;
     }
