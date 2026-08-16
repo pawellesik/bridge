@@ -226,8 +226,8 @@ public class OpenBid2NatC extends OpenNatC {
     }
 
     public static PositionCalls responderRaisedMajorHeart(PositionState ps) {
-        //odpowiedzi na: Bid._1H ->
-        //                          Bid._2H, Bid._3H ->
+        //1H ->
+        //     Bid._2H, Bid._3H ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(

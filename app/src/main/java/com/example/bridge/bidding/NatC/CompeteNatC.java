@@ -36,11 +36,11 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5C")));
         bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids _5D")));
 
-        bids.add(shows(Bid._5C, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _5C")));
-        bids.add(shows(Bid._5D, FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, pairHighCardPoints(PAIR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _5D")));
-
         bids.add(shows(Bid._2S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._2H)),  partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _2S")));
         bids.add(shows(Bid._4S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)),  partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _4S")));
+
+        bids.add(shows(Bid._3D, shape(2, 10), betterThan(Suit.Clubs), partner(isLastBid(Bid._3C)),  partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _3D")));
+        bids.add(shows(Bid._5D, shape(2, 10), betterThan(Suit.Diamonds), partner(isLastBid(Bid._5C)),  partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _5D")));
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
         return bids;

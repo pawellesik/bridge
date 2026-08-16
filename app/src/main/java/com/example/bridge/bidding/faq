@@ -69,6 +69,7 @@
 • IS_PARTNERS_SUIT - Kolor, który chcesz licytować, był już wcześniej zgłoszony przez partnera.
 • isPartnersSuit() - Statyczny warunek sprawdzający, czy licytujemy kolor partnera.
 • PARTNER_DID_NOT_SIGN_OFF - sprawdza czy partner zalicytowal koncowkę 3NT, 4H, 4S
+• PASSED_HAND- pierwsza odzywka gracza była pasem
 
 8. FIT I WSPÓLNA LICYTACJA
 --------------------------
