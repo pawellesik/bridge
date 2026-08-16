@@ -21,8 +21,8 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 2S")),
                 shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3H")),
                 shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3S")),
-                shows(Bid._5D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 5D")),
-                shows(Bid._4D, OpeningLowBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 4D"))
+                shows(Bid._5D, OpeningLowBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 5D")),
+                shows(Bid._4D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 4D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
