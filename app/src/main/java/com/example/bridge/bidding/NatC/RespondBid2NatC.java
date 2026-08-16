@@ -20,7 +20,7 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGameDiamond),
-                shows(Call.PASS, fit(), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods Pass")),
                 shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2H")),
                 shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2S"))
         );
@@ -35,7 +35,7 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._3S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
-                shows(Bid._5C, fit(), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _5C")),
+                shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _5C")),
                 shows(Bid._5D, shape(2), partner(isLastBid(Bid._3D)), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _5D"))
 
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3NT"))
@@ -51,8 +51,8 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                shows(Bid._3S, fit(), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
-                shows(Bid._3H, fit(), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3H")),
+                shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
+                shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3H")),
                 shows(Bid._3S, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
                 shows(Bid._3H, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3H"))
 
@@ -69,9 +69,9 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                shows(Call.PASS, fit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods Pass")),
-                shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4H")),
-                shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4S")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods Pass")),
+                //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4H")),
+                //shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4S")),
                 shows(Bid._3D, noFit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
                 shows(Bid._5D, noFit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 5D"))
@@ -86,7 +86,7 @@ public class RespondBid2NatC extends RespondNatC {
         //                              Bid._2D, Bid._3D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Call.PASS, fit(), id("RespondBid2NatC.secondBidRebidDiamods Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidRebidDiamods Pass")),
                 shows(Bid._2S, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidRebidDiamods _2S")),
                 shows(Bid._2H, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidRebidDiamods _2H")),
                 shows(Bid._3C, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidRebidDiamods _3C")),
