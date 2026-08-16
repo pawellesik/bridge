@@ -88,7 +88,8 @@ PASS PASS
 [Contract "2H"]
 [Auction "N"]
 1D PASS 2H PASS
-4H PASS Pass Pass
+3H PASS 4H Pass
+Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal kier 8"]
