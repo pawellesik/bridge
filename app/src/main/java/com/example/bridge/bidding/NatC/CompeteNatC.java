@@ -14,18 +14,8 @@ import java.util.List;
 public class CompeteNatC extends NatC {
 
     public static Iterable<CallFeature> compBids(PositionState ps) {
-        Bid partnerBid = ps.getPartner().getBid();
-        Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
         List<CallFeature> bids = new ArrayList<>();
-
-        if (partnerSuit != null) {
-            for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
-                bids.add(cf);
-            }
-            for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-                bids.add(cf);
-            }
-        }
+        addAcesAskConventions(ps, bids);
 
         bids.add(shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _4H")));
         bids.add(shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _4S")));
@@ -54,6 +44,19 @@ public class CompeteNatC extends NatC {
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
         return bids;
+    }
+
+    private static void addAcesAskConventions(PositionState ps, List<CallFeature> bids) {
+        Bid partnerBid = ps.getPartner().getBid();
+        Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
+        if (partnerSuit != null) {
+            for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
+                bids.add(cf);
+            }
+            for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+                bids.add(cf);
+            }
+        }
     }
 }
 
