@@ -15,13 +15,16 @@ public class CompeteNatC extends NatC {
 
     public static Iterable<CallFeature> compBids(PositionState ps) {
         Bid partnerBid = ps.getPartner().getBid();
-
+        Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
         List<CallFeature> bids = new ArrayList<>();
-        for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
-            bids.add(cf);
-        }
-        for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-            bids.add(cf);
+
+        if (partnerSuit != null) {
+            for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
+                bids.add(cf);
+            }
+            for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+                bids.add(cf);
+            }
         }
 
         bids.add(shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids _4H")));
