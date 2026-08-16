@@ -28,6 +28,24 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
+    public static PositionCalls secondBidMinorAgreeTrumpDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._2D, Bid._3D ->
+        //                      Bid._2H, Bid._2S, Bid._3H, Bid._3S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                shows(Call.PASS, fit(), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.secondBidMinorAgreeTrumpDiamods Pass")),
+                shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.secondBidNoAgreeTrumpDiamods _4H")),
+                shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.secondBidNoAgreeTrumpDiamods _4S")),
+                shows(Bid._3D, noFit(), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
+                shows(Bid._5D, noFit(), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.secondBidMinorAgreeTrumpDiamods 5D"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static PositionCalls secondBidRebidDiamods(PositionState ps) {
         //1D ->
         //     Bid._1S, Bid._1H, Bid._2C->

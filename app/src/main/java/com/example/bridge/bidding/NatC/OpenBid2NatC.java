@@ -16,8 +16,12 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-
-
+                properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
+                shows(Bid._2H, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 2H")),
+                shows(Bid._2S, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 2S")),
+                shows(Bid._3H, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 3H")),
+                shows(Bid._3S, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 3S")),
+                shows(Bid._5D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 5D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -35,14 +39,14 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._1S, Bid._2S, Bid._2C}, RespondBid2NatC::secondBidNoAgreeTrumpDiamods),
                 properties(new Call[]{Bid._2D, Bid._3D}, RespondBid2NatC::secondBidRebidDiamods),
-               // properties(new Call[]{Bid._1NT}, RespondBid2NatC::), //TODO
-                shows(Bid._2H, noFit(), shape(4,10), id("OpenBid2NatC.responderChangedSuitsDiamond _2H")),
-                shows(Bid._1S, noFit(), shape(4,10), id("OpenBid2NatC.responderChangedSuitsDiamond _1S")),
-                shows(Bid._2S, noFit(), shape(4,10), id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
+                // properties(new Call[]{Bid._1NT}, RespondBid2NatC::), //TODO
+                shows(Bid._2H, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2H")),
+                shows(Bid._1S, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _1S")),
+                shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
 
-                shows(Bid._2D, noFit(), IS_REBID, shape(6,10), id("OpenBid2NatC.responderChangedSuitsDiamond _2D")),
-                shows(Bid._3D, noFit(), IS_REBID, shape(6,10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
-                shows(Bid._2C, noFit(), shape(5,10), id("OpenBid2NatC.responderChangedSuitsDiamond _2C")),
+                shows(Bid._2D, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2D")),
+                shows(Bid._3D, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
+                shows(Bid._2C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2C")),
 
                 shows(Bid._1NT, noFit(), BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT"))
         );
