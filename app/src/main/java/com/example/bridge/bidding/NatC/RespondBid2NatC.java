@@ -113,6 +113,23 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
+    public static PositionCalls secondBid2NTDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._2NT->
+        //              Bid._3D, Bid._3C, Bid._3H, Bid._3S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                properties(new Call[]{Bid._3H, Bid._3S}, OpenBid3NatC::thirdBidToGame2NTDiamond),
+                shows(Bid._3H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBid2NTDiamods _2H")),
+                shows(Bid._3S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBid2NTDiamods _2S")),
+                shows(Bid._3NT, noFit(), PAIR_BALANCED, id("RespondBid2NatC.secondBid2NTDiamods _3NT")),
+                shows(Bid._5D, noFit(), partner(isLastBid(Bid._3D)), shape(2), id("RespondBid2NatC.secondBid2NTDiamods _5D"))
+
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     /// //////////////////////////////////////////////////////////////////////
     /// ///////////////////////////////////////////////////////////////////////
     public static PositionCalls responderClubJumpMinorChangeMajor(PositionState ps) {

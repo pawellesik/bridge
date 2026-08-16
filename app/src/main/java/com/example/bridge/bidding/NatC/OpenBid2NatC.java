@@ -21,7 +21,8 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 2S")),
                 shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3H")),
                 shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3S")),
-                shows(Bid._5D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 5D"))
+                shows(Bid._5D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 5D")),
+                shows(Bid._4D, OpeningLowBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 4D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -110,6 +111,23 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _2H")),
                 shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _2S"))
         );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responder2NTDiamond(PositionState ps) {//todo
+        //1D ->
+        //     Bid._2NT->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                properties(new Call[]{Bid._3D, Bid._3C, Bid._3H, Bid._3S}, RespondBid2NatC::secondBid2NTDiamods),
+                shows(Bid._3D, IS_REBID, shape(6, 10), id("OpenBid2NatC.responder1NTDiamond _3D")),
+                shows(Bid._3C, shape(5, 10), id("OpenBid2NatC.responder1NTDiamond _3C")),
+                shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _3H")),
+                shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _3S"))
+        );
+
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }

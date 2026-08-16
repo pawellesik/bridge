@@ -47,6 +47,23 @@ public class OpenBid3NatC extends OpenNatC {
         return choices;
     }
 
+    public static PositionCalls thirdBidToGame2NTDiamond(PositionState ps) {
+        //1D ->
+        //     Bid._2NT->
+        //              Bid._3D, Bid._3C, Bid._3H, Bid._3S ->
+        //                                                 Bid._3H, Bid._3S
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                shows(Bid._4H, fit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
+                shows(Bid._4S, fit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
+                shows(Bid._3S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S"))
+                //shows(Bid._3NT, noFit(), PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame2NTDiamond _3NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static Iterable<CallFeature> thirdBid(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(shows(Bid._1NT, BALANCED, points(Rebid1NT), id("OpenBid3NatC.thirdBid _1NT")));

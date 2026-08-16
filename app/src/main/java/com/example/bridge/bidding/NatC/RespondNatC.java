@@ -63,6 +63,7 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsMinorDiamond, false),
                 properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, OpenBid2NatC::responder1NTDiamond, false),
+                properties(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NTDiamond, false),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
                 shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3H")),
