@@ -3,11 +3,27 @@ package com.example.bridge.bidding.NatC;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OpenBid2NatC extends OpenNatC {
+
+    public static PositionCalls weakRespond(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                shows(Bid._4H, FIT_8_PLUS, ruleOf17()),
+                shows(Bid._4S, FIT_8_PLUS, ruleOf17()),
+                shows(Bid._4S, fit(10)),
+                shows(Call.PASS)
+        );
+        return choices;
+    }
 
     public static PositionCalls responderNegat(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
@@ -275,24 +291,32 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
-                propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2NatC::secondBidInviteMajorHeart, true),
-                properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidToGameHeart, false),
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    shows(Bid._4S, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
+                    shows(Bid._3H, noFit(), shape(6, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H"))
+            );
+        } else {
+            choices.addRules(
+                    propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
+                    propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2NatC::secondBidInviteMajorHeart, true),
+                    properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidToGameHeart, false),
 
-                shows(Bid._3S, fit(), OpeningLowBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
-                shows(Bid._4S, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
-                shows(Bid._3H, noFit(), shape(6, 10), partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
+                    shows(Bid._3S, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
+                    shows(Bid._4S, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
+                    shows(Bid._3H, noFit(), shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
-                shows(Bid._3S, shape(5, 10), OpeningLowBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
+                    shows(Bid._3S, shape(5, 10), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
 
-                shows(Bid._4C, fit(), OpeningLowBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
-                shows(Bid._4D, fit(), OpeningLowBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
+                    shows(Bid._4C, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
+                    shows(Bid._4D, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
 
-                shows(Bid._5C, fit(), OpeningInviteBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5C")),
-                shows(Bid._5D, fit(), OpeningInviteBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5D"))
+                    shows(Bid._5C, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5C")),
+                    shows(Bid._5D, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5D"))
 
-        );
+            );
+        }
+
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -303,23 +327,31 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    shows(Bid._4H, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
+                    shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
+                    shows(Bid._3S, noFit(), shape(6, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S"))
+            );
+        } else {
+            choices.addRules(
+                    propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
 
-                shows(Bid._4H, fit(), OpeningLowBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
+                    shows(Bid._4H, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
-                shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
+                    shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
-                shows(Bid._3H, noFit(), shape(4, 10), partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
-                shows(Bid._3S, noFit(), shape(6, 10), partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
+                    shows(Bid._3H, noFit(), shape(4, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
+                    shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
 
-                shows(Bid._4C, fit(), OpeningLowBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
-                shows(Bid._4D, fit(), OpeningLowBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4D")),
+                    shows(Bid._4C, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
+                    shows(Bid._4D, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4D")),
 
-                shows(Bid._5C, fit(), OpeningInviteBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
-                shows(Bid._5D, fit(), OpeningInviteBidding, partner(not(PASSED_HAND)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D"))
+                    shows(Bid._5C, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
+                    shows(Bid._5D, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D"))
 
-        );
+            );
+        }
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
