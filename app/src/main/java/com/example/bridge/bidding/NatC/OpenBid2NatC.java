@@ -25,7 +25,7 @@ public class OpenBid2NatC extends OpenNatC {
 
     public static PositionCalls responderChangedSuitsDiamond(PositionState ps) {
         //1D ->
-        //     Bid._1S, Bid._1H, Bid._3C->
+        //     Bid._1S, Bid._1H, Bid._2C->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
