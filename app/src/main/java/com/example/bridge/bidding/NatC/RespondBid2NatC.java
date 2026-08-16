@@ -14,13 +14,37 @@ import java.util.List;
 public class RespondBid2NatC extends RespondNatC {
 
     public static PositionCalls secondBidNoAgreeTrumpDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._1S, Bid._1H, Bid._2C->
+        //                              Bid._2H, Bid._1S, Bid._2S, Bid._2C ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                );
+                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGameDiamond),
+                shows(Call.PASS, fit(), id("OpenBid2NatC.secondBidNoAgreeTrumpDiamods Pass")),
+                shows(Bid._2H, noFit(), shape(4, 10), id("OpenBid2NatC.secondBidNoAgreeTrumpDiamods _2H")),
+                shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid2NatC.secondBidNoAgreeTrumpDiamods _2S"))
+        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
+    public static PositionCalls secondBidRebidDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._1S, Bid._1H, Bid._2C->
+        //                              Bid._2D, Bid._3D ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS, fit(), id("OpenBid2NatC.secondBidRebidDiamods Pass")),
+                shows(Bid._2S, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.secondBidRebidDiamods _2S")),
+                shows(Bid._2H, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.secondBidRebidDiamods _2H")),
+                shows(Bid._3C, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.secondBidRebidDiamods _3C")),
+                shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid2NatC.secondBidRebidDiamods _2S")),
+                shows(Bid._2H, noFit(), shape(4, 10), id("OpenBid2NatC.secondBidRebidDiamods _2H")),
+                shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.secondBidRebidDiamods _3C"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 
     public static PositionCalls responderClubJumpMinorChangeMajor(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);

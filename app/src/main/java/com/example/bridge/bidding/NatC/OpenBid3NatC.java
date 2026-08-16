@@ -12,6 +12,23 @@ import java.util.List;
 
 public class OpenBid3NatC extends OpenNatC {
 
+    public static PositionCalls thirdBidToGameDiamond(PositionState ps) {
+        //1D ->
+        //     Bid._1S, Bid._1H, Bid._2C->
+        //                              Bid._2H, Bid._1S, Bid._2S, Bid._2C ->
+        //                                                              Bid._2H, Bid._2S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                shows(Call.PASS, fit(), id("OpenBid2NatC.secondBidNoAgreeTrumpDiamods Pass")),
+                shows(Bid._2S, noFit(), IS_REBID, shape(6,10), id("OpenBid3NatC.thirdBid _2S")),
+                shows(Bid._3D, noFit(), shape(6,10), id("OpenBid3NatC.thirdBid _3D")),
+                shows(Bid._3C, noFit(), shape(6,10), id("OpenBid3NatC.thirdBid _3C"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static Iterable<CallFeature> thirdBid(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(shows(Bid._1NT, BALANCED, points(Rebid1NT), id("OpenBid3NatC.thirdBid _1NT")));
@@ -21,7 +38,7 @@ public class OpenBid3NatC extends OpenNatC {
         bids.add(shows(Bid._4H, fit(), OpeningStrongBidding, id("OpenBid3NatC.thirdBid _4H")));
 
         bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBid _3NT")));
-        bids.add(shows(Bid._3NT, PAIR_BALANCED, OpeningStrongBidding, shape(ps.getPartner().getBid().getSuit(),0,1), id("OpenBid3NatC.thirdBid _3NT")));
+        bids.add(shows(Bid._3NT, PAIR_BALANCED, OpeningStrongBidding, shape(ps.getPartner().getBid().getSuit(), 0, 1), id("OpenBid3NatC.thirdBid _3NT")));
 
         bids.add(shows(Call.PASS, partner(isJump(1)), OpenBidding));
 
@@ -43,7 +60,7 @@ public class OpenBid3NatC extends OpenNatC {
 
                 //jest w compBids:
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S")),
-                );
+        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
