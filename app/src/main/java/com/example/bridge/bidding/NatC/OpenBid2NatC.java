@@ -82,7 +82,7 @@ public class OpenBid2NatC extends OpenNatC {
         return choices;
     }
 
-    public static PositionCalls responderRaiseChangedSuitsMinorDiamond(PositionState ps) {//todo
+    public static PositionCalls responderRaiseChangedSuitsMinorDiamond(PositionState ps) {
         //1D ->
         //     Bid._3C->
         PositionCalls choices = new PositionCalls(ps);
@@ -100,7 +100,7 @@ public class OpenBid2NatC extends OpenNatC {
         return choices;
     }
 
-    public static PositionCalls responder1NTDiamond(PositionState ps) {//todo
+    public static PositionCalls responder1NTDiamond(PositionState ps) {/
         //1D ->
         //     Bid._1NT->
         PositionCalls choices = new PositionCalls(ps);
@@ -116,7 +116,7 @@ public class OpenBid2NatC extends OpenNatC {
         return choices;
     }
 
-    public static PositionCalls responder2NTDiamond(PositionState ps) {//todo
+    public static PositionCalls responder2NTDiamond(PositionState ps) {
         //1D ->
         //     Bid._2NT->
         PositionCalls choices = new PositionCalls(ps);
