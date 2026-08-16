@@ -57,10 +57,10 @@ public class RespondNatC extends NatC {
     public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2NatC::responderdTrumpMinorDiamod, true),
+                //propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2NatC::responderdTrumpMinorDiamod, true),
                 properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2NatC::responderChangedSuitsDiamond, false),
-                properties(new Call[]{Bid._2S, Bid._2H, Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsDiamond, false),
-                properties(new Call[]{Bid._3S, Bid._3H, Bid._3C}, OpenBid2NatC::weakRespond, false),
+                //properties(new Call[]{Bid._2S, Bid._2H, Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsDiamond, false),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, false),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
                 shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3H")),

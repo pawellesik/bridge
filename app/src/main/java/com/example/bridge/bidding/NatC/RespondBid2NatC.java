@@ -13,6 +13,15 @@ import java.util.List;
 
 public class RespondBid2NatC extends RespondNatC {
 
+    public static PositionCalls secondBidNoAgreeTrumpDiamods(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+
     public static PositionCalls responderClubJumpMinorChangeMajor(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(partnerBids(OpenBid3NatC::thirdBid),

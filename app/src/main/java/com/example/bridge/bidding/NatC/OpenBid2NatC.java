@@ -29,8 +29,19 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
+                properties(new Call[]{Bid._2H, Bid._2S}, RespondBid2NatC::secondBidNoAgreeTrumpDiamods),
+                //2D, 3D
+                //1NT
+                shows(Bid._2H, fit(), id("OpenBid2NatC.responderChangedSuitsDiamond _2H")),
+                shows(Bid._2S, fit(), id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
 
+                shows(Bid._2H, noFit(), shape(4,10), id("OpenBid2NatC.responderChangedSuitsDiamond _2H")),
+                shows(Bid._2S, noFit(), shape(4,10), id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
 
+                shows(Bid._2D, noFit(), shape(6,10), id("OpenBid2NatC.responderChangedSuitsDiamond _2D")),
+                shows(Bid._3D, noFit(), shape(6,10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
+
+                shows(Bid._1NT, noFit(), BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -55,7 +66,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                shows(Bid._4H, fit(), CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _4H")),
+                //shows(Bid._4H, fit(), CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _4H")),
                 shows(Bid._3H, fit(), CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3H"))
         );
         choices.addRules(CompeteNatC::compBids);
@@ -170,7 +181,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                shows(Bid._4S, fit(), CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _4S")),
+                //shows(Bid._4S, fit(), CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _4S")),
                 shows(Bid._3S, fit(), CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
