@@ -239,9 +239,9 @@ public class RespondBid2NatC extends RespondNatC {
     public static PositionCalls secondBidLong(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4H")),
-                shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4S")),
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME))
+                //shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4H")),
+                //shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4S")),
+                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -272,8 +272,8 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._5C, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5C")),
-                shows(Bid._5D, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5D"))
+                //shows(Bid._5C, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5C")),
+                //shows(Bid._5D, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -301,8 +301,8 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 properties(new Call[]{Bid._3S}, OpenBid3NatC::thirdBidToGameHeart, false),
-                shows(Bid._3S, noFit(), shape(4, 10), not(myLastBid(Bid._2S)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
-                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _3S"))
+                shows(Bid._3S, noFit(), shape(4, 10), not(myLastBid(Bid._2S)), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
+                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidToGameHeart _3S"))
 
                 //jest w compBids:
                 //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _4H")),

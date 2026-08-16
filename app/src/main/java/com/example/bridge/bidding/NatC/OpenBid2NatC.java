@@ -155,7 +155,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidLong),
+                propertiesForcingToGame(new Call[]{Bid._3H}, RespondBid2NatC::secondBidLong, true),
                 properties(new Call[]{Bid._2NT}, RespondBid2NatC::secondBidSearchSuitAfter2NTHeart),
                 propertiesAgreeTrump(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidInviteMinor, true),
 
@@ -278,7 +278,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                properties(new Call[]{Bid._3S}, RespondBid2NatC::secondBidLong),
+                propertiesForcingToGame(new Call[]{Bid._3S}, RespondBid2NatC::secondBidLong, true),
                 properties(new Call[]{Bid._2NT}, RespondBid2NatC::secondBidSearchSuitAfter2NTSpade),
                 propertiesAgreeTrump(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidInviteMinor, true),
 
