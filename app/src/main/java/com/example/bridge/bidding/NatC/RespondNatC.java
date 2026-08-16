@@ -77,9 +77,9 @@ public class RespondNatC extends NatC {
                 shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2S")),
                 shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2H")),
 
-                shows(Bid._2D, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneDiamond _2D")),
-                shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, id("RespondNatC.oneDiamond _3D")),
-                shows(Bid._3D, highCardPoints(JUMP_HAND), fit(), id("RespondNatC.oneDiamond _3D")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Diamonds), id("RespondNatC.oneDiamond _2D")),
+                shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), fit(), setTrumpColor(Suit.Diamonds), PASSED_HAND, id("RespondNatC.oneDiamond _3D")),
+                shows(Bid._3D, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Diamonds), id("RespondNatC.oneDiamond _3D")),
 
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2C")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneDiamond _3C")),
@@ -106,9 +106,9 @@ public class RespondNatC extends NatC {
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneHeart WEAK_LONG _3S")),
 
-                shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneHeart _2H")),
-                shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, fit(), id("RespondNatC.oneHeart _3H")),
-                shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), id("RespondNatC.oneHeart _3H")),
+                shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _2H")),
+                shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, fit(), setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _3H")),
+                shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _3H")),
 
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _1S")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2C")),
@@ -138,9 +138,9 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._2H, Bid._2C, Bid._2D, Bid._1NT}, OpenBid2NatC::responderChangedSuitsSpade, false),
                 properties(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2NatC::responderRaiseChangedSuitsSpade, false),
 
-                shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneSpade _2S")),
-                shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), id("RespondNatC.oneSpade _3S")),
-                shows(Bid._3S, highCardPoints(JUMP_HAND), PASSED_HAND, fit(), id("RespondNatC.oneSpade _3S")),
+                shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
+                shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
+                shows(Bid._3S, highCardPoints(JUMP_HAND), PASSED_HAND, fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
 
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2H")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2C")),

@@ -1,3 +1,6 @@
+shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBid1NTDiamods Pass")),
+
+
 1. PUNKTY I SIŁA RĘKI
 ---------------------
 • highCardPoints(min, max) - Punkty za same figury (HCP: A=4, K=3, Q=2, J=1).

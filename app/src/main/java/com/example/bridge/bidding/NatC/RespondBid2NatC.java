@@ -105,7 +105,7 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGame1NTDiamond),
-                shows(Call.PASS, fit(), id("RespondBid2NatC.secondBid1NTDiamods Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBid1NTDiamods Pass")),
                 shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2H")),
                 shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2S"))
         );
@@ -228,10 +228,11 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4H")),
-                shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4S")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME)),
-                shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS")));
+                //shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.openerInvitedGame _4H")),
+                // shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Spades), id("RespondBid2NatC.openerInvitedGame _4S")),
+                //shows(Bid._3NT, pairHighCardPoints(PAIR_GAME))
+                //shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS"))
+        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -318,9 +319,8 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._3H, noFit(), IS_REBID, shape(6,10), id("RespondBid2NatC.secondBidToGameMinorHeart _3H")),
-                shows(Bid._3S, noFit(), IS_REBID, shape(6,10), id("RespondBid2NatC.secondBidToGameMinorHeart _3S"))
-
+                shows(Bid._3H, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidToGameMinorHeart _3H")),
+                shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidToGameMinorHeart _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
