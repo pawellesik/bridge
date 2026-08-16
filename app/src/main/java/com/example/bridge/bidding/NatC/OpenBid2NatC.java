@@ -487,52 +487,7 @@ public class OpenBid2NatC extends OpenNatC {
         return choices;
     }
 
-    public static PositionCalls responderRaisedMinor(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::openerInvitedGame, false),
-                shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), fit(), id("OpenBid2NatC.responderRaisedMinor _5D")),
-                shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), fit(), id("OpenBid2NatC.responderRaisedMinor _5C")),
-
-                shows(Bid._3H, DECENT_PLUS_SUIT, pairHighCardPoints(PAIR_GAME), shape(4, 10), id("OpenBid2NatC.responderRaisedMinor _3H")),
-                shows(Bid._3S, DECENT_PLUS_SUIT, pairHighCardPoints(PAIR_GAME), shape(4, 10), id("OpenBid2NatC.responderRaisedMinor _3S")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, id("OpenBid2NatC.responderRaisedMinor _3NT")),
-
-                shows(Call.PASS, id("OpenBid2NatC.responderRaisedMinor _PASS"))
-        );
-        choices.addRules(CompeteNatC::compBids);
-        return choices;
-    }
-
-    public static PositionCalls responderRaisedMajor(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
-
-        choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::openerInvitedGame, false),
-
-                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4H")),
-                shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajor _4S")),
-
-                shows(Bid._3H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3H")),
-                shows(Bid._3S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3S")),
-
-                shows(Bid._3H, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3H")),
-                shows(Bid._3S, shape(6, 10), pairHighCardPoints(PAIR_GAME_INVITE), id("OpenBid2NatC.responderRaisedMajor _3S")),
-
-                shows(Bid._2H, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajor _2H")),
-                shows(Bid._2S, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajor _2S")),
-
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME_INVITE), partnerLastSuitShape(0, 2), othersAtLeast(3), id("OpenBid2NatC.responderRaisedMajor _3NT"))
-
-        );
-        choices.addRules(CompeteNatC::compBids);
-        return choices;
-    }
-
-
-    public static PositionCalls responder1NT(PositionState ps) {
+    /*public static PositionCalls responder1NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._2H, IS_REBID, shape(6, 11), points(12, 17), id("OpenBid2NatC.responder1NT _2H")),
@@ -570,5 +525,5 @@ public class OpenBid2NatC extends OpenNatC {
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
-    }
+    }*/
 }
