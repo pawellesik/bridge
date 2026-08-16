@@ -54,7 +54,46 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(
                 shows(Call.PASS, fit(), id("OpenBid2NatC.responderChangedSuitsDiamond Pass"))
         );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 
+    public static PositionCalls responderRaiseChangedSuitsMajorDiamond(PositionState ps) {
+        //1D ->
+        //     Bid._2H, Bid._2S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                shows(Bid._3S, fit(), id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
+                shows(Bid._3H, fit(), id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
+        );
+        choices.addRules(
+                properties(new Call[]{Bid._2S, Bid._3H, Bid._3C, Bid._3C}, RespondBid2NatC:: secondBidRaiseNoAgreeTrumpDiamods),
+
+                shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
+                shows(Bid._3H, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
+                shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
+                shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _3S"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderRaiseChangedSuitsMinorDiamond(PositionState ps) {//todo
+        //1D ->
+        //     Bid._3C->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                properties(new Call[]{Bid._3D, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseChangeSuitMinorDiamods),
+
+                shows(Bid._5C, fit(), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _5C")),
+                shows(Bid._3D, IS_REBID, shape(6,10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3D")),
+                shows(Bid._3H, shape(4,10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3H")),
+                shows(Bid._3S, shape(4,10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3S")),
+                shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3NT"))
+        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }

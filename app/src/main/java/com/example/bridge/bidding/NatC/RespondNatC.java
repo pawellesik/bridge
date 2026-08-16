@@ -59,7 +59,8 @@ public class RespondNatC extends NatC {
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2NatC::responderdTrumpMinorDiamod, true),
                 properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2NatC::responderChangedSuitsDiamond, false),
-                //properties(new Call[]{Bid._2S, Bid._2H, Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsDiamond, false),
+                properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderRaiseChangedSuitsMajorDiamond, false),
+                properties(new Call[]{Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsMinorDiamond, false),
                 properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, false),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
