@@ -17,10 +17,10 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
-                shows(Bid._2H, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 2H")),
-                shows(Bid._2S, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 2S")),
-                shows(Bid._3H, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 3H")),
-                shows(Bid._3S, shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond 3S")),
+                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 2H")),
+                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 2S")),
+                shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3H")),
+                shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond 3S")),
                 shows(Bid._5D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderChangedSuitsDiamond 5D"))
         );
         choices.addRules(CompeteNatC::compBids);
@@ -40,9 +40,9 @@ public class OpenBid2NatC extends OpenNatC {
                 properties(new Call[]{Bid._2H, Bid._1S, Bid._2S, Bid._2C}, RespondBid2NatC::secondBidNoAgreeTrumpDiamods),
                 properties(new Call[]{Bid._2D, Bid._3D}, RespondBid2NatC::secondBidRebidDiamods),
                 // properties(new Call[]{Bid._1NT}, RespondBid2NatC::), //TODO
-                shows(Bid._2H, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2H")),
-                shows(Bid._1S, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _1S")),
-                shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
+                shows(Bid._2H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _2H")),
+                shows(Bid._1S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _1S")),
+                shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
 
                 shows(Bid._2D, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2D")),
                 shows(Bid._3D, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
@@ -70,8 +70,8 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(
                 properties(new Call[]{Bid._2S, Bid._3H, Bid._3C, Bid._3C}, RespondBid2NatC::secondBidRaiseNoAgreeTrumpDiamods),
 
-                shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
-                shows(Bid._3H, noFit(), shape(4, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
+                shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
+                shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
                 shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
                 shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _3S"))
@@ -90,8 +90,8 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._5C, fit(), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _5C")),
                 shows(Bid._3D, IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3D")),
-                shows(Bid._3H, shape(4, 10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3H")),
-                shows(Bid._3S, shape(4, 10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3S")),
+                shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3H")),
+                shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3S")),
                 shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3NT"))
         );
         choices.addRules(CompeteNatC::compBids);
@@ -107,8 +107,8 @@ public class OpenBid2NatC extends OpenNatC {
                 properties(new Call[]{Bid._2D, Bid._2C, Bid._2H, Bid._2S}, RespondBid2NatC::secondBid1NTDiamods),
                 shows(Bid._2D, IS_REBID, shape(6, 10), id("OpenBid2NatC.responder1NTDiamond _2D")),
                 shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responder1NTDiamond _2C")),
-                shows(Bid._2H, shape(4, 10), OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _2H")),
-                shows(Bid._2S, shape(4, 10), OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _2S"))
+                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _2H")),
+                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responder1NTDiamond _2S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -217,7 +217,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                     shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
-                    shows(Bid._3H, noFit(), shape(4, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
+                    shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
                     shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
 
                     shows(Bid._4C, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
