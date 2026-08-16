@@ -311,4 +311,19 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
+
+    public static PositionCalls secondBidToGameMinorHeart(PositionState ps) {
+        //odpowiedzi na: Bid._1H ->
+        //                          Bid._3C, Bid._3D, Bid._2S ->
+        //                                                      Bid._3C, Bid._3D ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                shows(Bid._3H, noFit(), IS_REBID, id("RespondBid2NatC.secondBidToGameMinorHeart _3H")),
+                shows(Bid._3S, noFit(), IS_REBID, id("RespondBid2NatC.secondBidToGameMinorHeart _3S"))
+
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 }

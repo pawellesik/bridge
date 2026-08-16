@@ -196,12 +196,16 @@ public class OpenBid2NatC extends OpenNatC {
                     propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
                     propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2NatC::secondBidInviteMajorHeart, true),
                     properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidToGameHeart, false),
+                    properties(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidToGameMinorHeart, false),
 
                     shows(Bid._3S, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
                     shows(Bid._4S, fit(), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
                     shows(Bid._3H, noFit(), shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
                     shows(Bid._3S, shape(5, 10), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
+
+                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3C")),
+                    shows(Bid._3D, noFit(), shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
 
                     shows(Bid._4C, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
                     shows(Bid._4D, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
@@ -231,6 +235,7 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices.addRules(
                     propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
+                    properties(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidToGameMinorHeart, false),
 
                     shows(Bid._4H, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
@@ -238,6 +243,9 @@ public class OpenBid2NatC extends OpenNatC {
 
                     shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
                     shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
+
+                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3C")),
+                    shows(Bid._3D, noFit(), shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
 
                     shows(Bid._4C, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
                     shows(Bid._4D, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4D")),
