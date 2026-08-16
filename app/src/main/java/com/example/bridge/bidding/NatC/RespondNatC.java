@@ -17,7 +17,7 @@ public class RespondNatC extends NatC {
     public static final Range MINIMUM_HAND = new Range(7, 10);
     public static final Range JUMP_HAND = new Range(11, 28);
     public static final Range JUMP_AFTER_PASS = new Range(11, 11);
-    public static final Range WEAK_LONG = new Range(7, 11);
+    public static final Range WEAK_LONG = new Range(7, 10);
 
 
     public static PositionCalls oneClub(PositionState ps) {
@@ -25,7 +25,6 @@ public class RespondNatC extends NatC {
         choices.addRules(
                 partnerBids(OpenBid2NatC::responderClub),
                 properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, true),
-                //properties(new Call[]{Bid._2H, Bid._2S}, OpenBid2NatC::responderClubJumpMajor, true),
                 properties(new Call[]{Bid._3D, Bid._3C}, OpenBid2NatC::responderClubJumpMinor, true),
 
                 shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
@@ -57,17 +56,20 @@ public class RespondNatC extends NatC {
 
     public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        if (ps.isPassedHand()) {
-            choices.addRules(
-                    partnerBids(OpenBid2NatC::responderChangedSuits),
-                    shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1S")),
-                    shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1H")),
-
-                    shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), id("RespondNatC.oneDiamond _2S")),
-                    shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), id("RespondNatC.oneDiamond _2H")),
+        choices.addRules(
+                    //partnerBids(OpenBid2NatC::responderChangedSuits),
 
                     shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
                     shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3H")),
+
+                    shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1S")),
+                    shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1H")),
+
+                    shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneDiamond _2S")),
+                    shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneDiamond _2H")),
+
+                    shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2S")),
+                    shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2H")),
 
                     shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2C")),
                     shows(Bid._2D, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneDiamond _2D")),
@@ -79,35 +81,6 @@ public class RespondNatC extends NatC {
                     shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _1NT"))
 
             );
-        } else {
-            choices.addRules(AcesAsk.initiateConvention(ps));
-            choices.addRules(
-                    partnerBids(OpenBid2NatC::responderChangedSuits),
-                    properties(new Call[]{Bid._3D}, OpenBid2NatC::responderRaisedMinor, true),
-
-                    shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1S")),
-                    shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1H")),
-
-                    shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2S")),
-                    shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2H")),
-
-                    shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
-                    shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3H")),
-
-                    shows(Bid._5D, highCardPoints(PAIR_MINOR_GAME), fit(), id("RespondNatC.oneDiamond _5D")),
-
-                    shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2C")),
-                    shows(Bid._2D, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneDiamond _2D")),
-
-                    shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _3C")),
-                    shows(Bid._3D, highCardPoints(JUMP_HAND), fit(), id("RespondNatC.oneDiamond _3D")),
-
-                    shows(Bid._3NT, BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondNatC.oneDiamond _3NT")),
-                    shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _2NT")),
-                    shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _1NT"))
-            );
-        }
-        choices.addPassRule(points(RESPOND_PASS));
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -121,6 +94,8 @@ public class RespondNatC extends NatC {
                 propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2NatC::responderRaisedMajorHeart, true),
                 properties(new Call[]{Bid._1S, Bid._2C, Bid._2D, Bid._1NT}, OpenBid2NatC::responderChangedSuitsHeart, false),
                 properties(new Call[]{Bid._3C, Bid._3D, Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsHeart, false),
+
+                shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneHeart WEAK_LONG _3S")),
 
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneHeart _2H")),
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, fit(), id("RespondNatC.oneHeart _3H")),
@@ -190,6 +165,64 @@ public class RespondNatC extends NatC {
 
 
 /*
+
+public static PositionCalls oneDiamond(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        if (ps.isPassedHand()) {
+            choices.addRules(
+                    partnerBids(OpenBid2NatC::responderChangedSuits),
+                    shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1S")),
+                    shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1H")),
+
+                    shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), id("RespondNatC.oneDiamond _2S")),
+                    shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), id("RespondNatC.oneDiamond _2H")),
+
+                    shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
+                    shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3H")),
+
+                    shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2C")),
+                    shows(Bid._2D, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneDiamond _2D")),
+
+                    shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), id("RespondNatC.oneDiamond _3C")),
+                    shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), fit(), id("RespondNatC.oneDiamond _3D")),
+
+                    shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _2NT")),
+                    shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _1NT"))
+
+            );
+        } else {
+            choices.addRules(AcesAsk.initiateConvention(ps));
+            choices.addRules(
+                    partnerBids(OpenBid2NatC::responderChangedSuits),
+                    properties(new Call[]{Bid._3D}, OpenBid2NatC::responderRaisedMinor, true),
+
+                    shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1S")),
+                    shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _1H")),
+
+                    shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2S")),
+                    shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2H")),
+
+                    shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
+                    shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3H")),
+
+                    shows(Bid._5D, highCardPoints(PAIR_MINOR_GAME), fit(), id("RespondNatC.oneDiamond _5D")),
+
+                    shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneDiamond _2C")),
+                    shows(Bid._2D, highCardPoints(MINIMUM_HAND), fit(), id("RespondNatC.oneDiamond _2D")),
+
+                    shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _3C")),
+                    shows(Bid._3D, highCardPoints(JUMP_HAND), fit(), id("RespondNatC.oneDiamond _3D")),
+
+                    shows(Bid._3NT, BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondNatC.oneDiamond _3NT")),
+                    shows(Bid._2NT, highCardPoints(JUMP_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _2NT")),
+                    shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _1NT"))
+            );
+        }
+        choices.addPassRule(points(RESPOND_PASS));
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static PositionCalls oneHeartOld(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         Call[] raises = new Call[]{Bid._2H, Bid._3H, Bid._4H};
