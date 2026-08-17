@@ -104,6 +104,8 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RespondBid2NatC::secondBidMajorClubStandard),
+                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame),
+
                 shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
                 shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
 
