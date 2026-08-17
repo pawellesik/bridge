@@ -314,7 +314,7 @@ public abstract class Bidder {
             // Zmiana: Teraz sprawdza jawnie uzgodniony trumpSuit w stanie pary, 
             // a nie tylko ostatnio pokazany kolor.
             Suit agreedTrump = ps.getPairState().getTrumpSuit();
-            return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == agreedTrump;
+            return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == agreedTrump && agreedTrump!= null;
         }
         return false;
     });
