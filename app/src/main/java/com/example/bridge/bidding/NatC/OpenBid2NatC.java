@@ -147,6 +147,35 @@ public class OpenBid2NatC extends OpenNatC {
         return choices;
     }
 
+    public static PositionCalls responderdRaiseTrumpMinorClub(PositionState ps) {
+        PositionCalls choices;
+        if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
+            choices = responderdRaiseTrumpMinorClubStrong(ps);
+        } else {
+            choices = responderdRaiseTrumpMinorClubStandard(ps);
+        }
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdRaiseTrumpMinorClubStrong(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdRaiseTrumpMinorClubStandard(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static PositionCalls responderdRaiseTrumpMajorClub(PositionState ps) {
         PositionCalls choices;
         if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
