@@ -103,6 +103,13 @@ shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.se
 • id(String) - Nadaje unikalny identyfikator regule (pomocne przy debugowaniu).
 • note(String) - Dodaje tekstowy opis/notatkę do odzywki widoczną w systemie.
 
+
+
+Opener (Otwierający): Pierwsza osoba przy stole, która zalicytowała cokolwiek innego niż Pass.
+Overcaller (Wchodzący): Przeciwnik otwierającego, który jako pierwszy z licytuje po otwarciu (chce "przejąć" licytację).
+Responder (Odpowiadający): Partner Otwierającego.
+Advancer (Wspierający wejście): Partner Wchodzącego
+
 =====================================================================================================
 =====================================================================================================
 =====================================================================================================
