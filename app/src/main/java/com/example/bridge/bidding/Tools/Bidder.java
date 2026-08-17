@@ -25,6 +25,7 @@ import com.example.bridge.bidding.Constraints.PairKeyCards;
 import com.example.bridge.bidding.Constraints.PairKings;
 import com.example.bridge.bidding.Constraints.PairMinShape;
 import com.example.bridge.bidding.Constraints.PairPoints;
+import com.example.bridge.bidding.Constraints.PassedHand;
 import com.example.bridge.bidding.Constraints.PassIn4thSeat;
 import com.example.bridge.bidding.Constraints.Points;
 import com.example.bridge.bidding.Constraints.PositionProxy;
@@ -302,6 +303,8 @@ public abstract class Bidder {
     public static final StaticConstraint IS_FORCED_TO_GAME = new SimpleStaticConstraint((call, ps) -> ps.getPairState().isForcedToGame());
     public static final StaticConstraint IS_OPPS_CONTRACT = new SimpleStaticConstraint((call, ps) -> ps.isOpponentsContract(), "opps contract");
     public static final StaticConstraint IS_OUR_CONTRACT = new SimpleStaticConstraint((call, ps) -> ps.isOurContract(), "our contract");
+    public static final StaticConstraint PASSED_HAND = new PassedHand(true);
+    public static final StaticConstraint NOT_PASSED_HAND = new PassedHand(false);
     public static final StaticConstraint CONTRACT_IS_AGREED_STRAIN = new SimpleStaticConstraint((call, ps) -> {
         Call contractBid = ps.getBiddingState().getContract().getBid();
         if (contractBid instanceof Bid) {
@@ -466,7 +469,7 @@ public abstract class Bidder {
     }
 
     public static StaticConstraint isPassedHand() {
-        return new SimpleStaticConstraint((call, ps) -> ps.isPassedHand(), "passed hand");
+        return PASSED_HAND;
     }
 
     public static HandConstraint dummyPoints(int min, int max) {

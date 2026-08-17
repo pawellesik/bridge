@@ -1,3 +1,6 @@
+shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBid1NTDiamods Pass")),
+
+
 1. PUNKTY I SIŁA RĘKI
 ---------------------
 • highCardPoints(min, max) - Punkty za same figury (HCP: A=4, K=3, Q=2, J=1).
@@ -62,6 +65,8 @@
 • IS_NON_JUMP - Odzywka na najniższym możliwym poziomie (bez żadnego przeskoku).
 • IS_ANY_JUMP - Odzywka jest z przeskokiem która tereaz daje
 • LAST_BID_WAS_JUMP- ostatnia odzywka partnera była z przeskokiem (jezeli chce spradzic odzywke partnera to powinienem dac partner(LAST_BID_WAS_JUMP))
+• setTrumpColor() - ustawia sie kolor atutowy w show
+
 
 7. ZAŁOŻENIA I RELACJE MIĘDZY GRACZAMI
 --------------------------------------
@@ -69,6 +74,7 @@
 • IS_PARTNERS_SUIT - Kolor, który chcesz licytować, był już wcześniej zgłoszony przez partnera.
 • isPartnersSuit() - Statyczny warunek sprawdzający, czy licytujemy kolor partnera.
 • PARTNER_DID_NOT_SIGN_OFF - sprawdza czy partner zalicytowal koncowkę 3NT, 4H, 4S
+• PASSED_HAND- pierwsza odzywka gracza była pasem (partner(not(PASSED_HAND)))
 
 8. FIT I WSPÓLNA LICYTACJA
 --------------------------

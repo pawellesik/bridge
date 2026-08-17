@@ -13,6 +13,125 @@ import java.util.List;
 
 public class RespondBid2NatC extends RespondNatC {
 
+    public static PositionCalls secondBidNoAgreeTrumpDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._1S, Bid._1H, Bid._2C->
+        //                              Bid._2H, Bid._1S, Bid._2S, Bid._2C ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGameDiamond),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods Pass")),
+                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2H")),
+                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2S"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidRaiseChangeSuitMinorDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._3C->
+        //              Bid._3D, Bid._3H, Bid._3S
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._3S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
+                shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _5C")),
+                shows(Bid._5D, shape(2), partner(isLastBid(Bid._3D)), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _5D"))
+
+                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidRaiseNoAgreeTrumpDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._2H, Bid._2S->
+        //                      Bid._2S, Bid._3H, Bid._3C, Bid._3C ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
+                shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3H")),
+                shows(Bid._3S, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
+                shows(Bid._3H, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3H"))
+
+                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidMinorAgreeTrumpDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._2D, Bid._3D ->
+        //                      Bid._2H, Bid._2S, Bid._3H, Bid._3S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods Pass")),
+                //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4H")),
+                //shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4S")),
+                shows(Bid._3D, noFit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
+                shows(Bid._5D, noFit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 5D"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidRebidDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._1S, Bid._1H, Bid._2C->
+        //                              Bid._2D, Bid._3D ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidRebidDiamods Pass")),
+                shows(Bid._2S, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidRebidDiamods _2S")),
+                shows(Bid._2H, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidRebidDiamods _2H")),
+                shows(Bid._3C, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidRebidDiamods _3C")),
+                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2S")),
+                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2H")),
+                shows(Bid._3C, noFit(), DECENT_PLUS_SUIT, shape(5, 10), id("RespondBid2NatC.secondBidRebidDiamods _3C"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBid1NTDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._1NT->
+        //              Bid._2D, Bid._2C, Bid._2H, Bid._2S
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGame1NTDiamond),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBid1NTDiamods Pass")),
+                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2H")),
+                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRebidDiamods _2S"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBid2NTDiamods(PositionState ps) {
+        //1D ->
+        //     Bid._2NT->
+        //              Bid._3D, Bid._3C, Bid._3H, Bid._3S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                properties(new Call[]{Bid._3H, Bid._3S}, OpenBid3NatC::thirdBidToGame2NTDiamond),
+                shows(Bid._3H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBid2NTDiamods _2H")),
+                shows(Bid._3S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBid2NTDiamods _2S")),
+                shows(Bid._3NT, noFit(), PAIR_BALANCED, id("RespondBid2NatC.secondBid2NTDiamods _3NT")),
+                shows(Bid._5D, noFit(), partner(isLastBid(Bid._3D)), shape(2), id("RespondBid2NatC.secondBid2NTDiamods _5D"))
+
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    /// //////////////////////////////////////////////////////////////////////
+    /// ///////////////////////////////////////////////////////////////////////
     public static PositionCalls responderClubJumpMinorChangeMajor(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(partnerBids(OpenBid3NatC::thirdBid),
@@ -109,10 +228,11 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4H")),
-                shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.openerInvitedGame _4S")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME)),
-                shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS")));
+                //shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.openerInvitedGame _4H")),
+                // shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Spades), id("RespondBid2NatC.openerInvitedGame _4S")),
+                //shows(Bid._3NT, pairHighCardPoints(PAIR_GAME))
+                //shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS"))
+        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -120,9 +240,9 @@ public class RespondBid2NatC extends RespondNatC {
     public static PositionCalls secondBidLong(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4H")),
-                shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4S")),
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME))
+                //shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4H")),
+                //shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4S")),
+                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -131,7 +251,7 @@ public class RespondBid2NatC extends RespondNatC {
     public static PositionCalls secondBidSearchSuitAfter2NTHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-
+//todo
 
         );
         choices.addRules(CompeteNatC::compBids);
@@ -141,7 +261,7 @@ public class RespondBid2NatC extends RespondNatC {
     public static PositionCalls secondBidSearchSuitAfter2NTSpade(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-
+//todo
 
         );
         choices.addRules(CompeteNatC::compBids);
@@ -153,8 +273,8 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._5C, CONTRACT_IS_AGREED_STRAIN, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5C")),
-                shows(Bid._5D, CONTRACT_IS_AGREED_STRAIN, highCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5D"))
+                //shows(Bid._5C, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5C")),
+                //shows(Bid._5D, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _5D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -182,12 +302,25 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 properties(new Call[]{Bid._3S}, OpenBid3NatC::thirdBidToGameHeart, false),
-                shows(Bid._3S, noFit(), shape(4, 10), not(myLastBid(Bid._2S)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
-                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _3S"))
-
+                shows(Bid._3S, noFit(), shape(4, 10), not(myLastBid(Bid._2S)), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
+                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidToGameHeart _3S"))
                 //jest w compBids:
                 //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidToGameHeart _4H")),
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME),id("RespondBid2NatC.secondBidToGameHeart _3NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidToGameMinorHeart(PositionState ps) {
+        //odpowiedzi na: Bid._1H ->
+        //                          Bid._3C, Bid._3D, Bid._2S ->
+        //                                                      Bid._3C, Bid._3D ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                shows(Bid._3H, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidToGameMinorHeart _3H")),
+                shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidToGameMinorHeart _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
