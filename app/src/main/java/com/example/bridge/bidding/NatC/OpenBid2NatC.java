@@ -41,42 +41,109 @@ public class OpenBid2NatC extends OpenNatC {
     }
 
     public static PositionCalls responderdTrumpMajorClub(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-
+        PositionCalls choices;
         if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
-            choices.addRules(
-                    AcesAsk.initiateConvention(ps),
-                    partnerBids(RespondBid2NatC::secondBidToGame),
-                    shows(Bid._2H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
-                    shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
-                    shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3C")),
-                    shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3D")),
-
-                    shows(Bid._3H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
-                    shows(Bid._3S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3S")),
-
-                    shows(Bid._3H, fit(), isJump(1), OpeningStrongBidding, id("OpenBid2NatC.responderClub _3H")),
-                    shows(Bid._3S, fit(), isJump(1), OpeningStrongBidding, id("OpenBid2NatC.responderClub _3S")),
-
-                    shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _4H")),
-                    shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _4S")),
-
-                    shows(Bid._4H, isJump(1), OpeningStrongBidding, shape(6, 10), id("OpenBid2NatC.responderClub _4H")),
-                    shows(Bid._4S, isJump(1), OpeningStrongBidding, shape(6, 10), id("OpenBid2NatC.responderClub _4H")),
-
-                    shows(Bid._3NT, isJump(1), PAIR_BALANCED, OpeningStrongBidding, id("OpenBid2NatC.responderClub _3NT")),
-                    shows(Bid._3NT, isJump(1), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _3NT"))
-            );
-        } else if (ps.getPartner().getBid().equals(Bid._2H) ||
-                ps.getPartner().getBid().equals(Bid._2S)) {
-            //return responderClubJumpMajor(ps);
+            choices = responderdTrumpMajorClubStrong(ps);
         } else {
-            //return responderChangedSuits(ps);
+            choices = responderdTrumpMajorClubStandard(ps);
         }
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
+    public static PositionCalls responderdTrumpMajorClubStrong(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                AcesAsk.initiateConvention(ps),
+                partnerBids(RespondBid2NatC::secondBidToGame),
+                shows(Bid._2H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
+                shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
+                shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3C")),
+                shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3D")),
+
+                shows(Bid._3H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3H")),
+                shows(Bid._3S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3S")),
+
+                shows(Bid._3H, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderClub _3H")),
+                shows(Bid._3S, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderClub _3S")),
+
+                shows(Bid._4H, isJump(1), OpeningStrongBidding, shape(6, 10), id("OpenBid2NatC.responderClub _4H")),
+                shows(Bid._4S, isJump(1), OpeningStrongBidding, shape(6, 10), id("OpenBid2NatC.responderClub _4S")),
+
+                shows(Bid._3NT, isJump(1), PAIR_BALANCED, OpeningStrongBidding, id("OpenBid2NatC.responderClub _3NT")),
+                shows(Bid._3NT, isJump(1), pairHighCardPoints(PAIR_GAME), othersAtLeast(2), id("OpenBid2NatC.responderClub _3NT"))
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdTrumpMajorClubStandard(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdTrumpMinorClub(PositionState ps) {
+        PositionCalls choices;
+        if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
+            choices = responderdTrumpMinorClubStrong(ps);
+        } else {
+            choices = responderdTrumpMinorClubStandard(ps);
+        }
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdTrumpMinorClubStrong(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdTrumpMinorClubStandard(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdRaiseTrumpMajorClub(PositionState ps) {
+        PositionCalls choices;
+        if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
+            choices = responderdRaiseTrumpMajorClubClubStrong(ps);
+        } else {
+            choices = responderdRaiseTrumpMajorClubStandard(ps);
+        }
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdRaiseTrumpMajorClubClubStrong(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderdRaiseTrumpMajorClubStandard(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 
     public static PositionCalls responderdTrumpMinorDiamod(PositionState ps) {
         //1D ->
