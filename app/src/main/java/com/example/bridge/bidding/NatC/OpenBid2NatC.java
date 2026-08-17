@@ -121,6 +121,8 @@ public class OpenBid2NatC extends OpenNatC {
     }
 
     public static PositionCalls responderdTrumpMinorClub(PositionState ps) {
+        //1C ->
+        //      Bid._2C, Bid._2D ->
         PositionCalls choices;
         if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
             choices = responderdTrumpMinorClubStrong(ps);
@@ -132,8 +134,18 @@ public class OpenBid2NatC extends OpenNatC {
     }
 
     public static PositionCalls responderdTrumpMinorClubStrong(PositionState ps) {
+        //1C ->
+        //      Bid._2C, Bid._2D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
+                AcesAsk.initiateConvention(ps),
+                partnerBids(RespondBid2NatC::secondBidMinorClubStrong),
+                shows(Bid._3S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3S")),
+                shows(Bid._3H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3H")),
+                shows(Bid._4D, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderdTrumpMinorClubStrong _4D")),
+                shows(Bid._4C, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderdTrumpMinorClubStrong _4C")),
+
+                shows(Bid._3NT, PAIR_BALANCED, OpeningStrongBidding, id("OpenBid2NatC.responderdTrumpMinorClubStrong _3NT"))
         );
 
         choices.addRules(CompeteNatC::compBids);
