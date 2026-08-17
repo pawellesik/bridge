@@ -292,6 +292,8 @@ public abstract class Bidder {
         return new com.example.bridge.bidding.Constraints.CurrentContractIs(bid);
     }
 
+    public static final StaticConstraint OPPONENTS_HAVE_BID = new com.example.bridge.bidding.Constraints.OpponentsHaveBid();
+
     public static final StaticConstraint IS_CUE_BID = new IsCueBid(null);
     public static final StaticConstraint IS_NEW_SUIT = new NewSuit(null);
     public static final StaticConstraint IS_NOT_CUE_BID = not(IS_CUE_BID);

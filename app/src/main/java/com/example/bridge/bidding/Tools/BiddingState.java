@@ -106,6 +106,10 @@ public class BiddingState {
         return openingBid;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public void updateStateFromFirstBid() {
         for (int i = 0; i < 50; i++) {
             PositionState position = dealer;
