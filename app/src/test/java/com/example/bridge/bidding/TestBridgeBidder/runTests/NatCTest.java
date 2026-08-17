@@ -81,7 +81,7 @@ public class NatCTest {
     @Test
     public void testNatC() {
         String suggestion = BridgeBidder.suggestBid(test.getDeal(), test.getVulnerable(), test.getAuction(), "NatC","PassOnly");
-        
+
         if (!test.getExpectedCall().equals(suggestion)) {
             // Detailed breakdown on failure
             System.err.println("\n--- DETAILED LICYTACJA BREAKDOWN (NatC) ---");

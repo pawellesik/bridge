@@ -179,7 +179,7 @@ nieużywane przezemnie:
 6. HISTORIA I SYTUACJA PRZY STOLE (STATIC CONSTRAINTS)
 ------------------------------------------------------
 • isSeat(seats...) - Pozycja, na której licytujesz (1, 2, 3 lub 4 po rozdaniu).
-• isLastBid(Call) - Ostatnią odzywką zgłoszoną przy stole była dokładnie ta odzywka.
+• isLastBid(Call) - Ostatnią odzywką zgłoszoną przy stole była dokładnie ta odzywka.- jest to poprzednia nasza odzywka z pominieciem parntera i przeciwnikow
 • partner(isLastBid(Bid._2NT))
 • myLastBid()
 • isLastBid(level, Suit/Strain) - Ostatnia odzywka była na określonym poziomie w danym kolorze/bezie.

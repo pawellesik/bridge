@@ -15,8 +15,8 @@ public class NatC extends Bidder implements IBiddingSystem {
             choices = OpenNatC.getOpenPositionCalls(ps);
         } else {
             choices = new PositionCalls(ps);
+            choices.addRules(CompeteNatC::compBids);
         }
-        choices.addRules(CompeteNatC::compBids);
 
         return choices;
     }
