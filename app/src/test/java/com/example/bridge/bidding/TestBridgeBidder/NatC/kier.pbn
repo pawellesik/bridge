@@ -132,17 +132,7 @@ Pass Pass
 4H Pass Pass Pass
 
 
-% Cleaned by CleanPBN
-[Event "NatC Deal kier 11"]
-[Board "1"]
-[Dealer "N"]
-[Vulnerable "None"]
-[Deal "N:53.KT83.KQ5.KQ95 T.AJ2.A9632.8432 AKQ872.97654.J.7 J964.Q.T874.AJT6"]
-[Declarer "N"]
-[Contract "4H"]
-[Auction "N"]
-1C Pass 1S Pass
-2H Pass Pass Pass
+
 
 % Cleaned by CleanPBN
 [Event "NatC Deal kier 12"]
