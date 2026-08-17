@@ -281,7 +281,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._3S, noFit(), IS_REBID, shape(7, 10), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
 
-                shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderChangedSuitsSpade _2H")),
+                shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderChangedSuitsSpade _2H")),
                 shows(Bid._2H, noFit(), isOpeningBid(Bid._1S), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsSpade _2H")),
 
                 shows(Bid._2S, shape(6, 10), IS_REBID, id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
