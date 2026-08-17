@@ -324,25 +324,29 @@ public class RespondBid2NatC extends RespondNatC {
         //                                                                2NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
+                shows(Bid._3S, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3S")),
+                shows(Bid._3D, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3D")),
+                shows(Bid._3C, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3C")),
 
-                shows(Bid._3H, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
-                shows(Bid._3S, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
-                shows(Bid._3D, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
-                shows(Bid._3C, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C")),
-                shows(Bid._3H, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
-                shows(Bid._3S, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
-                shows(Bid._3D, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
-                shows(Bid._3C, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C"))
+                shows(Bid._3D, IS_NEW_SUIT, shape(5, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3D")),
+                shows(Bid._3C, IS_NEW_SUIT, shape(5, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
     public static PositionCalls secondBidSearchSuitAfter2NTSpade(PositionState ps) {
+        //odpowiedzi na: Bid._1S ->
+        //                          Bid._2H, Bid._2C, Bid._2D, Bid._1NT ->
+        //                                                              2NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-//todo
+                shows(Bid._3H, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3H")),
+                shows(Bid._3D, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3D")),
+                shows(Bid._3C, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3C")),
 
+                shows(Bid._3D, IS_NEW_SUIT, shape(5, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3D")),
+                shows(Bid._3C, IS_NEW_SUIT, shape(5, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
