@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.NatC;
 
+import com.example.bridge.bidding.Constraints.AgreedStrain;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
@@ -16,10 +17,37 @@ public class RecursionNatC extends NatC {
 
     public static PositionCalls recursionBids(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         choices.addRules(
-                shows(Bid._1C,  id("RespondNatC.oneClub _1C"))
+                shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("RecursionNatC.recursionBids CONTRACT_IS_AGREED_STRAIN _Pass")),
+
+                shows(Bid._2H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._2S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1S")),
+                shows(Bid._2D, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _2D")),
+                shows(Bid._3C, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._3D, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1S")),
+                shows(Bid._3H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _2D")),
+                shows(Bid._3S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _2D")),
+
+                shows(Bid._2H, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._2S, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1S")),
+                shows(Bid._2C, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._2D, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1S")),
+                shows(Bid._3H, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._3S, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1S")),
+                shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._3D, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionBids IS_REBID _1S")),
+
+                shows(Bid._2H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._2S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionBids IS_REBID _1S")),
+                shows(Bid._3H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionBids IS_REBID _1H")),
+                shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionBids IS_REBID _1S")),
+
+                shows(Bid._1NT, PAIR_BALANCED, id("RecursionNatC.recursionBids IS_REBID _2D")),
+                shows(Bid._2NT, PAIR_BALANCED, id("RecursionNatC.recursionBids IS_REBID _2D")),
+                shows(Bid._3NT, PAIR_BALANCED, id("RecursionNatC.recursionBids IS_REBID _2D"))
         );
-        //choices.addRules(RecursionNatC::recursionBids);
+        choices.addRules(RecursionNatC.recursionBids(ps));
         return choices;
     }
 
