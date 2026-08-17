@@ -23,9 +23,11 @@ public class RespondNatC extends NatC {
     public static PositionCalls oneClub(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                partnerBids(OpenBid2NatC::responderClub),
                 properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, true),
-                properties(new Call[]{Bid._3D, Bid._3C}, OpenBid2NatC::responderClubJumpMinor, true),
+                properties(new Call[]{Bid._1S, Bid._1H}, OpenBid2NatC::responderdTrumpMajorClub, false),
+                //properties(new Call[]{Bid._2C, Bid._3C, Bid._2D, Bid._3D}, OpenBid2NatC::responderdTrumpMinorClub, false),
+                //properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderdRaiseTrumpMajorClub, true),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, true),
 
                 shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
                 shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1H")),
@@ -178,6 +180,40 @@ public class RespondNatC extends NatC {
 
 
 /*
+
+public static PositionCalls oneClub(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                partnerBids(OpenBid2NatC::responderClub),
+                properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, true),
+                properties(new Call[]{Bid._3D, Bid._3C}, OpenBid2NatC::responderClubJumpMinor, true),
+
+                shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
+                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1H")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1S")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _2C")),
+
+                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _1H")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _1S")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _2C")),
+
+                shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _2H")),
+                shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _2S")),
+                shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _3D")),
+                shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _3C")),
+
+                shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3H")),
+                shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3S")),
+
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), id("RespondNatC.oneClub _2NT")),
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), id("RespondNatC.oneClub _1NT"))
+        );
+
+        choices.addPassRule(points(RESPOND_PASS));
+        return choices;
+    }
 
 public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
