@@ -68,7 +68,7 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsMinorDiamond, false),
                 properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame, false),
-                properties(new Call[]{Bid._2NT}, OpenBid2NatC::responder2NTDiamond, false),
+                properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
                 shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3H")),
@@ -109,6 +109,7 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._3C, Bid._3D, Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsHeart, false),
                 properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame, false),
+                properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneHeart WEAK_LONG _3S")),
 
@@ -144,6 +145,7 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2NatC::responderChangedSuitsSpade, false),
                 properties(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2NatC::responderRaiseChangedSuitsSpade, false),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame, false),
+                properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
                 shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
                 shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
