@@ -21,16 +21,15 @@ public class RecursionNatC extends NatC {
 
     public static PositionCalls recursionBids(PositionState ps, int level) {
         PositionCalls choices = new PositionCalls(ps);
-
+        //choices.addRules(CompeteNatC.compBids(ps));
         if (level < 10) {
-            System.out.println("plesik "+ ps.getBiddingState().getContract().getBid().getSuit()+" trump "+ ps.getPairState().getTrumpSuit());
-            System.out.println("czy "+ (ps.getBiddingState().getContract().getBid().getSuit() == ps.getPairState().getTrumpSuit()));
             choices.addRules(
                     shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("RecursionNatC.recursionBids CONTRACT_IS_AGREED_STRAIN _Pass")),
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RecursionNatC.recursionBids fit _Pass")),
 
                     shows(Bid._2H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1H")),
                     shows(Bid._2S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1S")),
-                    shows(Bid._2C, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _2C")),
+                    shows(Bid._2C, shape(6, 10), id("RecursionNatC.recursionBids IS_REBID _2C")),
                     shows(Bid._2D, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _2D")),
                     shows(Bid._3C, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1H")),
                     shows(Bid._3D, shape(6, 10), IS_REBID, id("RecursionNatC.recursionBids IS_REBID _1S")),
