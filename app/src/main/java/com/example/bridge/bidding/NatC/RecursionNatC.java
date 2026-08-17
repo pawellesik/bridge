@@ -1,25 +1,17 @@
 package com.example.bridge.bidding.NatC;
 
-import com.example.bridge.bidding.Constraints.AgreedStrain;
-import com.example.bridge.bidding.Constraints.Shape;
-import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
-import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
-import com.example.bridge.bidding.Tools.Suit;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RecursionNatC extends NatC {
 
-    public static PositionCalls recursionBids(PositionState ps) {
-        return recursionBids(ps, 1);
+    public static PositionCalls recursionFindLowFitGame(PositionState ps) {
+        return recursionFindLowFitGame(ps, 1);
     }
 
-    public static PositionCalls recursionBids(PositionState ps, int level) {
+    public static PositionCalls recursionFindLowFitGame(PositionState ps, int level) {
         PositionCalls choices = new PositionCalls(ps);
         //choices.addRules(CompeteNatC.compBids(ps));
         if (level < 10) {
@@ -54,7 +46,7 @@ public class RecursionNatC extends NatC {
                     shows(Bid._2NT, PAIR_BALANCED, id("RecursionNatC.recursionBids IS_REBID _2D")),
                     shows(Bid._3NT, PAIR_BALANCED, id("RecursionNatC.recursionBids IS_REBID _2D"))
             );
-            choices.addRules(RecursionNatC.recursionBids(ps, level + 1));
+            choices.addRules(RecursionNatC.recursionFindLowFitGame(ps, level + 1));
         } else {
             choices.addRules(shows(Call.PASS, id("RecursionNatC.recursionBids Pass")));
         }
