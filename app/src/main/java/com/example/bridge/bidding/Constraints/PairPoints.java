@@ -72,20 +72,38 @@ public class PairPoints {
 
     public boolean dynamicallyConforms(Call call, PositionState ps, HandSummary hs, boolean highCard) {
         Range posPoints = getPoints(call, ps, hs, highCard);
-        Range partnerPoints = getPoints(call, ps.getPartner(), ps.getPartner().getPublicHandSummary(), highCard);
+        Range partnerPoints = getPoints(ps.getPartner().getLastCall(), ps.getPartner(), ps.getPartner().getPublicHandSummary(), highCard);
         
+        // Pobieramy minimalne punkty obiecane przez przeciwników (jeśli używamy HCP)
+        int minOppsPoints = 0;
+        if (highCard) {
+            Range lhoPoints = ps.getLHO().getPublicHandSummary().getHighCardPoints();
+            Range rhoPoints = ps.getRHO().getPublicHandSummary().getHighCardPoints();
+            if (lhoPoints != null) minOppsPoints += lhoPoints.getMin();
+            if (rhoPoints != null) minOppsPoints += rhoPoints.getMin();
+        }
+
+        // Maksymalna możliwa liczba punktów dla naszej pary (40 - punkty przeciwników)
+        int maxAvailableForPair = 40 - minOppsPoints;
+
         int minP = partnerPoints.getMin();
         int maxP = partnerPoints.getMax();
         int width = maxP - minP;
         int partnerExpected;
 
-        // Jeśli zakres partnera jest precyzyjny (różnica do 8 pkt), bierzemy średnią.
-        // Zapobiega to absurdalnym wynikom przy zakresach typu 12-40 (unlimited).
         if (width <= 8) {
             partnerExpected = (minP + maxP) / 2;
         } else {
-            // Dla szerokich zakresów przyjmujemy bezpieczne założenie: min + 2 pkt "nadziei".
             partnerExpected = minP + 2;
+        }
+
+        // Sprawdzamy, czy suma naszych punktów i oczekiwanych punktów partnera 
+        // nie przekracza fizycznego limitu talii (uwzględniając licytację przeciwników).
+        int totalPairExpected = posPoints.getMin() + partnerExpected;
+        if (highCard && totalPairExpected > maxAvailableForPair) {
+            // Jeśli licytacja przeciwników sugeruje, że partner nie może mieć aż tylu punktów,
+            // obniżamy oczekiwania do fizycznie możliwego maksimum.
+            partnerExpected = Math.max(minP, maxAvailableForPair - posPoints.getMin());
         }
         
         return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
