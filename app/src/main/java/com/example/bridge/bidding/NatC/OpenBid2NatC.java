@@ -155,6 +155,7 @@ public class OpenBid2NatC extends OpenNatC {
     public static PositionCalls responderdTrumpMinorClubStandard(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
+                //todo
         );
 
         choices.addRules(CompeteNatC::compBids);

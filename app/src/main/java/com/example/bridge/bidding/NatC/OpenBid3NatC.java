@@ -13,6 +13,20 @@ import java.util.List;
 
 public class OpenBid3NatC extends OpenNatC {
 
+    public static PositionCalls thirdBidToGameMinorClubStrong(PositionState ps) {
+        //1C ->
+        //      Bid._2C, Bid._2D ->
+        //                          3S, 3H, 4D, 4C, 3NT ->
+        //                                                3S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static PositionCalls thirdBidToGameDiamond(PositionState ps) {
         //1D ->
         //     Bid._1S, Bid._1H, Bid._2C->
@@ -40,7 +54,7 @@ public class OpenBid3NatC extends OpenNatC {
         choices.addRules(
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.thirdBidToGame1NTDiamond Pass")),
                 shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _2S")),
-                shows(Bid._3C, noFit(), shape(5,10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3C")),
+                shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3C")),
                 shows(Bid._3D, noFit(), shape(2), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3D")),
                 shows(Bid._2NT, noFit(), PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame1NTDiamond _2NT"))
         );
@@ -92,7 +106,7 @@ public class OpenBid3NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-               //shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S"))
+                //shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S"))
                 //jest w compBids:
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S")),
         );

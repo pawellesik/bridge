@@ -125,8 +125,9 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 AcesAsk.initiateConvention(ps),
-                AcesAsk.initiateConventionBlok(ps)
-
+                AcesAsk.initiateConventionBlok(ps),
+                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGameMinorClubStrong),
+                shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, id("OpenBid2NatC.responderdTrumpMinorClubStrong _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
