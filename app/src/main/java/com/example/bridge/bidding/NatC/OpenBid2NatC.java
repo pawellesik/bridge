@@ -10,6 +10,8 @@ import com.example.bridge.bidding.Tools.Suit;
 public class OpenBid2NatC extends OpenNatC {
 
     public static PositionCalls responderNegat(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
         PositionCalls choices;
         if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
             choices = responderNegatStrong(ps);
@@ -21,21 +23,40 @@ public class OpenBid2NatC extends OpenNatC {
     }
 
     public static PositionCalls responderNegatStrong(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-
+                properties(new Call[]{Bid._2NT}, RespondBid2NatC::secondBidNegat2NTStrong),
+                partnerBids(RespondBid2NatC::secondBidNegatStrong),
+                shows(Bid._2H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2H")),
+                shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2S")),
+                shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _3C")),
+                shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _3D")),
+                shows(Bid._2NT, isJump(1), OpeningStrongBidding, id("OpenBid2NatC.responderNegatStandard _2NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
     public static PositionCalls responderNegatStandard(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-
-        );
+                properties(new Call[]{Bid._1NT}, RespondBid2NatC::secondBidNegat1NTStandard),
+                partnerBids(RespondBid2NatC::secondBidNegatStandard),
+                shows(Bid._1H, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _1H")),
+                shows(Bid._1S, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _1S")),
+                shows(Bid._2D, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _2D")),
+                shows(Bid._2C, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _2C")),
+                shows(Bid._1H, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _1H")),
+                shows(Bid._1S, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _1S")),
+                shows(Bid._2D, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2D")),
+                shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2C")),
+                shows(Bid._1NT, id("OpenBid2NatC.responderNegatStandard _1NT"))
+                );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }

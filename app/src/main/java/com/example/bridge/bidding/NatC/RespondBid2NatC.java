@@ -13,6 +13,85 @@ import java.util.List;
 
 public class RespondBid2NatC extends RespondNatC {
 
+    public static PositionCalls secondBidNegat2NTStrong(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
+        //                                   2NT ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._3H, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
+                shows(Bid._3S, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
+                shows(Bid._3D, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
+                shows(Bid._3C, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C")),
+                shows(Bid._3H, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
+                shows(Bid._3S, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
+                shows(Bid._3D, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
+                shows(Bid._3C, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidNegat1NTStandard(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
+        //                                   1NT ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._2H, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2H")),
+                shows(Bid._2S, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2S")),
+                shows(Bid._2D, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2D")),
+                shows(Bid._2C, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2C")),
+                shows(Bid._2H, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2H")),
+                shows(Bid._2S, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2S")),
+                shows(Bid._2D, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2D")),
+                shows(Bid._2C, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _2C"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidNegatStrong(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
+        //                                  2H, 2S, 3C, 3D ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNegatStrong Pass")),
+                shows(Bid._2S, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _2S")),
+                shows(Bid._3H, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidNegatStrong _3H")),
+                shows(Bid._3H, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3H")),
+                shows(Bid._3C, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _3C")),
+                shows(Bid._3D, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _3D"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidNegatStandard(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
+        //                                    1H, 1S, 1NT ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNegatStandard Pass")),
+                shows(Bid._1S, shape(6, 10), id("RespondBid2NatC.secondBidNegatStandard _1S")),
+                shows(Bid._2H, shape(6, 10), id("RespondBid2NatC.secondBidNegatStandard _2H")),
+                shows(Bid._2S, shape(6, 10), id("RespondBid2NatC.secondBidNegatStandard _2S")),
+                shows(Bid._2D, shape(6, 10), id("RespondBid2NatC.secondBidNegatStandard _2D")),
+                shows(Bid._2C, shape(6, 10), id("RespondBid2NatC.secondBidNegatStandard _2C")),
+                shows(Bid._1S, shape(5, 10), id("RespondBid2NatC.secondBidNegatStandard _1S")),
+                shows(Bid._2H, shape(5, 10), id("RespondBid2NatC.secondBidNegatStandard _2H")),
+                shows(Bid._2S, shape(5, 10), id("RespondBid2NatC.secondBidNegatStandard _2S")),
+                shows(Bid._2D, shape(5, 10), id("RespondBid2NatC.secondBidNegatStandard _2D")),
+                shows(Bid._2C, shape(5, 10), id("RespondBid2NatC.secondBidNegatStandard _2C")),
+                shows(Bid._1NT, id("RespondBid2NatC.secondBidNegatStandard _1NT")),
+                shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStandard _2NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static PositionCalls secondBidNoAgreeTrumpDiamods(PositionState ps) {
         //1D ->
         //     Bid._1S, Bid._1H, Bid._2C->
