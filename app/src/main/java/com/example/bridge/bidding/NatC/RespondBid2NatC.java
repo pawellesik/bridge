@@ -92,6 +92,10 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
+
+
+
+
     public static PositionCalls secondBidNoAgreeTrumpDiamods(PositionState ps) {
         //1D ->
         //     Bid._1S, Bid._1H, Bid._2C->
@@ -303,19 +307,6 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
-    public static PositionCalls openerInvitedGame(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-
-        choices.addRules(
-                //shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.openerInvitedGame _4H")),
-                // shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Spades), id("RespondBid2NatC.openerInvitedGame _4S")),
-                //shows(Bid._3NT, pairHighCardPoints(PAIR_GAME))
-                //shows(Call.PASS, id("RespondBid2NatC.openerInvitedGame PASS"))
-        );
-        choices.addRules(CompeteNatC::compBids);
-        return choices;
-    }
-
     public static PositionCalls secondBidLong(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
@@ -328,10 +319,20 @@ public class RespondBid2NatC extends RespondNatC {
     }
 
     public static PositionCalls secondBidSearchSuitAfter2NTHeart(PositionState ps) {
+        //odpowiedzi na: Bid._1H ->
+        //                          Bid._1S, Bid._2C, Bid._2D, Bid._1NT ->
+        //                                                                2NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-//todo
 
+                shows(Bid._3H, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
+                shows(Bid._3S, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
+                shows(Bid._3D, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
+                shows(Bid._3C, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C")),
+                shows(Bid._3H, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
+                shows(Bid._3S, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
+                shows(Bid._3D, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
+                shows(Bid._3C, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

@@ -320,14 +320,14 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._2H, shape(6, 10), IS_REBID, id("OpenBid2NatC.responderChangedSuitsHeart _2H")),
 
-                shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsHeart _2NT")),
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsHeart _3NT")),
-
                 shows(Bid._2C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsHeart _2C")),
                 shows(Bid._2D, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsHeart _2D")),
 
                 shows(Bid._3C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderChangedSuitsHeart _3C")),
-                shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderChangedSuitsHeart _3D"))
+                shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderChangedSuitsHeart _3D")),
+
+                shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsHeart _2NT")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsHeart _3NT"))
 
         );
         choices.addRules(CompeteNatC::compBids);
@@ -442,14 +442,14 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._2S, shape(6, 10), IS_REBID, id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
 
-                shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsSpade _2NT")),
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsSpade _3NT")),
-
                 shows(Bid._2C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsSpade _2C")),
                 shows(Bid._2D, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsSpade _2D")),
 
                 shows(Bid._3C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderChangedSuitsSpade _3C")),
-                shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderChangedSuitsSpade _3D"))
+                shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderChangedSuitsSpade _3D")),
+
+                shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsSpade _2NT")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsSpade _3NT"))
 
         );
         choices.addRules(CompeteNatC::compBids);
