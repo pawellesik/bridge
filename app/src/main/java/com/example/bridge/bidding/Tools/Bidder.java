@@ -276,10 +276,6 @@ public abstract class Bidder {
         return new BidHistory(0, call);
     }
 
-    public static StaticConstraint myLastBid(Call call) {
-        return new BidHistory(0, call);
-    }
-
     public static StaticConstraint isLastBid(int level, Suit suit) {
         return new BidHistory(0, new Bid(level, suit));
     }
