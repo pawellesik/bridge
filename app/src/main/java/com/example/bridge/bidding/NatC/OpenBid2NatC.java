@@ -76,7 +76,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 AcesAsk.initiateConvention(ps),
-                partnerBids(RespondBid2NatC::secondBidToGame),
+                //partnerBids(RespondBid2NatC::secondBidToGame),
                 shows(Bid._2H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _2H")),
                 shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _2S")),
                 shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderClub _3C")),
@@ -102,8 +102,10 @@ public class OpenBid2NatC extends OpenNatC {
     public static PositionCalls responderdTrumpMajorClubStandard(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-        );
+                //todo
 
+
+        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
