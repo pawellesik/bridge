@@ -92,8 +92,31 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
+    public static PositionCalls secondBidMajorClubStrong(PositionState ps) {
+        //1C ->
+        //      1S, 1H ->
+        //              2S, 3H, 3S, 3C, 3D, 3NT, 4H, 4S
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                AcesAsk.initiateConvention(ps),
+                AcesAsk.initiateConventionBlok(ps)
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 
-
+    public static PositionCalls secondBidMajorClubStandard(PositionState ps) {
+        //1C ->
+        //      1S, 1H ->
+        //              1S, 2C, 2H, 2S, 1NT ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                AcesAsk.initiateConvention(ps),
+                AcesAsk.initiateConventionBlok(ps)
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 
 
     public static PositionCalls secondBidNoAgreeTrumpDiamods(PositionState ps) {
