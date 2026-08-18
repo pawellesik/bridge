@@ -100,7 +100,7 @@ public class PairPoints {
 
 
         if (partnerLastBid != null) {
-            if (!(ps.getPartner().getBid().equals(Bid._4H) && ps.getPartner().getBid().equals(Bid._4S) && ps.getPartner().getBid().equals(Bid._3NT))) {
+            if (!(ps.getPartner().getBid().equals(Bid._4H) || ps.getPartner().getBid().equals(Bid._4S) || ps.getPartner().getBid().equals(Bid._3NT))) {
                 if (width <= 8) {
                     partnerExpected = (minP + maxP) / 2;
                 } else {
