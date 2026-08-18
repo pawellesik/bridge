@@ -96,7 +96,7 @@ public class PairPoints {
         int minP = partnerPoints.getMin();
         int maxP = partnerPoints.getMax();
         int width = maxP - minP;
-        int partnerExpected = 0;
+        int partnerExpected = minP;
 
 
         if (partnerLastBid != null) {
