@@ -153,7 +153,32 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(
                 shows(Bid._4S, noFit(), shape(4, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _4S")),
                 shows(Bid._5C, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5C")),
-                shows(Bid._5D, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5D"))
+                shows(Bid._5D, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5D")),
+                shows(Bid._4NT, noFit(), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _4NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidRaiseTrumpMinorClubMajorStandard(PositionState ps) {
+        //1C ->
+        //      Bid._3D, Bid._3C ->
+        //                        3H, 3S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidRaiseTrumpMinorClubStandard(PositionState ps) {
+
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

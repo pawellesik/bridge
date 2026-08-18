@@ -38,9 +38,18 @@
 	       -> standard ->
 					3C, 2H, 2S, 3C ->
 								CompeteNatC::compBids
-	3C, 3D -> strong
+	3C, 3D -> strong ->
+					4H, 4S ->
+							4S, 5C, 5D 
+					
+					3NT
 	
-	       -> standard
+	       -> standard ->
+						4D, 4C ->
+
+						3H, 3S ->
+
+						3NT
 
     3S, 3H -> strong ->
 					OpenBid2NatC::weakRespond
