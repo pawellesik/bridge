@@ -307,14 +307,18 @@ public class RespondBid2NatC extends RespondNatC {
         //                      Bid._2H, Bid._2S, Bid._3H, Bid._3S ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
+
         choices.addRules(
                 partnerBids(NatC::finishBiddingIterable),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods Pass")),
-                //shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4H")),
-                //shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4S")),
-                shows(Bid._3D, noFit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
+                shows(Bid._4H, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4H")),
+                shows(Bid._4S, fit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _4S")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3D")),
-                shows(Bid._5D, noFit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 5D"))
+                shows(Bid._5D, noFit(), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 5D")),
+
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods Pass")),
+
+                shows(Bid._3D, noFit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3NT"))
+
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
