@@ -29,7 +29,7 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._2C, Bid._2D}, OpenBid2NatC::responderdTrumpMinorClub, false),
                 properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderdRaiseTrumpMinorClub, true),
                 properties(new Call[]{Bid._1NT}, OpenBid2NatC::responderd1NTClub, true),
-                // properties(new Call[]{Bid._2NT}, OpenBid2NatC::, true),
+                properties(new Call[]{Bid._2NT}, OpenBid2NatC::responderd2NTClub, true),
                 properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, true),
 
                 shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
