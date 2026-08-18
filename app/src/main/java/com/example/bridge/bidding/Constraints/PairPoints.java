@@ -1,6 +1,8 @@
 package com.example.bridge.bidding.Constraints;
 
 import static com.example.bridge.bidding.Tools.Bidder.PARTNER_DID_NOT_SIGN_OFF;
+import static com.example.bridge.bidding.Tools.Bidder.isLastBid;
+import static com.example.bridge.bidding.Tools.Bidder.partner;
 
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
@@ -95,7 +97,7 @@ public class PairPoints {
         int width = maxP - minP;
         int partnerExpected = 0;
 
-        if (Bidder.isPartnerDidNotSignOff(call, ps)) {
+        if ( !(ps.getPartner().getBid().equals(Bid._4H) && ps.getPartner().getBid().equals(Bid._4S) && ps.getPartner().getBid().equals(Bid._3NT))) {
             if (width <= 8) {
                 partnerExpected = (minP + maxP) / 2;
             } else {
