@@ -24,7 +24,11 @@
 	2S, 2H -> strong ->
 					3S, 4D, 4C ->
 								4H, 3NT
-	       -> standard
+	       -> standard ->
+						2S ->
+							3H, 3C, 3D
+
+						3C, 3D, 3H
 		   
 	2C, 2D -> strong ->
 					3S, 3H, 4D, 4C, 3NT ->

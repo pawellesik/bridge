@@ -144,7 +144,7 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
-    public static PositionCalls secondBidRaiseTrumpMajorClubClubStrong(PositionState ps) {
+    public static PositionCalls secondBidRaiseTrumpMajorClubStrong(PositionState ps) {
         //1C ->
         //     2H, 2S ->
         //             3S, 4D, 4C ->
@@ -153,6 +153,21 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(
                 shows(Bid._4H, shape(6, 10), noFit(), id("RespondBid2NatC.secondBidRaiseTrumpMajorClubClubStrong 4H")),
                 shows(Bid._3NT, noFit(), id("RespondBid2NatC.secondBidRaiseTrumpMajorClubClubStrong 3NT"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidRaiseTrumpMajorClubStandard(PositionState ps) {
+        //1C ->
+        //     2H, 2S ->
+        //             2S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidRaiseTrumpMajorClubStandard pass")),
+                shows(Bid._3H, shape(5, 10), noFit(), shape(Suit.Spades, 0,2), partner(isLastBid(Bid._2S)), IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3H")),
+                shows(Bid._3C, shape(5, 10), noFit(), shape(5,10), shape(Suit.Spades, 0,2), partner(isLastBid(Bid._2S)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3C")),
+                shows(Bid._3D, shape(5, 10), noFit(), shape(5,10), shape(Suit.Spades, 0,2), partner(isLastBid(Bid._2S)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

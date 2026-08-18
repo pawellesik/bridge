@@ -158,12 +158,12 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RespondBid2NatC::secondBidMinorClubStandard),
-                shows(Bid._3C,  shape(6, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
-                shows(Bid._2H,  shape(4, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2H")),
-                shows(Bid._2S,  shape(4, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2S")),
+                shows(Bid._3C, shape(6, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
+                shows(Bid._2H, shape(4, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2H")),
+                shows(Bid._2S, shape(4, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2S")),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderdTrumpMinorClubStandard _Pass")),
-                shows(Bid._3C,  shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
-                shows(Bid._3D,  shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3D"))
+                shows(Bid._3C, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
+                shows(Bid._3D, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3D"))
         );
 
         choices.addRules(CompeteNatC::compBids);
@@ -204,7 +204,7 @@ public class OpenBid2NatC extends OpenNatC {
         //     2H, 2S ->
         PositionCalls choices;
         if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
-            choices = responderdRaiseTrumpMajorClubClubStrong(ps);
+            choices = responderdRaiseTrumpMajorClubStrong(ps);
         } else {
             choices = responderdRaiseTrumpMajorClubStandard(ps);
         }
@@ -212,13 +212,13 @@ public class OpenBid2NatC extends OpenNatC {
         return choices;
     }
 
-    public static PositionCalls responderdRaiseTrumpMajorClubClubStrong(PositionState ps) {
+    public static PositionCalls responderdRaiseTrumpMajorClubStrong(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         //1C ->
         //     2H, 2S ->
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubClubStrong),
+                properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
                 shows(Bid._3S, shape(5, 10), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 3S")),
                 shows(Bid._4D, shape(5, 10), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4D")),
                 shows(Bid._4C, shape(5, 10), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4C"))
@@ -229,8 +229,16 @@ public class OpenBid2NatC extends OpenNatC {
     }
 
     public static PositionCalls responderdRaiseTrumpMajorClubStandard(PositionState ps) {
+        //1C ->
+        //     2H, 2S ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
+                properties(new Call[]{Bid._2S}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStandard),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard pass")),
+                shows(Bid._3C, shape(6, 10), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3C")),
+                shows(Bid._2S, shape(4, 10), noFit(), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 2S")),
+                shows(Bid._3C, shape(5, 10), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3C")),
+                shows(Bid._3H, shape(4, 10), noFit(), shape(Suit.Spades, 0,2), partner(isLastBid(Bid._2S)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3H"))
         );
 
         choices.addRules(CompeteNatC::compBids);
