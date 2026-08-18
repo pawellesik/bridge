@@ -551,7 +551,8 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     partnerBids(NatC::finishBiddingIterable),
                     shows(Bid._4S, fit(), OpeningInviteBidding, setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
-                    shows(Bid._3H, noFit(), shape(6, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H"))
+                    shows(Bid._3H, noFit(), shape(6, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
+                    shows(Bid._3NT, noFit(), PAIR_BALANCED, OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3NT"))
             );
         } else {
             choices.addRules(
@@ -594,7 +595,8 @@ public class OpenBid2NatC extends OpenNatC {
                     partnerBids(NatC::finishBiddingIterable),
                     shows(Bid._4H, fit(), OpeningInviteBidding, setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
-                    shows(Bid._3S, noFit(), shape(6, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S"))
+                    shows(Bid._3S, noFit(), shape(6, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
+                    shows(Bid._3NT, noFit(), PAIR_BALANCED, OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3NT"))
             );
         } else {
             choices.addRules(
