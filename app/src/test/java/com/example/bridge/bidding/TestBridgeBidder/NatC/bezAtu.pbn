@@ -24,7 +24,7 @@
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC bezAtu 7"]
+[Event "NatC bezAtu 3"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -36,7 +36,7 @@ Pass Pass
 2H Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 15"]
+[Event "NatC bezAtu 4"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -45,11 +45,12 @@ Pass Pass
 [Contract "Pass"]
 [Auction "N"]
 1NT Pass 3D Pass
-4D Pass 5D Pass
-Pass Pass
+4D Pass 4NT Pass
+5H Pass 5S Pass
+6D Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 16"]
+[Event "NatC bezAtu 5"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -65,7 +66,7 @@ Pass Pass
 
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 17"]
+[Event "NatC bezAtu 6"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -80,7 +81,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal kier 16"]
+[Event "NatC Deal bezAtu 7"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]

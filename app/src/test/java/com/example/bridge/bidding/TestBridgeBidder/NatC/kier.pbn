@@ -243,3 +243,15 @@ Pass Pass
 4NT Pass 5H Pass
 5S Pass 6C Pass
 6H Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal kier 25"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AJ63.AK863.Q6.T4 K54.T94.K9543.72 Q872.75.AJ7.A983 T9.QJ2.T82.KQJ65"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1H Pass 3NT Pass
+Pass Pass
