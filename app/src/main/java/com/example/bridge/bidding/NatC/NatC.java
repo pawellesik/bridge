@@ -34,6 +34,14 @@ public class NatC extends Bidder implements IBiddingSystem {
     public static final Range PAIR_MINOR_GAME = new Range(27, 31);
     public static final Range PAIR_LOW_GAME = new Range(16, 24);
 
+    public static Iterable<CallFeature> finishBiddingIterable(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
+        for (CallFeature cf : CompeteNatC.compBids(ps)) {
+            bids.add(cf);
+        }
+        return bids;
+    }
+
 
 }
 
