@@ -211,12 +211,17 @@ public class OpenBid2NatC extends OpenNatC {
                 partnerBids(NatC::finishBiddingIterable),
                 shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
                 shows(Bid._3S, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3S")),
+
+                shows(Bid._3NT, PAIR_BALANCED,  id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
+
                 shows(Bid._4D, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D")),
                 shows(Bid._4C, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
+
                 shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3H")),
                 shows(Bid._3S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3S")),
-                shows(Bid._3NT, noFit(), PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
-                shows(Bid._4C, noFit(), shape(6,10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C"))
+
+                shows(Bid._4C, noFit(), shape(6,10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
+                shows(Bid._4D, noFit(), shape(6,10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
         );
 
         choices.addRules(CompeteNatC::compBids);
