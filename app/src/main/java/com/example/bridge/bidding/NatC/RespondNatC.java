@@ -148,8 +148,8 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
                 shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
-                shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
-                shows(Bid._3S, highCardPoints(JUMP_HAND), PASSED_HAND, fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
+                shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
+                shows(Bid._3S, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
 
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2H")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2C")),

@@ -38,6 +38,7 @@
 5S Pass 7S Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 4"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -51,6 +52,7 @@
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 5"]
 [Board "2"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -64,6 +66,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 6"]
 [Event "NatC Deal 10"]
 [Board "3"]
 [Dealer "N"]
@@ -78,6 +81,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 7"]
 [Board "4"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -91,6 +95,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 8"]
 [Board "5"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -104,6 +109,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 9"]
 [Board "6"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -117,6 +123,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 11"]
 [Board "7"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -129,6 +136,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 12"]
 [Board "8"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -141,6 +149,7 @@ Pass Pass
 5C Pass 5S Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 13"]
 [Board "9"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -154,6 +163,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 14"]
 [Board "10"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -167,6 +177,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
+[Event "NatC Deal 15"]
 [Board "10"]
 [Dealer "N"]
 [Vulnerable "None"]
