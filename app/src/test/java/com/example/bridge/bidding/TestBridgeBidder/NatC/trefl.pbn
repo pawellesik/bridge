@@ -290,7 +290,7 @@ Pass Pass 1C Pass
 3NT Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 22b"]
+[Event "NatC Trfel 23"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -303,7 +303,7 @@ Pass Pass 1C Pass
 4H Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 23"]
+[Event "NatC Trfel 24"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -317,7 +317,7 @@ Pass Pass 1C Pass
 6NT Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 24"]
+[Event "NatC Trfel 25"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -330,7 +330,7 @@ Pass Pass 1C Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 25"]
+[Event "NatC Trfel 26"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -343,7 +343,7 @@ Pass Pass
 4H Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 26"]
+[Event "NatC Trfel 27"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -356,7 +356,7 @@ Pass Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 27"]
+[Event "NatC Trfel 28"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -368,7 +368,7 @@ Pass Pass
 4D Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 28"]
+[Event "NatC Trfel 29"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -382,7 +382,7 @@ Pass Pass 1C Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 29"]
+[Event "NatC Trfel 30"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -394,7 +394,7 @@ Pass Pass
 2H Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 30"]
+[Event "NatC Trfel 31"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -407,7 +407,7 @@ Pass Pass
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 31"]
+[Event "NatC Trfel 32"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -422,7 +422,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 32"]
+[Event "NatC Trfel 33"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -437,7 +437,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 33"]
+[Event "NatC Trfel 34"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -450,7 +450,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 34"]
+[Event "NatC Trfel 35"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -463,7 +463,7 @@ PASS PASS
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 35"]
+[Event "NatC Trfel 36"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -476,7 +476,7 @@ Pass Pass
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Trfel 36"]
+[Event "NatC Trfel 37"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -488,7 +488,7 @@ PASS PASS
 3NT Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal Trfel 37"]
+[Event "NatC Trfel 38"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -498,4 +498,30 @@ PASS PASS
 [Auction "N"]
 1C Pass 1S Pass
 2H Pass 2NT Pass
+Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 39"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KJ.543.94.AKJT72 QT964.Q972.K3.Q5 A32.AJ86.QJ875.6 875.KT.AT62.9843"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+1C Pass 3D Pass
+4C Pass Pass
+Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 40"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A32.AJ86.QJ875.6 QT964.Q972.K3.Q5 KJ.543.94.AKJT72 875.KT.AT62.9843"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+1D Pass 3C Pass
+3H Pass 3NT Pass
 Pass
