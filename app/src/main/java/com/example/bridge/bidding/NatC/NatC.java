@@ -4,12 +4,16 @@ import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.IBiddingSystem;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionRole;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NatC extends Bidder implements IBiddingSystem {
     @Override
@@ -29,12 +33,6 @@ public class NatC extends Bidder implements IBiddingSystem {
     public static final Range PAIR_GAME = new Range(25, 31);
     public static final Range PAIR_MINOR_GAME = new Range(27, 31);
     public static final Range PAIR_LOW_GAME = new Range(16, 24);
-
-    public static PositionCalls finishBidding(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(CompeteNatC::compBids);
-        return choices;
-    }
 
 
 }

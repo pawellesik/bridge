@@ -13,6 +13,7 @@ import java.util.List;
 
 public class CompeteNatC extends NatC {
 
+
     public static Iterable<CallFeature> compBids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         addAcesAskConventions(ps, bids);
