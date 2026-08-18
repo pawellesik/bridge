@@ -330,7 +330,7 @@ Pass Pass 1C Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal kier 14"]
+[Event "NatC Trfel 25"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -343,7 +343,7 @@ Pass Pass
 4H Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal kier 15"]
+[Event "NatC Trfel 26"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -352,11 +352,11 @@ Pass Pass
 [Contract "4H"]
 [Auction "N"]
 1C Pass 3D Pass
-3H Pass 4H Pass
+3H Pass 5D Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 7"]
+[Event "NatC Trfel 27"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -368,7 +368,7 @@ Pass Pass
 5D Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal diamond 13"]
+[Event "NatC Trfel 28"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -382,7 +382,7 @@ Pass Pass 1C Pass
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal kier 11"]
+[Event "NatC Trfel 29"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -394,7 +394,7 @@ Pass Pass
 2H Pass Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal pik 13"]
+[Event "NatC Trfel 30"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -407,7 +407,7 @@ Pass Pass
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal pik 14"]
+[Event "NatC Trfel 31"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -422,7 +422,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal pik 15"]
+[Event "NatC Trfel 32"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -437,7 +437,7 @@ PASS PASS
 PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal pik 16"]
+[Event "NatC Trfel 33"]
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
@@ -450,7 +450,7 @@ PASS PASS
 4S PASS PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal pik 21"]
+[Event "NatC Trfel 34"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -463,7 +463,7 @@ PASS PASS
 Pass Pass
 
 % Cleaned by CleanPBN
-[Event "NatC Deal kier 8"]
+[Event "NatC Trfel 35"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -475,7 +475,7 @@ Pass Pass
 4H PASS PASS PASS
 
 % Cleaned by CleanPBN
-[Event "NatC Deal kier 13"]
+[Event "NatC Trfel 36"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]

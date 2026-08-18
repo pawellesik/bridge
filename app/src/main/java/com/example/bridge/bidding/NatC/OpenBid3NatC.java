@@ -35,6 +35,7 @@ public class OpenBid3NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
+                partnerBids(NatC::finishBiddingIterable),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.thirdBidToGameDiamond Pass")),
                 shows(Bid._2S, noFit(), IS_REBID, shape(6, 10), id("OpenBid3NatC.thirdBid _2S")),
                 shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid3NatC.thirdBid _3D")),
@@ -52,6 +53,7 @@ public class OpenBid3NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
+                partnerBids(NatC::finishBiddingIterable),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.thirdBidToGame1NTDiamond Pass")),
                 shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _2S")),
                 shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3C")),
@@ -70,6 +72,7 @@ public class OpenBid3NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
+                partnerBids(NatC::finishBiddingIterable),
                 //shows(Bid._4H, fit(), shape(4, 10), setTrumpColor(Suit.Hearts), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
                 //shows(Bid._4S, fit(), shape(4, 10), setTrumpColor(Suit.Spades), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
                 shows(Bid._3S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S"))
