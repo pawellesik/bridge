@@ -441,13 +441,13 @@ PASS PASS
 [Board "2"]
 [Dealer "S"]
 [Vulnerable "None"]
-[Deal "S:AKJ7.AK98.K82.J9 T63.432.AQJ9.432 Q952.T76.76.A875 84.QJ5.T543.KQT6"]
+[Deal "S:AKJ7.AK98.K82.J9 T63.432.AQJ9.432 Q9652.T7.76.A875 84.QJ5.T543.KQT6"]
 [Declarer "S"]
 [Contract "4S"]
 [Auction "N"]
 1C PASS 1D PASS
 2NT PASS 3S PASS
-4S PASS PASS PASS
+PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 34"]

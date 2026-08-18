@@ -98,8 +98,8 @@ public class RespondBid2NatC extends RespondNatC {
         //              1S, 2C, 2H, 2S, 1NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                AcesAsk.initiateConvention(ps),
-                AcesAsk.initiateConventionBlok(ps)
+                partnerBids(NatC::finishBiddingIterable),
+                shows(Bid._2S, noFit(), shape(6,10), IS_REBID, id("RespondBid2NatC.secondBidMajorClubStandard _2S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
