@@ -19,6 +19,8 @@ public class CompeteNatC extends NatC {
         List<CallFeature> bids = new ArrayList<>();
         addAcesAskConventions(ps, bids);
 
+        bids.add(partnerBids(CompeteNatC::compBids));
+
         bids.add(shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), id("CompeteNatC.compBids PAIR_GAME _4H")));
         bids.add(shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Spades), id("CompeteNatC.compBids PAIR_GAME _4S")));
 
@@ -47,8 +49,6 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5D, shape(2, 10), betterThan(Suit.Diamonds), partner(isLastBid(Bid._5C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _5D")));
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
-
-        bids.add(partnerBids(CompeteNatC::compBids));
 
         return bids;
     }
