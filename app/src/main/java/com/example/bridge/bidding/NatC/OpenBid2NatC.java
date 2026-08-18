@@ -265,6 +265,49 @@ public class OpenBid2NatC extends OpenNatC {
         return choices;
     }
 
+
+    public static PositionCalls responderd1NTClub(PositionState ps) {
+        //1C ->
+        //      1NT ->
+        PositionCalls choices;
+        if (ps.getPrivateHandSummary() != null && OpeningStrongBidding.conforms(null, ps, ps.getPrivateHandSummary())) {
+            choices = responderd1NTClubStrong(ps);
+        } else {
+            choices = responderd1NTClubStandard(ps);
+        }
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderd1NTClubStrong(PositionState ps) {
+        //1C ->
+        //     1NT ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                partnerBids(RecursionNatC::recursionFindFitGame),
+                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
+
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls responderd1NTClubStandard(PositionState ps) {
+        //1C ->
+        //     1NT ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+
+
+        );
+
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+
+
     public static PositionCalls responderdTrumpMinorDiamod(PositionState ps) {
         //1D ->
         //     Bid._2D, Bid._3D ->
