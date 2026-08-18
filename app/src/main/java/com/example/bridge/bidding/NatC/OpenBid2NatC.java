@@ -248,6 +248,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
+                properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
                 partnerBids(NatC::finishBiddingIterable),
                 shows(Bid._3S, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 3S")),
                 shows(Bid._4D, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4D")),

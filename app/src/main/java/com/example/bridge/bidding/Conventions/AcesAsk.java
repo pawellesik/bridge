@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AcesAsk extends Bidder {
-    private static final Range ASK_ACES = new Range(16, 40);
+    private static final Range ASK_ACES = new Range(14, 40);
     private static final Range HIGHT_GAME = new Range(28, 40);
     private static final Range SLAM_OR_BETTER = new Range(30, 40);
     private static final Range GRAND_SLAM = new Range(36, 40);
@@ -31,7 +31,7 @@ public class AcesAsk extends Bidder {
         Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
 
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
-        bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(HIGHT_GAME), id(" initiateConventionAcesAsk 1")));
+        bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(HIGHT_GAME), highCardPoints(ASK_ACES), id(" initiateConventionAcesAsk 1")));
         bids.add(shows(Bid._4C, fit(partnerSuit), setTrumpColor(partnerSuit), IS_ANY_JUMP, highCardPoints(ASK_ACES), pairHighCardPoints(HIGHT_GAME), id(" initiateConventionAcesAsk 2")));
 
         return bids;
@@ -51,9 +51,9 @@ public class AcesAsk extends Bidder {
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
 
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(partnerSuit), pairHighCardPoints(SLAM_OR_BETTER), setTrumpColor(partnerSuit), id("initiateConventionBlok AcesAsk 1")));
-        bids.add(shows(Bid._4NT, isJump(1), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
-        bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 3")));
-        bids.add(shows(Bid._4NT, pairHighCardPoints(SLAM_OR_BETTER), partner(isLastBid(Bid._4D, Bid._4C)), id("initiateConventionBlok AcesAsk 4")));
+        bids.add(shows(Bid._4NT, isJump(1), pairHighCardPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), id("initiateConventionBlok AcesAsk 2")));
+        bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, highCardPoints(ASK_ACES), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 3")));
+        bids.add(shows(Bid._4NT, pairHighCardPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), partner(isLastBid(Bid._4D, Bid._4C)), id("initiateConventionBlok AcesAsk 4")));
 
         return bids;
     }

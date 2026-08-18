@@ -185,5 +185,7 @@ Pass Pass
 [Declarer "N"]
 [Contract "4S"]
 [Auction "N"]
-1S Pass 3S Pass
-4S Pass
+1S Pass 4C Pass
+4NT Pass 5C Pass
+5D Pass 6S Pass
+Pass Pass
