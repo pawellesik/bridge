@@ -264,10 +264,10 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 3H")),
                 shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 3S")),
 
-                //shows(Bid._4H, fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 4H")),
-                //shows(Bid._4S, fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 4S")),
-                shows(Bid._3C, shape(6, 10), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3C")),
                 shows(Bid._2S, shape(4, 10), noFit(), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 2S")),
+
+                shows(Bid._3NT, noFit(), PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
+
                 shows(Bid._3C, shape(5, 10), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
                 shows(Bid._3H, shape(4, 10), noFit(), shape(Suit.Spades, 0, 2), partner(isLastBid(Bid._2S)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H"))
         );

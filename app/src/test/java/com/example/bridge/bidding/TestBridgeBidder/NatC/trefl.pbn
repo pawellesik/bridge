@@ -286,7 +286,6 @@ Pass Pass 1C Pass
 [Contract "Pass"]
 [Auction "N"]
 1C Pass 2H Pass
-3C Pass 3H Pass
 3NT Pass Pass Pass
 
 % Cleaned by CleanPBN
@@ -294,7 +293,7 @@ Pass Pass 1C Pass
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:AQ.76.KT6.KJ9874 K873.Q62.95432.Q T95.AKJ985.QJ.A2 642.T43.A87.T653"]
+[Deal "N:AKQ.76.T6.KJ9874 K873.Q62.95432.Q T95.AKJ985.QJ.A2 642.T43.A87.T653"]
 [Declarer "N"]
 [Contract "Pass"]
 [Auction "N"]
@@ -472,7 +471,8 @@ Pass Pass
 [Contract "2H"]
 [Auction "N"]
 1C PASS 2H PASS
-4H PASS PASS PASS
+3H PASS 4H PASS
+PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 36"]
