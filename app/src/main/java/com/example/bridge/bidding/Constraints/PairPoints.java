@@ -79,6 +79,7 @@ public class PairPoints {
     public boolean dynamicallyConforms(Call call, PositionState ps, HandSummary hs, boolean highCard) {
         Range posPoints = getPoints(call, ps, hs, highCard);
         Range partnerPoints = getPoints(ps.getPartner().getLastCall(), ps.getPartner(), ps.getPartner().getPublicHandSummary(), highCard);
+        Bid partnerLastBid = ps.getPartner().getBid();
 
         // Pobieramy minimalne punkty obiecane przez przeciwników (jeśli używamy HCP)
         int minOppsPoints = 0;
@@ -97,7 +98,16 @@ public class PairPoints {
         int width = maxP - minP;
         int partnerExpected = 0;
 
-        if ( !(ps.getPartner().getBid().equals(Bid._4H) && ps.getPartner().getBid().equals(Bid._4S) && ps.getPartner().getBid().equals(Bid._3NT))) {
+
+        if (partnerLastBid != null) {
+            if (!(ps.getPartner().getBid().equals(Bid._4H) && ps.getPartner().getBid().equals(Bid._4S) && ps.getPartner().getBid().equals(Bid._3NT))) {
+                if (width <= 8) {
+                    partnerExpected = (minP + maxP) / 2;
+                } else {
+                    partnerExpected = minP + 2;
+                }
+            }
+        } else {
             if (width <= 8) {
                 partnerExpected = (minP + maxP) / 2;
             } else {
