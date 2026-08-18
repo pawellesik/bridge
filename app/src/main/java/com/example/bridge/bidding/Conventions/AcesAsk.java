@@ -21,7 +21,7 @@ import java.util.List;
 public class AcesAsk extends Bidder {
     private static final Range ASK_ACES = new Range(16, 40);
     private static final Range HIGHT_GAME = new Range(28, 40);
-    private static final Range SLAM_OR_BETTER = new Range(31, 40);
+    private static final Range SLAM_OR_BETTER = new Range(30, 40);
     private static final Range GRAND_SLAM = new Range(36, 40);
 
 
@@ -50,8 +50,9 @@ public class AcesAsk extends Bidder {
 
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
 
+
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(partnerSuit), pairHighCardPoints(SLAM_OR_BETTER), setTrumpColor(partnerSuit), id("initiateConventionBlok AcesAsk 1")));
-        bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
+        bids.add(shows(Bid._4NT, isJump(1), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
         bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 3")));
         bids.add(shows(Bid._4NT, pairHighCardPoints(SLAM_OR_BETTER), partner(isLastBid(Bid._4D, Bid._4C)), id("initiateConventionBlok AcesAsk 4")));
 
