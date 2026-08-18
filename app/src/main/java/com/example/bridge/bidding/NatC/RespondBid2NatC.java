@@ -121,18 +121,28 @@ public class RespondBid2NatC extends RespondNatC {
     public static PositionCalls secondBidMinorClubStrong(PositionState ps) {
         //1C ->
         //      Bid._2C, Bid._2D ->
-        //                          3S, 3H, 4D, 4C, 3NT
+        //                          3S, 3H, 4D, 4C, 3NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 AcesAsk.initiateConvention(ps),
                 AcesAsk.initiateConventionBlok(ps),
-                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGameMinorClubStrong),
+                properties(new Call[]{Bid._3S}, OpenBid3NatC::thirdBidToGameMinorClubStrong),
                 shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, id("OpenBid2NatC.responderdTrumpMinorClubStrong _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
+    public static PositionCalls secondBidMinorClubStandard(PositionState ps) {
+        //1C ->
+        //      Bid._2C, Bid._2D ->
+        //                      3C, 2H, 2S, 3C ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
 
 
     public static PositionCalls secondBidNoAgreeTrumpDiamods(PositionState ps) {

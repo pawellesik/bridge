@@ -53,6 +53,7 @@ public class AcesAsk extends Bidder {
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(partnerSuit), pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 1")));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 2")));
         bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(SLAM_OR_BETTER), id("initiateConventionBlok AcesAsk 3")));
+        bids.add(shows(Bid._4NT, pairHighCardPoints(SLAM_OR_BETTER), partner(isLastBid(Bid._4D)), id("initiateConventionBlok AcesAsk 3")));
 
         return bids;
     }

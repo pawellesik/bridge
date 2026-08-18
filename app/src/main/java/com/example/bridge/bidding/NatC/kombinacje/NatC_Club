@@ -1,10 +1,49 @@
 1C ->
-    1D ->
+    1D -> strong ->
+					2NT -> 
+						3H, 2S, 3D, 3C -> TODO
+				
+					2H, 2S, 3C, 3D
+	
+	   -> standard ->
+					1NT ->
+						recursionFindLowFitGame
+					
+					1H, 1S, 2D, 2C -> TODO
 
-    1S, 1H ->
+    1S, 1H -> strong ->
+					3H, 3S, 2S, 3C, 3D, 4H, 4S, 3NT ->
+													AcesAsk
+	
+	       -> standard ->
+						1NT ->
+							recursionFindLowFitGame
+		   
+						2H, 2S, 2C, 1S, 2S, 2H
 
-    2S, 2H ->
+	2S, 2H -> strong ->
+					3S, 4D, 5C ->
+	
+	       -> standard
+		   
+	2C, 2D -> strong ->
+					3S, 3H, 4D, 4C, 3NT ->
+										3S ->
+											AcesAsk
+	
+	       -> standard ->
+					3C, 2H, 2S, 3C ->
+								CompeteNatC::compBids
+	3C, 3D -> strong
+	
+	       -> standard
 
-    2C, 3C, 2D, 3D ->
-
-    3S, 3H ->
+    3S, 3H -> strong ->
+					OpenBid2NatC::weakRespond
+	
+	       -> standard ->
+					OpenBid2NatC::weakRespond
+		   
+	1NT ->
+	
+	2NT ->
