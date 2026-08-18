@@ -1,5 +1,9 @@
 package com.example.bridge.bidding.Constraints;
 
+import static com.example.bridge.bidding.Tools.Bidder.PARTNER_DID_NOT_SIGN_OFF;
+
+import com.example.bridge.bidding.Tools.Bid;
+import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.Constraint;
 import com.example.bridge.bidding.Tools.HandConstraint;
@@ -50,7 +54,7 @@ public class PairPoints {
             Range hcp = hs.getHighCardPoints();
             return hcp != null ? hcp : new Range(0, 40);
         }
-        
+
         Range points = hs.getStartingPoints();
         Suit s = getSuit(ps, call);
         if (!useStartingPoints && s != null) {
@@ -73,7 +77,7 @@ public class PairPoints {
     public boolean dynamicallyConforms(Call call, PositionState ps, HandSummary hs, boolean highCard) {
         Range posPoints = getPoints(call, ps, hs, highCard);
         Range partnerPoints = getPoints(ps.getPartner().getLastCall(), ps.getPartner(), ps.getPartner().getPublicHandSummary(), highCard);
-        
+
         // Pobieramy minimalne punkty obiecane przez przeciwników (jeśli używamy HCP)
         int minOppsPoints = 0;
         if (highCard) {
@@ -89,12 +93,14 @@ public class PairPoints {
         int minP = partnerPoints.getMin();
         int maxP = partnerPoints.getMax();
         int width = maxP - minP;
-        int partnerExpected;
+        int partnerExpected = 0;
 
-        if (width <= 8) {
-            partnerExpected = (minP + maxP) / 2;
-        } else {
-            partnerExpected = minP + 2;
+        if (Bidder.isPartnerDidNotSignOff(call, ps)) {
+            if (width <= 8) {
+                partnerExpected = (minP + maxP) / 2;
+            } else {
+                partnerExpected = minP + 2;
+            }
         }
 
         // Sprawdzamy, czy suma naszych punktów i oczekiwanych punktów partnera 
@@ -105,7 +111,7 @@ public class PairPoints {
             // obniżamy oczekiwania do fizycznie możliwego maksimum.
             partnerExpected = Math.max(minP, maxAvailableForPair - posPoints.getMin());
         }
-        
+
         return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
     }
 

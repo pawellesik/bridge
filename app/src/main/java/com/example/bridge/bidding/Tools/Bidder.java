@@ -322,7 +322,7 @@ public abstract class Bidder {
             // Zmiana: Teraz sprawdza jawnie uzgodniony trumpSuit w stanie pary, 
             // a nie tylko ostatnio pokazany kolor.
             Suit agreedTrump = ps.getPairState().getTrumpSuit();
-            return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == agreedTrump && agreedTrump!= null;
+            return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == agreedTrump && agreedTrump != null;
         }
         return false;
     });
@@ -332,6 +332,11 @@ public abstract class Bidder {
     }
 
     public static final StaticConstraint PARTNER_DID_NOT_SIGN_OFF = new SimpleStaticConstraint((call, ps) -> {
+        return isPartnerDidNotSignOff(call, ps);
+    }, "partner did not sign off");
+
+
+    public static Boolean isPartnerDidNotSignOff(Call call, PositionState ps) {
         Call last = ps.getPartner().getLastCall();
         if (!(last instanceof Bid)) return true;
         Bid b = (Bid) last;
@@ -340,7 +345,7 @@ public abstract class Bidder {
                 (b.getLevel() == 4 && (b.getSuit() == Suit.Hearts || b.getSuit() == Suit.Spades)) ||
                 (b.getLevel() >= 5);
         return !isGame;
-    }, "partner did not sign off");
+    }
 
     public static StaticConstraint id(String id) {
         return new LogID(id);

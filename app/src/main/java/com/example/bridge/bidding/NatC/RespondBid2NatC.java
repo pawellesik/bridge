@@ -235,7 +235,7 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                //partnerBids(NatC.finishBidding()),
+                partnerBids(NatC::finishBiddingIterable),
                 shows(Bid._3H, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3H")),
                 shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S"))
         );
