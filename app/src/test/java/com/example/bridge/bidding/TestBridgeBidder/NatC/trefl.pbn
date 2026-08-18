@@ -247,6 +247,7 @@ Pass Pass
 [Auction "S"]
 1C PASS 1D PASS
 2C PASS 2D PASS
+2NT PASS 3D PASS
 PASS PASS
 
 % Cleaned by CleanPBN
@@ -485,3 +486,16 @@ PASS PASS
 [Auction "N"]
 1C Pass 2H Pass
 3NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal Trfel 37"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:Q3.AQT6.J975.K98 AT862.KJ42.K82.2 K9754.8.QT6.QJT7 J.9753.A43.A6543"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+1C Pass 1S Pass
+2H Pass 2NT Pass
+Pass

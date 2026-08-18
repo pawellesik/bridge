@@ -50,9 +50,15 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3D, shape(2, 10), betterThan(Suit.Clubs), partner(isLastBid(Bid._3C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _3D")));
         bids.add(shows(Bid._5D, shape(2, 10), betterThan(Suit.Diamonds), partner(isLastBid(Bid._5C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _5D")));
 
+        bids.add(shows(Bid._3H, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Hearts), id("CompeteNatC.compBids PAIR_GAME _3H")));
+        bids.add(shows(Bid._3S, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Spades), id("CompeteNatC.compBids PAIR_GAME _3S")));
+        bids.add(shows(Bid._3C, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_GAME _3C")));
+        bids.add(shows(Bid._3D, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids PAIR_GAME _3D")));
+
         if (partnerBid != null) {
             bids.add(shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("CompeteNatC.compBids Pass")));
-            bids.add(shows(Bid._3NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, secondSuit(partnerBid.getSuit(), 3) , id("CompeteNatC.compBids exit _3NT")));
+            bids.add(shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, secondSuit(partnerBid.getSuit(), 3), id("CompeteNatC.compBids exit _2NT")));
+            bids.add(shows(Bid._3NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, secondSuit(partnerBid.getSuit(), 3), id("CompeteNatC.compBids exit _3NT")));
         }
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
 
