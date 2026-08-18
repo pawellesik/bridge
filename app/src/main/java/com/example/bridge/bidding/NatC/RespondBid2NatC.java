@@ -144,6 +144,21 @@ public class RespondBid2NatC extends RespondNatC {
         return choices;
     }
 
+    public static PositionCalls secondBidRaiseTrumpMinorClubStrong(PositionState ps) {
+        //1C ->
+        //      Bid._3D, Bid._3C ->
+        //                      4H, 4S ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                shows(Bid._4S, noFit(), shape(4, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _4S")),
+                shows(Bid._5C, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5C")),
+                shows(Bid._5D, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5D"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static PositionCalls secondBidRaiseTrumpMajorClubStrong(PositionState ps) {
         //1C ->
         //     2H, 2S ->
