@@ -93,17 +93,6 @@ PASS PASS
 3H PASS 4C Pass
 4H Pass Pass Pass
 
-% Cleaned by CleanPBN
-[Event "NatC Deal kier 8"]
-[Board "1"]
-[Dealer "N"]
-[Vulnerable "None"]
-[Deal "N:AK85.QJT8.AT92.6 T732.93.K53.A973 4.AK542.QJ8.QJ84 QJ96.76.764.KT52"]
-[Declarer "S"]
-[Contract "2H"]
-[Auction "N"]
-1C PASS 2H PASS
-4H PASS PASS PASS
 
 
 % Cleaned by CleanPBN
@@ -131,9 +120,6 @@ Pass Pass
 1S Pass 3H Pass
 4H Pass Pass Pass
 
-
-
-
 % Cleaned by CleanPBN
 [Event "NatC Deal kier 12"]
 [Board "1"]
@@ -147,18 +133,6 @@ Pass Pass
 4C Pass 4S Pass
 4NT Pass 5D Pass
 6H Pass Pass Pass
-
-% Cleaned by CleanPBN
-[Event "NatC Deal kier 13"]
-[Board "1"]
-[Dealer "N"]
-[Vulnerable "None"]
-[Deal "N:9752.AQ.QJ.AK964 84.87.T865.QT853 J.KJ9653.AK97.J2 AKQT63.T42.432.7"]
-[Declarer "N"]
-[Contract "4H"]
-[Auction "N"]
-1C Pass 2H Pass
-3NT Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal kier 17"]
