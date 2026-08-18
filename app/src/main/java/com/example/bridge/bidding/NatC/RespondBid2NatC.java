@@ -1,5 +1,8 @@
 package com.example.bridge.bidding.NatC;
 
+import static com.example.bridge.bidding.NatC.OpenNatC.OpeningInviteBidding;
+import static com.example.bridge.bidding.NatC.OpenNatC.OpeningLowBidding;
+
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
@@ -125,8 +128,8 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._3C, shape(6, 10), IS_REBID, shape(ps.getPartner().getBid().getSuit(), 1,2), id("RespondBid2NatC.secondBidMinorClubStandard _3C")),
-                shows(Bid._3D, shape(6, 10), IS_REBID, shape(ps.getPartner().getBid().getSuit(), 1,2), id("RespondBid2NatC.secondBidMinorClubStandard _3D"))
+                shows(Bid._3C, shape(6, 10), IS_REBID, shape(ps.getPartner().getBid().getSuit(), 1, 2), id("RespondBid2NatC.secondBidMinorClubStandard _3C")),
+                shows(Bid._3D, shape(6, 10), IS_REBID, shape(ps.getPartner().getBid().getSuit(), 1, 2), id("RespondBid2NatC.secondBidMinorClubStandard _3D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -157,6 +160,19 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
+                shows(Bid._4H, fit(), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _4H")),
+                shows(Bid._4S, fit(), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _4S")),
+                shows(Bid._4D, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _4D")),
+                shows(Bid._3S, noFit(), shape(4, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _3S")),
+                shows(Bid._3NT, noFit(), PAIR_BALANCED, id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _3NT")),
+                shows(Bid._4H, shape(3), OpeningInviteBidding, partner(isLastBid(Bid._3H)), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _4H")),
+                shows(Bid._4S, shape(3), OpeningInviteBidding, partner(isLastBid(Bid._3S)), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _4S")),
+
+                shows(Bid._4H, shape(3), OpeningLowBidding, partner(isLastBid(Bid._3H)), EXCELLENT_PLUS_SUIT, id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _4H")),
+                shows(Bid._4S, shape(3), OpeningLowBidding, partner(isLastBid(Bid._3S)), EXCELLENT_PLUS_SUIT, id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _4S")),
+
+                shows(Call.PASS, shape(Suit.Spades, 0, 2), OpeningLowBidding, partner(isLastBid(Bid._3S)), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _pass")),
+                shows(Call.PASS, shape(Suit.Hearts, 0, 2), OpeningLowBidding, partner(isLastBid(Bid._3H)), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _pass"))
 
         );
         choices.addRules(CompeteNatC::compBids);
@@ -197,9 +213,9 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidRaiseTrumpMajorClubStandard pass")),
                 partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._3H, shape(6, 10), noFit(), shape(Suit.Spades, 0,2), partner(isLastBid(Bid._2S)), IS_REBID, id("RespondBid2NatC.responderdRaiseTrumpMajorClubStandard 3H")),
-                shows(Bid._3C, shape(5, 10), noFit(), shape(5,10), shape(Suit.Spades, 0,2), partner(isLastBid(Bid._2S)), id("RespondBid2NatC.responderdRaiseTrumpMajorClubStandard 3C")),
-                shows(Bid._3D, shape(5, 10), noFit(), shape(5,10), shape(Suit.Spades, 0,2), partner(isLastBid(Bid._2S)), id("RespondBid2NatC.responderdRaiseTrumpMajorClubStandard 3C"))
+                shows(Bid._3H, shape(6, 10), noFit(), shape(Suit.Spades, 0, 2), partner(isLastBid(Bid._2S)), IS_REBID, id("RespondBid2NatC.responderdRaiseTrumpMajorClubStandard 3H")),
+                shows(Bid._3C, shape(5, 10), noFit(), shape(5, 10), shape(Suit.Spades, 0, 2), partner(isLastBid(Bid._2S)), id("RespondBid2NatC.responderdRaiseTrumpMajorClubStandard 3C")),
+                shows(Bid._3D, shape(5, 10), noFit(), shape(5, 10), shape(Suit.Spades, 0, 2), partner(isLastBid(Bid._2S)), id("RespondBid2NatC.responderdRaiseTrumpMajorClubStandard 3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
