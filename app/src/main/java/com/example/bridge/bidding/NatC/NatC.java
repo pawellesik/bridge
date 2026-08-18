@@ -1,11 +1,15 @@
 package com.example.bridge.bidding.NatC;
 
+import com.example.bridge.bidding.Conventions.AcesAsk;
+import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
+import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.IBiddingSystem;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionRole;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
+import com.example.bridge.bidding.Tools.Suit;
 
 public class NatC extends Bidder implements IBiddingSystem {
     @Override
@@ -15,7 +19,7 @@ public class NatC extends Bidder implements IBiddingSystem {
             choices = OpenNatC.getOpenPositionCalls(ps);
         } else {
             choices = new PositionCalls(ps);
-            choices.addRules(CompeteNatC::compBids);
+            //choices.addRules(CompeteNatC::compBids);
         }
 
         return choices;
@@ -25,6 +29,13 @@ public class NatC extends Bidder implements IBiddingSystem {
     public static final Range PAIR_GAME = new Range(25, 31);
     public static final Range PAIR_MINOR_GAME = new Range(27, 31);
     public static final Range PAIR_LOW_GAME = new Range(16, 24);
+
+    public static PositionCalls finishBidding(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
 
 }
 

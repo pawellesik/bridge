@@ -222,7 +222,7 @@ Pass Pass
 [Contract "4S"]
 [Auction "N"]
 1C PASS 3D PASS
-3S PASS
+4D PASS PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 18"]
@@ -234,8 +234,7 @@ Pass Pass
 [Contract "4S"]
 [Auction "S"]
 1C PASS 1D PASS
-2C PASS 3D PASS
-PASS PASS
+2C PASS PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 19"]
@@ -247,7 +246,7 @@ PASS PASS
 [Contract "4S"]
 [Auction "S"]
 1C PASS 1D PASS
-2C PASS 3D PASS
+2C PASS 2D PASS
 PASS PASS
 
 % Cleaned by CleanPBN
@@ -260,8 +259,8 @@ PASS PASS
 [Contract "Pass"]
 [Auction "N"]
 Pass Pass 1C Pass
-1NT Pass 3NT Pass
-Pass Pass
+1NT Pass 3S Pass
+3NT Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 21"]
@@ -273,8 +272,8 @@ Pass Pass
 [Contract "Pass"]
 [Auction "N"]
 1C Pass 2NT Pass
-4C Pass 4H Pass
-4S Pass 5D Pass
+4NT Pass 5D Pass
+5H Pass 6C Pass
 6NT Pass Pass Pass
 
 % Cleaned by CleanPBN
@@ -287,7 +286,21 @@ Pass Pass
 [Contract "Pass"]
 [Auction "N"]
 1C Pass 2H Pass
+3C Pass 3H Pass
 3NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 22b"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQ.76.KT6.KJ9874 K873.Q62.95432.Q T95.AKJ985.QJ.A2 642.T43.A87.T653"]
+[Declarer "N"]
+[Contract "Pass"]
+[Auction "N"]
+1C Pass 2H Pass
+3C Pass 3H Pass
+4H Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 23"]

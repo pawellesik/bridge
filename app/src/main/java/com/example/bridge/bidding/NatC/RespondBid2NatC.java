@@ -71,7 +71,7 @@ public class RespondBid2NatC extends RespondNatC {
     public static PositionCalls secondBidNegatStandard(PositionState ps) {
         //odpowiedzi na: Bid._1C ->
         //                          Bid._1D ->
-        //                                    1H, 1S, 1NT ->
+        //                                    1H, 1S, 1NT, 2C, 2D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNegatStandard Pass")),
@@ -181,6 +181,7 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
+
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -222,6 +223,21 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+    public static PositionCalls secondBidRaiseTrumpMajorClubClubStandard(PositionState ps) {
+        //1C ->
+        //     2H, 2S ->
+        //              3C ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        choices.addRules(
+                partnerBids(NatC.finishBidding()),
+                shows(Bid._3H, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3H")),
+                shows(Bid._3S, noFit(), IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
