@@ -19,9 +19,6 @@ public class CompeteNatC extends NatC {
         Bid partnerBid = ps.getPartner().getBid();
 
         addAcesAskConventions(ps, bids);
-        for (CallFeature finishBids : FinishPassNatC.finishBids(ps)) {
-            bids.add(finishBids);
-        }
 
         bids.add(partnerBids(CompeteNatC::compBids));
 

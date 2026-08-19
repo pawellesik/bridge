@@ -590,6 +590,10 @@ public abstract class Bidder {
         return new BetterSuit.ShowsBetterSuit(null, worse, worse, false);
     }
 
+    public static HandConstraint betterThan(Suit better, Suit worse) {
+        return new BetterSuit.ShowsBetterSuit(better, worse, worse, false);
+    }
+
     public static HandConstraint betterOrEqualTo(Suit worse) {
         return new BetterSuit.ShowsBetterSuit(null, worse, null, false);
     }
