@@ -94,11 +94,13 @@ public class AcesAsk extends Bidder {
         if (suit != null) {
             if (suit.isMinor()) {
                 choices.addRules(
+                        shows(Call.PASS, pairAces(1,3),kings(1,2), partner(isLastBid(5, suit)),id("askKing isMinor 1 5")),
                         shows(new Bid(5, suit), pairAces(1), id("askKing isMinor 1 5")),
                         shows(new Bid(5, suit), pairAces(2), id("askKing isMinor 2 5"))
                 );
             } else if (suit.isMajor()) {
                 choices.addRules(
+                        shows(Call.PASS, pairAces(1,3),kings(1,2), partner(isLastBid(5, suit)),id("askKing isMinor 1 5")),
                         shows(new Bid(4, suit), pairAces(1), id("askKing isMajor 1 4")),
                         shows(new Bid(4, suit), pairAces(2), id("askKing isMajor 2 4")));
 
