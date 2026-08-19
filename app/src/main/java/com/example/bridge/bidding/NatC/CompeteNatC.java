@@ -52,6 +52,7 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3H, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Hearts), id("CompeteNatC.compBids PAIR_GAME _3H")));
         bids.add(shows(Bid._3S, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Spades), id("CompeteNatC.compBids PAIR_GAME _3S")));
         bids.add(shows(Bid._3C, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_GAME _3C")));
+        bids.add(shows(Bid._3C, shape(6, 10), noFit(), IS_REBID, pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_GAME _3C")));
         bids.add(shows(Bid._3D, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids PAIR_GAME _3D")));
 
         if (partnerBid != null) {

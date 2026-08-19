@@ -629,7 +629,7 @@ Pass Pass 1C Pass
 pass pass
 
 % Cleaned by CleanPBN
-[Event "NatC diamond 49"]
+[Event "NatC Trfel 49"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
@@ -639,4 +639,19 @@ pass pass
 [Auction "N"]
 1C Pass 3D Pass
 3NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 50"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT8.Q75.T9875.32 A742.KJT43.K62.5 QJ93.86.A.AKQT74 65.A92.QJ.J98643"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+Pass Pass 1C Pass
+1D Pass 2C Pass
+2D Pass 3C Pass
+Pass Pass
+
 
