@@ -20,8 +20,6 @@ public class OpenNatC extends NatC {
     public static final HandConstraint OpeningStrongBidding = highCardPoints(18, 40);
     public static final HandConstraint OpenBiddingThirtSeat = highCardPoints(11, 17);
     public static final HandConstraint DontOpen = highCardPoints(0, 11);
-    public static final Range Rebid1NT = new Range(12, 15);
-    public static final Range Rebid2NT = new Range(18, 20);
 
     public static PositionCalls getOpenPositionCalls(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
