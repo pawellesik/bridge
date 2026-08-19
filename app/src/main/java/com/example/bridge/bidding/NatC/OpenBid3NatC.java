@@ -8,6 +8,22 @@ import com.example.bridge.bidding.Tools.PositionState;
 
 public class OpenBid3NatC extends OpenNatC {
 
+    public static PositionCalls thirdBidNegat2NTStrong(PositionState ps) {
+        //odpowiedzi na: Bid._1C ->
+        //                          Bid._1D ->
+        //                                   2NT ->
+        //                                          3C, 3D, 3H, 3S
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                partnerBids(NatC::finishBiddingIterable),
+                shows(Bid._3D, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidNegat2NTStrong _3D")),
+                shows(Bid._3H, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidNegat2NTStrong _3H")),
+                shows(Bid._3S, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidNegat2NTStrong _3S"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
     public static PositionCalls thirdBidToGameMinorClubStrong(PositionState ps) {
         //1C ->
         //      Bid._2C, Bid._2D ->

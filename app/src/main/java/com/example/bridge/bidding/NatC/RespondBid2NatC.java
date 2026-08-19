@@ -18,7 +18,7 @@ public class RespondBid2NatC extends RespondNatC {
         //                                   2NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(OpenBid3NatC::thirdBidNegat2NTStrong),
                 shows(Bid._3H, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
                 shows(Bid._3S, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
                 shows(Bid._3D, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
