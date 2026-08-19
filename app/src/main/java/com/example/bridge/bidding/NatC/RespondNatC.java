@@ -105,7 +105,7 @@ public class RespondNatC extends NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2NatC::responderdTrumpMajorHeart, true),
+                propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2NatC::responderTrumpMajorHeart, true),
                 properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2NatC::responderChangedSuitsHeart, false),
                 properties(new Call[]{Bid._3C, Bid._3D, Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsHeart, false),
                 properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
@@ -133,7 +133,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT"))
         );
-        //choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -167,7 +167,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT"))
 
         );
-        //choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 

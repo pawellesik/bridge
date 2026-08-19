@@ -575,17 +575,25 @@ public class OpenBid2NatC extends OpenNatC {
     }
 
 
-    public static PositionCalls responderdTrumpMajorHeart(PositionState ps) {
+    public static PositionCalls responderTrumpMajorHeart(PositionState ps) {
         //1H ->
         //     Bid._2H, Bid._3H ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
-                shows(Call.PASS, partner(isLastBid(Bid._2H)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
-
-                shows(Bid._3H, CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3H"))
-        );
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Call.PASS, partner(isLastBid(Bid._2H)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
+                    shows(Bid._4H, OpeningInviteBidding, partner(isLastBid(Bid._3H)), id("OpenBid2NatC.responderRaisedMajorHeart pass hand _4H")),
+                    shows(Bid._4H, pairPoints(PAIR_GAME), partner(isLastBid(Bid._3H)), id("OpenBid2NatC.responderRaisedMajorHeart pass hand _4H"))
+            );
+        } else {
+            choices.addRules(
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Call.PASS, partner(isLastBid(Bid._2H)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
+                    shows(Bid._3H, OpeningInviteBidding, partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderRaisedMajorHeart _3H"))
+            );
+        }
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -710,13 +718,20 @@ public class OpenBid2NatC extends OpenNatC {
         //                          Bid._2S, Bid._3S ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
-
-                shows(Call.PASS, partner(isLastBid(Bid._2S)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
-
-                shows(Bid._3S, CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorSpade _3S"))
-        );
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Call.PASS, partner(isLastBid(Bid._2S)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
+                    shows(Bid._4S, OpeningInviteBidding, partner(isLastBid(Bid._3S)), id("OpenBid2NatC.responderRaisedMajorSpade pass hand _4S")),
+                    shows(Bid._4S, pairPoints(PAIR_GAME), partner(isLastBid(Bid._3S)), id("OpenBid2NatC.responderRaisedMajorSpade pass hand _4S"))
+            );
+        } else {
+            choices.addRules(
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Call.PASS, partner(isLastBid(Bid._2S)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
+                    shows(Bid._3S, OpeningInviteBidding, partner(isLastBid(Bid._2S)), id("OpenBid2NatC.responderRaisedMajorSpade _3S"))
+            );
+        }
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
