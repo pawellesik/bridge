@@ -628,4 +628,15 @@ Pass Pass 1C Pass
 1D Pass 2C Pass
 pass pass
 
+% Cleaned by CleanPBN
+[Event "NatC diamond 49"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ7.A862.74.QJ87 A32.T97543.K6.T6 JT85.KJ.AQJ95.A4 964.Q.T832.K9532"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+1C Pass 3D Pass
+3NT Pass Pass Pass
 
