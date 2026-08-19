@@ -43,10 +43,15 @@ public class RespondNatC extends NatC {
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _2D")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneClub _2C")),
 
-                shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _2H")),
-                shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _2S")),
-                shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _3D")),
-                shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub _3C")),
+                shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneClub JUMP_AFTER_PASS _2H")),
+                shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneClub JUMP_AFTER_PASS _2S")),
+                shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneClub JUMP_AFTER_PASS _3D")),
+                shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneClub JUMP_AFTER_PASS _3C")),
+
+                shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub JUMP_HAND _2H")),
+                shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub JUMP_HAND _2S")),
+                shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub JUMP_HAND _3D")),
+                shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneClub JUMP_HAND _3C")),
 
                 shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3H")),
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneClub _3S")),
