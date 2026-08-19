@@ -587,3 +587,32 @@ Pass Pass
 [Auction "N"]
 1C Pass 3C Pass
 3NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 46"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:4.AQT74.Q4.QJ872 T753.862.K8632.6 AQ862.93.AJT.AK4 KJ9.KJ5.975.T953"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+Pass Pass 1C Pass
+2H Pass 3S Pass
+3NT pass pass pass
+
+% Cleaned by CleanPBN
+[Event "NatC Trfel 47"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QT742.Q863.72.96 953.AK.J843.Q732 AKJ.T952.AKT.AK8 86.J74.Q965.JT54"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+Pass Pass 1C Pass
+1D Pass 2NT Pass
+3S pass 4S pass
+pass pass
+
+
