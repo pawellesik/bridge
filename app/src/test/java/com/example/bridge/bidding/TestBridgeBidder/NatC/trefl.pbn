@@ -615,4 +615,17 @@ Pass Pass 1C Pass
 3S pass 4S pass
 pass pass
 
+% Cleaned by CleanPBN
+[Event "NatC Trfel 48"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:J942.T65.QJT3.Q7 K7.KQ974.9652.J3 53.A.AK8.AT96542 AQT86.J832.74.K8"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+Pass Pass 1C Pass
+1D Pass 2C Pass
+pass pass
+
 
