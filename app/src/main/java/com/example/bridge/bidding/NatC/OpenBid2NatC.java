@@ -509,9 +509,9 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 partnerBids(NatC::finishBiddingIterable),
-                shows(Call.PASS, partner(isLastBid(Bid._2H)), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
+                shows(Call.PASS, partner(isLastBid(Bid._2H)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
 
-                shows(Bid._3H, fit(), CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderRaisedMajorHeart _3H"))
+                shows(Bid._3H, CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorHeart _3H"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -640,9 +640,9 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(
                 partnerBids(NatC::finishBiddingIterable),
 
-                shows(Call.PASS, partner(isLastBid(Bid._2S)), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
+                shows(Call.PASS, partner(isLastBid(Bid._2S)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
 
-                shows(Bid._3S, fit(), CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderRaisedMajorSpade _3S"))
+                shows(Bid._3S, CONTRACT_IS_AGREED_STRAIN, OpeningInviteBidding, id("OpenBid2NatC.responderRaisedMajorSpade _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
