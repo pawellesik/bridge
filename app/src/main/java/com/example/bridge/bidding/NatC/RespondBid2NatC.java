@@ -253,9 +253,13 @@ public class RespondBid2NatC extends RespondNatC {
         choices.addRules(
                 partnerBids(NatC::finishBiddingIterable),
                 properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3NatC::thirdBidToGameDiamond),
+
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods Pass")),
-                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2H")),
-                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2S"))
+
+                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2H")),
+                shows(Bid._2H, noFit(), DECENT_PLUS_SUIT, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2H")),
+                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2S")),
+                shows(Bid._2S, noFit(), DECENT_PLUS_SUIT, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _2S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
