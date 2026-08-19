@@ -501,20 +501,33 @@ public class OpenBid2NatC extends OpenNatC {
         //     Bid._2H, Bid._2S ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
-                shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
-        );
-        choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
-                properties(new Call[]{Bid._2S, Bid._3H, Bid._3C, Bid._3C}, RespondBid2NatC::secondBidRaiseNoAgreeTrumpDiamods),
-                shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
-                shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
-                shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
-                shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _3S"))
-        );
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    //partnerBids(NatC::finishBiddingIterable),
+                    shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _4S")),
+                    shows(Bid._4H, fit(), setTrumpColor(Suit.Hearts), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _4H"))
+            );
+            choices.addRules(
+                    properties(new Call[]{Bid._2S, Bid._3H, Bid._3D, Bid._3C}, RespondBid2NatC::secondBidRaiseNoAgreeTrumpDiamods),
+                    shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
+                    shows(Bid._3D, noFit(), shape(6, 10), IS_REBID, id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
+                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C"))
+            );
+        } else {
+            choices.addRules(
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
+                    shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
+            );
+            choices.addRules(
+                    properties(new Call[]{Bid._2S, Bid._3H, Bid._3D, Bid._3C}, RespondBid2NatC::secondBidRaiseNoAgreeTrumpDiamods),
+                    shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
+                    shows(Bid._3H, noFit(), shape(4, 10), pairHighCardPoints(PAIR_GAME),  DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
+                    shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
+                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
+                    shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _3S"))
+            );
+        }
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
