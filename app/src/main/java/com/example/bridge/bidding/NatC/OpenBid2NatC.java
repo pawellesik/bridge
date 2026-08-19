@@ -186,19 +186,24 @@ public class OpenBid2NatC extends OpenNatC {
         //choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
 
-        if (ps.getPartner().isPassedHand()) { //todo
-
-        } else
-        {
-
+        if (ps.getPartner().isPassedHand()) { //??
+            choices.addRules(
+                    properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStrong),
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Bid._4H, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
+                    shows(Bid._4S, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
+                    shows(Bid._3NT, noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
+            );
+        } else {
+            choices.addRules(
+                    properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStrong),
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Bid._4H, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
+                    shows(Bid._4S, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
+                    shows(Bid._3NT, noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
+            );
         }
-        choices.addRules(
-                properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStrong),
-                partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._4H, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
-                shows(Bid._4S, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
-                shows(Bid._3NT, noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
-        );
+
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -208,29 +213,47 @@ public class OpenBid2NatC extends OpenNatC {
         //      Bid._3D, Bid._3C ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        if (ps.getPartner().isPassedHand()) {//todo
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubMajorStandard),
+                    properties(new Call[]{Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStandard),
+                    partnerBids(NatC::finishBiddingIterable),
 
+                    shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
+                    shows(Bid._3S, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3S")),
+
+                    shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
+
+                    shows(Bid._4D, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D")),
+                    shows(Bid._4C, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
+
+                    shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3H")),
+                    shows(Bid._3S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3S")),
+
+                    shows(Bid._4C, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
+                    shows(Bid._4D, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
+            );
         } else {
+            choices.addRules(
+                    properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubMajorStandard),
+                    properties(new Call[]{Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStandard),
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
+                    shows(Bid._3S, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3S")),
 
+                    shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
+
+                    shows(Bid._4D, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D")),
+                    shows(Bid._4C, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
+
+                    shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3H")),
+                    shows(Bid._3S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3S")),
+
+                    shows(Bid._4C, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
+                    shows(Bid._4D, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
+            );
         }
-        choices.addRules(
-                properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubMajorStandard),
-                properties(new Call[]{Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStandard),
-                partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
-                shows(Bid._3S, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3S")),
 
-                shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
-
-                shows(Bid._4D, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D")),
-                shows(Bid._4C, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
-
-                shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3H")),
-                shows(Bid._3S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3S")),
-
-                shows(Bid._4C, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
-                shows(Bid._4D, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
-        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -253,20 +276,26 @@ public class OpenBid2NatC extends OpenNatC {
         //1C ->
         //     2H, 2S ->
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        if (ps.getPartner().isPassedHand()) { //todo
-
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
+                    properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Bid._3S, shape(5, 10), noFit(), OpeningStrongBidding, partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 3S")),
+                    shows(Bid._4D, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4D")),
+                    shows(Bid._4C, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4C"))
+            );
+        } else {
+            choices.addRules(
+                    properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
+                    properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
+                    partnerBids(NatC::finishBiddingIterable),
+                    shows(Bid._3S, shape(5, 10), noFit(), OpeningStrongBidding, partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 3S")),
+                    shows(Bid._4D, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4D")),
+                    shows(Bid._4C, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4C"))
+            );
         }
-        else {
 
-        }
-        choices.addRules(
-                properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
-                properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
-                partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._3S, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 3S")),
-                shows(Bid._4D, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4D")),
-                shows(Bid._4C, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4C"))
-        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
