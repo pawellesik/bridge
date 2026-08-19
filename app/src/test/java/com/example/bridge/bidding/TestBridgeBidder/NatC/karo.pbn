@@ -48,7 +48,7 @@ PASS PASS
 [Auction "N"]
 Pass PASS 1D PASS
 2NT PASS 3D PASS
-PASS PASS
+3H PASS PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Deal diamond5"]
@@ -120,7 +120,7 @@ Pass Pass Pass Pass
 [Auction "N"]
 Pass Pass 1D Pass
 3C Pass 3D Pass
-3NT Pass Pass Pass
+Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal diamond 12"]

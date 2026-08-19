@@ -292,6 +292,20 @@ public abstract class Bidder {
         return new BidHistory(0, new Bid(level, strain));
     }
 
+    public static StaticConstraint level(int min, int max) {
+        return new SimpleStaticConstraint((call, ps) -> {
+            if (call instanceof Bid) {
+                int lv = ((Bid) call).getLevel();
+                return lv >= min && lv <= max;
+            }
+            return false;
+        }, (call, ps) -> "level between " + min + " and " + max);
+    }
+
+    public static StaticConstraint level(int lv) {
+        return level(lv, lv);
+    }
+
     public static StaticConstraint isOpeningBid(Bid bid) {
         return new SimpleStaticConstraint((call, ps) -> java.util.Objects.equals(ps.getBiddingState().getOpeningBid(), bid));
     }

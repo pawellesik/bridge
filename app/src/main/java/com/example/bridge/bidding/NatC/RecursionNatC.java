@@ -54,7 +54,7 @@ public class RecursionNatC extends NatC {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
                     shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, not(PARTNER_DID_NOT_SIGN_OFF), id("RecursionNatC.recursionFindFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
-                    shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), level(2,3 ), id("RecursionNatC.recursionFindFitGame pass")),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame fit _Pass")),
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._4H)), id("RecursionNatC.recursionFindFitGame fit _Pass")),
