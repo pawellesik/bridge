@@ -6,13 +6,9 @@ import static com.example.bridge.bidding.NatC.OpenNatC.OpeningLowBidding;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
-import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RespondBid2NatC extends RespondNatC {
 

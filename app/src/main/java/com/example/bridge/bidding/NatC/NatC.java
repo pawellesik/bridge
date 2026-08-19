@@ -1,16 +1,13 @@
 package com.example.bridge.bidding.NatC;
 
 import com.example.bridge.bidding.Conventions.AcesAsk;
-import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
-import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.IBiddingSystem;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionRole;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
-import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
 import java.util.List;

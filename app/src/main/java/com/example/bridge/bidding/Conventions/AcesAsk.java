@@ -1,8 +1,5 @@
 package com.example.bridge.bidding.Conventions;
 
-import static com.example.bridge.bidding.NatC.OpenNatC.OpeningStrongBidding;
-
-import com.example.bridge.bidding.Constraints.AgreedStrain;
 import com.example.bridge.bidding.NatC.CompeteNatC;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
@@ -32,7 +29,7 @@ public class AcesAsk extends Bidder {
 
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(HIGHT_GAME), highCardPoints(ASK_ACES), id(" initiateConventionAcesAsk 1")));
-        bids.add(shows(Bid._4C, fit(partnerSuit), setTrumpColor(partnerSuit), IS_ANY_JUMP, highCardPoints(ASK_ACES), pairHighCardPoints(HIGHT_GAME), id(" initiateConventionAcesAsk 2")));
+        bids.add(shows(Bid._4C, fit(partnerSuit), setTrumpColor(partnerSuit), IS_ANY_JUMP, highCardPoints(ASK_ACES), pairHighCardPoints(SLAM_OR_BETTER), id(" initiateConventionAcesAsk 2")));
 
         return bids;
     }

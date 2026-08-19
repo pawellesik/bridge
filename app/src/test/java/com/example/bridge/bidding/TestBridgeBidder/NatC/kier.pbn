@@ -277,7 +277,5 @@ Pass Pass
 [Declarer "N"]
 [Contract "3NT"]
 [Auction "N"]
-1H Pass 4C Pass
-4S Pass 5H Pass
-Pass Pass
-
+1H Pass 3H Pass
+4H Pass Pass Pass
