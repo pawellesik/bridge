@@ -58,8 +58,8 @@ public class CompeteNatC extends NatC {
 
         if (partnerBid != null) {
             bids.add(shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("CompeteNatC.compBids Pass")));
-            bids.add(shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, secondSuit(partnerBid.getSuit(), 3), id("CompeteNatC.compBids exit _2NT")));
-            bids.add(shows(Bid._3NT, noFit(), shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, secondSuit(partnerBid.getSuit(), 3), partner(isLastBid(Bid._3H, Bid._3S)), id("CompeteNatC.compBids exit _3NT")));
+            bids.add(shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, id("CompeteNatC.compBids exit _2NT")));
+            bids.add(shows(Bid._3NT, noFit(), shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, partner(isLastBid(Bid._3H, Bid._3S)), id("CompeteNatC.compBids exit _3NT")));
             bids.add(shows(Bid._2NT, noFit(), pairHighCardPoints(PAIR_MINOR_GAME), id("CompeteNatC.compBids exit _2NT")));//do dodania ze mam w kazdym kolorze chociaz 2 karty za wyjatkiem lic przez part,  kontrowersyjne ale nie mam pomyslu
         }
 
