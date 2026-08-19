@@ -1,6 +1,5 @@
 package com.example.bridge.bidding.Conventions;
 
-import com.example.bridge.bidding.NatC.CompeteNatC;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.Call;
@@ -66,7 +65,6 @@ public class AcesAsk extends Bidder {
                 shows(Bid._5S, aces(3), id("respondCountAcesBlok 3")),
                 shows(Bid._5NT, aces(4), id("respondCountAcesBlok 4"))
         );
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -123,7 +121,6 @@ public class AcesAsk extends Bidder {
 
             choices.addRules(shows(Call.PASS));
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -145,7 +142,6 @@ public class AcesAsk extends Bidder {
                 shows(call3Kings, kings(3), id("respondKings 3")),
                 shows(call4Kings, kings(4), id("respondKings 4"))
         );
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
