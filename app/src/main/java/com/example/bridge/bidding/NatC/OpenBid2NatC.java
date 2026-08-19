@@ -381,13 +381,12 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        //System.out.println("plesik "+ps.getPartner().getPublicHandSummary().getHighCardPoints());
-
+        choices.addRules(FinishPassNatC.finishBids(ps));
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
                 partnerBids(NatC::finishBiddingIterable),
                 //shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, OpeningLowBidding, partner(isLastBid(Bid._2D)), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
-                shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_LOW_GAME), partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
+                //shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_LOW_GAME), partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
 
                 shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
                 shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2S")),
