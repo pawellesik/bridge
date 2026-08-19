@@ -313,7 +313,7 @@ public class RespondBid2NatC extends RespondNatC {
 
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods Pass")),
 
-                shows(Bid._3D, noFit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3NT"))
+                shows(Bid._3D, noFit(), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidMinorAgreeTrumpDiamods 3D"))
 
         );
         choices.addRules(CompeteNatC::compBids);
