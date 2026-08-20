@@ -120,7 +120,7 @@ Pass Pass Pass Pass
 [Auction "N"]
 Pass Pass 1D Pass
 3C Pass 3D Pass
-Pass Pass
+3H Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal diamond 12"]
@@ -250,6 +250,55 @@ Pass Pass 1D Pass
 Pass Pass 1C Pass
 3D Pass Pass Pass
 
+[Event "NatC diamond 22"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:T.Q852.KQ975.A43 AQ9652.96.AT3.JT KJ8.A43.J.QJ7652 8743.KJT7.642.K9"]
+[Auction "N"]
+Pass Pass 1C Pass
+3D Pass Pass Pass
 
+[Event "NatC diamond 23"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:T.Q852.KQ975.A43 AQ9652.96.AT3.JT KJ8.A43.J.QJ7652 8743.KJT7.642.K9"]
+[Auction "N"]
+Pass Pass 1C Pass
+3D Pass Pass Pass
 
+[Event "NatC diamond 24"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KJ8.K43.J.QJ7652 AQ9652.96.AT3.JT T43.Q85.KQ9752.A 8743.KJT7.642.K9"]
+[Auction "N"]
+Pass Pass 1D Pass
+3C Pass 3D Pass
+3NT Pass Pass
 
+[Event "NatC diamond 25"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KJ83.K42.J.QJ765 AQ9652.96.AT3.JT T43.Q85.KQ9752.A 8743.KJT7.642.K9"]
+[Auction "N"]
+Pass Pass 1D Pass
+3C Pass 3D Pass
+3S Pass Pass Pass
+
+[Event "NatC diamond 26"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:Q9.QJ97.2.AQT432 AJT754.T853.5.K8 T752.A.AKQJ64.J7 K63.A62.KJT83.J6"]
+[Auction "N"]
+Pass Pass 1D Pass
+3C Pass 3D Pass
+3H Pass 3NT Pass
+Pass Pass
+
+[Event "NatC diamond 27"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:Q9.QJ97.2.AQT432 AJT754.T853.5.K8 T752.2.AKQJ64.J7 K63.A62.KJT83.J6"]
+[Auction "N"]
+Pass Pass 1D Pass
+3C Pass 3D Pass
+3H Pass Pass Pass

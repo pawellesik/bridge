@@ -211,6 +211,7 @@ public class OpenBid2NatC extends OpenNatC {
         //      Bid._3D, Bid._3C ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
+
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubMajorStandard),
@@ -233,6 +234,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                     shows(Bid._4C, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
                     shows(Bid._4D, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
+
             );
         } else {
             choices.addRules(
@@ -253,8 +255,8 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._4C, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
                     shows(Bid._4D, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
             );
-            choices.addRules(CompeteNatC::compBids);
         }
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -578,7 +580,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond Pass")),
 
                     shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), pairHighCardPoints(PAIR_MINOR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _5C")),
-                    shows(Bid._3D, IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3D")),
+                    shows(Bid._3D, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3D")),
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3H")),
                     shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3S")),
                     shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3NT"))

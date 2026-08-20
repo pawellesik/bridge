@@ -275,9 +275,10 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(NatC::finishBiddingCompBids),
+                shows(Bid._3H, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRaiseChangeSuitMinorDiamods _3H")),
                 shows(Bid._3S, noFit(), DECENT_PLUS_SUIT, shape(4, 10), id("RespondBid2NatC.secondBidRaiseChangeSuitMinorDiamods _3S")),
-                shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), id("RespondBid2NatC.secondBidRaiseChangeSuitMinorDiamods _5C")),
-                shows(Bid._5D, shape(2), partner(isLastBid(Bid._3D)), id("RespondBid2NatC.secondBidRaiseChangeSuitMinorDiamods _5D"))
+                shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), pairHighCardPoints(PAIR_MINOR_GAME), id("RespondBid2NatC.secondBidRaiseChangeSuitMinorDiamods _5C")),
+                shows(Bid._5D, fit(), partner(isLastBid(Bid._3D)), pairHighCardPoints(PAIR_MINOR_GAME), id("RespondBid2NatC.secondBidRaiseChangeSuitMinorDiamods _5D"))
 
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3NT"))
         );
