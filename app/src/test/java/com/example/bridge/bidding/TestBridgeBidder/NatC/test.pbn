@@ -1,14 +1,12 @@
-
 % Cleaned by CleanPBN
-[Event "NatC Trfel 58"]
+[Event "NatC Trfel 63"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:AK92.JT.43.J6542 8.A95.AT875.K873 QT.KJ62.8732.AQ9 J76543.KQ64.Q9.T"]
+[Deal "N:AK653.A7.K3.AJ62 J9.954.AT97.9543 Q87.J632.Q854.87 T42.KQT8.J62.KQT"]
 [Declarer "N"]
 [Contract "3NT"]
 [Auction "N"]
-Pass Pass 1C Pass
-2C Pass 2H Pass
-2NT Pass 3C Pass
+1C Pass 1D Pass
+2S Pass 4S Pass
 Pass Pass

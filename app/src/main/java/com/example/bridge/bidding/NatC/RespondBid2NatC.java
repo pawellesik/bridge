@@ -39,7 +39,10 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(NatC::finishBiddingIterable),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNegatStrong Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidNegatStrong Pass")),
+
+                shows(Bid._4S, fit(), pairPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNegatStrong _4S")),
+                shows(Bid._4H, fit(), pairPoints(PAIR_GAME), id("RespondBid2NatC.secondBidNegatStrong _4H")),
                 shows(Bid._2S, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _2S")),
                 shows(Bid._3H, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidNegatStrong _3H")),
                 shows(Bid._3H, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3H")),
