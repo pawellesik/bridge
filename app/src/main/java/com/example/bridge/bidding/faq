@@ -116,7 +116,6 @@ Advancer (Wspierający wejście): Partner Wchodzącego
 
 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBid1NTDiamods Pass")),
 
-
 properties(new Call[]{Bid._3D}, NatC::finishBidding, true) - z forcing
 lub
 partnerBids(NatC::finishBiddingIterable)- bez forcing

@@ -447,20 +447,35 @@ public class OpenBid2NatC extends OpenNatC {
         //     Bid._2D, Bid._3D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(
-                properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
-                partnerBids(NatC::finishBiddingIterable),
-                //shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, OpeningLowBidding, partner(isLastBid(Bid._2D)), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
-                shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(PAIR_LOW_GAME), partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
+                    partnerBids(NatC::finishBiddingIterable),
 
-                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
-                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2S")),
-                shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
-                shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
-                shows(Bid._5D, OpeningLowBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D")),
-                shows(Bid._4D, OpeningInviteBidding, partner(IS_ANY_JUMP), id("OpenBid2NatC.responderdTrumpMinorDiamod 4D"))
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
 
-        );
+                    shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
+                    shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2S")),
+                    shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
+                    shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
+                    shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D"))
+            );
+        } else {
+            choices.addRules(
+                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
+                    partnerBids(NatC::finishBiddingIterable),
+
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
+
+                    shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
+                    shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 2S")),
+                    shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
+                    shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
+                    shows(Bid._5D, OpeningLowBidding, partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D")),
+                    shows(Bid._4D, OpeningInviteBidding, partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod 4D"))
+            );
+        }
+
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
