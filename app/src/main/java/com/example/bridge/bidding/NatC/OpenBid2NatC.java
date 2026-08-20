@@ -389,11 +389,14 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._2S, Bid._2C, Bid._2D}, RecursionNatC::recursionFindLowFitGame, true),
                 partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._2H, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard 2H")),
-                shows(Bid._2S, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard 2S")),
-                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStandard 2H")),
-                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStandard 2S")),
-                shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard 2S")),
+
+                shows(Bid._2S, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2S")),
+                shows(Bid._2H, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2H")),
+
+                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStandard shape(4, 10) 2S")),
+                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStandard shape(4, 10) 2H")),
+
+                shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard 2C")),
                 shows(Bid._2D, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard 2D"))
         );
         choices.addRules(CompeteNatC::compBids);

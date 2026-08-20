@@ -50,7 +50,9 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids OpeningInviteBidding _5C")));
         bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids OpeningInviteBidding _5D")));
 
-        bids.add(shows(Bid._2S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._2H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _2S")));
+        bids.add(shows(Bid._2S, shape(2, 10), betterThan(Suit.Hearts, Suit.Hearts), partner(isLastBid(Bid._2H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _2S")));
+        bids.add(shows(Bid._3S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _3S")));
+        bids.add(shows(Bid._3S, shape(3, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
         bids.add(shows(Bid._4S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _4S")));
 
         bids.add(shows(Bid._3D, shape(2, 10), betterThan(Suit.Clubs), partner(isLastBid(Bid._3C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _3D")));
@@ -66,7 +68,6 @@ public class CompeteNatC extends NatC {
             bids.add(shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("CompeteNatC.compBids Pass")));
             bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, OpeningStrongBidding, partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids OpeningStrongBidding exit _3NT")));
             bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_GAME exit _3NT")));
-
             bids.add(shows(Bid._2NT, noFit(7), IS_NON_JUMP,  partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), othersAtLeast(2), id("CompeteNatC.compBids exit _2NT")));
         }
 

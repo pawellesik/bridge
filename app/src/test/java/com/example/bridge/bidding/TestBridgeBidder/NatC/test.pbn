@@ -1,12 +1,13 @@
 % Cleaned by CleanPBN
-[Event "NatC diamond 19"]
+[Event "NatC Trfel 56"]
 [Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:A5.984.A5432.AQ5 KT9.Q53.J96.KJ96 J73.AKT6.KQ7.T83 Q8642.J72.T8.742"]
+[Deal "N:QT9.J32.AT95.Q93 2.KQ82.KQ73.K754 AKJ7.AT65.862.J3 T9864.94.J4.AT62"]
 [Declarer "N"]
 [Contract "3NT"]
 [Auction "N"]
-1D Pass 3D Pass
-4D Pass 5D Pass
-Pass Pass
+Pass Pass 1C Pass
+1NT Pass 2S Pass
+2NT Pass 3H Pass
+3S Pass Pass Pass
