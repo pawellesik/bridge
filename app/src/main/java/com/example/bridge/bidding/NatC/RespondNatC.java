@@ -23,7 +23,7 @@ public class RespondNatC extends NatC {
     public static PositionCalls oneClub(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, true),
+                properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, false),
                 properties(new Call[]{Bid._1S, Bid._1H}, OpenBid2NatC::responderdTrumpMajorClub, false),
                 properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderdRaiseTrumpMajorClub, true),
                 properties(new Call[]{Bid._2C, Bid._2D}, OpenBid2NatC::responderdTrumpMinorClub, false),

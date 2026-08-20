@@ -187,7 +187,7 @@ public class OpenBid2NatC extends OpenNatC {
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStrong),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Bid._4H, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
                     shows(Bid._4S, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
@@ -196,7 +196,7 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices.addRules(
                     properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStrong),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Bid._4H, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
                     shows(Bid._4S, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
                     shows(Bid._3NT, noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
@@ -216,7 +216,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubMajorStandard),
                     properties(new Call[]{Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStandard),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), OpeningLowBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard Pass")),
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard Pass")),
@@ -239,7 +239,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubMajorStandard),
                     properties(new Call[]{Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStandard),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
                     shows(Bid._3S, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3S")),
 
@@ -281,7 +281,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
                     properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Bid._3S, shape(5, 10), noFit(), OpeningStrongBidding, partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 3S")),
                     shows(Bid._4D, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4D")),
                     shows(Bid._4C, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4C"))
@@ -290,7 +290,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
                     properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStrong),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Bid._3S, shape(5, 10), noFit(), OpeningStrongBidding, partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 3S")),
                     shows(Bid._4D, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4D")),
                     shows(Bid._4C, shape(5, 10), noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubClubStrong 4C"))
@@ -310,7 +310,7 @@ public class OpenBid2NatC extends OpenNatC {
                     properties(new Call[]{Bid._2S}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStandard),
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMajorFitClubStandard),
                     properties(new Call[]{Bid._3C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubClubStandard),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), OpeningLowBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
@@ -330,7 +330,7 @@ public class OpenBid2NatC extends OpenNatC {
                     properties(new Call[]{Bid._2S}, RespondBid2NatC::secondBidRaiseTrumpMajorClubStandard),
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMajorFitClubStandard),
                     properties(new Call[]{Bid._3C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubClubStandard),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard pass")),
 
@@ -369,7 +369,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 properties(new Call[]{Bid._3H, Bid._3S, Bid._3C, Bid._3D}, RecursionNatC::recursionFindFitGame, true),
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(NatC::finishBiddingCompBids),
                 shows(Bid._3H, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderd1NTClubStrong 3H")),
                 shows(Bid._3S, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderd1NTClubStrong 3S")),
                 shows(Bid._3H, shape(4, 10), OpeningStrongBidding, GOOD_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStrong 3H")),
@@ -387,7 +387,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 properties(new Call[]{Bid._2H, Bid._2S, Bid._2C, Bid._2D}, RecursionNatC::recursionFindLowFitGame, true),
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(NatC::finishBiddingCompBids),
 
                 shows(Bid._2S, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2S")),
                 shows(Bid._2H, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2H")),
@@ -438,7 +438,7 @@ public class OpenBid2NatC extends OpenNatC {
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S}, RecursionNatC::recursionFindFitGame, true),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderd2NTClubStandard pass")),
 
@@ -450,7 +450,7 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S}, RecursionNatC::recursionFindFitGame, true),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3H")),
                     shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3S")),
                     shows(Bid._3C, shape(5, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3C"))
@@ -470,7 +470,7 @@ public class OpenBid2NatC extends OpenNatC {
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
 
@@ -483,7 +483,7 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices.addRules(
                     properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidMinorAgreeTrumpDiamods),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
 
@@ -506,12 +506,12 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(NatC::finishBiddingCompBids),
                 shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderChangedSuitsDiamond 2H")),
                 shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderChangedSuitsDiamond 2S"))
         );
         choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(NatC::finishBiddingCompBids),
                 properties(new Call[]{Bid._2H, Bid._1S, Bid._2S, Bid._2C}, RespondBid2NatC::secondBidNoAgreeTrumpDiamods),
                 properties(new Call[]{Bid._2D, Bid._3D}, RespondBid2NatC::secondBidRebidDiamods),
                 // properties(new Call[]{Bid._1NT}, RespondBid2NatC::), //TODO
@@ -551,7 +551,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         } else {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
                     shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
             );
@@ -577,7 +577,7 @@ public class OpenBid2NatC extends OpenNatC {
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3D, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseChangeSuitMinorDiamods),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond Pass")),
 
@@ -590,7 +590,7 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices.addRules(
                     properties(new Call[]{Bid._3D, Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseChangeSuitMinorDiamods),
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _5C")),
                     shows(Bid._3D, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3D")),
@@ -611,7 +611,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Call.PASS, partner(isLastBid(Bid._2H, Bid._3H)), OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
                     shows(Call.PASS, partner(isLastBid(Bid._2H, Bid._3H)), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
 
@@ -620,7 +620,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         } else {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Call.PASS, partner(isLastBid(Bid._2H, Bid._3H)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _pass")),
                     shows(Bid._3H, OpeningInviteBidding, partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderRaisedMajorHeart _3H"))
             );
@@ -635,7 +635,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(NatC::finishBiddingCompBids),
                 propertiesForcingToGame(new Call[]{Bid._3H}, RespondBid2NatC::secondBidLong, true),
                 properties(new Call[]{Bid._2NT}, RespondBid2NatC::secondBidSearchSuitAfter2NTHeart),
                 propertiesAgreeTrump(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidInviteMinor, true),
@@ -670,7 +670,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
@@ -682,7 +682,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         } else {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
                     propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2NatC::secondBidInviteMajorHeart, true),
                     properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidToGameHeart, false),
@@ -718,7 +718,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
@@ -730,7 +730,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         } else {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
                     properties(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidToGameMinorHeart, false),
 
@@ -761,7 +761,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Call.PASS, partner(isLastBid(Bid._2S, Bid._3S)), OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
                     shows(Call.PASS, partner(isLastBid(Bid._2S, Bid._3S)), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
 
@@ -770,7 +770,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         } else {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingIterable),
+                    partnerBids(NatC::finishBiddingCompBids),
                     shows(Call.PASS, partner(isLastBid(Bid._2S, Bid._3S)), pairPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
                     shows(Bid._3S, OpeningInviteBidding, partner(isLastBid(Bid._2S)), id("OpenBid2NatC.responderRaisedMajorSpade _3S"))
             );
@@ -785,7 +785,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(NatC::finishBiddingCompBids),
                 propertiesForcingToGame(new Call[]{Bid._3S}, RespondBid2NatC::secondBidLong, true),
                 properties(new Call[]{Bid._2NT}, RespondBid2NatC::secondBidSearchSuitAfter2NTSpade),
                 propertiesAgreeTrump(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidInviteMinor, true),
@@ -818,7 +818,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                partnerBids(NatC::finishBiddingIterable),
+                partnerBids(NatC::finishBiddingCompBids),
                 shows(Bid._4H, FIT_8_PLUS, setTrumpColor(Suit.Hearts), ruleOf17()),
                 shows(Bid._4S, FIT_8_PLUS, setTrumpColor(Suit.Spades), ruleOf17()),
                 shows(Bid._4S, setTrumpColor(Suit.Spades), fit(10)),
