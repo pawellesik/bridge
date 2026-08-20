@@ -137,15 +137,15 @@ public class OpenBid2NatC extends OpenNatC {
                 partnerBids(RespondBid2NatC::secondBidMinorClubStrong),
                 shows(Bid._3S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3S")),
                 shows(Bid._3H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3H")),
-                shows(Bid._4D, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Diamonds), partner(isLastBid(Bid._2D)), id("OpenBid2NatC.responderdTrumpMinorClubStrong _4D")),
-                shows(Bid._4C, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Clubs), partner(isLastBid(Bid._2C)), id("OpenBid2NatC.responderdTrumpMinorClubStrong _4C")),
+                shows(Bid._4D, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Diamonds), partner(isLastBid(Bid._2D)), id("OpenBid2NatC.responderdTrumpMinorClubStrong fit() _4D")),
+                shows(Bid._4C, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Clubs), partner(isLastBid(Bid._2C)), id("OpenBid2NatC.responderdTrumpMinorClubStrong fit() _4C")),
 
                 shows(Bid._3NT, PAIR_BALANCED, OpeningStrongBidding, id("OpenBid2NatC.responderdTrumpMinorClubStrong _3NT"))
         );
         choices.addRules(
                 propertiesForcingToGame(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidMinorClubForcingStrong, true),
-                shows(Bid._4C, noFit(), shape(5, 10), OpeningStrongBidding, partner(isLastBid(Bid._2D)), id("OpenBid2NatC.responderdTrumpMinorClubStrong _4C")),
-                shows(Bid._4D, noFit(), shape(5, 10), OpeningStrongBidding, partner(isLastBid(Bid._2C)), id("OpenBid2NatC.responderdTrumpMinorClubStrong _4D"))
+                shows(Bid._4C, noFit(), shape(5, 10), OpeningStrongBidding, partner(isLastBid(Bid._2D)), id("OpenBid2NatC.responderdTrumpMinorClubStrong noFit() _4C")),
+                shows(Bid._4D, noFit(), shape(5, 10), OpeningStrongBidding, partner(isLastBid(Bid._2C)), id("OpenBid2NatC.responderdTrumpMinorClubStrong noFit() _4D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

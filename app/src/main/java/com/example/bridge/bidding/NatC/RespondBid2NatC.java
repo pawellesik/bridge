@@ -110,12 +110,20 @@ public class RespondBid2NatC extends RespondNatC {
         //      Bid._2C, Bid._2D ->
         //                          3S, 3H, 4D, 4C, 3NT ->
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                AcesAsk.initiateConvention(ps),
-                AcesAsk.initiateConventionBlok(ps),
+
                 partnerBids(NatC::finishBiddingCompBids),
                 properties(new Call[]{Bid._3S}, OpenBid3NatC::thirdBidToGameMinorClubStrong),
-                shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidMinorClubStrong _3S"))
+                shows(Bid._3S, noFit(), shape(4, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidMinorClubStrong _3S")),
+                shows(Bid._4C, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidMinorClubStrong _4C")),
+                shows(Bid._4D, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidMinorClubStrong _4D")),
+
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
+
+                shows(Bid._4S, shape(2), partner(isLastBid(Bid._3S)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
+                shows(Bid._4H, shape(2), partner(isLastBid(Bid._3H)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorClubStrong _4H"))
+
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -159,7 +167,7 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._4S, noFit(), shape(4, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _4S")),
                 shows(Bid._5C, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5C")),
                 shows(Bid._5D, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5D")),
-                shows(Bid._5NT, noFit(), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5NT"))
+                shows(Bid._5NT, noFit(), PAIR_BALANCED, id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;

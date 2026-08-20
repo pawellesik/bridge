@@ -125,3 +125,25 @@ do logow np
 android.util.Log.d("PBN_EXPORT_JSON", jsonExport);
 
 ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape().getMin();
+
+---------------------
+
+ System.out.println("=================================================" + ps.getLastCall());
+        HandSummary summary = ps.getPublicHandSummary();
+
+        StringBuilder sb = new StringBuilder();
+
+        Range p = summary.getPoints();
+        if (p != null && p.getMin() > 0) {
+            sb.append("Pkt: ").append(p.getMin()).append("-").append(p.getMax()).append(" ");
+        }
+        for (Suit s : Suit.values()) {
+            HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
+            if (suitSum != null) {
+                Range shape = suitSum.getShape();
+                if (shape != null && shape.getMin() > 0) {
+                    sb.append(s.toSymbol()).append(":").append(shape.getMin()).append("+ ");
+                    System.out.println("aa "+ s.toSymbol() + ":" + shape.getMin() );
+                }
+            }
+        }
