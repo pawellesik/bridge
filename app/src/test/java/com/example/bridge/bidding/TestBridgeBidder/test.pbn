@@ -1,15 +1,8 @@
-[Event "NatC kier 1"]
+[Event "NatC trefl 1"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:J.AK732.QJ85.A84 KQ763.J8.K96.953 A9542.Q96.74.J62 T8.T54.AT32.KQT7"]
+[Deal "N:5.AJ86.T3.Q97543 KQJT83.Q5.Q64.KT A972.T.AKJ5.AJ82 64.976432.9872.6"]
 [Auction "N"]
-1H Pass 2H Pass
-Pass Pass
-
-[Event "NatC kier 2"]
-[Dealer "N"]
-[Vulnerable "None"]
-[Deal "N:A9542.Q96.74.J62 KQ763.J8.K96.953 J.AK732.QJ85.A84 T8.T54.AT32.KQT7"]
-[Auction "N"]
-Pass Pass 1H Pass
-2H Pass Pass Pass
+Pass Pass 1C Pass
+2C Pass 2S Pass
+3C Pass Pass Pass

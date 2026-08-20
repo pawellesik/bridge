@@ -652,3 +652,12 @@ Pass Pass
 1C Pass 2D Pass
 4C Pass 4D Pass
 5C Pass Pass Pass
+
+[Event "NatC trefl 72"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:5.AJ86.T3.Q97543 KQJT83.Q5.Q64.KT A972.T.AKJ5.AJ82 64.976432.9872.6"]
+[Auction "N"]
+Pass Pass 1C Pass
+2C Pass 2S Pass
+3C Pass Pass Pass
