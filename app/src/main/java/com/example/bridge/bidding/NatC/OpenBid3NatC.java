@@ -12,13 +12,13 @@ public class OpenBid3NatC extends OpenNatC {
         //odpowiedzi na: Bid._1C ->
         //                          Bid._1D ->
         //                                   2NT ->
-        //                                          3C, 3D, 3H, 3S
+        //                                          3C, 3D, 3H, 3S ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(NatC::finishBiddingIterable),
-                shows(Bid._3D, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidNegat2NTStrong _3D")),
-                shows(Bid._3H, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidNegat2NTStrong _3H")),
-                shows(Bid._3S, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidNegat2NTStrong _3S"))
+                shows(Bid._3D, shape(5, 10), noFit(7), id("OpenBid3NatC.thirdBidNegat2NTStrong _3D")),
+                shows(Bid._3H, shape(4, 10), noFit(7), DECENT_PLUS_SUIT, id("OpenBid3NatC.thirdBidNegat2NTStrong _3H")),
+                shows(Bid._3S, shape(4, 10), noFit(7), DECENT_PLUS_SUIT, id("OpenBid3NatC.thirdBidNegat2NTStrong _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
