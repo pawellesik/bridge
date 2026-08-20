@@ -58,17 +58,15 @@ public class CompeteNatC extends NatC {
 
         if (partnerBid != null) {
             bids.add(shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("CompeteNatC.compBids Pass")));
-            bids.add(shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, id("CompeteNatC.compBids exit _2NT")));
-            bids.add(shows(Bid._3NT, noFit(), shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, partner(isLastBid(Bid._3H, Bid._3S)), id("CompeteNatC.compBids exit _3NT")));
-            bids.add(shows(Bid._2NT, noFit(), pairHighCardPoints(PAIR_MINOR_GAME), id("CompeteNatC.compBids exit _2NT")));//do dodania ze mam w kazdym kolorze chociaz 2 karty za wyjatkiem lic przez part,  kontrowersyjne ale nie mam pomyslu
+            bids.add(shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, PAIR_BALANCED_EXIT, id("CompeteNatC.compBids exit _2NT")));
+            bids.add(shows(Bid._3NT, noFit(), shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, PAIR_BALANCED_EXIT, partner(isLastBid(Bid._3H, Bid._3S)), id("CompeteNatC.compBids exit _3NT")));
+            bids.add(shows(Bid._2NT, noFit(), pairHighCardPoints(PAIR_MINOR_GAME), PAIR_BALANCED_EXIT, id("CompeteNatC.compBids exit _2NT")));
         }
 
         bids.add(shows(Bid._3C, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _3C")));
         bids.add(shows(Bid._3D, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _3D")));
         bids.add(shows(Bid._3H, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Hearts, 5), id("CompeteNatC.compBids _3H")));
         bids.add(shows(Bid._3S, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Spades, 5), id("CompeteNatC.compBids _3S")));
-
-
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
 
