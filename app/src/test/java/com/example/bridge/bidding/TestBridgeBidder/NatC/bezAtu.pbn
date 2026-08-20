@@ -1,62 +1,42 @@
-% Cleaned by CleanPBN
 [Event "NatC bezAtu 1"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:AKQJ.KQJT.T32.65 Q76.K7.9876.T987 AKQJT.T42.983.82 32.6543.AJ5.6542"]
-[Declarer "N"]
-[Contract "Pass"]
 [Auction "N"]
 1NT Pass 3S Pass
 4S Pass
 
-% Cleaned by CleanPBN
 [Event "NatC bezAtu 2"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:KT32.AK64.AQ.T63 Q76.K7.9876.T987 A4.32.JT95.KQ852 32.6543.AJ5.6542"]
-[Declarer "N"]
-[Contract "Pass"]
 [Auction "N"]
 1NT Pass 3C Pass
 4C Pass 5C Pass
 Pass Pass
 
-% Cleaned by CleanPBN
 [Event "NatC bezAtu 3"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:KT32.AK64.AQ3.T6 Q76.K7.9876.T987 54.32.KT95.AQ985 32.6543.AJ5.6542"]
-[Declarer "N"]
-[Contract "Pass"]
 [Auction "N"]
 1NT Pass 2C Pass
 2H Pass Pass Pass
 
-% Cleaned by CleanPBN
 [Event "NatC bezAtu 4"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:AK92.JT4.A97.K52 Q87653.53.85.Q94 T.KQ9.KQT43.AJ83 J4.A8762.J62.T76"]
-[Declarer "N"]
-[Contract "Pass"]
 [Auction "N"]
 1NT Pass 3D Pass
 4D Pass 4NT Pass
 5H Pass 5S Pass
 6D Pass Pass Pass
 
-% Cleaned by CleanPBN
 [Event "NatC bezAtu 5"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:AK92.JT4.A97.K52 Q87653.53.85.Q94 T.KQ9.AKQT4.AJ83 J4.A8762.J62.T76"]
-[Declarer "N"]
-[Contract "Pass"]
 [Auction "N"]
 1NT Pass 3D Pass
 4D Pass 4NT Pass
@@ -65,14 +45,10 @@ Pass Pass
 Pass Pass
 
 
-% Cleaned by CleanPBN
 [Event "NatC bezAtu 6"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:AK92.JT4.AJ7.Q52 Q87653.53.85.Q94 T.KQ9.AKQT4.AJ83 J4.A8762.J62.T76"]
-[Declarer "N"]
-[Contract "Pass"]
 [Auction "N"]
 1NT Pass 3D Pass
 4D Pass 4NT Pass
@@ -80,26 +56,18 @@ Pass Pass
 6C Pass 6D Pass
 Pass Pass
 
-% Cleaned by CleanPBN
 [Event "NatC Deal bezAtu 7"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:KT54.K64.A2.KQJT AJ62.T9.JT96.A84 97.AQJ8732.87.63 Q83.5.KQ543.9752"]
-[Declarer "N"]
-[Contract "4H"]
 [Auction "N"]
 1NT Pass 2H Pass
 4H Pass Pass Pass
 
-% Cleaned by CleanPBN
 [Event "NatC Deal bezAtu 8"]
-[Board "1"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:KT54.A5.AT42.A73 A.KQJ743.K7.KT98 QJ8763.6.Q3.QJ62 92.T982.J9865.54"]
-[Declarer "N"]
-[Contract "4H"]
 [Auction "N"]
 1NT Pass 2S Pass
 Pass Pass
