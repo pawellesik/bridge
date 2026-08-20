@@ -36,7 +36,7 @@ public class Test {
         List<Object[]> result = new ArrayList<>();
         // Try various relative paths to find the test data directory
         String[] possiblePaths = {
-           "src/test/java/com/example/bridge/bidding/TestBridgeBidder/NatC/",
+           "src/test/java/com/example/bridge/bidding/TestBridgeBidder/",
         };
         
         File dir = null;
