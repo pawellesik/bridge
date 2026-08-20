@@ -155,12 +155,14 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RespondBid2NatC::secondBidMinorClubStandard),
-                shows(Bid._3C, shape(6, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
-                shows(Bid._2H, shape(4, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2H")),
-                shows(Bid._2S, shape(4, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2S")),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderdTrumpMinorClubStandard _Pass")),
+                //shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), OpeningLowBidding, id("OpenBid2NatC.responderdTrumpMinorClubStandard Pass")),
+                //shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorClubStandard Pass")),
+
+                shows(Bid._3C, noFit(), shape(6, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
+                shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorClubStandard _2S")),
+                shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorClubStandard _2H")),
                 shows(Bid._3C, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
-                shows(Bid._3D, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3D"))
+                shows(Bid._3D, noFit(), shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -190,6 +192,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStrong),
                     partnerBids(NatC::finishBiddingIterable),
+
                     shows(Bid._4H, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
                     shows(Bid._4S, noFit(), IS_ANY_JUMP, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
                     shows(Bid._3NT, noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
@@ -219,6 +222,7 @@ public class OpenBid2NatC extends OpenNatC {
                     properties(new Call[]{Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStandard),
                     partnerBids(NatC::finishBiddingIterable),
 
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), OpeningLowBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard Pass")),
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard Pass")),
 
                     shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
@@ -313,7 +317,8 @@ public class OpenBid2NatC extends OpenNatC {
                     properties(new Call[]{Bid._3C}, RespondBid2NatC::secondBidRaiseTrumpMajorClubClubStandard),
                     partnerBids(NatC::finishBiddingIterable),
 
-                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard pass")),
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), OpeningLowBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
 
                     shows(Bid._4H, fit(), setTrumpColor(Suit.Hearts), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 3H")),
                     shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 3S")),
