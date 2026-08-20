@@ -107,7 +107,8 @@ public class RespondNatC extends NatC {
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2NatC::responderTrumpMajorHeart, true),
                 properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2NatC::responderChangedSuitsHeart, false),
-                properties(new Call[]{Bid._3C, Bid._3D, Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsHeart, false),
+                properties(new Call[]{Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsToSpadeHeart, false),
+                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderRaiseChangedSuitsToMinorHeart, false),
                 properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
