@@ -566,23 +566,6 @@ public abstract class Bidder {
         }
     };
 
-    public static final HandConstraint PAIR_BALANCED_EXIT = new HandConstraint() {
-        @Override
-        public boolean conforms(Call call, PositionState ps, HandSummary hs) {
-            for (Suit suit : Suit.values()) {
-                // Sprawdzamy czy partner licytował ten kolor
-                boolean partnerHasSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
-
-                if (!partnerHasSuit) {
-                    int count = hs.getSuits().get(suit).getShape().getMin();
-                    int hcpSuit = hs.getSuits().get(suit).getHighCardPoints().getMin();
-
-                    if (count <2) return false; //conajmniej 2 karty w każdym kolorze oprócz koloru licytowanego przez partnera
-                }
-            }
-            return true;
-        }
-    };
     public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false);
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);
     public static final HandConstraint NOT_FLAT = new Flat.ShowsFlat(false);
