@@ -1,5 +1,7 @@
 package com.example.bridge.bidding.NatC;
 
+import static com.example.bridge.bidding.NatC.OpenNatC.OpeningStrongBidding;
+
 import com.example.bridge.bidding.Constraints.JumpBid;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.AcesAsk;
@@ -58,9 +60,10 @@ public class CompeteNatC extends NatC {
 
         if (partnerBid != null) {
             bids.add(shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("CompeteNatC.compBids Pass")));
-            bids.add(shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, PAIR_BALANCED_EXIT, id("CompeteNatC.compBids exit _2NT")));
-            bids.add(shows(Bid._3NT, noFit(), shape(ps.getPartner().getBid().getSuit(), 0, 1), IS_NON_JUMP, PAIR_BALANCED_EXIT, partner(isLastBid(Bid._3H, Bid._3S)), id("CompeteNatC.compBids exit _3NT")));
-            bids.add(shows(Bid._2NT, noFit(), pairHighCardPoints(PAIR_MINOR_GAME), PAIR_BALANCED_EXIT, id("CompeteNatC.compBids exit _2NT")));
+            bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, OpeningStrongBidding, partner(isLastBid(Bid._3H, Bid._3S)), PAIR_BALANCED_EXIT, id("CompeteNatC.compBids exit _3NT")));
+            bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3H, Bid._3S)), PAIR_BALANCED_EXIT, id("CompeteNatC.compBids exit _3NT")));
+
+            bids.add(shows(Bid._2NT, noFit(7), IS_NON_JUMP,  partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), PAIR_BALANCED_EXIT, id("CompeteNatC.compBids exit _2NT")));
         }
 
         bids.add(shows(Bid._3C, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _3C")));

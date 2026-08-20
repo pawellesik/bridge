@@ -639,7 +639,7 @@ pass pass
 [Auction "N"]
 1C Pass 1S Pass
 2H Pass 2S Pass
-2NT pass pass pass
+pass pass
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 50"]
@@ -667,7 +667,7 @@ Pass Pass 1C Pass
 Pass Pass 1C Pass
 1D Pass 2NT Pass
 3D Pass 3H Pass
-Pass Pass
+3NT Pass Pass Pass
 
 % Cleaned by CleanPBN
 [Event "NatC Trfel 52"]

@@ -503,15 +503,16 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    //partnerBids(NatC::finishBiddingIterable),
-                    shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _4S")),
-                    shows(Bid._4H, fit(), setTrumpColor(Suit.Hearts), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _4H"))
-            );
-            choices.addRules(
                     properties(new Call[]{Bid._2S, Bid._3H, Bid._3D, Bid._3C}, RespondBid2NatC::secondBidRaiseNoAgreeTrumpDiamods),
-                    shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
+                    shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _4S")),
+                    shows(Bid._4H, fit(), setTrumpColor(Suit.Hearts), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _4H")),
+
+                    shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
                     shows(Bid._3D, noFit(), shape(6, 10), IS_REBID, id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
-                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C"))
+                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
+                    shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
+
+                   // shows(Bid._2NT, noFit(7), pairHighCardPoints(PAIR_GAME), PAIR_BALANCED_EXIT, id("OpenBid2NatC.responderChangedSuitsDiamond exit _2NT"))
             );
         } else {
             choices.addRules(
@@ -521,11 +522,12 @@ public class OpenBid2NatC extends OpenNatC {
             );
             choices.addRules(
                     properties(new Call[]{Bid._2S, Bid._3H, Bid._3D, Bid._3C}, RespondBid2NatC::secondBidRaiseNoAgreeTrumpDiamods),
+
                     shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3S")),
-                    shows(Bid._3H, noFit(), shape(4, 10), pairHighCardPoints(PAIR_GAME),  DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
+                    shows(Bid._3H, noFit(), shape(4, 10), pairHighCardPoints(PAIR_GAME), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
                     shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
-                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
-                    shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond _3S"))
+                    shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C"))
+
             );
         }
         choices.addRules(CompeteNatC::compBids);
