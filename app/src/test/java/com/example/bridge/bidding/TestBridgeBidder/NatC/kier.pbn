@@ -327,8 +327,7 @@ pass Pass 1H Pass
 [Contract "3NT"]
 [Auction "N"]
 pass Pass 1H Pass
-3H Pass 4H Pass
-pass pass
+3H Pass pass pass
 
 % Cleaned by CleanPBN
 [Event "NatC Deal kier 31"]

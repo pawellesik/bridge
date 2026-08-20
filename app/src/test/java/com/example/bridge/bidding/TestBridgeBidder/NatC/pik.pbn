@@ -8,8 +8,7 @@
 [Contract "4S"]
 [Auction "N"]
 PASS PASS 1S PASS
-3S PASS 4S PASS
-PASS PASS
+3S PASS PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Deal pik 2"]
@@ -21,8 +20,7 @@ PASS PASS
 [Contract "3S"]
 [Auction "N"]
 PASS PASS 1S PASS
-3S PASS 4S PASS
-PASS PASS
+3S PASS PASS PASS
 
 % Cleaned by CleanPBN
 [Event "NatC Deal pik 3"]
@@ -417,7 +415,6 @@ Pass Pass 1S Pass
 3C Pass 3S Pass
 4S Pass Pass Pass
 
-
 % Cleaned by CleanPBN
 [Event "NatC Deal pik 34"]
 [Board "1"]
@@ -430,5 +427,20 @@ Pass Pass 1S Pass
 Pass Pass 1S Pass
 3C Pass 3S Pass
 3NT Pass Pass Pass
+
+% Cleaned by CleanPBN
+[Event "NatC Deal pik 35"]
+[Board "1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT9.Q.AQT5.T9876 Q742.A752.74.K54 AJ853.94.9862.AQ 6.KJT863.KJ3.J32"]
+[Declarer "N"]
+[Contract "3NT"]
+[Auction "N"]
+Pass Pass 1S Pass
+3S Pass 4S Pass
+Pass Pass
+
+
 
 
