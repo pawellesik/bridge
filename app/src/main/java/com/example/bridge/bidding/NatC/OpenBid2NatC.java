@@ -18,7 +18,6 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices = responderNegatStandard(ps);
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -69,7 +68,6 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices = responderdTrumpMajorClubStandard(ps);
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -127,7 +125,6 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices = responderdTrumpMinorClubStandard(ps);
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -177,7 +174,6 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices = responderdRaiseTrumpMinorClubStandard(ps);
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -228,7 +224,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
                     shows(Bid._3S, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3S")),
 
-                    shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
+                    shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
 
                     shows(Bid._4D, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D")),
                     shows(Bid._4C, fit(), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
@@ -273,7 +269,6 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices = responderdRaiseTrumpMajorClubStandard(ps);
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -365,7 +360,6 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices = responderd1NTClubStandard(ps);
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -417,7 +411,6 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices = responderd2NTClubStandard(ps);
         }
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -435,8 +428,6 @@ public class OpenBid2NatC extends OpenNatC {
 //todo ?
             );
         }
-
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -466,8 +457,6 @@ public class OpenBid2NatC extends OpenNatC {
 
             );
         }
-
-
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
