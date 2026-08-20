@@ -202,7 +202,6 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3NT, noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
             );
         }
-
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -254,9 +253,8 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._4C, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
                     shows(Bid._4D, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
             );
+            choices.addRules(CompeteNatC::compBids);
         }
-
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -421,13 +419,12 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-//todo ?
             );
         } else {
             choices.addRules(
-//todo ?
             );
         }
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 
@@ -445,7 +442,6 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3H")),
                     shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3S")),
                     shows(Bid._3C, shape(5, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3C"))
-
             );
         } else {
             choices.addRules(
@@ -454,7 +450,6 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3H")),
                     shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3S")),
                     shows(Bid._3C, shape(5, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3C"))
-
             );
         }
         choices.addRules(CompeteNatC::compBids);
@@ -479,6 +474,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
                     shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
                     shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._3D)), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D"))
+
             );
         } else {
             choices.addRules(

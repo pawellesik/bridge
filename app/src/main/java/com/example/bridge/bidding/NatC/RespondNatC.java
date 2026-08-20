@@ -97,7 +97,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _1NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneDiamond _3NT"))
         );
-        //choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 

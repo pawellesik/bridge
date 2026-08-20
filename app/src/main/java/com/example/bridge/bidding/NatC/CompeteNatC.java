@@ -26,7 +26,6 @@ public class CompeteNatC extends NatC {
         addAcesAskConventions(ps, bids);
 
         bids.add(partnerBids(CompeteNatC::compBids));
-        bids.add(shows(Bid._3NT, id("CompeteNatC.compBids PAIR_GAME _4H")));
 
         bids.add(shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), id("CompeteNatC.compBids PAIR_GAME _4H")));
         bids.add(shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Spades), id("CompeteNatC.compBids PAIR_GAME _4S")));
