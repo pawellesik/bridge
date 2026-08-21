@@ -81,8 +81,8 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3H, IS_NEW_SUIT, shape(4, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Hearts, 4), hasShortness(0, 1), id("CompeteNatC.compBids _3H")));
         bids.add(shows(Bid._3S, IS_NEW_SUIT, shape(4, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Spades, 4), hasShortness(0, 1), id("CompeteNatC.compBids _3S")));
 
-        bids.add(shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("RecursionNatC.recursionFindFitGame NOT_BALANCED _4H")));
-        bids.add(shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("RecursionNatC.recursionFindFitGame NOT_BALANCED _4S")));
+        bids.add(shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H")));
+        bids.add(shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("CompeteNatC.compBids NOT_BALANCED _4S")));
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
 
