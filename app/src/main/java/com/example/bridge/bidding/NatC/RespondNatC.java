@@ -100,6 +100,7 @@ public class RespondNatC extends NatC {
         return choices;
     }
 
+
     public static PositionCalls oneHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
