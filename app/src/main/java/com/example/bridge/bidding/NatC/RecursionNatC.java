@@ -101,12 +101,12 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3NT, PAIR_BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_REBID _3NT")),
                 shows(Bid._3NT, BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT"))
 
+                //shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H"))
+                //CompeteNatC.compBids(ps)
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
-
-
 }
 
 
