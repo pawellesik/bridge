@@ -227,7 +227,7 @@ Pass Pass 1C Pass
 [Auction "N"]
 1C Pass 2NT Pass
 3C Pass 3H Pass
-3NT Pass Pass Pass
+4H Pass Pass Pass
 
 [Event "NatC Trfel 26"]
 [Dealer "N"]
@@ -552,7 +552,8 @@ Pass Pass 1C Pass
 [Deal "N:K743.KT6.K974.A3 QJ65.A7.53.KJ742 AT9.92.AQJ2.9865 82.QJ8543.T86.QT"]
 [Auction "N"]
 1C Pass 2NT Pass
-3S Pass Pass Pass
+3S Pass 4S Pass
+Pass Pass
 
 [Event "NatC Trfel 61"]
 [Dealer "N"]
