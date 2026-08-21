@@ -438,7 +438,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    properties(new Call[]{Bid._3H, Bid._3S}, RecursionNatC::recursionFindFitGame, true),
+                    properties(new Call[]{Bid._3H, Bid._3S, Bid._3C}, RecursionNatC::recursionFindFitGame, true),
                     partnerBids(NatC::finishBiddingCompBids),
 
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderd2NTClubStandard pass")),
@@ -449,7 +449,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         } else {
             choices.addRules(
-                    properties(new Call[]{Bid._3H, Bid._3S}, RecursionNatC::recursionFindFitGame, true),
+                    properties(new Call[]{Bid._3H, Bid._3S, Bid._3C}, RecursionNatC::recursionFindFitGame, true),
                     partnerBids(NatC::finishBiddingCompBids),
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3H")),
                     shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3S")),

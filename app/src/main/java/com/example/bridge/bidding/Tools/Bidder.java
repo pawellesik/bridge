@@ -541,7 +541,7 @@ public abstract class Bidder {
     public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true);
     public static final HandConstraint PAIR_BALANCED = new HandConstraint() {
         @Override
-        public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+        public boolean conforms(Call call, PositionState ps, HandSummary hs) {//todo zmienic aby nie sprawdzal koloru ktory jakikolwiek pokazal nasz partner nie tylko pierwszy
             for (Suit suit : Suit.values()) {
                 // Sprawdzamy czy partner licytował ten kolor
                 boolean partnerHasSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();

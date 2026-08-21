@@ -98,9 +98,9 @@ public class RecursionNatC extends NatC {
 
                     shows(Bid._1NT, PAIR_BALANCED, id("RecursionNatC.recursionFindFitGame IS_REBID _1NT")),
                     shows(Bid._2NT, PAIR_BALANCED, id("RecursionNatC.recursionFindFitGame IS_REBID _2NT")),
-                    shows(Bid._3NT, PAIR_BALANCED, id("RecursionNatC.recursionFindFitGame IS_REBID _3NT")),
+                    shows(Bid._3NT, PAIR_BALANCED, id("RecursionNatC.recursionFindFitGame IS_REBID _3NT"))
 
-                    shows(Call.PASS, id("RecursionNatC.recursionFindFitGame Pass"))
+                    //shows(Call.PASS, id("RecursionNatC.recursionFindFitGame Pass"))
             );
         choices.addRules(CompeteNatC::compBids);
         return choices;
