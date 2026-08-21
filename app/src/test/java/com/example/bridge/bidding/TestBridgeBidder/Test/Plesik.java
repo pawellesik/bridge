@@ -1,4 +1,4 @@
-package com.example.bridge.bidding;
+package com.example.bridge.bidding.TestBridgeBidder.Test;
 
 import com.example.bridge.bidding.Tools.BiddingState;
 import com.example.bridge.bidding.Tools.Call;

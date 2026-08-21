@@ -36,7 +36,7 @@ public class Test {
         List<Object[]> result = new ArrayList<>();
         // Try various relative paths to find the test data directory
         String[] possiblePaths = {
-           "src/test/java/com/example/bridge/bidding/TestBridgeBidder/",
+           "src/test/java/com/example/bridge/bidding/TestBridgeBidder/Test/",
         };
         
         File dir = null;
@@ -108,7 +108,7 @@ public class Test {
             PositionCalls suggestionChoices = debugState.getCallChoices();
             CallDetails suggestedDetails = suggestionChoices.getBestCall();
             String suggestedLogId = (suggestedDetails != null) ? suggestedDetails.getMatchedLogID(debugState.getNextToAct()) : "NONE";
-            
+
             String msg = "FAILURE: " + test.getName() + "\n" +
                          "  Auction:      " + test.getAuction() + "\n" +
                          "  Deal:         " + test.getDeal() + "\n" +
