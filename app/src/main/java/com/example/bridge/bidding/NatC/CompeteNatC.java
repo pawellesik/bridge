@@ -56,9 +56,10 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, id("CompeteNatC.compBids IS_FORCED_TO_GAME _5D")));
 
         bids.add(shows(Bid._2S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._2H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _2S")));
-        bids.add(shows(Bid._3S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _3S")));
-        bids.add(shows(Bid._3S, shape(3, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
-        bids.add(shows(Bid._4S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _4S")));
+        bids.add(shows(Bid._3S, shape(3,4), shape(Suit.Hearts, 3), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
+        bids.add(shows(Bid._3S, shape(2,3), shape(Suit.Hearts, 2), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
+        bids.add(shows(Bid._4S, shape(2,3), shape(Suit.Hearts, 2), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _4S")));
+        bids.add(shows(Bid._4S, shape(3,4), shape(Suit.Hearts, 3), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _4S")));
 
         bids.add(shows(Bid._3D, shape(2, 10), betterThan(Suit.Clubs), partner(isLastBid(Bid._3C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _3D")));
         bids.add(shows(Bid._5D, shape(2, 10), betterThan(Suit.Diamonds), partner(isLastBid(Bid._5C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _5D")));
@@ -68,12 +69,6 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3C, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_GAME _3C")));
         bids.add(shows(Bid._3C, shape(6, 10), noFit(), IS_REBID, pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_GAME _3C")));
         bids.add(shows(Bid._3D, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids PAIR_GAME _3D")));
-
-        /*if (ps.getPartner().getBid() != null) {
-            System.out.println("============================="+ps.getPartner().getBid().getSuit());
-            System.out.println("plesik: " + ps.getDirection() +" : " + ps.getPublicHandSummary().getSuits().get(ps.getPartner().getBid().getSuit()).getShape().getMin());
-            System.out.println("plesik: " + ps.getPartner().getDirection() +" : " + ps.getPartner().getPublicHandSummary().getSuits().get(ps.getPartner().getBid().getSuit()).getShape().getMin());
-        }*/
 
         if (partnerBid != null) {
             bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, OpeningStrongBidding, partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids OpeningStrongBidding exit _3NT")));
@@ -87,6 +82,9 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3D, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _3D")));
         bids.add(shows(Bid._3H, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Hearts, 5), id("CompeteNatC.compBids _3H")));
         bids.add(shows(Bid._3S, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Spades, 5), id("CompeteNatC.compBids _3S")));
+
+        bids.add(shows(Bid._3H, IS_NEW_SUIT, shape(4, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Hearts, 4), hasShortness(0,1), id("CompeteNatC.compBids _3H")));
+        bids.add(shows(Bid._3S, IS_NEW_SUIT, shape(4, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Spades, 4), hasShortness(0,1), id("CompeteNatC.compBids _3S")));
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
 
