@@ -340,4 +340,22 @@ Pass Pass 1C Pass
 3C Pass 3S Pass
 4S Pass Pass Pass
 
+[Event "NatC pik 41"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K3..KJ7T5.A97432 T65.84.AQ942.QT5 AQJ87.AKJ75.T6.6 942.Q96532.83.K8"]
+[Auction "N"]
+Pass Pass 1S Pass
+3C Pass 4H Pass
+4S Pass Pass Pass
+
+[Event "NatC pik 42"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K3..KJ7T5.A97432 T65.84.AQ942.QT5 AQJ87.AKJ7.T6.J6 942.Q96532.83.K8"]
+[Auction "N"]
+Pass Pass 1S Pass
+3C Pass 3H Pass
+3S Pass 4S Pass
+Pass Pass
 
