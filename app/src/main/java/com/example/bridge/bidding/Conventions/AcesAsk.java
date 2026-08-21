@@ -166,7 +166,7 @@ public class AcesAsk extends Bidder {
         } else {
             choices.addRules(
                     shows(Bid._7NT, pairHighCardPoints(GRAND_SLAM), pairAces(4), pairKings(3, 4), id("AcesAsk tryGrandSlam 7NT")),
-                    shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7), id("AcesAsk tryGrandSlam 6NT")),
+                    shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7, 8), id("AcesAsk tryGrandSlam 6NT")),
                     shows(Bid._5NT)
 
             );

@@ -9,7 +9,9 @@ import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
+import com.example.bridge.bidding.Tools.HandSummary;
 import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Strain;
 import com.example.bridge.bidding.Tools.Suit;
 
@@ -43,12 +45,15 @@ public class CompeteNatC extends NatC {
 
         bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids PAIR_BALANCED PAIR_GAME _3NT")));
 
-        bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids PAIR_MINOR_GAME, _5C")));
-        bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids PAIR_MINOR_GAME _5D")));
-        bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids IS_FORCED_TO_GAME _5C")));
-        bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids IS_FORCED_TO_GAME _5D")));
-        bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids OpeningInviteBidding _5C")));
-        bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids OpeningInviteBidding _5D")));
+       //bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids PAIR_MINOR_GAME, _5C")));
+       // bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids PAIR_MINOR_GAME _5D")));
+       // bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids IS_FORCED_TO_GAME _5C")));
+       // bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, fit(Suit.Spades, false), fit(Suit.Hearts, false), id("CompeteNatC.compBids IS_FORCED_TO_GAME _5D")));
+
+        bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, id("CompeteNatC.compBids PAIR_MINOR_GAME, _5C")));
+        bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), PARTNER_DID_NOT_SIGN_OFF, id("CompeteNatC.compBids PAIR_MINOR_GAME _5D")));
+        bids.add(shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, id("CompeteNatC.compBids IS_FORCED_TO_GAME _5C")));
+        bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, id("CompeteNatC.compBids IS_FORCED_TO_GAME _5D")));
 
         bids.add(shows(Bid._2S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._2H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _2S")));
         bids.add(shows(Bid._3S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _3S")));
@@ -64,11 +69,18 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3C, shape(6, 10), noFit(), IS_REBID, pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_GAME _3C")));
         bids.add(shows(Bid._3D, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids PAIR_GAME _3D")));
 
+        /*if (ps.getPartner().getBid() != null) {
+            System.out.println("============================="+ps.getPartner().getBid().getSuit());
+            System.out.println("plesik: " + ps.getDirection() +" : " + ps.getPublicHandSummary().getSuits().get(ps.getPartner().getBid().getSuit()).getShape().getMin());
+            System.out.println("plesik: " + ps.getPartner().getDirection() +" : " + ps.getPartner().getPublicHandSummary().getSuits().get(ps.getPartner().getBid().getSuit()).getShape().getMin());
+        }*/
+
         if (partnerBid != null) {
-            //bids.add(shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("CompeteNatC.compBids Pass")));
             bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, OpeningStrongBidding, partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids OpeningStrongBidding exit _3NT")));
             bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_GAME exit _3NT")));
             bids.add(shows(Bid._2NT, noFit(7), IS_NON_JUMP, partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), othersAtLeast(2), id("CompeteNatC.compBids exit _2NT")));
+            bids.add(shows(Bid._4NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._4H, Bid._4S)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_MINOR_GAME exit _4NT")));
+            bids.add(shows(Bid._5NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._5C, Bid._5D)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_MINOR_GAME exit _5NT")));
         }
 
         bids.add(shows(Bid._3C, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _3C")));

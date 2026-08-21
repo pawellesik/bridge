@@ -15,6 +15,7 @@ public class RecursionNatC extends NatC {
                         partnerBids(RecursionNatC::recursionFindLowFitGame),
                         shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("RecursionNatC.recursionFindLowFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
                         shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RecursionNatC.recursionFindLowFitGame fit _Pass")),
+                        shows(Call.PASS, fit(7, ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindLowFitGame fit 7  PAIR_LOW_GAME _Pass")),
 
                         shows(Bid._2S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindLowFitGame IS_REBID _2S")),
                         shows(Bid._2H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindLowFitGame IS_REBID _2H")),

@@ -38,6 +38,22 @@ public class OpenBid3NatC extends OpenNatC {
         return choices;
     }
 
+
+    public static PositionCalls thirdBidMinorClubForcingStrong(PositionState ps) {
+        //1C ->
+        //      Bid._2C, Bid._2D ->
+        //                          4C, 4D ->
+        //                                    4D ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                partnerBids(NatC::finishBiddingCompBids),
+                shows(Bid._5C, noFit(), shape(6, 10), IS_REBID, id("OpenBid3NatC.thirdBidMinorClubForcingStrong _5C"))
+        );
+        choices.addRules(CompeteNatC::compBids);
+        return choices;
+    }
+
+
     public static PositionCalls thirdBidToGameDiamond(PositionState ps) {
         //1D ->
         //     Bid._1S, Bid._1H, Bid._2C->
