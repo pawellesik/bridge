@@ -149,6 +149,7 @@ public class RespondBid2NatC extends RespondNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(NatC::finishBiddingCompBids),
+                shows(Bid._2S, shape(4, 10), IS_NEW_SUIT, noFit(), id("RespondBid2NatC.secondBidMinorClubStandard _2S")),
                 shows(Bid._3C, shape(6, 10), IS_REBID, noFit(), id("RespondBid2NatC.secondBidMinorClubStandard _3C")),
                 shows(Bid._3D, shape(6, 10), IS_REBID, noFit(), id("RespondBid2NatC.secondBidMinorClubStandard _3D"))
         );

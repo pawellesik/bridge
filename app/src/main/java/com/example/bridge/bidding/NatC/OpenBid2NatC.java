@@ -157,13 +157,10 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RespondBid2NatC::secondBidMinorClubStandard),
-                //shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), OpeningLowBidding, id("OpenBid2NatC.responderdTrumpMinorClubStandard Pass")),
-                //shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorClubStandard Pass")),
-
                 shows(Bid._3C, noFit(), shape(6, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
                 shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorClubStandard _2S")),
                 shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdTrumpMinorClubStandard _2H")),
-                shows(Bid._3C, shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
+                shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
                 shows(Bid._3D, noFit(), shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3D"))
         );
         choices.addRules(CompeteNatC::compBids);
