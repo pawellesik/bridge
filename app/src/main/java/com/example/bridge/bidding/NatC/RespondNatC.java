@@ -58,7 +58,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), id("RespondNatC.oneClub _2NT")),
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), id("RespondNatC.oneClub _1NT"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -97,7 +97,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _1NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneDiamond _3NT"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -135,7 +135,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -169,7 +169,7 @@ public class RespondNatC extends NatC {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT"))
 
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 

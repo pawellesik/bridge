@@ -34,7 +34,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _3D")),
                 shows(Bid._2NT, isJump(1), OpeningStrongBidding, id("OpenBid2NatC.responderNegatStandard _2NT"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -55,7 +55,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2C")),
                 shows(Bid._1NT, id("OpenBid2NatC.responderNegatStandard _1NT"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -90,7 +90,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._3NT, PAIR_BALANCED, OpeningStrongBidding, id("OpenBid2NatC.responderdTrumpMajorClubStrong _3NT"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -112,7 +112,7 @@ public class OpenBid2NatC extends OpenNatC {
 
                 shows(Bid._1NT, PAIR_BALANCED, id("OpenBid2NatC.responderdTrumpMajorClubStandard _3NT"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -147,7 +147,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._4C, noFit(), shape(5, 10), OpeningStrongBidding, partner(isLastBid(Bid._2D)), id("OpenBid2NatC.responderdTrumpMinorClubStrong noFit() _4C")),
                 shows(Bid._4D, noFit(), shape(5, 10), OpeningStrongBidding, partner(isLastBid(Bid._2C)), id("OpenBid2NatC.responderdTrumpMinorClubStrong noFit() _4D"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -163,7 +163,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
                 shows(Bid._3D, noFit(), shape(5, 10), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3D"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -204,7 +204,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3NT, noFit(), OpeningStrongBidding, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
             );
         }
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -258,7 +258,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._4D, noFit(), shape(6, 10), GOOD_PLUS_SUIT, IS_REBID, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D"))
             );
         }
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -299,7 +299,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -348,7 +348,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -379,7 +379,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3C, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderd1NTClubStrong 3S")),
                 shows(Bid._3D, shape(5, 10), OpeningStrongBidding, id("OpenBid2NatC.responderd1NTClubStrong 3D"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -400,7 +400,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard 2C")),
                 shows(Bid._2D, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard 2D"))
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -428,7 +428,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
             );
         }
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -456,7 +456,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3C, shape(5, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd2NTClubStandard 3C"))
             );
         }
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -496,7 +496,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -526,7 +526,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._1NT, noFit(), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT"))
         );
 
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -563,7 +563,6 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
         choices.addRules(CompeteNatC.compBids(ps));
-        //choices.addRules(CompeteNatCNew.compBids(ps));
         return choices;
     }
 
@@ -598,7 +597,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -620,7 +619,7 @@ public class OpenBid2NatC extends OpenNatC {
 //todo ?
             );
         }
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -653,7 +652,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsHeart _3NT"))
 
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -701,7 +700,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
     public static PositionCalls responderRaiseChangedSuitsToMinorHeart(PositionState ps) {
@@ -745,7 +744,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -789,7 +788,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._5D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D"))
             );
         }
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -810,7 +809,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
             );
         }
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -845,7 +844,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsSpade _3NT"))
 
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
