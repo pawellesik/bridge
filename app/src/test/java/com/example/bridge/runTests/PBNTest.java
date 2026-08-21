@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.TestBridgeBidder.runTests;
+package com.example.bridge.runTests;
 
 public class PBNTest {
     private String expectedCall;

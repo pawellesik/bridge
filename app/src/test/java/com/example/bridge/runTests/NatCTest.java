@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.TestBridgeBidder.runTests;
+package com.example.bridge.runTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,7 +37,7 @@ public class NatCTest {
         List<Object[]> result = new ArrayList<>();
         // Try various relative paths to find the test data directory
         String[] possiblePaths = {
-           "src/test/java/com/example/bridge/bidding/TestBridgeBidder/",
+           "src/test/java/com/example/bridge/",
         };
         
         File dir = null;
