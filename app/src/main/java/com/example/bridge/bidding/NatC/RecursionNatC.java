@@ -99,10 +99,11 @@ public class RecursionNatC extends NatC {
                 shows(Bid._1NT, PAIR_BALANCED, id("RecursionNatC.recursionFindFitGame IS_REBID _1NT")),
                 shows(Bid._2NT, PAIR_BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_REBID _2NT")),
                 shows(Bid._3NT, PAIR_BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_REBID _3NT")),
-                shows(Bid._3NT, BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT"))
+                shows(Bid._3NT, BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")),
 
-                //shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H"))
-                //CompeteNatC.compBids(ps)
+                shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H")),
+                shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("CompeteNatC.compBids NOT_BALANCED _4S"))
+
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
