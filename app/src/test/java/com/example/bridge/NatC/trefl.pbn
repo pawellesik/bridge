@@ -690,7 +690,7 @@ Pass Pass 1C Pass
 2C Pass 2H Pass
 2S Pass Pass Pass
 
-[Event "NatC pik 75"]
+[Event "NatC Trfel 76"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:AK.T6.Q9876.9865 75.Q96.KT53.KQ75 KQ43.AT74..AJT43 AJ982.J3.J842.62"]
@@ -700,7 +700,7 @@ Pass Pass 1C Pass
 2NT Pass 3H Pass
 3S Pass Pass Pass
 
-[Event "NatC pik 76"]
+[Event "NatC Trfel 77"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:AKJ7.K63.542.J54 852.74.KT763.KT8 963.QT98.A.AQ972 QT4.AJ52.QJ98.63"]
@@ -709,7 +709,7 @@ Pass Pass 1C Pass
 3S Pass 3NT Pass
 Pass Pass
 
-[Event "NatC pik 77"]
+[Event "NatC Trfel 78"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:963.QT98.A.AQ972 852.74.KT763.KT8 AKJ7.K63.542.J54 QT4.AJ52.QJ98.63"]
@@ -717,3 +717,15 @@ Pass Pass
 1C Pass 2NT Pass
 3C Pass 3S Pass
 3NT Pass Pass Pass
+
+[Event "NatC Trfel 79"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKJT.A3.KJ952.K3 632.J9874.74.762 985.KT52.AQ6.AQ8 Q74.Q6.T83.JT954"]
+[Auction "N"]
+1C Pass 2NT Pass
+4NT Pass 5H Pass
+5S Pass 6C Pass
+6NT Pass Pass Pass
+
+

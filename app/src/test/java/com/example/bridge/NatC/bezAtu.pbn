@@ -71,3 +71,24 @@ Pass Pass
 [Auction "N"]
 1NT Pass 2S Pass
 Pass Pass
+
+[Event "NatC bezAtu 9"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:985.KT52.AQ6.AQ8 632.J9874.74.762 AKJT.A3.KJ952.K3 Q74.Q6.T83.JT954"]
+[Auction "N"]
+1NT Pass 4C Pass
+4S Pass 4NT Pass
+5D Pass 6NT Pass
+Pass Pass
+
+[Event "NatC diamond 16"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK4.K5.632.AK875 QJT98.Q74.7.T963 65.A9.AKQJ854.J2 732.JT8632.T9.Q4"]
+[Auction "N"]
+1NT Pass 3D Pass
+4D Pass 4NT Pass
+5H Pass 5S Pass
+6H Pass 7D Pass
+Pass Pass

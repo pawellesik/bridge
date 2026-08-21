@@ -53,13 +53,14 @@ public class NoTrumpNatC extends Bidder {
         public Iterable<CallFeature> bids(PositionState ps) {
             List<CallFeature> bids = new ArrayList<>();
             bids.add(properties(Bid._1NT, (PositionCallsFactory) this::conventionalResponses, false, UserText.OneNoTrumpRange, true));
-            bids.add(shows(Bid._1NT, ntd.OR.open, BALANCED, shape(Suit.Spades,2,4), shape(Suit.Hearts,2,4), id("NoTrumpNatC.OneNoTrumpBidderNatC 1NT")));
+            bids.add(shows(Bid._1NT, ntd.OR.open, BALANCED, shape(Suit.Spades, 2, 4), shape(Suit.Hearts, 2, 4), id("NoTrumpNatC.OneNoTrumpBidderNatC 1NT")));
             return bids;
         }
 
         protected PositionCalls conventionalResponses(PositionState ps) {
             PositionCalls choices = new PositionCalls(ps);
             choices.addRules(AcesAsk.initiateConvention(ps),
+                    AcesAsk.initiateConventionBlok(ps),
                     Natural1NTNatC.respond(ntd));
             return choices;
         }
