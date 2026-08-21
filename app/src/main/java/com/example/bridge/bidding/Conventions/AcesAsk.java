@@ -44,7 +44,7 @@ public class AcesAsk extends Bidder {
         List<CallFeature> bids = new ArrayList<>();
         Bid partnerBid = ps.getPartner().getBid();
         Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
-        //System.out.println(ps.getPartner().getPublicHandSummary().getHighCardPoints() );
+
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
 
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(partnerSuit), pairHighCardPoints(SLAM_OR_BETTER), setTrumpColor(partnerSuit), id("initiateConventionBlok AcesAsk 1")));

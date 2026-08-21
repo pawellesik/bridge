@@ -776,7 +776,6 @@ public class OpenBid2NatC extends OpenNatC {
                     properties(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidToGameMinorHeart, false),
 
                     shows(Bid._4H, fit(), OpeningLowBidding, setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
-
                     shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
