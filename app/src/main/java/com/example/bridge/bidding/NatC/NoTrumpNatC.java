@@ -1,5 +1,7 @@
 package com.example.bridge.bidding.NatC;
 
+import static com.example.bridge.bidding.NatC.NatC.PAIR_GAME;
+
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
@@ -121,6 +123,9 @@ public class NoTrumpNatC extends Bidder {
 
             choices.addRules(shows(Bid._4H, ntd.OR.acceptInvite, partner(isLastBid(Bid._2H)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4H"));
             choices.addRules(shows(Bid._4S, ntd.OR.acceptInvite, partner(isLastBid(Bid._2S)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4S"));
+
+            choices.addRules(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME)), partner(isLastBid(Bid._3C)), id("NoTrumpNatC.openerRebid 3NT"));
+            choices.addRules(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME)), partner(isLastBid(Bid._3D)), id("NoTrumpNatC.openerRebid 3NT"));
 
             choices.addRules(
                     propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, this::inviteMinor, true),
