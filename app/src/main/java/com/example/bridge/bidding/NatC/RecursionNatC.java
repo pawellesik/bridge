@@ -5,6 +5,7 @@ import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Suit;
 
 public class RecursionNatC extends NatC {
 
@@ -46,7 +47,7 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindLowFitGame IS_REBID PAIR_BALANCED _3NT"))
 
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatCNew.compBids(ps));
         return choices;
     }
 
@@ -90,10 +91,10 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3S, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3S")),
                 shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3C")),
                 shows(Bid._3D, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3D")),
-
+                shows(Bid._3H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
                 shows(Bid._2H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2H")),
                 shows(Bid._2S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2S")),
-                shows(Bid._3H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+
                 shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
                 shows(Bid._1NT, PAIR_BALANCED, id("RecursionNatC.recursionFindFitGame IS_REBID _1NT")),
@@ -103,8 +104,8 @@ public class RecursionNatC extends NatC {
 
                 shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H")),
                 shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("CompeteNatC.compBids NOT_BALANCED _4S"))
-
         );
+
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
