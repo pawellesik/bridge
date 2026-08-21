@@ -66,6 +66,7 @@ public class CallGroup extends LinkedHashMap<Call, CallDetails> {
                 if (feature instanceof BidRule) {
                     positionCalls.logBidRule((BidRule) feature);
                 }
+
                 if (getPositionState().isValidNextCall(feature.getCall()) && !positionCalls.containsKey(feature.getCall())) {
                     if (feature.satisfiesStaticConstraints(getPositionState())) {
                         CallDetails details = this.get(feature.getCall());
