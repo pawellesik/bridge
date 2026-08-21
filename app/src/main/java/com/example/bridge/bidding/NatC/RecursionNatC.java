@@ -36,7 +36,6 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindLowFitGame IS_REBID _3C")),
                 shows(Bid._3D, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindLowFitGame IS_REBID _3D")),
 
-
                 shows(Bid._2S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindLowFitGame IS_REBID _2S")),
                 shows(Bid._2H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindLowFitGame IS_REBID _2H")),
                 shows(Bid._3H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindLowFitGame IS_REBID _3H")),
@@ -45,9 +44,7 @@ public class RecursionNatC extends NatC {
                 shows(Bid._1NT, PAIR_BALANCED, id("RecursionNatC.recursionFindLowFitGame IS_REBID PAIR_BALANCED _1NT")),
                 shows(Bid._2NT, PAIR_BALANCED, id("RecursionNatC.recursionFindLowFitGame IS_REBID PAIR_BALANCED _2NT")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindLowFitGame IS_REBID PAIR_BALANCED _3NT"))
-
         );
-        choices.addRules(CompeteNatCNew.compBids(ps));
         return choices;
     }
 
@@ -105,8 +102,6 @@ public class RecursionNatC extends NatC {
                 shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H")),
                 shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("CompeteNatC.compBids NOT_BALANCED _4S"))
         );
-
-        choices.addRules(CompeteNatC::compBids);
         return choices;
     }
 }
