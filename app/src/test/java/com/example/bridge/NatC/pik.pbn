@@ -331,6 +331,13 @@ Pass Pass 1C Pass
 2C Pass 3S Pass
 4S Pass Pass Pass
 
-
+[Event "NatC pik 40"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:6.KQ432.97.AKT94 JT9.A9.AKT8432.3 AKQ853.74.J53.J8 742.JT876.Q6.Q62"]
+[Auction "N"]
+1H Pass 2S Pass
+3C Pass 3S Pass
+4S Pass Pass Pass
 
 

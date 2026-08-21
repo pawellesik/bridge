@@ -664,7 +664,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingCompBids),
+                    partnerBids(RecursionNatC::recursionFindLowFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
@@ -672,11 +672,13 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3H, noFit(), shape(6, 10), IS_REBID, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
                     shows(Bid._3H, noFit(), shape(6, 10), IS_REBID, shape(ps.getPartner().getBid().getSuit(), 0, 1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
                     shows(Bid._3S, noFit(), shape(5, 10), DECENT_PLUS_SUIT, shape(ps.getPartner().getBid().getSuit(), 0, 1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
+
+                    shows(Bid._2NT, noFit(7), IS_NON_JUMP, partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), othersAtLeast(2), id("OpenBid2NatC.responderRaiseChangedSuitsToSpadeHeart exit _2NT")),
                     shows(Bid._3NT, noFit(), PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3NT"))
             );
         } else {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingCompBids),
+                    partnerBids(RecursionNatC::recursionFindFitGame),
                     propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
                     propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2NatC::secondBidInviteMajorHeart, true),
                     properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidToGameHeart, false),
@@ -711,8 +713,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingCompBids),
-
+                    partnerBids(RecursionNatC::recursionFindLowFitGame),
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
                     shows(Bid._3H, noFit(), shape(6, 10), IS_REBID, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
@@ -722,7 +723,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         } else {
             choices.addRules(
-                    partnerBids(NatC::finishBiddingCompBids),
+                    partnerBids(RecursionNatC::recursionFindFitGame),
                     propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
                     propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2NatC::secondBidInviteMajorHeart, true),
                     properties(new Call[]{Bid._3H}, RespondBid2NatC::secondBidToGameHeart, false),
@@ -764,6 +765,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._4H, shape(5, 10), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
                     shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, shape(ps.getPartner().getBid().getSuit(), 0, 1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
+
                     shows(Bid._3NT, noFit(), PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3NT"))
             );
         } else {
@@ -804,7 +806,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Call.PASS, partner(isLastBid(Bid._2S, Bid._3S)), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
 
                     shows(Bid._4S, pairPoints(PAIR_GAME), partner(isLastBid(Bid._2S, Bid._3S)), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S"))
-            );
+                    );
         } else {
             choices.addRules(
             );
