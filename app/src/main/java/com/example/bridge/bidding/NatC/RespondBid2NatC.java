@@ -328,7 +328,7 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._3C, fit(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
                 shows(Bid._3D, fit(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D"))
 
-                );
+        );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
