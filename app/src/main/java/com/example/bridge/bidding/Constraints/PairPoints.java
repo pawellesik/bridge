@@ -124,12 +124,6 @@ public class PairPoints {
             partnerExpected = Math.max(minP, maxAvailableForPair - posPoints.getMin());
             totalPairExpected = posPoints.getMin() + partnerExpected;
         }
-        System.out.println("posPoints.getMax() "+posPoints.getMax());
-        System.out.println("min "+min);
-        System.out.println("max "+max);
-        System.out.println("partnerExpected "+partnerExpected);
-        System.out.println("posPoints.getMin()  "+posPoints.getMin() );
-        System.out.println("partnerExpected "+partnerExpected);
 
         return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
     }
