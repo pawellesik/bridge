@@ -63,6 +63,13 @@ public class Balanced {
                         if (shape.getMin() == 2 && shape.getMax() == 2 && hcp.getMax() < 3) return false;
                         if (shape.getMin() == 3 && shape.getMax() == 3 && hcp.getMax() < 1) return false;
                     }
+
+                    //maksymalnie 1 singiel
+                    if (ps.hasHand() && hs == ps.getPrivateHandSummary()) {
+                        int single = 0;
+                        for (Suit s : Suit.values()) if (hs.getSuits().get(s).getShape().getMin() == 1) single++;
+                        if (single > 1) return false;
+                    }
                     // W tym trybie nie ograniczamy długości koloru do 5, aby pozwolić na licytację 3NT z długim kolorem
                 }
                 return true;

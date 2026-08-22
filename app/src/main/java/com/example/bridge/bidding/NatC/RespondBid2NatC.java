@@ -318,15 +318,17 @@ public class RespondBid2NatC extends RespondNatC {
         //                      Bid._2S, Bid._3H, Bid._3C, Bid._3C ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
-
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
                 shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H")),
                 shows(Bid._3S, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
-                shows(Bid._3H, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H"))//,
+                shows(Bid._3H, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H")),
+                shows(Bid._3C, fit(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
+                shows(Bid._3D, fit(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D"))
 
-       );
+                );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }

@@ -745,3 +745,13 @@ PASS PASS 1C PASS
 PASS PASS 1C PASS
 1NT PASS 3H PASS
 4H pass pass pass
+
+[Event "NatC Trfel 82"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:94.Q943.KT.QJ973 QJ872.K62.953.86 AKT3.AT7.642.K54 65.J85.AQJ87.AT2"]
+[Auction "N"]
+PASS PASS 1C PASS
+2C PASS 2S pass
+2NT pass 3C pass
+pass pass

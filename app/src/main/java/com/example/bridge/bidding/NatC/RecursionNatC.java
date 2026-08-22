@@ -5,6 +5,7 @@ import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Suit;
 
 public class RecursionNatC extends NatC {
 
@@ -13,7 +14,6 @@ public class RecursionNatC extends NatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, not(PARTNER_DID_NOT_SIGN_OFF), id("RecursionNatC.recursionFindFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), partnerBidLevel(2, 3), id("RecursionNatC.recursionFindFitGame pass")),
 
@@ -53,6 +53,8 @@ public class RecursionNatC extends NatC {
 
                 shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
+                shows(Bid._3C, fit(Suit.Clubs), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame  _3C")),
+                shows(Bid._3D, fit(Suit.Diamonds), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame  _3D")),
 
                 CompeteNatC.bids(ps)
         );
