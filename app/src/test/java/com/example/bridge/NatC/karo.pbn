@@ -32,7 +32,7 @@ PASS PASS
 [Auction "N"]
 Pass PASS 1D PASS
 2NT PASS 3D PASS
-PASS PASS
+3H PASS PASS PASS
 
 [Event "NatC Deal diamond 5"]
 [Dealer "N"]
@@ -43,7 +43,7 @@ Pass PASS 1D PASS
 2NT PASS 3D PASS
 3H PASS PASS PASS
 
-[Event "NatC Deal diamond5"]
+[Event "NatC Deal diamond 5"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:KQ7.K82.KQT642.3 AJT842.J63.A9.J4 AK5.QJ95.J8.A987 3.T74.753.KQT652"]
