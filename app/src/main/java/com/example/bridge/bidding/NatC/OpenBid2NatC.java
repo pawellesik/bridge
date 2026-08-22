@@ -241,7 +241,7 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2NatC::secondBidRaiseTrumpMinorClubMajorStandard),
                     properties(new Call[]{Bid._4D, Bid._4C}, RespondBid2NatC::secondBidRaiseTrumpMinorClubStandard),
-                    partnerBids(NatC::finishBiddingCompBids),
+                    partnerBids(RecursionNatC::recursionFindFitGame),
                     shows(Bid._3H, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3H")),
                     shows(Bid._3S, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard GOOD_PLUS_SUIT _3S")),
 
