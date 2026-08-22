@@ -1,10 +1,9 @@
-[Event "NatC Trfel 55"]
+[Event "NatC diamond 26"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:J8.32.54.T987532 AT763.T5.QT732.7 KQ92.KJ64.AK98.A 54.AQ987.J6.J864"]
+[Deal "N:Q9.QJ97.2.AQT432 AJT754.T853.5.K8 T752.A.AKQJ64.J7 K63.A62.KJT83.J6"]
 [Auction "N"]
-Pass Pass 1C Pass
-1D Pass 2NT Pass
-3C Pass 3H Pass
-4C Pass 4NT Pass
+Pass Pass 1D Pass
+3C Pass 3D Pass
+3H Pass 3NT Pass
 Pass Pass

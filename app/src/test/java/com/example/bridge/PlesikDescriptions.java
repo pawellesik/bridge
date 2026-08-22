@@ -72,7 +72,7 @@ public class PlesikDescriptions {
 
             StringBuilder sb = new StringBuilder();
             Range p = summary.getHighCardPoints();
-            if (p != null && p.getMin() > 0)
+            if (p != null)
                 sb.append("HCP: ").append(p.getMin()).append("-").append(p.getMax()).append(" ");
 
             for (Suit s : Suit.values()) {
