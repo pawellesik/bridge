@@ -324,8 +324,8 @@ public abstract class Bidder {
     public static final StaticConstraint IS_NOT_REVERSE = not(IS_REVERSE_BID);
     public static final StaticConstraint IS_REBID = new BidHistory(0, null);
     public static final StaticConstraint IS_NOT_REBID = not(IS_REBID);
-    public static final StaticConstraint IS_FORCED_TO_BID = new SimpleStaticConstraint((call, ps) -> ps.isForcedToBid());
-    public static final StaticConstraint IS_FORCED_TO_GAME = new SimpleStaticConstraint((call, ps) -> ps.getPairState().isForcedToGame());
+    public static final StaticConstraint IS_FORCED_TO_BID = new SimpleStaticConstraint((call, ps) -> ps.isForcedToBid(), "forced to bid");
+    public static final StaticConstraint IS_FORCED_TO_GAME = new SimpleStaticConstraint((call, ps) -> ps.getPairState().isForcedToGame(), "forcing to game");
     public static final StaticConstraint IS_OPPS_CONTRACT = new SimpleStaticConstraint((call, ps) -> ps.isOpponentsContract(), "opps contract");
     public static final StaticConstraint IS_OUR_CONTRACT = new SimpleStaticConstraint((call, ps) -> ps.isOurContract(), "our contract");
     public static final StaticConstraint PASSED_HAND = new PassedHand(true);
@@ -340,7 +340,7 @@ public abstract class Bidder {
             return ps.getBiddingState().getContract().isOurs(ps.getDirection()) && bid.getSuit() == agreedTrump && agreedTrump != null;
         }
         return false;
-    });
+    }, "contract is agreed suit");
 
     public static HandConstraint setTrumpColor(Suit suit) {
         return new SetTrumpSuit(suit);
@@ -455,7 +455,7 @@ public abstract class Bidder {
     }
 
     public static HandConstraint othersAtLeast(int min) {
-        return new HandConstraint() {
+        class OthersAtLeast extends HandConstraint implements IDescribeConstraint {
             @Override
             public boolean conforms(Call call, PositionState ps, HandSummary hs) {
                 Suit lastSuit = ps.getPairState().getLastShownSuit();
@@ -466,7 +466,13 @@ public abstract class Bidder {
                 }
                 return true;
             }
-        };
+
+            @Override
+            public String describe(Call call, PositionState ps) {
+                return "others at least " + min;
+            }
+        }
+        return new OthersAtLeast();
     }
 
     public static StaticConstraint partnerLastBidLevel(int level) {
@@ -477,7 +483,7 @@ public abstract class Bidder {
     }
 
     public static HandConstraint noFit(int minToFit) {
-        return new HandConstraint() {
+        class NoFit extends HandConstraint implements IDescribeConstraint {
             @Override
             public boolean conforms(Call call, PositionState ps, HandSummary hs) {
                 Bid lastPartnerBid = ps.getPartner().getBid();
@@ -487,7 +493,13 @@ public abstract class Bidder {
                 int partnerCount = ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape().getMin();
                 return (myCount + partnerCount) < minToFit;
             }
-        };
+
+            @Override
+            public String describe(Call call, PositionState ps) {
+                return "no fit (" + minToFit + ")";
+            }
+        }
+        return new NoFit();
     }
 
     public static HandConstraint noFit() {
@@ -715,7 +727,7 @@ public abstract class Bidder {
     }
 
     public static HandConstraint hasMultipleShortness(int count, int min, int max) {
-        return new HandConstraint() {
+        class MultipleShortness extends HandConstraint implements IDescribeConstraint {
             @Override
             public boolean conforms(Call call, PositionState ps, HandSummary hs) {
                 int found = 0;
@@ -727,7 +739,13 @@ public abstract class Bidder {
                 }
                 return found >= count;
             }
-        };
+
+            @Override
+            public String describe(Call call, PositionState ps) {
+                return count + " shortnesses (" + min + "-" + max + ")";
+            }
+        }
+        return new MultipleShortness();
     }
 
     public static final HandConstraint OPPS_STOPPED = new OppsStopped.ShowsOppsStopped(true);
@@ -744,7 +762,8 @@ public abstract class Bidder {
     }
 
     public static StaticConstraint isBidAvailable(int level, Suit suit) {
-        return new SimpleStaticConstraint((call, ps) -> ps.isValidNextCall(new Bid(level, suit)));
+        return new SimpleStaticConstraint((call, ps) -> ps.isValidNextCall(new Bid(level, suit)),
+                (call, ps) -> "bid " + level + suit.toSymbol() + " available");
     }
 
     public static Constraint raisePartner(Suit suit, int jump, int fit) {

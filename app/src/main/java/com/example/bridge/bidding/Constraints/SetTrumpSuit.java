@@ -4,6 +4,7 @@ import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.HandSummary;
+import com.example.bridge.bidding.Tools.IDescribeConstraint;
 import com.example.bridge.bidding.Tools.IShowsHand;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
@@ -12,7 +13,7 @@ import com.example.bridge.bidding.Tools.Suit;
  * Akcja ustalająca kolor atutowy w stanie pary.
  * Może być używana wewnątrz metody shows().
  */
-public class SetTrumpSuit extends HandConstraint implements IShowsHand {
+public class SetTrumpSuit extends HandConstraint implements IShowsHand, IDescribeConstraint {
     private final Suit suit;
 
     public SetTrumpSuit(Suit suit) {
@@ -31,5 +32,14 @@ public class SetTrumpSuit extends HandConstraint implements IShowsHand {
         } else if (call instanceof Bid) {
             ps.getPairState().setTrumpSuit(((Bid) call).getSuit());
         }
+    }
+
+    @Override
+    public String describe(Call call, PositionState ps) {
+        Suit s = suit;
+        if (s == null && call instanceof Bid) {
+            s = ((Bid) call).getSuit();
+        }
+        return s != null ? "agreed trump " + s.toSymbol() : "agreed trump";
     }
 }
