@@ -21,6 +21,7 @@ import com.example.bridge.bidding.Constraints.Losers;
 import com.example.bridge.bidding.Constraints.NewSuit;
 import com.example.bridge.bidding.Constraints.OppsStopped;
 import com.example.bridge.bidding.Constraints.PairAces;
+import com.example.bridge.bidding.Constraints.PairBalanced;
 import com.example.bridge.bidding.Constraints.PairKeyCards;
 import com.example.bridge.bidding.Constraints.PairKings;
 import com.example.bridge.bidding.Constraints.PairMinShape;
@@ -539,7 +540,8 @@ public abstract class Bidder {
 
     public static final HandConstraint FIT_8_PLUS = fit(8);
     public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true);
-    public static final HandConstraint PAIR_BALANCED = new HandConstraint() {
+    public static final HandConstraint PAIR_BALANCED = new PairBalanced.ShowsPairBalanced();
+            /*new HandConstraint() {
         @Override
         public boolean conforms(Call call, PositionState ps, HandSummary hs) {
             for (Suit suit : Suit.values()) {
@@ -564,7 +566,7 @@ public abstract class Bidder {
             }
             return true;
         }
-    };
+    };*/
 
     public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false);
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);
