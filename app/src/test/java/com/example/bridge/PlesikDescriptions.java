@@ -46,8 +46,14 @@ public class PlesikDescriptions {
                 if (ruleId != null) {
                     System.out.println("   [ID: " + ruleId + "]");
                 }
-                System.out.println("   [Uzasadnienie: " );
-                System.out.println(best.getDescription(state.getNextToAct()) + "]");
+                System.out.println("   [Uzasadnienie: ");
+                String description = best.getDescription(state.getNextToAct());
+                if (description != null && !description.isEmpty()) {
+                    for (String line : description.split("\n")) {
+                        System.out.println("      " + line);
+                    }
+                }
+                System.out.println("   ]");
                 state.makeCall(best);
                 printPublicKnowledge(state);
             } else {
