@@ -292,18 +292,21 @@ public abstract class Bidder {
         return new BidHistory(0, new Bid(level, strain));
     }
 
-    public static StaticConstraint level(int min, int max) {
+    public static StaticConstraint partnerBidLevel(int min, int max) {
         return new SimpleStaticConstraint((call, ps) -> {
-            if (call instanceof Bid) {
-                int lv = ((Bid) call).getLevel();
+            Call last = ps.getPartner().getLastCall();
+            if (last instanceof Bid) {
+                Bid b = (Bid) last;
+                int lv = b.getLevel();
                 return lv >= min && lv <= max;
+            } else {
+                return false;
             }
-            return false;
         }, (call, ps) -> "level between " + min + " and " + max);
     }
 
-    public static StaticConstraint level(int lv) {
-        return level(lv, lv);
+    public static StaticConstraint partnerBidLevel(int lv) {
+        return partnerBidLevel(lv, lv);
     }
 
     public static StaticConstraint isOpeningBid(Bid bid) {
@@ -550,7 +553,9 @@ public abstract class Bidder {
     }
 
     public static final HandConstraint FIT_8_PLUS = fit(8);
+
     public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true, false);
+
     public static final HandConstraint PAIR_BALANCED = new Balanced.ShowsBalanced(false, true);
     public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false);
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);

@@ -64,6 +64,7 @@
 • LAST_BID_WAS_JUMP- ostatnia odzywka partnera była z przeskokiem (jezeli chce spradzic odzywke partnera to powinienem dac partner(LAST_BID_WAS_JUMP))
 • setTrumpColor() - ustawia sie kolor atutowy w show
 • OPPONENTS_HAVE_BID - oznacza ze przeciwnicy wlaczyli sie do licytacji
+• partnerLastBidLevel
 
 7. ZAŁOŻENIA I RELACJE MIĘDZY GRACZAMI
 --------------------------------------
