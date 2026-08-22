@@ -7,7 +7,6 @@ import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
-import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +24,11 @@ public class OpenNatC extends NatC {
     public static PositionCalls getOpenPositionCalls(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(shows(Call.PASS, DontOpen, id("OpenNatC.openSuit getOpenPositionCalls _PASS")));
         choices.addRules(SolidSuitNatC.BIDS(ps));
         choices.addRules(NoTrumpNatC.OneNoTrumpBidderNatC.open(ps));
         choices.addRules(openSuitWeak(ps));
         choices.addRules(openSuit(ps));
+        choices.addPassRule(DontOpen);
         choices.addRules(CompeteNatC::compBids);
 
         return choices;
@@ -55,6 +54,7 @@ public class OpenNatC extends NatC {
             bids.add(shows(Bid._1D, OpenBiddingThirtSeat, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1D")));
             bids.add(shows(Bid._1C, OpenBiddingThirtSeat, id("OpenNatC.openSuit OpenAfterPass _1C")));
         }
+        bids.add(shows(Call.PASS, DontOpen, id("OpenNatC.openSuit _PASS")));
 
         return bids;
     }
