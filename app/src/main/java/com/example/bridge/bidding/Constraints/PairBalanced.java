@@ -47,7 +47,6 @@ public class PairBalanced {
 
         @Override
         public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand) {
-            //showHand.showIsBalanced(desiredValue);//todo
             for (Suit suit : Suit.values()) {
                 // Sprawdzamy czy partner licytował ten kolor
                 boolean partnerHasSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();

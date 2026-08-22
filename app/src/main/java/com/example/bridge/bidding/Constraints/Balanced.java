@@ -25,7 +25,20 @@ public class Balanced {
 
         @Override
         public boolean conforms(Call call, PositionState ps, HandSummary hs) {
-            return hs.getIsBalanced() == null || hs.getIsBalanced() == desiredValue;
+            if (hs.getIsBalanced() != null) return hs.getIsBalanced() == desiredValue;
+            
+            if (desiredValue) {
+                // Ręka zrównoważona: brak singli/renonsów, max jeden dubleton, max 5 kart w kolorze
+                int doubletons = 0;
+                for (Suit suit : Suit.values()) {
+                    int count = hs.getSuits().get(suit).getShape().getMin();
+                    if (count < 2) return false;
+                    if (count == 2) doubletons++;
+                    if (count > 5) return false;
+                }
+                return doubletons <= 1;
+            }
+            return true;
         }
 
         @Override
