@@ -539,11 +539,12 @@ public class OpenBid2NatC extends OpenNatC {
                     properties(new Call[]{Bid._2S, Bid._3H, Bid._3D, Bid._3C}, RespondBid2NatC::secondBidRaiseNoAgreeTrumpDiamods),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderChangedSuitsDiamond Pass")),
-
                     shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
                     shows(Bid._3D, noFit(), shape(6, 10), IS_REBID, id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
                     shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
-                    shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
+                    shows(Bid._3H, noFit(), pairHighCardPoints(PAIR_GAME), shape(4, 10), DECENT_PLUS_SUIT,  OpeningInviteBidding, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
+                    shows(Bid._3H, noFit(), pairHighCardPoints(PAIR_GAME), shape(2, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
+
             );
         } else {
             choices.addRules(

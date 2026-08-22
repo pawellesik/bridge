@@ -125,10 +125,7 @@ public class PairPoints {
             totalPairExpected = posPoints.getMin() + partnerExpected;
         }
 
-        // NOWA LOGIKA: Sprawdzamy czy nasza oczekiwana suma (totalPairExpected) 
-        // mieści się w zdefiniowanym zakresie (min - max).
-        // To zapobiega "spadaniu" silnych rąk do słabych reguł (np. Pass przy 25 pkt).
-        return (totalPairExpected >= min && totalPairExpected <= max);
+        return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
     }
 
     public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand, boolean highCard) {

@@ -316,6 +316,7 @@ public class RespondBid2NatC extends RespondNatC {
         //                      Bid._2S, Bid._3H, Bid._3C, Bid._3C ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
+
         choices.addRules(
                 partnerBids(NatC::finishBiddingCompBids),
                 shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
