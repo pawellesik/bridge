@@ -124,8 +124,21 @@ public class PairPoints {
             partnerExpected = Math.max(minP, maxAvailableForPair - posPoints.getMin());
             totalPairExpected = posPoints.getMin() + partnerExpected;
         }
+        System.out.println("posPoints.getMax() "+posPoints.getMax());
+        System.out.println("min "+min);
+        System.out.println("max "+max);
+        System.out.println("partnerExpected "+partnerExpected);
+        System.out.println("posPoints.getMin()  "+posPoints.getMin() );
+        System.out.println("partnerExpected "+partnerExpected);
 
-        return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + partnerExpected <= max);
+       // return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
+        if (highCard) {
+            // Dla HCP stosujemy mechanizm optymistyczny (partnerExpected) przy dolnej granicy
+            return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + partnerExpected <= max);
+        } else {
+            // Dla pozostałych punktów (np. układowych) pozostajemy przy bezpiecznym minP
+            return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
+        }
     }
 
     public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand, boolean highCard) {
