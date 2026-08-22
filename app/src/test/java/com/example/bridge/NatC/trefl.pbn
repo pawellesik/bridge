@@ -572,7 +572,7 @@ Pass Pass
 [Auction "N"]
 1C Pass 2D pass
 2H Pass 2NT Pass
-Pass Pass
+3C Pass Pass Pass
 
 [Event "NatC Trfel 63"]
 [Dealer "N"]
@@ -617,6 +617,7 @@ Pass Pass
 Pass Pass 1C Pass
 1H Pass 2C Pass
 2H Pass 3C Pass
+3H Pass 3S Pass
 Pass Pass
 
 [Event "NatC trefl 68"]
@@ -698,8 +699,7 @@ Pass Pass 1C Pass
 [Auction "N"]
 Pass Pass 1C Pass
 2D Pass 2S Pass
-2NT Pass 3H Pass
-3S Pass Pass Pass
+Pass Pass
 
 [Event "NatC Trfel 77"]
 [Dealer "N"]
