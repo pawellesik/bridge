@@ -481,7 +481,7 @@ public abstract class Bidder {
             @Override
             public boolean conforms(Call call, PositionState ps, HandSummary hs) {
                 Bid lastPartnerBid = ps.getPartner().getBid();
-                if (lastPartnerBid == null || lastPartnerBid.getSuit() == null) return true;
+                if (lastPartnerBid == null || lastPartnerBid.getSuit() == null) return false;
                 Suit s = lastPartnerBid.getSuit();
                 int myCount = hs.getSuits().get(s).getShape().getMin();
                 int partnerCount = ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape().getMin();
