@@ -594,7 +594,7 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsMinorDiamond _3NT"))
             );
         }
-        //choices.addRules(CompeteNatC.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -649,7 +649,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsHeart _3NT"))
 
         );
-        //choices.addRules(CompeteNatC.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -698,7 +698,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        //choices.addRules(CompeteNatC.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -847,7 +847,7 @@ public class OpenBid2NatC extends OpenNatC {
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsSpade _3NT"))
 
         );
-        //choices.addRules(CompeteNatC.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 

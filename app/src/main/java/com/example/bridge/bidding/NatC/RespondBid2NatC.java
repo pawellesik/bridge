@@ -3,6 +3,7 @@ package com.example.bridge.bidding.NatC;
 import static com.example.bridge.bidding.NatC.OpenNatC.OpeningInviteBidding;
 import static com.example.bridge.bidding.NatC.OpenNatC.OpeningLowBidding;
 
+import com.example.bridge.bidding.Constraints.Balanced;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
@@ -320,9 +321,9 @@ public class RespondBid2NatC extends RespondNatC {
                 shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
                 shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H")),
                 shows(Bid._3S, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
-                shows(Bid._3H, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H"))
+                shows(Bid._3H, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H"))//,
 
-                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3NT"))
+               // shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
