@@ -21,7 +21,6 @@ import com.example.bridge.bidding.Constraints.Losers;
 import com.example.bridge.bidding.Constraints.NewSuit;
 import com.example.bridge.bidding.Constraints.OppsStopped;
 import com.example.bridge.bidding.Constraints.PairAces;
-import com.example.bridge.bidding.Constraints.PairBalanced;
 import com.example.bridge.bidding.Constraints.PairKeyCards;
 import com.example.bridge.bidding.Constraints.PairKings;
 import com.example.bridge.bidding.Constraints.PairMinShape;
@@ -551,35 +550,8 @@ public abstract class Bidder {
     }
 
     public static final HandConstraint FIT_8_PLUS = fit(8);
-    public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true);
-    public static final HandConstraint PAIR_BALANCED = new PairBalanced.ShowsPairBalanced();
-            /*new HandConstraint() {
-        @Override
-        public boolean conforms(Call call, PositionState ps, HandSummary hs) {
-            for (Suit suit : Suit.values()) {
-                // Sprawdzamy czy partner licytował ten kolor
-                boolean partnerHasSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
-
-                if (!partnerHasSuit) {
-                    int count = hs.getSuits().get(suit).getShape().getMin();
-                    int hcpSuit = hs.getSuits().get(suit).getHighCardPoints().getMin();
-
-                    if (count == 0) return false; // Renons wyklucza zrównoważenie
-
-                    // Nowe warunki jakości koloru dla ręki zrównoważonej:
-                    // Singleton musi być asem (4 HCP)
-                    if (count == 1 && hcpSuit < 4) return false;
-                    // Dubleton musi mieć min. króla (3 HCP)
-                    if (count == 2 && hcpSuit < 3) return false;
-                    // Trójka musi mieć min. waleta (1 HCP)
-                    if (count == 3 && hcpSuit < 1) return false;
-                    // Czwórka i więcej - akceptujemy zawsze
-                }
-            }
-            return true;
-        }
-    };*/
-
+    public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true, false);
+    public static final HandConstraint PAIR_BALANCED = new Balanced.ShowsBalanced(false, true);
     public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false);
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);
     public static final HandConstraint NOT_FLAT = new Flat.ShowsFlat(false);
