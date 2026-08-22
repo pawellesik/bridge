@@ -316,8 +316,8 @@ public class OpenBid2NatC extends OpenNatC {
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), OpeningLowBidding, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
 
-                    shows(Bid._4H, fit(), setTrumpColor(Suit.Hearts), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 3H")),
-                    shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 3S")),
+                    shows(Bid._4H, fit(), setTrumpColor(Suit.Hearts), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 4H")),
+                    shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 4S")),
 
                     shows(Bid._2S, shape(4, 10), noFit(), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 2S")),
 
@@ -771,10 +771,10 @@ public class OpenBid2NatC extends OpenNatC {
         } else {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
-                    propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
-                    properties(new Call[]{Bid._3C, Bid._3D}, RespondBid2NatC::secondBidToGameMinorHeart, false),
+                    propertiesAgreeTrump(new Call[]{Bid._4D}, RespondBid2NatC::secondBidInviteMinor, true),
+                    properties(new Call[]{Bid._3D}, RespondBid2NatC::secondBidToGameMinorHeart, false),
 
-                    shows(Bid._4H, fit(), OpeningLowBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
+                    shows(Bid._4H, fit(), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._4H, shape(5, 10), OpeningInviteBidding, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
@@ -782,10 +782,10 @@ public class OpenBid2NatC extends OpenNatC {
 
                     shows(Bid._3D, noFit(), shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
 
-                    shows(Bid._4C, fit(), OpeningLowBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
+                    //shows(Bid._4C, fit(), OpeningLowBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
                     shows(Bid._4D, fit(), OpeningLowBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4D")),
 
-                    shows(Bid._5C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
+                    shows(Bid._5C, fit() ,setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
                     shows(Bid._5D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D"))//,
             );
         }

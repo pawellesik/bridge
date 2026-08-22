@@ -250,6 +250,7 @@ public class RespondBid2NatC extends RespondNatC {
         //     2H, 2S ->
         //              3H, 3S ->
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
         );
