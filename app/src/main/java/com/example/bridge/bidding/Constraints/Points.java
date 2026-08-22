@@ -63,6 +63,13 @@ public class Points {
 
         @Override
         public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+            // Jeśli sprawdzamy wiedzę ogólną (proces pruneRules), to nie odrzucamy 
+            // reguły tylko dlatego, że obiecuje węższy zakres niż aktualnie znamy.
+            if (!ps.hasHand() || hs != ps.getPrivateHandSummary()) {
+                return true;
+            }
+
+            // Tylko dla faktycznej ręki licytującego sprawdzamy twardy warunek.
             Range p = getPoints(call, ps, hs);
             return (min <= p.getMax() && max >= p.getMin());
         }
