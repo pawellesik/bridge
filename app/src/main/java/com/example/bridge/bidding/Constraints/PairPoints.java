@@ -125,7 +125,7 @@ public class PairPoints {
             totalPairExpected = posPoints.getMin() + partnerExpected;
         }
 
-        return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + minP <= max);
+        return (posPoints.getMax() + partnerExpected >= min && posPoints.getMin() + partnerExpected <= max);
     }
 
     public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand, boolean highCard) {
