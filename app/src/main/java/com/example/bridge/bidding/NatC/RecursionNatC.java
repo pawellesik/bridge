@@ -53,7 +53,7 @@ public class RecursionNatC extends NatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                partnerBids(RecursionNatC::recursionFindFitGame),
+                //partnerBids(RecursionNatC::recursionFindFitGame),
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, not(PARTNER_DID_NOT_SIGN_OFF), id("RecursionNatC.recursionFindFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), level(2, 3), id("RecursionNatC.recursionFindFitGame pass")),
 
@@ -66,10 +66,10 @@ public class RecursionNatC extends NatC {
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._2S, Bid._2H)), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame fit _Pass")),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3C, Bid._3D)), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame fit _Pass")),
 
-                shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _4H")),
-                shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _4S")),
-                shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _5C")),
-                shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _5D")),
+                //shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _4H")),
+                //shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _4S")),
+                //shows(Bid._5C, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _5C")),
+                //shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_MINOR_GAME), id("RecursionNatC.recursionFindFitGame IS_REBID _5D")),
 
                 shows(Bid._2H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _2H")),
                 shows(Bid._2S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _2S")),
@@ -96,12 +96,12 @@ public class RecursionNatC extends NatC {
 
                 shows(Bid._1NT, PAIR_BALANCED, id("RecursionNatC.recursionFindFitGame IS_REBID _1NT")),
                 shows(Bid._2NT, PAIR_BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_REBID _2NT")),
-                shows(Bid._3NT, PAIR_BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_REBID _3NT")),
-                shows(Bid._3NT, BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")),
+                //shows(Bid._3NT, PAIR_BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_REBID _3NT")),
+                //shows(Bid._3NT, BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")),
 
-                shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H")),
-                shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("CompeteNatC.compBids NOT_BALANCED _4S")),
-                shows(CompeteNatC.bids(ps))
+                //shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H")),
+                //shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("CompeteNatC.compBids NOT_BALANCED _4S")),
+                CompeteNatC.bids(ps)
         );
         return choices;
     }

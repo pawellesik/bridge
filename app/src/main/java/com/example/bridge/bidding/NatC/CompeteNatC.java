@@ -20,23 +20,12 @@ import java.util.List;
 
 public class CompeteNatC extends NatC {
 
-    public static Iterable<CallFeature> compBids(PositionState ps) {
-        List<CallFeature> bids = new ArrayList<>();
-
-        bids.add(partnerBids(CompeteNatC::compBids));
-        addAcesAskConventions(ps, bids);
-        addCompBids(ps, bids);
-
-        return bids;
-    }
-
-
     public static Iterable<CallFeature> bids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
 
         addAcesAskConventions(ps, bids);
 
-        bids.add(partnerBids(CompeteNatC::compBids));
+        bids.add(partnerBids(RecursionNatC::recursionFindFitGame));
 
         bids.add(shows(Bid._4H, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), id("CompeteNatC.compBids PAIR_GAME _4H")));
         bids.add(shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), setTrumpColor(Suit.Spades), id("CompeteNatC.compBids PAIR_GAME _4S")));
@@ -90,7 +79,19 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._4H, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3H)), id("CompeteNatC.compBids NOT_BALANCED _4H")));
         bids.add(shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), id("CompeteNatC.compBids NOT_BALANCED _4S")));
 
+        bids.add(shows(Bid._3NT, BALANCED, IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
+
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
+
+        return bids;
+    }
+
+    public static Iterable<CallFeature> compBids(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
+
+        bids.add(partnerBids(CompeteNatC::compBids));
+        addAcesAskConventions(ps, bids);
+        addCompBids(ps, bids);
 
         return bids;
     }
