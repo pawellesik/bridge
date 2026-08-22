@@ -100,7 +100,7 @@ public class OpenBid2NatC extends OpenNatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RespondBid2NatC::secondBidMajorClubStandard),
-                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame),
+                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame),
 
                 shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
                 shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
@@ -387,7 +387,7 @@ public class OpenBid2NatC extends OpenNatC {
         //     1NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                properties(new Call[]{Bid._2H, Bid._2S, Bid._2C, Bid._2D}, RecursionNatC::recursionFindLowFitGame, true),
+                properties(new Call[]{Bid._2H, Bid._2S, Bid._2C, Bid._2D}, RecursionNatC::recursionFindFitGame, true),
                 partnerBids(NatC::finishBiddingCompBids),
 
                 shows(Bid._2S, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2S")),
@@ -662,7 +662,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(RecursionNatC::recursionFindLowFitGame),
+                    partnerBids(RecursionNatC::recursionFindFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
@@ -711,7 +711,7 @@ public class OpenBid2NatC extends OpenNatC {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    partnerBids(RecursionNatC::recursionFindLowFitGame),
+                    partnerBids(RecursionNatC::recursionFindFitGame),
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
                     shows(Bid._3H, noFit(), shape(6, 10), IS_REBID, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),

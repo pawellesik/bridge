@@ -70,7 +70,7 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderRaiseChangedSuitsMajorDiamond, false),
                 properties(new Call[]{Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsMinorDiamond, false),
                 properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, false),
-                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame, false),
+                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneDiamond _3S")),
@@ -111,7 +111,7 @@ public class RespondNatC extends NatC {
                 properties(new Call[]{Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsToSpadeHeart, false),
                 properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderRaiseChangedSuitsToMinorHeart, false),
                 properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
-                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame, false),
+                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneHeart WEAK_LONG _3S")),
@@ -146,7 +146,7 @@ public class RespondNatC extends NatC {
                 propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2NatC::responderTrumpMajorSpade, true),
                 properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2NatC::responderChangedSuitsSpade, false),
                 properties(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2NatC::responderRaiseChangedSuitsSpade, false),
-                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame, false),
+                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
                 shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
