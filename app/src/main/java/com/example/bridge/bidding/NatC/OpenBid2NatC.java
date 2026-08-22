@@ -43,7 +43,7 @@ public class OpenBid2NatC extends OpenNatC {
         //                          Bid._1D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindLowFitGame),
+                properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame),
                 partnerBids(RespondBid2NatC::secondBidNegatStandard),
                 shows(Bid._1H, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _1H")),
                 shows(Bid._1S, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _1S")),
