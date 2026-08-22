@@ -20,10 +20,19 @@ import java.util.List;
 
 public class CompeteNatC extends NatC {
 
-
     public static Iterable<CallFeature> compBids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-        Bid partnerBid = ps.getPartner().getBid();
+
+        bids.add(partnerBids(CompeteNatC::compBids));
+        addAcesAskConventions(ps, bids);
+        addCompBids(ps, bids);
+
+        return bids;
+    }
+
+
+    public static Iterable<CallFeature> bids(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
 
         addAcesAskConventions(ps, bids);
 
@@ -51,10 +60,10 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5D, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME), IS_FORCED_TO_GAME, PARTNER_DID_NOT_SIGN_OFF, id("CompeteNatC.compBids IS_FORCED_TO_GAME _5D")));
 
         bids.add(shows(Bid._2S, shape(2, 10), betterThan(Suit.Hearts), partner(isLastBid(Bid._2H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _2S")));
-        bids.add(shows(Bid._3S, shape(3, 4), shape(Suit.Hearts, 0,3), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
-        bids.add(shows(Bid._3S, shape(2, 3), shape(Suit.Hearts, 0,2), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
-        bids.add(shows(Bid._4S, shape(2, 3), shape(Suit.Hearts, 0,2), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _4S")));
-        bids.add(shows(Bid._4S, shape(3, 4), shape(Suit.Hearts, 0,3), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _4S")));
+        bids.add(shows(Bid._3S, shape(3, 4), shape(Suit.Hearts, 0, 3), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
+        bids.add(shows(Bid._3S, shape(2, 3), shape(Suit.Hearts, 0, 2), betterThan(Suit.Hearts), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _3S")));
+        bids.add(shows(Bid._4S, shape(2, 3), shape(Suit.Hearts, 0, 2), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _4S")));
+        bids.add(shows(Bid._4S, shape(3, 4), shape(Suit.Hearts, 0, 3), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _4S")));
 
         bids.add(shows(Bid._3D, shape(2, 10), betterThan(Suit.Clubs), partner(isLastBid(Bid._3C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _3D")));
         bids.add(shows(Bid._5D, shape(2, 10), betterThan(Suit.Diamonds), partner(isLastBid(Bid._5C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _5D")));
@@ -65,13 +74,10 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3C, shape(6, 10), noFit(), IS_REBID, pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_GAME _3C")));
         bids.add(shows(Bid._3D, shape(7, 10), noFit(), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids PAIR_GAME _3D")));
 
-        if (partnerBid != null) {
-            bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, OpeningStrongBidding, partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids OpeningStrongBidding exit _3NT")));
-            bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_GAME exit _3NT")));
-            bids.add(shows(Bid._2NT, noFit(7), IS_NON_JUMP, partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), othersAtLeast(2), id("CompeteNatC.compBids exit _2NT")));
-            bids.add(shows(Bid._4NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._4H, Bid._4S)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_MINOR_GAME exit _4NT")));
-            bids.add(shows(Bid._5NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._5C, Bid._5D)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_MINOR_GAME exit _5NT")));
-        }
+        bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, OpeningStrongBidding, partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids OpeningStrongBidding exit _3NT")));
+        bids.add(shows(Bid._3NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3H, Bid._3S)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_GAME exit _3NT")));
+        bids.add(shows(Bid._2NT, noFit(7), IS_NON_JUMP, partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), othersAtLeast(2), id("CompeteNatC.compBids exit _2NT")));
+        bids.add(shows(Bid._5NT, noFit(7), IS_NON_JUMP, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._5C, Bid._5D)), othersAtLeast(2), id("CompeteNatC.compBids PAIR_MINOR_GAME exit _5NT")));
 
         bids.add(shows(Bid._3C, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _3C")));
         bids.add(shows(Bid._3D, shape(5, 10), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _3D")));
@@ -90,17 +96,21 @@ public class CompeteNatC extends NatC {
     }
 
     private static void addAcesAskConventions(PositionState ps, List<CallFeature> bids) {
-        Bid partnerBid = ps.getPartner().getBid();
-        Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
-        if (partnerSuit != null) {
-            for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
-                bids.add(cf);
-            }
-            for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-                bids.add(cf);
-            }
+        for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
+            bids.add(cf);
+        }
+        for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+            bids.add(cf);
         }
     }
+
+    private static void addCompBids(PositionState ps, List<CallFeature> bids) {
+        for (CallFeature cf : CompeteNatC.bids(ps)) {
+            bids.add(cf);
+        }
+    }
+
+
 }
 
 
