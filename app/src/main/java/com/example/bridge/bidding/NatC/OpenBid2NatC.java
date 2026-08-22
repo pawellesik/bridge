@@ -495,7 +495,7 @@ public class OpenBid2NatC extends OpenNatC {
             );
         }
 
-        //choices.addRules(CompeteNatC.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 

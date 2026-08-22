@@ -8,6 +8,7 @@ import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallDetails;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.HandSummary;
 import com.example.bridge.bidding.Tools.PositionState;
@@ -17,13 +18,12 @@ import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CompeteNatC extends NatC {
 
     public static Iterable<CallFeature> bids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-
-        addAcesAskConventions(ps, bids);
 
         bids.add(partnerBids(RecursionNatC::recursionFindFitGame));
 
@@ -102,11 +102,21 @@ public class CompeteNatC extends NatC {
     }
 
     private static void addAcesAskConventions(PositionState ps, List<CallFeature> bids) {
-        for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
-            bids.add(cf);
-        }
-        for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-            bids.add(cf);
+        Suit agreedTrump = ps.getPairState().getTrumpSuit();
+        CallDetails lastCallDetails = ps.getPartner().getLastCallDetails();
+        int jumpLevel = (lastCallDetails != null) ? lastCallDetails.getJumpLevel() : 0;
+        Bid lastBid = ps.getPartner().getBid();
+
+        boolean jumpMatch = jumpLevel > 0;
+        boolean agreedSuitMatch = (agreedTrump != null && lastBid != null && lastBid.getSuit() == agreedTrump && ps.getBiddingState().getContract().isOurs(ps.getDirection()));
+
+        if (jumpMatch || agreedSuitMatch) {
+            for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
+                bids.add(cf);
+            }
+            for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+                bids.add(cf);
+            }
         }
     }
 
