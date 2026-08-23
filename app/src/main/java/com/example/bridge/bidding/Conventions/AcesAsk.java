@@ -97,21 +97,18 @@ public class AcesAsk extends Bidder {
             if (suit.isMinor()) {
                 choices.addRules(
                         shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), id("askKing isMinor 1 5")),
-                        shows(new Bid(5, suit), pairAces(1), id("askKing isMinor 1 5")),
-                        shows(new Bid(5, suit), pairAces(2), id("askKing isMinor 2 5"))
+                        shows(new Bid(5, suit), pairAces(1, 2), id("askKing isMinor 1-2 5"))
                 );
             } else if (suit.isMajor()) {
                 choices.addRules(
-                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), id("askKing isMinor 1 5")),
-                        shows(new Bid(4, suit), pairAces(1), id("askKing isMajor 1 4")),
-                        shows(new Bid(4, suit), pairAces(2), id("askKing isMajor 2 4")));
+                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), id("askKing isMajor pass 1-3")),
+                        shows(new Bid(4, suit), pairAces(1, 2), id("askKing isMajor 1-2 4")));
 
             }
             Bid bid = getNextBidWithoutTrump(partnerCall, suit);
             choices.addRules(
                     properties(bid, AcesAsk::respondKings, true),
-                    shows(bid, pairAces(3), id("askKing isMajor 3")),
-                    shows(bid, pairAces(4), id("askKing isMajor 4")));
+                    shows(bid, pairAces(3, 4), id("askKing isMajor 3-4")));
 
             choices.addRules(shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("askKing CONTRACT_IS_AGREED_STRAIN")));
             choices.addRules(shows(Call.PASS));
@@ -119,12 +116,9 @@ public class AcesAsk extends Bidder {
             Bid bid = (Bid) Call.getNextCall(partnerCall);
             choices.addRules(
                     properties(bid, AcesAsk::respondKings, true),
-                    shows(Bid._4NT, pairAces(1), id("askKing 4NT 1")),
-                    shows(Bid._4NT, pairAces(2), id("askKing 4NT 2")),
-                    shows(Bid._5NT, pairAces(1), id("askKing 5NT 1")),
-                    shows(Bid._5NT, pairAces(2), id("askKing 5NT 2")),
-                    shows(bid, pairAces(3), id("askKing 3")),
-                    shows(bid, pairAces(4), id("askKing 4")));
+                    shows(Bid._4NT, pairAces(1, 2), id("askKing 4NT 1-2")),
+                    shows(Bid._5NT, pairAces(1, 2), id("askKing 5NT 1-2")),
+                    shows(bid, pairAces(3, 4), id("askKing 3-4")));
 
             choices.addRules(shows(Call.PASS));
         }
