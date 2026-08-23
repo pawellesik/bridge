@@ -504,6 +504,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameBiddingHistoryAdapter.notifyDataSetChanged();
         }
 
+        if (singleGameBidding != null) {
+            singleGameBidding.updatePublicKnowledgeView();
+        }
+
         if (gameController != null && gameTop != null) {
             gameTop.setContract(gameController.getCurrentContract());
         }

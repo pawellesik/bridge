@@ -2,7 +2,12 @@ package com.example.bridge.ui.biddings;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
+import android.graphics.drawable.Drawable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -208,7 +213,7 @@ public class SingleGameBidding {
         }
     }
 
-    private void updatePublicKnowledgeView() {
+    public void updatePublicKnowledgeView() {
         if (liveBiddingState == null) return;
 
         View container = activity.findViewById(R.id.public_knowledge_container_layout);
@@ -227,8 +232,9 @@ public class SingleGameBidding {
         com.example.bridge.bidding.Tools.Suit nsTrump = (northPos != null) ? northPos.getPairState().getTrumpSuit() : null;
         if (nsTrump != null) {
             tvTrump.setVisibility(View.VISIBLE);
-            String trumpText = "<b>UZGODNIONY ATUT NS:</b> " + getSuitSymbolWithColor(nsTrump);
-            setTextFromHtml(tvTrump, trumpText);
+            SpannableStringBuilder ssb = new SpannableStringBuilder("UZGODNIONY ATUT NS: ");
+            appendSuitSymbol(ssb, nsTrump, "");
+            tvTrump.setText(ssb);
         } else {
             tvTrump.setVisibility(View.GONE);
         }
@@ -246,20 +252,20 @@ public class SingleGameBidding {
             return;
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<b>").append(d.name()).append(":</b> ");
+        SpannableStringBuilder ssb = new SpannableStringBuilder();
+        ssb.append(d.name()).append(": ");
 
         Range p = summary.getHighCardPoints();
         if (p != null)
-            sb.append("HCP: ").append(p.getMin()).append("-").append(p.getMax()).append(" ");
+            ssb.append("HCP: ").append(String.valueOf(p.getMin())).append("-").append(String.valueOf(p.getMax())).append(" ");
 
         Set<Integer> aces = summary.getCountAces();
         if (aces != null && !aces.isEmpty()) {
-            sb.append("Asy: ").append(aces).append(" ");
+            ssb.append("Asy: ").append(aces.toString()).append(" ");
         }
         Set<Integer> kings = summary.getCountKings();
         if (kings != null && !kings.isEmpty()) {
-            sb.append("Krole: ").append(kings).append(" ");
+            ssb.append("Krole: ").append(kings.toString()).append(" ");
         }
 
         for (com.example.bridge.bidding.Tools.Suit s : com.example.bridge.bidding.Tools.Suit.values()) {
@@ -267,32 +273,47 @@ public class SingleGameBidding {
             if (suitSum != null) {
                 Range shape = suitSum.getShape();
                 if (shape != null && shape.getMin() > 0) {
-                    sb.append(getSuitSymbolWithColor(s)).append(":").append(shape.getMin()).append("+ ");
+                    appendSuitSymbol(ssb, s, ":" + shape.getMin() + "+ ");
                 }
             }
         }
 
-        if (sb.length() > 10) {
+        if (ssb.length() > 3) {
             textView.setVisibility(View.VISIBLE);
-            setTextFromHtml(textView, sb.toString());
+            textView.setText(ssb);
         } else {
             textView.setVisibility(View.GONE);
         }
     }
 
-    private void setTextFromHtml(TextView tv, String html) {
-        tv.setText(Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY));
-    }
-
-    private String getSuitSymbolWithColor(com.example.bridge.bidding.Tools.Suit s) {
-        String color;
+    private void appendSuitSymbol(SpannableStringBuilder ssb, com.example.bridge.bidding.Tools.Suit s, String suffix) {
+        com.example.bridge.model.Suit modelSuit;
         switch (s) {
-            case Clubs: color = "#388E3C"; break;
-            case Diamonds: color = "#F57C00"; break;
-            case Hearts: color = "#C94B4B"; break;
-            case Spades: color = "#243D65"; break;
-            default: color = "#000000";
+            case Clubs: modelSuit = com.example.bridge.model.Suit.CLUBS; break;
+            case Diamonds: modelSuit = com.example.bridge.model.Suit.DIAMONDS; break;
+            case Hearts: modelSuit = com.example.bridge.model.Suit.HEARTS; break;
+            case Spades: modelSuit = com.example.bridge.model.Suit.SPADES; break;
+            default: ssb.append(s.toSymbol()).append(suffix); return;
         }
-        return "<font color='" + color + "'>" + s.toSymbol() + "</font>";
+
+        // Pobieramy ikonę (tę samą co w historii)
+        Drawable drawable = ContextCompat.getDrawable(activity, modelSuit.resId);
+        if (drawable != null) {
+            drawable = DrawableCompat.wrap(drawable).mutate();
+            // Pobieramy kolor (z uwzględnieniem 4-kolorowej talii)
+            int color = modelSuit.getColor(activity);
+            DrawableCompat.setTint(drawable, color);
+            
+            // Ustawiamy rozmiar ikony na zbliżony do rozmiaru tekstu (14dp)
+            int size = (int) (14 * activity.getResources().getDisplayMetrics().density);
+            drawable.setBounds(0, 0, size, size);
+            
+            ssb.append(" "); // Miejsce na ikonę
+            ssb.setSpan(new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM), ssb.length() - 1, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            ssb.append(modelSuit.symbol);
+        }
+        
+        ssb.append(suffix);
     }
 }
