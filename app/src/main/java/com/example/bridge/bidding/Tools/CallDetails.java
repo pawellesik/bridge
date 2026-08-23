@@ -133,17 +133,20 @@ public class CallDetails {
     public HandSummary showHand() {
         PositionState ps = getPositionState();
         if (!hasRules()) return ps.getPublicHandSummary();
-        
-        // Use matched rules if we have them (player context), otherwise use all publicly valid rules (observer context)
-        List<BidRule> rulesToUse = matchedRules.isEmpty() ? rules : matchedRules;
-        
+
         HandSummary.ShowState showHand = new HandSummary.ShowState();
         boolean firstRule = true;
-        for (BidRule rule : rulesToUse) {
-            HandSummary hs = rule.showHand(ps);
+        for (BidRule rule : rules) {
+            // Decydujemy czy wykonać akcję uzgodnienia atutu:
+            // 1. Jeśli znamy rękę (Player context), wykonujemy tylko dla reguł, które faktycznie pasują.
+            // 2. Jeśli nie znamy ręki (Observer context), wykonujemy tylko gdy reguła jest jedyną możliwością.
+            boolean includeTrump = matchedRules.contains(rule) || (matchedRules.isEmpty() && rules.size() == 1);
+
+            HandSummary hs = rule.showHand(ps, includeTrump);
             showHand.combine(hs, firstRule ? State.CombineRule.Show : State.CombineRule.CommonOnly);
             firstRule = false;
         }
+
         return showHand.getHandSummary();
     }
 

@@ -32,9 +32,16 @@ public class BidRule extends CallFeature {
     }
 
     public HandSummary showHand(PositionState ps) {
+        return showHand(ps, true);
+    }
+
+    public HandSummary showHand(PositionState ps, boolean includeTrumpActions) {
         HandSummary.ShowState showHand = new HandSummary.ShowState();
         for (Constraint constraint : getConstraints()) {
             if (constraint instanceof IShowsHand) {
+                if (!includeTrumpActions && constraint instanceof com.example.bridge.bidding.Constraints.SetTrumpSuit) {
+                    continue;
+                }
                 ((IShowsHand) constraint).showHand(getCall(), ps, showHand);
             }
         }
