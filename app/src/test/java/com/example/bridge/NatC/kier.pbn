@@ -216,7 +216,7 @@ pass Pass 1H Pass
 [Deal "N:9.Q852.KJ864.A73 KQ762.7.9753.T86 83.AKJT43.2.KQJ5 AJT54.96.AQT.942"]
 [Auction "N"]
 pass Pass 1H Pass
-2H Pass pass Pass
+4H Pass pass Pass
 
 [Event "NatC Deal kier 30"]
 [Dealer "N"]
