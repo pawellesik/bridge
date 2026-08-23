@@ -88,13 +88,16 @@ public class GameBiddingHistory {
             gameActivity.getGameBiddingHistoryAdapter().setPreviewSelection(currentSelection);
             gameActivity.getGameBiddingHistoryAdapter().notifyDataSetChanged();
 
-            if (this.rvBiddingHistory != null) {
+            if (this.rvBiddingHistory != null && shouldScroll) {
                 rvBiddingHistory.post(() -> {
                     View scrollView = gameActivity.findViewById(R.id.bidding_scroll_view);
-                    if (scrollView instanceof NestedScrollView && shouldScroll) {
-                        scrollView.post(() -> {
-                            ((NestedScrollView) scrollView).fullScroll(View.FOCUS_DOWN);
-                        });
+                    if (scrollView instanceof NestedScrollView) {
+                        final NestedScrollView nsv = (NestedScrollView) scrollView;
+                        // We scroll multiple times to ensure we catch layout changes as elements (like PK box) appear
+                        nsv.post(() -> nsv.fullScroll(View.FOCUS_DOWN));
+                        nsv.postDelayed(() -> nsv.fullScroll(View.FOCUS_DOWN), 50);
+                        nsv.postDelayed(() -> nsv.fullScroll(View.FOCUS_DOWN), 150);
+                        nsv.postDelayed(() -> nsv.fullScroll(View.FOCUS_DOWN), 400);
                     }
                 });
             }
