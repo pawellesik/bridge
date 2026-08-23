@@ -24,7 +24,7 @@ public class OpenBid1NatC extends NatC {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(SolidSuitNatC.BIDS(ps));
-        choices.addRules(NoTrumpNatC.OneNoTrumpBidderNatC.open(ps));
+        choices.addRules(NoTrumpNatCNew.open1NTBid1(ps));
         choices.addRules(openSuitWeak(ps));
         choices.addRules(openSuit(ps));
         //choices.addRules(CompeteNatC::compBids);

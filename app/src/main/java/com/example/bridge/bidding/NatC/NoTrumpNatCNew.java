@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NoTrumpNatCNew extends Bidder {
 
-    public static final HandConstraint OPEN = highCardPoints(16, 17);
+    public static final HandConstraint OPEN = highCardPoints(15, 17);
     public static final HandConstraint OPEN_DONT_ACCEPT_INVITE = highCardPoints(15, 15);
     public static final HandConstraint OPEN_ACCEPT_INVITE = highCardPoints(16, 17);
     public static final HandConstraint LESS_THAT_INVITE = highCardPoints(15, 15);
