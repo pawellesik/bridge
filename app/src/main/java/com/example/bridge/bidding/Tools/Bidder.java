@@ -457,24 +457,11 @@ public abstract class Bidder {
     }
 
     public static HandConstraint othersAtLeast(int min) {
-        class OthersAtLeast extends HandConstraint implements IDescribeConstraint {
-            @Override
-            public boolean conforms(Call call, PositionState ps, HandSummary hs) {
-                Suit lastSuit = ps.getPairState().getLastShownSuit();
-                for (Suit s : Suit.values()) {
-                    if (s != lastSuit) {
-                        if (hs.getSuits().get(s).getShape().getMin() < min) return false;
-                    }
-                }
-                return true;
-            }
+        return new Shape.ShowsOthersShape(null, min);
+    }
 
-            @Override
-            public String describe(Call call, PositionState ps) {
-                return "others at least " + min;
-            }
-        }
-        return new OthersAtLeast();
+    public static HandConstraint shapeOthers(Suit skipSuit, int min) {
+        return new Shape.ShowsOthersShape(skipSuit, min);
     }
 
     public static StaticConstraint partnerLastBidLevel(int level) {
@@ -538,6 +525,11 @@ public abstract class Bidder {
 
     public static HandConstraint shape(int count) {
         return new Shape.ShowsShape(null, count, count);
+    }
+
+    public static HandConstraint shape(Suit skipSuit, int min, boolean others) {
+        if (others) return new Shape.ShowsOthersShape(skipSuit, min);
+        return new Shape.ShowsShape(skipSuit, min, min);
     }
 
     public static HandConstraint fit(int count, Suit suit, boolean desiredValue) {
