@@ -9,9 +9,7 @@ import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.CallFeaturesFactory;
 import com.example.bridge.bidding.Tools.HandConstraint;
-import com.example.bridge.bidding.Tools.NoTrumpDescription;
 import com.example.bridge.bidding.Tools.PositionCalls;
-import com.example.bridge.bidding.Tools.PositionCallsFactory;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
 
@@ -33,19 +31,19 @@ public class NoTrumpNatCNew extends Bidder {
 
     public static class OneNoTrumpBidderNatC extends Bidder {
 
-        public static Iterable<CallFeature> openBid1NT(PositionState ps) {
+        public static Iterable<CallFeature> open1NTBid1(PositionState ps) {
             List<CallFeature> bids = new ArrayList<>();
-            bids.add(partnerBids(OneNoTrumpBidderNatC::respondBid1NT));
+            bids.add(partnerBids(OneNoTrumpBidderNatC::respond1NTBid1));
             bids.add(shows(Bid._1NT, OPEN, BALANCED, shape(Suit.Spades, 2, 4), shape(Suit.Hearts, 2, 4), id("NoTrumpNatC.OneNoTrumpBidderNatC 1NT")));
             return bids;
         }
 
-        public static PositionCalls respondBid1NT(PositionState ps) {
+        public static PositionCalls respond1NTBid1(PositionState ps) {
             PositionCalls choices = new PositionCalls(ps);
             choices.addRules(AcesAsk.initiateConvention(ps));
             choices.addRules(AcesAsk.initiateConventionBlok(ps));
             choices.addRules(
-                    partnerBids(OneNoTrumpBidderNatC::openBid2NT),
+                    partnerBids(OneNoTrumpBidderNatC::open1NTBid2),
 
                     shows(Bid._2C, GOOD_PLUS_SUIT, shape(5, 11), INVITE_GAME, id("NoTrumpNatC.Natural1NTNatC 2C")),
                     shows(Bid._2D, GOOD_PLUS_SUIT, shape(5, 11), INVITE_GAME, id("NoTrumpNatC.Natural1NTNatC 2D")),
@@ -78,11 +76,54 @@ public class NoTrumpNatCNew extends Bidder {
             return choices;
         }
 
-        public static PositionCalls openBid2NT(PositionState ps) {
+        public static PositionCalls open1NTBid2(PositionState ps) {
             PositionCalls choices = new PositionCalls(ps);
-            choices.addRules(AcesAsk.initiateConvention(ps));
+            //choices.addRules(AcesAsk.initiateConvention(ps));
             choices.addRules(AcesAsk.initiateConventionBlok(ps));
             choices.addRules(
+                    //choices.addRules(partnerBids((CallFeaturesFactory) this::responderRebid));
+                    shows(Call.PASS, partner(isLastBid(Bid._3NT)), id("NoTrumpNatC.openerRebid PASS")),
+                    shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid PASS")),
+                    shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2C)), id("NoTrumpNatC.openerRebid PASS")),
+                    shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2D)), id("NoTrumpNatC.openerRebid PASS")),
+                    shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2H)), id("NoTrumpNatC.openerRebid PASS")),
+                    shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2S)), id("NoTrumpNatC.openerRebid PASS")),
+
+                    shows(Bid._4H, OPEN_ACCEPT_INVITE, partner(isLastBid(Bid._2H)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4H"),
+                    shows(Bid._4S, OPEN_ACCEPT_INVITE, partner(isLastBid(Bid._2S)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4S"),
+
+                    shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME)), partner(isLastBid(Bid._3C)), id("NoTrumpNatC.openerRebid 3NT"),
+                    shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME)), partner(isLastBid(Bid._3D)), id("NoTrumpNatC.openerRebid 3NT")
+            );
+
+            choices.addRules(
+                    //propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, this::inviteMinor, true),
+                    shows(Bid._4D, fit(), partner(isLastBid(Bid._3D)), id("NoTrumpNatC.openerRebid 4D")),
+                    shows(Bid._4C, fit(), partner(isLastBid(Bid._3C)), id("NoTrumpNatC.openerRebid 4C"))
+            );
+
+            choices.addRules(
+                    shows(Bid._2H, partner(isLastBid(Bid._2C)), shape(4, 5), shape(Suit.Clubs, 0, 2), id("NoTrumpNatC.openerRebid 2H")),
+                    shows(Bid._2H, partner(isLastBid(Bid._2D)), shape(4, 5), shape(Suit.Diamonds, 0, 2), id("NoTrumpNatC.openerRebid 2H")),
+                    shows(Bid._2S, partner(isLastBid(Bid._2C)), shape(4, 5), shape(Suit.Clubs, 0, 2), id("NoTrumpNatC.openerRebid 2S")),
+                    shows(Bid._2S, partner(isLastBid(Bid._2D)), shape(4, 5), shape(Suit.Diamonds, 0, 2), id("NoTrumpNatC.openerRebid 2S"))
+            );
+
+            choices.addRules(properties(Bid._3H, true),
+                    shows(Bid._3H, partner(isLastBid(Bid._2NT)), OPEN_ACCEPT_INVITE, shape(5, 10), id("NoTrumpNatC.openerRebid 3H")));
+
+            choices.addRules(
+                    properties(Bid._3S, true),
+                    shows(Bid._3S, partner(isLastBid(Bid._2NT)), OPEN_ACCEPT_INVITE, shape(5, 10), id("NoTrumpNatC.openerRebid 3S")));
+
+            choices.addRules(
+                    shows(Bid._3NT, OPEN_ACCEPT_INVITE, partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid 3NT")),
+                    shows(Bid._3NT, partner(isLastBid(Bid._3H)), shape(Suit.Hearts, 0, 2)), id("NoTrumpNatC.openerRebid 3NT"),
+                    shows(Bid._3NT, partner(isLastBid(Bid._3S)), shape(Suit.Spades, 0, 2)), id("NoTrumpNatC.openerRebid 3NT"),
+                    shows(Bid._3NT, partner(isLastBid(Bid._3C)), shape(Suit.Clubs, 0, 2)), id("NoTrumpNatC.openerRebid 3NT"),
+                    shows(Bid._3NT, partner(isLastBid(Bid._3D)), shape(Suit.Diamonds, 0, 2)), id("NoTrumpNatC.openerRebid 3NT"),
+                    shows(Bid._4H, partner(isLastBid(Bid._3H)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4H"),
+                    shows(Bid._4S, partner(isLastBid(Bid._3S)), shape(3, 5)), id("NoTrumpNatC.openerRebid 4S")
             );
             choices.addRules(CompeteNatC.compBids(ps));
             return choices;
