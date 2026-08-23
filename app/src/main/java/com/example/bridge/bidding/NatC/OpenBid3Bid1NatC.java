@@ -6,7 +6,7 @@ import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 
-public class OpenBid3NatC extends OpenNatC {
+public class OpenBid3Bid1NatC extends OpenBid1NatC {
 
     public static PositionCalls thirdBidNegat2NTStrong(PositionState ps) {
         //odpowiedzi na: Bid._1C ->

@@ -16,7 +16,7 @@ public class NatC extends Bidder implements IBiddingSystem {
     public PositionCalls getPositionCalls(PositionState ps) {
         PositionCalls choices;
         if (ps.getRole() == PositionRole.Opener && ps.getRoleRound() == 1) {
-            choices = OpenNatC.getOpenPositionCalls(ps);
+            choices = OpenBid1NatC.getOpenPositionCalls(ps);
         } else {
             choices = new PositionCalls(ps);
             //choices.addRules(CompeteNatC::compBids);

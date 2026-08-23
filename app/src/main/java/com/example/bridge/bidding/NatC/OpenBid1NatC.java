@@ -6,12 +6,11 @@ import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
-import com.example.bridge.bidding.Tools.Range;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenNatC extends NatC {
+public class OpenBid1NatC extends NatC {
 
     public static final HandConstraint OpenBidding = highCardPoints(12, 17);
     public static final HandConstraint OpeningInviteBidding = highCardPoints(14, 17);
@@ -28,17 +27,17 @@ public class OpenNatC extends NatC {
         choices.addRules(NoTrumpNatC.OneNoTrumpBidderNatC.open(ps));
         choices.addRules(openSuitWeak(ps));
         choices.addRules(openSuit(ps));
-        choices.addRules(CompeteNatC::compBids);
+        //choices.addRules(CompeteNatC::compBids);
 
         return choices;
     }
 
     public static Iterable<CallFeature> openSuit(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-        bids.add(partnerBids(Bid._1C, RespondNatC::oneClub));
-        bids.add(partnerBids(Bid._1D, RespondNatC::oneDiamond));
-        bids.add(partnerBids(Bid._1H, RespondNatC::oneHeart));
-        bids.add(partnerBids(Bid._1S, RespondNatC::oneSpade));
+        bids.add(partnerBids(Bid._1C, RespondBid1NatC::oneClub));
+        bids.add(partnerBids(Bid._1D, RespondBid1NatC::oneDiamond));
+        bids.add(partnerBids(Bid._1H, RespondBid1NatC::oneHeart));
+        bids.add(partnerBids(Bid._1S, RespondBid1NatC::oneSpade));
 
         bids.add(shows(Bid._1C, OpeningStrongBidding));
 
@@ -60,7 +59,7 @@ public class OpenNatC extends NatC {
 
     private static List<CallFeature> openSuitWeak(PositionState ps) {
         List<CallFeature> rules = new ArrayList<>();
-        rules.add(partnerBids(RespondNatC::weakOpen));
+        rules.add(partnerBids(RespondBid1NatC::weakOpen));
         rules.add(shows(Bid._3C, OpeningWeakBidding, shape(7, 11), id("OpenNatC.openSuitWeak _3C")));
         rules.add(shows(Bid._3D, OpeningWeakBidding, shape(7, 11), id("OpenNatC.openSuitWeak _3D")));
         rules.add(shows(Bid._3H, OpeningWeakBidding, shape(7, 11), id("OpenNatC.openSuitWeak _3H")));

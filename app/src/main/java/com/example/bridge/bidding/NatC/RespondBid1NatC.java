@@ -12,7 +12,7 @@ import com.example.bridge.bidding.Tools.Suit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RespondNatC extends NatC {
+public class RespondBid1NatC extends NatC {
     public static final Range RESPOND_PASS = new Range(0, 6);
     public static final Range MINIMUM_HAND = new Range(7, 10);
     public static final Range JUMP_HAND = new Range(11, 28);
@@ -23,14 +23,14 @@ public class RespondNatC extends NatC {
     public static PositionCalls oneClub(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                properties(new Call[]{Bid._1D}, OpenBid2NatC::responderNegat, false),
-                properties(new Call[]{Bid._1S, Bid._1H}, OpenBid2NatC::responderdTrumpMajorClub, false),
-                properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderdRaiseTrumpMajorClub, true),
-                properties(new Call[]{Bid._2C, Bid._2D}, OpenBid2NatC::responderdTrumpMinorClub, false),
-                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderdRaiseTrumpMinorClub, true),
-                properties(new Call[]{Bid._1NT}, OpenBid2NatC::responderd1NTClub, true),
-                properties(new Call[]{Bid._2NT}, OpenBid2NatC::responderd2NTClub, true),
-                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, true),
+                properties(new Call[]{Bid._1D}, OpenBid2Bid1NatC::responderNegat, false),
+                properties(new Call[]{Bid._1S, Bid._1H}, OpenBid2Bid1NatC::responderdTrumpMajorClub, false),
+                properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1NatC::responderdRaiseTrumpMajorClub, true),
+                properties(new Call[]{Bid._2C, Bid._2D}, OpenBid2Bid1NatC::responderdTrumpMinorClub, false),
+                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2Bid1NatC::responderdRaiseTrumpMinorClub, true),
+                properties(new Call[]{Bid._1NT}, OpenBid2Bid1NatC::responderd1NTClub, true),
+                properties(new Call[]{Bid._2NT}, OpenBid2Bid1NatC::responderd2NTClub, true),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2Bid1NatC::weakRespond, true),
 
                 shows(Bid._1D, highCardPoints(RESPOND_PASS), id("RespondNatC.oneClub _1D")),
                 shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1H")),
@@ -65,11 +65,11 @@ public class RespondNatC extends NatC {
     public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2NatC::responderdTrumpMinorDiamod, true),
-                properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2NatC::responderChangedSuitsDiamond, false),
-                properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2NatC::responderRaiseChangedSuitsMajorDiamond, false),
-                properties(new Call[]{Bid._3C}, OpenBid2NatC::responderRaiseChangedSuitsMinorDiamond, false),
-                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2NatC::weakRespond, false),
+                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod, true),
+                properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2Bid1NatC::responderChangedSuitsDiamond, false),
+                properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1NatC::responderRaiseChangedSuitsMajorDiamond, false),
+                properties(new Call[]{Bid._3C}, OpenBid2Bid1NatC::responderRaiseChangedSuitsMinorDiamond, false),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2Bid1NatC::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
@@ -106,11 +106,11 @@ public class RespondNatC extends NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2NatC::responderTrumpMajorHeart, true),
-                properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2NatC::responderChangedSuitsHeart, false),
-                properties(new Call[]{Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsToSpadeHeart, false),
-                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderRaiseChangedSuitsToMinorHeart, false),
-                properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
+                propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2Bid1NatC::responderTrumpMajorHeart, true),
+                properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2Bid1NatC::responderChangedSuitsHeart, false),
+                properties(new Call[]{Bid._2S}, OpenBid2Bid1NatC::responderRaiseChangedSuitsToSpadeHeart, false),
+                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2Bid1NatC::responderRaiseChangedSuitsToMinorHeart, false),
+                properties(new Call[]{Bid._3S}, OpenBid2Bid1NatC::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
@@ -145,9 +145,9 @@ public class RespondNatC extends NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2NatC::responderTrumpMajorSpade, true),
-                properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2NatC::responderChangedSuitsSpade, false),
-                properties(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2NatC::responderRaiseChangedSuitsSpade, false),
+                propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2Bid1NatC::responderTrumpMajorSpade, true),
+                properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2Bid1NatC::responderChangedSuitsSpade, false),
+                properties(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2Bid1NatC::responderRaiseChangedSuitsSpade, false),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
