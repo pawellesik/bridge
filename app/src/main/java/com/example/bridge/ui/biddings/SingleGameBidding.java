@@ -84,6 +84,9 @@ public class SingleGameBidding {
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);
         }
 
+        View btnClose = activity.findViewById(R.id.btn_close_bidding_overlay);
+        if (btnClose != null) btnClose.setVisibility(View.GONE);
+
         View selectionContainer = activity.findViewById(R.id.system_selection_container);
         if (selectionContainer != null) {
             selectionContainer.setVisibility(View.GONE);

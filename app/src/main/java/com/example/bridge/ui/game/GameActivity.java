@@ -124,6 +124,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         biddingOverlay = findViewById(R.id.bidding_overlay);
         biddingControlsOverlay = findViewById(R.id.bidding_controls_overlay);
 
+        View btnCloseBidding = findViewById(R.id.btn_close_bidding_overlay);
+        if (btnCloseBidding != null) {
+            btnCloseBidding.setOnClickListener(v -> {
+                if (biddingOverlay != null) biddingOverlay.setVisibility(View.GONE);
+            });
+        }
+
         gameBidding = new GameBidding(this);
         singleGameBidding = new SingleGameBidding(this);
         overlaySettings = new OverlaySettings(this);
@@ -354,6 +361,28 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     public View getBiddingOverlay() {
         return biddingOverlay;
+    }
+
+    public void showBiddingReview() {
+        if (biddingOverlay == null || "quick".equals(gameMode)) return;
+        
+        biddingOverlay.setVisibility(View.VISIBLE);
+        
+        // Hide system selection during review
+        View systemSelection = findViewById(R.id.system_selection_container);
+        if (systemSelection != null) systemSelection.setVisibility(View.GONE);
+        
+        // Show close button
+        View btnClose = findViewById(R.id.btn_close_bidding_overlay);
+        if (btnClose != null) btnClose.setVisibility(View.VISIBLE);
+        
+        // Update public knowledge (it will show summaries based on the full auction)
+        if (singleGameBidding != null) {
+            singleGameBidding.updatePublicKnowledgeView();
+        }
+
+        // Ensure scroll to bottom
+        gameBiddingHistory.updateBiddingHistory(null, true);
     }
 
     private void initBiddingUi() {

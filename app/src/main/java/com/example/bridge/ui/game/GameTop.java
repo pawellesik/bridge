@@ -37,6 +37,13 @@ public class GameTop {
         tvContract = activity.findViewById(R.id.game_contract);
         ivContractSuit = activity.findViewById(R.id.iv_contract_suit);
         contractContainer = activity.findViewById(R.id.game_contract_container);
+        if (contractContainer != null) {
+            contractContainer.setOnClickListener(v -> {
+                if (activity.getBiddingOverlay() != null) {
+                    activity.showBiddingReview();
+                }
+            });
+        }
 
         updateScores(0, 0);
     }
