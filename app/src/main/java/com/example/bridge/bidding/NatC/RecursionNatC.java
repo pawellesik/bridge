@@ -1,5 +1,7 @@
 package com.example.bridge.bidding.NatC;
 
+import static com.example.bridge.bidding.Conventions.AcesAsk.SLAM_OR_BETTER;
+
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;

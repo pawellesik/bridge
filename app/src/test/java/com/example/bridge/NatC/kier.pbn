@@ -224,7 +224,8 @@ pass Pass 1H Pass
 [Deal "N:AK2.AT73.T765.42 Q3.J6.AQ82.Q8653 987.KQ98542.K3.A JT654..J94.KJT97"]
 [Auction "N"]
 pass Pass 1H Pass
-3H Pass pass pass
+3H Pass 4H pass
+pass pass
 
 [Event "NatC Deal kier 31"]
 [Dealer "N"]
@@ -249,7 +250,7 @@ pass pass
 [Deal "N:J8.KQJT32.KQ.Q92 T7.A94.J74.KT875 963.765.AT5.A643 AKQ542.8.98632.J"]
 [Auction "N"]
 1H Pass 2H Pass
-pass pass
+4H pass pass pass
 
 [Event "NatC kier 34"]
 [Dealer "N"]
@@ -257,7 +258,7 @@ pass pass
 [Deal "N:J.AK732.QJ85.A84 KQ763.J8.K96.953 A9542.Q96.74.J62 T8.T54.AT32.KQT7"]
 [Auction "N"]
 1H Pass 2H Pass
-Pass Pass
+4H Pass Pass Pass
 
 [Event "NatC kier 35"]
 [Dealer "N"]
@@ -292,4 +293,13 @@ Pass Pass 1H Pass
 1H PASS 4C PASS
 4S PASS 4NT PASS
 5C pass 5H pass
+pass pass
+
+[Event "NatC kier 39"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:52.Q73.AJ763.T82 Q9843.A5.KQ4.A94 AKT.KJT9864.9.Q3 J76.2.T852.KJ765"]
+[Auction "N"]
+pass PASS 1H PASS
+2H PASS 4H pass
 pass pass

@@ -608,14 +608,15 @@ public class OpenBid2NatC extends OpenNatC {
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
-                    shows(Call.PASS, partner(isLastBid(Bid._2H, Bid._3H)), OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorHeart OpeningLowBidding _pass")),
-                    shows(Call.PASS, partner(isLastBid(Bid._2H, Bid._3H)), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart PAIR_LOW_GAME _pass")),
+                    shows(Bid._4H, fit(9), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorHeart _4H")),
 
-                    shows(Bid._4H, pairPoints(PAIR_GAME), partner(isLastBid(Bid._2H, Bid._3H)), id("OpenBid2NatC.responderRaisedMajorHeart pass hand _4H"))
+                    shows(Call.PASS, OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorHeart OpeningLowBidding _pass")),
+                    shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart PAIR_LOW_GAME _pass"))
+
             );
         } else {
             choices.addRules(
-                    //partnerBids(RecursionNatC::recursionFindFitGame)
+                    shows(Bid._4H, pairPoints(PAIR_GAME), partner(isLastBid(Bid._2H, Bid._3H)), id("OpenBid2NatC.responderRaisedMajorHeart _4H"))
             );
         }
         choices.addRules(CompeteNatC.compBids(ps));
@@ -803,15 +804,14 @@ public class OpenBid2NatC extends OpenNatC {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
-                    shows(Bid._4S, fit(9), pairPoints(PAIR_GAME), partner(isLastBid(Bid._2S, Bid._3S)), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S")),
+                    shows(Bid._4S, fit(9), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S")),
 
-                    shows(Call.PASS, partner(isLastBid(Bid._2S, Bid._3S)), OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
-                    shows(Call.PASS, partner(isLastBid(Bid._2S, Bid._3S)), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass"))//,
+                    shows(Call.PASS, OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
+                    shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass"))//,
 
                     );
         } else {
             choices.addRules(
-
                     shows(Bid._4S, pairPoints(PAIR_GAME), partner(isLastBid(Bid._2S, Bid._3S)), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S"))
 
             );
