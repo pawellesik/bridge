@@ -99,21 +99,14 @@ public class CallDetails {
 
     public String getDescription(PositionState ps) {
         List<String> ruleDescriptions = new ArrayList<>();
+        // Zawsze pokazujemy opisy wszystkich możliwych reguł dla danej odzywki.
+        // Dzięki temu uzasadnienie jest spójne z tym, co trafia do Wiedzy Publicznej.
         for (BidRule rule : rules) {
-            // SPRAWDZAMY: Czy ta konkretna zasada pasuje do mojej prywatnej ręki?
-            if (ps.privateHandConforms(rule)) {
-                List<String> ruleDescs = rule.constraintDescriptions(ps);
-                if (ruleDescs != null) {
-                    ruleDescriptions.add(String.join(", ", ruleDescs));
-                }
-            }
-        }
-        // Jeśli żadna nie pasuje (np. badamy odzywki partnera), pokaż wszystkie możliwe znaczenia
-        if (ruleDescriptions.isEmpty()) {
-            for (BidRule rule : rules) {
-                List<String> ruleDescs = rule.constraintDescriptions(ps);
-                if (ruleDescs != null) {
-                    ruleDescriptions.add(String.join(", ", ruleDescs));
+            List<String> ruleDescs = rule.constraintDescriptions(ps);
+            if (ruleDescs != null) {
+                String desc = String.join(", ", ruleDescs);
+                if (!ruleDescriptions.contains(desc)) {
+                    ruleDescriptions.add(desc);
                 }
             }
         }
