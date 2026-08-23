@@ -40,10 +40,15 @@ public class RecursionNatC extends NatC {
                 shows(Bid._2H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2H")),
                 shows(Bid._2S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2S")),
 
-                shows(Bid._3C, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
-                shows(Bid._3D, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
-                shows(Bid._3H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
-                shows(Bid._3S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
+                shows(Bid._3C, shape(6, 10), IS_REBID, noFit(7), id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
+                shows(Bid._3D, shape(6, 10), IS_REBID, noFit(7), id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
+                shows(Bid._3H, shape(6, 10), IS_REBID, noFit(7), id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
+                shows(Bid._3S, shape(6, 10), IS_REBID, noFit(7), id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
+
+                shows(Bid._3C, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
+                shows(Bid._3D, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
+                shows(Bid._3H, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
+                shows(Bid._3S, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
 
                 shows(Bid._3H, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3H")),
                 shows(Bid._3S, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3S")),

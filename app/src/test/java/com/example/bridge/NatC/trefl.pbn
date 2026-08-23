@@ -617,7 +617,7 @@ Pass Pass
 Pass Pass 1C Pass
 1H Pass 2C Pass
 2H Pass 2S Pass
-3H Pass Pass Pass
+Pass Pass
 
 [Event "NatC trefl 68"]
 [Dealer "N"]
@@ -755,3 +755,12 @@ PASS PASS 1C PASS
 2C PASS 2S pass
 2NT pass 3C pass
 pass pass
+
+[Event "NatC Trfel 83"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:.AK87.K643.AK985 QJT2.T6.J98.QJ62 K87654.Q52.AT.T4 A93.J943.Q752.73"]
+[Auction "N"]
+1C PASS 1S PASS
+2C PASS 2S pass
+3H pass pass pass
