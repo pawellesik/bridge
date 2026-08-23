@@ -8,6 +8,7 @@ public class CallDetails {
     private final Call call;
     private final List<CallAnnotation> annotations = new ArrayList<>();
     private final List<BidRule> rules = new ArrayList<>();
+    private final List<BidRule> matchedRules = new ArrayList<>();
     private CallProperties properties = null;
     private final CallGroup group;
     private int jumpLevel = 0;
@@ -55,6 +56,16 @@ public class CallDetails {
         }
     }
 
+    public void addMatchedRule(BidRule rule) {
+        if (!matchedRules.contains(rule)) {
+            matchedRules.add(rule);
+        }
+    }
+
+    public List<BidRule> getMatchedRules() {
+        return matchedRules;
+    }
+
     public PositionState getPositionState() {
         return group.getPositionState();
     }
@@ -79,6 +90,10 @@ public class CallDetails {
         if (newRules.size() == rules.size()) return false;
         rules.clear();
         rules.addAll(newRules);
+        
+        // Also prune matched rules if they no longer satisfy public knowledge (rare but safe)
+        matchedRules.removeIf(rule -> !rules.contains(rule));
+        
         return true;
     }
 
@@ -116,11 +131,16 @@ public class CallDetails {
     }
 
     public HandSummary showHand() {
-        if (!hasRules()) return getPositionState().getPublicHandSummary();
+        PositionState ps = getPositionState();
+        if (!hasRules()) return ps.getPublicHandSummary();
+        
+        // Use matched rules if we have them (player context), otherwise use all publicly valid rules (observer context)
+        List<BidRule> rulesToUse = matchedRules.isEmpty() ? rules : matchedRules;
+        
         HandSummary.ShowState showHand = new HandSummary.ShowState();
         boolean firstRule = true;
-        for (BidRule rule : rules) {
-            HandSummary hs = rule.showHand(getPositionState());
+        for (BidRule rule : rulesToUse) {
+            HandSummary hs = rule.showHand(ps);
             showHand.combine(hs, firstRule ? State.CombineRule.Show : State.CombineRule.CommonOnly);
             firstRule = false;
         }
