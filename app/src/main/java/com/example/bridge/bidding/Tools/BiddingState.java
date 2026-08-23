@@ -123,11 +123,49 @@ public class BiddingState {
                     bidIndex++;
                 }
             }
+            someStateChanged |= balancePublicKnowledge();
             if (!someStateChanged) {
                 return;
             }
         }
         throw new RuntimeException("Unable to resolve to a stable state. Giving up");
+    }
+
+    private boolean balancePublicKnowledge() {
+        boolean changed = false;
+
+        // 1. HCP balancing (Sum of all 4 hands must be exactly 40 HCP)
+        int totalMinHCP = 0;
+        for (PositionState pos : positions.values()) {
+            Range hcp = pos.getPublicHandSummary().getHighCardPoints();
+            if (hcp != null) totalMinHCP += hcp.getMin();
+        }
+        for (PositionState pos : positions.values()) {
+            HandSummary hs = pos.getPublicHandSummary();
+            Range hcpBefore = hs.getHighCardPoints();
+            if (hcpBefore != null) {
+                int othersMin = totalMinHCP - hcpBefore.getMin();
+                hs.trimHCP(othersMin);
+                if (!hs.getHighCardPoints().equals(hcpBefore)) changed = true;
+            }
+        }
+
+        // 2. Suit balancing (Sum of cards in each suit across all 4 hands must be exactly 13)
+        for (Suit suit : Suit.values()) {
+            int totalMinSuit = 0;
+            for (PositionState pos : positions.values()) {
+                totalMinSuit += pos.getPublicHandSummary().getSuits().get(suit).getShape().getMin();
+            }
+            for (PositionState pos : positions.values()) {
+                HandSummary.SuitSummary ss = pos.getPublicHandSummary().getSuits().get(suit);
+                Range shapeBefore = ss.getShape();
+                int othersMin = totalMinSuit - shapeBefore.getMin();
+                ss.trimShapeGlobal(othersMin);
+                if (!ss.getShape().equals(shapeBefore)) changed = true;
+            }
+        }
+
+        return changed;
     }
 }
 

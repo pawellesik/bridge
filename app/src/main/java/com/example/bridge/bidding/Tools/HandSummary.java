@@ -231,6 +231,14 @@ public class HandSummary extends State {
             }
         }
 
+        public void trimShapeGlobal(int totalMinOthers) {
+            Range s = getShape();
+            int newMax = Math.min(s.getMax(), 13 - totalMinOthers + s.getMin());
+            if (newMax < s.getMax()) {
+                this.shape = new Range(s.getMin(), Math.max(s.getMin(), newMax));
+            }
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -357,6 +365,15 @@ public class HandSummary extends State {
         }
         for (Suit suit : Suit.values()) {
             suits.get(suit).trimShape(claimed);
+        }
+    }
+
+    public void trimHCP(int totalMinOthers) {
+        if (highCardPoints != null) {
+            int newMax = Math.min(highCardPoints.getMax(), 40 - totalMinOthers);
+            if (newMax < highCardPoints.getMax()) {
+                this.highCardPoints = new Range(highCardPoints.getMin(), Math.max(highCardPoints.getMin(), newMax));
+            }
         }
     }
 
