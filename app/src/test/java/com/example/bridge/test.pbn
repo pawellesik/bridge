@@ -1,8 +1,8 @@
-[Event "NatC Deal pik 43"]
+[Event "NatC Deal 2"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:AK4.Q4.AT2.KQ875 JT953.KT9.64.AJ2 Q8.AJ6532.KQ7.T4 762.87.J9853.963"]
+[Deal "N:K9854.A92.AKQJ.3 Q76.T7.9876.T987 AJT9.KQJ.AK543.2 32.6543.QJ2.6542"]
 [Auction "N"]
-1C PASS 2H PASS
-4C PASS 4H pass
-pass pass
+1S Pass 4C Pass
+4S Pass 4NT Pass
+5H Pass 7S Pass

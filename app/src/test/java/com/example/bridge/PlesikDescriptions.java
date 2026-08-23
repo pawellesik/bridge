@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.util.Set;
 
 public class PlesikDescriptions {
 
@@ -80,6 +81,15 @@ public class PlesikDescriptions {
             Range p = summary.getHighCardPoints();
             if (p != null)
                 sb.append("HCP: ").append(p.getMin()).append("-").append(p.getMax()).append(" ");
+
+            Set<Integer> aces = summary.getCountAces();
+            if (aces != null && !aces.isEmpty()) {
+                sb.append("Asy: ").append(aces).append(" ");
+            }
+            Set<Integer> kings = summary.getCountKings();
+            if (kings != null && !kings.isEmpty()) {
+                sb.append("Krole: ").append(kings).append(" ");
+            }
 
             for (Suit s : Suit.values()) {
                 HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
