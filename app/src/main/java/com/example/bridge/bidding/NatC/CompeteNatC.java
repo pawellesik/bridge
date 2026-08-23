@@ -5,6 +5,7 @@ import static com.example.bridge.bidding.NatC.OpenBid1NatC.OpeningStrongBidding;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
+import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallDetails;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionState;
@@ -34,8 +35,8 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._2H, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Hearts), id("CompeteNatC.compBids _2H")));
         bids.add(shows(Bid._2S, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Spades), id("CompeteNatC.compBids _2S")));
 
-        bids.add(shows(Bid._3C, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), not(currentContract(Bid._2C)), noFit(), id("CompeteNatC.compBids FIT_8_PLUS _3C")));
-        bids.add(shows(Bid._3D, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), not(currentContract(Bid._2D)), noFit(), id("CompeteNatC.compBids FIT_8_PLUS _3D")));
+        bids.add(shows(Bid._3C, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), not(currentContract(Bid._2C)), noFit(), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids FIT_8_PLUS _3C")));
+        bids.add(shows(Bid._3D, FIT_8_PLUS, pairHighCardPoints(PAIR_LOW_GAME), not(currentContract(Bid._2D)), noFit(), setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids FIT_8_PLUS _3D")));
 
         bids.add(shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("CompeteNatC.compBids PAIR_BALANCED PAIR_GAME _3NT")));
 
@@ -82,7 +83,7 @@ public class CompeteNatC extends NatC {
 
         bids.add(shows(Bid._3NT, BALANCED, IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
 
-        //bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
+        bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
 
         return bids;
     }

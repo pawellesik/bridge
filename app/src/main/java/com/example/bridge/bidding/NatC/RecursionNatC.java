@@ -20,13 +20,13 @@ public class RecursionNatC extends NatC {
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), partnerBidLevel(2, 3), id("RecursionNatC.recursionFindFitGame pass")),
 
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame fit _Pass")),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._4H)), id("RecursionNatC.recursionFindFitGame fit _Pass")),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._4S)), id("RecursionNatC.recursionFindFitGame fit _Pass")),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._5D)), id("RecursionNatC.recursionFindFitGame fit _Pass")),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._5C)), id("RecursionNatC.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._4H)), setTrumpColor(Suit.Hearts), id("RecursionNatC.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._4S)), setTrumpColor(Suit.Spades), id("RecursionNatC.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._5D)), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._5C)), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame fit _Pass")),
 
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._2S, Bid._2H)), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame fit _Pass")),
-                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3C, Bid._3D)), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._2S, Bid._2H)), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3C, Bid._3D)), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame fit _Pass")),
 
                 shows(Bid._2H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _2H")),
                 shows(Bid._2S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _2S")),
@@ -60,8 +60,8 @@ public class RecursionNatC extends NatC {
 
                 shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
-                shows(Bid._3C, fit(Suit.Clubs), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame  _3C")),
-                shows(Bid._3D, fit(Suit.Diamonds), pairHighCardPoints(PAIR_LOW_GAME), id("RecursionNatC.recursionFindFitGame  _3D")),
+                shows(Bid._3C, fit(Suit.Clubs), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
+                shows(Bid._3D, fit(Suit.Diamonds), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D")),
 
                 CompeteNatC.bids(ps)
         );

@@ -89,8 +89,8 @@ public class NoTrumpNatC extends Bidder {
                 shows(Bid._4H, OPEN_ACCEPT_INVITE, partner(isLastBid(Bid._2H)), fit(), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4H")),
                 shows(Bid._4S, OPEN_ACCEPT_INVITE, partner(isLastBid(Bid._2S)), fit(), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4S")),
 
-                shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid fit() 4H")),
-                shows(Bid._4S, fit(), partner(isLastBid(Bid._3S)), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid fit() 4S")),
+                shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid fit() 4H")),
+                shows(Bid._4S, fit(), partner(isLastBid(Bid._3S)), setTrumpColor(Suit.Spades), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid fit() 4S")),
 
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3C)), id("NoTrumpNatC.openerRebid PAIR_BALANCED 3C 3NT")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3D)), id("NoTrumpNatC.openerRebid PAIR_BALANCED 3D 3NT"))
@@ -98,8 +98,8 @@ public class NoTrumpNatC extends Bidder {
 
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, NoTrumpNatC::respond1NTBid2inviteMinor, true),
-                shows(Bid._4D, fit(), partner(isLastBid(Bid._3D)), id("NoTrumpNatC.openerRebid 4D")),
-                shows(Bid._4C, fit(), partner(isLastBid(Bid._3C)), id("NoTrumpNatC.openerRebid 4C"))
+                shows(Bid._4D, fit(), partner(isLastBid(Bid._3D)), setTrumpColor(Suit.Diamonds), id("NoTrumpNatC.openerRebid 4D")),
+                shows(Bid._4C, fit(), partner(isLastBid(Bid._3C)), setTrumpColor(Suit.Clubs), id("NoTrumpNatC.openerRebid 4C"))
         );
 
         choices.addRules(
@@ -122,8 +122,8 @@ public class NoTrumpNatC extends Bidder {
                 shows(Bid._3NT, partner(isLastBid(Bid._3S)), shape(Suit.Spades, 0, 2), id("NoTrumpNatC.openerRebid 3NT")),
                 shows(Bid._3NT, partner(isLastBid(Bid._3C)), shape(Suit.Clubs, 0, 2), id("NoTrumpNatC.openerRebid 3NT")),
                 shows(Bid._3NT, partner(isLastBid(Bid._3D)), shape(Suit.Diamonds, 0, 2), id("NoTrumpNatC.openerRebid 3NT")),
-                shows(Bid._4H, partner(isLastBid(Bid._3H)), shape(3, 5), id("NoTrumpNatC.openerRebid 4H")),
-                shows(Bid._4S, partner(isLastBid(Bid._3S)), shape(3, 5), id("NoTrumpNatC.openerRebid 4S"))
+                shows(Bid._4H, partner(isLastBid(Bid._3H)), fit(), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid 4H")),
+                shows(Bid._4S, partner(isLastBid(Bid._3S)), fit(), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid 4S"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
         return choices;
@@ -136,8 +136,8 @@ public class NoTrumpNatC extends Bidder {
                 shows(Bid._3NT, partner(isLastBid(Bid._3H)), shape(Suit.Hearts, 0, 2), id("NoTrumpNatC.responderRebid 3NT")),
                 shows(Bid._3NT, partner(isLastBid(Bid._3S)), shape(Suit.Spades, 0, 2), id("NoTrumpNatC.responderRebid 3NT")),
 
-                shows(Bid._4H, partner(isLastBid(Bid._3H)), shape(3, 4), id("NoTrumpNatC.responderRebid 4H")),
-                shows(Bid._4S, partner(isLastBid(Bid._3S)), shape(3, 4), id("NoTrumpNatC.responderRebid 4S")),
+                shows(Bid._4H, partner(isLastBid(Bid._3H)), fit(), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.responderRebid 4H")),
+                shows(Bid._4S, partner(isLastBid(Bid._3S)), fit(), setTrumpColor(Suit.Spades), id("NoTrumpNatC.responderRebid 4S")),
 
                 shows(Call.PASS, id("NoTrumpNatC.responderRebid Pass"))
         );
@@ -149,8 +149,8 @@ public class NoTrumpNatC extends Bidder {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._5C, partner(isLastBid(Bid._4C)), id("NoTrumpNatC.inviteMinor 5C")),
-                shows(Bid._5D, partner(isLastBid(Bid._4D)), id("NoTrumpNatC.inviteMinor 5D"))
+                shows(Bid._5C, partner(isLastBid(Bid._4C)), setTrumpColor(Suit.Clubs), id("NoTrumpNatC.inviteMinor 5C")),
+                shows(Bid._5D, partner(isLastBid(Bid._4D)), setTrumpColor(Suit.Diamonds), id("NoTrumpNatC.inviteMinor 5D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
