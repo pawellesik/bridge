@@ -1,7 +1,10 @@
 package com.example.bridge.ui.biddings;
 
+import android.view.View;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bridge.R;
 import com.example.bridge.model.Player;
 import com.example.bridge.ui.game.GameActivity;
 
@@ -46,22 +49,13 @@ public class GameBiddingHistory {
     }
 
     public void updateBiddingHistory(String currentSelection, boolean shouldScroll) {
-        // 1. Align with the first bidder (West, North, East, South)
         if (firstPlayer != null) {
             int offset = 0;
             switch (firstPlayer.getName()) {
-                case "West":
-                    offset = 0;
-                    break;
-                case "North":
-                    offset = 1;
-                    break;
-                case "East":
-                    offset = 2;
-                    break;
-                case "South":
-                    offset = 3;
-                    break;
+                case "West": offset = 0; break;
+                case "North": offset = 1; break;
+                case "East": offset = 2; break;
+                case "South": offset = 3; break;
             }
 
             int currentLeading = 0;
@@ -76,7 +70,6 @@ public class GameBiddingHistory {
             }
         }
 
-        // 2. Remove trailing dashes (only if they are NOT leading alignment dashes)
         int lastRealBidIndex = -1;
         for (int i = auction.size() - 1; i >= 0; i--) {
             if (!"-".equals(auction.get(i))) {
@@ -85,7 +78,6 @@ public class GameBiddingHistory {
             }
         }
 
-        // If there are only dashes, keep them for alignment based on offset
         if (lastRealBidIndex != -1) {
             while (auction.size() > lastRealBidIndex + 1) {
                 auction.remove(auction.size() - 1);
@@ -93,34 +85,19 @@ public class GameBiddingHistory {
         }
 
         if (gameActivity.getGameBiddingHistoryAdapter() != null) {
-            // Update adapter's preview and data
             gameActivity.getGameBiddingHistoryAdapter().setPreviewSelection(currentSelection);
             gameActivity.getGameBiddingHistoryAdapter().notifyDataSetChanged();
 
             if (this.rvBiddingHistory != null) {
                 rvBiddingHistory.post(() -> {
-                    float density = gameActivity.getResources().getDisplayMetrics().density;
-                    // The bidding controls overlap the bottom of the history by about 36dp (the tabs).
-                    // We set a padding so the bids don't get stuck behind the controls.
-                    int paddingBottom = (int) (40 * density);
-
-                    rvBiddingHistory.setPadding(0, 0, 0, paddingBottom);
-                    rvBiddingHistory.setClipToPadding(false);
-
-                    // Scroll only if requested (e.g. after a new bid is added)
-                    if (shouldScroll && rvBiddingHistory.getHeight() > 0) {
-                        int rowHeight = (int) (40 * density);
-                        int totalRows = (auction.size() + 4) / 4; // include the preview row
-                        int totalContentHeight = totalRows * rowHeight;
-                        int visibleArea = rvBiddingHistory.getHeight() - paddingBottom;
-
-                        if (totalContentHeight > visibleArea) {
-                            rvBiddingHistory.smoothScrollToPosition(auction.size());
-                        }
+                    View scrollView = gameActivity.findViewById(R.id.bidding_scroll_view);
+                    if (scrollView instanceof NestedScrollView && shouldScroll) {
+                        scrollView.post(() -> {
+                            ((NestedScrollView) scrollView).fullScroll(View.FOCUS_DOWN);
+                        });
                     }
                 });
             }
         }
     }
-
 }

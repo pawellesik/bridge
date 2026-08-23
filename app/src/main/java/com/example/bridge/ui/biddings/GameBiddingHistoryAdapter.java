@@ -60,8 +60,6 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             holder.bind(bid, false, false, layoutId);
         } else {
             // Kafelek podglądu (następny ruch)
-            // W trybie Singleplayer highlightLast jest sterowane przez SingleGameBidding
-            // i powinno być widoczne tylko gdy kolej South (kolumna 3)
             boolean isSouthColumn = (position % 4 == 3);
             holder.bind(previewSelection, true, highlightLast && isSouthColumn, layoutId);
         }
@@ -77,17 +75,12 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         ImageView ivSuit;
 
         ViewHolder(View itemView) {
-            super(viewPanel(itemView));
+            super(itemView);
             tvLevel = itemView.findViewById(R.id.tv_bid_level);
             ivSuit = itemView.findViewById(R.id.iv_bid_suit);
         }
 
-        private static View viewPanel(View v) {
-             return v;
-        }
-
         void bind(String bid, boolean isCurrent, boolean highlightLast, int layoutId) {
-            // Default reset
             tvLevel.setText("");
             tvLevel.setTextColor(0xFF000000);
             ivSuit.setVisibility(View.GONE);
@@ -98,9 +91,9 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
                 if (isCurrent) {
                     if (highlightLast) {
                         inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
-                        inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); // Solid Yellow
+                        inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); 
                     } else {
-                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile_white); // White
+                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile_white); 
                         inner.setBackgroundTintList(null);
                     }
                 } else {
@@ -113,9 +106,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
                 }
             }
             
-            if (bid == null || bid.isEmpty()) {
-                return;
-            }
+            if (bid == null || bid.isEmpty()) return;
 
             if (bid.equals("-")) {
                 tvLevel.setText("-");
@@ -125,15 +116,14 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
             if (bid.equalsIgnoreCase("Pass") || bid.equalsIgnoreCase("P")) {
                 tvLevel.setText("P");
-                tvLevel.setTextColor(0xFF2E7D32); // Green for Pass as in image
+                tvLevel.setTextColor(0xFF2E7D32); 
             } else if (bid.equalsIgnoreCase("X") || bid.equalsIgnoreCase("Double")) {
                 tvLevel.setText("X");
-                tvLevel.setTextColor(0xFFC62828); // Red
+                tvLevel.setTextColor(0xFFC62828); 
             } else if (bid.equalsIgnoreCase("XX")) {
                 tvLevel.setText("XX");
-                tvLevel.setTextColor(0xFF1565C0); // Blue
+                tvLevel.setTextColor(0xFF1565C0); 
             } else {
-                // Format like "1S", "3NT"
                 try {
                     String level = bid.substring(0, 1);
                     String suitPart = bid.substring(1).toUpperCase();
@@ -143,10 +133,8 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
                     } else {
                         tvLevel.setText(level);
                         ivSuit.setVisibility(View.VISIBLE);
-                        int iconRes = getSuitIcon(suitPart);
-                        ivSuit.setImageResource(iconRes);
+                        ivSuit.setImageResource(getSuitIcon(suitPart));
                         
-                        // Apply dynamic colors (2 or 4 color deck)
                         Suit s;
                         switch (suitPart) {
                             case "C": s = Suit.CLUBS; break;

@@ -2,7 +2,9 @@ package com.example.bridge.ui.biddings;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.bridge.R;
 import com.example.bridge.bidding.Tools.BiddingState;
@@ -12,7 +14,10 @@ import com.example.bridge.bidding.Tools.ContractState;
 import com.example.bridge.bidding.Tools.Direction;
 import com.example.bridge.bidding.Tools.Game;
 import com.example.bridge.bidding.Tools.Hand;
+import com.example.bridge.bidding.Tools.HandSummary;
 import com.example.bridge.bidding.Tools.PositionCalls;
+import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
@@ -21,6 +26,7 @@ import com.example.bridge.ui.game.GameActivity;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SingleGameBidding {
     private final GameActivity activity;
@@ -69,32 +75,24 @@ public class SingleGameBidding {
     }
 
     public void start() {
-        // 1. Ukrywamy kontrolki na start, aby gracz nie licytował poza kolejnością
         if (activity.getBiddingControlsOverlay() != null) {
             activity.getBiddingControlsOverlay().setVisibility(View.GONE);
         }
 
-        // 2. Ukrywamy wybór systemu licytacyjnego po rozpoczęciu gry
         View selectionContainer = activity.findViewById(R.id.system_selection_container);
         if (selectionContainer != null) {
             selectionContainer.setVisibility(View.GONE);
         }
 
         Game game = new Game();
-
-        // 2. Random dealer
         Direction[] dirs = Direction.values();
         Direction dealerDir = dirs[(int) (Math.random() * 4)];
         game.dealer = dealerDir;
         
-        // 3. Sync PBN Dealer (Crucial for correct JSON export alignment)
         activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
-
-        // 4. Set bidding systems
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "PassOnly";
 
-        // 5. Set hands
         Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
         activity.getPbnCollection().getPbn().initNewGame(hands,  activity.getGameMode());
         activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
@@ -106,7 +104,6 @@ public class SingleGameBidding {
 
         liveBiddingState = new BiddingState(game);
 
-        // 6. Set first player in UI history
         String firstPlayerName = "West";
         if (dealerDir == Direction.N) firstPlayerName = "North";
         else if (dealerDir == Direction.E) firstPlayerName = "East";
@@ -115,7 +112,6 @@ public class SingleGameBidding {
         activity.getGameBiddingHistory().setFirstPlayer(activity.getGameController().getPlayers().get(firstPlayerName));
         activity.getGameBiddingHistory().getAuction().clear();
         
-        // Pokazujemy kafelki licytacji dopiero teraz
         activity.getGameBiddingHistoryAdapter().setShowPreviewTile(true);
         activity.getGameBiddingHistoryAdapter().setHighlightLast(false);
         activity.getGameBiddingHistory().updateBiddingHistory();
@@ -129,9 +125,9 @@ public class SingleGameBidding {
         Direction nextToAct = liveBiddingState.getNextToAct().getDirection();
 
         if (nextToAct == Direction.S) {
-            // Human turn (South)
             activity.runOnUiThread(() -> {
                 activity.getGameBiddingHistoryAdapter().setHighlightLast(true);
+                updatePublicKnowledgeView();
                 activity.getGameBiddingHistory().updateBiddingHistory();
                 
                 activity.getGameBidding().applyAuctionRules(activity.getGameBiddingHistory());
@@ -142,10 +138,12 @@ public class SingleGameBidding {
             return;
         }
 
-        // Robot turn
         activity.runOnUiThread(() -> {
             activity.getGameBiddingHistoryAdapter().setHighlightLast(false);
             activity.getGameBiddingHistory().updateBiddingHistory();
+            
+            View infoLayout = activity.findViewById(R.id.public_knowledge_container_layout);
+            if (infoLayout != null) infoLayout.setVisibility(View.GONE);
 
             if (activity.getBiddingControlsOverlay() != null) {
                 activity.getBiddingControlsOverlay().setVisibility(View.GONE);
@@ -163,16 +161,11 @@ public class SingleGameBidding {
 
     private void makeRobotBid(Call call) {
         String bidStr = call.toString();
-
-        // Update live state
         liveBiddingState.makeCall(call);
-
-        // Update UI history
         activity.getGameBiddingHistory().getAuction().add(bidStr);
         activity.getPbnCollection().getPbn().addBid(bidStr);
         activity.getGameBiddingHistory().updateBiddingHistory(null, true);
 
-        // Check for auction end
         if (liveBiddingState.getContract().isAuctionComplete()) {
             onAuctionFinished();
         } else {
@@ -213,5 +206,93 @@ public class SingleGameBidding {
 
             activity.getGameController().onBiddingFinished(contract, declarer);
         }
+    }
+
+    private void updatePublicKnowledgeView() {
+        if (liveBiddingState == null) return;
+
+        View container = activity.findViewById(R.id.public_knowledge_container_layout);
+        if (container == null) return;
+
+        container.setVisibility(View.VISIBLE);
+
+        TextView tvNorth = container.findViewById(R.id.tv_pk_north);
+        TextView tvSouth = container.findViewById(R.id.tv_pk_south);
+        TextView tvTrump = container.findViewById(R.id.tv_pk_trump);
+
+        updatePlayerKnowledge(tvNorth, Direction.N);
+        updatePlayerKnowledge(tvSouth, Direction.S);
+
+        PositionState northPos = liveBiddingState.getPositions().get(Direction.N);
+        com.example.bridge.bidding.Tools.Suit nsTrump = (northPos != null) ? northPos.getPairState().getTrumpSuit() : null;
+        if (nsTrump != null) {
+            tvTrump.setVisibility(View.VISIBLE);
+            String trumpText = "<b>UZGODNIONY ATUT NS:</b> " + getSuitSymbolWithColor(nsTrump);
+            setTextFromHtml(tvTrump, trumpText);
+        } else {
+            tvTrump.setVisibility(View.GONE);
+        }
+    }
+
+    private void updatePlayerKnowledge(TextView textView, Direction d) {
+        PositionState pos = liveBiddingState.getPositions().get(d);
+        if (pos == null) {
+            textView.setVisibility(View.GONE);
+            return;
+        }
+        HandSummary summary = pos.getPublicHandSummary();
+        if (summary == null) {
+            textView.setVisibility(View.GONE);
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<b>").append(d.name()).append(":</b> ");
+
+        Range p = summary.getHighCardPoints();
+        if (p != null)
+            sb.append("HCP: ").append(p.getMin()).append("-").append(p.getMax()).append(" ");
+
+        Set<Integer> aces = summary.getCountAces();
+        if (aces != null && !aces.isEmpty()) {
+            sb.append("Asy: ").append(aces).append(" ");
+        }
+        Set<Integer> kings = summary.getCountKings();
+        if (kings != null && !kings.isEmpty()) {
+            sb.append("Krole: ").append(kings).append(" ");
+        }
+
+        for (com.example.bridge.bidding.Tools.Suit s : com.example.bridge.bidding.Tools.Suit.values()) {
+            HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
+            if (suitSum != null) {
+                Range shape = suitSum.getShape();
+                if (shape != null && shape.getMin() > 0) {
+                    sb.append(getSuitSymbolWithColor(s)).append(":").append(shape.getMin()).append("+ ");
+                }
+            }
+        }
+
+        if (sb.length() > 10) {
+            textView.setVisibility(View.VISIBLE);
+            setTextFromHtml(textView, sb.toString());
+        } else {
+            textView.setVisibility(View.GONE);
+        }
+    }
+
+    private void setTextFromHtml(TextView tv, String html) {
+        tv.setText(Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY));
+    }
+
+    private String getSuitSymbolWithColor(com.example.bridge.bidding.Tools.Suit s) {
+        String color;
+        switch (s) {
+            case Clubs: color = "#388E3C"; break;
+            case Diamonds: color = "#F57C00"; break;
+            case Hearts: color = "#C94B4B"; break;
+            case Spades: color = "#243D65"; break;
+            default: color = "#000000";
+        }
+        return "<font color='" + color + "'>" + s.toSymbol() + "</font>";
     }
 }
