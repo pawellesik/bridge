@@ -128,6 +128,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (btnCloseBidding != null) {
             btnCloseBidding.setOnClickListener(v -> {
                 if (biddingOverlay != null) biddingOverlay.setVisibility(View.GONE);
+                
+                // Show entire top bar info layouts again when closing review
+                View leftInfoLayout = findViewById(R.id.linearLayout);
+                if (leftInfoLayout != null) leftInfoLayout.setVisibility(View.VISIBLE);
+                
+                View lastCardsLayout = findViewById(R.id.last_cards);
+                if (lastCardsLayout != null) lastCardsLayout.setVisibility(View.VISIBLE);
             });
         }
 
@@ -367,6 +374,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (biddingOverlay == null || "quick".equals(gameMode)) return;
         
         biddingOverlay.setVisibility(View.VISIBLE);
+        
+        // Hide entire top bar info layouts during review to avoid overlapping
+        View leftInfoLayout = findViewById(R.id.linearLayout);
+        if (leftInfoLayout != null) leftInfoLayout.setVisibility(View.GONE);
+        
+        View lastCardsLayout = findViewById(R.id.last_cards);
+        if (lastCardsLayout != null) lastCardsLayout.setVisibility(View.GONE);
         
         // Hide system selection during review
         View systemSelection = findViewById(R.id.system_selection_container);
