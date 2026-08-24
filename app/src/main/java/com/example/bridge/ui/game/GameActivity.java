@@ -386,6 +386,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             singleGameBidding.updatePublicKnowledgeView();
         }
 
+        if (gameBiddingHistoryAdapter != null) {
+            gameBiddingHistoryAdapter.setShowPreviewTile(false);
+        }
+
         // Ensure scroll to bottom
         gameBiddingHistory.updateBiddingHistory(null, true);
     }

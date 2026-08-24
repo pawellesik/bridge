@@ -193,6 +193,10 @@ public class SingleGameBidding {
     }
 
     private void onAuctionFinished() {
+        if (activity.getGameBiddingHistoryAdapter() != null) {
+            activity.getGameBiddingHistoryAdapter().setShowPreviewTile(false);
+        }
+
         ContractState contractState = liveBiddingState.getContract();
         if (contractState.isPassedOut()) {
             activity.getGameController().onBiddingFinished(new Contract(true), null);
