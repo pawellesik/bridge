@@ -91,20 +91,20 @@ public class GameTop {
         if (tvScoreWE != null) tvScoreWE.setText(activity.getString(R.string.we_label, weScore));
     }
 
-    public void setTotalImp(int totalScore, int changeScore) {
+    public void setTotalImp(double totalScore, double changeScore) {
         tvMiddle1.setText(activity.getString(R.string.imp_label));
-        tvMiddle2.setText(String.valueOf(totalScore));
+        tvMiddle2.setText(String.format(java.util.Locale.US, "%.1f", totalScore));
         if (changeScore != 0) {
-            tvMiddle3.setText(changeScore > 0 ? "(+" + changeScore + ")" : "(" + changeScore + ")");
+            tvMiddle3.setText(String.format(java.util.Locale.US, "(%s%.1f)", (changeScore > 0 ? "+" : ""), changeScore));
             tvMiddle3.setTextColor(changeScore > 0 ? Color.parseColor("#C8E6C9") : Color.RED);
         } else {
             tvMiddle3.setText("");
         }
     }
 
-    public void setTotalImp(int totalScore) {
+    public void setTotalImp(double totalScore) {
         tvMiddle1.setText(activity.getString(R.string.imp_label));
-        tvMiddle2.setText(String.valueOf(totalScore));
+        tvMiddle2.setText(String.format(java.util.Locale.US, "%.1f", totalScore));
         tvMiddle3.setText("");
     }
 

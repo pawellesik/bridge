@@ -269,6 +269,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         pbnCollection.initAllPbn();
         pbnCollection.initQiuckPbn();
 
+        gameTop.setTotalImp(dataStore.getCareerImp(gameMode));
+
         onHandUpdated("North");
         onHandUpdated("South");
         playerLabels.updateAll(gameController.getPlayers(), gameMode);
@@ -279,6 +281,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initGameBase();
         initBiddingUi();
         pbnCollection.initAllPbn();
+
+        gameTop.setTotalImp(dataStore.getCareerImp(gameMode));
 
         gameTop.hideContract();
         if (topBar != null) topBar.setVisibility(View.GONE);
@@ -791,6 +795,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             pbnCollection.getPbn().setPlayHistory(history);
             pbnCollection.getPbn().calculateAndSetScore();
             pbnCollection.calculateAllImps();
+
+            double gameImp = pbnCollection.getPbn().getImp();
+            double careerImpBefore = dataStore.getCareerImp(gameMode);
+            dataStore.addCareerImp(gameMode, gameImp);
+            double careerImpAfter = careerImpBefore + gameImp;
+
+            gameTop.setTotalImp(careerImpAfter, gameImp);
 
             String jsonExport = pbnCollection.generateJsonExport();
             

@@ -21,7 +21,8 @@ public class DataStoreManager {
     public static final Preferences.Key<String> QUICK_GAME_DIFFICULTY = PreferencesKeys.stringKey("quick_game_difficulty");
     public static final Preferences.Key<String> BIDDING_SYSTEM = PreferencesKeys.stringKey("bidding_system");
     public static final Preferences.Key<Integer> GAMES_PLAYED = PreferencesKeys.intKey("games_played");
-    public static final Preferences.Key<Integer> CAREER_IMP = PreferencesKeys.intKey("career_imp");
+    public static final Preferences.Key<Double> CAREER_IMP_SINGLE = PreferencesKeys.doubleKey("career_imp_single");
+    public static final Preferences.Key<Double> CAREER_IMP_QUICK = PreferencesKeys.doubleKey("career_imp_quick");
 
     private DataStoreManager(Context context) {
         dataStore = new RxPreferenceDataStoreBuilder(context.getApplicationContext(), "BridgePrefs").build();

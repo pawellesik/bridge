@@ -29,19 +29,26 @@ public class DataStore {
                 .subscribe();
     }
 
-    public int getCareerImp() {
+    public double getCareerImp(String gameMode) {
+        androidx.datastore.preferences.core.Preferences.Key<Double> key =
+                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
         try {
-            return dataStoreManager.getPreference(DataStoreManager.CAREER_IMP, 0)
+            return dataStoreManager.getPreference(key, 0.0)
                     .firstOrError()
-                    .onErrorReturnItem(0)
+                    .onErrorReturnItem(0.0)
                     .blockingGet();
         } catch (Exception e) {
-            return 0;
+            return 0.0;
         }
     }
 
-    public void setCareerImp(int imp) {
-        dataStoreManager.setPreference(DataStoreManager.CAREER_IMP, imp)
+    public void addCareerImp(String gameMode, double impToAdd) {
+        androidx.datastore.preferences.core.Preferences.Key<Double> key =
+                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
+        
+        double current = getCareerImp(gameMode);
+        double newValue = Math.round((current + impToAdd) * 10.0) / 10.0;
+        dataStoreManager.setPreference(key, newValue)
                 .subscribeOn(Schedulers.io())
                 .subscribe();
     }
