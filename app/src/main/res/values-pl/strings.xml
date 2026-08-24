@@ -51,7 +51,7 @@
     <string name="delete_confirm_title">TRWAŁE USUNIĘCIE</string>
     <string name="delete_confirm_message">Czy na pewno chcesz trwale usunąć to rozdanie z historii? Tej operacji nie można cofnąć!</string>
     <string name="result_label">Wynik: %1$d</string>
-    <string name="score_label">PUNKTY:</string>
+    <string name="imp_label">IMP:</string>
     <string name="we_label">WE: %1$d</string>
     <string name="sn_label">SN: %1$d</string>
     <string name="claimed_tricks_label">Płn. Płd. wzięli</string>

@@ -91,8 +91,8 @@ public class GameTop {
         if (tvScoreWE != null) tvScoreWE.setText(activity.getString(R.string.we_label, weScore));
     }
 
-    public void setTotalScore(int totalScore, int changeScore) {
-        tvMiddle1.setText(activity.getString(R.string.score_label));
+    public void setTotalImp(int totalScore, int changeScore) {
+        tvMiddle1.setText(activity.getString(R.string.imp_label));
         tvMiddle2.setText(String.valueOf(totalScore));
         if (changeScore != 0) {
             tvMiddle3.setText(changeScore > 0 ? "(+" + changeScore + ")" : "(" + changeScore + ")");
@@ -102,8 +102,8 @@ public class GameTop {
         }
     }
 
-    public void setTotalScore(int totalScore) {
-        tvMiddle1.setText(activity.getString(R.string.score_label));
+    public void setTotalImp(int totalScore) {
+        tvMiddle1.setText(activity.getString(R.string.imp_label));
         tvMiddle2.setText(String.valueOf(totalScore));
         tvMiddle3.setText("");
     }
