@@ -55,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private FrameLayout playedCardContainerNorth;
     private FrameLayout playedCardContainerWest;
     private FrameLayout playedCardContainerEast;
-    private TextView nameNorth, nameSouth, nameEast, nameWest;
+    private GamePlayerLabels playerLabels;
     private Button btn_deal;
     private View startBar;
     private View btnClaim;
@@ -104,10 +104,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         playedCardContainerWest = findViewById(R.id.container_played_west);
         playedCardContainerEast = findViewById(R.id.container_played_east);
 
-        nameNorth = findViewById(R.id.name_north);
-        nameSouth = findViewById(R.id.name_south);
-        nameEast = findViewById(R.id.name_east);
-        nameWest = findViewById(R.id.name_west);
+        playerLabels = new GamePlayerLabels(this);
 
         startBar = findViewById(R.id.start_bar);
         btn_deal = findViewById(R.id.btn_deal);
@@ -274,6 +271,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         onHandUpdated("North");
         onHandUpdated("South");
+        playerLabels.updateAll(gameController.getPlayers(), gameMode);
         onVisibleStartBar(true);
     }
 
@@ -286,6 +284,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (topBar != null) topBar.setVisibility(View.GONE);
         biddingOverlay.setVisibility(View.VISIBLE);
         onHandUpdated("South");
+        playerLabels.updateAll(gameController.getPlayers(), gameMode);
         onVisibleStartBar(true);
     }
 
@@ -665,27 +664,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void updateTurn(String playerName) {
-        nameNorth.setBackgroundResource(0);
-        nameSouth.setBackgroundResource(0);
-        nameEast.setBackgroundResource(0);
-        nameWest.setBackgroundResource(0);
-
-        if (playerName == null) return;
-
-        switch (playerName) {
-            case "North":
-                nameNorth.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-            case "South":
-                nameSouth.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-            case "East":
-                nameEast.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-            case "West":
-                nameWest.setBackgroundResource(R.drawable.transparent_white_frame);
-                break;
-        }
+        playerLabels.updateTurn(playerName);
     }
 
     @Override
@@ -701,6 +680,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("South".equals(playerName)) {
             updateDisplayHandSouth();
         }
+        playerLabels.updateLabel(playerName, gameController.getPlayers().get(playerName), gameMode);
     }
 
     @Override
