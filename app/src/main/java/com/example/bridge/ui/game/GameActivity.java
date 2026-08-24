@@ -789,6 +789,11 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             // 2. Zapis do bazy i przejście do historii
             overlayHistoryList.saveGameToHistory(this, jsonExport, firstId -> {
                 if (firstId != -1 && overlayHistoryGame != null) {
+                    com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+                    if (bottomNav != null) {
+                        bottomNav.getMenu().findItem(R.id.nav_history).setChecked(true);
+                    }
+
                     overlayHistoryGame.showGame(firstId, () -> {
                         // Ten callback wywoła się dopiero gdy historia jest widoczna i załadowana
                         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
