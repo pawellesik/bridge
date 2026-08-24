@@ -757,6 +757,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
+    public void onPlayersSwapped(boolean ns, boolean ew) {
+        if (playerLabels != null) {
+            playerLabels.resetViews();
+            if (ns) playerLabels.swapNS();
+            if (ew) playerLabels.swapEW();
+            playerLabels.updateAll(gameController.getPlayers(), gameMode);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }

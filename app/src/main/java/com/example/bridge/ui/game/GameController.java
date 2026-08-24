@@ -38,6 +38,8 @@ public class GameController {
 
         void onScoreUpdated(int snScore, int weScore);
 
+        void onPlayersSwapped(boolean ns, boolean ew);
+
         void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim);
 
         void onClaimButtonVisibilityChanged(boolean visible);
@@ -135,6 +137,7 @@ public class GameController {
             swapHands(players.get("North"), players.get("South"));
             swapHands(players.get("East"), players.get("West"));
             declarer = players.get("South"); // Now South is the declarer
+            callback.onPlayersSwapped(true, true);
         }
 
         this.playerFirstPlayCard = getNextPlayer(declarer);
@@ -176,6 +179,7 @@ public class GameController {
         currentTrick = new Trick();
         playHistoryTrick = new ArrayList<>();
 
+        callback.onPlayersSwapped(false, false);
         callback.onUpdateLastTrickInTop(currentTrick.getCardsOnTableMap());
         callback.onScoreUpdated(snScore, weScore);
         callback.onClaimButtonVisibilityChanged(false);

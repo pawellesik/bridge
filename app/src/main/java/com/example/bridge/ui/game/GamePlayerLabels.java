@@ -7,15 +7,31 @@ import com.example.bridge.model.Player;
 import java.util.Map;
 
 public class GamePlayerLabels {
-    private final TextView nameNorth, nameSouth, nameEast, nameWest;
+    private TextView viewNorth, viewSouth, viewEast, viewWest;
     private final GameActivity activity;
 
     public GamePlayerLabels(GameActivity activity) {
         this.activity = activity;
-        this.nameNorth = activity.findViewById(R.id.name_north);
-        this.nameSouth = activity.findViewById(R.id.name_south);
-        this.nameEast = activity.findViewById(R.id.name_east);
-        this.nameWest = activity.findViewById(R.id.name_west);
+        resetViews();
+    }
+
+    public void resetViews() {
+        this.viewNorth = activity.findViewById(R.id.name_north);
+        this.viewSouth = activity.findViewById(R.id.name_south);
+        this.viewEast = activity.findViewById(R.id.name_east);
+        this.viewWest = activity.findViewById(R.id.name_west);
+    }
+
+    public void swapNS() {
+        TextView temp = viewNorth;
+        viewNorth = viewSouth;
+        viewSouth = temp;
+    }
+
+    public void swapEW() {
+        TextView temp = viewEast;
+        viewEast = viewWest;
+        viewWest = temp;
     }
 
     public void updateAll(Map<String, Player> players, String gameMode) {
@@ -33,10 +49,10 @@ public class GamePlayerLabels {
     }
 
     public void updateTurn(String activePlayerName) {
-        nameNorth.setBackgroundResource(0);
-        nameSouth.setBackgroundResource(0);
-        nameEast.setBackgroundResource(0);
-        nameWest.setBackgroundResource(0);
+        viewNorth.setBackgroundResource(0);
+        viewSouth.setBackgroundResource(0);
+        viewEast.setBackgroundResource(0);
+        viewWest.setBackgroundResource(0);
 
         if (activePlayerName == null) return;
 
@@ -48,10 +64,10 @@ public class GamePlayerLabels {
 
     private TextView getTextView(String playerName) {
         switch (playerName) {
-            case "North": return nameNorth;
-            case "South": return nameSouth;
-            case "East": return nameEast;
-            case "West": return nameWest;
+            case "North": return viewNorth;
+            case "South": return viewSouth;
+            case "East": return viewEast;
+            case "West": return viewWest;
             default: return null;
         }
     }
