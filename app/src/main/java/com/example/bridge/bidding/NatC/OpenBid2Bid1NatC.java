@@ -522,7 +522,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._3D, noFit(), IS_REBID, shape(6, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
                 shows(Bid._2C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _2C")),
 
-                shows(Bid._1NT, noFit(), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT"))
+                shows(Bid._1NT, noFit(), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
+                shows(Bid._1NT, noFit(), BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
+                shows(Bid._1NT, noFit(7), id("OpenBid2NatC.responderChangedSuitsDiamond _1NT"))
+
         );
 
         choices.addRules(CompeteNatC.compBids(ps));
@@ -646,8 +649,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._3C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderChangedSuitsHeart _3C")),
                 shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderChangedSuitsHeart _3D")),
 
-                shows(Bid._1NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsHeart _2NT")),
-                shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsHeart _2NT")),
+                shows(Bid._1NT, noFit(), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
+                shows(Bid._1NT, noFit(), BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
+                shows(Bid._1NT, noFit(7), id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
+
+                shows(Bid._2NT, PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsHeart _2NT")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsHeart _3NT"))
 
         );
@@ -845,7 +851,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._3C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderChangedSuitsSpade _3C")),
                 shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderChangedSuitsSpade _3D")),
 
-                shows(Bid._1NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsHeart _1NT")),
                 shows(Bid._2NT, PAIR_BALANCED, partner(noFit()), id("OpenBid2NatC.responderChangedSuitsSpade _2NT")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsSpade _3NT"))
 
