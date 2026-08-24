@@ -26,15 +26,22 @@ public class LocaleHelper {
     }
 
     private static String getPersistedData(Context context, String defaultLanguage) {
-        SharedPreferences preferences = context.getSharedPreferences("BridgePrefs", Context.MODE_PRIVATE);
-        return preferences.getString(SELECTED_LANGUAGE, defaultLanguage);
+        try {
+            return DataStoreManager.getInstance(context)
+                    .getPreference(DataStoreManager.SELECTED_LANGUAGE, defaultLanguage)
+                    .firstOrError()
+                    .onErrorReturnItem(defaultLanguage)
+                    .blockingGet();
+        } catch (Exception e) {
+            return defaultLanguage;
+        }
     }
 
     private static void persist(Context context, String language) {
-        SharedPreferences preferences = context.getSharedPreferences("BridgePrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(SELECTED_LANGUAGE, language);
-        editor.apply();
+        DataStoreManager.getInstance(context)
+                .setPreference(DataStoreManager.SELECTED_LANGUAGE, language)
+                .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+                .subscribe();
     }
 
     private static Context updateResources(Context context, String language) {

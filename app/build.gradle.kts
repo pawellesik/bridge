@@ -64,6 +64,10 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
     implementation(libs.material)
+    implementation(libs.datastore.preferences)
+    implementation(libs.datastore.preferences.rxjava3)
+    implementation(libs.rxjava)
+    implementation(libs.rxandroid)
 
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")

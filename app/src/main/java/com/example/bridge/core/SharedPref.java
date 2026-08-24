@@ -1,43 +1,48 @@
 package com.example.bridge.core;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.example.bridge.R;
-import com.example.bridge.model.Contract;
-import com.example.bridge.model.Suit;
-import com.example.bridge.model.Card;
-import com.example.bridge.model.Trick;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.game.GameTop;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SharedPref {
-    public static final String PREFS_NAME = "BridgePrefs";
-    static final String KEY_CAREER_IMP = "careerImp";
-    static final String KEY_GAMES_PLAYED = "gamesPlayed";
-    GameActivity gameActivity;
+    private final DataStoreManager dataStoreManager;
 
-    public SharedPref(GameActivity gameActivity) {
-        this.gameActivity = gameActivity;
+    public SharedPref(Context context) {
+        this.dataStoreManager = DataStoreManager.getInstance(context);
     }
 
-
     public int getGamesPlayed() {
-        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getInt(KEY_GAMES_PLAYED, 0);
+        try {
+            return dataStoreManager.getPreference(DataStoreManager.GAMES_PLAYED, 0)
+                    .firstOrError()
+                    .onErrorReturnItem(0)
+                    .blockingGet();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public void incrementGamesPlayed() {
-        SharedPreferences prefs = gameActivity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int count = getGamesPlayed() + 1;
-        prefs.edit().putInt(KEY_GAMES_PLAYED, count).apply();
+        int current = getGamesPlayed();
+        dataStoreManager.setPreference(DataStoreManager.GAMES_PLAYED, current + 1)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
+    public int getCareerImp() {
+        try {
+            return dataStoreManager.getPreference(DataStoreManager.CAREER_IMP, 0)
+                    .firstOrError()
+                    .onErrorReturnItem(0)
+                    .blockingGet();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 
-
+    public void setCareerImp(int imp) {
+        dataStoreManager.setPreference(DataStoreManager.CAREER_IMP, imp)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
 }

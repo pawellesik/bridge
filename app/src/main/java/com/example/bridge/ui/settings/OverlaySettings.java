@@ -19,11 +19,11 @@ import com.example.bridge.ui.game.GameController;
 
 public class OverlaySettings {
     private final GameActivity activity;
-    private final SharedPreferences prefs;
+    private final com.example.bridge.core.DataStoreManager dataStoreManager;
 
     public OverlaySettings(GameActivity activity) {
         this.activity = activity;
-        this.prefs = activity.getSharedPreferences("BridgePrefs", Context.MODE_PRIVATE);
+        this.dataStoreManager = com.example.bridge.core.DataStoreManager.getInstance(activity);
         setup();
     }
 
@@ -37,7 +37,16 @@ public class OverlaySettings {
     }
 
     private void setupCardColors() {
-        boolean isColorful = prefs.getBoolean("card_colors_colorful", true);
+        boolean isColorful;
+        try {
+            isColorful = dataStoreManager.getPreference(com.example.bridge.core.DataStoreManager.CARD_COLORS_COLORFUL, true)
+                    .firstOrError()
+                    .onErrorReturnItem(true)
+                    .blockingGet();
+        } catch (Exception e) {
+            isColorful = true;
+        }
+
         RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_card_colors);
         if (rg == null) return;
 
@@ -50,13 +59,24 @@ public class OverlaySettings {
         rg.setOnCheckedChangeListener((group, checkedId) -> {
             boolean colorful = (checkedId == R.id.rb_colorful);
             android.util.Log.d("plesik", "Saving card_colors_colorful: " + colorful);
-            prefs.edit().putBoolean("card_colors_colorful", colorful).commit();
+            dataStoreManager.setPreference(com.example.bridge.core.DataStoreManager.CARD_COLORS_COLORFUL, colorful)
+                    .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+                    .subscribe();
             activity.refreshAllColors();
         });
     }
 
     private void setupQuickGame() {
-        String difficulty = prefs.getString("quick_game_difficulty", "Medium");
+        String difficulty;
+        try {
+            difficulty = dataStoreManager.getPreference(com.example.bridge.core.DataStoreManager.QUICK_GAME_DIFFICULTY, "Medium")
+                    .firstOrError()
+                    .onErrorReturnItem("Medium")
+                    .blockingGet();
+        } catch (Exception e) {
+            difficulty = "Medium";
+        }
+
         RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_difficulty);
         if (rg == null) return;
         
@@ -68,7 +88,9 @@ public class OverlaySettings {
             String newDifficulty = "Medium";
             if (checkedId == R.id.rb_easy) newDifficulty = "Easy";
             else if (checkedId == R.id.rb_hard) newDifficulty = "Hard";
-            prefs.edit().putString("quick_game_difficulty", newDifficulty).apply();
+            dataStoreManager.setPreference(com.example.bridge.core.DataStoreManager.QUICK_GAME_DIFFICULTY, newDifficulty)
+                    .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+                    .subscribe();
         });
     }
 
@@ -103,7 +125,16 @@ public class OverlaySettings {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        String savedSystem = prefs.getString("bidding_system", "SAYC");
+        String savedSystem;
+        try {
+            savedSystem = dataStoreManager.getPreference(com.example.bridge.core.DataStoreManager.BIDDING_SYSTEM, "SAYC")
+                    .firstOrError()
+                    .onErrorReturnItem("SAYC")
+                    .blockingGet();
+        } catch (Exception e) {
+            savedSystem = "SAYC";
+        }
+
         for (int i = 0; i < systems.length; i++) {
             if (systems[i].equals(savedSystem)) {
                 spinner.setSelection(i);
@@ -114,7 +145,9 @@ public class OverlaySettings {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                prefs.edit().putString("bidding_system", systems[position]).apply();
+                dataStoreManager.setPreference(com.example.bridge.core.DataStoreManager.BIDDING_SYSTEM, systems[position])
+                        .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+                        .subscribe();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}

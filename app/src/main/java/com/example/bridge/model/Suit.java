@@ -27,8 +27,16 @@ public enum Suit {
 
     public int getColor(Context context) {
         if (context == null) return colorfulColor;
-        boolean isColorful = context.getSharedPreferences("BridgePrefs", Context.MODE_PRIVATE)
-                .getBoolean("card_colors_colorful", true);
+        boolean isColorful;
+        try {
+            isColorful = com.example.bridge.core.DataStoreManager.getInstance(context)
+                    .getPreference(com.example.bridge.core.DataStoreManager.CARD_COLORS_COLORFUL, true)
+                    .firstOrError()
+                    .onErrorReturnItem(true)
+                    .blockingGet();
+        } catch (Exception e) {
+            isColorful = true;
+        }
         return isColorful ? colorfulColor : standardColor;
     }
 
