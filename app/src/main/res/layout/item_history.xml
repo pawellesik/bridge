@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="2dp"
+        android:paddingVertical="6dp"
         android:paddingHorizontal="8dp">
 
         <!-- Game Mode Icon -->
@@ -77,12 +77,12 @@
         <!-- Result Points -->
         <TextView
             android:id="@+id/tv_history_points"
-            android:layout_width="54dp"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:gravity="center"
             android:textColor="#FFD700"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/history_contract_container"

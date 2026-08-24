@@ -62,7 +62,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             String contractStr = data.optString("Contract", "PASS");
             int snTricks = data.optInt("Result", 0);
-            int imp = data.optInt("Imp", 0);
+            double imp = data.optDouble("Imp", 0.0);
 
             if (contractStr.toUpperCase().contains("PASS")) {
                 holder.tvContract.setText(R.string.contract_pass);
@@ -139,11 +139,11 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             }
 
             // IMP display
-            if (imp != 0) {
-                holder.tvPoints.setText((imp > 0 ? "+" : "") + imp + " IMP");
+            if (imp != 0.0) {
+                holder.tvPoints.setText(String.format(java.util.Locale.US, "%s%.1f IMP", (imp > 0 ? "+" : ""), imp));
                 holder.tvPoints.setTextColor(imp > 0 ? android.graphics.Color.parseColor("#4CAF50") : android.graphics.Color.parseColor("#FF5252"));
             } else {
-                holder.tvPoints.setText("0 IMP");
+                holder.tvPoints.setText("0.0 IMP");
                 holder.tvPoints.setTextColor(android.graphics.Color.WHITE);
             }
 
