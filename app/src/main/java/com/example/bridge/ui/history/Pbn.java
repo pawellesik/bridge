@@ -44,7 +44,7 @@ public class Pbn {
     private List<Trick> playHistory = new ArrayList<>();
     private GameActivity gameActivity;
     private int score = 0;
-    private int imp = 0;
+    private double imp = 0.0;
 
     public Pbn(GameActivity gameActivity, String board) {
         this.gameActivity = gameActivity;
@@ -175,11 +175,11 @@ public class Pbn {
         return score;
     }
 
-    public void setImp(int imp) {
+    public void setImp(double imp) {
         this.imp = imp;
     }
 
-    public int getImp() {
+    public double getImp() {
         return imp;
     }
 
@@ -258,7 +258,7 @@ public class Pbn {
                 this.declarer = json.optString("Declarer", "");
                 this.resultTricks = json.optInt("Result", 0);
                 this.score = json.optInt("Score", 0);
-                this.imp = json.optInt("Imp", 0);
+                this.imp = json.optDouble("Imp", 0.0);
             }
 
             if (json.has("Auction")) {
@@ -409,7 +409,7 @@ public class Pbn {
             sb.append(String.format(Locale.US, "[Contract \"%s\"]\n", formatContract(contract)));
             sb.append(String.format(Locale.US, "[Result \"%d\"]\n", resultTricks));
             sb.append(String.format(Locale.US, "[Score \"%d\"]\n", score));
-            sb.append(String.format(Locale.US, "[Imp \"%d\"]\n", imp));
+            sb.append(String.format(Locale.US, "[Imp \"%.1f\"]\n", imp));
         }
 
         // Auction

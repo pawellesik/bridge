@@ -90,7 +90,7 @@ public class OverlayHistoryGame {
                 activity.runOnUiThread(() -> {
                     reconstructedPbnList.clear();
                     reconstructedPbnList.addAll(loadedPbns);
-                    reconstructedPbnList.sort((p1, p2) -> Integer.compare(p2.getImp(), p1.getImp()));
+                    reconstructedPbnList.sort((p1, p2) -> Double.compare(p2.getImp(), p1.getImp()));
 
                     selectedPbn = null;
                     for (Pbn p : reconstructedPbnList) {
@@ -188,8 +188,8 @@ public class OverlayHistoryGame {
         }
         if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
         if (tvImp != null) {
-            int imp = pbn.getImp();
-            tvImp.setText((imp > 0 ? "+" : "") + imp);
+            double imp = pbn.getImp();
+            tvImp.setText(String.format(java.util.Locale.US, "%s%.1f", (imp > 0 ? "+" : ""), imp));
             tvImp.setTextColor(textColor);
         }
 

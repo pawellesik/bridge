@@ -194,22 +194,27 @@ public class PbnCollection {
         if (twoOverOneGameForce != null) allPbns.add(twoOverOneGameForce);
         if (twoOverOneGameForceRev != null) allPbns.add(twoOverOneGameForceRev);
 
-        if (allPbns.isEmpty()) return;
-
-        // 1. Liczymy średnią (datum)
-        int totalScore = 0;
-        int count = 0;
-        for (Pbn p : allPbns) {
-            totalScore += p.getScore();
-            count++;
+        int n = allPbns.size();
+        if (n <= 1) {
+            for (Pbn p : allPbns) p.setImp(0.0);
+            return;
         }
-        
-        int datum = totalScore / count;
 
-        // 2. Każdy wynik porównujemy z datum i zamieniamy różnicę na IMP
-        for (Pbn p : allPbns) {
-            int diff = p.getScore() - datum;
-            p.setImp(calculateImp(diff));
+        // Cross-IMP calculation
+        for (int i = 0; i < n; i++) {
+            Pbn current = allPbns.get(i);
+            double sumImp = 0;
+            for (int j = 0; j < n; j++) {
+                if (i == j) continue; // Nie porównujemy wyniku z samym sobą
+                
+                int diff = current.getScore() - allPbns.get(j).getScore();
+                sumImp += calculateImp(diff);
+            }
+            
+            // Podział przez liczbę porównań (n-1) i zaokrąglenie do jednego miejsca
+            double finalImp = sumImp / (n - 1);
+            finalImp = Math.round(finalImp * 10.0) / 10.0;
+            current.setImp(finalImp);
         }
     }
 
