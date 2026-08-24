@@ -1,13 +1,13 @@
 package com.example.bridge.core;
 
 import android.content.Context;
-import com.example.bridge.ui.game.GameActivity;
+
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class SharedPref {
+public class DataStore {
     private final DataStoreManager dataStoreManager;
 
-    public SharedPref(Context context) {
+    public DataStore(Context context) {
         this.dataStoreManager = DataStoreManager.getInstance(context);
     }
 

@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
-import com.example.bridge.core.SharedPref;
+import com.example.bridge.core.DataStore;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
@@ -77,7 +77,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private boolean isProcessingMove = false;
     private GameTop gameTop;
     private GameController gameController;
-    private SharedPref sharedPref;
+    private DataStore dataStore;
     private String gameMode;
     private GameBidding gameBidding;
     private PbnCollection pbnCollection;
@@ -113,7 +113,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         loadingIndicator = findViewById(R.id.loading_indicator);
 
         gameTop = new GameTop(this);
-        sharedPref = new SharedPref(this);
+        dataStore = new DataStore(this);
 
         historyOverlay = findViewById(R.id.history_overlay);
         statisticOverlay = findViewById(R.id.statistic_overlay);
@@ -182,7 +182,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
             setBottomNavVisibility(false);
-            sharedPref.incrementGamesPlayed();
+            dataStore.incrementGamesPlayed();
 
             southAdapter.setCardsEnabled(true);
             northAdapter.setCardsEnabled(true);
@@ -318,7 +318,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.put("East", new Player("East", playedCardContainerEast));
         players.put("South", new Player("South", playedCardContainerSouth));
         players.put("West", new Player("West", playedCardContainerWest));
-        gameController = new GameController(this, players, sharedPref);
+        gameController = new GameController(this, players, dataStore);
         gameController.dealCards();
     }
 
