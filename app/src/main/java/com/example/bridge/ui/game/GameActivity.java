@@ -390,6 +390,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             gameBiddingHistoryAdapter.setShowPreviewTile(false);
         }
 
+        // Reduce bottom spacer for review mode
+        View spacer = findViewById(R.id.bidding_bottom_spacer);
+        if (spacer != null) {
+            spacer.getLayoutParams().height = 0;
+            spacer.requestLayout();
+        }
+
         // Ensure scroll to bottom
         gameBiddingHistory.updateBiddingHistory(null, true);
     }
@@ -419,6 +426,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         View pkContainer = findViewById(R.id.public_knowledge_container_layout);
         if (pkContainer != null) pkContainer.setVisibility(View.GONE);
+
+        // Reset bottom spacer for active bidding mode
+        View spacer = findViewById(R.id.bidding_bottom_spacer);
+        if (spacer != null) {
+            spacer.getLayoutParams().height = (int) (44 * getResources().getDisplayMetrics().density);
+            spacer.requestLayout();
+        }
 
         // Uwidocznienie wyboru systemu przy inicjalizacji UI licytacji
         View selectionContainer = findViewById(R.id.system_selection_container);

@@ -135,6 +135,7 @@
 
             <!-- Spacing for bottom controls overlap (Tabs are 36dp) -->
             <View
+                android:id="@+id/bidding_bottom_spacer"
                 android:layout_width="match_parent"
                 android:layout_height="44dp" />
 
