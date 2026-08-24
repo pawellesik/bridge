@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.Conventions;
 
+import com.example.bridge.bidding.LCStandard.NoTrump;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.Call;
@@ -150,18 +151,26 @@ public class AcesAsk extends Bidder {
         PositionCalls choices = new PositionCalls(ps);
         Suit suit = getAgreedSuit(ps);
         Call partnerCall = ps.getPartner().getLastCall();
-        Bid nextBidWithTrump = getNextBidWithTrump(partnerCall, suit);
         if (suit != null) {
             choices.addRules(
+                    // 1. Slams in the agreed suit (ONLY if fit exists)
                     shows(new Bid(7, suit), FIT_8_PLUS, sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 1")),
                     shows(new Bid(7, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(GRAND_SLAM), id("AcesAsk tryGrandSlam 2")),
                     shows(new Bid(6, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 2")),
                     shows(new Bid(6, suit), FIT_8_PLUS, sumPairAcesAndKings(7), id("AcesAsk tryGrandSlam 3")),
-                    shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("AcesAsk tryGrandSlam 4")),
                     shows(new Bid(6, suit), FIT_8_PLUS, secondSuit(suit, 6), hasShortness(0, 1), sumPairAcesAndKings(6, 7), id("AcesAsk tryGrandSlam 5")),
-                    shows(nextBidWithTrump, FIT_8_PLUS, sumPairAcesAndKings("Suma asów i króli mniejsza od 6", 1, 6), id("AcesAsk tryGrandSlam 6")),
-                    shows(new Bid(7, Strain.NoTrump), pairHighCardPoints(GRAND_SLAM), sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 7")),
-                    shows(new Bid(6, Strain.NoTrump), pairHighCardPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 8"))
+
+                    // 2. FALLBACK to NoTrump if there is NO FIT (Simulated suit was used, but we decide NT at the end)
+                    shows(new Bid(7, Strain.NoTrump), fit(suit, false), pairHighCardPoints(GRAND_SLAM), sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 7 NT fall-back")),
+                    shows(new Bid(6, Strain.NoTrump), fit(suit, false), pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7, 8), id("AcesAsk tryGrandSlam 8 NT fall-back")),
+                    shows(new Bid(5, Strain.NoTrump), fit(suit, false), id("AcesAsk tryGrandSlam 9 NT exit")),
+
+                    // 3. Return to agreed suit game level (requires fit)
+                    shows(getNextBidWithTrump(partnerCall, suit), FIT_8_PLUS, sumPairAcesAndKings("Suma asów i króli mniejsza od 6", 1, 6), id("AcesAsk tryGrandSlam 6")),
+                    shows(new Bid(ps.getBiddingState().getContract().getBid().getLevel(), Strain.NoTrump), fit(suit, false), sumPairAcesAndKings("Suma asów i króli mniejsza od 7", 1, 7), id("AcesAsk tryGrandSlam 6")),
+
+                    // 5. Last resort: Pass if we are already in a good contract
+                    shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("AcesAsk tryGrandSlam 4"))
             );
 
         } else {

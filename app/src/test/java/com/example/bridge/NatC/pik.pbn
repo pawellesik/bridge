@@ -393,3 +393,13 @@ pass pass
 [Auction "N"]
 pass PASS 1S PASS
 4S PASS pass pass
+
+[Event "NatC Deal pik 47"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AQT96.K.AQ32.Q62 74.872.K854.T954 K.AJT64.T97.AJ83 J8532.Q953.J6.K7"]
+[Auction "N"]
+1S Pass 3H Pass
+4NT Pass 5H Pass
+5S Pass 6C pass
+6NT Pass Pass Pass

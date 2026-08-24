@@ -84,6 +84,8 @@
 • FIT_8_PLUS - Stała oznaczająca fit co najmniej 8-kartowy w mianie odzywki. (uwaga sprawdza fit w kolorze ktory sami licytujemy)
 • agreedStrain(Strains...) - Sprawdza, czy para uzgodniła już dany kolor jako atut.
 
+ fit(suit, false) - to mowi ze nie mamy fita
+
 9. OPERATORY LOGICZNE I NARZĘDZIA
 ---------------------------------
 • shows(Call, Constraints...) - Podstawowa reguła: "taka odzywka obiecuje takie warunki".
