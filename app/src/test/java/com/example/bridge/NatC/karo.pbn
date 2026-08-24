@@ -230,3 +230,30 @@ pass pass
 3C PASS 3D pass
 4C pass 4D pass
 5D pass pass pass
+
+[Event "NatC diamond 30"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AT632.AQ42.53.T2 KQ875.53.J72.874 9.T96.AKQ84.A965 J4.KJ87.T96.KQJ3"]
+[Auction "N"]
+PASS PASS 1D PASS
+1S PASS 1NT pass
+2H pass pass pass
+
+[Event "NatC diamond 31"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AT632.AQ42.53.T2 KQ875.53.J72.874 96.T9.AKQ84.A965 J4.KJ87.T96.KQJ3"]
+[Auction "N"]
+PASS PASS 1D PASS
+1S PASS pass pass
+
+[Event "NatC diamond 32"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AT632.AQ42.53.T2 KQ875.53.J72.874 9.T9.AKQ84.A9765 J4.KJ87.T96.KQJ3"]
+[Auction "N"]
+PASS PASS 1D PASS
+1S PASS 2C pass
+2H pass 2NT pass
+pass pass
