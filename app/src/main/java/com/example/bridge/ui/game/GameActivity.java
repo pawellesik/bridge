@@ -126,16 +126,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         View btnCloseBidding = findViewById(R.id.btn_close_bidding_overlay);
         if (btnCloseBidding != null) {
-            btnCloseBidding.setOnClickListener(v -> {
-                if (biddingOverlay != null) biddingOverlay.setVisibility(View.GONE);
-                
-                // Show entire top bar info layouts again when closing review
-                View leftInfoLayout = findViewById(R.id.linearLayout);
-                if (leftInfoLayout != null) leftInfoLayout.setVisibility(View.VISIBLE);
-                
-                View lastCardsLayout = findViewById(R.id.last_cards);
-                if (lastCardsLayout != null) lastCardsLayout.setVisibility(View.VISIBLE);
-            });
+            btnCloseBidding.setOnClickListener(v -> hideBiddingOverlay());
         }
 
         gameBidding = new GameBidding(this);
@@ -399,6 +390,17 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBiddingHistory.updateBiddingHistory(null, true);
     }
 
+    public void hideBiddingOverlay() {
+        if (biddingOverlay != null) biddingOverlay.setVisibility(View.GONE);
+
+        // Show entire top bar info layouts again when closing review
+        View leftInfoLayout = findViewById(R.id.linearLayout);
+        if (leftInfoLayout != null) leftInfoLayout.setVisibility(View.VISIBLE);
+
+        View lastCardsLayout = findViewById(R.id.last_cards);
+        if (lastCardsLayout != null) lastCardsLayout.setVisibility(View.VISIBLE);
+    }
+
     private void initBiddingUi() {
         rvBiddingHistory = findViewById(R.id.rv_bidding_history);
         rvBiddingHistory.setLayoutManager(new GridLayoutManager(this, 4));
@@ -406,6 +408,13 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameBiddingHistoryAdapter = new GameBiddingHistoryAdapter(gameBiddingHistory.getAuction());
         gameBiddingHistoryAdapter.setShowPreviewTile(false); // Ukrywamy pusty kwadrat przed startem
         rvBiddingHistory.setAdapter(gameBiddingHistoryAdapter);
+
+        // Reset elements that might have been changed by showBiddingReview
+        View btnClose = findViewById(R.id.btn_close_bidding_overlay);
+        if (btnClose != null) btnClose.setVisibility(View.GONE);
+
+        View pkContainer = findViewById(R.id.public_knowledge_container_layout);
+        if (pkContainer != null) pkContainer.setVisibility(View.GONE);
 
         // Uwidocznienie wyboru systemu przy inicjalizacji UI licytacji
         View selectionContainer = findViewById(R.id.system_selection_container);
@@ -756,7 +765,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     @Override
     public void onGameEnded(int snScore, int weScore, Contract contract, List<Trick> history, int claim) {
-        // 1. Natychmiastowe pokazanie ładowania na UI thread
+        // 1. Natychmiastowe pokazanie ładowania na UI thread i zamknięcie ewentualnej licytacji
+        hideBiddingOverlay();
+
         if (loadingIndicator != null) {
             loadingIndicator.bringToFront();
             loadingIndicator.setVisibility(View.VISIBLE);
