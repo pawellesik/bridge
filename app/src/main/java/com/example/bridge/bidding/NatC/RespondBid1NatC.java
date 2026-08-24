@@ -93,8 +93,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneDiamond _3C")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneDiamond _3C")),
 
-                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _2NT")),
-                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Diamonds, 0, 2), id("RespondNatC.oneDiamond _1NT")),
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, id("RespondNatC.oneDiamond _1NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, id("RespondNatC.oneDiamond _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneDiamond _3NT"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
@@ -125,7 +125,6 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _1S")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2C")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2D")),
-                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _1NT")),
 
                 shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneHeart _2S")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneHeart _3C")),
@@ -134,7 +133,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneHeart _3D")),
 
-                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(Suit.Hearts, 0, 2), id("RespondNatC.oneHeart _2NT")),
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, id("RespondNatC.oneHeart _1NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, id("RespondNatC.oneHeart _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
@@ -160,7 +160,6 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2H")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2C")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2D")),
-                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), shape(Suit.Spades, 0, 2), BALANCED, id("RespondNatC.oneSpade _1NT")),
 
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneSpade _3H")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneSpade _3C")),
@@ -169,7 +168,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneSpade _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), id("RespondNatC.oneSpade _3D")),
 
-                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(Suit.Hearts, 0, 2), id("RespondNatC.oneSpade _2NT")),
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, id("RespondNatC.oneSpade _1NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, id("RespondNatC.oneSpade _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT"))
 
         );
