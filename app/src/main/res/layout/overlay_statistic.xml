@@ -38,7 +38,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Statistics Table -->
+            <!-- Group 1: General Stats -->
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,10 +115,9 @@
                     </LinearLayout>
                 </TableRow>
 
-                <!-- Separator -->
                 <View android:layout_height="0.5dp" android:background="#33FFFFFF" />
 
-                <!-- Row: Games (Używamy ikony listy/historii gier) -->
+                <!-- Row: Games -->
                 <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
                     <LinearLayout android:gravity="center_vertical">
                         <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_history" app:tint="#A4C639" />
@@ -129,8 +128,6 @@
                     <TextView android:gravity="center" android:text="64" android:textColor="#FFFFFF" android:textSize="13sp" />
                 </TableRow>
                 <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-
 
                 <!-- Row: Deals -->
                 <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
@@ -154,9 +151,33 @@
                     <TextView android:gravity="center" android:text="8 (10%)" android:textColor="#FFFFFF" android:textSize="13sp" />
                     <TextView android:gravity="center" android:text="5 (8%)" android:textColor="#FFFFFF" android:textSize="13sp" />
                 </TableRow>
-                <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+            </TableLayout>
 
-                <!-- Row: IMP (Używamy nowej ikony pucharu) -->
+            <!-- Divider between groups -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="24dp"
+                android:background="#33FFFFFF" />
+
+            <!-- Group 2: Performance Stats -->
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1,2,3">
+
+                <!-- Sub-header for Performance -->
+                <TableRow android:paddingBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PERFORMANCE"
+                        android:textColor="#A4C639"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <!-- Row: IMP -->
                 <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
                     <LinearLayout android:gravity="center_vertical">
                         <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_trophy" app:tint="#A4C639" />
@@ -180,7 +201,7 @@
                 </TableRow>
                 <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
 
-                <!-- Row: Wins (Używamy ikony medalu) -->
+                <!-- Row: Wins -->
                 <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
                     <LinearLayout android:gravity="center_vertical">
                         <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_medal" app:tint="#A4C639" />
@@ -201,6 +222,61 @@
                     <TextView android:gravity="center" android:text="16 (12%)" android:textColor="#FFFFFF" android:textSize="13sp" />
                     <TextView android:gravity="center" android:text="12 (15%)" android:textColor="#FFFFFF" android:textSize="13sp" />
                     <TextView android:gravity="center" android:text="16 (25%)" android:textColor="#FFFFFF" android:textSize="13sp" />
+                </TableRow>
+
+                <!-- Row: Clear Buttons -->
+                <TableRow android:layout_marginTop="16dp" android:gravity="center_vertical">
+                    <View /> <!-- Empty space for label column -->
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_clear_just_declare"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:padding="0dp"
+                        android:text="CLEAR"
+                        android:textColor="#C62828"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:icon="@drawable/ic_delete"
+                        app:iconGravity="textStart"
+                        app:iconPadding="2dp"
+                        app:iconSize="12dp"
+                        app:iconTint="#C62828"
+                        app:rippleColor="#20C62828" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_clear_singleplayer"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:padding="0dp"
+                        android:text="CLEAR"
+                        android:textColor="#C62828"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:icon="@drawable/ic_delete"
+                        app:iconGravity="textStart"
+                        app:iconPadding="2dp"
+                        app:iconSize="12dp"
+                        app:iconTint="#C62828"
+                        app:rippleColor="#20C62828" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_clear_multiplayer"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:padding="0dp"
+                        android:text="CLEAR"
+                        android:textColor="#C62828"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:icon="@drawable/ic_delete"
+                        app:iconPadding="2dp"
+                        app:iconSize="12dp"
+                        app:iconTint="#C62828"
+                        app:rippleColor="#20C62828" />
                 </TableRow>
 
             </TableLayout>
