@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bidding_history_outer_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_bidding_container"
     android:padding="1dp">
 
@@ -28,10 +28,11 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bidding_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
         android:overScrollMode="never"
         android:background="@drawable/bg_bidding_scroll_area"
+        app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bidding_header">
 
