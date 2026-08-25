@@ -284,7 +284,14 @@ public class SingleGameBidding {
             ssb.append("Krole: ").append(kings.toString()).append(" ");
         }
 
-        for (com.example.bridge.bidding.Tools.Suit s : com.example.bridge.bidding.Tools.Suit.values()) {
+        com.example.bridge.bidding.Tools.Suit[] orderedSuits = {
+                com.example.bridge.bidding.Tools.Suit.Spades,
+                com.example.bridge.bidding.Tools.Suit.Hearts,
+                com.example.bridge.bidding.Tools.Suit.Diamonds,
+                com.example.bridge.bidding.Tools.Suit.Clubs
+        };
+
+        for (com.example.bridge.bidding.Tools.Suit s : orderedSuits) {
             HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
             if (suitSum != null) {
                 Range shape = suitSum.getShape();

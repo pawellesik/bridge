@@ -91,7 +91,8 @@ public class PlesikDescriptions {
                 sb.append("Krole: ").append(kings).append(" ");
             }
 
-            for (Suit s : Suit.values()) {
+            Suit[] orderedSuits = {Suit.Spades, Suit.Hearts, Suit.Diamonds, Suit.Clubs};
+            for (Suit s : orderedSuits) {
                 HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
                 if (suitSum != null) {
                     Range shape = suitSum.getShape();
