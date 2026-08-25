@@ -130,17 +130,7 @@
                 </TableRow>
                 <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
 
-                <!-- Row: Sessions -->
-                <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
-                    <LinearLayout android:gravity="center_vertical">
-                        <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow" app:tint="#A4C639" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Sessions" android:textColor="#B0B0B0" android:textSize="12sp" />
-                    </LinearLayout>
-                    <TextView android:gravity="center" android:text="96" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    <TextView android:gravity="center" android:text="78" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    <TextView android:gravity="center" android:text="52" android:textColor="#FFFFFF" android:textSize="13sp" />
-                </TableRow>
-                <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+
 
                 <!-- Row: Deals -->
                 <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
@@ -166,10 +156,10 @@
                 </TableRow>
                 <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
 
-                <!-- Row: IMP -->
+                <!-- Row: IMP (Używamy nowej ikony pucharu) -->
                 <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
                     <LinearLayout android:gravity="center_vertical">
-                        <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_star" app:tint="#A4C639" />
+                        <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_trophy" app:tint="#A4C639" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="IMP" android:textColor="#A4C639" android:textSize="12sp" />
                     </LinearLayout>
                     <TextView android:gravity="center" android:text="+56" android:textColor="#A4C639" android:textSize="13sp" />
@@ -190,10 +180,10 @@
                 </TableRow>
                 <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
 
-                <!-- Row: Wins -->
+                <!-- Row: Wins (Powrót do ikony gwiazdki) -->
                 <TableRow android:paddingVertical="10dp" android:gravity="center_vertical">
                     <LinearLayout android:gravity="center_vertical">
-                        <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_check_circle" app:tint="#A4C639" />
+                        <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_star" app:tint="#A4C639" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Wins" android:textColor="#B0B0B0" android:textSize="12sp" />
                     </LinearLayout>
                     <TextView android:gravity="center" android:text="78 (61%)" android:textColor="#FFFFFF" android:textSize="13sp" />
