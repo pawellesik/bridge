@@ -691,7 +691,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         } else if ("South".equals(playerName)) {
             updateDisplayHandSouth();
         }
-        playerLabels.updateLabel(playerName, gameController.getPlayers().get(playerName), gameMode);
     }
 
     @Override

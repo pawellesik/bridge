@@ -12,6 +12,7 @@ public class Player {
     private final List<Card> hand = new ArrayList<>();
     private boolean isCurrentMove = false;
     private final FrameLayout playedCardContainer;
+    private int initialHCP = 0;
 
     public Player(String name, FrameLayout playedCardContainer) {
         this.name = name;
@@ -89,6 +90,15 @@ public class Player {
 
     public void clearHand() {
         hand.clear();
+        initialHCP = 0;
+    }
+
+    public int getInitialHCP() {
+        return initialHCP;
+    }
+
+    public void setInitialHCP(int initialHCP) {
+        this.initialHCP = initialHCP;
     }
 
     public int calculateHCP() {

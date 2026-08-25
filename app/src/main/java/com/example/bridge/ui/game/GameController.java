@@ -103,6 +103,7 @@ public class GameController {
             for (Player player : players.values()) {
                 player.clearHand();
                 player.addCards(deck.deal(13));
+                player.setInitialHCP(player.calculateHCP());
                 player.setCurrentMove(false);
             }
 
@@ -156,8 +157,13 @@ public class GameController {
     private void swapHands(Player p1, Player p2) {
         if (p1 == null || p2 == null) return;
         List<Card> tempHand = new ArrayList<>(p1.getHand());
+        int tempHCP = p1.getInitialHCP();
+        
         p1.setHandDirectly(new ArrayList<>(p2.getHand()));
+        p1.setInitialHCP(p2.getInitialHCP());
+        
         p2.setHandDirectly(tempHand);
+        p2.setInitialHCP(tempHCP);
     }
 
     public void startGame() {

@@ -20,7 +20,7 @@ public class GameLabelHelper {
         String baseName = context.getString(resId);
 
         if ("single".equals(gameMode) && player != null && ("North".equals(playerName) || "South".equals(playerName))) {
-            return String.format(Locale.US, "%s %d HCP", baseName, player.calculateHCP());
+            return String.format(Locale.US, "%s %d HCP", baseName, player.getInitialHCP());
         }
 
         return baseName;
