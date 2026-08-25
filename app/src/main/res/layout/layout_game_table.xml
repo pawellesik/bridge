@@ -31,10 +31,10 @@
         android:gravity="center"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/top_bar_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp"/> <!-- Adjusted to be below top_bar -->
+        android:layout_marginTop="44dp"/> <!-- Positioned directly below IMP score -->
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -209,7 +209,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
         android:elevation="100dp"
         android:translationZ="100dp"
@@ -217,7 +217,7 @@
         app:layout_constraintBottom_toBottomOf="@id/rv_hand_north"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/system_status_bar_spacer"
+        app:layout_constraintTop_toTopOf="@id/top_bar_container"
         tools:visibility="visible" />
 
     <!-- Bidding Controls Overlay - Perfect Vertical Alignment -->

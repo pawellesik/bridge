@@ -285,7 +285,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameTop.setTotalImp(dataStore.getCareerImp(gameMode));
 
         gameTop.hideContract();
-        if (topBar != null) topBar.setVisibility(View.GONE);
+        if (topBar != null) {
+            topBar.setVisibility(View.VISIBLE);
+            // Hide other parts of top bar to show only IMP at the start
+            View leftInfo = findViewById(R.id.linearLayout);
+            if (leftInfo != null) leftInfo.setVisibility(View.GONE);
+            View rightInfo = findViewById(R.id.last_cards);
+            if (rightInfo != null) rightInfo.setVisibility(View.GONE);
+        }
         biddingOverlay.setVisibility(View.VISIBLE);
         onHandUpdated("South");
         playerLabels.updateAll(gameController.getPlayers(), gameMode);
@@ -740,9 +747,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (biddingControlsOverlay != null) {
             biddingControlsOverlay.setVisibility(View.GONE);
         }
-        if (biddingOverlay != null) {
-            biddingOverlay.setVisibility(View.GONE);
-        }
+        
+        hideBiddingOverlay();
+
         if (topBar != null) {
             topBar.setVisibility(View.VISIBLE);
         }
