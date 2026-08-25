@@ -9,6 +9,7 @@ import java.util.Map;
 public class GamePlayerLabels {
     private TextView viewNorth, viewSouth, viewEast, viewWest;
     private final GameActivity activity;
+    private boolean isRotated = false;
 
     public GamePlayerLabels(GameActivity activity) {
         this.activity = activity;
@@ -20,18 +21,11 @@ public class GamePlayerLabels {
         this.viewSouth = activity.findViewById(R.id.name_south);
         this.viewEast = activity.findViewById(R.id.name_east);
         this.viewWest = activity.findViewById(R.id.name_west);
+        this.isRotated = false;
     }
 
-    public void swapNS() {
-        TextView temp = viewNorth;
-        viewNorth = viewSouth;
-        viewSouth = temp;
-    }
-
-    public void swapEW() {
-        TextView temp = viewEast;
-        viewEast = viewWest;
-        viewWest = temp;
+    public void setRotated(boolean rotated) {
+        this.isRotated = rotated;
     }
 
     public void updateAll(Map<String, Player> players, String gameMode) {
@@ -42,9 +36,18 @@ public class GamePlayerLabels {
     }
 
     public void updateLabel(String playerName, Player player, String gameMode) {
+        String logicalNameForLabel = playerName;
+        if (isRotated) {
+            switch (playerName) {
+                case "North": logicalNameForLabel = "South"; break;
+                case "South": logicalNameForLabel = "North"; break;
+                case "East": logicalNameForLabel = "West"; break;
+                case "West": logicalNameForLabel = "East"; break;
+            }
+        }
         TextView tv = getTextView(playerName);
         if (tv != null) {
-            tv.setText(GameLabelHelper.getFormattedPlayerName(activity, playerName, player, gameMode));
+            tv.setText(GameLabelHelper.getFormattedPlayerName(activity, logicalNameForLabel, player, gameMode));
         }
     }
 

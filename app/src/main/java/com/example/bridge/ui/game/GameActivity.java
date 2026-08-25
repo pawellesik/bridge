@@ -770,8 +770,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     public void onPlayersSwapped(boolean ns, boolean ew) {
         if (playerLabels != null) {
             playerLabels.resetViews();
-            if (ns) playerLabels.swapNS();
-            if (ew) playerLabels.swapEW();
+            if (ns || ew) {
+                playerLabels.setRotated(true);
+            }
             playerLabels.updateAll(gameController.getPlayers(), gameMode);
         }
     }
