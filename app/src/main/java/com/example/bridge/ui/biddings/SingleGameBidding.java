@@ -226,6 +226,16 @@ public class SingleGameBidding {
         View container = activity.findViewById(R.id.public_knowledge_container_layout);
         if (container == null) return;
 
+        // Pokaż wiedzę publiczną tylko jeśli North lub South wykonali już jakąś odzywkę
+        PositionState northPos = liveBiddingState.getPositions().get(Direction.N);
+        PositionState southPos = liveBiddingState.getPositions().get(Direction.S);
+
+        if ((northPos == null || northPos.getCallCount() == 0) &&
+                (southPos == null || southPos.getCallCount() == 0)) {
+            container.setVisibility(View.GONE);
+            return;
+        }
+
         container.setVisibility(View.VISIBLE);
 
         TextView tvNorth = container.findViewById(R.id.tv_pk_north);
@@ -235,7 +245,6 @@ public class SingleGameBidding {
         updatePlayerKnowledge(tvNorth, Direction.N);
         updatePlayerKnowledge(tvSouth, Direction.S);
 
-        PositionState northPos = liveBiddingState.getPositions().get(Direction.N);
         com.example.bridge.bidding.Tools.Suit nsTrump = (northPos != null) ? northPos.getPairState().getTrumpSuit() : null;
         if (nsTrump != null) {
             tvTrump.setVisibility(View.VISIBLE);
