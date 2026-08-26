@@ -41,12 +41,17 @@ public class OpenBid1NatC extends NatC {
 
         bids.add(shows(Bid._1C, OpeningStrongBidding));
 
+
+        bids.add(shows(Bid._1S, OpenBidding, shape(6, 10), id("OpenNatC.openSuit _1S")));
+        bids.add(shows(Bid._1H, OpenBidding, shape(6, 10), id("OpenNatC.openSuit _1H")));
         bids.add(shows(Bid._1S, OpenBidding, shape(5, 10), id("OpenNatC.openSuit _1S")));
         bids.add(shows(Bid._1H, OpenBidding, shape(5, 10), id("OpenNatC.openSuit _1H")));
         bids.add(shows(Bid._1D, OpenBidding, shape(5, 10), id("OpenNatC.openSuit _1D")));
         bids.add(shows(Bid._1C, OpenBidding, id("OpenNatC.openSuit _1C")));
 
         if (ps.getSeat() >= 3) {
+            bids.add(shows(Bid._1S, OpenBiddingThirtSeat, shape(6, 10), id("OpenNatC.openSuit _1S")));
+            bids.add(shows(Bid._1H, OpenBiddingThirtSeat, shape(6, 10), id("OpenNatC.openSuit _1H")));
             bids.add(shows(Bid._1S, OpenBiddingThirtSeat, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1S")));
             bids.add(shows(Bid._1H, OpenBiddingThirtSeat, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1H")));
             bids.add(shows(Bid._1D, OpenBiddingThirtSeat, shape(5, 10), id("OpenNatC.openSuit OpenAfterPass _1D")));

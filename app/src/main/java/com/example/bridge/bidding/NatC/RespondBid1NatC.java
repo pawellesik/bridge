@@ -114,7 +114,7 @@ public class RespondBid1NatC extends NatC {
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
-                shows(Bid._4H, highCardPoints(MINIMUM_HAND), fit(9),  secondSuit(Suit.Hearts, 5), setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _4H")),
+                shows(Bid._4H, highCardPoints(MINIMUM_HAND), fit(9), secondSuit(Suit.Hearts, 5), setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _4H")),
 
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), id("RespondNatC.oneHeart WEAK_LONG _3S")),
 
@@ -123,8 +123,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _3H")),
 
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _1S")),
-                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2C")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneHeart _2C")),
 
                 shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneHeart _2S")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneHeart _3C")),
@@ -151,15 +151,15 @@ public class RespondBid1NatC extends NatC {
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true),
 
-                shows(Bid._4S, highCardPoints(MINIMUM_HAND), fit(9),  secondSuit(Suit.Spades, 5), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
+                shows(Bid._4S, highCardPoints(MINIMUM_HAND), fit(9), secondSuit(Suit.Spades, 5), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
 
                 shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
                 shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
                 shows(Bid._3S, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
 
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2H")),
-                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2C")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), id("RespondNatC.oneSpade _2C")),
 
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneSpade _3H")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneSpade _3C")),
