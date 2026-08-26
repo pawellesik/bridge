@@ -82,7 +82,6 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._4S, fit(7), pairHighCardPoints(PAIR_GAME), NOT_BALANCED, partner(isLastBid(Bid._3S)), setTrumpColor(Suit.Spades), id("CompeteNatC.compBids NOT_BALANCED _4S")));
 
         bids.add(shows(Bid._3NT, BALANCED, IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
-        bids.add(shows(Bid._3NT, PAIR_BALANCED, IS_NON_JUMP, pairHighCardPoints(PAIR_GAME), noFit(7), id("RecursionNatC.recursionFindFitGame BALANCED, PAIR_BALANCED _3NT")));
 
         bids.add(shows(Call.PASS, id("CompeteNatC.compBids _PASS")));
 
