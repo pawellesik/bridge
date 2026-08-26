@@ -47,6 +47,11 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3H, shape(6, 10), IS_REBID, noFit(7), not(suitBidCount(2)), id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
                 shows(Bid._3S, shape(6, 10), IS_REBID, noFit(7), not(suitBidCount(2)), id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
 
+                shows(Bid._3C, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
+                shows(Bid._3D, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
+                shows(Bid._3H, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
+                shows(Bid._3S, shape(6, 10), IS_REBID, partner(isLastBid(Bid._2NT)), id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
+
                 shows(Bid._3C, shape(7, 10), IS_REBID, noFit(7), id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
                 shows(Bid._3D, shape(7, 10), IS_REBID, noFit(7), id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
                 shows(Bid._3H, shape(7, 10), IS_REBID, noFit(7), id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),

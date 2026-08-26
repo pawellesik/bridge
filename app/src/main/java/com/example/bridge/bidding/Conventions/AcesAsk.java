@@ -17,7 +17,6 @@ import java.util.List;
 
 public class AcesAsk extends Bidder {
     public static final Range ASK_ACES = new Range(14, 40);
-    public static final Range HIGHT_GAME = new Range(28, 40);
     public static final Range SLAM_OR_BETTER = new Range(30, 40);
     public static final Range GRAND_SLAM = new Range(36, 40);
 
@@ -28,11 +27,11 @@ public class AcesAsk extends Bidder {
         Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
 
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
-        bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(HIGHT_GAME), highCardPoints(ASK_ACES), id(" initiateConventionAcesAsk 1")));
-        bids.add(shows(Bid._4C, fit(partnerSuit), IS_ANY_JUMP, partner(isLastBid(Bid._3H)), pairHighCardPoints(HIGHT_GAME), highCardPoints(ASK_ACES), setTrumpColor(Suit.Hearts), id(" initiateConventionAcesAsk 2")));
-        bids.add(shows(Bid._4C, fit(partnerSuit), IS_ANY_JUMP, partner(isLastBid(Bid._3S)), pairHighCardPoints(HIGHT_GAME), highCardPoints(ASK_ACES), setTrumpColor(Suit.Spades), id(" initiateConventionAcesAsk 3")));
-        bids.add(shows(Bid._4C, fit(partnerSuit), setTrumpColor(partnerSuit), IS_ANY_JUMP, highCardPoints(ASK_ACES), pairHighCardPoints(SLAM_OR_BETTER), id(" initiateConventionAcesAsk 4")));
-        bids.add(shows(Bid._4C, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), shape(Suit.Hearts, 2, 4), shape(Suit.Spades, 2, 4), shape(Suit.Clubs, 2, 5), shape(Suit.Diamonds, 2, 5), partner(isLastBid(Bid._1NT)), id("initiateConventionAcesAsk 5")));
+        bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), id(" initiateConventionAcesAsk 1")));
+        bids.add(shows(Bid._4C, fit(partnerSuit), IS_ANY_JUMP, partner(isLastBid(Bid._3H)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Hearts), id(" initiateConventionAcesAsk 2")));
+        bids.add(shows(Bid._4C, fit(partnerSuit), IS_ANY_JUMP, partner(isLastBid(Bid._3S)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Spades), id(" initiateConventionAcesAsk 3")));
+        bids.add(shows(Bid._4C, fit(partnerSuit), setTrumpColor(partnerSuit), IS_ANY_JUMP, pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), id(" initiateConventionAcesAsk 4")));
+        bids.add(shows(Bid._4C, IS_ANY_JUMP, pairPoints(SLAM_OR_BETTER), shape(Suit.Hearts, 2, 4), shape(Suit.Spades, 2, 4), shape(Suit.Clubs, 2, 5), shape(Suit.Diamonds, 2, 5), partner(isLastBid(Bid._1NT)), id("initiateConventionAcesAsk 5")));
 
         return bids;
     }
@@ -56,7 +55,7 @@ public class AcesAsk extends Bidder {
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), shape(Suit.Hearts, 2, 4), shape(Suit.Spades, 2, 4), shape(Suit.Clubs, 2, 5), shape(Suit.Diamonds, 2, 5), partner(isLastBid(Bid._1NT)), id("initiateConventionBlok AcesAsk 4")));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(Suit.Hearts), partner(isLastBid(Bid._3H)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Hearts), id("initiateConventionBlok AcesAsk 5")));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(Suit.Spades), partner(isLastBid(Bid._3S)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Spades), id("initiateConventionBlok AcesAsk 6")));
-        bids.add(shows(Bid._4NT, pairHighCardPoints(GRAND_SLAM),  id("initiateConventionBlok AcesAsk 7")));
+        bids.add(shows(Bid._4NT, pairHighCardPoints(GRAND_SLAM), id("initiateConventionBlok AcesAsk 7")));
         bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairPoints(GRAND_SLAM), id("initiateConventionBlok AcesAsk 7")));
 
         return bids;
