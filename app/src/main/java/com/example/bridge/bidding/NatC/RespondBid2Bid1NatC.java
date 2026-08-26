@@ -46,8 +46,12 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._2S, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _2S")),
                 shows(Bid._3H, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidNegatStrong _3H")),
                 shows(Bid._3H, shape(5, 10), noFit(), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3H")),
-                shows(Bid._3C, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _3C")),
-                shows(Bid._3D, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _3D"))
+                shows(Bid._3C, noFit(), shape(5, 10), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3C")),
+                shows(Bid._3D, noFit(), shape(5, 10), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3D")),
+                shows(Bid._3C, noFit(), shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3C")),
+                shows(Bid._3D, noFit(), shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3D"))
+
+
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
