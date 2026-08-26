@@ -89,8 +89,11 @@ public class NoTrumpNatC extends Bidder {
                 shows(Bid._4H, OPEN_ACCEPT_INVITE, partner(isLastBid(Bid._2H)), fit(), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4H")),
                 shows(Bid._4S, OPEN_ACCEPT_INVITE, partner(isLastBid(Bid._2S)), fit(), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4S")),
 
-                shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid fit() 4H")),
-                shows(Bid._4S, fit(), partner(isLastBid(Bid._3S)), setTrumpColor(Suit.Spades), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid fit() 4S")),
+                shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)),  setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid fit() 4H")),
+                shows(Bid._4S, fit(), partner(isLastBid(Bid._3S)),  setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid fit() 4S")),
+
+                shows(Bid._3H, shape(4), partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid shape 3H)")),
+                shows(Bid._3S, shape(4), partner(isLastBid(Bid._2NT)),  id("NoTrumpNatC.openerRebid shape 3S")),
 
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3C)), id("NoTrumpNatC.openerRebid PAIR_BALANCED 3C 3NT")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), partner(isLastBid(Bid._3D)), id("NoTrumpNatC.openerRebid PAIR_BALANCED 3D 3NT"))

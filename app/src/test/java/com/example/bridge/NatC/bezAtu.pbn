@@ -117,3 +117,21 @@ pass pass
 PASS PASS 1NT PASS
 3S PASS 4S pass
 pass pass
+
+[Event "NatC  bezAtu 15"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K843.AK7.K94.A95 AT952.86.J65.T74 J6.QJ52.Q8732.Q6 Q7.T943.AT.KJ832"]
+[Auction "N"]
+1NT PASS 2NT PASS
+3S PASS 3NT PASS
+pass pass
+
+[Event "NatC  bezAtu 16"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K843.AK7.K94.A95 AT952.86.J65.T74 J652.QJ.Q8732.Q6 Q7.T943.AT.KJ832"]
+[Auction "N"]
+1NT PASS 2NT PASS
+3S PASS 4S PASS
+pass pass
