@@ -292,6 +292,26 @@ public abstract class Bidder {
         return new BidHistory(0, new Bid(level, strain));
     }
 
+    /**
+     * Sprawdza ile razy wcześniej gracz licytował dany kolor.
+     * @param count Liczba dotychczasowych licytacji koloru (0 = pierwszy raz, 1 = rebid, itd.)
+     */
+    public static StaticConstraint suitBidCount(int count) {
+        return new SimpleStaticConstraint((call, ps) -> {
+            if (!(call instanceof Bid)) return false;
+            Suit s = ((Bid) call).getSuit();
+            if (s == null) return false;
+            int found = 0;
+            for (int i = 0; i < ps.getCallCount(); i++) {
+                Call c = ps.getCallDetails(i).getCall();
+                if (c instanceof Bid && ((Bid) c).getSuit() == s) {
+                    found++;
+                }
+            }
+            return found == count;
+        }, (call, ps) -> "suit already bid " + count + " times");
+    }
+
     public static StaticConstraint partnerBidLevel(int min, int max) {
         return new SimpleStaticConstraint((call, ps) -> {
             Call last = ps.getPartner().getLastCall();

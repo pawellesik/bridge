@@ -20,6 +20,13 @@
 • hasMultipleShortness(count, min, max)  - Liczba krókości
 • secondSuit(exclude, min) - Posiadanie drugiego koloru (poza wykluczonym) o danej minimalnej długości.
 • twoSuiter(min) - Ręka dwukolorowa (posiadanie co najmniej dwóch kolorów o min. długości).
+•
+suitBidCount(0) – licytujesz ten kolor po raz pierwszy.
+•
+suitBidCount(1) – licytujesz ten kolor po raz drugi (pierwszy rebid).
+•
+suitBidCount(2) – licytujesz ten kolor po raz trzeci (drugi rebid).
+
 
 3. RELACJE MIĘDZY KOLORAMI
 --------------------------
