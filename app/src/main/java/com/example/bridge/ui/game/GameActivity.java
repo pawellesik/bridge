@@ -35,6 +35,7 @@ import com.example.bridge.ui.history.OverlayHistoryGame;
 import com.example.bridge.ui.history.OverlayHistoryList;
 import com.example.bridge.ui.history.PbnCollection;
 import com.example.bridge.ui.settings.OverlaySettings;
+import com.example.bridge.ui.statistic.OverlayStatistic;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -71,6 +72,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private OverlayHistoryList overlayHistoryList;
     private OverlayHistoryGame overlayHistoryGame;
     private OverlaySettings overlaySettings;
+    private OverlayStatistic overlayStatistic;
     GameBiddingHistoryAdapter gameBiddingHistoryAdapter;
     private final List<Card> displayHandSouth = new ArrayList<>();
     private final List<Card> displayHandNorth = new ArrayList<>();
@@ -132,6 +134,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         pbnCollection = new PbnCollection(this);
         overlayHistoryList = new OverlayHistoryList(this);
         overlayHistoryGame = new OverlayHistoryGame(this);
+        overlayStatistic = new OverlayStatistic(this);
 
         setupRecyclerView();
 
@@ -156,6 +159,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     return true;
                 } else if (itemId == R.id.nav_statistic) {
                     statisticOverlay.setVisibility(View.VISIBLE);
+                    if (overlayStatistic != null) overlayStatistic.refresh();
                     settingsOverlay.setVisibility(View.GONE);
                     historyOverlay.setVisibility(View.GONE);
                     bottomNav.setVisibility(View.VISIBLE);
@@ -243,6 +247,14 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     public View getSettingsOverlay() {
         return settingsOverlay;
+    }
+
+    public View getStatisticOverlay() {
+        return statisticOverlay;
+    }
+
+    public OverlayStatistic getOverlayStatistic() {
+        return overlayStatistic;
     }
 
     public View getTopBar() {
