@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingBottom="100dp"
+        android:paddingBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statistic_header_container">
 
@@ -36,25 +36,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
-
-
-            <!-- GROUP 1: GLOBAL STATISTICS -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:letterSpacing="0.1"
-                android:text="GLOBAL STATISTICS"
-                android:textColor="#4DFFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
+            <!-- SESSION STATISTICS CARD (TOP POSITION, WITH CLEAR BUTTONS) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
@@ -63,404 +51,496 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:stretchColumns="1,2,3">
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*">
 
                     <!-- Table Column Header Row -->
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:paddingBottom="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:text="METRIC"
+                            android:text="SESSION"
                             android:textColor="#4DFFFFFF"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
+
                             <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
                                 android:src="@drawable/ic_arrow"
                                 app:tint="#FFFFFF" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
+                                android:gravity="center"
+                                android:maxLines="2"
                                 android:text="Just Declare"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
+
                             <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
                                 android:src="@drawable/ic_person"
                                 app:tint="#FFFFFF" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
+                                android:gravity="center"
+                                android:maxLines="2"
                                 android:text="Singleplayer"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
+
                             <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
                                 android:src="@drawable/ic_multi"
                                 app:tint="#FFFFFF" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
+                                android:gravity="center"
+                                android:maxLines="2"
                                 android:text="Multiplayer"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
                     </TableRow>
 
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: Games -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_history" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Games" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="128" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="96" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="64" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: Deals -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_cards" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Deals" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="1,248" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="1,032" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="712" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: Concedes -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow" android:rotation="180" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Concedes" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="12 (9%)" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="8 (10%)" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="5 (8%)" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: IMP -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_trophy" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="IMP" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="+56" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="+22" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="+34" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: Avg IMP / Deal -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_statistic" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Avg IMP / Deal" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="+0.45" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="+0.21" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="+0.48" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: Max IMP -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_star" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Max IMP" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="+18" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="+12" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="+15" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: Wins -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_medal" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Wins" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="78 (61%)" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="46 (59%)" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="32 (50%)" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: Losses -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_close" app:tint="#E57373" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Losses" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="16 (12%)" android:textColor="#E57373" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="12 (15%)" android:textColor="#E57373" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="16 (25%)" android:textColor="#E57373" android:textSize="13sp" />
-                    </TableRow>
-
-                </TableLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- GROUP 2: CUSTOM RANGE / SESSION STATISTICS (WITH CLEAR OPTION) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:letterSpacing="0.1"
-                android:text="SESSION STATISTICS"
-                android:textColor="#4DFFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="#16321A"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:stretchColumns="1,2,3">
-
-                    <!-- Table Column Header Row -->
                     <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp">
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_history"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Games"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="METRIC"
-                            android:textColor="#4DFFFFFF"
-                            android:textSize="10sp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="24"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <TextView
                             android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_arrow"
-                                app:tint="#FFFFFF" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Just Declare"
-                                android:textColor="#80FFFFFF"
-                                android:textSize="10sp" />
-                        </LinearLayout>
+                            android:maxLines="1"
+                            android:text="18"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <TextView
                             android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_person"
-                                app:tint="#FFFFFF" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Singleplayer"
-                                android:textColor="#80FFFFFF"
-                                android:textSize="10sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_multi"
-                                app:tint="#FFFFFF" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Multiplayer"
-                                android:textColor="#80FFFFFF"
-                                android:textSize="10sp" />
-                        </LinearLayout>
+                            android:maxLines="1"
+                            android:text="12"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
 
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
-
-                    <!-- Row: Games -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_history" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Games" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="24" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="18" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="12" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: Deals -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
                         <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_cards" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Deals" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_cards"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Deals"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
                         </LinearLayout>
-                        <TextView android:gravity="center" android:text="212" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="180" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="140" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="212"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="180"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="140"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: Concedes -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
                         <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow" android:rotation="180" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Concedes" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:rotation="180"
+                                android:src="@drawable/ic_arrow"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Concedes"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
                         </LinearLayout>
-                        <TextView android:gravity="center" android:text="2 (1%)" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="1 (1%)" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="0 (0%)" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="2 (1%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="1 (1%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0 (0%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: IMP -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
-                        <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_trophy" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="IMP" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        </LinearLayout>
-                        <TextView android:gravity="center" android:text="+14" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="+8" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="+6" android:textColor="#FFFFFF" android:textSize="13sp" />
-                    </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
 
-                    <!-- Row: Avg IMP / Deal -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
                         <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_statistic" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Avg IMP / Deal" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_trophy"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="IMP"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
                         </LinearLayout>
-                        <TextView android:gravity="center" android:text="+0.52" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="+0.30" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="+0.25" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+14"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+8"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+6"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+
+
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: Max IMP -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
                         <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_star" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Max IMP" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Max IMP"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
                         </LinearLayout>
-                        <TextView android:gravity="center" android:text="+12" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="+8" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="+10" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+12"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+8"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+10"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: Wins -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
                         <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_medal" app:tint="#FFFFFF" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Wins" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_medal"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Wins"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
                         </LinearLayout>
-                        <TextView android:gravity="center" android:text="16 (67%)" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="11 (61%)" android:textColor="#FFFFFF" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="7 (58%)" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="16 (67%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="11 (61%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="7 (58%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
-                    <View android:layout_height="0.5dp" android:background="#1AFFFFFF" />
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: Losses -->
-                    <TableRow android:paddingVertical="8dp" android:gravity="center_vertical">
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
                         <LinearLayout android:gravity="center_vertical">
-                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_close" app:tint="#E57373" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Losses" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_close"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Losses"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
                         </LinearLayout>
-                        <TextView android:gravity="center" android:text="3 (12%)" android:textColor="#E57373" android:textSize="13sp" android:textStyle="bold" />
-                        <TextView android:gravity="center" android:text="2 (11%)" android:textColor="#E57373" android:textSize="13sp" />
-                        <TextView android:gravity="center" android:text="3 (25%)" android:textColor="#E57373" android:textSize="13sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="3 (12%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="2 (11%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="3 (25%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
 
                     <!-- Separator Line before Clear Buttons -->
-                    <View android:layout_height="0.5dp" android:layout_marginTop="12dp" android:background="#1AFFFFFF" />
+                    <View
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="12dp"
+                        android:background="#1AFFFFFF" />
 
                     <!-- Row: Clear Buttons -->
-                    <TableRow android:layout_marginTop="12dp" android:gravity="center_vertical">
+                    <TableRow
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical">
+
                         <View /> <!-- Label column space -->
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_clear_just_declare"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="32dp"
-                            android:layout_marginHorizontal="2dp"
+                            android:layout_height="28dp"
+                            android:layout_marginHorizontal="1dp"
+                            android:insetLeft="0dp"
                             android:insetTop="0dp"
+                            android:insetRight="0dp"
                             android:insetBottom="0dp"
-                            android:paddingHorizontal="4dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
                             android:text="CLEAR"
                             android:textColor="#E57373"
                             android:textSize="10sp"
                             android:textStyle="bold"
-                            app:cornerRadius="8dp"
+                            app:cornerRadius="6dp"
                             app:icon="@drawable/ic_delete"
                             app:iconGravity="textStart"
-                            app:iconPadding="2dp"
-                            app:iconSize="12dp"
+                            app:iconPadding="1dp"
+                            app:iconSize="10dp"
                             app:iconTint="#E57373"
                             app:rippleColor="#33E57373"
                             app:strokeColor="#E57373"
@@ -470,21 +550,25 @@
                             android:id="@+id/btn_clear_singleplayer"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="32dp"
-                            android:layout_marginHorizontal="2dp"
+                            android:layout_height="28dp"
+                            android:layout_marginHorizontal="1dp"
+                            android:insetLeft="0dp"
                             android:insetTop="0dp"
+                            android:insetRight="0dp"
                             android:insetBottom="0dp"
-                            android:paddingHorizontal="4dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
                             android:text="CLEAR"
                             android:textColor="#E57373"
                             android:textSize="10sp"
                             android:textStyle="bold"
-                            app:cornerRadius="8dp"
+                            app:cornerRadius="6dp"
                             app:icon="@drawable/ic_delete"
                             app:iconGravity="textStart"
-                            app:iconPadding="2dp"
-                            app:iconSize="12dp"
+                            app:iconPadding="1dp"
+                            app:iconSize="10dp"
                             app:iconTint="#E57373"
                             app:rippleColor="#33E57373"
                             app:strokeColor="#E57373"
@@ -494,25 +578,499 @@
                             android:id="@+id/btn_clear_multiplayer"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="32dp"
-                            android:layout_marginHorizontal="2dp"
+                            android:layout_height="28dp"
+                            android:layout_marginHorizontal="1dp"
+                            android:insetLeft="0dp"
                             android:insetTop="0dp"
+                            android:insetRight="0dp"
                             android:insetBottom="0dp"
-                            android:paddingHorizontal="4dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
                             android:text="CLEAR"
                             android:textColor="#E57373"
                             android:textSize="10sp"
                             android:textStyle="bold"
-                            app:cornerRadius="8dp"
+                            app:cornerRadius="6dp"
                             app:icon="@drawable/ic_delete"
                             app:iconGravity="textStart"
-                            app:iconPadding="2dp"
-                            app:iconSize="12dp"
+                            app:iconPadding="1dp"
+                            app:iconSize="10dp"
                             app:iconTint="#E57373"
                             app:rippleColor="#33E57373"
                             app:strokeColor="#E57373"
                             app:strokeWidth="1dp" />
+                    </TableRow>
+
+                </TableLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- GLOBAL STATISTICS CARD (SECOND POSITION) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#16321A"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*">
+
+                    <!-- Table Column Header Row -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="GLOBAL"
+                            android:textColor="#4DFFFFFF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_arrow"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="Just Declare"
+                                android:textColor="#80FFFFFF"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_person"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="Singleplayer"
+                                android:textColor="#80FFFFFF"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_multi"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="Multiplayer"
+                                android:textColor="#80FFFFFF"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
+
+                    <!-- Row: Games -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_history"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Games"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="128"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="96"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="64"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
+
+                    <!-- Row: Deals -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_cards"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Deals"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="1,248"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="1,032"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="712"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
+
+                    <!-- Row: Concedes -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:rotation="180"
+                                android:src="@drawable/ic_arrow"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Concedes"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="12 (9%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="8 (10%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="5 (8%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
+
+                    <!-- Row: IMP -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_trophy"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="IMP"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+56"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+22"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+34"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
+
+                    <!-- Row: Max IMP -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Max IMP"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+18"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+12"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="+15"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
+
+                    <!-- Row: Wins -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_medal"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Wins"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="78 (61%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="46 (59%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="32 (50%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <View
+                        android:layout_height="0.5dp"
+                        android:background="#1AFFFFFF" />
+
+                    <!-- Row: Losses -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_close"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Losses"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="16 (12%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="12 (15%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="16 (25%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
                     </TableRow>
 
                 </TableLayout>
