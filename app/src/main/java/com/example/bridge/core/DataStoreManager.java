@@ -24,6 +24,56 @@ public class DataStoreManager {
     public static final Preferences.Key<Double> CAREER_IMP_SINGLE = PreferencesKeys.doubleKey("career_imp_single");
     public static final Preferences.Key<Double> CAREER_IMP_QUICK = PreferencesKeys.doubleKey("career_imp_quick");
 
+    // Session Statistics Keys (Just Declare, Singleplayer, Multiplayer)
+    public static final Preferences.Key<Integer> STAT_SESSION_GAMES_JD = PreferencesKeys.intKey("stat_session_games_jd");
+    public static final Preferences.Key<Integer> STAT_SESSION_GAMES_SP = PreferencesKeys.intKey("stat_session_games_sp");
+    public static final Preferences.Key<Integer> STAT_SESSION_GAMES_MP = PreferencesKeys.intKey("stat_session_games_mp");
+
+    public static final Preferences.Key<Integer> STAT_SESSION_DEALS_JD = PreferencesKeys.intKey("stat_session_deals_jd");
+    public static final Preferences.Key<Integer> STAT_SESSION_DEALS_SP = PreferencesKeys.intKey("stat_session_deals_sp");
+    public static final Preferences.Key<Integer> STAT_SESSION_DEALS_MP = PreferencesKeys.intKey("stat_session_deals_mp");
+
+    public static final Preferences.Key<Integer> STAT_SESSION_CONCEDES_JD = PreferencesKeys.intKey("stat_session_concedes_jd");
+    public static final Preferences.Key<Integer> STAT_SESSION_CONCEDES_SP = PreferencesKeys.intKey("stat_session_concedes_sp");
+    public static final Preferences.Key<Integer> STAT_SESSION_CONCEDES_MP = PreferencesKeys.intKey("stat_session_concedes_mp");
+
+    public static final Preferences.Key<Integer> STAT_SESSION_IMP_JD = PreferencesKeys.intKey("stat_session_imp_jd");
+    public static final Preferences.Key<Integer> STAT_SESSION_IMP_SP = PreferencesKeys.intKey("stat_session_imp_sp");
+    public static final Preferences.Key<Integer> STAT_SESSION_IMP_MP = PreferencesKeys.intKey("stat_session_imp_mp");
+
+    public static final Preferences.Key<Integer> STAT_SESSION_MAX_IMP_JD = PreferencesKeys.intKey("stat_session_max_imp_jd");
+    public static final Preferences.Key<Integer> STAT_SESSION_MAX_IMP_SP = PreferencesKeys.intKey("stat_session_max_imp_sp");
+    public static final Preferences.Key<Integer> STAT_SESSION_MAX_IMP_MP = PreferencesKeys.intKey("stat_session_max_imp_mp");
+
+    public static final Preferences.Key<Integer> STAT_SESSION_WINS_JD = PreferencesKeys.intKey("stat_session_wins_jd");
+    public static final Preferences.Key<Integer> STAT_SESSION_WINS_SP = PreferencesKeys.intKey("stat_session_wins_sp");
+    public static final Preferences.Key<Integer> STAT_SESSION_WINS_MP = PreferencesKeys.intKey("stat_session_wins_mp");
+
+    // Global Statistics Keys (Just Declare, Singleplayer, Multiplayer)
+    public static final Preferences.Key<Integer> STAT_GLOBAL_GAMES_JD = PreferencesKeys.intKey("stat_global_games_jd");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_GAMES_SP = PreferencesKeys.intKey("stat_global_games_sp");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_GAMES_MP = PreferencesKeys.intKey("stat_global_games_mp");
+
+    public static final Preferences.Key<Integer> STAT_GLOBAL_DEALS_JD = PreferencesKeys.intKey("stat_global_deals_jd");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_DEALS_SP = PreferencesKeys.intKey("stat_global_deals_sp");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_DEALS_MP = PreferencesKeys.intKey("stat_global_deals_mp");
+
+    public static final Preferences.Key<Integer> STAT_GLOBAL_CONCEDES_JD = PreferencesKeys.intKey("stat_global_concedes_jd");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_CONCEDES_SP = PreferencesKeys.intKey("stat_global_concedes_sp");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_CONCEDES_MP = PreferencesKeys.intKey("stat_global_concedes_mp");
+
+    public static final Preferences.Key<Integer> STAT_GLOBAL_IMP_JD = PreferencesKeys.intKey("stat_global_imp_jd");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_IMP_SP = PreferencesKeys.intKey("stat_global_imp_sp");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_IMP_MP = PreferencesKeys.intKey("stat_global_imp_mp");
+
+    public static final Preferences.Key<Integer> STAT_GLOBAL_MAX_IMP_JD = PreferencesKeys.intKey("stat_global_max_imp_jd");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_MAX_IMP_SP = PreferencesKeys.intKey("stat_global_max_imp_sp");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_MAX_IMP_MP = PreferencesKeys.intKey("stat_global_max_imp_mp");
+
+    public static final Preferences.Key<Integer> STAT_GLOBAL_WINS_JD = PreferencesKeys.intKey("stat_global_wins_jd");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_WINS_SP = PreferencesKeys.intKey("stat_global_wins_sp");
+    public static final Preferences.Key<Integer> STAT_GLOBAL_WINS_MP = PreferencesKeys.intKey("stat_global_wins_mp");
+
     private DataStoreManager(Context context) {
         dataStore = new RxPreferenceDataStoreBuilder(context.getApplicationContext(), "BridgePrefs").build();
     }

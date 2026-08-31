@@ -175,24 +175,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_session_games_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="24"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_session_games_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="18"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_session_games_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="12"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -226,24 +229,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_session_deals_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="212"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_session_deals_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="180"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_session_deals_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="140"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -278,21 +284,24 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_session_concedes_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="2"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_session_concedes_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="1"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_session_concedes_mp"
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0"
@@ -329,24 +338,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_session_imp_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+14"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_session_imp_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+8"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_session_imp_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+6"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -380,24 +392,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_session_max_imp_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+12"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_session_max_imp_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+8"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_session_max_imp_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+10"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -431,29 +446,30 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_session_wins_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="16 (67%)"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_session_wins_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="11 (61%)"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_session_wins_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="7 (58%)"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
-
-
 
                     <!-- Separator Line before Clear Buttons -->
                     <View
@@ -693,24 +709,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_global_games_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="128"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_global_games_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="96"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_global_games_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="64"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -744,24 +763,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_global_deals_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="1,248"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_global_deals_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="1,032"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_global_deals_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="712"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -796,24 +818,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_global_concedes_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="12"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_global_concedes_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="8"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_global_concedes_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="5"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -847,24 +872,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_global_imp_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+56"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_global_imp_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+22"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_global_imp_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+34"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -898,24 +926,27 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_global_max_imp_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+18"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_global_max_imp_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+12"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_global_max_imp_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="+15"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -949,29 +980,30 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_global_wins_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="78 (61%)"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_global_wins_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="46 (59%)"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_global_wins_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="32 (50%)"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
-
-
 
                 </TableLayout>
             </com.google.android.material.card.MaterialCardView>
