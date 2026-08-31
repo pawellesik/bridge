@@ -280,7 +280,7 @@
                         <TextView
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="2 (1%)"
+                            android:text="2"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -288,14 +288,14 @@
                         <TextView
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="1 (1%)"
+                            android:text="1"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0 (0%)"
+                            android:text="0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -798,7 +798,7 @@
                         <TextView
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="12 (9%)"
+                            android:text="12"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -806,14 +806,14 @@
                         <TextView
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="8 (10%)"
+                            android:text="8"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
                         <TextView
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="5 (8%)"
+                            android:text="5"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
