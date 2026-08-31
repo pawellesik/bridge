@@ -46,7 +46,8 @@
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                app:strokeColor="#4081C784"
+                app:strokeWidth="1dp">
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -68,7 +69,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:text="SESSION"
-                            android:textColor="#4DFFFFFF"
+                            android:textColor="#81C784"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
@@ -83,7 +84,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_arrow"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -107,7 +108,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_person"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -131,7 +132,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_multi"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -160,7 +161,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_history"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -211,7 +212,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_cards"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -263,7 +264,7 @@
                                 android:layout_height="14dp"
                                 android:rotation="180"
                                 android:src="@drawable/ic_arrow"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -314,7 +315,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_trophy"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -350,8 +351,6 @@
                             android:textSize="12sp" />
                     </TableRow>
 
-
-
                     <View
                         android:layout_height="0.5dp"
                         android:background="#1AFFFFFF" />
@@ -367,7 +366,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_star"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -418,7 +417,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_medal"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -454,56 +453,7 @@
                             android:textSize="12sp" />
                     </TableRow>
 
-                    <View
-                        android:layout_height="0.5dp"
-                        android:background="#1AFFFFFF" />
 
-                    <!-- Row: Losses -->
-                    <TableRow
-                        android:gravity="center_vertical"
-                        android:paddingVertical="8dp">
-
-                        <LinearLayout android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@drawable/ic_close"
-                                app:tint="#FFFFFF" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Losses"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="3 (12%)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="2 (11%)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="3 (25%)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-                    </TableRow>
 
                     <!-- Separator Line before Clear Buttons -->
                     <View
@@ -614,7 +564,8 @@
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                app:strokeColor="#4081C784"
+                app:strokeWidth="1dp">
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -636,7 +587,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:text="GLOBAL"
-                            android:textColor="#4DFFFFFF"
+                            android:textColor="#81C784"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
@@ -651,7 +602,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_arrow"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -675,7 +626,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_person"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -699,7 +650,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_multi"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -728,7 +679,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_history"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -779,7 +730,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_cards"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -831,7 +782,7 @@
                                 android:layout_height="14dp"
                                 android:rotation="180"
                                 android:src="@drawable/ic_arrow"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -882,7 +833,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_trophy"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -918,8 +869,6 @@
                             android:textSize="12sp" />
                     </TableRow>
 
-
-
                     <View
                         android:layout_height="0.5dp"
                         android:background="#1AFFFFFF" />
@@ -935,7 +884,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_star"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -986,7 +935,7 @@
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_medal"
-                                app:tint="#FFFFFF" />
+                                app:tint="#81C784" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -1022,56 +971,7 @@
                             android:textSize="12sp" />
                     </TableRow>
 
-                    <View
-                        android:layout_height="0.5dp"
-                        android:background="#1AFFFFFF" />
 
-                    <!-- Row: Losses -->
-                    <TableRow
-                        android:gravity="center_vertical"
-                        android:paddingVertical="8dp">
-
-                        <LinearLayout android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@drawable/ic_close"
-                                app:tint="#FFFFFF" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Losses"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="16 (12%)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="12 (15%)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="16 (25%)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-                    </TableRow>
 
                 </TableLayout>
             </com.google.android.material.card.MaterialCardView>
