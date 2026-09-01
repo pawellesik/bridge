@@ -1008,6 +1008,28 @@
                 </TableLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- CLEAR ALL STATISTICS BUTTON -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_clear_all_stats"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="RESET ALL STATISTICS"
+                android:textColor="#E57373"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="4dp"
+                app:iconSize="14dp"
+                app:iconTint="#E57373"
+                app:rippleColor="#33E57373"
+                app:strokeColor="#E57373"
+                app:strokeWidth="1dp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

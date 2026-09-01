@@ -96,6 +96,7 @@ public class OverlayStatistic {
         MaterialButton btnClearJustDeclare = root.findViewById(R.id.btn_clear_just_declare);
         MaterialButton btnClearSingleplayer = root.findViewById(R.id.btn_clear_singleplayer);
         MaterialButton btnClearMultiplayer = root.findViewById(R.id.btn_clear_multiplayer);
+        MaterialButton btnClearAllStats = root.findViewById(R.id.btn_clear_all_stats);
 
         if (btnClearJustDeclare != null) {
             btnClearJustDeclare.setOnClickListener(v -> confirmClearSessionStats("Just Declare"));
@@ -106,6 +107,23 @@ public class OverlayStatistic {
         if (btnClearMultiplayer != null) {
             btnClearMultiplayer.setOnClickListener(v -> confirmClearSessionStats("Multiplayer"));
         }
+        if (btnClearAllStats != null) {
+            btnClearAllStats.setOnClickListener(v -> confirmClearAllStats());
+        }
+    }
+
+    private void confirmClearAllStats() {
+        new androidx.appcompat.app.AlertDialog.Builder(activity)
+                .setTitle(R.string.clear_all_stats_confirm_title)
+                .setMessage(R.string.clear_all_stats_confirm_message)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    statsManager.clearAllStats();
+                    activity.updateTopBarImp();
+                    refresh();
+                    Toast.makeText(activity, R.string.clear_stats_success, Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
     }
 
     private void confirmClearSessionStats(String mode) {

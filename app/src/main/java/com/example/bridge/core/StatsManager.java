@@ -281,6 +281,30 @@ public class StatsManager {
         }
     }
 
+    public void clearAllStats() {
+        clearIntKeysSync(
+                DataStoreManager.STAT_SESSION_GAMES_JD, DataStoreManager.STAT_SESSION_GAMES_SP, DataStoreManager.STAT_SESSION_GAMES_MP,
+                DataStoreManager.STAT_SESSION_DEALS_JD, DataStoreManager.STAT_SESSION_DEALS_SP, DataStoreManager.STAT_SESSION_DEALS_MP,
+                DataStoreManager.STAT_SESSION_CONCEDES_JD, DataStoreManager.STAT_SESSION_CONCEDES_SP, DataStoreManager.STAT_SESSION_CONCEDES_MP,
+                DataStoreManager.STAT_SESSION_WINS_JD, DataStoreManager.STAT_SESSION_WINS_SP, DataStoreManager.STAT_SESSION_WINS_MP,
+
+                DataStoreManager.STAT_GLOBAL_GAMES_JD, DataStoreManager.STAT_GLOBAL_GAMES_SP, DataStoreManager.STAT_GLOBAL_GAMES_MP,
+                DataStoreManager.STAT_GLOBAL_DEALS_JD, DataStoreManager.STAT_GLOBAL_DEALS_SP, DataStoreManager.STAT_GLOBAL_DEALS_MP,
+                DataStoreManager.STAT_GLOBAL_CONCEDES_JD, DataStoreManager.STAT_GLOBAL_CONCEDES_SP, DataStoreManager.STAT_GLOBAL_CONCEDES_MP,
+                DataStoreManager.STAT_GLOBAL_WINS_JD, DataStoreManager.STAT_GLOBAL_WINS_SP, DataStoreManager.STAT_GLOBAL_WINS_MP,
+                DataStoreManager.GAMES_PLAYED
+        );
+        clearDblKeysSync(
+                DataStoreManager.STAT_SESSION_IMP_JD, DataStoreManager.STAT_SESSION_IMP_SP, DataStoreManager.STAT_SESSION_IMP_MP,
+                DataStoreManager.STAT_SESSION_MAX_IMP_JD, DataStoreManager.STAT_SESSION_MAX_IMP_SP, DataStoreManager.STAT_SESSION_MAX_IMP_MP,
+
+                DataStoreManager.STAT_GLOBAL_IMP_JD, DataStoreManager.STAT_GLOBAL_IMP_SP, DataStoreManager.STAT_GLOBAL_IMP_MP,
+                DataStoreManager.STAT_GLOBAL_MAX_IMP_JD, DataStoreManager.STAT_GLOBAL_MAX_IMP_SP, DataStoreManager.STAT_GLOBAL_MAX_IMP_MP,
+
+                DataStoreManager.CAREER_IMP_SINGLE, DataStoreManager.CAREER_IMP_QUICK, DataStoreManager.CAREER_IMP_MULTI
+        );
+    }
+
     @SafeVarargs
     private final void clearIntKeysSync(Preferences.Key<Integer>... keys) {
         for (Preferences.Key<Integer> key : keys) {

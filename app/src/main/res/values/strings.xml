@@ -98,4 +98,6 @@
     <string name="clear_stats_confirm_message">Are you sure you want to reset session statistics for %1$s?</string>
     <string name="delete_success">Item deleted successfully!</string>
     <string name="clear_stats_success">Session statistics reset successfully!</string>
+    <string name="clear_all_stats_confirm_title">CLEAR ALL STATISTICS</string>
+    <string name="clear_all_stats_confirm_message">Are you sure you want to permanently clear all session and global statistics?</string>
 </resources>
