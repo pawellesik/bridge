@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
 import com.example.bridge.core.LocaleHelper;
-import com.example.bridge.core.DataStore;
+import com.example.bridge.core.StatsManager;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Player;
@@ -79,7 +79,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private boolean isProcessingMove = false;
     private GameTop gameTop;
     private GameController gameController;
-    private DataStore dataStore;
+    private StatsManager statsManager;
     private String gameMode;
     private GameBidding gameBidding;
     private PbnCollection pbnCollection;
@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         loadingIndicator = findViewById(R.id.loading_indicator);
 
         gameTop = new GameTop(this);
-        dataStore = new DataStore(this);
+        statsManager = new StatsManager(this);
 
         historyOverlay = findViewById(R.id.history_overlay);
         statisticOverlay = findViewById(R.id.statistic_overlay);
@@ -271,8 +271,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void updateTopBarImp() {
-        if (gameTop != null && dataStore != null) {
-            gameTop.setTotalImp(dataStore.getCareerImp(gameMode));
+        if (gameTop != null && statsManager != null) {
+            gameTop.setTotalImp(statsManager.getCareerImp(gameMode));
         }
     }
 
@@ -292,7 +292,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         pbnCollection.initAllPbn();
         pbnCollection.initQiuckPbn();
 
-        gameTop.setTotalImp(dataStore.getCareerImp(gameMode));
+        gameTop.setTotalImp(statsManager.getCareerImp(gameMode));
 
         onHandUpdated("North");
         onHandUpdated("South");
@@ -305,7 +305,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         initBiddingUi();
         pbnCollection.initAllPbn();
 
-        gameTop.setTotalImp(dataStore.getCareerImp(gameMode));
+        gameTop.setTotalImp(statsManager.getCareerImp(gameMode));
 
         gameTop.hideContract();
         if (topBar != null) {
@@ -352,7 +352,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         players.put("East", new Player("East", playedCardContainerEast));
         players.put("South", new Player("South", playedCardContainerSouth));
         players.put("West", new Player("West", playedCardContainerWest));
-        gameController = new GameController(this, players, dataStore);
+        gameController = new GameController(this, players);
         gameController.dealCards();
     }
 
@@ -834,10 +834,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
                 overlayStatistic.getStatsManager().recordGame(gameMode, 0, 0, gameImp, isWin);
             }
-            double careerImpBefore = dataStore.getCareerImp(gameMode);
-            dataStore.addCareerImp(gameMode, gameImp);
-            double careerImpAfter = careerImpBefore + gameImp;
-
+            double careerImpAfter = statsManager.getCareerImp(gameMode);
             gameTop.setTotalImp(careerImpAfter, gameImp);
 
             String jsonExport = pbnCollection.generateJsonExport();

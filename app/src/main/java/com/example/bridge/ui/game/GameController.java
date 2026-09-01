@@ -5,7 +5,7 @@ import android.os.Looper;
 
 import com.example.bridge.ui.biddings.QuickGameBidding;
 import com.example.bridge.DdsSolver;
-import com.example.bridge.core.DataStore;
+
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Deck;
@@ -67,12 +67,9 @@ public class GameController {
     private boolean isAutoPlayMode = false;
     private final Map<String, List<Card>> initialPlayerHands = new LinkedHashMap<>();
 
-    private DataStore dataStore;
-
-    public GameController(GameCallback callback, Map<String, Player> players, DataStore dataStore) {
+    public GameController(GameCallback callback, Map<String, Player> players) {
         this.callback = callback;
         this.players = players;
-        this.dataStore = dataStore;
 
         this.deck = new Deck();
         this.ddsSolver = new DdsSolver();
