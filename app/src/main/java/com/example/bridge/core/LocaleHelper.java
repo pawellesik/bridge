@@ -1,15 +1,12 @@
 package com.example.bridge.core;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import java.util.Locale;
 
 public class LocaleHelper {
-
-    private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
 
     public static Context onAttach(Context context) {
         String lang = getPersistedData(context, Locale.getDefault().getLanguage());
@@ -26,22 +23,11 @@ public class LocaleHelper {
     }
 
     private static String getPersistedData(Context context, String defaultLanguage) {
-        try {
-            return DataStoreManager.getInstance(context)
-                    .getPreference(DataStoreManager.SELECTED_LANGUAGE, defaultLanguage)
-                    .firstOrError()
-                    .onErrorReturnItem(defaultLanguage)
-                    .blockingGet();
-        } catch (Exception e) {
-            return defaultLanguage;
-        }
+        return SettingsManager.getInstance(context).getLanguage(defaultLanguage);
     }
 
     private static void persist(Context context, String language) {
-        DataStoreManager.getInstance(context)
-                .setPreference(DataStoreManager.SELECTED_LANGUAGE, language)
-                .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
-                .subscribe();
+        SettingsManager.getInstance(context).setLanguage(language);
     }
 
     private static Context updateResources(Context context, String language) {

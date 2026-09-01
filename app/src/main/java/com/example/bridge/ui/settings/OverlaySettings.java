@@ -1,7 +1,5 @@
 package com.example.bridge.ui.settings;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,16 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.bridge.R;
+import com.example.bridge.core.SettingsManager;
 import com.example.bridge.ui.game.GameActivity;
-import com.example.bridge.ui.game.GameController;
 
 public class OverlaySettings {
     private final GameActivity activity;
-    private final com.example.bridge.core.DataStoreManager dataStoreManager;
+    private final SettingsManager settingsManager;
 
     public OverlaySettings(GameActivity activity) {
         this.activity = activity;
-        this.dataStoreManager = com.example.bridge.core.DataStoreManager.getInstance(activity);
+        this.settingsManager = SettingsManager.getInstance(activity);
         setup();
     }
 
@@ -32,20 +30,10 @@ public class OverlaySettings {
         setupCardColors();
         setupQuickGame();
         setupSingleplayer();
-        
-
     }
 
     private void setupCardColors() {
-        boolean isColorful;
-        try {
-            isColorful = dataStoreManager.getPreference(com.example.bridge.core.DataStoreManager.CARD_COLORS_COLORFUL, true)
-                    .firstOrError()
-                    .onErrorReturnItem(true)
-                    .blockingGet();
-        } catch (Exception e) {
-            isColorful = true;
-        }
+        boolean isColorful = settingsManager.isCardColorsColorful();
 
         RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_card_colors);
         if (rg == null) return;
@@ -59,23 +47,13 @@ public class OverlaySettings {
         rg.setOnCheckedChangeListener((group, checkedId) -> {
             boolean colorful = (checkedId == R.id.rb_colorful);
             android.util.Log.d("plesik", "Saving card_colors_colorful: " + colorful);
-            dataStoreManager.setPreference(com.example.bridge.core.DataStoreManager.CARD_COLORS_COLORFUL, colorful)
-                    .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
-                    .subscribe();
+            settingsManager.setCardColorsColorful(colorful);
             activity.refreshAllColors();
         });
     }
 
     private void setupQuickGame() {
-        String difficulty;
-        try {
-            difficulty = dataStoreManager.getPreference(com.example.bridge.core.DataStoreManager.QUICK_GAME_DIFFICULTY, "Medium")
-                    .firstOrError()
-                    .onErrorReturnItem("Medium")
-                    .blockingGet();
-        } catch (Exception e) {
-            difficulty = "Medium";
-        }
+        String difficulty = settingsManager.getQuickGameDifficulty();
 
         RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_difficulty);
         if (rg == null) return;
@@ -88,9 +66,7 @@ public class OverlaySettings {
             String newDifficulty = "Medium";
             if (checkedId == R.id.rb_easy) newDifficulty = "Easy";
             else if (checkedId == R.id.rb_hard) newDifficulty = "Hard";
-            dataStoreManager.setPreference(com.example.bridge.core.DataStoreManager.QUICK_GAME_DIFFICULTY, newDifficulty)
-                    .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
-                    .subscribe();
+            settingsManager.setQuickGameDifficulty(newDifficulty);
         });
     }
 
@@ -125,15 +101,7 @@ public class OverlaySettings {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        String savedSystem;
-        try {
-            savedSystem = dataStoreManager.getPreference(com.example.bridge.core.DataStoreManager.BIDDING_SYSTEM, "SAYC")
-                    .firstOrError()
-                    .onErrorReturnItem("SAYC")
-                    .blockingGet();
-        } catch (Exception e) {
-            savedSystem = "SAYC";
-        }
+        String savedSystem = settingsManager.getBiddingSystem();
 
         for (int i = 0; i < systems.length; i++) {
             if (systems[i].equals(savedSystem)) {
@@ -145,9 +113,7 @@ public class OverlaySettings {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                dataStoreManager.setPreference(com.example.bridge.core.DataStoreManager.BIDDING_SYSTEM, systems[position])
-                        .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
-                        .subscribe();
+                settingsManager.setBiddingSystem(systems[position]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}

@@ -178,6 +178,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         btn_deal.setOnClickListener(v -> {
             onVisibleStartBar(false);
             loadingIndicator.setVisibility(View.VISIBLE);
+            if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
+                overlayStatistic.getStatsManager().incrementDeals(gameMode);
+            }
             v.post(() -> {
                 initGame();
             });
@@ -186,7 +189,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
             setBottomNavVisibility(false);
-            dataStore.incrementGamesPlayed();
+            if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
+                overlayStatistic.getStatsManager().incrementGames(gameMode);
+            }
 
             southAdapter.setCardsEnabled(true);
             northAdapter.setCardsEnabled(true);
@@ -819,6 +824,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             pbnCollection.calculateAllImps();
 
             double gameImp = pbnCollection.getPbn().getImp();
+            boolean isWin = gameImp > 0;
+            if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
+                overlayStatistic.getStatsManager().recordGame(gameMode, 1, 0, (int) Math.round(gameImp), isWin);
+            }
             double careerImpBefore = dataStore.getCareerImp(gameMode);
             dataStore.addCareerImp(gameMode, gameImp);
             double careerImpAfter = careerImpBefore + gameImp;

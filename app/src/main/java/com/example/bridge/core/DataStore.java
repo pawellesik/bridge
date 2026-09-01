@@ -2,54 +2,36 @@ package com.example.bridge.core;
 
 import android.content.Context;
 
-import io.reactivex.rxjava3.schedulers.Schedulers;
-
 public class DataStore {
-    private final DataStoreManager dataStoreManager;
+    private final StatsManager statsManager;
+    private final SettingsManager settingsManager;
 
     public DataStore(Context context) {
-        this.dataStoreManager = DataStoreManager.getInstance(context);
+        this.statsManager = new StatsManager(context);
+        this.settingsManager = SettingsManager.getInstance(context);
+    }
+
+    public StatsManager getStatsManager() {
+        return statsManager;
+    }
+
+    public SettingsManager getSettingsManager() {
+        return settingsManager;
     }
 
     public int getGamesPlayed() {
-        try {
-            return dataStoreManager.getPreference(DataStoreManager.GAMES_PLAYED, 0)
-                    .firstOrError()
-                    .onErrorReturnItem(0)
-                    .blockingGet();
-        } catch (Exception e) {
-            return 0;
-        }
+        return statsManager.getGamesPlayed();
     }
 
     public void incrementGamesPlayed() {
-        int current = getGamesPlayed();
-        dataStoreManager.setPreference(DataStoreManager.GAMES_PLAYED, current + 1)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+        statsManager.incrementGamesPlayed();
     }
 
     public double getCareerImp(String gameMode) {
-        androidx.datastore.preferences.core.Preferences.Key<Double> key =
-                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
-        try {
-            return dataStoreManager.getPreference(key, 0.0)
-                    .firstOrError()
-                    .onErrorReturnItem(0.0)
-                    .blockingGet();
-        } catch (Exception e) {
-            return 0.0;
-        }
+        return statsManager.getCareerImp(gameMode);
     }
 
     public void addCareerImp(String gameMode, double impToAdd) {
-        androidx.datastore.preferences.core.Preferences.Key<Double> key =
-                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
-        
-        double current = getCareerImp(gameMode);
-        double newValue = Math.round((current + impToAdd) * 10.0) / 10.0;
-        dataStoreManager.setPreference(key, newValue)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+        statsManager.addCareerImp(gameMode, impToAdd);
     }
 }

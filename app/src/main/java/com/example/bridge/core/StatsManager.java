@@ -51,6 +51,84 @@ public class StatsManager {
         this.dataStoreManager = DataStoreManager.getInstance(context);
     }
 
+    // --- INCREMENTATION METHODS ---
+    public void incrementGames(String gameMode) {
+        incrementGamesPlayed();
+        if ("single".equalsIgnoreCase(gameMode) || "Singleplayer".equalsIgnoreCase(gameMode) || "SP".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_GAMES_SP);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_GAMES_SP);
+        } else if ("quick".equalsIgnoreCase(gameMode) || "Just Declare".equalsIgnoreCase(gameMode) || "JD".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_GAMES_JD);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_GAMES_JD);
+        } else if ("multi".equalsIgnoreCase(gameMode) || "Multiplayer".equalsIgnoreCase(gameMode) || "MP".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_GAMES_MP);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_GAMES_MP);
+        }
+    }
+
+    public void incrementDeals(String gameMode) {
+        if ("single".equalsIgnoreCase(gameMode) || "Singleplayer".equalsIgnoreCase(gameMode) || "SP".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_DEALS_SP);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_DEALS_SP);
+        } else if ("quick".equalsIgnoreCase(gameMode) || "Just Declare".equalsIgnoreCase(gameMode) || "JD".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_DEALS_JD);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_DEALS_JD);
+        } else if ("multi".equalsIgnoreCase(gameMode) || "Multiplayer".equalsIgnoreCase(gameMode) || "MP".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_DEALS_MP);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_DEALS_MP);
+        }
+    }
+
+    private void incrementSingleValue(Preferences.Key<Integer> key) {
+        int current = dataStoreManager.getPreference(key, 0).blockingFirst(0);
+        dataStoreManager.setPreference(key, current + 1)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
+    // --- CAREER IMP AND GAMES PLAYED ---
+    public int getGamesPlayed() {
+        try {
+            return dataStoreManager.getPreference(DataStoreManager.GAMES_PLAYED, 0)
+                    .firstOrError()
+                    .onErrorReturnItem(0)
+                    .blockingGet();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public void incrementGamesPlayed() {
+        int current = getGamesPlayed();
+        dataStoreManager.setPreference(DataStoreManager.GAMES_PLAYED, current + 1)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
+    public double getCareerImp(String gameMode) {
+        Preferences.Key<Double> key =
+                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
+        try {
+            return dataStoreManager.getPreference(key, 0.0)
+                    .firstOrError()
+                    .onErrorReturnItem(0.0)
+                    .blockingGet();
+        } catch (Exception e) {
+            return 0.0;
+        }
+    }
+
+    public void addCareerImp(String gameMode, double impToAdd) {
+        Preferences.Key<Double> key =
+                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
+
+        double current = getCareerImp(gameMode);
+        double newValue = Math.round((current + impToAdd) * 10.0) / 10.0;
+        dataStoreManager.setPreference(key, newValue)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
     // --- SESSION STATS ---
     public ModeStats getSessionStatsJustDeclare() {
         return getStats(
