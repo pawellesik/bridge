@@ -832,7 +832,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             double gameImp = pbnCollection.getPbn().getImp();
             boolean isWin = gameImp > 0;
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
-                overlayStatistic.getStatsManager().recordGame(gameMode, 1, 0, (int) Math.round(gameImp), isWin);
+                overlayStatistic.getStatsManager().recordGame(gameMode, 0, 0, gameImp, isWin);
             }
             double careerImpBefore = dataStore.getCareerImp(gameMode);
             dataStore.addCareerImp(gameMode, gameImp);
