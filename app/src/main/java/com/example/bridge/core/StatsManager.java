@@ -243,58 +243,65 @@ public class StatsManager {
     // --- CLEAR SESSION STATS ---
     public void clearSessionStats(String mode) {
         if ("Just Declare".equalsIgnoreCase(mode) || "JD".equalsIgnoreCase(mode) || "quick".equalsIgnoreCase(mode)) {
-            clearIntKeys(
+            clearIntKeysSync(
                     DataStoreManager.STAT_SESSION_GAMES_JD,
                     DataStoreManager.STAT_SESSION_DEALS_JD,
                     DataStoreManager.STAT_SESSION_CONCEDES_JD,
                     DataStoreManager.STAT_SESSION_WINS_JD
             );
-            clearDblKeys(
+            clearDblKeysSync(
                     DataStoreManager.STAT_SESSION_IMP_JD,
                     DataStoreManager.STAT_SESSION_MAX_IMP_JD,
                     DataStoreManager.CAREER_IMP_QUICK
             );
         } else if ("Singleplayer".equalsIgnoreCase(mode) || "SP".equalsIgnoreCase(mode) || "Single".equalsIgnoreCase(mode) || "single".equalsIgnoreCase(mode)) {
-            clearIntKeys(
+            clearIntKeysSync(
                     DataStoreManager.STAT_SESSION_GAMES_SP,
                     DataStoreManager.STAT_SESSION_DEALS_SP,
                     DataStoreManager.STAT_SESSION_CONCEDES_SP,
                     DataStoreManager.STAT_SESSION_WINS_SP
             );
-            clearDblKeys(
+            clearDblKeysSync(
                     DataStoreManager.STAT_SESSION_IMP_SP,
                     DataStoreManager.STAT_SESSION_MAX_IMP_SP,
                     DataStoreManager.CAREER_IMP_SINGLE
             );
-        } else if ("Multiplayer".equalsIgnoreCase(mode) || "MP".equalsIgnoreCase(mode) || "Multi".equalsIgnoreCase(mode)) {
-            clearIntKeys(
+        } else if ("Multiplayer".equalsIgnoreCase(mode) || "MP".equalsIgnoreCase(mode) || "Multi".equalsIgnoreCase(mode) || "multi".equalsIgnoreCase(mode)) {
+            clearIntKeysSync(
                     DataStoreManager.STAT_SESSION_GAMES_MP,
                     DataStoreManager.STAT_SESSION_DEALS_MP,
                     DataStoreManager.STAT_SESSION_CONCEDES_MP,
                     DataStoreManager.STAT_SESSION_WINS_MP
             );
-            clearDblKeys(
+            clearDblKeysSync(
                     DataStoreManager.STAT_SESSION_IMP_MP,
-                    DataStoreManager.STAT_SESSION_MAX_IMP_MP
+                    DataStoreManager.STAT_SESSION_MAX_IMP_MP,
+                    DataStoreManager.CAREER_IMP_MULTI
             );
         }
     }
 
     @SafeVarargs
-    private final void clearIntKeys(Preferences.Key<Integer>... keys) {
+    private final void clearIntKeysSync(Preferences.Key<Integer>... keys) {
         for (Preferences.Key<Integer> key : keys) {
-            dataStoreManager.setPreference(key, 0)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe();
+            try {
+                dataStoreManager.setPreference(key, 0)
+                        .ignoreElement()
+                        .onErrorComplete()
+                        .blockingAwait();
+            } catch (Exception ignored) {}
         }
     }
 
     @SafeVarargs
-    private final void clearDblKeys(Preferences.Key<Double>... keys) {
+    private final void clearDblKeysSync(Preferences.Key<Double>... keys) {
         for (Preferences.Key<Double> key : keys) {
-            dataStoreManager.setPreference(key, 0.0)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe();
+            try {
+                dataStoreManager.setPreference(key, 0.0)
+                        .ignoreElement()
+                        .onErrorComplete()
+                        .blockingAwait();
+            } catch (Exception ignored) {}
         }
     }
 
