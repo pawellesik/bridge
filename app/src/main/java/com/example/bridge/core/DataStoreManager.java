@@ -23,6 +23,7 @@ public class DataStoreManager {
     public static final Preferences.Key<Integer> GAMES_PLAYED = PreferencesKeys.intKey("games_played");
     public static final Preferences.Key<Double> CAREER_IMP_SINGLE = PreferencesKeys.doubleKey("career_imp_single");
     public static final Preferences.Key<Double> CAREER_IMP_QUICK = PreferencesKeys.doubleKey("career_imp_quick");
+    public static final Preferences.Key<Double> CAREER_IMP_MULTI = PreferencesKeys.doubleKey("career_imp_multi");
 
     // Session Statistics Keys (Just Declare, Singleplayer, Multiplayer)
     public static final Preferences.Key<Integer> STAT_SESSION_GAMES_JD = PreferencesKeys.intKey("stat_session_games_jd");
@@ -37,9 +38,9 @@ public class DataStoreManager {
     public static final Preferences.Key<Integer> STAT_SESSION_CONCEDES_SP = PreferencesKeys.intKey("stat_session_concedes_sp");
     public static final Preferences.Key<Integer> STAT_SESSION_CONCEDES_MP = PreferencesKeys.intKey("stat_session_concedes_mp");
 
-    public static final Preferences.Key<Double> STAT_SESSION_IMP_JD = PreferencesKeys.doubleKey("stat_session_imp_jd_dbl");
-    public static final Preferences.Key<Double> STAT_SESSION_IMP_SP = PreferencesKeys.doubleKey("stat_session_imp_sp_dbl");
-    public static final Preferences.Key<Double> STAT_SESSION_IMP_MP = PreferencesKeys.doubleKey("stat_session_imp_mp_dbl");
+    public static final Preferences.Key<Double> STAT_SESSION_IMP_JD = CAREER_IMP_QUICK;
+    public static final Preferences.Key<Double> STAT_SESSION_IMP_SP = CAREER_IMP_SINGLE;
+    public static final Preferences.Key<Double> STAT_SESSION_IMP_MP = CAREER_IMP_MULTI;
 
     public static final Preferences.Key<Double> STAT_SESSION_MAX_IMP_JD = PreferencesKeys.doubleKey("stat_session_max_imp_jd_dbl");
     public static final Preferences.Key<Double> STAT_SESSION_MAX_IMP_SP = PreferencesKeys.doubleKey("stat_session_max_imp_sp_dbl");

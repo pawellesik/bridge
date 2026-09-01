@@ -116,8 +116,14 @@ public class StatsManager {
     }
 
     public double getCareerImp(String gameMode) {
-        Preferences.Key<Double> key =
-                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
+        Preferences.Key<Double> key;
+        if ("single".equalsIgnoreCase(gameMode) || "Singleplayer".equalsIgnoreCase(gameMode) || "SP".equalsIgnoreCase(gameMode)) {
+            key = DataStoreManager.CAREER_IMP_SINGLE;
+        } else if ("quick".equalsIgnoreCase(gameMode) || "Just Declare".equalsIgnoreCase(gameMode) || "JD".equalsIgnoreCase(gameMode)) {
+            key = DataStoreManager.CAREER_IMP_QUICK;
+        } else {
+            key = DataStoreManager.CAREER_IMP_MULTI;
+        }
         try {
             return dataStoreManager.getPreference(key, 0.0)
                     .firstOrError()
@@ -129,8 +135,14 @@ public class StatsManager {
     }
 
     public void addCareerImp(String gameMode, double impToAdd) {
-        Preferences.Key<Double> key =
-                "single".equals(gameMode) ? DataStoreManager.CAREER_IMP_SINGLE : DataStoreManager.CAREER_IMP_QUICK;
+        Preferences.Key<Double> key;
+        if ("single".equalsIgnoreCase(gameMode) || "Singleplayer".equalsIgnoreCase(gameMode) || "SP".equalsIgnoreCase(gameMode)) {
+            key = DataStoreManager.CAREER_IMP_SINGLE;
+        } else if ("quick".equalsIgnoreCase(gameMode) || "Just Declare".equalsIgnoreCase(gameMode) || "JD".equalsIgnoreCase(gameMode)) {
+            key = DataStoreManager.CAREER_IMP_QUICK;
+        } else {
+            key = DataStoreManager.CAREER_IMP_MULTI;
+        }
 
         double current = getCareerImp(gameMode);
         double newValue = Math.round((current + impToAdd) * 10.0) / 10.0;
