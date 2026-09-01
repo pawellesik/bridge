@@ -96,4 +96,6 @@
     <string name="filter_mode_all">Tryb</string>
     <string name="clear_stats_confirm_title">ZEROWANIE STATYSTYK</string>
     <string name="clear_stats_confirm_message">Czy na pewno chcesz usunąć statystyki sesji dla trybu %1$s?</string>
+    <string name="delete_success">Pomyślnie usunięto z historii!</string>
+    <string name="clear_stats_success">Statystyki sesji zostały wyzerowane!</string>
 </resources>

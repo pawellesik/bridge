@@ -96,4 +96,6 @@
     <string name="filter_mode_all">Mode</string>
     <string name="clear_stats_confirm_title">RESET STATISTICS</string>
     <string name="clear_stats_confirm_message">Are you sure you want to reset session statistics for %1$s?</string>
+    <string name="delete_success">Item deleted successfully!</string>
+    <string name="clear_stats_success">Session statistics reset successfully!</string>
 </resources>

@@ -120,7 +120,7 @@ public class OverlayStatistic {
 
     private void clearSessionStats(String mode) {
         statsManager.clearSessionStats(mode);
-        Toast.makeText(activity, "Cleared session statistics for " + mode, Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, R.string.clear_stats_success, Toast.LENGTH_SHORT).show();
         refresh();
     }
 

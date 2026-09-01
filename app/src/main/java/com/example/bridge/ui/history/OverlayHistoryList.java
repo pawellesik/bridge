@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -235,6 +236,7 @@ public class OverlayHistoryList {
                                 activity.runOnUiThread(() -> {
                                     fullHistoryList.remove(itemToRemove);
                                     applyFilters();
+                                    Toast.makeText(activity, R.string.delete_success, Toast.LENGTH_SHORT).show();
                                 });
                             }
                         } catch (Exception e) { e.printStackTrace(); }
