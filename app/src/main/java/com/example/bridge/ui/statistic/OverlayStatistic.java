@@ -120,6 +120,7 @@ public class OverlayStatistic {
 
     private void clearSessionStats(String mode) {
         statsManager.clearSessionStats(mode);
+        activity.updateTopBarImp();
         Toast.makeText(activity, R.string.clear_stats_success, Toast.LENGTH_SHORT).show();
         refresh();
     }

@@ -270,6 +270,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return gameMode;
     }
 
+    public void updateTopBarImp() {
+        if (gameTop != null && dataStore != null) {
+            gameTop.setTotalImp(dataStore.getCareerImp(gameMode));
+        }
+    }
+
     private void initGame() {
         if ("quick".equals(gameMode)) {
             initGameQiuckMode();

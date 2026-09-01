@@ -230,7 +230,7 @@ public class StatsManager {
 
     // --- CLEAR SESSION STATS ---
     public void clearSessionStats(String mode) {
-        if ("Just Declare".equalsIgnoreCase(mode) || "JD".equalsIgnoreCase(mode)) {
+        if ("Just Declare".equalsIgnoreCase(mode) || "JD".equalsIgnoreCase(mode) || "quick".equalsIgnoreCase(mode)) {
             clearIntKeys(
                     DataStoreManager.STAT_SESSION_GAMES_JD,
                     DataStoreManager.STAT_SESSION_DEALS_JD,
@@ -239,9 +239,10 @@ public class StatsManager {
             );
             clearDblKeys(
                     DataStoreManager.STAT_SESSION_IMP_JD,
-                    DataStoreManager.STAT_SESSION_MAX_IMP_JD
+                    DataStoreManager.STAT_SESSION_MAX_IMP_JD,
+                    DataStoreManager.CAREER_IMP_QUICK
             );
-        } else if ("Singleplayer".equalsIgnoreCase(mode) || "SP".equalsIgnoreCase(mode) || "Single".equalsIgnoreCase(mode)) {
+        } else if ("Singleplayer".equalsIgnoreCase(mode) || "SP".equalsIgnoreCase(mode) || "Single".equalsIgnoreCase(mode) || "single".equalsIgnoreCase(mode)) {
             clearIntKeys(
                     DataStoreManager.STAT_SESSION_GAMES_SP,
                     DataStoreManager.STAT_SESSION_DEALS_SP,
@@ -250,7 +251,8 @@ public class StatsManager {
             );
             clearDblKeys(
                     DataStoreManager.STAT_SESSION_IMP_SP,
-                    DataStoreManager.STAT_SESSION_MAX_IMP_SP
+                    DataStoreManager.STAT_SESSION_MAX_IMP_SP,
+                    DataStoreManager.CAREER_IMP_SINGLE
             );
         } else if ("Multiplayer".equalsIgnoreCase(mode) || "MP".equalsIgnoreCase(mode) || "Multi".equalsIgnoreCase(mode)) {
             clearIntKeys(
