@@ -94,4 +94,6 @@
     <string name="history_col_opps">Oni</string>
     <string name="history_col_imp">Imp</string>
     <string name="filter_mode_all">Tryb</string>
+    <string name="clear_stats_confirm_title">ZEROWANIE STATYSTYK</string>
+    <string name="clear_stats_confirm_message">Czy na pewno chcesz usunąć statystyki sesji dla trybu %1$s?</string>
 </resources>

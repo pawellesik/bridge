@@ -94,4 +94,6 @@
     <string name="history_col_opps">They</string>
     <string name="history_col_imp">Imp</string>
     <string name="filter_mode_all">Mode</string>
+    <string name="clear_stats_confirm_title">RESET STATISTICS</string>
+    <string name="clear_stats_confirm_message">Are you sure you want to reset session statistics for %1$s?</string>
 </resources>
