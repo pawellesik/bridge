@@ -98,14 +98,25 @@ public class OverlayStatistic {
         MaterialButton btnClearMultiplayer = root.findViewById(R.id.btn_clear_multiplayer);
 
         if (btnClearJustDeclare != null) {
-            btnClearJustDeclare.setOnClickListener(v -> clearSessionStats("Just Declare"));
+            btnClearJustDeclare.setOnClickListener(v -> confirmClearSessionStats("Just Declare"));
         }
         if (btnClearSingleplayer != null) {
-            btnClearSingleplayer.setOnClickListener(v -> clearSessionStats("Singleplayer"));
+            btnClearSingleplayer.setOnClickListener(v -> confirmClearSessionStats("Singleplayer"));
         }
         if (btnClearMultiplayer != null) {
-            btnClearMultiplayer.setOnClickListener(v -> clearSessionStats("Multiplayer"));
+            btnClearMultiplayer.setOnClickListener(v -> confirmClearSessionStats("Multiplayer"));
         }
+    }
+
+    private void confirmClearSessionStats(String mode) {
+        new androidx.appcompat.app.AlertDialog.Builder(activity)
+                .setTitle(R.string.delete_confirm_title)
+                .setMessage(R.string.delete_confirm_message)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    clearSessionStats(mode);
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
     }
 
     private void clearSessionStats(String mode) {
