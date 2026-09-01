@@ -37,13 +37,13 @@ public class DataStoreManager {
     public static final Preferences.Key<Integer> STAT_SESSION_CONCEDES_SP = PreferencesKeys.intKey("stat_session_concedes_sp");
     public static final Preferences.Key<Integer> STAT_SESSION_CONCEDES_MP = PreferencesKeys.intKey("stat_session_concedes_mp");
 
-    public static final Preferences.Key<Integer> STAT_SESSION_IMP_JD = PreferencesKeys.intKey("stat_session_imp_jd");
-    public static final Preferences.Key<Integer> STAT_SESSION_IMP_SP = PreferencesKeys.intKey("stat_session_imp_sp");
-    public static final Preferences.Key<Integer> STAT_SESSION_IMP_MP = PreferencesKeys.intKey("stat_session_imp_mp");
+    public static final Preferences.Key<Double> STAT_SESSION_IMP_JD = PreferencesKeys.doubleKey("stat_session_imp_jd_dbl");
+    public static final Preferences.Key<Double> STAT_SESSION_IMP_SP = PreferencesKeys.doubleKey("stat_session_imp_sp_dbl");
+    public static final Preferences.Key<Double> STAT_SESSION_IMP_MP = PreferencesKeys.doubleKey("stat_session_imp_mp_dbl");
 
-    public static final Preferences.Key<Integer> STAT_SESSION_MAX_IMP_JD = PreferencesKeys.intKey("stat_session_max_imp_jd");
-    public static final Preferences.Key<Integer> STAT_SESSION_MAX_IMP_SP = PreferencesKeys.intKey("stat_session_max_imp_sp");
-    public static final Preferences.Key<Integer> STAT_SESSION_MAX_IMP_MP = PreferencesKeys.intKey("stat_session_max_imp_mp");
+    public static final Preferences.Key<Double> STAT_SESSION_MAX_IMP_JD = PreferencesKeys.doubleKey("stat_session_max_imp_jd_dbl");
+    public static final Preferences.Key<Double> STAT_SESSION_MAX_IMP_SP = PreferencesKeys.doubleKey("stat_session_max_imp_sp_dbl");
+    public static final Preferences.Key<Double> STAT_SESSION_MAX_IMP_MP = PreferencesKeys.doubleKey("stat_session_max_imp_mp_dbl");
 
     public static final Preferences.Key<Integer> STAT_SESSION_WINS_JD = PreferencesKeys.intKey("stat_session_wins_jd");
     public static final Preferences.Key<Integer> STAT_SESSION_WINS_SP = PreferencesKeys.intKey("stat_session_wins_sp");
@@ -62,13 +62,13 @@ public class DataStoreManager {
     public static final Preferences.Key<Integer> STAT_GLOBAL_CONCEDES_SP = PreferencesKeys.intKey("stat_global_concedes_sp");
     public static final Preferences.Key<Integer> STAT_GLOBAL_CONCEDES_MP = PreferencesKeys.intKey("stat_global_concedes_mp");
 
-    public static final Preferences.Key<Integer> STAT_GLOBAL_IMP_JD = PreferencesKeys.intKey("stat_global_imp_jd");
-    public static final Preferences.Key<Integer> STAT_GLOBAL_IMP_SP = PreferencesKeys.intKey("stat_global_imp_sp");
-    public static final Preferences.Key<Integer> STAT_GLOBAL_IMP_MP = PreferencesKeys.intKey("stat_global_imp_mp");
+    public static final Preferences.Key<Double> STAT_GLOBAL_IMP_JD = PreferencesKeys.doubleKey("stat_global_imp_jd_dbl");
+    public static final Preferences.Key<Double> STAT_GLOBAL_IMP_SP = PreferencesKeys.doubleKey("stat_global_imp_sp_dbl");
+    public static final Preferences.Key<Double> STAT_GLOBAL_IMP_MP = PreferencesKeys.doubleKey("stat_global_imp_mp_dbl");
 
-    public static final Preferences.Key<Integer> STAT_GLOBAL_MAX_IMP_JD = PreferencesKeys.intKey("stat_global_max_imp_jd");
-    public static final Preferences.Key<Integer> STAT_GLOBAL_MAX_IMP_SP = PreferencesKeys.intKey("stat_global_max_imp_sp");
-    public static final Preferences.Key<Integer> STAT_GLOBAL_MAX_IMP_MP = PreferencesKeys.intKey("stat_global_max_imp_mp");
+    public static final Preferences.Key<Double> STAT_GLOBAL_MAX_IMP_JD = PreferencesKeys.doubleKey("stat_global_max_imp_jd_dbl");
+    public static final Preferences.Key<Double> STAT_GLOBAL_MAX_IMP_SP = PreferencesKeys.doubleKey("stat_global_max_imp_sp_dbl");
+    public static final Preferences.Key<Double> STAT_GLOBAL_MAX_IMP_MP = PreferencesKeys.doubleKey("stat_global_max_imp_mp_dbl");
 
     public static final Preferences.Key<Integer> STAT_GLOBAL_WINS_JD = PreferencesKeys.intKey("stat_global_wins_jd");
     public static final Preferences.Key<Integer> STAT_GLOBAL_WINS_SP = PreferencesKeys.intKey("stat_global_wins_sp");

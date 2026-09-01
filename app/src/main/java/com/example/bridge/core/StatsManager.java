@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.datastore.preferences.core.Preferences;
 
+import java.util.Locale;
+
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class StatsManager {
@@ -12,11 +14,11 @@ public class StatsManager {
         public final int games;
         public final int deals;
         public final int concedes;
-        public final int imp;
-        public final int maxImp;
+        public final double imp;
+        public final double maxImp;
         public final int wins;
 
-        public ModeStats(int games, int deals, int concedes, int imp, int maxImp, int wins) {
+        public ModeStats(int games, int deals, int concedes, double imp, double maxImp, int wins) {
             this.games = games;
             this.deals = deals;
             this.concedes = concedes;
@@ -35,13 +37,21 @@ public class StatsManager {
         }
 
         public String getImpFormatted() {
-            if (imp > 0) return "+" + imp;
-            return String.valueOf(imp);
+            return formatImpWithDecimal(imp);
         }
 
         public String getMaxImpFormatted() {
-            if (maxImp > 0) return "+" + maxImp;
-            return String.valueOf(maxImp);
+            return formatImpWithDecimal(maxImp);
+        }
+
+        private static String formatImpWithDecimal(double val) {
+            if (val > 0) {
+                return String.format(Locale.US, "+%.1f", val);
+            } else if (val < 0) {
+                return String.format(Locale.US, "%.1f", val);
+            } else {
+                return "0.0";
+            }
         }
     }
 
@@ -201,57 +211,63 @@ public class StatsManager {
             Preferences.Key<Integer> keyGames,
             Preferences.Key<Integer> keyDeals,
             Preferences.Key<Integer> keyConcedes,
-            Preferences.Key<Integer> keyImp,
-            Preferences.Key<Integer> keyMaxImp,
+            Preferences.Key<Double> keyImp,
+            Preferences.Key<Double> keyMaxImp,
             Preferences.Key<Integer> keyWins
     ) {
         try {
             int games = dataStoreManager.getPreference(keyGames, 0).blockingFirst(0);
             int deals = dataStoreManager.getPreference(keyDeals, 0).blockingFirst(0);
             int concedes = dataStoreManager.getPreference(keyConcedes, 0).blockingFirst(0);
-            int imp = dataStoreManager.getPreference(keyImp, 0).blockingFirst(0);
-            int maxImp = dataStoreManager.getPreference(keyMaxImp, 0).blockingFirst(0);
+            double imp = dataStoreManager.getPreference(keyImp, 0.0).blockingFirst(0.0);
+            double maxImp = dataStoreManager.getPreference(keyMaxImp, 0.0).blockingFirst(0.0);
             int wins = dataStoreManager.getPreference(keyWins, 0).blockingFirst(0);
             return new ModeStats(games, deals, concedes, imp, maxImp, wins);
         } catch (Exception e) {
-            return new ModeStats(0, 0, 0, 0, 0, 0);
+            return new ModeStats(0, 0, 0, 0.0, 0.0, 0);
         }
     }
 
     // --- CLEAR SESSION STATS ---
     public void clearSessionStats(String mode) {
         if ("Just Declare".equalsIgnoreCase(mode) || "JD".equalsIgnoreCase(mode)) {
-            clearKeys(
+            clearIntKeys(
                     DataStoreManager.STAT_SESSION_GAMES_JD,
                     DataStoreManager.STAT_SESSION_DEALS_JD,
                     DataStoreManager.STAT_SESSION_CONCEDES_JD,
-                    DataStoreManager.STAT_SESSION_IMP_JD,
-                    DataStoreManager.STAT_SESSION_MAX_IMP_JD,
                     DataStoreManager.STAT_SESSION_WINS_JD
             );
+            clearDblKeys(
+                    DataStoreManager.STAT_SESSION_IMP_JD,
+                    DataStoreManager.STAT_SESSION_MAX_IMP_JD
+            );
         } else if ("Singleplayer".equalsIgnoreCase(mode) || "SP".equalsIgnoreCase(mode) || "Single".equalsIgnoreCase(mode)) {
-            clearKeys(
+            clearIntKeys(
                     DataStoreManager.STAT_SESSION_GAMES_SP,
                     DataStoreManager.STAT_SESSION_DEALS_SP,
                     DataStoreManager.STAT_SESSION_CONCEDES_SP,
-                    DataStoreManager.STAT_SESSION_IMP_SP,
-                    DataStoreManager.STAT_SESSION_MAX_IMP_SP,
                     DataStoreManager.STAT_SESSION_WINS_SP
             );
+            clearDblKeys(
+                    DataStoreManager.STAT_SESSION_IMP_SP,
+                    DataStoreManager.STAT_SESSION_MAX_IMP_SP
+            );
         } else if ("Multiplayer".equalsIgnoreCase(mode) || "MP".equalsIgnoreCase(mode) || "Multi".equalsIgnoreCase(mode)) {
-            clearKeys(
+            clearIntKeys(
                     DataStoreManager.STAT_SESSION_GAMES_MP,
                     DataStoreManager.STAT_SESSION_DEALS_MP,
                     DataStoreManager.STAT_SESSION_CONCEDES_MP,
-                    DataStoreManager.STAT_SESSION_IMP_MP,
-                    DataStoreManager.STAT_SESSION_MAX_IMP_MP,
                     DataStoreManager.STAT_SESSION_WINS_MP
+            );
+            clearDblKeys(
+                    DataStoreManager.STAT_SESSION_IMP_MP,
+                    DataStoreManager.STAT_SESSION_MAX_IMP_MP
             );
         }
     }
 
     @SafeVarargs
-    private final void clearKeys(Preferences.Key<Integer>... keys) {
+    private final void clearIntKeys(Preferences.Key<Integer>... keys) {
         for (Preferences.Key<Integer> key : keys) {
             dataStoreManager.setPreference(key, 0)
                     .subscribeOn(Schedulers.io())
@@ -259,8 +275,17 @@ public class StatsManager {
         }
     }
 
+    @SafeVarargs
+    private final void clearDblKeys(Preferences.Key<Double>... keys) {
+        for (Preferences.Key<Double> key : keys) {
+            dataStoreManager.setPreference(key, 0.0)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe();
+        }
+    }
+
     // --- RECORD GAME RESULT ---
-    public void recordGame(String mode, int dealsCount, int concedeCount, int gameImp, boolean isWin) {
+    public void recordGame(String mode, int dealsCount, int concedeCount, double gameImp, boolean isWin) {
         if ("Just Declare".equalsIgnoreCase(mode) || "JD".equalsIgnoreCase(mode) || "quick".equalsIgnoreCase(mode)) {
             recordModeStats(
                     DataStoreManager.STAT_SESSION_DEALS_JD, DataStoreManager.STAT_SESSION_CONCEDES_JD, DataStoreManager.STAT_SESSION_IMP_JD, DataStoreManager.STAT_SESSION_MAX_IMP_JD, DataStoreManager.STAT_SESSION_WINS_JD,
@@ -283,9 +308,9 @@ public class StatsManager {
     }
 
     private void recordModeStats(
-            Preferences.Key<Integer> sessDeals, Preferences.Key<Integer> sessConcedes, Preferences.Key<Integer> sessImp, Preferences.Key<Integer> sessMaxImp, Preferences.Key<Integer> sessWins,
-            Preferences.Key<Integer> globDeals, Preferences.Key<Integer> globConcedes, Preferences.Key<Integer> globImp, Preferences.Key<Integer> globMaxImp, Preferences.Key<Integer> globWins,
-            int dealsCount, int concedeCount, int gameImp, boolean isWin
+            Preferences.Key<Integer> sessDeals, Preferences.Key<Integer> sessConcedes, Preferences.Key<Double> sessImp, Preferences.Key<Double> sessMaxImp, Preferences.Key<Integer> sessWins,
+            Preferences.Key<Integer> globDeals, Preferences.Key<Integer> globConcedes, Preferences.Key<Double> globImp, Preferences.Key<Double> globMaxImp, Preferences.Key<Integer> globWins,
+            int dealsCount, int concedeCount, double gameImp, boolean isWin
     ) {
         updateStatsSet(sessDeals, sessConcedes, sessImp, sessMaxImp, sessWins, dealsCount, concedeCount, gameImp, isWin);
         updateStatsSet(globDeals, globConcedes, globImp, globMaxImp, globWins, dealsCount, concedeCount, gameImp, isWin);
@@ -293,13 +318,13 @@ public class StatsManager {
 
     private void updateStatsSet(
             Preferences.Key<Integer> keyDeals, Preferences.Key<Integer> keyConcedes,
-            Preferences.Key<Integer> keyImp, Preferences.Key<Integer> keyMaxImp, Preferences.Key<Integer> keyWins,
-            int dealsCount, int concedeCount, int gameImp, boolean isWin
+            Preferences.Key<Double> keyImp, Preferences.Key<Double> keyMaxImp, Preferences.Key<Integer> keyWins,
+            int dealsCount, int concedeCount, double gameImp, boolean isWin
     ) {
         int curDeals = dataStoreManager.getPreference(keyDeals, 0).blockingFirst(0);
         int curConcedes = dataStoreManager.getPreference(keyConcedes, 0).blockingFirst(0);
-        int curImp = dataStoreManager.getPreference(keyImp, 0).blockingFirst(0);
-        int curMaxImp = dataStoreManager.getPreference(keyMaxImp, 0).blockingFirst(0);
+        double curImp = dataStoreManager.getPreference(keyImp, 0.0).blockingFirst(0.0);
+        double curMaxImp = dataStoreManager.getPreference(keyMaxImp, 0.0).blockingFirst(0.0);
         int curWins = dataStoreManager.getPreference(keyWins, 0).blockingFirst(0);
 
         dataStoreManager.setPreference(keyDeals, curDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
