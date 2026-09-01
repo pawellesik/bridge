@@ -160,16 +160,17 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
             boolean isFavorite = item.optBoolean("isFavorite", false);
             com.google.android.material.card.MaterialCardView card = (com.google.android.material.card.MaterialCardView) holder.itemView;
-            card.setCardBackgroundColor(android.graphics.Color.parseColor("#122614"));
+            card.setCardBackgroundColor(android.graphics.Color.parseColor("#16321A"));
 
+            int strokeWidthPx = Math.max(1, (int) (1 * holder.itemView.getContext().getResources().getDisplayMetrics().density));
             if (isFavorite) {
-                card.setStrokeColor(android.graphics.Color.parseColor("#FFC107"));
-                card.setStrokeWidth(3);
+                card.setStrokeColor(android.graphics.Color.parseColor("#FFD700"));
+                card.setStrokeWidth(strokeWidthPx * 2);
                 holder.btnToggleSave.setImageResource(R.drawable.ic_star);
-                holder.btnToggleSave.setColorFilter(android.graphics.Color.parseColor("#FFC107"));
+                holder.btnToggleSave.setColorFilter(android.graphics.Color.parseColor("#FFD700"));
             } else {
-                card.setStrokeColor(android.graphics.Color.parseColor("#1AFFFFFF"));
-                card.setStrokeWidth(1);
+                card.setStrokeColor(android.graphics.Color.parseColor("#4081C784"));
+                card.setStrokeWidth(strokeWidthPx);
                 holder.btnToggleSave.setImageResource(R.drawable.ic_star);
                 holder.btnToggleSave.setColorFilter(android.graphics.Color.WHITE);
             }

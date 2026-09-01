@@ -46,7 +46,7 @@
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#81C784"
+                app:strokeColor="#4081C784"
                 app:strokeWidth="1dp">
 
                 <TableLayout
@@ -580,7 +580,7 @@
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#81C784"
+                app:strokeColor="#4081C784"
                 app:strokeWidth="1dp">
 
                 <TableLayout
