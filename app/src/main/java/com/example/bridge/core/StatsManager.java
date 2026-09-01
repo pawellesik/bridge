@@ -348,12 +348,13 @@ public class StatsManager {
         double curMaxImp = dataStoreManager.getPreference(keyMaxImp, 0.0).blockingFirst(0.0);
         int curWins = dataStoreManager.getPreference(keyWins, 0).blockingFirst(0);
 
+        double newImp = Math.round((curImp + gameImp) * 10.0) / 10.0;
+        double newMaxImp = Math.max(curMaxImp, newImp);
+
         dataStoreManager.setPreference(keyDeals, curDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
         dataStoreManager.setPreference(keyConcedes, curConcedes + concedeCount).subscribeOn(Schedulers.io()).subscribe();
-        dataStoreManager.setPreference(keyImp, curImp + gameImp).subscribeOn(Schedulers.io()).subscribe();
-        if (gameImp > curMaxImp) {
-            dataStoreManager.setPreference(keyMaxImp, gameImp).subscribeOn(Schedulers.io()).subscribe();
-        }
+        dataStoreManager.setPreference(keyImp, newImp).subscribeOn(Schedulers.io()).subscribe();
+        dataStoreManager.setPreference(keyMaxImp, newMaxImp).subscribeOn(Schedulers.io()).subscribe();
         if (isWin) {
             dataStoreManager.setPreference(keyWins, curWins + 1).subscribeOn(Schedulers.io()).subscribe();
         }
