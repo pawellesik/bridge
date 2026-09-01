@@ -263,47 +263,45 @@ public class StatsManager {
     public void recordGame(String mode, int dealsCount, int concedeCount, int gameImp, boolean isWin) {
         if ("Just Declare".equalsIgnoreCase(mode) || "JD".equalsIgnoreCase(mode) || "quick".equalsIgnoreCase(mode)) {
             recordModeStats(
-                    DataStoreManager.STAT_SESSION_GAMES_JD, DataStoreManager.STAT_SESSION_DEALS_JD, DataStoreManager.STAT_SESSION_CONCEDES_JD, DataStoreManager.STAT_SESSION_IMP_JD, DataStoreManager.STAT_SESSION_MAX_IMP_JD, DataStoreManager.STAT_SESSION_WINS_JD,
-                    DataStoreManager.STAT_GLOBAL_GAMES_JD, DataStoreManager.STAT_GLOBAL_DEALS_JD, DataStoreManager.STAT_GLOBAL_CONCEDES_JD, DataStoreManager.STAT_GLOBAL_IMP_JD, DataStoreManager.STAT_GLOBAL_MAX_IMP_JD, DataStoreManager.STAT_GLOBAL_WINS_JD,
+                    DataStoreManager.STAT_SESSION_DEALS_JD, DataStoreManager.STAT_SESSION_CONCEDES_JD, DataStoreManager.STAT_SESSION_IMP_JD, DataStoreManager.STAT_SESSION_MAX_IMP_JD, DataStoreManager.STAT_SESSION_WINS_JD,
+                    DataStoreManager.STAT_GLOBAL_DEALS_JD, DataStoreManager.STAT_GLOBAL_CONCEDES_JD, DataStoreManager.STAT_GLOBAL_IMP_JD, DataStoreManager.STAT_GLOBAL_MAX_IMP_JD, DataStoreManager.STAT_GLOBAL_WINS_JD,
                     dealsCount, concedeCount, gameImp, isWin
             );
         } else if ("Singleplayer".equalsIgnoreCase(mode) || "SP".equalsIgnoreCase(mode) || "single".equalsIgnoreCase(mode)) {
             recordModeStats(
-                    DataStoreManager.STAT_SESSION_GAMES_SP, DataStoreManager.STAT_SESSION_DEALS_SP, DataStoreManager.STAT_SESSION_CONCEDES_SP, DataStoreManager.STAT_SESSION_IMP_SP, DataStoreManager.STAT_SESSION_MAX_IMP_SP, DataStoreManager.STAT_SESSION_WINS_SP,
-                    DataStoreManager.STAT_GLOBAL_GAMES_SP, DataStoreManager.STAT_GLOBAL_DEALS_SP, DataStoreManager.STAT_GLOBAL_CONCEDES_SP, DataStoreManager.STAT_GLOBAL_IMP_SP, DataStoreManager.STAT_GLOBAL_MAX_IMP_SP, DataStoreManager.STAT_GLOBAL_WINS_SP,
+                    DataStoreManager.STAT_SESSION_DEALS_SP, DataStoreManager.STAT_SESSION_CONCEDES_SP, DataStoreManager.STAT_SESSION_IMP_SP, DataStoreManager.STAT_SESSION_MAX_IMP_SP, DataStoreManager.STAT_SESSION_WINS_SP,
+                    DataStoreManager.STAT_GLOBAL_DEALS_SP, DataStoreManager.STAT_GLOBAL_CONCEDES_SP, DataStoreManager.STAT_GLOBAL_IMP_SP, DataStoreManager.STAT_GLOBAL_MAX_IMP_SP, DataStoreManager.STAT_GLOBAL_WINS_SP,
                     dealsCount, concedeCount, gameImp, isWin
             );
         } else {
             recordModeStats(
-                    DataStoreManager.STAT_SESSION_GAMES_MP, DataStoreManager.STAT_SESSION_DEALS_MP, DataStoreManager.STAT_SESSION_CONCEDES_MP, DataStoreManager.STAT_SESSION_IMP_MP, DataStoreManager.STAT_SESSION_MAX_IMP_MP, DataStoreManager.STAT_SESSION_WINS_MP,
-                    DataStoreManager.STAT_GLOBAL_GAMES_MP, DataStoreManager.STAT_GLOBAL_DEALS_MP, DataStoreManager.STAT_GLOBAL_CONCEDES_MP, DataStoreManager.STAT_GLOBAL_IMP_MP, DataStoreManager.STAT_GLOBAL_MAX_IMP_MP, DataStoreManager.STAT_GLOBAL_WINS_MP,
+                    DataStoreManager.STAT_SESSION_DEALS_MP, DataStoreManager.STAT_SESSION_CONCEDES_MP, DataStoreManager.STAT_SESSION_IMP_MP, DataStoreManager.STAT_SESSION_MAX_IMP_MP, DataStoreManager.STAT_SESSION_WINS_MP,
+                    DataStoreManager.STAT_GLOBAL_DEALS_MP, DataStoreManager.STAT_GLOBAL_CONCEDES_MP, DataStoreManager.STAT_GLOBAL_IMP_MP, DataStoreManager.STAT_GLOBAL_MAX_IMP_MP, DataStoreManager.STAT_GLOBAL_WINS_MP,
                     dealsCount, concedeCount, gameImp, isWin
             );
         }
     }
 
     private void recordModeStats(
-            Preferences.Key<Integer> sessGames, Preferences.Key<Integer> sessDeals, Preferences.Key<Integer> sessConcedes, Preferences.Key<Integer> sessImp, Preferences.Key<Integer> sessMaxImp, Preferences.Key<Integer> sessWins,
-            Preferences.Key<Integer> globGames, Preferences.Key<Integer> globDeals, Preferences.Key<Integer> globConcedes, Preferences.Key<Integer> globImp, Preferences.Key<Integer> globMaxImp, Preferences.Key<Integer> globWins,
+            Preferences.Key<Integer> sessDeals, Preferences.Key<Integer> sessConcedes, Preferences.Key<Integer> sessImp, Preferences.Key<Integer> sessMaxImp, Preferences.Key<Integer> sessWins,
+            Preferences.Key<Integer> globDeals, Preferences.Key<Integer> globConcedes, Preferences.Key<Integer> globImp, Preferences.Key<Integer> globMaxImp, Preferences.Key<Integer> globWins,
             int dealsCount, int concedeCount, int gameImp, boolean isWin
     ) {
-        updateStatsSet(sessGames, sessDeals, sessConcedes, sessImp, sessMaxImp, sessWins, dealsCount, concedeCount, gameImp, isWin);
-        updateStatsSet(globGames, globDeals, globConcedes, globImp, globMaxImp, globWins, dealsCount, concedeCount, gameImp, isWin);
+        updateStatsSet(sessDeals, sessConcedes, sessImp, sessMaxImp, sessWins, dealsCount, concedeCount, gameImp, isWin);
+        updateStatsSet(globDeals, globConcedes, globImp, globMaxImp, globWins, dealsCount, concedeCount, gameImp, isWin);
     }
 
     private void updateStatsSet(
-            Preferences.Key<Integer> keyGames, Preferences.Key<Integer> keyDeals, Preferences.Key<Integer> keyConcedes,
+            Preferences.Key<Integer> keyDeals, Preferences.Key<Integer> keyConcedes,
             Preferences.Key<Integer> keyImp, Preferences.Key<Integer> keyMaxImp, Preferences.Key<Integer> keyWins,
             int dealsCount, int concedeCount, int gameImp, boolean isWin
     ) {
-        int curGames = dataStoreManager.getPreference(keyGames, 0).blockingFirst(0);
         int curDeals = dataStoreManager.getPreference(keyDeals, 0).blockingFirst(0);
         int curConcedes = dataStoreManager.getPreference(keyConcedes, 0).blockingFirst(0);
         int curImp = dataStoreManager.getPreference(keyImp, 0).blockingFirst(0);
         int curMaxImp = dataStoreManager.getPreference(keyMaxImp, 0).blockingFirst(0);
         int curWins = dataStoreManager.getPreference(keyWins, 0).blockingFirst(0);
 
-        dataStoreManager.setPreference(keyGames, curGames + 1).subscribeOn(Schedulers.io()).subscribe();
         dataStoreManager.setPreference(keyDeals, curDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
         dataStoreManager.setPreference(keyConcedes, curConcedes + concedeCount).subscribeOn(Schedulers.io()).subscribe();
         dataStoreManager.setPreference(keyImp, curImp + gameImp).subscribeOn(Schedulers.io()).subscribe();
