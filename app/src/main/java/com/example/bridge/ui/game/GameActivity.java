@@ -191,6 +191,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             setBottomNavVisibility(false);
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
                 overlayStatistic.getStatsManager().incrementGames(gameMode);
+                overlayStatistic.getStatsManager().incrementConcedes(gameMode);
             }
 
             southAdapter.setCardsEnabled(true);
@@ -832,7 +833,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             double gameImp = pbnCollection.getPbn().getImp();
             boolean isWin = gameImp > 0;
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
-                overlayStatistic.getStatsManager().recordGame(gameMode, 0, 0, gameImp, isWin);
+                overlayStatistic.getStatsManager().recordGame(gameMode, 0, -1, gameImp, isWin);
             }
             double careerImpAfter = statsManager.getCareerImp(gameMode);
             gameTop.setTotalImp(careerImpAfter, gameImp);

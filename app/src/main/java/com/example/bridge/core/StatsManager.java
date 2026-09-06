@@ -89,6 +89,19 @@ public class StatsManager {
         }
     }
 
+    public void incrementConcedes(String gameMode) {
+        if ("single".equalsIgnoreCase(gameMode) || "Singleplayer".equalsIgnoreCase(gameMode) || "SP".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_CONCEDES_SP);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_CONCEDES_SP);
+        } else if ("quick".equalsIgnoreCase(gameMode) || "Just Declare".equalsIgnoreCase(gameMode) || "JD".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_CONCEDES_JD);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_CONCEDES_JD);
+        } else if ("multi".equalsIgnoreCase(gameMode) || "Multiplayer".equalsIgnoreCase(gameMode) || "MP".equalsIgnoreCase(gameMode)) {
+            incrementSingleValue(DataStoreManager.STAT_SESSION_CONCEDES_MP);
+            incrementSingleValue(DataStoreManager.STAT_GLOBAL_CONCEDES_MP);
+        }
+    }
+
     private void incrementSingleValue(Preferences.Key<Integer> key) {
         int current = dataStoreManager.getPreference(key, 0).blockingFirst(0);
         dataStoreManager.setPreference(key, current + 1)
@@ -374,9 +387,12 @@ public class StatsManager {
 
         double newImp = Math.round((curImp + gameImp) * 10.0) / 10.0;
         double newMaxImp = Math.max(curMaxImp, newImp);
+        int newConcedes = Math.max(0, curConcedes + concedeCount);
 
-        dataStoreManager.setPreference(keyDeals, curDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
-        dataStoreManager.setPreference(keyConcedes, curConcedes + concedeCount).subscribeOn(Schedulers.io()).subscribe();
+        if (dealsCount > 0) {
+            dataStoreManager.setPreference(keyDeals, curDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
+        }
+        dataStoreManager.setPreference(keyConcedes, newConcedes).subscribeOn(Schedulers.io()).subscribe();
         dataStoreManager.setPreference(keyImp, newImp).subscribeOn(Schedulers.io()).subscribe();
         dataStoreManager.setPreference(keyMaxImp, newMaxImp).subscribeOn(Schedulers.io()).subscribe();
         if (isWin) {
