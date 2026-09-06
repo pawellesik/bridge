@@ -36,6 +36,15 @@ public class StatsManager {
             return wins + " (" + getWinPercentage() + "%)";
         }
 
+        public int getConcedesPercentage() {
+            if (games <= 0) return 0;
+            return (int) Math.round((double) concedes * 100.0 / (double) games);
+        }
+
+        public String getConcedesFormatted() {
+            return concedes + " (" + getConcedesPercentage() + "%)";
+        }
+
         public String getImpFormatted() {
             return formatImpWithDecimal(imp);
         }

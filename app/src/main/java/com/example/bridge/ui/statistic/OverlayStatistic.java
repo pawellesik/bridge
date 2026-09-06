@@ -164,7 +164,7 @@ public class OverlayStatistic {
     ) {
         if (tvGames != null) tvGames.setText(String.valueOf(stats.games));
         if (tvDeals != null) tvDeals.setText(String.valueOf(stats.deals));
-        if (tvConcedes != null) tvConcedes.setText(String.valueOf(stats.concedes));
+        if (tvConcedes != null) tvConcedes.setText(stats.getConcedesFormatted());
         if (tvImp != null) tvImp.setText(stats.getImpFormatted());
         if (tvMaxImp != null) tvMaxImp.setText(stats.getMaxImpFormatted());
         if (tvWins != null) tvWins.setText(stats.getWinsFormatted());

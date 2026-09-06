@@ -287,7 +287,7 @@
                             android:id="@+id/tv_session_concedes_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -296,7 +296,7 @@
                             android:id="@+id/tv_session_concedes_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
@@ -304,7 +304,7 @@
                             android:id="@+id/tv_session_concedes_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -821,7 +821,7 @@
                             android:id="@+id/tv_global_concedes_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -830,7 +830,7 @@
                             android:id="@+id/tv_global_concedes_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
@@ -838,7 +838,7 @@
                             android:id="@+id/tv_global_concedes_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0 (0%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
