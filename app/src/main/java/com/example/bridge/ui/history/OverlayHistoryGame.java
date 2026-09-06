@@ -168,18 +168,33 @@ public class OverlayHistoryGame {
         }
     }
 
+    private Pbn getMyGamePbn() {
+        if (reconstructedPbnList != null) {
+            for (Pbn p : reconstructedPbnList) {
+                if ("MyGame".equals(p.getBoard())) {
+                    return p;
+                }
+            }
+            if (!reconstructedPbnList.isEmpty()) {
+                return reconstructedPbnList.get(0);
+            }
+        }
+        return null;
+    }
+
     private void updateTopBarImpDisplay() {
         if (tvMiddle1History == null || tvMiddle2History == null || tvMiddle3History == null) return;
 
-        String mode = (selectedPbn != null && selectedPbn.getGameMode() != null && !selectedPbn.getGameMode().isEmpty())
-                ? selectedPbn.getGameMode() : activity.getGameMode();
+        Pbn myGamePbn = getMyGamePbn();
+        String mode = (myGamePbn != null && myGamePbn.getGameMode() != null && !myGamePbn.getGameMode().isEmpty())
+                ? myGamePbn.getGameMode() : activity.getGameMode();
 
         double totalImp = 0.0;
         if (activity.getOverlayStatistic() != null && activity.getOverlayStatistic().getStatsManager() != null) {
             totalImp = activity.getOverlayStatistic().getStatsManager().getCareerImp(mode);
         }
 
-        double diffImp = (selectedPbn != null) ? selectedPbn.getImp() : 0.0;
+        double diffImp = (myGamePbn != null) ? myGamePbn.getImp() : 0.0;
 
         tvMiddle1History.setText(activity.getString(R.string.imp_label));
         tvMiddle2History.setText(String.format(Locale.US, "%.1f", totalImp));
