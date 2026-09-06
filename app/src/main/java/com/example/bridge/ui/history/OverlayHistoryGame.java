@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class OverlayHistoryGame {
 
@@ -22,6 +23,7 @@ public class OverlayHistoryGame {
     private Pbn selectedPbn = null;
 
     private TextView tvNorthCards, tvSouthCards, tvEastCards, tvWestCards;
+    private TextView tvMiddle1History, tvMiddle2History, tvMiddle3History;
     private androidx.recyclerview.widget.RecyclerView rvBiddingHistory;
     private com.example.bridge.ui.biddings.GameBiddingHistoryAdapter biddingAdapter;
     private final List<String> biddingList = new ArrayList<>();
@@ -34,7 +36,11 @@ public class OverlayHistoryGame {
             tvSouthCards = root.findViewById(R.id.tv_south_cards_history);
             tvEastCards = root.findViewById(R.id.tv_east_cards_history);
             tvWestCards = root.findViewById(R.id.tv_west_cards_history);
-            
+
+            tvMiddle1History = root.findViewById(R.id.tv_middle_1_history);
+            tvMiddle2History = root.findViewById(R.id.tv_middle_2_history);
+            tvMiddle3History = root.findViewById(R.id.tv_middle_3_history);
+
             rvBiddingHistory = root.findViewById(R.id.rv_bidding_history_history);
             if (rvBiddingHistory != null) {
                 rvBiddingHistory.setLayoutManager(new androidx.recyclerview.widget.GridLayoutManager(activity, 4));
@@ -65,6 +71,8 @@ public class OverlayHistoryGame {
         if (tvSouthCards != null) tvSouthCards.setText("");
         if (tvEastCards != null) tvEastCards.setText("");
         if (tvWestCards != null) tvWestCards.setText("");
+        if (tvMiddle2History != null) tvMiddle2History.setText("");
+        if (tvMiddle3History != null) tvMiddle3History.setText("");
         biddingList.clear();
         if (biddingAdapter != null) biddingAdapter.notifyDataSetChanged();
         selectedPbn = null;
@@ -80,13 +88,13 @@ public class OverlayHistoryGame {
                 List<Pbn> loadedPbns = new ArrayList<>();
                 if (records != null) {
                     for (GameRecord record : records) {
-                        android.util.Log.d("plesik", record.gameData.toString());//to do czasow zakonczenia prac nalezy pozostawic, pomaga debugowac
+                        android.util.Log.d("plesik", record.gameData.toString());
                         Pbn pbn = new Pbn(activity, record.system);
                         pbn.loadFromJsonObject(new JSONObject(record.gameData));
                         loadedPbns.add(pbn);
                     }
                 }
-                
+
                 activity.runOnUiThread(() -> {
                     reconstructedPbnList.clear();
                     reconstructedPbnList.addAll(loadedPbns);
@@ -104,7 +112,7 @@ public class OverlayHistoryGame {
                     }
                     updateUi();
                     root.setVisibility(View.VISIBLE);
-                    
+
                     if (listener != null) {
                         listener.onReady();
                     }
@@ -117,6 +125,7 @@ public class OverlayHistoryGame {
 
     public void updateUi() {
         if (root == null) return;
+        updateTopBarImpDisplay();
         updateSelectedGameDetails();
         android.widget.LinearLayout tableContent = root.findViewById(R.id.table_history_content_history);
         if (tableContent != null) {
@@ -153,6 +162,32 @@ public class OverlayHistoryGame {
         }
     }
 
+    private void updateTopBarImpDisplay() {
+        if (tvMiddle1History == null || tvMiddle2History == null || tvMiddle3History == null) return;
+
+        String mode = (selectedPbn != null && selectedPbn.getGameMode() != null && !selectedPbn.getGameMode().isEmpty())
+                ? selectedPbn.getGameMode() : activity.getGameMode();
+
+        double totalImp = 0.0;
+        if (activity.getOverlayStatistic() != null && activity.getOverlayStatistic().getStatsManager() != null) {
+            totalImp = activity.getOverlayStatistic().getStatsManager().getCareerImp(mode);
+        }
+
+        double diffImp = (selectedPbn != null) ? selectedPbn.getImp() : 0.0;
+
+        tvMiddle1History.setText(activity.getString(R.string.imp_label));
+        tvMiddle2History.setText(String.format(Locale.US, "%.1f", totalImp));
+
+        if (diffImp != 0.0) {
+            tvMiddle3History.setText(String.format(Locale.US, "(%s%.1f)", (diffImp > 0 ? "+" : ""), diffImp));
+            tvMiddle3History.setTextColor(diffImp > 0 ? android.graphics.Color.parseColor("#C8E6C9") : android.graphics.Color.parseColor("#FF5252"));
+            tvMiddle3History.setVisibility(View.VISIBLE);
+        } else {
+            tvMiddle3History.setText("");
+            tvMiddle3History.setVisibility(View.GONE);
+        }
+    }
+
     private void setupRow(View row, Pbn pbn) {
         TextView tvNameNorth = row.findViewById(R.id.tv_row_name_north);
         TextView tvNameSouth = row.findViewById(R.id.tv_row_name_south);
@@ -165,11 +200,11 @@ public class OverlayHistoryGame {
 
         if (tvNameNorth != null) tvNameNorth.setText(pbn.getNorth());
         if (tvNameSouth != null) tvNameSouth.setText(pbn.getSouth());
-        
+
         boolean isMyGame = "MyGame".equals(pbn.getBoard());
         boolean isSelected = (pbn == selectedPbn);
         int textColor = isSelected ? android.graphics.Color.WHITE : (isMyGame ? android.graphics.Color.parseColor("#C62828") : android.graphics.Color.BLACK);
-        
+
         if (tvNameNorth != null) {
             tvNameNorth.setTextColor(textColor);
             tvNameNorth.setTypeface(null, isMyGame ? android.graphics.Typeface.BOLD_ITALIC : android.graphics.Typeface.BOLD);
@@ -189,7 +224,7 @@ public class OverlayHistoryGame {
         if (tvOpps1 != null) tvOpps1.setTextColor(textColor);
         if (tvImp != null) {
             double imp = pbn.getImp();
-            tvImp.setText(String.format(java.util.Locale.US, "%s%.1f", (imp > 0 ? "+" : ""), imp));
+            tvImp.setText(String.format(Locale.US, "%s%.1f", (imp > 0 ? "+" : ""), imp));
             tvImp.setTextColor(textColor);
         }
 
