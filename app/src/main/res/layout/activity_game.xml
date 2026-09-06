@@ -11,15 +11,6 @@
     <!-- Core Game Table (Now includes Top Bar and Bidding Overlay) -->
     <include layout="@layout/layout_game_table" />
 
-    <!-- Results Overlay -->
-    <include
-        layout="@layout/overlay_results"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintTop_toBottomOf="@id/top_bar"
-        tools:visibility="gone" />
-
     <!-- History Overlay -->
     <include
         layout="@layout/overlay_history_list"
