@@ -23,6 +23,7 @@ public class OverlayHistoryGame {
     private Pbn selectedPbn = null;
 
     private TextView tvNorthCards, tvSouthCards, tvEastCards, tvWestCards;
+    private TextView labelNorth, labelSouth, labelEast, labelWest;
     private TextView tvMiddle1History, tvMiddle2History, tvMiddle3History;
     private androidx.recyclerview.widget.RecyclerView rvBiddingHistory;
     private com.example.bridge.ui.biddings.GameBiddingHistoryAdapter biddingAdapter;
@@ -36,6 +37,11 @@ public class OverlayHistoryGame {
             tvSouthCards = root.findViewById(R.id.tv_south_cards_history);
             tvEastCards = root.findViewById(R.id.tv_east_cards_history);
             tvWestCards = root.findViewById(R.id.tv_west_cards_history);
+
+            labelNorth = root.findViewById(R.id.label_north);
+            labelSouth = root.findViewById(R.id.label_south);
+            labelEast = root.findViewById(R.id.label_east);
+            labelWest = root.findViewById(R.id.label_west);
 
             tvMiddle1History = root.findViewById(R.id.tv_middle_1_history);
             tvMiddle2History = root.findViewById(R.id.tv_middle_2_history);
@@ -259,7 +265,36 @@ public class OverlayHistoryGame {
             updateHandTextView(tvSouthCards, hands.get("South"));
             updateHandTextView(tvEastCards, hands.get("East"));
             updateHandTextView(tvWestCards, hands.get("West"));
+
+            updatePlayerLabelsWithHcp(hands);
         }
+    }
+
+    private void updatePlayerLabelsWithHcp(Map<String, List<com.example.bridge.model.Card>> hands) {
+        if (hands == null) return;
+
+        updatePlayerLabel(labelNorth, R.string.player_north, hands.get("North"));
+        updatePlayerLabel(labelSouth, R.string.player_south, hands.get("South"));
+        updatePlayerLabel(labelEast, R.string.player_east, hands.get("East"));
+        updatePlayerLabel(labelWest, R.string.player_west, hands.get("West"));
+    }
+
+    private void updatePlayerLabel(TextView tv, int stringResId, List<com.example.bridge.model.Card> hand) {
+        if (tv == null) return;
+        String baseName = activity.getString(stringResId);
+        int hcp = calculateHandHcp(hand);
+        tv.setText(String.format(Locale.US, "%s %d HCP", baseName, hcp));
+    }
+
+    private int calculateHandHcp(List<com.example.bridge.model.Card> hand) {
+        if (hand == null) return 0;
+        int total = 0;
+        for (com.example.bridge.model.Card card : hand) {
+            if (card != null && card.getRank() != null) {
+                total += card.getRank().hcp;
+            }
+        }
+        return total;
     }
 
     private void updateBiddingHistory(Pbn pbn) {
