@@ -38,21 +38,32 @@ public class SettingsManager {
     }
 
     // --- CARD COLORS ---
+    private Boolean cachedCardColorsColorful = null;
+
     public boolean isCardColorsColorful() {
+        if (cachedCardColorsColorful != null) {
+            return cachedCardColorsColorful;
+        }
         try {
-            return dataStoreManager.getPreference(DataStoreManager.CARD_COLORS_COLORFUL, true)
+            boolean val = dataStoreManager.getPreference(DataStoreManager.CARD_COLORS_COLORFUL, true)
                     .firstOrError()
                     .onErrorReturnItem(true)
                     .blockingGet();
+            cachedCardColorsColorful = val;
+            return val;
         } catch (Exception e) {
             return true;
         }
     }
 
     public void setCardColorsColorful(boolean colorful) {
-        dataStoreManager.setPreference(DataStoreManager.CARD_COLORS_COLORFUL, colorful)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+        cachedCardColorsColorful = colorful;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.CARD_COLORS_COLORFUL, colorful)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
     }
 
     // --- QUICK GAME DIFFICULTY ---

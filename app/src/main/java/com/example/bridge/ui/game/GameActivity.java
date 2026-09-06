@@ -348,6 +348,15 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void initGameBase() {
+        displayHandNorth.clear();
+        displayHandSouth.clear();
+        if (northAdapter != null) northAdapter.notifyDataSetChanged();
+        if (southAdapter != null) southAdapter.notifyDataSetChanged();
+
+        if (singleGameBidding != null) {
+            singleGameBidding.reset();
+        }
+
         Map<String, Player> players = new LinkedHashMap<>();
         players.put("North", new Player("North", playedCardContainerNorth));
         players.put("East", new Player("East", playedCardContainerEast));
@@ -600,8 +609,12 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void refreshAllColors() {
-        updateDisplayHandNorth();
-        updateDisplayHandSouth();
+        if (!displayHandNorth.isEmpty()) {
+            updateDisplayHandNorth();
+        }
+        if (!displayHandSouth.isEmpty()) {
+            updateDisplayHandSouth();
+        }
 
         if (gameBidding != null) {
             gameBidding.applyColors();

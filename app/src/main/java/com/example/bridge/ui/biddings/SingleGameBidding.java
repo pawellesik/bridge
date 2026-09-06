@@ -220,11 +220,22 @@ public class SingleGameBidding {
         }
     }
 
-    public void updatePublicKnowledgeView() {
-        if (liveBiddingState == null) return;
+    public void reset() {
+        liveBiddingState = null;
+        View container = activity.findViewById(R.id.public_knowledge_container_layout);
+        if (container != null) {
+            container.setVisibility(View.GONE);
+        }
+    }
 
+    public void updatePublicKnowledgeView() {
         View container = activity.findViewById(R.id.public_knowledge_container_layout);
         if (container == null) return;
+
+        if (liveBiddingState == null || liveBiddingState.getContract().isAuctionComplete()) {
+            container.setVisibility(View.GONE);
+            return;
+        }
 
         // Pokaż wiedzę publiczną tylko jeśli North lub South wykonali już jakąś odzywkę
         PositionState northPos = liveBiddingState.getPositions().get(Direction.N);
