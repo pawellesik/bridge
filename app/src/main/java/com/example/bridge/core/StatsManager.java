@@ -379,33 +379,46 @@ public class StatsManager {
             Preferences.Key<Integer> globDeals, Preferences.Key<Integer> globConcedes, Preferences.Key<Double> globImp, Preferences.Key<Double> globMaxImp, Preferences.Key<Integer> globWins,
             int dealsCount, int concedeCount, double gameImp, boolean isWin
     ) {
-        updateStatsSet(sessDeals, sessConcedes, sessImp, sessMaxImp, sessWins, dealsCount, concedeCount, gameImp, isWin);
-        updateStatsSet(globDeals, globConcedes, globImp, globMaxImp, globWins, dealsCount, concedeCount, gameImp, isWin);
-    }
+        // Session
+        int curSessDeals = dataStoreManager.getPreference(sessDeals, 0).blockingFirst(0);
+        int curSessConcedes = dataStoreManager.getPreference(sessConcedes, 0).blockingFirst(0);
+        double curSessImp = dataStoreManager.getPreference(sessImp, 0.0).blockingFirst(0.0);
+        double curSessMaxImp = dataStoreManager.getPreference(sessMaxImp, 0.0).blockingFirst(0.0);
+        int curSessWins = dataStoreManager.getPreference(sessWins, 0).blockingFirst(0);
 
-    private void updateStatsSet(
-            Preferences.Key<Integer> keyDeals, Preferences.Key<Integer> keyConcedes,
-            Preferences.Key<Double> keyImp, Preferences.Key<Double> keyMaxImp, Preferences.Key<Integer> keyWins,
-            int dealsCount, int concedeCount, double gameImp, boolean isWin
-    ) {
-        int curDeals = dataStoreManager.getPreference(keyDeals, 0).blockingFirst(0);
-        int curConcedes = dataStoreManager.getPreference(keyConcedes, 0).blockingFirst(0);
-        double curImp = dataStoreManager.getPreference(keyImp, 0.0).blockingFirst(0.0);
-        double curMaxImp = dataStoreManager.getPreference(keyMaxImp, 0.0).blockingFirst(0.0);
-        int curWins = dataStoreManager.getPreference(keyWins, 0).blockingFirst(0);
-
-        double newImp = Math.round((curImp + gameImp) * 10.0) / 10.0;
-        double newMaxImp = Math.max(curMaxImp, newImp);
-        int newConcedes = Math.max(0, curConcedes + concedeCount);
+        double newSessImp = Math.round((curSessImp + gameImp) * 10.0) / 10.0;
+        double newSessMaxImp = Math.max(curSessMaxImp, newSessImp);
+        int newSessConcedes = Math.max(0, curSessConcedes + concedeCount);
 
         if (dealsCount > 0) {
-            dataStoreManager.setPreference(keyDeals, curDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
+            dataStoreManager.setPreference(sessDeals, curSessDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
         }
-        dataStoreManager.setPreference(keyConcedes, newConcedes).subscribeOn(Schedulers.io()).subscribe();
-        dataStoreManager.setPreference(keyImp, newImp).subscribeOn(Schedulers.io()).subscribe();
-        dataStoreManager.setPreference(keyMaxImp, newMaxImp).subscribeOn(Schedulers.io()).subscribe();
+        dataStoreManager.setPreference(sessConcedes, newSessConcedes).subscribeOn(Schedulers.io()).subscribe();
+        dataStoreManager.setPreference(sessImp, newSessImp).subscribeOn(Schedulers.io()).subscribe();
+        dataStoreManager.setPreference(sessMaxImp, newSessMaxImp).subscribeOn(Schedulers.io()).subscribe();
         if (isWin) {
-            dataStoreManager.setPreference(keyWins, curWins + 1).subscribeOn(Schedulers.io()).subscribe();
+            dataStoreManager.setPreference(sessWins, curSessWins + 1).subscribeOn(Schedulers.io()).subscribe();
+        }
+
+        // Global
+        int curGlobDeals = dataStoreManager.getPreference(globDeals, 0).blockingFirst(0);
+        int curGlobConcedes = dataStoreManager.getPreference(globConcedes, 0).blockingFirst(0);
+        double curGlobImp = dataStoreManager.getPreference(globImp, 0.0).blockingFirst(0.0);
+        double curGlobMaxImp = dataStoreManager.getPreference(globMaxImp, 0.0).blockingFirst(0.0);
+        int curGlobWins = dataStoreManager.getPreference(globWins, 0).blockingFirst(0);
+
+        double newGlobImp = Math.round((curGlobImp + gameImp) * 10.0) / 10.0;
+        double newGlobMaxImp = Math.max(curGlobMaxImp, newSessMaxImp);
+        int newGlobConcedes = Math.max(0, curGlobConcedes + concedeCount);
+
+        if (dealsCount > 0) {
+            dataStoreManager.setPreference(globDeals, curGlobDeals + dealsCount).subscribeOn(Schedulers.io()).subscribe();
+        }
+        dataStoreManager.setPreference(globConcedes, newGlobConcedes).subscribeOn(Schedulers.io()).subscribe();
+        dataStoreManager.setPreference(globImp, newGlobImp).subscribeOn(Schedulers.io()).subscribe();
+        dataStoreManager.setPreference(globMaxImp, newGlobMaxImp).subscribeOn(Schedulers.io()).subscribe();
+        if (isWin) {
+            dataStoreManager.setPreference(globWins, curGlobWins + 1).subscribeOn(Schedulers.io()).subscribe();
         }
     }
 }

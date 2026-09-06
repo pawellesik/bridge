@@ -341,7 +341,7 @@
                             android:id="@+id/tv_session_imp_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0.0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -350,7 +350,7 @@
                             android:id="@+id/tv_session_imp_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0.0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
@@ -358,61 +358,7 @@
                             android:id="@+id/tv_session_imp_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-                    </TableRow>
-
-                    <View
-                        android:layout_height="0.5dp"
-                        android:background="#1AFFFFFF" />
-
-                    <!-- Row: Max IMP -->
-                    <TableRow
-                        android:gravity="center_vertical"
-                        android:paddingVertical="8dp">
-
-                        <LinearLayout android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@drawable/ic_star"
-                                app:tint="#81C784" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Max IMP"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tv_session_max_imp_jd"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_session_max_imp_sp"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_session_max_imp_mp"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0"
+                            android:text="0.0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -471,10 +417,67 @@
                             android:textSize="12sp" />
                     </TableRow>
 
+                    <!-- Distinct Separator for Max IMP -->
+                    <View
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#4081C784" />
+
+                    <!-- Row: Max IMP (Bottom Highlight Row) -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star"
+                                app:tint="#81C784" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Max IMP"
+                                android:textColor="#81C784"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_session_max_imp_jd"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0.0"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_session_max_imp_sp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0.0"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_session_max_imp_mp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0.0"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
                     <!-- Separator Line before Clear Buttons -->
                     <View
                         android:layout_height="0.5dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="8dp"
                         android:background="#1AFFFFFF" />
 
                     <!-- Row: Clear Buttons -->
@@ -875,7 +878,7 @@
                             android:id="@+id/tv_global_imp_jd"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0.0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -884,7 +887,7 @@
                             android:id="@+id/tv_global_imp_sp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text="0.0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
@@ -892,61 +895,7 @@
                             android:id="@+id/tv_global_imp_mp"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="0"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-                    </TableRow>
-
-                    <View
-                        android:layout_height="0.5dp"
-                        android:background="#1AFFFFFF" />
-
-                    <!-- Row: Max IMP -->
-                    <TableRow
-                        android:gravity="center_vertical"
-                        android:paddingVertical="8dp">
-
-                        <LinearLayout android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@drawable/ic_star"
-                                app:tint="#81C784" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Max IMP"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tv_global_max_imp_jd"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_global_max_imp_sp"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_global_max_imp_mp"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0"
+                            android:text="0.0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
@@ -1001,6 +950,63 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0 (0%)"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <!-- Distinct Separator for Max IMP -->
+                    <View
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#4081C784" />
+
+                    <!-- Row: Max IMP (Bottom Highlight Row) -->
+                    <TableRow
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
+
+                        <LinearLayout android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star"
+                                app:tint="#81C784" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Max IMP"
+                                android:textColor="#81C784"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_global_max_imp_jd"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0.0"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_global_max_imp_sp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0.0"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_global_max_imp_mp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="0.0"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
                     </TableRow>
