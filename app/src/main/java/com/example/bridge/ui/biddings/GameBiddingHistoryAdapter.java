@@ -178,7 +178,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
         if (bid.equalsIgnoreCase("Pass") || bid.equalsIgnoreCase("P")) {
             tvLevel.setText("Pass");
-            tvLevel.setTextColor(0xFF81C784);
+            tvLevel.setTextColor(0xFF2E7D32);
         } else if (bid.equalsIgnoreCase("X") || bid.equalsIgnoreCase("Double")) {
             tvLevel.setText("Kontra");
             tvLevel.setTextColor(0xFFE57373);
