@@ -258,10 +258,19 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
                 }
 
                 if (s != null) {
-                    int start = ssb.length();
-                    ssb.append(level).append(" ").append(s.symbol);
-                    int color = s.getColor(context);
-                    ssb.setSpan(new ForegroundColorSpan(color), start, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    int suitColor = s.getColor(context);
+                    int startLevel = ssb.length();
+                    ssb.append(level);
+                    ssb.setSpan(new ForegroundColorSpan(suitColor), startLevel, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    int iconSizePx = (int) (13 * context.getResources().getDisplayMetrics().density);
+                    Drawable drawable = getSuitDrawable(context, s, iconSizePx);
+                    if (drawable != null) {
+                        int iconStart = ssb.length();
+                        ssb.append(" ");
+                        ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
+                        ssb.setSpan(imageSpan, iconStart, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
                 } else {
                     ssb.append(level).append(suitPart);
                 }
