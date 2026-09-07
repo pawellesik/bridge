@@ -11,6 +11,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 import com.example.bridge.R;
 import com.example.bridge.bidding.Tools.BiddingState;
@@ -370,22 +371,19 @@ public class SingleGameBidding {
             return;
         }
 
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        ssb.append(d.name()).append(": ");
+        List<CharSequence> parts = new ArrayList<>();
 
+        // 1. HCP First
         Range p = summary.getHighCardPoints();
-        if (p != null)
-            ssb.append("HCP: ").append(String.valueOf(p.getMin())).append("-").append(String.valueOf(p.getMax())).append(" ");
-
-        Set<Integer> aces = summary.getCountAces();
-        if (aces != null && !aces.isEmpty()) {
-            ssb.append("Asy: ").append(aces.toString()).append(" ");
-        }
-        Set<Integer> kings = summary.getCountKings();
-        if (kings != null && !kings.isEmpty()) {
-            ssb.append("Krole: ").append(kings.toString()).append(" ");
+        if (p != null) {
+            if (p.getMin() == p.getMax()) {
+                parts.add("HCP: " + p.getMin());
+            } else {
+                parts.add("HCP: " + p.getMin() + "-" + p.getMax());
+            }
         }
 
+        // 2. Suits Second (Spades, Hearts, Diamonds, Clubs)
         com.example.bridge.bidding.Tools.Suit[] orderedSuits = {
                 com.example.bridge.bidding.Tools.Suit.Spades,
                 com.example.bridge.bidding.Tools.Suit.Hearts,
@@ -398,14 +396,35 @@ public class SingleGameBidding {
             if (suitSum != null) {
                 Range shape = suitSum.getShape();
                 if (shape != null && shape.getMin() > 0) {
-                    appendSuitSymbol(ssb, s, ":" + shape.getMin() + "+ ");
+                    SpannableStringBuilder suitSsb = new SpannableStringBuilder();
+                    String suffix = (shape.getMin() == shape.getMax()) ? ": " + shape.getMin() : ": " + shape.getMin() + "+";
+                    appendSuitSymbol(suitSsb, s, suffix);
+                    parts.add(suitSsb);
                 }
             }
         }
 
-        if (ssb.length() > 3) {
+        // 3. Aces & Kings Third
+        Set<Integer> aces = summary.getCountAces();
+        if (aces != null && !aces.isEmpty()) {
+            parts.add(activity.getString(R.string.public_knowledge_aces, aces.toString()));
+        }
+        Set<Integer> kings = summary.getCountKings();
+        if (kings != null && !kings.isEmpty()) {
+            parts.add(activity.getString(R.string.public_knowledge_kings, kings.toString()));
+        }
+
+        if (!parts.isEmpty()) {
+            SpannableStringBuilder finalSsb = new SpannableStringBuilder();
+            finalSsb.append(d.name()).append(": ");
+
+            for (int i = 0; i < parts.size(); i++) {
+                if (i > 0) finalSsb.append(", ");
+                finalSsb.append(parts.get(i));
+            }
+
             textView.setVisibility(View.VISIBLE);
-            textView.setText(ssb);
+            textView.setText(finalSsb, TextView.BufferType.SPANNABLE);
         } else {
             textView.setVisibility(View.GONE);
         }

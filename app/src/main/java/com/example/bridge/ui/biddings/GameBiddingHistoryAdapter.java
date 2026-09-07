@@ -116,7 +116,6 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         TextView tvLevel = popupView.findViewById(R.id.tv_popup_bid_level);
         ImageView ivSuit = popupView.findViewById(R.id.iv_popup_bid_suit);
         TextView tvText = popupView.findViewById(R.id.tv_popup_bid_description);
-        ImageView ivArrow = popupView.findViewById(R.id.iv_popup_arrow);
 
         if (tvLabel != null) {
             tvLabel.setText(context.getString(R.string.explanation_label));
@@ -154,6 +153,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         int popupX = anchorCenterX - popupWidth / 2;
         popupX = Math.max(16, Math.min(popupX, screenWidth - popupWidth - 16));
 
+        ImageView ivArrow = popupView.findViewById(R.id.iv_popup_arrow);
         if (ivArrow != null) {
             int arrowWidth = (int) (16 * context.getResources().getDisplayMetrics().density);
             int arrowOffsetInPopup = anchorCenterX - popupX - (arrowWidth / 2);
@@ -283,7 +283,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     }
 
     public static SpannableStringBuilder formatDescriptionText(Context context, String text) {
-        if (text == null) return new SpannableStringBuilder("");
+        if (text == null || text.trim().isEmpty()) return new SpannableStringBuilder("");
 
         String sortedText = sortDescriptionSuitClauses(text);
         String s = sortedText;
@@ -339,52 +339,126 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     }
 
     private static String sortDescriptionSuitClauses(String text) {
-        if (text == null || !text.contains(",")) return text;
+        if (text == null || text.trim().isEmpty()) return "";
 
-        String[] clauses = text.split(",\\s*");
-        if (clauses.length <= 1) return text;
+        String[] lines = text.split("\n");
+        List<String> formattedLines = new ArrayList<>();
+
+        for (String line : lines) {
+            String trimmedLine = line.trim();
+            if (trimmedLine.isEmpty()) continue;
+
+            String processed = processSingleLine(trimmedLine);
+            if (!processed.isEmpty()) {
+                formattedLines.add(processed);
+            }
+        }
+
+        return String.join("\n", formattedLines);
+    }
+
+    private static String processSingleLine(String line) {
+        String[] rawClauses = line.split(",\\s*");
+        if (rawClauses.length == 0) return line;
+
+        List<String> normalizedClauses = new ArrayList<>();
+        for (String c : rawClauses) {
+            String trimmed = c.trim();
+            if (!trimmed.isEmpty()) {
+                normalizedClauses.add(trimmed);
+            }
+        }
 
         class ClauseItem {
             final String text;
             final int originalIndex;
-            final int suitPriority;
+            final int categoryPriority;
 
             ClauseItem(String text, int originalIndex) {
-                this.text = text;
+                this.text = formatClauseText(text);
                 this.originalIndex = originalIndex;
-                this.suitPriority = determineSuitPriority(text);
+                this.categoryPriority = categorizeClause(text);
             }
         }
 
         List<ClauseItem> items = new ArrayList<>();
-        for (int i = 0; i < clauses.length; i++) {
-            items.add(new ClauseItem(clauses[i].trim(), i));
+        for (int i = 0; i < normalizedClauses.size(); i++) {
+            items.add(new ClauseItem(normalizedClauses.get(i), i));
         }
 
         items.sort((a, b) -> {
-            if (a.suitPriority != b.suitPriority) {
-                if (a.suitPriority == 0) return -1;
-                if (b.suitPriority == 0) return 1;
-                return Integer.compare(a.suitPriority, b.suitPriority);
+            if (a.categoryPriority != b.categoryPriority) {
+                return Integer.compare(a.categoryPriority, b.categoryPriority);
             }
             return Integer.compare(a.originalIndex, b.originalIndex);
         });
 
         List<String> sortedTextList = new ArrayList<>();
         for (ClauseItem item : items) {
-            sortedTextList.add(item.text);
+            if (!sortedTextList.contains(item.text)) {
+                sortedTextList.add(item.text);
+            }
         }
 
         return String.join(", ", sortedTextList);
     }
 
-    private static int determineSuitPriority(String clause) {
-        String s = clause;
-        if (s.contains("♠") || s.contains("Spades") || s.contains("Piki") || s.matches(".*\\bS[:\\d+].*") || s.contains("S")) return 1;
-        if (s.contains("♥") || s.contains("Hearts") || s.contains("Kiery") || s.matches(".*\\bH[:\\d+].*") || s.contains("H")) return 2;
-        if (s.contains("♦") || s.contains("Diamonds") || s.contains("Kara") || s.matches(".*\\bD[:\\d+].*") || s.contains("D")) return 3;
-        if (s.contains("♣") || s.contains("Clubs") || s.contains("Trefle") || s.matches(".*\\bC[:\\d+].*") || s.contains("C")) return 4;
-        return 0;
+    private static String formatClauseText(String clause) {
+        if (clause == null) return "";
+        String trimmed = clause.trim();
+
+        if (isHcpClause(trimmed)) {
+            return formatHcpClause(trimmed);
+        }
+
+        return trimmed;
+    }
+
+    private static boolean isHcpClause(String clause) {
+        if (clause == null) return false;
+
+        if (hasSuitSymbolOrName(clause)) {
+            return false;
+        }
+
+        String lower = clause.toLowerCase();
+        return lower.contains("hcp") || lower.contains("point") || lower.contains("punkty") || lower.contains("punkt")
+                || clause.matches("^\\d+-(?:\\d+|\\+)$") || clause.matches("^\\d+\\+$");
+    }
+
+    private static boolean hasSuitSymbolOrName(String clause) {
+        if (clause == null) return false;
+        return clause.contains("♠") || clause.contains("♥") || clause.contains("♦") || clause.contains("♣")
+                || clause.contains("Spades") || clause.contains("Hearts") || clause.contains("Diamonds") || clause.contains("Clubs")
+                || clause.contains("Piki") || clause.contains("Kiery") || clause.contains("Kara") || clause.contains("Trefle");
+    }
+
+    private static String formatHcpClause(String clause) {
+        if (clause == null) return "HCP: 0-40";
+
+        java.util.regex.Matcher rangeMatcher = java.util.regex.Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(clause);
+        if (rangeMatcher.find()) {
+            String range = rangeMatcher.group(1);
+            return "HCP: " + range;
+        }
+
+        return "HCP: " + clause.replaceAll("(?i)(pair|points|hcp|punkty|punkt)", "").trim();
+    }
+
+    private static int categorizeClause(String clause) {
+        // 1. HCP / Points First (Category 0)
+        if (isHcpClause(clause)) {
+            return 0;
+        }
+
+        // 2. Suits Second (Spades = 1, Hearts = 2, Diamonds = 3, Clubs = 4)
+        if (clause.contains("♠") || clause.contains("Spades") || clause.contains("Piki") || clause.matches(".*\\bS[:\\d+].*")) return 1;
+        if (clause.contains("♥") || clause.contains("Hearts") || clause.contains("Kiery") || clause.matches(".*\\bH[:\\d+].*")) return 2;
+        if (clause.contains("♦") || clause.contains("Diamonds") || clause.contains("Kara") || clause.matches(".*\\bD[:\\d+].*")) return 3;
+        if (clause.contains("♣") || clause.contains("Clubs") || clause.contains("Trefle") || clause.matches(".*\\bC[:\\d+].*")) return 4;
+
+        // 3. Additional Conditions Third (Category 5)
+        return 5;
     }
 
     private static Drawable getSuitDrawable(Context context, Suit suit, int sizePx) {
