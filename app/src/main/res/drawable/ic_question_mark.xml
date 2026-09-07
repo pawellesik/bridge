@@ -5,9 +5,9 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-    <!-- Solid Blue Filled Circle -->
+    <!-- Solid Blue Filled Circle matching Public Knowledge info icon (#303F9F) -->
     <path
-        android:fillColor="#1976D2"
+        android:fillColor="#303F9F"
         android:pathData="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z" />
 
     <!-- White Question Mark ? -->
