@@ -113,6 +113,21 @@ public class CallDetails {
         return String.join("\n", ruleDescriptions);
     }
 
+    public String getMatchedDescription(PositionState ps) {
+        List<String> ruleDescriptions = new ArrayList<>();
+        List<BidRule> rulesToUse = !matchedRules.isEmpty() ? matchedRules : rules;
+        for (BidRule rule : rulesToUse) {
+            List<String> ruleDescs = rule.constraintDescriptions(ps);
+            if (ruleDescs != null) {
+                String desc = String.join(", ", ruleDescs);
+                if (!ruleDescriptions.contains(desc)) {
+                    ruleDescriptions.add(desc);
+                }
+            }
+        }
+        return String.join("\n", ruleDescriptions);
+    }
+
     public String getMatchedLogID(PositionState ps) {
         for (BidRule rule : rules) {
             if (ps.privateHandConforms(rule)) {

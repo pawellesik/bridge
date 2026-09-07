@@ -279,7 +279,11 @@ public class SingleGameBidding {
             CallDetails details = entry.getValue();
             if (call == null || details == null) continue;
 
-            String desc = details.getDescription(liveBiddingState.getNextToAct());
+            // Pokazuj w podpowiedziach tylko te odzywki, których kryteria ręka gracza faktycznie spełnia!
+            boolean qualifies = !details.hasRules() || !details.getMatchedRules().isEmpty();
+            if (!qualifies) continue;
+
+            String desc = details.getMatchedDescription(liveBiddingState.getNextToAct());
             if (desc == null || desc.trim().isEmpty()) continue;
 
             LinearLayout row = new LinearLayout(activity);
