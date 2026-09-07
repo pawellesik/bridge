@@ -65,7 +65,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Bidding Hints Container (Below Public Knowledge) -->
+    <!-- Bidding Hints Container (Below Public Knowledge, with dedicated scroll) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bidding_hints_container"
         android:layout_width="match_parent"
@@ -97,13 +97,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#F57C00" />
 
-        <LinearLayout
-            android:id="@+id/layout_hints_content"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/tv_hints_header" />
+            android:maxHeight="120dp"
+            android:overScrollMode="never"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toBottomOf="@id/tv_hints_header">
+
+            <LinearLayout
+                android:id="@+id/layout_hints_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
