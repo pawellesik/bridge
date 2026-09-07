@@ -113,6 +113,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         TextView tvLevel = popupView.findViewById(R.id.tv_popup_bid_level);
         ImageView ivSuit = popupView.findViewById(R.id.iv_popup_bid_suit);
         TextView tvText = popupView.findViewById(R.id.tv_popup_bid_description);
+        ImageView ivArrow = popupView.findViewById(R.id.iv_popup_arrow);
 
         if (tvLabel != null) {
             tvLabel.setText(context.getString(R.string.explanation_label));
@@ -144,10 +145,27 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
         int[] location = new int[2];
         anchorView.getLocationOnScreen(location);
-        int x = location[0] + (anchorView.getWidth() - popupWidth) / 2;
+        int anchorCenterX = location[0] + anchorView.getWidth() / 2;
+
+        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+        int popupX = anchorCenterX - popupWidth / 2;
+        popupX = Math.max(16, Math.min(popupX, screenWidth - popupWidth - 16));
+
+        if (ivArrow != null) {
+            int arrowWidth = (int) (16 * context.getResources().getDisplayMetrics().density);
+            int arrowOffsetInPopup = anchorCenterX - popupX - (arrowWidth / 2);
+            arrowOffsetInPopup = Math.max(16, Math.min(arrowOffsetInPopup, popupWidth - arrowWidth - 16));
+
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) ivArrow.getLayoutParams();
+            if (params != null) {
+                params.leftMargin = arrowOffsetInPopup;
+                ivArrow.setLayoutParams(params);
+            }
+        }
+
         int y = location[1] + anchorView.getHeight() - 2;
 
-        popupWindow.showAtLocation(anchorView, android.view.Gravity.NO_GRAVITY, Math.max(16, x), y);
+        popupWindow.showAtLocation(anchorView, android.view.Gravity.NO_GRAVITY, popupX, y);
     }
 
     private static void bindBidHeader(Context context, String bid, TextView tvLevel, ImageView ivSuit) {
