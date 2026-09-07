@@ -100,4 +100,8 @@
     <string name="clear_stats_success">Statystyki sesji zostały wyzerowane!</string>
     <string name="clear_all_stats_confirm_title">RESET WSZYSTKICH STATYSTYK</string>
     <string name="clear_all_stats_confirm_message">Czy na pewno chcesz trwale usunąć wszystkie statystyki (sesyjne oraz globalne)?</string>
+    <string name="public_knowledge_header">--- WIEDZA PUBLICZNA ---</string>
+    <string name="agreed_ns_trump">UZGODNIONY ATUT NS: </string>
+    <string name="explanation_title">Uzasadnienie: </string>
+    <string name="explanation_label">Uzasadnienie: </string>
 </resources>

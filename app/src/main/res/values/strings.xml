@@ -100,4 +100,8 @@
     <string name="clear_stats_success">Session statistics reset successfully!</string>
     <string name="clear_all_stats_confirm_title">CLEAR ALL STATISTICS</string>
     <string name="clear_all_stats_confirm_message">Are you sure you want to permanently clear all session and global statistics?</string>
+    <string name="public_knowledge_header">--- PUBLIC KNOWLEDGE ---</string>
+    <string name="agreed_ns_trump">AGREED NS TRUMP: </string>
+    <string name="explanation_title">Explanation: </string>
+    <string name="explanation_label">Explanation: </string>
 </resources>

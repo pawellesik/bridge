@@ -18,7 +18,7 @@
             android:id="@+id/tv_pk_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--- WIEDZA PUBLICZNA ---"
+            android:text="@string/public_knowledge_header"
             android:textColor="#4D7C4F"
             android:textStyle="bold"
             android:textSize="11sp"

@@ -270,7 +270,7 @@ public class SingleGameBidding {
         com.example.bridge.bidding.Tools.Suit nsTrump = (northPos != null) ? northPos.getPairState().getTrumpSuit() : null;
         if (nsTrump != null) {
             tvTrump.setVisibility(View.VISIBLE);
-            SpannableStringBuilder ssb = new SpannableStringBuilder("UZGODNIONY ATUT NS: ");
+            SpannableStringBuilder ssb = new SpannableStringBuilder(activity.getString(R.string.agreed_ns_trump));
             appendSuitSymbol(ssb, nsTrump, "");
             tvTrump.setText(ssb);
         } else {
