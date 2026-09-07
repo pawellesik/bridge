@@ -454,6 +454,9 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         View btnClose = findViewById(R.id.btn_close_bidding_overlay);
         if (btnClose != null) btnClose.setVisibility(View.GONE);
 
+        View pkContainer = findViewById(R.id.public_knowledge_container_layout);
+        if (pkContainer != null) pkContainer.setVisibility(View.GONE);
+
         // Show entire top bar info layouts again when closing review
         View leftInfoLayout = findViewById(R.id.linearLayout);
         if (leftInfoLayout != null) leftInfoLayout.setVisibility(View.VISIBLE);

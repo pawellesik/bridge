@@ -243,7 +243,7 @@ public class SingleGameBidding {
         View container = activity.findViewById(R.id.public_knowledge_container_layout);
         if (container == null) return;
 
-        if (liveBiddingState == null || liveBiddingState.getContract().isAuctionComplete()) {
+        if (liveBiddingState == null) {
             container.setVisibility(View.GONE);
             return;
         }
