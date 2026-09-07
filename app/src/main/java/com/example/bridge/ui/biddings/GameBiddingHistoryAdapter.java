@@ -109,9 +109,14 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         Context context = anchorView.getContext();
         View popupView = LayoutInflater.from(context).inflate(R.layout.popup_bid_description, null);
 
+        TextView tvLabel = popupView.findViewById(R.id.tv_popup_bid_label);
         TextView tvLevel = popupView.findViewById(R.id.tv_popup_bid_level);
         ImageView ivSuit = popupView.findViewById(R.id.iv_popup_bid_suit);
         TextView tvText = popupView.findViewById(R.id.tv_popup_bid_description);
+
+        if (tvLabel != null) {
+            tvLabel.setText(context.getString(R.string.explanation_label));
+        }
 
         if (tvLevel != null && ivSuit != null) {
             bindBidHeader(context, bid, tvLevel, ivSuit);
