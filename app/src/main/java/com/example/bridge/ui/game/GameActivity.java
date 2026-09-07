@@ -263,6 +263,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         return overlayStatistic;
     }
 
+    public View getHistoryOverlay() {
+        return historyOverlay;
+    }
+
     public View getTopBar() {
         return topBar;
     }

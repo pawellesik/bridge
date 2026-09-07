@@ -68,6 +68,9 @@ public class OverlayHistoryGame {
 
     public void hide() {
         if (root == null) return;
+        if (activity.getHistoryOverlay() != null) {
+            activity.getHistoryOverlay().setVisibility(View.VISIBLE);
+        }
         root.setVisibility(View.GONE);
         clearViews();
     }
@@ -118,6 +121,11 @@ public class OverlayHistoryGame {
                     }
                     updateUi();
                     root.setVisibility(View.VISIBLE);
+                    root.post(() -> {
+                        if (activity.getHistoryOverlay() != null) {
+                            activity.getHistoryOverlay().setVisibility(View.GONE);
+                        }
+                    });
 
                     if (listener != null) {
                         listener.onReady();
