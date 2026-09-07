@@ -1,6 +1,11 @@
 package com.example.bridge.ui.biddings;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bridge.R;
@@ -102,14 +109,16 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         Context context = anchorView.getContext();
         View popupView = LayoutInflater.from(context).inflate(R.layout.popup_bid_description, null);
 
-        TextView tvTitle = popupView.findViewById(R.id.tv_popup_bid_title);
+        TextView tvLevel = popupView.findViewById(R.id.tv_popup_bid_level);
+        ImageView ivSuit = popupView.findViewById(R.id.iv_popup_bid_suit);
         TextView tvText = popupView.findViewById(R.id.tv_popup_bid_description);
 
-        if (tvTitle != null) {
-            tvTitle.setText("Uzasadnienie: " + bid);
+        if (tvLevel != null && ivSuit != null) {
+            bindBidHeader(context, bid, tvLevel, ivSuit);
         }
+
         if (tvText != null) {
-            tvText.setText(description);
+            tvText.setText(formatDescriptionText(context, description), TextView.BufferType.SPANNABLE);
         }
 
         PopupWindow popupWindow = new PopupWindow(
@@ -134,6 +143,121 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         int y = location[1] - popupHeight - 8;
 
         popupWindow.showAtLocation(anchorView, android.view.Gravity.NO_GRAVITY, Math.max(16, x), Math.max(16, y));
+    }
+
+    private static void bindBidHeader(Context context, String bid, TextView tvLevel, ImageView ivSuit) {
+        if (bid == null || bid.isEmpty()) return;
+
+        ivSuit.setVisibility(View.GONE);
+
+        if (bid.equalsIgnoreCase("Pass") || bid.equalsIgnoreCase("P")) {
+            tvLevel.setText("Pass");
+            tvLevel.setTextColor(0xFF81C784);
+        } else if (bid.equalsIgnoreCase("X") || bid.equalsIgnoreCase("Double")) {
+            tvLevel.setText("Kontra");
+            tvLevel.setTextColor(0xFFE57373);
+        } else if (bid.equalsIgnoreCase("XX")) {
+            tvLevel.setText("Rekontra");
+            tvLevel.setTextColor(0xFF64B5F6);
+        } else {
+            try {
+                String level = bid.substring(0, 1);
+                String suitPart = bid.substring(1).toUpperCase();
+
+                if (suitPart.equalsIgnoreCase("NT")) {
+                    tvLevel.setText(level + "NT");
+                    tvLevel.setTextColor(0xFF81C784);
+                } else {
+                    tvLevel.setText(level);
+                    ivSuit.setVisibility(View.VISIBLE);
+
+                    Suit s = null;
+                    switch (suitPart) {
+                        case "C": s = Suit.CLUBS; ivSuit.setImageResource(R.drawable.clubs); break;
+                        case "D": s = Suit.DIAMONDS; ivSuit.setImageResource(R.drawable.diamonds); break;
+                        case "H": s = Suit.HEARTS; ivSuit.setImageResource(R.drawable.heart); break;
+                        case "S": s = Suit.SPADES; ivSuit.setImageResource(R.drawable.spades); break;
+                    }
+
+                    if (s != null) {
+                        int suitColor = s.getColor(context);
+                        tvLevel.setTextColor(suitColor);
+                        ivSuit.setImageTintList(android.content.res.ColorStateList.valueOf(suitColor));
+                    }
+                }
+            } catch (Exception e) {
+                tvLevel.setText(bid);
+            }
+        }
+    }
+
+    public static SpannableStringBuilder formatDescriptionText(Context context, String text) {
+        if (text == null) return new SpannableStringBuilder("");
+
+        String s = text;
+
+        s = s.replace("Spades", "♠")
+             .replace("Hearts", "♥")
+             .replace("Diamonds", "♦")
+             .replace("Clubs", "♣")
+             .replace("Piki", "♠")
+             .replace("Kiery", "♥")
+             .replace("Kara", "♦")
+             .replace("Trefle", "♣");
+
+        s = s.replaceAll("\\bC:", "♣:")
+             .replaceAll("\\bD:", "♦:")
+             .replaceAll("\\bH:", "♥:")
+             .replaceAll("\\bS:", "♠:");
+
+        for (int level = 1; level <= 7; level++) {
+            s = s.replace(level + "C", level + "♣")
+                 .replace(level + "D", level + "♦")
+                 .replace(level + "H", level + "♥")
+                 .replace(level + "S", level + "♠");
+        }
+
+        s = s.replace("♠\uFE0E", "♠")
+             .replace("♥\uFE0E", "♥")
+             .replace("♦\uFE0E", "♦")
+             .replace("♣\uFE0E", "♣");
+
+        SpannableStringBuilder ssb = new SpannableStringBuilder(s);
+
+        int iconSizePx = (int) (14 * context.getResources().getDisplayMetrics().density);
+
+        for (int i = 0; i < ssb.length(); i++) {
+            char ch = ssb.charAt(i);
+            Suit suit = null;
+            if (ch == '♠') suit = Suit.SPADES;
+            else if (ch == '♥') suit = Suit.HEARTS;
+            else if (ch == '♦') suit = Suit.DIAMONDS;
+            else if (ch == '♣') suit = Suit.CLUBS;
+
+            if (suit != null) {
+                Drawable drawable = getSuitDrawable(context, suit, iconSizePx);
+                if (drawable != null) {
+                    ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
+                    ssb.setSpan(imageSpan, i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        }
+
+        return ssb;
+    }
+
+    private static Drawable getSuitDrawable(Context context, Suit suit, int sizePx) {
+        if (suit == null) return null;
+
+        Drawable drawable = ContextCompat.getDrawable(context, suit.resId);
+        if (drawable == null) return null;
+
+        drawable = DrawableCompat.wrap(drawable).mutate();
+        int color = suit.getColor(context);
+        DrawableCompat.setTint(drawable, color);
+        drawable.setBounds(0, 0, sizePx, sizePx);
+
+        return drawable;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
