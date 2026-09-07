@@ -244,10 +244,10 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             String level = bid.substring(0, 1);
             String suitPart = bid.substring(1).toUpperCase();
 
-            ssb.append(level);
-
             if (suitPart.equalsIgnoreCase("NT")) {
-                ssb.append("NT");
+                int start = ssb.length();
+                ssb.append(level).append("NT");
+                ssb.setSpan(new ForegroundColorSpan(0xFF1B2E1D), start, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             } else {
                 Suit s = null;
                 switch (suitPart) {
@@ -259,11 +259,11 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
                 if (s != null) {
                     int start = ssb.length();
-                    ssb.append(" ").append(s.symbol);
+                    ssb.append(level).append(" ").append(s.symbol);
                     int color = s.getColor(context);
                     ssb.setSpan(new ForegroundColorSpan(color), start, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 } else {
-                    ssb.append(suitPart);
+                    ssb.append(level).append(suitPart);
                 }
             }
         } catch (Exception e) {

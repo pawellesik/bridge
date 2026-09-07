@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bidding_hints_header"
-            android:textColor="#243D65"
+            android:textColor="#C94B4B"
             android:textSize="11sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
             android:src="@drawable/ic_star"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="#243D65" />
+            app:tint="#C94B4B" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
