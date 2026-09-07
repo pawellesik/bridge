@@ -189,6 +189,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
             setBottomNavVisibility(false);
+            setBiddingScrollViewMaxHeight(135);
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
                 overlayStatistic.getStatsManager().incrementGames(gameMode);
                 overlayStatistic.getStatsManager().incrementConcedes(gameMode);
@@ -412,6 +413,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (biddingOverlay == null || "quick".equals(gameMode)) return;
         
         biddingOverlay.setVisibility(View.VISIBLE);
+        setBiddingScrollViewMaxHeight(135);
         
         // Hide entire top bar info layouts during review to avoid overlapping
         View leftInfoLayout = findViewById(R.id.linearLayout);
@@ -491,6 +493,19 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         View selectionContainer = findViewById(R.id.system_selection_container);
         if (selectionContainer != null) {
             selectionContainer.setVisibility(View.VISIBLE);
+        }
+        setBiddingScrollViewMaxHeight(220);
+    }
+
+    public void setBiddingScrollViewMaxHeight(int maxHeightDp) {
+        View scrollView = findViewById(R.id.bidding_scroll_view);
+        if (scrollView instanceof androidx.core.widget.NestedScrollView) {
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                    (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) scrollView.getLayoutParams();
+            if (params != null) {
+                params.matchConstraintMaxHeight = (int) (maxHeightDp * getResources().getDisplayMetrics().density);
+                scrollView.setLayoutParams(params);
+            }
         }
     }
 
