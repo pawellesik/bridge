@@ -220,7 +220,8 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     public static SpannableStringBuilder formatDescriptionText(Context context, String text) {
         if (text == null) return new SpannableStringBuilder("");
 
-        String s = text;
+        String sortedText = sortDescriptionSuitClauses(text);
+        String s = sortedText;
 
         s = s.replace("Spades", "♠")
              .replace("Hearts", "♥")
@@ -270,6 +271,55 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         }
 
         return ssb;
+    }
+
+    private static String sortDescriptionSuitClauses(String text) {
+        if (text == null || !text.contains(",")) return text;
+
+        String[] clauses = text.split(",\\s*");
+        if (clauses.length <= 1) return text;
+
+        class ClauseItem {
+            final String text;
+            final int originalIndex;
+            final int suitPriority;
+
+            ClauseItem(String text, int originalIndex) {
+                this.text = text;
+                this.originalIndex = originalIndex;
+                this.suitPriority = determineSuitPriority(text);
+            }
+        }
+
+        List<ClauseItem> items = new ArrayList<>();
+        for (int i = 0; i < clauses.length; i++) {
+            items.add(new ClauseItem(clauses[i].trim(), i));
+        }
+
+        items.sort((a, b) -> {
+            if (a.suitPriority != b.suitPriority) {
+                if (a.suitPriority == 0) return -1;
+                if (b.suitPriority == 0) return 1;
+                return Integer.compare(a.suitPriority, b.suitPriority);
+            }
+            return Integer.compare(a.originalIndex, b.originalIndex);
+        });
+
+        List<String> sortedTextList = new ArrayList<>();
+        for (ClauseItem item : items) {
+            sortedTextList.add(item.text);
+        }
+
+        return String.join(", ", sortedTextList);
+    }
+
+    private static int determineSuitPriority(String clause) {
+        String s = clause;
+        if (s.contains("♠") || s.contains("Spades") || s.contains("Piki") || s.matches(".*\\bS[:\\d+].*") || s.contains("S")) return 1;
+        if (s.contains("♥") || s.contains("Hearts") || s.contains("Kiery") || s.matches(".*\\bH[:\\d+].*") || s.contains("H")) return 2;
+        if (s.contains("♦") || s.contains("Diamonds") || s.contains("Kara") || s.matches(".*\\bD[:\\d+].*") || s.contains("D")) return 3;
+        if (s.contains("♣") || s.contains("Clubs") || s.contains("Trefle") || s.matches(".*\\bC[:\\d+].*") || s.contains("C")) return 4;
+        return 0;
     }
 
     private static Drawable getSuitDrawable(Context context, Suit suit, int sizePx) {
