@@ -60,7 +60,13 @@ public class AuctionDescriptionHelper {
 
                 String desc = "";
                 if (details != null && ps != null) {
-                    desc = details.getDescription(ps);
+                    String rawDesc = details.getDescription(ps);
+                    if (rawDesc != null && !rawDesc.trim().isEmpty()) {
+                        String[] lines = rawDesc.trim().split("\n");
+                        if (lines.length == 1) {
+                            desc = lines[0];
+                        }
+                    }
                 }
 
                 descriptions.add(desc != null ? desc : "");

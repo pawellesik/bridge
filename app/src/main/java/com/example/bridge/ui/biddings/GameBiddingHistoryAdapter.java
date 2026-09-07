@@ -79,14 +79,17 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
             String desc = (position < descriptions.size()) ? descriptions.get(position) : null;
             if (desc != null && !desc.trim().isEmpty() && !"-".equals(bid)) {
+                holder.showQuestionIcon(true);
                 holder.itemView.setOnClickListener(v -> showDescriptionTooltip(v, bid, desc));
             } else {
+                holder.showQuestionIcon(false);
                 holder.itemView.setOnClickListener(null);
             }
         } else {
             // Kafelek podglądu (następny ruch)
             boolean isSouthColumn = (position % 4 == 3);
             holder.bind(previewSelection, true, highlightLast && isSouthColumn, layoutId);
+            holder.showQuestionIcon(false);
             holder.itemView.setOnClickListener(null);
         }
     }
@@ -286,11 +289,19 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvLevel;
         ImageView ivSuit;
+        ImageView ivQuestion;
 
         ViewHolder(View itemView) {
             super(itemView);
             tvLevel = itemView.findViewById(R.id.tv_bid_level);
             ivSuit = itemView.findViewById(R.id.iv_bid_suit);
+            ivQuestion = itemView.findViewById(R.id.iv_bid_question);
+        }
+
+        void showQuestionIcon(boolean show) {
+            if (ivQuestion != null) {
+                ivQuestion.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
         }
 
         void bind(String bid, boolean isCurrent, boolean highlightLast, int layoutId) {

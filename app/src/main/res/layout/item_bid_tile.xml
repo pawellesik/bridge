@@ -41,6 +41,17 @@
                 android:visibility="gone" />
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_bid_question"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_margin="2dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_question_mark"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
