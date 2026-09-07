@@ -130,19 +130,19 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
-        popupWindow.setElevation(16f);
+        popupWindow.setElevation(0f);
 
         activePopupWindow = popupWindow;
 
         popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        int popupHeight = popupView.getMeasuredHeight();
+        int popupWidth = popupView.getMeasuredWidth();
 
         int[] location = new int[2];
         anchorView.getLocationOnScreen(location);
-        int x = location[0] - (popupView.getMeasuredWidth() - anchorView.getWidth()) / 2;
-        int y = location[1] - popupHeight - 8;
+        int x = location[0] + (anchorView.getWidth() - popupWidth) / 2;
+        int y = location[1] + anchorView.getHeight() - 2;
 
-        popupWindow.showAtLocation(anchorView, android.view.Gravity.NO_GRAVITY, Math.max(16, x), Math.max(16, y));
+        popupWindow.showAtLocation(anchorView, android.view.Gravity.NO_GRAVITY, Math.max(16, x), y);
     }
 
     private static void bindBidHeader(Context context, String bid, TextView tvLevel, ImageView ivSuit) {
