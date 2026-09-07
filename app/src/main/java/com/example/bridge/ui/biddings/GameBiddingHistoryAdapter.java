@@ -372,7 +372,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         class ClauseItem {
             final String text;
             final int originalIndex;
-            final int categoryPriority;
+            final double categoryPriority;
 
             ClauseItem(String text, int originalIndex) {
                 this.text = formatClauseText(text);
@@ -387,8 +387,8 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         }
 
         items.sort((a, b) -> {
-            if (a.categoryPriority != b.categoryPriority) {
-                return Integer.compare(a.categoryPriority, b.categoryPriority);
+            if (Double.compare(a.categoryPriority, b.categoryPriority) != 0) {
+                return Double.compare(a.categoryPriority, b.categoryPriority);
             }
             return Integer.compare(a.originalIndex, b.originalIndex);
         });
@@ -436,29 +436,49 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     private static String formatHcpClause(String clause) {
         if (clause == null) return "HCP: 0-40";
 
+        String lower = clause.toLowerCase();
+
         java.util.regex.Matcher rangeMatcher = java.util.regex.Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(clause);
+        String range = "";
         if (rangeMatcher.find()) {
-            String range = rangeMatcher.group(1);
+            range = rangeMatcher.group(1);
+        }
+
+        if (range == null || range.isEmpty()) {
+            range = clause.replaceAll("(?i)(pair|points|hcp|punkty|punkt)", "").trim();
+        }
+
+        if (lower.contains("pair point") || lower.contains("pair pts") || lower.contains("punkty pary")) {
+            return "pair points: " + range;
+        } else if (lower.contains("pair hcp") || lower.contains("hcp pary") || lower.contains("pair")) {
+            return "pair HCP: " + range;
+        } else {
             return "HCP: " + range;
         }
-
-        return "HCP: " + clause.replaceAll("(?i)(pair|points|hcp|punkty|punkt)", "").trim();
     }
 
-    private static int categorizeClause(String clause) {
-        // 1. HCP / Points First (Category 0)
+    private static double categorizeClause(String clause) {
+        String lower = clause.toLowerCase();
+
+        // 1. HCP / Points First (Category 0.1 for own HCP, 0.2 for pair HCP, 0.3 for pair points)
         if (isHcpClause(clause)) {
-            return 0;
+            if (lower.contains("pair point") || lower.contains("pair pts") || lower.contains("punkty pary")) {
+                return 0.3;
+            } else if (lower.contains("pair hcp") || lower.contains("hcp pary") || lower.contains("pair")) {
+                return 0.2;
+            } else {
+                return 0.1;
+            }
         }
 
-        // 2. Suits Second (Spades = 1, Hearts = 2, Diamonds = 3, Clubs = 4)
-        if (clause.contains("♠") || clause.contains("Spades") || clause.contains("Piki") || clause.matches(".*\\bS[:\\d+].*")) return 1;
-        if (clause.contains("♥") || clause.contains("Hearts") || clause.contains("Kiery") || clause.matches(".*\\bH[:\\d+].*")) return 2;
-        if (clause.contains("♦") || clause.contains("Diamonds") || clause.contains("Kara") || clause.matches(".*\\bD[:\\d+].*")) return 3;
-        if (clause.contains("♣") || clause.contains("Clubs") || clause.contains("Trefle") || clause.matches(".*\\bC[:\\d+].*")) return 4;
+        // 2. Suits Second (Spades = 1.0, Hearts = 2.0, Diamonds = 3.0, Clubs = 4.0)
+        if (clause.contains("♠") || clause.contains("Spades") || clause.contains("Piki") || clause.matches(".*\\bS[:\\d+].*")) return 1.0;
+        if (clause.contains("♥") || clause.contains("Hearts") || clause.contains("Kiery") || clause.matches(".*\\bH[:\\d+].*")) return 2.0;
+        if (clause.contains("♦") || clause.contains("Diamonds") || clause.contains("Kara") || clause.matches(".*\\bD[:\\d+].*")) return 3.0;
+        if (clause.contains("♣") || clause.contains("Clubs") || clause.contains("Trefle") || clause.matches(".*\\bC[:\\d+].*")) return 4.0;
 
-        // 3. Additional Conditions Third (Category 5)
-        return 5;
+        // 3. Additional Conditions Third (Category 5.0)
+        return 5.0;
     }
 
     private static Drawable getSuitDrawable(Context context, Suit suit, int sizePx) {
