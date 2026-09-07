@@ -102,7 +102,7 @@
     <string name="clear_all_stats_confirm_message">Czy na pewno chcesz trwale usunąć wszystkie statystyki (sesyjne oraz globalne)?</string>
     <string name="public_knowledge_header">--- WIEDZA PUBLICZNA ---</string>
     <string name="agreed_ns_trump">UZGODNIONY ATUT NS: </string>
-    <string name="explanation_title">Uzasadnienie: </string>
-    <string name="explanation_label">Uzasadnienie: </string>
+    <string name="explanation_title">"Uzasadnienie: "</string>
+    <string name="explanation_label">"Uzasadnienie: "</string>
     <string name="bidding_hints_header">--- WSKAZÓWKI LICYTACYJNE ---</string>
 </resources>

@@ -38,6 +38,7 @@
                 android:id="@+id/tv_popup_bid_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:text="@string/explanation_label"
                 android:textColor="#222222"
                 android:textSize="14sp"
