@@ -1,9 +1,9 @@
-[Event "NatC Deal trefl"]
+[Event "NatC bezAtu 9"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:3.A643.8532.KQ85 J875.J95.J76.JT2 AK962..AKT94.A63 QT4.KQT872.Q.974"]
+[Deal "N:985.KT52.AQ6.AQ8 632.J9874.74.762 AKJT.A3.KJ952.K3 Q74.Q6.T83.JT954"]
 [Auction "N"]
-pass PASS 1C PASS
-1NT PASS 3S PASS
-3NT pass 4D pass
-5D pass pass pass
+1NT Pass 4C Pass
+4S Pass 4NT Pass
+5D Pass 6NT Pass
+Pass Pass

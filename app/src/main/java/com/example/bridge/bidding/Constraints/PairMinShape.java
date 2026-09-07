@@ -23,12 +23,14 @@ public class PairMinShape {
         protected final int min;
         protected final boolean desiredValue;
         protected final boolean useContractSuit;
+        protected final boolean useCurrentCallSuit;
 
         public PairHasMinShape(Suit suit, int min, boolean desiredValue) {
             this.suit = suit;
             this.min = min;
             this.desiredValue = desiredValue;
             this.useContractSuit = false;
+            this.useCurrentCallSuit = false;
         }
 
         public PairHasMinShape(int min, boolean desiredValue) {
@@ -36,6 +38,15 @@ public class PairMinShape {
             this.min = min;
             this.desiredValue = desiredValue;
             this.useContractSuit = true;
+            this.useCurrentCallSuit = false;
+        }
+
+        public PairHasMinShape(int min, boolean desiredValue, boolean useCurrentCallSuit) {
+            this.suit = null;
+            this.min = min;
+            this.desiredValue = desiredValue;
+            this.useContractSuit = false;
+            this.useCurrentCallSuit = useCurrentCallSuit;
         }
 
         @Override
@@ -49,8 +60,10 @@ public class PairMinShape {
                     }
                 }
                 if (s == null) return false;
+            } else if (useCurrentCallSuit) {
+                s = getSuit(null, call);
             } else {
-                s = getSuit(this.suit, call);
+                s = this.suit;
             }
             if (s != null) {
                 Range shape = hs.getSuits().get(s).getShape();
@@ -73,9 +86,26 @@ public class PairMinShape {
             super(min, desiredValue);
         }
 
+        public PairShowsMinShape(int min, boolean desiredValue, boolean useCurrentCallSuit) {
+            super(min, desiredValue, useCurrentCallSuit);
+        }
+
         @Override
         public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand) {
-            Suit s = getSuit(this.suit, call);
+            Suit s = null;
+            if (useContractSuit) {
+                if (ps.getBiddingState().getContract().isOurs(ps.getDirection())) {
+                    Call contractBid = ps.getBiddingState().getContract().getBid();
+                    if (contractBid instanceof Bid) {
+                        s = ((Bid) contractBid).getSuit();
+                    }
+                }
+            } else if (useCurrentCallSuit) {
+                s = getSuit(null, call);
+            } else {
+                s = this.suit;
+            }
+
             if (s != null) {
                 Range shape = ps.getPublicHandSummary().getSuits().get(s).getShape();
                 Range partnerShape = ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape();
@@ -88,7 +118,20 @@ public class PairMinShape {
 
         @Override
         public String describe(Call call, PositionState ps) {
-            Suit s = getSuit(this.suit, call);
+            Suit s = null;
+            if (useContractSuit) {
+                if (ps.getBiddingState().getContract().isOurs(ps.getDirection())) {
+                    Call contractBid = ps.getBiddingState().getContract().getBid();
+                    if (contractBid instanceof Bid) {
+                        s = ((Bid) contractBid).getSuit();
+                    }
+                }
+            } else if (useCurrentCallSuit) {
+                s = getSuit(null, call);
+            } else {
+                s = this.suit;
+            }
+
             if (s != null) {
                 return min + "+ pair " + s.toSymbol();
             }

@@ -124,11 +124,11 @@ public abstract class Bidder {
      * FIT: Sprawdza czy para ma łącznie min. 8 kart w kolorze.
      */
     public static HandConstraint fit() {
-        return fit(8, null);
+        return new PairMinShape.PairShowsMinShape(8, true, true);
     }
 
     public static HandConstraint fit(int count) {
-        return new PairMinShape.PairShowsMinShape(null, count, true);
+        return new PairMinShape.PairShowsMinShape(count, true, true);
     }
 
     public static HandConstraint fit(Suit suit) {
