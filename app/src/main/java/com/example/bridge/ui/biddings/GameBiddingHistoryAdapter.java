@@ -171,7 +171,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
                 if (suitPart.equalsIgnoreCase("NT")) {
                     tvLevel.setText(level + "NT");
-                    tvLevel.setTextColor(0xFF81C784);
+                    tvLevel.setTextColor(0xFF222222);
                 } else {
                     tvLevel.setText(level);
                     ivSuit.setVisibility(View.VISIBLE);
