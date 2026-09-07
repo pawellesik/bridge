@@ -1,9 +1,11 @@
 package com.example.bridge.ui.biddings;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,15 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bridge.R;
 import com.example.bridge.model.Suit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingHistoryAdapter.ViewHolder> {
 
     private final List<String> bids;
+    private List<String> descriptions = new ArrayList<>();
     private boolean highlightLast = false;
     private String previewSelection = "";
     private final int layoutId;
     private boolean showPreviewTile = true;
+
+    private static PopupWindow activePopupWindow = null;
 
     public GameBiddingHistoryAdapter(List<String> bids) {
         this(bids, R.layout.item_bid_tile);
@@ -29,6 +35,11 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     public GameBiddingHistoryAdapter(List<String> bids, int layoutId) {
         this.bids = bids;
         this.layoutId = layoutId;
+    }
+
+    public void setDescriptions(List<String> descriptions) {
+        this.descriptions = (descriptions != null) ? descriptions : new ArrayList<>();
+        notifyDataSetChanged();
     }
 
     public void setPreviewSelection(String preview) {
@@ -58,16 +69,71 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         if (position < bids.size()) {
             String bid = bids.get(position);
             holder.bind(bid, false, false, layoutId);
+
+            String desc = (position < descriptions.size()) ? descriptions.get(position) : null;
+            if (desc != null && !desc.trim().isEmpty() && !"-".equals(bid)) {
+                holder.itemView.setOnClickListener(v -> showDescriptionTooltip(v, bid, desc));
+            } else {
+                holder.itemView.setOnClickListener(null);
+            }
         } else {
             // Kafelek podglądu (następny ruch)
             boolean isSouthColumn = (position % 4 == 3);
             holder.bind(previewSelection, true, highlightLast && isSouthColumn, layoutId);
+            holder.itemView.setOnClickListener(null);
         }
     }
 
     @Override
     public int getItemCount() {
         return bids.size() + (showPreviewTile ? 1 : 0);
+    }
+
+    private static void showDescriptionTooltip(View anchorView, String bid, String description) {
+        if (activePopupWindow != null) {
+            try {
+                activePopupWindow.dismiss();
+            } catch (Exception ignored) {}
+            activePopupWindow = null;
+        }
+
+        if (description == null || description.trim().isEmpty()) return;
+
+        Context context = anchorView.getContext();
+        View popupView = LayoutInflater.from(context).inflate(R.layout.popup_bid_description, null);
+
+        TextView tvTitle = popupView.findViewById(R.id.tv_popup_bid_title);
+        TextView tvText = popupView.findViewById(R.id.tv_popup_bid_description);
+
+        if (tvTitle != null) {
+            tvTitle.setText("Uzasadnienie: " + bid);
+        }
+        if (tvText != null) {
+            tvText.setText(description);
+        }
+
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        popupWindow.setElevation(16f);
+
+        activePopupWindow = popupWindow;
+
+        popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int popupHeight = popupView.getMeasuredHeight();
+
+        int[] location = new int[2];
+        anchorView.getLocationOnScreen(location);
+        int x = location[0] - (popupView.getMeasuredWidth() - anchorView.getWidth()) / 2;
+        int y = location[1] - popupHeight - 8;
+
+        popupWindow.showAtLocation(anchorView, android.view.Gravity.NO_GRAVITY, Math.max(16, x), Math.max(16, y));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -85,15 +151,15 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             tvLevel.setTextColor(0xFF000000);
             ivSuit.setVisibility(View.GONE);
             tvLevel.setAlpha(1.0f);
-            
+
             View inner = itemView.findViewById(R.id.bid_tile_inner);
             if (inner != null) {
                 if (isCurrent) {
                     if (highlightLast) {
                         inner.setBackgroundResource(R.drawable.bg_bid_history_tile);
-                        inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00)); 
+                        inner.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFFFFF00));
                     } else {
-                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile_white); 
+                        inner.setBackgroundResource(R.drawable.bg_bid_history_tile_white);
                         inner.setBackgroundTintList(null);
                     }
                 } else {
@@ -105,7 +171,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
                     inner.setBackgroundTintList(null);
                 }
             }
-            
+
             if (bid == null || bid.isEmpty()) return;
 
             if (bid.equals("-")) {
@@ -116,25 +182,25 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
             if (bid.equalsIgnoreCase("Pass") || bid.equalsIgnoreCase("P")) {
                 tvLevel.setText("P");
-                tvLevel.setTextColor(0xFF2E7D32); 
+                tvLevel.setTextColor(0xFF2E7D32);
             } else if (bid.equalsIgnoreCase("X") || bid.equalsIgnoreCase("Double")) {
                 tvLevel.setText("X");
-                tvLevel.setTextColor(0xFFC62828); 
+                tvLevel.setTextColor(0xFFC62828);
             } else if (bid.equalsIgnoreCase("XX")) {
                 tvLevel.setText("XX");
-                tvLevel.setTextColor(0xFF1565C0); 
+                tvLevel.setTextColor(0xFF1565C0);
             } else {
                 try {
                     String level = bid.substring(0, 1);
                     String suitPart = bid.substring(1).toUpperCase();
-                    
+
                     if (suitPart.equalsIgnoreCase("NT")) {
                         tvLevel.setText(level + "NT");
                     } else {
                         tvLevel.setText(level);
                         ivSuit.setVisibility(View.VISIBLE);
                         ivSuit.setImageResource(getSuitIcon(suitPart));
-                        
+
                         Suit s;
                         switch (suitPart) {
                             case "C": s = Suit.CLUBS; break;
@@ -143,7 +209,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
                             case "S": s = Suit.SPADES; break;
                             default: s = null; break;
                         }
-                        
+
                         if (s != null) {
                             int suitColor = s.getColor(itemView.getContext());
                             tvLevel.setTextColor(suitColor);

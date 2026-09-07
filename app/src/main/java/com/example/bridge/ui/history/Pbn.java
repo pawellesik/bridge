@@ -159,6 +159,26 @@ public class Pbn {
         return contract;
     }
 
+    public Game toGame() {
+        Game game = new Game();
+        Map<String, List<Card>> hands = getInitialHands();
+        if (hands != null) {
+            if (hands.get("North") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.N, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("North"))));
+            if (hands.get("East") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.E, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("East"))));
+            if (hands.get("South") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.S, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("South"))));
+            if (hands.get("West") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.W, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("West"))));
+        }
+        if (dealer != null) {
+            if ("North".equals(dealer) || "N".equals(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.N;
+            else if ("East".equals(dealer) || "E".equals(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.E;
+            else if ("South".equals(dealer) || "S".equals(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.S;
+            else game.dealer = com.example.bridge.bidding.Tools.Direction.W;
+        }
+        game.bidSystemNS = "NatC";
+        game.bidSystemEW = "PassOnly";
+        return game;
+    }
+
     public List<Trick> getPlayHistory() {
         return playHistory;
     }

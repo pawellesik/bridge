@@ -173,6 +173,7 @@ public class SingleGameBidding {
         activity.getGameBiddingHistory().getAuction().add(bidStr);
         activity.getPbnCollection().getPbn().addBid(bidStr);
         activity.getGameBiddingHistory().updateBiddingHistory(null, true);
+        updateDescriptions();
 
         if (liveBiddingState.getContract().isAuctionComplete()) {
             onAuctionFinished();
@@ -184,12 +185,22 @@ public class SingleGameBidding {
     public void syncManualBid(Call call) {
         if (liveBiddingState != null) {
             liveBiddingState.makeCall(call);
+            updateDescriptions();
             if (liveBiddingState.getContract().isAuctionComplete()) {
                 onAuctionFinished();
             } else {
                 handleNextTurn();
             }
         }
+    }
+
+    private void updateDescriptions() {
+        if (liveBiddingState == null || activity.getGameBiddingHistoryAdapter() == null) return;
+        List<String> descs = AuctionDescriptionHelper.generateDescriptions(
+                liveBiddingState.getGame(),
+                activity.getGameBiddingHistory().getAuction()
+        );
+        activity.getGameBiddingHistoryAdapter().setDescriptions(descs);
     }
 
     private void onAuctionFinished() {

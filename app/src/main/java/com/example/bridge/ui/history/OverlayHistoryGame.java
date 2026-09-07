@@ -324,15 +324,25 @@ public class OverlayHistoryGame {
         if (biddingAdapter == null) return;
         biddingList.clear();
         List<String> auction = pbn.getAuction();
+        List<String> descs = com.example.bridge.ui.biddings.AuctionDescriptionHelper.generateDescriptions(pbn);
+
+        List<String> adapterDescs = new ArrayList<>();
         if (auction != null && !auction.isEmpty()) {
             String dealer = pbn.toJsonObject().optString("Dealer", "W");
             int offset = 0;
             if ("North".equals(dealer) || "N".equals(dealer)) offset = 1;
             else if ("East".equals(dealer) || "E".equals(dealer)) offset = 2;
             else if ("South".equals(dealer) || "S".equals(dealer)) offset = 3;
-            for (int i = 0; i < offset; i++) biddingList.add("-");
+
+            for (int i = 0; i < offset; i++) {
+                biddingList.add("-");
+                adapterDescs.add("");
+            }
             biddingList.addAll(auction);
+            adapterDescs.addAll(descs);
         }
+
+        biddingAdapter.setDescriptions(adapterDescs);
         biddingAdapter.setPreviewSelection("");
         biddingAdapter.notifyDataSetChanged();
     }
