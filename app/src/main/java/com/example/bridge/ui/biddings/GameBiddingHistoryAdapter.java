@@ -217,6 +217,62 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         }
     }
 
+    public static SpannableStringBuilder formatBidSpannable(Context context, String bid) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder();
+        if (bid == null || bid.isEmpty()) return ssb;
+
+        if (bid.equalsIgnoreCase("Pass") || bid.equalsIgnoreCase("P")) {
+            int start = ssb.length();
+            ssb.append("Pass");
+            ssb.setSpan(new ForegroundColorSpan(0xFF2E7D32), start, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return ssb;
+        }
+        if (bid.equalsIgnoreCase("X") || bid.equalsIgnoreCase("Double")) {
+            int start = ssb.length();
+            ssb.append("Kontra");
+            ssb.setSpan(new ForegroundColorSpan(0xFFE57373), start, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return ssb;
+        }
+        if (bid.equalsIgnoreCase("XX")) {
+            int start = ssb.length();
+            ssb.append("Rekontra");
+            ssb.setSpan(new ForegroundColorSpan(0xFF64B5F6), start, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return ssb;
+        }
+
+        try {
+            String level = bid.substring(0, 1);
+            String suitPart = bid.substring(1).toUpperCase();
+
+            ssb.append(level);
+
+            if (suitPart.equalsIgnoreCase("NT")) {
+                ssb.append("NT");
+            } else {
+                Suit s = null;
+                switch (suitPart) {
+                    case "C": s = Suit.CLUBS; break;
+                    case "D": s = Suit.DIAMONDS; break;
+                    case "H": s = Suit.HEARTS; break;
+                    case "S": s = Suit.SPADES; break;
+                }
+
+                if (s != null) {
+                    int start = ssb.length();
+                    ssb.append(" ").append(s.symbol);
+                    int color = s.getColor(context);
+                    ssb.setSpan(new ForegroundColorSpan(color), start, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                } else {
+                    ssb.append(suitPart);
+                }
+            }
+        } catch (Exception e) {
+            ssb.append(bid);
+        }
+
+        return ssb;
+    }
+
     public static SpannableStringBuilder formatDescriptionText(Context context, String text) {
         if (text == null) return new SpannableStringBuilder("");
 

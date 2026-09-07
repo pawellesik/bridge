@@ -65,4 +65,46 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Bidding Hints Container (Below Public Knowledge) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bidding_hints_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_public_knowledge"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/public_knowledge_container">
+
+        <TextView
+            android:id="@+id/tv_hints_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bidding_hints_header"
+            android:textColor="#4D7C4F"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:contentDescription="Hints"
+            android:src="@drawable/ic_star"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#F57C00" />
+
+        <LinearLayout
+            android:id="@+id/layout_hints_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/tv_hints_header" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
