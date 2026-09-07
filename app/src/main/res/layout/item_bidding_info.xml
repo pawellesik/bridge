@@ -32,7 +32,7 @@
             android:src="@android:drawable/ic_dialog_info"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="#303F9F"
+            app:tint="#4D7C4F"
             android:contentDescription="Info" />
 
         <TextView
