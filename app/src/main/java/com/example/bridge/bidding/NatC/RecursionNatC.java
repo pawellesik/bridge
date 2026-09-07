@@ -73,6 +73,9 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3C, fit(Suit.Clubs), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
                 shows(Bid._3D, fit(Suit.Diamonds), pairHighCardPoints(PAIR_LOW_GAME), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D")),
 
+                shows(Bid._4D, partner(isLastBid(Bid._3NT)), shape(5, 10), twoSuiter(5), hasShortness(0, 0), id("RecursionNatC.recursionFindFitGame  _4D")),
+                shows(Bid._4C, partner(isLastBid(Bid._3NT)), shape(5, 10), twoSuiter(5), hasShortness(0, 0), id("RecursionNatC.recursionFindFitGame  _4C")),
+
                 CompeteNatC.bids(ps)
         );
         return choices;

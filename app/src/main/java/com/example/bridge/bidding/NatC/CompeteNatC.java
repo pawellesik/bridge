@@ -51,6 +51,18 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._4S, shape(2, 3), shape(Suit.Hearts, 0, 2), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), id("CompeteNatC.compBids _4S")));
         bids.add(shows(Bid._4S, shape(3, 4), shape(Suit.Hearts, 0, 3), betterThan(Suit.Hearts), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _4S")));
 
+
+        bids.add(shows(Bid._4S, betterThan(Suit.Diamonds), partner(isLastBid(Bid._4D)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids betterThan(Suit.Diamonds) _4S")));
+        bids.add(shows(Bid._4S, betterThan(Suit.Clubs), partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Spades, 4)),id("CompeteNatC.compBids betterThan(Suit.Clubs) _4S")));
+        bids.add(shows(Bid._4H, betterThan(Suit.Diamonds), partner(isLastBid(Bid._4D)), partner(new Shape.HasMinShape(Suit.Hearts, 4)),id("CompeteNatC.compBids betterThan(Suit.Diamonds) _4H")));
+        bids.add(shows(Bid._4H, betterThan(Suit.Clubs), partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Hearts, 4)), id("CompeteNatC.compBids  betterThan(Suit.Clubs) _4H")));
+
+        bids.add(shows(Bid._5D, betterThan(Suit.Spades), partner(isLastBid(Bid._4D)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _5D")));
+        bids.add(shows(Bid._5D, betterThan(Suit.Hearts), partner(isLastBid(Bid._4D)), partner(new Shape.HasMinShape(Suit.Hearts, 4)), id("CompeteNatC.compBids _5D")));
+        bids.add(shows(Bid._5C, betterThan(Suit.Spades), partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Spades, 4)), id("CompeteNatC.compBids _5C")));
+        bids.add(shows(Bid._5C, betterThan(Suit.Hearts), partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Hearts, 4)), id("CompeteNatC.compBids _5C")));
+
+
         bids.add(shows(Bid._3D, shape(2, 10), betterThan(Suit.Clubs), partner(isLastBid(Bid._3C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _3D")));
         bids.add(shows(Bid._5D, shape(2, 10), betterThan(Suit.Diamonds), partner(isLastBid(Bid._5C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), id("CompeteNatC.compBids _5D")));
 
