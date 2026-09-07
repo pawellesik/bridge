@@ -25,7 +25,7 @@
         <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="@string/player_south" android:textColor="@android:color/white" android:textSize="12sp" android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Bidding Tiles Area (Max 3 rows = ~155dp, then scrolls) -->
+    <!-- Bidding Tiles Area -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bidding_scroll_view"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:overScrollMode="never"
         android:background="#FDF9F3"
         app:layout_constrainedHeight="true"
-        app:layout_constraintHeight_max="155dp"
+        app:layout_constraintHeight_max="220dp"
         app:layout_constraintBottom_toTopOf="@id/info_scroll_view"
         app:layout_constraintTop_toBottomOf="@id/bidding_header">
 
