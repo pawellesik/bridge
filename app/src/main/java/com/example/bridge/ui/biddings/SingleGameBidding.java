@@ -11,9 +11,12 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.example.bridge.R;
+import com.example.bridge.bidding.Tools.BidRule;
 import com.example.bridge.bidding.Tools.BiddingState;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallDetails;
@@ -249,7 +252,35 @@ public class SingleGameBidding {
         }
     }
 
+    private List<BidRule> getMatchingRulesForPlayer(PositionState ps, CallDetails details) {
+        List<BidRule> matched = new ArrayList<>(details.getMatchedRules());
+        if (matched.isEmpty() && ps != null && ps.hasHand()) {
+            for (BidRule rule : details.getRules()) {
+                if (ps.privateHandConforms(rule)) {
+                    matched.add(rule);
+                }
+            }
+        }
+        return matched;
+    }
+
+    private String getDescriptionsForRules(PositionState ps, List<BidRule> rules) {
+        if (rules == null || rules.isEmpty()) return "";
+        List<String> ruleDescriptions = new ArrayList<>();
+        for (BidRule rule : rules) {
+            List<String> ruleDescs = rule.constraintDescriptions(ps);
+            if (ruleDescs != null && !ruleDescs.isEmpty()) {
+                String desc = String.join(", ", ruleDescs);
+                if (!ruleDescriptions.contains(desc)) {
+                    ruleDescriptions.add(desc);
+                }
+            }
+        }
+        return String.join("\n", ruleDescriptions);
+    }
+
     public void updateBiddingHintsView() {
+        View outerLayout = activity.findViewById(R.id.public_knowledge_container_layout);
         View container = activity.findViewById(R.id.bidding_hints_container);
         LinearLayout hintsContent = activity.findViewById(R.id.layout_hints_content);
         if (container == null || hintsContent == null) return;
@@ -272,19 +303,32 @@ public class SingleGameBidding {
         }
 
         hintsContent.removeAllViews();
+        PositionState ps = liveBiddingState.getNextToAct();
 
-        int addedCount = 0;
+        List<Map.Entry<Call, String>> matchingHints = new ArrayList<>();
         for (Map.Entry<Call, CallDetails> entry : choices.entrySet()) {
             Call call = entry.getKey();
             CallDetails details = entry.getValue();
             if (call == null || details == null) continue;
 
-            // Pokazuj w podpowiedziach tylko te odzywki, których kryteria ręka gracza faktycznie spełnia!
-            boolean qualifies = !details.hasRules() || !details.getMatchedRules().isEmpty();
-            if (!qualifies) continue;
+            List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, details);
+            if (details.hasRules() && matchedRules.isEmpty()) {
+                continue;
+            }
 
-            String desc = details.getMatchedDescription(liveBiddingState.getNextToAct());
+            String desc = getDescriptionsForRules(ps, matchedRules);
+            if (desc == null || desc.trim().isEmpty()) {
+                desc = details.getDescription(ps);
+            }
             if (desc == null || desc.trim().isEmpty()) continue;
+
+            matchingHints.add(new AbstractMap.SimpleEntry<>(call, desc));
+        }
+
+        int addedCount = 0;
+        for (Map.Entry<Call, String> hint : matchingHints) {
+            Call call = hint.getKey();
+            String desc = hint.getValue();
 
             LinearLayout row = new LinearLayout(activity);
             row.setOrientation(LinearLayout.HORIZONTAL);
@@ -318,6 +362,7 @@ public class SingleGameBidding {
         }
 
         if (addedCount > 0) {
+            if (outerLayout != null) outerLayout.setVisibility(View.VISIBLE);
             container.setVisibility(View.VISIBLE);
         } else {
             container.setVisibility(View.GONE);
@@ -325,10 +370,12 @@ public class SingleGameBidding {
     }
 
     public void updatePublicKnowledgeView() {
-        View container = activity.findViewById(R.id.public_knowledge_container_layout);
+        View outerLayout = activity.findViewById(R.id.public_knowledge_container_layout);
+        View container = activity.findViewById(R.id.public_knowledge_container);
         if (container == null) return;
 
         if (liveBiddingState == null) {
+            if (outerLayout != null) outerLayout.setVisibility(View.GONE);
             container.setVisibility(View.GONE);
             return;
         }
@@ -343,6 +390,7 @@ public class SingleGameBidding {
             return;
         }
 
+        if (outerLayout != null) outerLayout.setVisibility(View.VISIBLE);
         container.setVisibility(View.VISIBLE);
 
         TextView tvNorth = container.findViewById(R.id.tv_pk_north);

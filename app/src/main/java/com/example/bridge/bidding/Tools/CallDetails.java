@@ -42,6 +42,10 @@ public class CallDetails {
         return !rules.isEmpty();
     }
 
+    public List<BidRule> getRules() {
+        return rules;
+    }
+
     public CallProperties getProperties() {
         return properties;
     }
