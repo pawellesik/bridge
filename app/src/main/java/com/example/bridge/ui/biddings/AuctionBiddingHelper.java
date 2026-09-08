@@ -157,72 +157,63 @@ public class AuctionBiddingHelper {
         hintsContent.removeAllViews();
         PositionState ps = liveBiddingState.getNextToAct();
 
-        List<Map.Entry<Call, String>> matchingHints = new ArrayList<>();
-        for (Map.Entry<Call, CallDetails> entry : choices.entrySet()) {
-            Call call = entry.getKey();
-            CallDetails details = entry.getValue();
-            if (call == null || details == null) continue;
-
-            if (Call.PASS.equals(call) || "Pass".equalsIgnoreCase(call.toString()) || "P".equalsIgnoreCase(call.toString())) {
-                continue;
+        CallDetails bestDetails = choices.getBestCall();
+        Call bestCall = null;
+        if (bestDetails != null) {
+            for (Map.Entry<Call, CallDetails> entry : choices.entrySet()) {
+                if (entry.getValue() == bestDetails) {
+                    bestCall = entry.getKey();
+                    break;
+                }
             }
-
-            List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, details);
-            if (details.hasRules() && matchedRules.isEmpty()) {
-                continue;
-            }
-
-            String desc = getDescriptionsForRules(ps, matchedRules);
-            if (desc == null || desc.trim().isEmpty()) {
-                desc = details.getDescription(ps);
-            }
-            if (desc == null || desc.trim().isEmpty()) continue;
-
-            matchingHints.add(new AbstractMap.SimpleEntry<>(call, desc));
         }
 
-        int addedCount = 0;
-        for (Map.Entry<Call, String> hint : matchingHints) {
-            Call call = hint.getKey();
-            String desc = hint.getValue();
-
-            LinearLayout row = new LinearLayout(activity);
-            row.setOrientation(LinearLayout.HORIZONTAL);
-            row.setGravity(android.view.Gravity.CENTER_VERTICAL);
-            row.setPadding(0, 6, 0, 6);
-
-            TextView tvBid = new TextView(activity);
-            tvBid.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
-            tvBid.setTypeface(null, android.graphics.Typeface.BOLD);
-            tvBid.setMinWidth((int) (55 * activity.getResources().getDisplayMetrics().density));
-            SpannableStringBuilder formattedBid = GameBiddingHistoryAdapter.formatBidSpannable(activity, call.toString());
-            tvBid.setText(formattedBid, TextView.BufferType.SPANNABLE);
-
-            TextView tvCriteria = new TextView(activity);
-            tvCriteria.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
-            tvCriteria.setTextColor(0xFF1B2E1D);
-            SpannableStringBuilder formattedDesc = GameBiddingHistoryAdapter.formatDescriptionText(activity, desc);
-            tvCriteria.setText(formattedDesc, TextView.BufferType.SPANNABLE);
-
-            row.addView(tvBid);
-            row.addView(tvCriteria);
-
-            hintsContent.addView(row);
-            addedCount++;
-
-            View divider = new View(activity);
-            divider.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, 1));
-            divider.setBackgroundColor(0x20000000);
-            hintsContent.addView(divider);
-        }
-
-        if (addedCount > 0) {
-            if (outerLayout != null) outerLayout.setVisibility(View.VISIBLE);
-            container.setVisibility(View.VISIBLE);
-        } else {
+        if (bestCall == null || bestDetails == null) {
             container.setVisibility(View.GONE);
+            return;
         }
+
+        if (Call.PASS.equals(bestCall) || "Pass".equalsIgnoreCase(bestCall.toString()) || "P".equalsIgnoreCase(bestCall.toString())) {
+            container.setVisibility(View.GONE);
+            return;
+        }
+
+        List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
+        String desc = getDescriptionsForRules(ps, matchedRules);
+        if (desc == null || desc.trim().isEmpty()) {
+            desc = bestDetails.getDescription(ps);
+        }
+
+        if (desc == null || desc.trim().isEmpty()) {
+            container.setVisibility(View.GONE);
+            return;
+        }
+
+        LinearLayout row = new LinearLayout(activity);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        row.setPadding(0, 6, 0, 6);
+
+        TextView tvBid = new TextView(activity);
+        tvBid.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
+        tvBid.setTypeface(null, android.graphics.Typeface.BOLD);
+        tvBid.setMinWidth((int) (55 * activity.getResources().getDisplayMetrics().density));
+        SpannableStringBuilder formattedBid = GameBiddingHistoryAdapter.formatBidSpannable(activity, bestCall.toString());
+        tvBid.setText(formattedBid, TextView.BufferType.SPANNABLE);
+
+        TextView tvCriteria = new TextView(activity);
+        tvCriteria.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
+        tvCriteria.setTextColor(0xFF1B2E1D);
+        SpannableStringBuilder formattedDesc = GameBiddingHistoryAdapter.formatDescriptionText(activity, desc);
+        tvCriteria.setText(formattedDesc, TextView.BufferType.SPANNABLE);
+
+        row.addView(tvBid);
+        row.addView(tvCriteria);
+
+        hintsContent.addView(row);
+
+        if (outerLayout != null) outerLayout.setVisibility(View.VISIBLE);
+        container.setVisibility(View.VISIBLE);
     }
 
     public void updatePublicKnowledgeView(BiddingState liveBiddingState) {
