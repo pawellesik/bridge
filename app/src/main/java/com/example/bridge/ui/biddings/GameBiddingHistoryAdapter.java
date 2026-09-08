@@ -78,7 +78,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             holder.bind(bid, false, false, layoutId);
 
             String desc = (position < descriptions.size()) ? descriptions.get(position) : null;
-            if (desc != null && !desc.trim().isEmpty() && !"-".equals(bid)) {
+            if (desc != null && !desc.trim().isEmpty() && !"-".equals(bid) && !"Pass".equalsIgnoreCase(bid) && !"P".equalsIgnoreCase(bid)) {
                 holder.showQuestionIcon(true);
                 holder.itemView.setOnClickListener(v -> showDescriptionTooltip(v, bid, desc));
             } else {
@@ -107,7 +107,10 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             activePopupWindow = null;
         }
 
-        if (description == null || description.trim().isEmpty()) return;
+        if (description == null || description.trim().isEmpty() || "Pass".equalsIgnoreCase(bid) || "P".equalsIgnoreCase(bid) || "-".equals(bid)) return;
+
+        String[] lines = description.trim().split("\n");
+        if (lines.length > 1) return;
 
         Context context = anchorView.getContext();
         View popupView = LayoutInflater.from(context).inflate(R.layout.popup_bid_description, null);

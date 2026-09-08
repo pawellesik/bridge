@@ -33,7 +33,7 @@ public class AuctionDescriptionHelper {
             BiddingState state = new BiddingState(tempGame);
 
             for (String bidStr : auction) {
-                if (bidStr == null || bidStr.isEmpty() || bidStr.equals("-")) {
+                if (bidStr == null || bidStr.isEmpty() || bidStr.equals("-") || bidStr.equalsIgnoreCase("Pass") || bidStr.equalsIgnoreCase("P")) {
                     descriptions.add("");
                     continue;
                 }
@@ -43,7 +43,7 @@ public class AuctionDescriptionHelper {
                     call = Call.parse(bidStr);
                 } catch (Exception ignored) {}
 
-                if (call == null) {
+                if (call == null || call.equals(Call.PASS)) {
                     descriptions.add("");
                     continue;
                 }
@@ -67,7 +67,10 @@ public class AuctionDescriptionHelper {
                     } else {
                         String rawDesc = details.getDescription(ps);
                         if (rawDesc != null && !rawDesc.trim().isEmpty()) {
-                            desc = GameBiddingHistoryAdapter.flattenAndDeduplicateLines(rawDesc);
+                            String[] lines = rawDesc.trim().split("\n");
+                            if (lines.length == 1) {
+                                desc = lines[0];
+                            }
                         }
                     }
                 }
