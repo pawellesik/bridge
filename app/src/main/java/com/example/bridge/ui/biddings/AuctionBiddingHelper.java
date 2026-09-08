@@ -178,10 +178,20 @@ public class AuctionBiddingHelper {
             return;
         }
 
+        List<BidRule> bestRule = new ArrayList<>();
         List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
-        String desc = getDescriptionsForRules(ps, matchedRules);
+        if (!matchedRules.isEmpty()) {
+            bestRule.add(matchedRules.get(0));
+        } else if (bestDetails.hasRules() && !bestDetails.getRules().isEmpty()) {
+            bestRule.add(bestDetails.getRules().get(0));
+        }
+
+        String desc = getDescriptionsForRules(ps, bestRule);
         if (desc == null || desc.trim().isEmpty()) {
             desc = bestDetails.getDescription(ps);
+        }
+        if (desc != null && desc.contains("\n")) {
+            desc = desc.substring(0, desc.indexOf('\n'));
         }
 
         if (desc == null || desc.trim().isEmpty()) {
