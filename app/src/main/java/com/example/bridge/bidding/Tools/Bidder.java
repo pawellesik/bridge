@@ -388,6 +388,10 @@ public abstract class Bidder {
         return new LogID(id);
     }
 
+    public static StaticConstraint ruleDescription(String description) {
+        return new com.example.bridge.bidding.Constraints.RuleDescription(description);
+    }
+
     public static Constraint note(String text) {
         return new Note(text);
     }

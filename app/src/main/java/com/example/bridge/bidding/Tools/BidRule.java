@@ -49,8 +49,19 @@ public class BidRule extends CallFeature {
     }
 
     public List<String> constraintDescriptions(PositionState ps) {
+        // Jeśli reguła posiada własny opis (np. ruleDescription("Ask for Aces")), zwracamy tylko ten opis!
+        for (Constraint constraint : getConstraints()) {
+            if (constraint instanceof com.example.bridge.bidding.Constraints.RuleDescription) {
+                String custom = ((com.example.bridge.bidding.Constraints.RuleDescription) constraint).getDescription();
+                if (custom != null && !custom.trim().isEmpty()) {
+                    List<String> list = new ArrayList<>();
+                    list.add(custom);
+                    return list;
+                }
+            }
+        }
+
         List<String> descriptions = new ArrayList<>();
-        // TODO: Port logic for IDescribeMultipleConstraints if needed
         for (Constraint constraint : getConstraints()) {
             if (constraint instanceof IDescribeConstraint) {
                 String d = ((IDescribeConstraint) constraint).describe(getCall(), ps);
