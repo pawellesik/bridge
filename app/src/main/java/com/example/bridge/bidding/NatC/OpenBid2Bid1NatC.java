@@ -28,11 +28,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(
                 properties(new Call[]{Bid._2NT}, RespondBid2Bid1NatC::secondBidNegat2NTStrong),
                 partnerBids(RespondBid2Bid1NatC::secondBidNegatStrong),
-                shows(Bid._2H, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2H")),
-                shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2S")),
-                shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _3C")),
-                shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _3D")),
-                shows(Bid._2NT, isJump(1), OpeningStrongBidding, id("OpenBid2NatC.responderNegatStandard _2NT"))
+                shows(Bid._2H, isJump(1), OpeningStrongBidding, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _2H")),
+                shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _2S")),
+                shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _3C")),
+                shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _3D")),
+                shows(Bid._2NT, isJump(1), OpeningStrongBidding, ruleShow(1), id("OpenBid2NatC.responderNegatStandard _2NT"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
         return choices;
@@ -45,14 +45,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame),
                 partnerBids(RespondBid2Bid1NatC::secondBidNegatStandard),
-                shows(Bid._1H, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _1H")),
-                shows(Bid._1S, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _1S")),
                 shows(Bid._2D, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _2D")),
                 shows(Bid._2C, shape(6, 10), id("OpenBid2NatC.responderNegatStandard _2C")),
-                shows(Bid._1H, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _1H")),
-                shows(Bid._1S, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _1S")),
                 shows(Bid._2D, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2D")),
-                shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responderNegatStandard _2C")),
+                shows(Bid._2C, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _2C")),
                 shows(Bid._1NT, id("OpenBid2NatC.responderNegatStandard _1NT"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
@@ -78,17 +74,17 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 partnerBids(RespondBid2Bid1NatC::secondBidMajorClubStrong),
-                shows(Bid._3H, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3H")),
-                shows(Bid._3S, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3S")),
+                shows(Bid._3H, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3H")),
+                shows(Bid._3S, fit(), isJump(1), OpeningStrongBidding, setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3S")),
 
-                shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderdTrumpMajorClubStrong _2S")),
-                shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3C")),
-                shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3D")),
+                shows(Bid._2S, isJump(1), OpeningStrongBidding, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _2S")),
+                shows(Bid._3C, isJump(1), OpeningStrongBidding, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3C")),
+                shows(Bid._3D, isJump(1), OpeningStrongBidding, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3D")),
 
-                shows(Bid._4H, OpeningStrongBidding, shape(6, 10), id("OpenBid2NatC.responderdTrumpMajorClubStrong _4H")),
-                shows(Bid._4S, OpeningStrongBidding, shape(6, 10), id("OpenBid2NatC.responderdTrumpMajorClubStrong _4S")),
+                shows(Bid._4H, OpeningStrongBidding, shape(6, 10), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _4H")),
+                shows(Bid._4S, OpeningStrongBidding, shape(6, 10), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _4S")),
 
-                shows(Bid._3NT, PAIR_BALANCED, OpeningStrongBidding, id("OpenBid2NatC.responderdTrumpMajorClubStrong _3NT"))
+                shows(Bid._3NT, PAIR_BALANCED, OpeningStrongBidding, ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3NT"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
         return choices;
@@ -102,15 +98,15 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 partnerBids(RespondBid2Bid1NatC::secondBidMajorClubStandard),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame),
 
-                shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
+                shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), ruleShow(1),id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
                 shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
 
-                shows(Bid._2C, shape(5, 10), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2C")),
-                shows(Bid._1S, DECENT_PLUS_SUIT, shape(4, 10), id("OpenBid2NatC.responderdTrumpMajorClubStandard _1S")),
-                shows(Bid._2S, DECENT_PLUS_SUIT, IS_NEW_SUIT, shape(4, 10), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
-                shows(Bid._2H, DECENT_PLUS_SUIT, IS_NEW_SUIT, shape(4, 10), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
+                shows(Bid._2C, shape(5, 10), ruleShow(1),id("OpenBid2NatC.responderdTrumpMajorClubStandard _2C")),
+                shows(Bid._1S, DECENT_PLUS_SUIT, shape(4, 10), ruleShow(1),id("OpenBid2NatC.responderdTrumpMajorClubStandard _1S")),
+                shows(Bid._2S, DECENT_PLUS_SUIT, IS_NEW_SUIT, shape(4, 10), ruleShow(1),id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
+                shows(Bid._2H, DECENT_PLUS_SUIT, IS_NEW_SUIT, shape(4, 10), ruleShow(1),id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
 
-                shows(Bid._1NT, PAIR_BALANCED, id("OpenBid2NatC.responderdTrumpMajorClubStandard _3NT"))
+                shows(Bid._1NT, PAIR_BALANCED, ruleShow(1),id("OpenBid2NatC.responderdTrumpMajorClubStandard _3NT"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
         return choices;
@@ -545,7 +541,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._2S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
                     shows(Bid._3D, noFit(), shape(6, 10), IS_REBID, id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
                     shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
-                    shows(Bid._3H, noFit(), pairHighCardPoints(PAIR_GAME), shape(4, 10), DECENT_PLUS_SUIT,  OpeningInviteBidding, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
+                    shows(Bid._3H, noFit(), pairHighCardPoints(PAIR_GAME), shape(4, 10), DECENT_PLUS_SUIT, OpeningInviteBidding, id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
                     shows(Bid._3H, noFit(), pairHighCardPoints(PAIR_GAME), shape(2, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsDiamond _3H"))
 
             );
@@ -795,7 +791,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     //shows(Bid._4C, fit(), OpeningLowBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4C")),
                     shows(Bid._4D, fit(), OpeningLowBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4D")),
 
-                    shows(Bid._5C, fit() ,setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
+                    shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
                     shows(Bid._5D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D"))//,
             );
         }
@@ -817,7 +813,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Call.PASS, OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass"))//,
 
-                    );
+            );
         } else {
             choices.addRules(
                     shows(Bid._4S, pairPoints(PAIR_GAME), partner(isLastBid(Bid._2S, Bid._3S)), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S"))

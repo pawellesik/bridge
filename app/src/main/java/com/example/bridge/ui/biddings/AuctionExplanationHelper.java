@@ -48,15 +48,16 @@ public class AuctionExplanationHelper {
                     List<BidRule> showRules = new ArrayList<>();
                     for (BidRule rule : details.getRules()) {
                         if (com.example.bridge.bidding.Constraints.RuleShow.hasRuleShow(rule)) {
-                            showRules.add(rule);
+                            boolean matches = details.getMatchedRules().contains(rule) 
+                                    || (ps != null && (!ps.hasHand() || ps.privateHandConforms(rule)));
+                            if (matches) {
+                                showRules.add(rule);
+                            }
                         }
                     }
 
                     if (!showRules.isEmpty()) {
                         desc = getDescriptionsForRules(ps, showRules);
-                    }
-                    if (desc == null || desc.trim().isEmpty()) {
-                        desc = details.getDescription(ps);
                     }
                 }
 
