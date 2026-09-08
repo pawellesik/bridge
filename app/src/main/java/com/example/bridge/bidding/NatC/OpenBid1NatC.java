@@ -64,10 +64,10 @@ public class OpenBid1NatC extends NatC {
     private static List<CallFeature> openSuitWeak(PositionState ps) {
         List<CallFeature> rules = new ArrayList<>();
         rules.add(partnerBids(RespondBid1NatC::weakOpen));
-        rules.add(shows(Bid._3C, OpeningWeakBidding, shape(7, 11), id("OpenNatC.openSuitWeak _3C")));
-        rules.add(shows(Bid._3D, OpeningWeakBidding, shape(7, 11), id("OpenNatC.openSuitWeak _3D")));
-        rules.add(shows(Bid._3H, OpeningWeakBidding, shape(7, 11), id("OpenNatC.openSuitWeak _3H")));
-        rules.add(shows(Bid._3S, OpeningWeakBidding, shape(7, 11), id("OpenNatC.openSuitWeak _3S")));
+        rules.add(shows(Bid._3C, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3C")));
+        rules.add(shows(Bid._3D, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3D")));
+        rules.add(shows(Bid._3H, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3H")));
+        rules.add(shows(Bid._3S, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3S")));
         return rules;
     }
 

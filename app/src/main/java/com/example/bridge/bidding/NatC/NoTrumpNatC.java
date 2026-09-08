@@ -30,7 +30,7 @@ public class NoTrumpNatC extends Bidder {
     public static Iterable<CallFeature> open1NTBid1(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         bids.add(partnerBids(NoTrumpNatC::respond1NTBid1));
-        bids.add(shows(Bid._1NT, OPEN, BALANCED, shape(Suit.Spades, 2, 4), shape(Suit.Hearts, 2, 4), id("NoTrumpNatC.OneNoTrumpBidderNatC 1NT")));
+        bids.add(shows(Bid._1NT, OPEN, BALANCED, shape(Suit.Spades, 2, 4), shape(Suit.Hearts, 2, 4), ruleShow(1), id("NoTrumpNatC.OneNoTrumpBidderNatC 1NT")));
         return bids;
     }
 
