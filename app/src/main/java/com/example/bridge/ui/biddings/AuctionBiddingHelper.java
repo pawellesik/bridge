@@ -168,28 +168,24 @@ public class AuctionBiddingHelper {
             }
         }
 
-        if (bestCall == null || bestDetails == null) {
-            container.setVisibility(View.GONE);
-            return;
+        boolean isPass = (bestCall == null || Call.PASS.equals(bestCall) || "Pass".equalsIgnoreCase(bestCall.toString()) || "P".equalsIgnoreCase(bestCall.toString()));
+        if (isPass) {
+            bestCall = Call.PASS;
+            bestDetails = choices.get(Call.PASS);
         }
 
-        if (Call.PASS.equals(bestCall) || "Pass".equalsIgnoreCase(bestCall.toString()) || "P".equalsIgnoreCase(bestCall.toString())) {
-            container.setVisibility(View.GONE);
-            return;
-        }
-
-        String desc = bestDetails.getDescription(ps);
-        if (desc == null || desc.trim().isEmpty()) {
-            List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
-            desc = getDescriptionsForRules(ps, matchedRules);
-        }
-        if (desc != null && desc.contains("\n")) {
-            desc = desc.substring(0, desc.indexOf('\n'));
-        }
-
-        if (desc == null || desc.trim().isEmpty()) {
-            container.setVisibility(View.GONE);
-            return;
+        String desc = "";
+        if (!isPass && bestDetails != null) {
+            desc = bestDetails.getDescription(ps);
+            if (desc == null || desc.trim().isEmpty()) {
+                List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
+                desc = getDescriptionsForRules(ps, matchedRules);
+            }
+            if (desc != null && desc.contains("\n")) {
+                desc = desc.substring(0, desc.indexOf('\n'));
+            }
+        } else {
+            desc = "";
         }
 
         LinearLayout row = new LinearLayout(activity);
