@@ -42,7 +42,10 @@ public class PairKings extends HandConstraint implements IDescribeConstraint {
 
     @Override
     public String describe(Call call, PositionState ps) {
-        String val = Arrays.toString(count).replace("[", "").replace("]", "");
+        if (count == null || count.length == 0) return "Kings: 0-4 (pair)";
+        int min = Arrays.stream(count).min().orElse(0);
+        int max = Arrays.stream(count).max().orElse(4);
+        String val = (min == max) ? String.valueOf(min) : min + "-" + max;
         return "Kings: " + val + " (pair)";
     }
 }

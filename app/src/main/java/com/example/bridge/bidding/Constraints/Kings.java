@@ -43,7 +43,10 @@ public class Kings extends HandConstraint implements IShowsHand, IDescribeConstr
 
     @Override
     public String describe(Call call, PositionState ps) {
-        String val = count.toString().replace("[", "").replace("]", "");
+        if (count.isEmpty()) return "Kings: 0-4";
+        int min = count.stream().min(Integer::compare).orElse(0);
+        int max = count.stream().max(Integer::compare).orElse(4);
+        String val = (min == max) ? String.valueOf(min) : min + "-" + max;
         return "Kings: " + val;
     }
 }

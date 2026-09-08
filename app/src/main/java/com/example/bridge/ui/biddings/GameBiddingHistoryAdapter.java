@@ -517,12 +517,12 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         }
 
         if (lower.startsWith("aces:")) {
-            String val = trimmed.substring(5).trim();
+            String val = normalizeCommaRangeToDash(trimmed.substring(5).trim());
             String prefix = (context != null) ? context.getString(R.string.public_knowledge_aces, "").replace("%1$s", "").trim() : "Asy:";
             return prefix + " " + val;
         }
         if (lower.startsWith("kings:")) {
-            String val = trimmed.substring(6).trim();
+            String val = normalizeCommaRangeToDash(trimmed.substring(6).trim());
             String prefix = (context != null) ? context.getString(R.string.public_knowledge_kings, "").replace("%1$s", "").trim() : "Króle:";
             return prefix + " " + val;
         }
@@ -532,6 +532,26 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         }
 
         return trimmed;
+    }
+
+    private static String normalizeCommaRangeToDash(String val) {
+        if (val == null) return "";
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("(\\d+)(?:,\\s*(\\d+))+").matcher(val);
+        if (m.find()) {
+            java.util.regex.Matcher numMatcher = java.util.regex.Pattern.compile("\\d+").matcher(val);
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
+            while (numMatcher.find()) {
+                int num = Integer.parseInt(numMatcher.group());
+                if (num < min) min = num;
+                if (num > max) max = num;
+            }
+            if (min != Integer.MAX_VALUE && max != Integer.MIN_VALUE) {
+                String rangeStr = (min == max) ? String.valueOf(min) : min + "-" + max;
+                return val.replaceAll("(\\d+)(?:,\\s*(\\d+))+", rangeStr);
+            }
+        }
+        return val;
     }
 
     private static boolean isHcpClause(String clause) {

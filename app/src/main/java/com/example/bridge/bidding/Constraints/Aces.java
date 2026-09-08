@@ -50,7 +50,10 @@ public class Aces extends HandConstraint implements IShowsHand, IDescribeConstra
      */
     @Override
     public String describe(Call call, PositionState ps) {
-        String val = count.toString().replace("[", "").replace("]", "");
+        if (count.isEmpty()) return "Aces: 0-4";
+        int min = count.stream().min(Integer::compare).orElse(0);
+        int max = count.stream().max(Integer::compare).orElse(4);
+        String val = (min == max) ? String.valueOf(min) : min + "-" + max;
         return "Aces: " + val;
     }
 }
