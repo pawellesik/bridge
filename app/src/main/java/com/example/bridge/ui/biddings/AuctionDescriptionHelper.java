@@ -1,5 +1,6 @@
 package com.example.bridge.ui.biddings;
 
+import com.example.bridge.bidding.Constraints.LogID;
 import com.example.bridge.bidding.Tools.*;
 import com.example.bridge.ui.history.Pbn;
 import java.util.ArrayList;
@@ -60,11 +61,13 @@ public class AuctionDescriptionHelper {
 
                 String desc = "";
                 if (details != null && ps != null) {
-                    String rawDesc = details.getDescription(ps);
-                    if (rawDesc != null && !rawDesc.trim().isEmpty()) {
-                        String[] lines = rawDesc.trim().split("\n");
-                        if (lines.length == 1) {
-                            desc = lines[0];
+                    String conventionDesc = getConventionDescription(ps, details);
+                    if (conventionDesc != null) {
+                        desc = conventionDesc;
+                    } else {
+                        String rawDesc = details.getDescription(ps);
+                        if (rawDesc != null && !rawDesc.trim().isEmpty()) {
+                            desc = GameBiddingHistoryAdapter.flattenAndDeduplicateLines(rawDesc);
                         }
                     }
                 }
@@ -82,5 +85,32 @@ public class AuctionDescriptionHelper {
         }
 
         return descriptions;
+    }
+
+    public static String getConventionDescription(PositionState ps, CallDetails details) {
+        if (details == null) return null;
+
+        List<BidRule> rules = !details.getMatchedRules().isEmpty() ? details.getMatchedRules() : details.getRules();
+        for (BidRule rule : rules) {
+            String ruleId = LogID.getID(rule);
+            if (ruleId != null) {
+                String lowerId = ruleId.toLowerCase();
+                if (lowerId.contains("askking") || lowerId.contains("respondking") || lowerId.contains("king")) {
+                    return "Ask for Kings";
+                }
+                if (lowerId.contains("acesask") || lowerId.contains("initiateconvention") || lowerId.contains("respondcountaces") || lowerId.contains("ace")) {
+                    return "Ask for Aces";
+                }
+            }
+        }
+
+        if (details.getCall() != null) {
+            String callStr = details.getCall().toString();
+            if (callStr.equalsIgnoreCase("4C") || callStr.equalsIgnoreCase("4NT")) {
+                return "Ask for Aces";
+            }
+        }
+
+        return null;
     }
 }
