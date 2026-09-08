@@ -105,6 +105,7 @@
     <string name="explanation_title">"Explanation: "</string>
     <string name="explanation_label">"Explanation: "</string>
     <string name="bidding_hints_header">--- BIDDING HINTS ---</string>
+    <string name="bidding_rules_header">--- BIDDING RULES ---</string>
     <string name="public_knowledge_aces">Aces: %1$s</string>
     <string name="public_knowledge_kings">Kings: %1$s</string>
     <string name="ask_for_aces">Ask for Aces</string>

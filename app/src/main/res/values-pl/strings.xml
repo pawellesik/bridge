@@ -105,6 +105,7 @@
     <string name="explanation_title">"Uzasadnienie: "</string>
     <string name="explanation_label">"Uzasadnienie: "</string>
     <string name="bidding_hints_header">--- WSKAZÓWKI LICYTACYJNE ---</string>
+    <string name="bidding_rules_header">--- ZASADY LICYTACJI ---</string>
     <string name="public_knowledge_aces">Asy: %1$s</string>
     <string name="public_knowledge_kings">Króle: %1$s</string>
     <string name="ask_for_aces">Pytanie o asy</string>

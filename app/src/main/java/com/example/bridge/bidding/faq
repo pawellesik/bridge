@@ -117,6 +117,8 @@ Overcaller (Wchodzący): Przeciwnik otwierającego, który jako pierwszy z licyt
 Responder (Odpowiadający): Partner Otwierającego.
 Advancer (Wspierający wejście): Partner Wchodzącego
 
+
+ruleDescription("Ask for Aces") pokazuje zamiast description
 =====================================================================================================
 =====================================================================================================
 =====================================================================================================

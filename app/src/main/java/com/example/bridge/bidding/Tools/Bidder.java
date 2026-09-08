@@ -392,6 +392,10 @@ public abstract class Bidder {
         return new com.example.bridge.bidding.Constraints.RuleDescription(description);
     }
 
+    public static StaticConstraint ruleShow(int flag) {
+        return new com.example.bridge.bidding.Constraints.RuleShow(flag);
+    }
+
     public static Constraint note(String text) {
         return new Note(text);
     }

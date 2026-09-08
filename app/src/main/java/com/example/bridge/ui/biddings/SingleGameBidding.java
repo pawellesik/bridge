@@ -141,6 +141,7 @@ public class SingleGameBidding {
             activity.runOnUiThread(() -> {
                 activity.getGameBiddingHistoryAdapter().setHighlightLast(true);
                 updatePublicKnowledgeView();
+                updateBiddingRulesView();
                 updateBiddingHintsView();
                 activity.getGameBiddingHistory().updateBiddingHistory();
                 
@@ -158,6 +159,9 @@ public class SingleGameBidding {
             
             View infoLayout = activity.findViewById(R.id.public_knowledge_container_layout);
             if (infoLayout != null) infoLayout.setVisibility(View.GONE);
+
+            View rulesContainer = activity.findViewById(R.id.bidding_rules_container);
+            if (rulesContainer != null) rulesContainer.setVisibility(View.GONE);
 
             View hintsContainer = activity.findViewById(R.id.bidding_hints_container);
             if (hintsContainer != null) hintsContainer.setVisibility(View.GONE);
@@ -246,9 +250,107 @@ public class SingleGameBidding {
         if (container != null) {
             container.setVisibility(View.GONE);
         }
+        View rulesContainer = activity.findViewById(R.id.bidding_rules_container);
+        if (rulesContainer != null) {
+            rulesContainer.setVisibility(View.GONE);
+        }
         View hintsContainer = activity.findViewById(R.id.bidding_hints_container);
         if (hintsContainer != null) {
             hintsContainer.setVisibility(View.GONE);
+        }
+    }
+
+    public void updateBiddingRulesView() {
+        View outerLayout = activity.findViewById(R.id.public_knowledge_container_layout);
+        View container = activity.findViewById(R.id.bidding_rules_container);
+        LinearLayout rulesContent = activity.findViewById(R.id.layout_rules_content);
+        if (container == null || rulesContent == null) return;
+
+        if (liveBiddingState == null || liveBiddingState.getContract().isAuctionComplete()) {
+            container.setVisibility(View.GONE);
+            return;
+        }
+
+        Direction nextToAct = liveBiddingState.getNextToAct().getDirection();
+        if (nextToAct != Direction.S) {
+            container.setVisibility(View.GONE);
+            return;
+        }
+
+        PositionCalls choices = liveBiddingState.getCallChoices();
+        if (choices == null || choices.isEmpty()) {
+            container.setVisibility(View.GONE);
+            return;
+        }
+
+        rulesContent.removeAllViews();
+        PositionState ps = liveBiddingState.getNextToAct();
+
+        List<Map.Entry<Call, String>> ruleHints = new ArrayList<>();
+        for (Map.Entry<Call, CallDetails> entry : choices.entrySet()) {
+            Call call = entry.getKey();
+            CallDetails details = entry.getValue();
+            if (call == null || details == null) continue;
+
+            List<BidRule> showRules = new ArrayList<>();
+            for (BidRule rule : details.getRules()) {
+                if (com.example.bridge.bidding.Constraints.RuleShow.hasRuleShow(rule)) {
+                    showRules.add(rule);
+                }
+            }
+
+            if (showRules.isEmpty()) continue;
+
+            String desc = getDescriptionsForRules(ps, showRules);
+            if (desc == null || desc.trim().isEmpty()) {
+                desc = details.getDescription(ps);
+            }
+            if (desc == null || desc.trim().isEmpty()) continue;
+
+            ruleHints.add(new AbstractMap.SimpleEntry<>(call, desc));
+        }
+
+        int addedCount = 0;
+        for (Map.Entry<Call, String> hint : ruleHints) {
+            Call call = hint.getKey();
+            String desc = hint.getValue();
+
+            LinearLayout row = new LinearLayout(activity);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            row.setPadding(0, 6, 0, 6);
+
+            TextView tvBid = new TextView(activity);
+            tvBid.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
+            tvBid.setTypeface(null, android.graphics.Typeface.BOLD);
+            tvBid.setMinWidth((int) (55 * activity.getResources().getDisplayMetrics().density));
+            SpannableStringBuilder formattedBid = GameBiddingHistoryAdapter.formatBidSpannable(activity, call.toString());
+            tvBid.setText(formattedBid, TextView.BufferType.SPANNABLE);
+
+            TextView tvCriteria = new TextView(activity);
+            tvCriteria.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
+            tvCriteria.setTextColor(0xFF1B2E1D);
+            SpannableStringBuilder formattedDesc = GameBiddingHistoryAdapter.formatDescriptionText(activity, desc);
+            tvCriteria.setText(formattedDesc, TextView.BufferType.SPANNABLE);
+
+            row.addView(tvBid);
+            row.addView(tvCriteria);
+
+            rulesContent.addView(row);
+            addedCount++;
+
+            View divider = new View(activity);
+            divider.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1));
+            divider.setBackgroundColor(0x20000000);
+            rulesContent.addView(divider);
+        }
+
+        if (addedCount > 0) {
+            if (outerLayout != null) outerLayout.setVisibility(View.VISIBLE);
+            container.setVisibility(View.VISIBLE);
+        } else {
+            container.setVisibility(View.GONE);
         }
     }
 
