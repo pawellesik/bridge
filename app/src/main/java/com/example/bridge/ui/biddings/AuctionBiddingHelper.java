@@ -180,16 +180,19 @@ public class AuctionBiddingHelper {
 
         List<BidRule> bestRule = new ArrayList<>();
         List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
-        if (!matchedRules.isEmpty()) {
-            bestRule.add(matchedRules.get(0));
-        } else if (bestDetails.hasRules() && !bestDetails.getRules().isEmpty()) {
-            bestRule.add(bestDetails.getRules().get(0));
+        
+        List<BidRule> showRules = new ArrayList<>();
+        for (BidRule rule : matchedRules) {
+            if (com.example.bridge.bidding.Constraints.RuleShow.hasRuleShow(rule)) {
+                showRules.add(rule);
+            }
+        }
+
+        if (!showRules.isEmpty()) {
+            bestRule.add(showRules.get(0));
         }
 
         String desc = getDescriptionsForRules(ps, bestRule);
-        if (desc == null || desc.trim().isEmpty()) {
-            desc = bestDetails.getDescription(ps);
-        }
         if (desc != null && desc.contains("\n")) {
             desc = desc.substring(0, desc.indexOf('\n'));
         }
