@@ -531,7 +531,37 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             return formatHcpClause(trimmed);
         }
 
+        if (hasSuitSymbolOrName(trimmed)) {
+            return formatSuitClause(trimmed);
+        }
+
         return trimmed;
+    }
+
+    private static String formatSuitClause(String clause) {
+        if (clause == null) return "";
+        String trimmed = clause.trim();
+
+        String symbol = "";
+        if (trimmed.contains("♠") || trimmed.contains("Spades") || trimmed.contains("Piki") || trimmed.matches(".*\\bS[:\\d+].*")) symbol = "♠";
+        else if (trimmed.contains("♥") || trimmed.contains("Hearts") || trimmed.contains("Kiery") || trimmed.matches(".*\\bH[:\\d+].*")) symbol = "♥";
+        else if (trimmed.contains("♦") || trimmed.contains("Diamonds") || trimmed.contains("Kara") || trimmed.matches(".*\\bD[:\\d+].*")) symbol = "♦";
+        else if (trimmed.contains("♣") || trimmed.contains("Clubs") || trimmed.contains("Trefle") || trimmed.matches(".*\\bC[:\\d+].*")) symbol = "♣";
+
+        if (symbol.isEmpty()) return trimmed;
+
+        if (trimmed.matches("^[♠♥♦♣]\\s*:\\s*.+")) {
+            return trimmed.replaceAll("^[♠♥♦♣]\\s*:\\s*", symbol + ": ");
+        }
+
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(trimmed);
+        if (m.find() && m.group(1) != null) {
+            String length = m.group(1);
+            boolean isPair = trimmed.toLowerCase().contains("pair");
+            return symbol + ": " + length + (isPair ? " (pair)" : "");
+        }
+
+        return symbol + ": " + trimmed.replaceAll("(?i)(spades|hearts|diamonds|clubs|piki|kiery|kara|trefle|[♠♥♦♣])", "").trim();
     }
 
     private static String normalizeCommaRangeToDash(String val) {
