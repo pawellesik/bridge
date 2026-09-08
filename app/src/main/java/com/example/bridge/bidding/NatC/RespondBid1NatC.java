@@ -142,7 +142,7 @@ public class RespondBid1NatC extends NatC {
     }
 
     public static PositionCalls oneSpade(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);k
+        PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2Bid1NatC::responderTrumpMajorSpade, true),
