@@ -459,11 +459,13 @@ public class SingleGameBidding {
         // 3. Aces & Kings Third
         Set<Integer> aces = summary.getCountAces();
         if (aces != null && !aces.isEmpty()) {
-            parts.add(activity.getString(R.string.public_knowledge_aces, aces.toString()));
+            String acesVal = aces.toString().replace("[", "").replace("]", "");
+            parts.add(activity.getString(R.string.public_knowledge_aces, acesVal));
         }
         Set<Integer> kings = summary.getCountKings();
         if (kings != null && !kings.isEmpty()) {
-            parts.add(activity.getString(R.string.public_knowledge_kings, kings.toString()));
+            String kingsVal = kings.toString().replace("[", "").replace("]", "");
+            parts.add(activity.getString(R.string.public_knowledge_kings, kingsVal));
         }
 
         if (!parts.isEmpty()) {

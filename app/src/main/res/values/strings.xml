@@ -107,4 +107,6 @@
     <string name="bidding_hints_header">--- BIDDING HINTS ---</string>
     <string name="public_knowledge_aces">Aces: %1$s</string>
     <string name="public_knowledge_kings">Kings: %1$s</string>
+    <string name="ask_for_aces">Ask for Aces</string>
+    <string name="ask_for_kings">Ask for Kings</string>
 </resources>

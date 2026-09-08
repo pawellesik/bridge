@@ -50,7 +50,8 @@ public class Aces extends HandConstraint implements IShowsHand, IDescribeConstra
      */
     @Override
     public String describe(Call call, PositionState ps) {
-        return count.toString() + " Ace" + (count.size() == 1 && count.contains(1) ? "" : "s");
+        String val = count.toString().replace("[", "").replace("]", "");
+        return "Aces: " + val;
     }
 }
 

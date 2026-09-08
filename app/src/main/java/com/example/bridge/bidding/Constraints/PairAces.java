@@ -41,7 +41,8 @@ public class PairAces extends HandConstraint implements IDescribeConstraint {
 
     @Override
     public String describe(Call call, PositionState ps) {
-        return Arrays.toString(count) + " Ace(s) in pair";
+        String val = Arrays.toString(count).replace("[", "").replace("]", "");
+        return "Aces: " + val + " (pair)";
     }
 }
 

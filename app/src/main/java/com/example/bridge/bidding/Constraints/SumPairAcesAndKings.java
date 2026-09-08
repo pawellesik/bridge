@@ -78,8 +78,9 @@ public class SumPairAcesAndKings extends HandConstraint implements IDescribeCons
     @Override
     public String describe(Call call, PositionState ps) {
         if (customDescription != null) return customDescription;
-        if (range != null) return range.toString() + " total Aces and Kings in pair";
-        return counts.toString() + " total Aces and Kings in pair";
+        if (range != null) return "Aces & Kings: " + range.getMin() + "-" + range.getMax() + " (pair)";
+        String val = counts.toString().replace("[", "").replace("]", "");
+        return "Aces & Kings: " + val + " (pair)";
     }
 }
 

@@ -43,8 +43,8 @@ public class Kings extends HandConstraint implements IShowsHand, IDescribeConstr
 
     @Override
     public String describe(Call call, PositionState ps) {
-        String s = (count.size() == 1 && count.contains(1)) ? "" : "s";
-        return count.toString().replace("[", "").replace("]", "").replace(",", " or") + " King" + s;
+        String val = count.toString().replace("[", "").replace("]", "");
+        return "Kings: " + val;
     }
 }
 

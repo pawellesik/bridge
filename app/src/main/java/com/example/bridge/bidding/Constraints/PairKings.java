@@ -42,9 +42,8 @@ public class PairKings extends HandConstraint implements IDescribeConstraint {
 
     @Override
     public String describe(Call call, PositionState ps) {
-        String s = (count.length == 1 && count[0] == 1) ? "" : "s";
-        String countStr = Arrays.toString(count).replace("[", "").replace("]", "").replace(",", " or");
-        return countStr + " King" + s;
+        String val = Arrays.toString(count).replace("[", "").replace("]", "");
+        return "Kings: " + val + " (pair)";
     }
 }
 

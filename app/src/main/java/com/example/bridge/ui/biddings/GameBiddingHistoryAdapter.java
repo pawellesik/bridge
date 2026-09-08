@@ -285,7 +285,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     public static SpannableStringBuilder formatDescriptionText(Context context, String text) {
         if (text == null || text.trim().isEmpty()) return new SpannableStringBuilder("");
 
-        String sortedText = sortDescriptionSuitClauses(text);
+        String sortedText = sortDescriptionSuitClauses(context, text);
         String s = sortedText;
 
         s = s.replace("Spades", "♠")
@@ -338,7 +338,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         return ssb;
     }
 
-    private static String sortDescriptionSuitClauses(String text) {
+    private static String sortDescriptionSuitClauses(Context context, String text) {
         if (text == null || text.trim().isEmpty()) return "";
 
         String[] lines = text.split("\n");
@@ -348,7 +348,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             String trimmedLine = line.trim();
             if (trimmedLine.isEmpty()) continue;
 
-            String processed = processSingleLine(trimmedLine);
+            String processed = processSingleLine(context, trimmedLine);
             if (!processed.isEmpty()) {
                 formattedLines.add(processed);
             }
@@ -357,7 +357,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         return String.join("\n", formattedLines);
     }
 
-    private static String processSingleLine(String line) {
+    private static String processSingleLine(Context context, String line) {
         String[] rawClauses = line.split(",\\s*");
         if (rawClauses.length == 0) return line;
 
@@ -375,7 +375,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             final double categoryPriority;
 
             ClauseItem(String text, int originalIndex) {
-                this.text = formatClauseText(text);
+                this.text = formatClauseText(context, text);
                 this.originalIndex = originalIndex;
                 this.categoryPriority = categorizeClause(text);
             }
@@ -403,9 +403,28 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         return String.join(", ", sortedTextList);
     }
 
-    private static String formatClauseText(String clause) {
+    private static String formatClauseText(Context context, String clause) {
         if (clause == null) return "";
         String trimmed = clause.trim();
+        String lower = trimmed.toLowerCase();
+
+        if (trimmed.equalsIgnoreCase("Ask for Aces") || trimmed.equalsIgnoreCase("Ask about aces") || trimmed.equalsIgnoreCase("Pytanie o asy")) {
+            return context != null ? context.getString(R.string.ask_for_aces) : "Pytanie o asy";
+        }
+        if (trimmed.equalsIgnoreCase("Ask for Kings") || trimmed.equalsIgnoreCase("Ask about kings") || trimmed.equalsIgnoreCase("Pytanie o króle")) {
+            return context != null ? context.getString(R.string.ask_for_kings) : "Pytanie o króle";
+        }
+
+        if (lower.startsWith("aces:")) {
+            String val = trimmed.substring(5).trim();
+            String prefix = (context != null) ? context.getString(R.string.public_knowledge_aces, "").replace("%1$s", "").trim() : "Asy:";
+            return prefix + " " + val;
+        }
+        if (lower.startsWith("kings:")) {
+            String val = trimmed.substring(6).trim();
+            String prefix = (context != null) ? context.getString(R.string.public_knowledge_kings, "").replace("%1$s", "").trim() : "Króle:";
+            return prefix + " " + val;
+        }
 
         if (isHcpClause(trimmed)) {
             return formatHcpClause(trimmed);
