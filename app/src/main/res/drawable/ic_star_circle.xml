@@ -10,9 +10,9 @@
         android:fillColor="#F57C00"
         android:pathData="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z" />
 
-    <!-- White Star inside -->
+    <!-- White Star inside (Slightly smaller, centered) -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M12,17.27 L18.18,21 L16.54,13.97 L22,9.24 L14.81,8.63 L12,2 L9.19,8.63 L2,9.24 L7.46,13.97 L5.82,21 Z" />
+        android:pathData="M12,16 L16.33,18.61 L15.18,13.68 L19,10.37 L13.96,9.94 L12,5 L10.04,9.94 L5,10.37 L8.82,13.68 L7.67,18.61 Z" />
 
 </vector>
