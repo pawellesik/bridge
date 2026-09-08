@@ -178,21 +178,11 @@ public class AuctionBiddingHelper {
             return;
         }
 
-        List<BidRule> bestRule = new ArrayList<>();
-        List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
-        
-        List<BidRule> showRules = new ArrayList<>();
-        for (BidRule rule : matchedRules) {
-            if (com.example.bridge.bidding.Constraints.RuleShow.hasRuleShow(rule)) {
-                showRules.add(rule);
-            }
+        String desc = bestDetails.getDescription(ps);
+        if (desc == null || desc.trim().isEmpty()) {
+            List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
+            desc = getDescriptionsForRules(ps, matchedRules);
         }
-
-        if (!showRules.isEmpty()) {
-            bestRule.add(showRules.get(0));
-        }
-
-        String desc = getDescriptionsForRules(ps, bestRule);
         if (desc != null && desc.contains("\n")) {
             desc = desc.substring(0, desc.indexOf('\n'));
         }
