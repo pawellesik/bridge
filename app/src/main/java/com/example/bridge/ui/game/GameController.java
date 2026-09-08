@@ -47,6 +47,7 @@ public class GameController {
     }
 
     private final Map<String, Player> players;
+    private final android.content.Context context;
     private Deck deck;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final GameCallback callback;
@@ -69,6 +70,7 @@ public class GameController {
 
     public GameController(GameCallback callback, Map<String, Player> players) {
         this.callback = callback;
+        this.context = (callback instanceof android.content.Context) ? (android.content.Context) callback : null;
         this.players = players;
 
         this.deck = new Deck();
@@ -90,6 +92,18 @@ public class GameController {
         resetTable();
         isGameRunning = false;
         isAutoPlayMode = false;
+
+        boolean loadedFromPbn = false;
+        if (context != null) {
+            com.example.bridge.core.SettingsManager settings = com.example.bridge.core.SettingsManager.getInstance(context);
+            if (settings.isLoadFromTestPbn()) {
+                loadedFromPbn = loadDealFromTestPbn();
+            }
+        }
+
+        if (loadedFromPbn) {
+            return;
+        }
 
         boolean strongHandFound = false;
         int attempts = 0;
@@ -114,6 +128,88 @@ public class GameController {
                 }
             }
         }
+    }
+
+    private boolean loadDealFromTestPbn() {
+        try {
+            String pbnContent;
+            try (java.io.InputStream is = context.getAssets().open("test.pbn");
+                 java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(is))) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                pbnContent = sb.toString();
+            }
+
+            com.example.bridge.bidding.Tools.Game pbnGame = com.example.bridge.bidding.Tools.Game.parse(pbnContent);
+            com.example.bridge.bidding.Tools.Deal deal = pbnGame.getDeal();
+
+            for (Map.Entry<com.example.bridge.bidding.Tools.Direction, com.example.bridge.bidding.Tools.Hand> entry : deal.entrySet()) {
+                com.example.bridge.bidding.Tools.Direction dir = entry.getKey();
+                com.example.bridge.bidding.Tools.Hand bHand = entry.getValue();
+                if (bHand == null) continue;
+
+                String playerName = getPlayerNameForDirection(dir);
+                Player player = players.get(playerName);
+                if (player != null) {
+                    player.clearHand();
+                    List<Card> modelCards = new ArrayList<>();
+                    for (com.example.bridge.bidding.Tools.Card bCard : bHand) {
+                        modelCards.add(toModelCard(bCard));
+                    }
+                    player.addCards(modelCards);
+                    player.setInitialHCP(player.calculateHCP());
+                    player.setCurrentMove(false);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            android.util.Log.e("GameController", "Failed to load deal from test.pbn", e);
+            return false;
+        }
+    }
+
+    private String getPlayerNameForDirection(com.example.bridge.bidding.Tools.Direction dir) {
+        switch (dir) {
+            case N: return "North";
+            case E: return "East";
+            case S: return "South";
+            case W: return "West";
+            default: return "South";
+        }
+    }
+
+    private Card toModelCard(com.example.bridge.bidding.Tools.Card bCard) {
+        com.example.bridge.model.Suit mSuit;
+        switch (bCard.getSuit()) {
+            case Clubs: mSuit = com.example.bridge.model.Suit.CLUBS; break;
+            case Diamonds: mSuit = com.example.bridge.model.Suit.DIAMONDS; break;
+            case Hearts: mSuit = com.example.bridge.model.Suit.HEARTS; break;
+            case Spades: mSuit = com.example.bridge.model.Suit.SPADES; break;
+            default: mSuit = com.example.bridge.model.Suit.SPADES; break;
+        }
+
+        com.example.bridge.model.Rank mRank;
+        switch (bCard.getRank()) {
+            case Two: mRank = com.example.bridge.model.Rank.TWO; break;
+            case Three: mRank = com.example.bridge.model.Rank.THREE; break;
+            case Four: mRank = com.example.bridge.model.Rank.FOUR; break;
+            case Five: mRank = com.example.bridge.model.Rank.FIVE; break;
+            case Six: mRank = com.example.bridge.model.Rank.SIX; break;
+            case Seven: mRank = com.example.bridge.model.Rank.SEVEN; break;
+            case Eight: mRank = com.example.bridge.model.Rank.EIGHT; break;
+            case Nine: mRank = com.example.bridge.model.Rank.NINE; break;
+            case Ten: mRank = com.example.bridge.model.Rank.TEN; break;
+            case Jack: mRank = com.example.bridge.model.Rank.JACK; break;
+            case Queen: mRank = com.example.bridge.model.Rank.QUEEN; break;
+            case King: mRank = com.example.bridge.model.Rank.KING; break;
+            case Ace: mRank = com.example.bridge.model.Rank.ACE; break;
+            default: mRank = com.example.bridge.model.Rank.ACE; break;
+        }
+
+        return new Card(mSuit, mRank);
     }
 
     public void setPlayerFirstPlayCard(Player playerFirstPlayCard) {

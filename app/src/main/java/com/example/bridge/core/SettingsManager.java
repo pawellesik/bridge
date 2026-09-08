@@ -101,4 +101,33 @@ public class SettingsManager {
                 .subscribeOn(Schedulers.io())
                 .subscribe();
     }
+
+    // --- LOAD FROM TEST.PBN ---
+    private Boolean cachedLoadFromTestPbn = null;
+
+    public boolean isLoadFromTestPbn() {
+        if (cachedLoadFromTestPbn != null) {
+            return cachedLoadFromTestPbn;
+        }
+        try {
+            boolean val = dataStoreManager.getPreference(DataStoreManager.LOAD_FROM_TEST_PBN, false)
+                    .firstOrError()
+                    .onErrorReturnItem(false)
+                    .blockingGet();
+            cachedLoadFromTestPbn = val;
+            return val;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void setLoadFromTestPbn(boolean load) {
+        cachedLoadFromTestPbn = load;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.LOAD_FROM_TEST_PBN, load)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
+    }
 }

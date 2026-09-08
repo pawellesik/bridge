@@ -30,6 +30,7 @@ public class OverlaySettings {
         setupCardColors();
         setupQuickGame();
         setupSingleplayer();
+        setupTestPbnSwitch();
     }
 
     private void setupCardColors() {
@@ -117,6 +118,17 @@ public class OverlaySettings {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    private void setupTestPbnSwitch() {
+        androidx.appcompat.widget.SwitchCompat switchTestPbn = activity.getSettingsOverlay().findViewById(R.id.switch_load_test_pbn);
+        if (switchTestPbn == null) return;
+
+        switchTestPbn.setChecked(settingsManager.isLoadFromTestPbn());
+
+        switchTestPbn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            settingsManager.setLoadFromTestPbn(isChecked);
         });
     }
 }
