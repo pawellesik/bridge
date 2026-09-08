@@ -352,113 +352,12 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             if (trimmedLine.isEmpty()) continue;
 
             String processed = processSingleLine(context, trimmedLine);
-            if (!processed.isEmpty()) {
+            if (!processed.isEmpty() && !formattedLines.contains(processed)) {
                 formattedLines.add(processed);
             }
         }
 
-        String rawFormatted = String.join("\n", formattedLines);
-        return flattenAndDeduplicateLines(rawFormatted);
-    }
-
-    public static String flattenAndDeduplicateLines(String text) {
-        if (text == null || text.trim().isEmpty()) return "";
-
-        String[] rawLines = text.split("\n");
-        if (rawLines.length <= 1) return text.trim();
-
-        List<String> lines = new ArrayList<>();
-        for (String l : rawLines) {
-            String trimmed = l.trim();
-            if (!trimmed.isEmpty() && !lines.contains(trimmed)) {
-                lines.add(trimmed);
-            }
-        }
-
-        if (lines.size() <= 1) return String.join("\n", lines);
-
-        boolean[] subsumed = new boolean[lines.size()];
-
-        for (int i = 0; i < lines.size(); i++) {
-            if (subsumed[i]) continue;
-            for (int j = 0; j < lines.size(); j++) {
-                if (i == j || subsumed[j]) continue;
-
-                if (isSubsumed(lines.get(i), lines.get(j))) {
-                    subsumed[i] = true;
-                    break;
-                }
-            }
-        }
-
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < lines.size(); i++) {
-            if (!subsumed[i]) {
-                result.add(lines.get(i));
-            }
-        }
-
-        return String.join("\n", result);
-    }
-
-    private static boolean isSubsumed(String lineA, String lineB) {
-        String[] clausesA = lineA.split(",\\s*");
-        String[] clausesB = lineB.split(",\\s*");
-
-        if (clausesA.length != clausesB.length) return false;
-
-        boolean differs = false;
-        for (int i = 0; i < clausesA.length; i++) {
-            String cA = clausesA[i].trim();
-            String cB = clausesB[i].trim();
-
-            if (cA.equals(cB)) continue;
-
-            int[] rangeA = extractRange(cA);
-            int[] rangeB = extractRange(cB);
-
-            if (rangeA != null && rangeB != null) {
-                if (rangeB[0] <= rangeA[0] && rangeB[1] >= rangeA[1]) {
-                    differs = true;
-                    continue;
-                }
-            }
-            return false;
-        }
-
-        return differs;
-    }
-
-    private static int[] extractRange(String clause) {
-        if (clause == null) return null;
-
-        java.util.regex.Matcher mRange = java.util.regex.Pattern.compile("(\\d+)-(\\d+)").matcher(clause);
-        if (mRange.find()) {
-            String g1 = mRange.group(1);
-            String g2 = mRange.group(2);
-            if (g1 != null && g2 != null) {
-                return new int[]{Integer.parseInt(g1), Integer.parseInt(g2)};
-            }
-        }
-
-        java.util.regex.Matcher mPlus = java.util.regex.Pattern.compile("(\\d+)\\+").matcher(clause);
-        if (mPlus.find()) {
-            String g1 = mPlus.group(1);
-            if (g1 != null) {
-                return new int[]{Integer.parseInt(g1), 99};
-            }
-        }
-
-        java.util.regex.Matcher mSingle = java.util.regex.Pattern.compile("(\\d+)").matcher(clause);
-        if (mSingle.find()) {
-            String g1 = mSingle.group(1);
-            if (g1 != null) {
-                int val = Integer.parseInt(g1);
-                return new int[]{val, val};
-            }
-        }
-
-        return null;
+        return String.join("\n", formattedLines);
     }
 
     private static String processSingleLine(Context context, String line) {
