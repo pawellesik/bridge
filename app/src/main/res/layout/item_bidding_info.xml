@@ -31,10 +31,9 @@
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:contentDescription="Info"
-            android:src="@android:drawable/ic_dialog_info"
+            android:src="@drawable/ic_info_circle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="#4D7C4F" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_pk_north"
