@@ -468,7 +468,8 @@ public class SingleGameBidding {
 
         if (!parts.isEmpty()) {
             SpannableStringBuilder finalSsb = new SpannableStringBuilder();
-            finalSsb.append(d.name()).append(": ");
+            String fullName = (d == Direction.N) ? activity.getString(R.string.player_north) : activity.getString(R.string.player_south);
+            finalSsb.append(fullName).append(": ");
 
             for (int i = 0; i < parts.size(); i++) {
                 if (i > 0) finalSsb.append(", ");
