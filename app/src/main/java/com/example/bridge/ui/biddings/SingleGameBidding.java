@@ -413,6 +413,11 @@ public class SingleGameBidding {
             CallDetails details = entry.getValue();
             if (call == null || details == null) continue;
 
+            // Wykluczamy Pass z tabeli Wskazówek Licytacyjnych (Bidding Hints)
+            if (Call.PASS.equals(call) || "Pass".equalsIgnoreCase(call.toString()) || "P".equalsIgnoreCase(call.toString())) {
+                continue;
+            }
+
             List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, details);
             if (details.hasRules() && matchedRules.isEmpty()) {
                 continue;
