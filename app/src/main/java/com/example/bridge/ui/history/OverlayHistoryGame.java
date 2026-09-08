@@ -324,7 +324,7 @@ public class OverlayHistoryGame {
         if (biddingAdapter == null) return;
         biddingList.clear();
         List<String> auction = pbn.getAuction();
-        List<String> descs = com.example.bridge.ui.biddings.AuctionDescriptionHelper.generateDescriptions(pbn);
+        List<String> descs = com.example.bridge.ui.biddings.AuctionExplanationHelper.generateExplanations(pbn);
 
         List<String> adapterDescs = new ArrayList<>();
         if (auction != null && !auction.isEmpty()) {

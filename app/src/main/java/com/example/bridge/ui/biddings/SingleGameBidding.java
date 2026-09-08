@@ -209,7 +209,7 @@ public class SingleGameBidding {
 
     private void updateDescriptions() {
         if (liveBiddingState == null || activity.getGameBiddingHistoryAdapter() == null) return;
-        List<String> descs = AuctionDescriptionHelper.generateDescriptions(
+        List<String> descs = AuctionExplanationHelper.generateExplanations(
                 liveBiddingState.getGame(),
                 activity.getGameBiddingHistory().getAuction()
         );
