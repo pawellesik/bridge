@@ -464,7 +464,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
+                    properties(new Call[]{Bid._2H, Bid._2S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
@@ -474,7 +474,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             );
         } else {
             choices.addRules(
-                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
+                    properties(new Call[]{Bid._2H, Bid._2S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
@@ -495,7 +495,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
+                    properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
@@ -505,7 +505,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             );
         } else {
             choices.addRules(
-                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
+                    properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
