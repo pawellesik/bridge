@@ -450,12 +450,12 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
-                shows(Bid._3H, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3H")),
-                shows(Bid._3D, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3D")),
-                shows(Bid._3C, IS_REBID, shape(6, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3C")),
+                shows(Bid._3H, IS_REBID, shape(6, 10), ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3H")),
+                shows(Bid._3D, IS_REBID, shape(6, 10), ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3D")),
+                shows(Bid._3C, IS_REBID, shape(6, 10), ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3C")),
 
-                shows(Bid._3D, IS_NEW_SUIT, shape(5, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3D")),
-                shows(Bid._3C, IS_NEW_SUIT, shape(5, 10), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3C"))
+                shows(Bid._3D, IS_NEW_SUIT, shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3D")),
+                shows(Bid._3C, IS_NEW_SUIT, shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -496,8 +496,8 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._3S}, OpenBid3Bid1NatC::thirdBidToGameHeart, false),
-                shows(Bid._3S, noFit(), shape(4, 10), not(isLastBid(Bid._2S)), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
-                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidToGameHeart _3S"))
+                shows(Bid._3S, noFit(), shape(4, 10), not(isLastBid(Bid._2S)), ruleShow(1), id("RespondBid2NatC.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
+                shows(Bid._3S, noFit(), shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidToGameHeart _3S"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
