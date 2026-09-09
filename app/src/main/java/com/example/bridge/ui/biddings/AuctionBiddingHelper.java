@@ -149,17 +149,13 @@ public class AuctionBiddingHelper {
         }
 
         PositionCalls choices = liveBiddingState.getCallChoices();
-        if (choices == null || choices.isEmpty()) {
-            container.setVisibility(View.GONE);
-            return;
-        }
 
         hintsContent.removeAllViews();
         PositionState ps = liveBiddingState.getNextToAct();
 
-        CallDetails bestDetails = choices.getBestCall();
+        CallDetails bestDetails = choices != null ? choices.getBestCall() : null;
         Call bestCall = null;
-        if (bestDetails != null) {
+        if (bestDetails != null && choices != null) {
             for (Map.Entry<Call, CallDetails> entry : choices.entrySet()) {
                 if (entry.getValue() == bestDetails) {
                     bestCall = entry.getKey();
@@ -171,7 +167,7 @@ public class AuctionBiddingHelper {
         boolean isPass = (bestCall == null || Call.PASS.equals(bestCall) || "Pass".equalsIgnoreCase(bestCall.toString()) || "P".equalsIgnoreCase(bestCall.toString()));
         if (isPass) {
             bestCall = Call.PASS;
-            bestDetails = choices.get(Call.PASS);
+            bestDetails = choices != null ? choices.get(Call.PASS) : null;
         }
 
         String desc = "";

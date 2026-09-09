@@ -96,13 +96,16 @@ public class AcesAsk extends Bidder {
         if (suit != null) {
             if (suit.isMinor()) {
                 choices.addRules(
-                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), id("askKing isMinor 1 5")),
-                        shows(new Bid(5, suit), pairAces(1, 2), id("askKing isMinor 1-2 5"))
+                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5")),
+                        shows(new Bid(5, suit), pairAces(1, 2), ruleShow(1), id("askKing isMinor 1-2 5")),
+                        shows(new Bid(5, suit), pairAces(3), kings(1,2), ruleShow(1), id("askKing isMinor 3, 1-2")),
+                        shows(new Bid(6, suit), pairAces(3), kings(1,2), ruleShow(1), id("askKing isMinor 3, 1-2"))
+
                 );
             } else if (suit.isMajor()) {
                 choices.addRules(
-                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), id("askKing isMajor pass 1-3")),
-                        shows(new Bid(4, suit), pairAces(1, 2), id("askKing isMajor 1-2 4")));
+                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMajor pass 1-3")),
+                        shows(new Bid(4, suit), pairAces(1, 2), ruleShow(1), id("askKing isMajor 1-2 4")));
 
             }
             Bid bid = getNextBidWithoutTrump(partnerCall, suit);
