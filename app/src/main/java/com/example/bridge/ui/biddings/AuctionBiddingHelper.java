@@ -124,6 +124,26 @@ public class AuctionBiddingHelper {
         }
 
         if (addedCount > 0) {
+            View spacer = new View(activity);
+            spacer.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, (int) (4 * activity.getResources().getDisplayMetrics().density)));
+            rulesContent.addView(spacer);
+
+            TextView tvFooterNote = new TextView(activity);
+            tvFooterNote.setText(activity.getString(R.string.bidding_rules_footer_note));
+            tvFooterNote.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 10.5f);
+            tvFooterNote.setTextColor(0xFFD84315);
+            tvFooterNote.setPadding(0, 2, 0, 2);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.topMargin = (int) (2 * activity.getResources().getDisplayMetrics().density);
+            tvFooterNote.setLayoutParams(params);
+
+            rulesContent.addView(tvFooterNote);
+
             if (outerLayout != null) outerLayout.setVisibility(View.VISIBLE);
             container.setVisibility(View.VISIBLE);
         } else {
