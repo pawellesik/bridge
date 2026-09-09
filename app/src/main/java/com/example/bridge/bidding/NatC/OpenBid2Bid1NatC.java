@@ -632,19 +632,19 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 properties(new Call[]{Bid._2NT}, RespondBid2Bid1NatC::secondBidSearchSuitAfter2NTHeart),
                 propertiesAgreeTrump(new Call[]{Bid._3C, Bid._3D}, RespondBid2Bid1NatC::secondBidInviteMinor, true),
 
-                shows(Bid._3H, noFit(), IS_REBID, shape(7, 10), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
+                shows(Bid._3H, noFit(), IS_REBID, shape(7, 10), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
 
-                shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderChangedSuitsHeart _2S")),
+                shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), partner(isLastBid(Bid._1S)), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _2S")),
 
-                shows(Bid._2H, shape(6), IS_REBID, id("OpenBid2NatC.responderChangedSuitsHeart _2H")),
+                shows(Bid._2H, shape(6), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _2H")),
 
-                shows(Bid._2S, noFit(), isOpeningBid(Bid._1H), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderChangedSuitsHeart _2S")),
+                shows(Bid._2S, noFit(), isOpeningBid(Bid._1H), shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _2S")),
 
-                shows(Bid._2C, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsHeart _2C")),
-                shows(Bid._2D, noFit(), shape(5, 10), id("OpenBid2NatC.responderChangedSuitsHeart _2D")),
+                shows(Bid._2C, noFit(), shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _2C")),
+                shows(Bid._2D, noFit(), shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _2D")),
 
-                shows(Bid._3C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderChangedSuitsHeart _3C")),
-                shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderChangedSuitsHeart _3D")),
+                shows(Bid._3C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), partner(isLastBid(Bid._2C)), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3C")),
+                shows(Bid._3D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), partner(isLastBid(Bid._2D)), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3D")),
 
                 shows(Bid._1NT, noFit(), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
                 shows(Bid._1NT, noFit(), BALANCED, id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
@@ -653,7 +653,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._2NT, PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsHeart _2NT")),
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsHeart _3NT")),
 
-                shows(Bid._4S, fit(), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderChangedSuitsHeart _4S"))
+                shows(Bid._4S, fit(), pairPoints(PAIR_GAME), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _4S"))
 
         );
         choices.addRules(CompeteNatC.compBids(ps));
@@ -735,11 +735,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._3C, noFit(), shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3C")),
                     shows(Bid._3D, noFit(), shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
 
-                    shows(Bid._4C, fit(), OpeningLowBidding, setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
-                    shows(Bid._4D, fit(), OpeningLowBidding, setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
+                    shows(Bid._4C, fit(), OpeningLowBidding, setTrumpColor(Suit.Clubs), partner(isLastBid(Bid._3C)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
+                    shows(Bid._4D, fit(), OpeningLowBidding, setTrumpColor(Suit.Diamonds), partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
 
-                    shows(Bid._5C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5C")),
-                    shows(Bid._5D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5D"))
+                    shows(Bid._5C, fit(), OpeningInviteBidding, setTrumpColor(Suit.Clubs), partner(isLastBid(Bid._3C)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5C")),
+                    shows(Bid._5D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5D"))
 
             );
         }
