@@ -803,7 +803,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
-                    shows(Bid._4S, fit(9), pairPoints(PAIR_GAME), ruleShow(1), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S")),
+                    shows(Bid._4S, fit(9), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S")),
 
                     shows(Call.PASS, OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass"))//,
