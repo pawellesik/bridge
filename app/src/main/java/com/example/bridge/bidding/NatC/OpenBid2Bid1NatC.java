@@ -98,8 +98,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 partnerBids(RespondBid2Bid1NatC::secondBidMajorClubStandard),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame),
 
-                shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
-                shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
+                shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), partner(isLastBid(Bid._1H)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
+                shows(Bid._2S, fit(), setTrumpColor(Suit.Spades), partner(isLastBid(Bid._1S)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
 
                 shows(Bid._2C, shape(5, 10), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2C")),
                 shows(Bid._1S, DECENT_PLUS_SUIT, shape(4, 10), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _1S")),

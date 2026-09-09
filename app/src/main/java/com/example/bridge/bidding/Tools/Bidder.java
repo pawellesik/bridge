@@ -273,11 +273,25 @@ public abstract class Bidder {
     }
 
     public static StaticConstraint isLastBid(Call... calls) {
-        return new SimpleStaticConstraint((call, ps) -> {
-            Call last = ps.getBidHistory(0);
-            for (Call c : calls) if (java.util.Objects.equals(last, c)) return true;
-            return false;
-        }, (call, ps) -> "last bid is one of " + Arrays.toString(calls));
+        return new SimpleStaticConstraint(
+                (call, ps) -> {
+                    Call last = ps.getBidHistory(0);
+
+                    for (Call c : calls) {
+                        if (java.util.Objects.equals(last, c)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                },
+                (call, ps) -> {
+                    if (calls.length == 1) {
+                        return "last bid is " + calls[0];
+                    }
+
+                    return "last bid is one of " + Arrays.toString(calls);
+                }
+        );
     }
 
     public static StaticConstraint isLastBid(Call call) {
