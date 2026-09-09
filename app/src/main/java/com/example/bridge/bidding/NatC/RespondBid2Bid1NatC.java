@@ -23,10 +23,10 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3S, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
                 shows(Bid._3D, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
                 shows(Bid._3C, shape(6, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C")),
-                shows(Bid._3H, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
-                shows(Bid._3S, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
-                shows(Bid._3D, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
-                shows(Bid._3C, shape(5, 10), id("RespondBid2NatC.secondBidNegat2NTStrong _3C"))
+                shows(Bid._3H, shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidNegat2NTStrong _3H")),
+                shows(Bid._3S, shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidNegat2NTStrong _3S")),
+                shows(Bid._3D, shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidNegat2NTStrong _3D")),
+                shows(Bid._3C, shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidNegat2NTStrong _3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -41,11 +41,11 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("RespondBid2NatC.secondBidNegatStrong Pass")),
 
-                shows(Bid._4S, fit(), pairPoints(PAIR_GAME), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidNegatStrong _4S")),
-                shows(Bid._4H, fit(), pairPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidNegatStrong _4H")),
-                shows(Bid._2S, noFit(), shape(5, 10), id("RespondBid2NatC.secondBidNegatStrong _2S")),
+                shows(Bid._4S, fit(), pairPoints(PAIR_GAME), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _4S")),
+                shows(Bid._4H, fit(), pairPoints(PAIR_GAME), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _4H")),
+                shows(Bid._2S, noFit(), shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _2S")),
                 shows(Bid._3H, noFit(), shape(6, 10), id("RespondBid2NatC.secondBidNegatStrong _3H")),
-                shows(Bid._3H, shape(5, 10), noFit(), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3H")),
+                shows(Bid._3H, noFit(), shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3H")),
                 shows(Bid._3C, noFit(), shape(5, 10), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3C")),
                 shows(Bid._3D, noFit(), shape(5, 10), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3D")),
                 shows(Bid._3C, noFit(), shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStrong _3C")),
@@ -102,8 +102,8 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
-                shows(Bid._2S, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidMajorClubStandard _2S")),
-                shows(Bid._2H, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidMajorClubStandard _2H"))
+                shows(Bid._2S, noFit(), shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2S")),
+                shows(Bid._2H, noFit(), shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2H"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -119,14 +119,14 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
 
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._3S}, OpenBid3Bid1NatC::thirdBidToGameMinorClubStrong),
-                shows(Bid._3S, noFit(), shape(4, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidMinorClubStrong _3S")),
-                shows(Bid._4C, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidMinorClubStrong _4C")),
-                shows(Bid._4D, noFit(), shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidMinorClubStrong _4D")),
+                shows(Bid._3S, noFit(), shape(4, 10), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3S")),
+                shows(Bid._4C, noFit(), shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4C")),
+                shows(Bid._4D, noFit(), shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4D")),
 
-                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
 
-                shows(Bid._4S, shape(2), partner(isLastBid(Bid._3S)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
-                shows(Bid._4H, shape(2), partner(isLastBid(Bid._3H)), pairHighCardPoints(PAIR_GAME), id("RespondBid2NatC.secondBidMinorClubStrong _4H"))
+                shows(Bid._4S, shape(2), partner(isLastBid(Bid._3S)), pairHighCardPoints(PAIR_GAME), ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
+                shows(Bid._4H, shape(2), partner(isLastBid(Bid._3H)), pairHighCardPoints(PAIR_GAME), ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4H"))
 
         );
         choices.addRules(CompeteNatC::compBids);
