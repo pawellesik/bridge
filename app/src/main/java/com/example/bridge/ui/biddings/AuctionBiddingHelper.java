@@ -172,11 +172,13 @@ public class AuctionBiddingHelper {
 
         String desc = "";
         if (!isPass && bestDetails != null) {
-            desc = bestDetails.getDescription(ps);
+            List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
+            desc = getDescriptionsForRules(ps, matchedRules);
+            
             if (desc == null || desc.trim().isEmpty()) {
-                List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
-                desc = getDescriptionsForRules(ps, matchedRules);
+                desc = bestDetails.getDescription(ps);
             }
+            
             if (desc != null && desc.contains("\n")) {
                 desc = desc.substring(0, desc.indexOf('\n'));
             }
