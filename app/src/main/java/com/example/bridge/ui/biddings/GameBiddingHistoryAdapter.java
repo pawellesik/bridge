@@ -109,9 +109,6 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
         if (description == null || description.trim().isEmpty() || "Pass".equalsIgnoreCase(bid) || "P".equalsIgnoreCase(bid) || "-".equals(bid)) return;
 
-        String[] lines = description.trim().split("\n");
-        if (lines.length > 1) return;
-
         Context context = anchorView.getContext();
         View popupView = LayoutInflater.from(context).inflate(R.layout.popup_bid_description, null);
 
