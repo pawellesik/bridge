@@ -65,7 +65,8 @@ public class RespondBid1NatC extends NatC {
     public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod, true),
+                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod2D, true),
+                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod3D, true),
                 properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2Bid1NatC::responderChangedSuitsDiamond, false),
                 properties(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1NatC::responderRaiseChangedSuitsMajorDiamond, false),
                 properties(new Call[]{Bid._3C}, OpenBid2Bid1NatC::responderRaiseChangedSuitsMinorDiamond, false),
@@ -79,8 +80,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _1S")),
                 shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _1H")),
 
-                shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneDiamond _2S")),
-                shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), id("RespondNatC.oneDiamond _2H")),
+                shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _2S")),
+                shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _2H")),
 
                 shows(Bid._2S, highCardPoints(JUMP_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _2S")),
                 shows(Bid._2H, highCardPoints(JUMP_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _2H")),

@@ -457,9 +457,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
     }
 
 
-    public static PositionCalls responderdTrumpMinorDiamod(PositionState ps) {
+    public static PositionCalls responderdTrumpMinorDiamod2D(PositionState ps) {
         //1D ->
-        //     Bid._2D, Bid._3D ->
+        //     Bid._2D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
@@ -468,13 +468,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
-
                     shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
                     shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 2S")),
-                    shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
-                    shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
                     shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D"))
-
             );
         } else {
             choices.addRules(
@@ -482,16 +478,43 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
-
                     shows(Bid._2H, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 2H")),
                     shows(Bid._2S, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 2S")),
+                    shows(Bid._5D, OpeningLowBidding, partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D")),
+                    shows(Bid._4D, OpeningInviteBidding, partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 4D"))
+            );
+        }
+        choices.addRules(CompeteNatC.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls responderdTrumpMinorDiamod3D(PositionState ps) {
+        //1D ->
+        //     Bid._3D ->
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(AcesAsk.initiateConvention(ps));
+        if (ps.getPartner().isPassedHand()) {
+            choices.addRules(
+                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
+                    partnerBids(RecursionNatC::recursionFindFitGame),
+
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
+                    shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
+                    shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
+                    shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D"))
+            );
+        } else {
+            choices.addRules(
+                    properties(new Call[]{Bid._2H, Bid._2S, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
+                    partnerBids(RecursionNatC::recursionFindFitGame),
+
+                    shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderdTrumpMinorDiamod pass")),
                     shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 3H")),
                     shows(Bid._3S, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 3S")),
                     shows(Bid._5D, OpeningLowBidding, partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 5D")),
                     shows(Bid._4D, OpeningInviteBidding, partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorDiamod 4D"))
             );
         }
-
         choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
