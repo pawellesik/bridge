@@ -774,7 +774,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //odpowiedzi na: Bid._1S ->
         //                          Bid._3C, Bid._3D, Bid._3H ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        //choices.addRules(AcesAsk.initiateConvention(ps));-- nie moze byc
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
 
         if (ps.getPartner().isPassedHand()) {
