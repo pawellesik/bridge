@@ -317,6 +317,52 @@ public class AuctionBiddingHelper {
             }
         }
 
+        Map<com.example.bridge.bidding.Tools.Suit, String> pairMaxShapes = new java.util.EnumMap<>(com.example.bridge.bidding.Tools.Suit.class);
+        for (int i = 0; i < pos.getCallCount(); i++) {
+            CallDetails details = pos.getCallDetails(i);
+            if (details.getMatchedRules() != null) {
+                for (BidRule rule : details.getMatchedRules()) {
+                    if (rule.getConstraints() != null) {
+                        for (com.example.bridge.bidding.Tools.Constraint constraint : rule.getConstraints()) {
+                            if (constraint instanceof com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape) {
+                                com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape pms = (com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape) constraint;
+                                String desc = pms.describe(rule.getCall(), pos);
+                                com.example.bridge.bidding.Tools.Suit s = null;
+                                String text = desc;
+                                if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Spades.toSymbol())) {
+                                    s = com.example.bridge.bidding.Tools.Suit.Spades;
+                                    text = desc.substring(1);
+                                } else if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Hearts.toSymbol())) {
+                                    s = com.example.bridge.bidding.Tools.Suit.Hearts;
+                                    text = desc.substring(1);
+                                } else if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Diamonds.toSymbol())) {
+                                    s = com.example.bridge.bidding.Tools.Suit.Diamonds;
+                                    text = desc.substring(1);
+                                } else if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Clubs.toSymbol())) {
+                                    s = com.example.bridge.bidding.Tools.Suit.Clubs;
+                                    text = desc.substring(1);
+                                }
+                                
+                                if (s != null) {
+                                    pairMaxShapes.put(s, text);
+                                } else {
+                                    parts.add(desc);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        for (com.example.bridge.bidding.Tools.Suit s : orderedSuits) {
+            if (pairMaxShapes.containsKey(s)) {
+                SpannableStringBuilder suitSsb = new SpannableStringBuilder();
+                appendSuitSymbol(suitSsb, s, pairMaxShapes.get(s));
+                parts.add(suitSsb);
+            }
+        }
+
         Set<Integer> aces = summary.getCountAces();
         if (aces != null && !aces.isEmpty()) {
             String acesVal = aces.toString().replace("[", "").replace("]", "");
