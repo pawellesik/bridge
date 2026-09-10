@@ -47,7 +47,7 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
-                shows(Bid._5C, noFit(), shape(6, 10), IS_REBID, id("OpenBid3NatC.thirdBidMinorClubForcingStrong _5C"))
+                shows(Bid._5C, shape(6, 10), noFit(), IS_REBID, id("OpenBid3NatC.thirdBidMinorClubForcingStrong _5C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -66,9 +66,9 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
 
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.thirdBidToGameDiamond Pass")),
 
-                shows(Bid._2S, noFit(), IS_REBID, shape(6, 10), id("OpenBid3NatC.thirdBid _2S")),
-                shows(Bid._3D, noFit(), shape(6, 10), id("OpenBid3NatC.thirdBid _3D")),
-                shows(Bid._3C, noFit(), shape(6, 10), id("OpenBid3NatC.thirdBid _3C"))
+                shows(Bid._2S, shape(6, 10), noFit(), IS_REBID, id("OpenBid3NatC.thirdBid _2S")),
+                shows(Bid._3D, shape(6, 10), noFit(), id("OpenBid3NatC.thirdBid _3D")),
+                shows(Bid._3C, shape(6, 10), noFit(), id("OpenBid3NatC.thirdBid _3C"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -86,7 +86,7 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.thirdBidToGame1NTDiamond Pass")),
                 shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _2S")),
                 shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3C")),
-                shows(Bid._3D, noFit(), shape(2), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3D")),
+                shows(Bid._3D, shape(2), noFit(), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3D")),
                 shows(Bid._2NT, noFit(), PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame1NTDiamond _2NT"))
         );
         choices.addRules(CompeteNatC::compBids);
@@ -104,7 +104,7 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 //shows(Bid._4H, fit(), shape(4, 10), setTrumpColor(Suit.Hearts), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
                 //shows(Bid._4S, fit(), shape(4, 10), setTrumpColor(Suit.Spades), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
-                shows(Bid._3S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S"))
+                shows(Bid._3S, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S"))
                 //shows(Bid._3NT, noFit(), PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame2NTDiamond _3NT"))
         );
         choices.addRules(CompeteNatC::compBids);

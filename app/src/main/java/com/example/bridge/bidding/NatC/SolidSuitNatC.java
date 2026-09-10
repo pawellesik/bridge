@@ -13,10 +13,10 @@ public class SolidSuitNatC extends NatC {
         List<CallFeature> bids = new ArrayList<>();
         for (Suit suit : Suit.values()) {
             bids.add(shows(new Bid(7, suit), shape(13)));
-            bids.add(shows(new Bid(7, suit), shape(12), aces(2)));
-            bids.add(shows(new Bid(6, suit), shape(12), aces(1)));
-            bids.add(shows(new Bid(6, suit), shape(11), aces(3)));
-            bids.add(shows(new Bid(6, suit), shape(10), aces(4)));
+            bids.add(shows(new Bid(7, suit), aces(2), shape(12)));
+            bids.add(shows(new Bid(6, suit), aces(1), shape(12)));
+            bids.add(shows(new Bid(6, suit), aces(3), shape(11)));
+            bids.add(shows(new Bid(6, suit), aces(4), shape(10)));
         }
         return bids;
     }
