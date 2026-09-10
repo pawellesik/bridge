@@ -222,8 +222,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _3NT")),
 
-                    shows(Bid._4D, fit(), setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D")),
-                    shows(Bid._4C, fit(), setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
+                    shows(Bid._5D, fit(), pairPoints(PAIR_MINOR_GAME), setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4D")),
+                    shows(Bid._5C, fit(), pairHighCardPoints(PAIR_MINOR_GAME), setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard _4C")),
 
                     shows(Bid._3H, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3H")),
                     shows(Bid._3S, noFit(), shape(4, 10), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderdRaiseTrumpMinorClubStandard DECENT_PLUS_SUIT _3S")),
