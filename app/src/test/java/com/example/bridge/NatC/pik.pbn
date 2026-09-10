@@ -432,3 +432,12 @@ pass PASS 1S PASS
 1S Pass 3H Pass
 4C Pass 5C Pass
 Pass Pass
+
+[Event "NatC Deal pik 51"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KJT942.AT6.A6.K4 AQ.83.97.QT87632 65.KQ942.KQJT43. 873.J75.852.AJ95"]
+[Auction "N"]
+1S Pass 3H Pass
+4NT Pass 5C Pass
+5H Pass Pass Pass
