@@ -105,7 +105,7 @@ public class PairMaxShape {
         @Override
         public String describe(Call call, PositionState ps) {
             Suit s = (fixedSuit != null) ? fixedSuit : getTargetSuit(call, ps);
-            return (s != null ? s.toSymbol() + ": " : "") + "max pair " + max;
+            return (s != null ? s.toSymbol() + ": " : "") + "max " + max +" (pair)";
         }
     }
 }
