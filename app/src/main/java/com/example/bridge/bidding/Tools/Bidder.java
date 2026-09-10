@@ -308,6 +308,7 @@ public abstract class Bidder {
 
     /**
      * Sprawdza ile razy wcześniej gracz licytował dany kolor.
+     *
      * @param count Liczba dotychczasowych licytacji koloru (0 = pierwszy raz, 1 = rebid, itd.)
      */
     public static StaticConstraint suitBidCount(int count) {
@@ -589,7 +590,7 @@ public abstract class Bidder {
     public static final HandConstraint FIT_8_PLUS = fit(8);
 
     public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true, false);
-
+    public static final HandConstraint NOT_PAIR_BALANCED = new Balanced.ShowsBalanced(false, false);
     public static final HandConstraint PAIR_BALANCED = new Balanced.ShowsBalanced(false, true);
     public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false);
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);

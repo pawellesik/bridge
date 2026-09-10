@@ -807,8 +807,12 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._4D, fit(), OpeningLowBidding, setTrumpColor(Suit.Diamonds), partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4D")),
 
+                    shows(Bid._4C, noFit(), shape(5,10), NOT_PAIR_BALANCED, partner(isLastBid(Bid._3H)),  ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade NOT_PAIR_BALANCED _4C")),
+                    shows(Bid._4D, noFit(), shape(5,10), NOT_PAIR_BALANCED, partner(isLastBid(Bid._3H)),  ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade NOT_PAIR_BALANCED _4D")),
+
                     shows(Bid._5C, fit(), setTrumpColor(Suit.Clubs), partner(isLastBid(Bid._3C)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
                     shows(Bid._5D, fit(), OpeningInviteBidding, setTrumpColor(Suit.Diamonds), partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D"))//,
+
             );
         }
         choices.addRules(CompeteNatC.compBids(ps));

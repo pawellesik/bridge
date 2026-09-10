@@ -154,7 +154,8 @@ Pass Pass
 [Deal "N:K754.53.K87.AQ42 Q76.K7.9876.T987 9.K.AT964.KJ9853 32.6543.AJ5.6542"]
 [Auction "N"]
 1C PASS 3D PASS
-4D PASS PASS PASS
+4D PASS 5D PASS
+PASS PASS
 
 [Event "NatC Trfel 18"]
 [Dealer "S"]
@@ -662,7 +663,8 @@ Pass Pass
 [Auction "N"]
 Pass Pass 1C Pass
 2C Pass 2S Pass
-3C Pass Pass Pass
+3C Pass 5C Pass
+Pass Pass
 
 [Event "NatC trefl 73"]
 [Dealer "N"]

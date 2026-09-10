@@ -32,7 +32,8 @@ PASS PASS
 [Auction "N"]
 Pass PASS 1D PASS
 2NT PASS 3D PASS
-3H PASS PASS PASS
+3H PASS 5D PASS
+PASS PASS
 
 [Event "NatC Deal diamond 5"]
 [Dealer "N"]
@@ -219,7 +220,7 @@ Pass Pass 1D Pass
 [Auction "N"]
 1D PASS 2H PASS
 3C PASS 3D pass
-pass pass
+5D pass pass pass
 
 [Event "NatC diamond 29"]
 [Dealer "N"]
