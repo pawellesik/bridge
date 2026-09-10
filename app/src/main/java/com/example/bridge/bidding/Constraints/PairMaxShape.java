@@ -60,8 +60,13 @@ public class PairMaxShape {
 
     /**
      * Pokazuje partnerowi maksymalną liczbę kart, jaką możemy mieć, aby nie przekroczyć sumy pary.
+     * Zapamiętuje obliczony limit przy pierwszej iteracji, aby zapobiec "pływaniu" wiedzy,
+     * gdy partner później pokaże więcej kart w tym samym kolorze.
      */
     public static class PairShowsMaxShape extends PairHasMaxShape implements IShowsHand, IDescribeConstraint {
+        private Integer fixedMyMax = null;
+        private Suit fixedSuit = null;
+
         public PairShowsMaxShape(Suit suit, int max) {
             super(suit, max);
         }
@@ -72,17 +77,25 @@ public class PairMaxShape {
 
         @Override
         public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand) {
-            Suit s = getTargetSuit(call, ps);
-            if (s != null) {
-                HandSummary.SuitSummary ss = ps.getPublicHandSummary().getSuits().get(s);
-                if (ss != null) {
-                    Range partnerShape = ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape();
-                    int newMax = max - partnerShape.getMin();
+            if (fixedMyMax == null) {
+                fixedSuit = getTargetSuit(call, ps);
+                if (fixedSuit != null) {
+                    HandSummary.SuitSummary partnerSuitSum = ps.getPartner().getPublicHandSummary().getSuits().get(fixedSuit);
+                    if (partnerSuitSum != null) {
+                        int partnerMin = partnerSuitSum.getShape().getMin();
+                        fixedMyMax = max - partnerMin;
+                    }
+                }
+            }
 
-                    if (newMax < ss.getShape().getMax()) {
-                        HandSummary.SuitSummary.ShowState suitShow = showHand.getSuits().get(s);
+            if (fixedSuit != null && fixedMyMax != null) {
+                HandSummary.SuitSummary ss = ps.getPublicHandSummary().getSuits().get(fixedSuit);
+                if (ss != null) {
+                    int currentMax = ss.getShape().getMax();
+                    if (fixedMyMax < currentMax) {
+                        HandSummary.SuitSummary.ShowState suitShow = showHand.getSuits().get(fixedSuit);
                         if (suitShow != null) {
-                            suitShow.showShape(Math.min(ss.getShape().getMin(), newMax), newMax);
+                            suitShow.showShape(Math.min(ss.getShape().getMin(), fixedMyMax), fixedMyMax);
                         }
                     }
                 }
@@ -91,7 +104,7 @@ public class PairMaxShape {
 
         @Override
         public String describe(Call call, PositionState ps) {
-            Suit s = getTargetSuit(call, ps);
+            Suit s = (fixedSuit != null) ? fixedSuit : getTargetSuit(call, ps);
             return (s != null ? s.toSymbol() + ": " : "") + "max pair " + max;
         }
     }
