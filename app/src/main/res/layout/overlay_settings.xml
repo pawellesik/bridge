@@ -384,10 +384,11 @@
                                 android:textColor="#FFFFFF"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Show explanations for bots' bids"
+                                android:text="Show explanations for bids"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="13sp" />
                         </LinearLayout>
