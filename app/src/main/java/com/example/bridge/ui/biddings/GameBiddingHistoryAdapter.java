@@ -540,14 +540,33 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             }
         }
 
-        // 2. Suits Second (Spades = 1.0, Hearts = 2.0, Diamonds = 3.0, Clubs = 4.0)
-        if (clause.contains("♠") || clause.contains("Spades") || clause.contains("Piki") || clause.matches(".*\\bS[:\\d+].*")) return 1.0;
-        if (clause.contains("♥") || clause.contains("Hearts") || clause.contains("Kiery") || clause.matches(".*\\bH[:\\d+].*")) return 2.0;
-        if (clause.contains("♦") || clause.contains("Diamonds") || clause.contains("Kara") || clause.matches(".*\\bD[:\\d+].*")) return 3.0;
-        if (clause.contains("♣") || clause.contains("Clubs") || clause.contains("Trefle") || clause.matches(".*\\bC[:\\d+].*")) return 4.0;
+        // Identify complex pair/limit conditions that should appear after the primary shape constraints
+        boolean isComplexOrPair = lower.contains("pair") || lower.contains("nofit") 
+                || lower.contains("max") || lower.contains("min") || lower.contains("trump");
 
-        // 3. Additional Conditions Third (Category 5.0)
-        return 5.0;
+        double baseSuit = 0.0;
+        // 2. Suits Second (Spades = 1.0, Hearts = 2.0, Diamonds = 3.0, Clubs = 4.0)
+        if (clause.contains("♠") || clause.contains("Spades") || clause.contains("Piki") || clause.matches(".*\\bS[:\\d+].*")) baseSuit = 1.0;
+        else if (clause.contains("♥") || clause.contains("Hearts") || clause.contains("Kiery") || clause.matches(".*\\bH[:\\d+].*")) baseSuit = 2.0;
+        else if (clause.contains("♦") || clause.contains("Diamonds") || clause.contains("Kara") || clause.matches(".*\\bD[:\\d+].*")) baseSuit = 3.0;
+        else if (clause.contains("♣") || clause.contains("Clubs") || clause.contains("Trefle") || clause.matches(".*\\bC[:\\d+].*")) baseSuit = 4.0;
+        
+        if (baseSuit > 0.0) {
+            if (isComplexOrPair) {
+                // Shift it to Category 5.x so it sorts after all positive suit shapes
+                return 5.0 + (baseSuit / 10.0);
+            } else {
+                // Positive basic suit shape (Category 1.0 - 4.0)
+                return baseSuit;
+            }
+        }
+        
+        if (isComplexOrPair) {
+            return 6.0;
+        }
+
+        // 3. Additional Conditions Third (Category 7.0)
+        return 7.0;
     }
 
     private static Drawable getSuitDrawable(Context context, Suit suit, int sizePx) {
