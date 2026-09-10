@@ -54,28 +54,12 @@ public class OverlaySettings {
     }
 
     private void setupQuickGame() {
-        String difficulty = settingsManager.getQuickGameDifficulty();
 
-        RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_difficulty);
-        if (rg == null) return;
-        
-        if ("Easy".equals(difficulty)) ((RadioButton)activity.getSettingsOverlay().findViewById(R.id.rb_easy)).setChecked(true);
-        else if ("Hard".equals(difficulty)) ((RadioButton)activity.getSettingsOverlay().findViewById(R.id.rb_hard)).setChecked(true);
-        else ((RadioButton)activity.getSettingsOverlay().findViewById(R.id.rb_medium)).setChecked(true);
-
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
-            String newDifficulty = "Medium";
-            if (checkedId == R.id.rb_easy) newDifficulty = "Easy";
-            else if (checkedId == R.id.rb_hard) newDifficulty = "Hard";
-            settingsManager.setQuickGameDifficulty(newDifficulty);
-        });
     }
 
     private void setupSingleplayer() {
-        Spinner spinner = activity.getSettingsOverlay().findViewById(R.id.spinner_bidding_system);
-        if (spinner == null) return;
-        
-        String[] systems = {"SAYC", "WJ", "NAT+c"};
+
+        String[] systems = {"SAYC", "WJ", "NatC"};
         
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, systems) {
             @NonNull
@@ -100,25 +84,14 @@ public class OverlaySettings {
             }
         };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
         String savedSystem = settingsManager.getBiddingSystem();
 
         for (int i = 0; i < systems.length; i++) {
             if (systems[i].equals(savedSystem)) {
-                spinner.setSelection(i);
                 break;
             }
         }
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                settingsManager.setBiddingSystem(systems[position]);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
     }
 
     private void setupTestPbnSwitch() {
