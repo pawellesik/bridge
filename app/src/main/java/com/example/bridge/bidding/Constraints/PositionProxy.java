@@ -65,9 +65,9 @@ public class PositionProxy extends StaticConstraint implements IDescribeConstrai
 
     @Override
     public String describe(Call call, PositionState ps) {
-        if (constraint instanceof IDescribeConstraint) {
-            return getPositionName() + " " + ((IDescribeConstraint) constraint).describe(call, getPosition(ps));
-        }
+       // if (constraint instanceof IDescribeConstraint) {
+      //      return getPositionName() + " " + ((IDescribeConstraint) constraint).describe(call, getPosition(ps));
+      //  }
         return null;
     }
 
