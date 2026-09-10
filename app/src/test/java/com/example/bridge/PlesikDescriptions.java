@@ -98,6 +98,8 @@ public class PlesikDescriptions {
                     Range shape = suitSum.getShape();
                     if (shape != null && shape.getMin() > 0)
                         sb.append(s.toSymbol()).append(":").append(shape.getMin()).append("+ ");
+                    if (shape != null && shape.getMax() < 4)
+                        sb.append(s.toSymbol()).append(":").append("0-"). append(shape.getMax());
                 }
             }
             if (sb.length() > 0) System.out.println("   " + d + ": " + sb.toString());

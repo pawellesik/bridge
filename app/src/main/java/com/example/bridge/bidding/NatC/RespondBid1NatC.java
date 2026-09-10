@@ -168,7 +168,7 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _3H")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _3D")),
-                shows(Bid._3H, highCardPoints(JUMP_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _3H")),
+                shows(Bid._3H, highCardPoints(JUMP_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _3H")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _3D")),
 

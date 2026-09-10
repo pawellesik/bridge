@@ -23,6 +23,7 @@ import com.example.bridge.bidding.Constraints.OppsStopped;
 import com.example.bridge.bidding.Constraints.PairAces;
 import com.example.bridge.bidding.Constraints.PairKeyCards;
 import com.example.bridge.bidding.Constraints.PairKings;
+import com.example.bridge.bidding.Constraints.PairMaxShape;
 import com.example.bridge.bidding.Constraints.PairMinShape;
 import com.example.bridge.bidding.Constraints.PairPoints;
 import com.example.bridge.bidding.Constraints.PassedHand;
@@ -515,23 +516,7 @@ public abstract class Bidder {
     }
 
     public static HandConstraint noFit(int minToFit) {
-        class NoFit extends HandConstraint implements IDescribeConstraint {
-            @Override
-            public boolean conforms(Call call, PositionState ps, HandSummary hs) {
-                Bid lastPartnerBid = ps.getPartner().getBid();
-                if (lastPartnerBid == null || lastPartnerBid.getSuit() == null) return false;
-                Suit s = lastPartnerBid.getSuit();
-                int myCount = hs.getSuits().get(s).getShape().getMin();
-                int partnerCount = ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape().getMin();
-                return (myCount + partnerCount) < minToFit;
-            }
-
-            @Override
-            public String describe(Call call, PositionState ps) {
-                return "no fit (" + minToFit + ")";
-            }
-        }
-        return new NoFit();
+        return new PairMaxShape.PairShowsMaxShape(minToFit - 1);
     }
 
     public static HandConstraint noFit() {
