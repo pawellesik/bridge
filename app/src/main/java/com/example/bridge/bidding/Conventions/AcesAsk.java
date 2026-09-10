@@ -98,8 +98,8 @@ public class AcesAsk extends Bidder {
                 choices.addRules(
                         shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5")),
                         shows(new Bid(5, suit), pairAces(1, 2), ruleShow(1), id("askKing isMinor 1-2 5")),
-                        shows(new Bid(5, suit), pairAces(3), kings(1,2), ruleShow(1), id("askKing isMinor 3, 1-2")),
-                        shows(new Bid(6, suit), pairAces(3), kings(1,2), ruleShow(1), id("askKing isMinor 3, 1-2"))
+                        shows(new Bid(5, suit), pairAces(3), kings(1, 2), ruleShow(1), id("askKing isMinor 3, 1-2")),
+                        shows(new Bid(6, suit), pairAces(3), kings(1, 2), ruleShow(1), id("askKing isMinor 3, 1-2"))
 
                 );
             } else if (suit.isMajor()) {
@@ -179,7 +179,8 @@ public class AcesAsk extends Bidder {
             choices.addRules(
                     shows(Bid._7NT, pairHighCardPoints(GRAND_SLAM), pairAces(4), pairKings(3, 4), id("AcesAsk tryGrandSlam 7NT")),
                     shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7, 8), id("AcesAsk tryGrandSlam 6NT")),
-                    shows(Bid._5NT)
+                    shows(Bid._5NT, partnerBidLevel(5), id("AcesAsk tryGrandSlam partnerBidLevel 5NT")),
+                    shows(Bid._6NT, partnerBidLevel(6), id("AcesAsk tryGrandSlam partnerBidLevel 6NT"))
 
             );
         }
