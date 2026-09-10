@@ -590,7 +590,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1D ->
         //     Bid._3C->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        //choices.addRules(AcesAsk.initiateConvention(ps));-- nie moze byc
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3D, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidRaiseChangeSuitMinorDiamods),
@@ -730,7 +731,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //Bid._1H ->
         //        Bid._3C, Bid._3D ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        //choices.addRules(AcesAsk.initiateConvention(ps));-- nie moze byc
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
