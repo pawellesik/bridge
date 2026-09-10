@@ -546,7 +546,7 @@
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:layout_gravity="center"
-                                android:src="@android:drawable/ic_menu_recent_history"
+                                android:src="@drawable/ic_history"
                                 app:tint="#FFFFFF" />
                         </FrameLayout>
 
