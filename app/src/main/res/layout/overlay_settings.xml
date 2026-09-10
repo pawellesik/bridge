@@ -392,6 +392,8 @@
                                 android:textSize="13sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
                             android:id="@+id/switch_explanation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -424,6 +426,8 @@
                                 android:textSize="13sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
                             android:id="@+id/switch_public_knowledge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -456,6 +460,8 @@
                                 android:textSize="13sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
                             android:id="@+id/switch_bidding_rules"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -488,6 +494,8 @@
                                 android:textSize="13sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
                             android:id="@+id/switch_bidding_hints"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -646,6 +654,8 @@
                         </LinearLayout>
 
                         <com.google.android.material.materialswitch.MaterialSwitch
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
                             android:id="@+id/switch_load_test_pbn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
