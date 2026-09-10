@@ -140,7 +140,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 partnerBids(OpenBid3Bid1NatC::thirdBidMinorClubForcingStrong),
-                shows(Bid._4D, shape(6, 10), noFit(), partner(isLastBid(Bid._4C)), IS_REBID, id("RespondBid2NatC.secondBidMinorClubForcingStrong _4D"))
+                shows(Bid._4D, shape(6, 10), noFit(), partner(isLastBid(Bid._4C)), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubForcingStrong _4D"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
