@@ -122,11 +122,26 @@ public class CompeteNatC extends NatC {
         boolean agreedSuitMatch = (agreedTrump != null && lastBid != null && lastBid.getSuit() == agreedTrump && ps.getBiddingState().getContract().isOurs(ps.getDirection()));
 
         if (jumpMatch || agreedSuitMatch) {
-            for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
-                bids.add(cf);
-            }
-            for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-                bids.add(cf);
+            if (agreedTrump != null) {
+                int countBefore = bids.size();
+                for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
+                    bids.add(cf);
+                }
+                if (bids.size() == countBefore) {
+                    for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+                        bids.add(cf);
+                    }
+                }
+            } else {
+                if (lastBid != null && lastBid.getLevel() == 1) {
+                    for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
+                        bids.add(cf);
+                    }
+                } else {
+                    for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+                        bids.add(cf);
+                    }
+                }
             }
         }
     }
