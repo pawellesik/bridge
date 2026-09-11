@@ -3,8 +3,12 @@ package com.example.bridge.bidding.NatC;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OpenBid3Bid1NatC extends OpenBid1NatC {
 
@@ -30,10 +34,9 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
         //                          3S, 3H, 4D, 4C, 3NT ->
         //                                                3S ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        choices.addRules(
-        );
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
@@ -45,6 +48,9 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
         //                          4C, 4D ->
         //                                    4D ->
         PositionCalls choices = new PositionCalls(ps);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 shows(Bid._5C, shape(6, 10), noFit(), IS_REBID, id("OpenBid3NatC.thirdBidMinorClubForcingStrong _5C"))
@@ -60,7 +66,6 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
         //                              Bid._2H, Bid._1S, Bid._2S, Bid._2C ->
         //                                                              Bid._2H, Bid._2S ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
 
@@ -80,7 +85,6 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
         //              Bid._2D, Bid._2C, Bid._2H, Bid._2S->
         //                                                 Bid._2H, Bid._2S ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.thirdBidToGame1NTDiamond Pass")),
@@ -99,13 +103,12 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
         //              Bid._3D, Bid._3C, Bid._3H, Bid._3S ->
         //                                                 Bid._3H, Bid._3S
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
-                //shows(Bid._4H, fit(), shape(4, 10), setTrumpColor(Suit.Hearts), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
-                //shows(Bid._4S, fit(), shape(4, 10), setTrumpColor(Suit.Spades), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S")),
                 shows(Bid._3S, shape(4, 10), noFit(), id("OpenBid3NatC.thirdBidToGame2NTDiamond _3S"))
-                //shows(Bid._3NT, noFit(), PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame2NTDiamond _3NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
@@ -117,12 +120,9 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
         //                                                     Bid._3H ->
         //                                                              Bid._3S ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        choices.addRules(
-                //shows(Bid._4S, fit(), setTrumpColor(Suit.Spades), pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S"))
-                //jest w compBids:
-                //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("OpenBid3NatC.thirdBidToGameHeart _4S")),
-        );
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }

@@ -3,9 +3,13 @@ package com.example.bridge.bidding.NatC;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
@@ -71,7 +75,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1C ->
         //      1S, 1H ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(
                 partnerBids(RespondBid2Bid1NatC::secondBidMajorClubStrong),
                 shows(Bid._3H, OpeningStrongBidding, fit(), isJump(1), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3H")),
@@ -127,7 +133,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1C ->
         //      Bid._2C, Bid._2D ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        //List<CallFeature> conventions = new ArrayList<>();
+        //CompeteNatC.addAcesAskConventions(ps, conventions);
+        //choices.addRules(conventions);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));//bo sa odzywki 4C
         choices.addRules(
                 partnerBids(RespondBid2Bid1NatC::secondBidMinorClubStrong),
                 propertiesForcingToGame(new Call[]{Bid._4C, Bid._4D}, RespondBid2Bid1NatC::secondBidMinorClubForcingStrong, true),
@@ -177,8 +186,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1C ->
         //      Bid._3D, Bid._3C ->
         PositionCalls choices = new PositionCalls(ps);
-        //choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
 
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
@@ -206,7 +216,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1C ->
         //      Bid._3D, Bid._3C ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
 
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
@@ -272,7 +284,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
         //1C ->
         //     2H, 2S ->
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        //List<CallFeature> conventions = new ArrayList<>();
+        //CompeteNatC.addAcesAskConventions(ps, conventions);
+        //choices.addRules(conventions);
+        choices.addRules(AcesAsk.initiateConventionBlok(ps));//bo sa odzywki 4C
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3S, Bid._4D, Bid._4C}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubStrong),
@@ -301,6 +316,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1C ->
         //     2H, 2S ->
         PositionCalls choices = new PositionCalls(ps);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._2S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubStandard),
@@ -415,8 +433,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1C ->
         //     2NT ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
-        if (ps.getPartner().isPassedHand()) {
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
+        //choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        if (ps.getPartner().isPassedHand()) {//todo ?
             choices.addRules(
             );
         } else {
@@ -431,6 +452,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1C ->
         //     2NT ->
         PositionCalls choices = new PositionCalls(ps);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S, Bid._3C}, RecursionNatC::recursionFindFitGame, true),
@@ -460,7 +484,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1D ->
         //     Bid._2D ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._2H, Bid._2S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
@@ -491,7 +514,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1D ->
         //     Bid._3D ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidMinorAgreeTrumpDiamods),
@@ -522,7 +547,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1D ->
         //     Bid._1S, Bid._1H, Bid._2C->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 shows(Bid._2H, fit(), setTrumpColor(Suit.Hearts), partner(isLastBid(Bid._1H)), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond 2H")),
@@ -554,7 +578,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1D ->
         //     Bid._2H, Bid._2S ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._2S, Bid._3H, Bid._3D, Bid._3C}, RespondBid2Bid1NatC::secondBidRaiseNoAgreeTrumpDiamods),
@@ -590,8 +616,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1D ->
         //     Bid._3C->
         PositionCalls choices = new PositionCalls(ps);
-        //choices.addRules(AcesAsk.initiateConvention(ps));-- nie moze byc
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     properties(new Call[]{Bid._3D, Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidRaiseChangeSuitMinorDiamods),
@@ -625,7 +652,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //1H ->
         //     Bid._2H, Bid._3H ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
@@ -648,7 +677,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //Bid._1H ->
         //       Bid._1S, Bid._2C, Bid._2D, Bid._1NT ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 propertiesForcingToGame(new Call[]{Bid._3H}, RespondBid2Bid1NatC::secondBidLong, true),
@@ -687,8 +715,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //Bid._1H ->
         //        Bid._2S ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
@@ -731,8 +760,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //Bid._1H ->
         //        Bid._3C, Bid._3D ->
         PositionCalls choices = new PositionCalls(ps);
-        //choices.addRules(AcesAsk.initiateConvention(ps));-- nie moze byc
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
@@ -775,9 +805,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //odpowiedzi na: Bid._1S ->
         //                          Bid._3C, Bid._3D, Bid._3H ->
         PositionCalls choices = new PositionCalls(ps);
-        //choices.addRules(AcesAsk.initiateConvention(ps));-- nie moze byc
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
-
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
@@ -824,7 +854,9 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //odpowiedzi na: Bid._1S ->
         //                          Bid._2S, Bid._3S ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
@@ -849,7 +881,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //odpowiedzi na: Bid._1S ->
         //                          Bid._2H, Bid._2C, Bid._2D, Bid._1NT ->
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 propertiesForcingToGame(new Call[]{Bid._3S}, RespondBid2Bid1NatC::secondBidLong, true),

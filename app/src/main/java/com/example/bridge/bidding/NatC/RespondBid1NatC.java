@@ -107,7 +107,9 @@ public class RespondBid1NatC extends NatC {
 
     public static PositionCalls oneHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2Bid1NatC::responderTrumpMajorHeart, true),
                 properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2Bid1NatC::responderChangedSuitsHeart, false),
@@ -129,10 +131,10 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _2D")),
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _2C")),
 
-                shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _2S")),
+                shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), noFit(), shape(5, 10), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _2S")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), shape(5, 10), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _3D")),
-                shows(Bid._2S, highCardPoints(JUMP_HAND), not(PASSED_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _2S")),
+                shows(Bid._2S, highCardPoints(JUMP_HAND), noFit(), not(PASSED_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _2S")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), not(PASSED_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), not(PASSED_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _3D")),
 
@@ -147,7 +149,9 @@ public class RespondBid1NatC extends NatC {
 
     public static PositionCalls oneSpade(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
 
         choices.addRules(
                 propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2Bid1NatC::responderTrumpMajorSpade, true),

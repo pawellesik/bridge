@@ -112,9 +112,7 @@ Pass Pass 1C Pass
 [Deal "N:K972.A82.K85.J62 A65.93.T6432.T83 QJ8.KQJ74.A.AK54 T43.T65.QJ97.Q97"]
 [Auction "N"]
 PASS PASS 1C PASS
-2NT PASS 4NT PASS
-5D PASS 5H PASS
-6C PASS 6NT PASS
+2NT PASS 3NT PASS
 PASS PASS
 
 [Event "NatC Trfel 14"]
@@ -123,9 +121,7 @@ PASS PASS
 [Deal "N:K972.A82.K85.J62 A65.93.T6432.T83 QJ8.KQJ743.A.AK5 T43.T65.QJ97.Q97"]
 [Auction "N"]
 PASS PASS 1C PASS
-2NT PASS 4NT PASS
-5D PASS 5H PASS
-6C PASS 6NT PASS
+2NT PASS 3NT PASS
 PASS PASS
 
 [Event "NatC Trfel 15"]
@@ -190,8 +186,8 @@ Pass Pass 1C Pass
 [Deal "N:K872.AQ.AKJ8.QT9 T63.T874.5.A7542 AQ9.K32.T432.K63 J54.J965.Q976.J8"]
 [Auction "N"]
 1C Pass 2NT Pass
-4NT Pass 5D Pass
-5H Pass 6C Pass
+4C Pass 4H Pass
+4S Pass 5D Pass
 6NT Pass Pass Pass
 
 [Event "NatC Trfel 22"]
@@ -217,8 +213,8 @@ Pass Pass 1C Pass
 [Deal "N:AK.AK5.A9632.QJ2 JT987.QJ72.K7.65 62.984.QJT5.AKJ7 Q543.T63.84.T984"]
 [Auction "N"]
 1C Pass 2NT Pass
-4NT Pass 5D Pass
-5H Pass 5NT Pass
+4C Pass 4H Pass
+4S Pass 5C Pass
 6NT Pass Pass Pass
 
 [Event "NatC Trfel 25"]
@@ -329,8 +325,9 @@ Pass Pass
 [Deal "N:AK85.QJT8.AT92.6 T732.93.K53.A973 4.AK542.QJ8.QJ84 QJ96.76.764.KT52"]
 [Auction "N"]
 1C PASS 2H PASS
-3H PASS 4H PASS
-PASS PASS
+4C PASS 4H PASS
+4S PASS 5C PASS
+5H PASS PASS PASS
 
 [Event "NatC Trfel 37"]
 [Dealer "N"]
@@ -726,8 +723,8 @@ Pass Pass
 [Deal "N:AKJT.A3.KJ952.K3 632.J9874.74.762 985.KT52.AQ6.AQ8 Q74.Q6.T83.JT954"]
 [Auction "N"]
 1C Pass 2NT Pass
-4NT Pass 5H Pass
-5S Pass 6C Pass
+4C Pass 4S Pass
+4NT Pass 5D Pass
 6NT Pass Pass Pass
 
 [Event "NatC Trfel 80"]

@@ -112,16 +112,32 @@ public class CompeteNatC extends NatC {
         return bids;
     }
 
-    private static void addAcesAskConventions(PositionState ps, List<CallFeature> bids) {
+    public static void addAcesAskConventions(PositionState ps, List<CallFeature> bids) {
         Suit agreedTrump = ps.getPairState().getTrumpSuit();
-        CallDetails lastCallDetails = ps.getPartner().getLastCallDetails();
-        int jumpLevel = (lastCallDetails != null) ? lastCallDetails.getJumpLevel() : 0;
         Bid lastBid = ps.getPartner().getBid();
 
-        boolean jumpMatch = jumpLevel > 0;
-        boolean agreedSuitMatch = (agreedTrump != null && lastBid != null && lastBid.getSuit() == agreedTrump && ps.getBiddingState().getContract().isOurs(ps.getDirection()));
+        boolean pairHadJump = false;
+        for (int i = 0; i < ps.getPartner().getCallCount(); i++) {
+            if (ps.getPartner().getCallDetails(i).getJumpLevel() > 0) {
+                pairHadJump = true;
+                break;
+            }
+        }
+        if (!pairHadJump) {
+            for (int i = 0; i < ps.getCallCount(); i++) {
+                if (ps.getCallDetails(i).getJumpLevel() > 0) {
+                    pairHadJump = true;
+                    break;
+                }
+            }
+        }
 
-        if (jumpMatch || agreedSuitMatch) {
+        boolean jumpMatch = pairHadJump;
+        boolean agreedSuitMatch = (agreedTrump != null && lastBid != null && lastBid.getSuit() == agreedTrump && ps.getBiddingState().getContract().isOurs(ps.getDirection()));
+        boolean isLevel1 = (lastBid != null && lastBid.getLevel() == 1);
+        boolean isLevel2 = (lastBid != null && lastBid.getLevel() == 2);
+
+        if (jumpMatch || agreedSuitMatch || isLevel1 || isLevel2) {
             if (agreedTrump != null) {
                 int countBefore = bids.size();
                 for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
@@ -133,7 +149,7 @@ public class CompeteNatC extends NatC {
                     }
                 }
             } else {
-                if (lastBid != null && lastBid.getLevel() == 1) {
+                if (isLevel1 || isLevel2) {
                     for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
                         bids.add(cf);
                     }
