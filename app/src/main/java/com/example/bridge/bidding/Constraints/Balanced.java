@@ -85,7 +85,7 @@ public class Balanced {
             if (checkBalanced) {
                 showHand.showIsBalanced(true);
                 for (Suit suit : Suit.values()) {
-                    showHand.getSuits().get(suit).showShape(2, 5);
+                    showHand.getSuits().get(suit).showShape(2, 13);
                 }
             } else if (checkPairBalanced) {
                 for (Suit suit : Suit.values()) {
@@ -93,10 +93,10 @@ public class Balanced {
                     if (ps.getPairState().firstToShow(suit) == ps) continue;
 
                     boolean isPartnerSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
-                    // Obiecujemy 0-5 w kolorze partnera (brak wymuszonego fita)
-                    // Obiecujemy 1-5 w pozostałych (brak renonsów)
+                    // Obiecujemy 0-13 w kolorze partnera (brak wymuszonego fita)
+                    // Obiecujemy 1-13 w pozostałych (brak renonsów)
                     int min = isPartnerSuit ? 0 : 1;
-                    showHand.getSuits().get(suit).showShape(min, 5);
+                    showHand.getSuits().get(suit).showShape(min, 13);
                 }
             } else {
                 showHand.showIsBalanced(false);

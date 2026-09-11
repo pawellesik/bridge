@@ -89,15 +89,9 @@ public class PairMaxShape {
             }
 
             if (fixedSuit != null && fixedMyMax != null) {
-                HandSummary.SuitSummary ss = ps.getPublicHandSummary().getSuits().get(fixedSuit);
-                if (ss != null) {
-                    int currentMax = ss.getShape().getMax();
-                    if (fixedMyMax < currentMax) {
-                        HandSummary.SuitSummary.ShowState suitShow = showHand.getSuits().get(fixedSuit);
-                        if (suitShow != null) {
-                            suitShow.showShape(Math.min(ss.getShape().getMin(), fixedMyMax), fixedMyMax);
-                        }
-                    }
+                HandSummary.SuitSummary.ShowState suitShow = showHand.getSuits().get(fixedSuit);
+                if (suitShow != null) {
+                    suitShow.showShape(0, fixedMyMax);
                 }
             }
         }

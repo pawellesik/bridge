@@ -71,7 +71,8 @@ public class PlesikDescriptions {
 
     private void printPublicKnowledge(BiddingState state) {
         System.out.println("   --- WIEDZA PUBLICZNA ---");
-        for (Direction d : Direction.values()) {
+        Direction[] targetDirections = {Direction.N, Direction.S};
+        for (Direction d : targetDirections) {
             PositionState pos = state.getPositions().get(d);
             if (pos == null) continue;
             HandSummary summary = pos.getPublicHandSummary();
@@ -96,10 +97,22 @@ public class PlesikDescriptions {
                 HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
                 if (suitSum != null) {
                     Range shape = suitSum.getShape();
-                    if (shape != null && shape.getMin() > 0)
-                        sb.append(s.toSymbol()).append(":").append(shape.getMin()).append("+ ");
-                    if (shape != null && shape.getMax() < 4)
-                        sb.append(s.toSymbol()).append(":").append("0-"). append(shape.getMax());
+                    if (shape != null) {
+                        int min = shape.getMin();
+                        int max = shape.getMax();
+                        
+                        if (min == max) {
+                            if (min > 0) sb.append(s.toSymbol()).append(":").append(min).append(" ");
+                        } else if (min > 0) {
+                            if (max >= 7) {
+                                sb.append(s.toSymbol()).append(":").append(min).append("+ ");
+                            } else {
+                                sb.append(s.toSymbol()).append(":").append(min).append("-").append(max).append(" ");
+                            }
+                        } else if (max < 5) {
+                            sb.append(s.toSymbol()).append(":").append("0-").append(max).append(" ");
+                        }
+                    }
                 }
             }
             if (sb.length() > 0) System.out.println("   " + d + ": " + sb.toString());
