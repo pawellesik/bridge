@@ -173,11 +173,20 @@ public class BiddingInfoFormatter {
             HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
             if (suitSum != null) {
                 Range shape = suitSum.getShape();
-                if (shape != null && shape.getMin() > 0) {
-                    SpannableStringBuilder suitSsb = new SpannableStringBuilder();
-                    String suffix = (shape.getMin() == shape.getMax()) ? ": " + shape.getMin() : ": " + shape.getMin() + "+";
-                    appendSuitSymbol(context, suitSsb, s, suffix);
-                    parts.add(suitSsb);
+                if (shape != null) {
+                    int min = shape.getMin();
+                    int max = shape.getMax();
+                    if (min > 0) {
+                        SpannableStringBuilder suitSsb = new SpannableStringBuilder();
+                        String suffix = (min == max) ? ": " + min : ": " + min + (max >= 7 ? "+" : "-" + max);
+                        appendSuitSymbol(context, suitSsb, s, suffix);
+                        parts.add(suitSsb);
+                    } else if (max < 5) {
+                        SpannableStringBuilder suitSsb = new SpannableStringBuilder();
+                        String suffix = ": 0-" + max;
+                        appendSuitSymbol(context, suitSsb, s, suffix);
+                        parts.add(suitSsb);
+                    }
                 }
             }
         }

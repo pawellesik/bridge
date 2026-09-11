@@ -99,7 +99,29 @@ public class PairMaxShape {
         @Override
         public String describe(Call call, PositionState ps) {
             Suit s = (fixedSuit != null) ? fixedSuit : getTargetSuit(call, ps);
-            return (s != null ? s.toSymbol() + ": " : "") + "max " + max +" (pair)";
+            if (s != null) {
+                int myMin = 0;
+                int myMax = max;
+                HandSummary.SuitSummary ss = ps.getPublicHandSummary().getSuits().get(s);
+                if (ss != null && ss.getShape() != null) {
+                    myMin = ss.getShape().getMin();
+                    myMax = ss.getShape().getMax();
+                }
+                Integer fMax = fixedMyMax;
+                if (fMax == null) {
+                    HandSummary.SuitSummary partnerSuitSum = ps.getPartner().getPublicHandSummary().getSuits().get(s);
+                    if (partnerSuitSum != null) {
+                        int partnerMin = partnerSuitSum.getShape().getMin();
+                        fMax = max - partnerMin;
+                    }
+                }
+                if (fMax != null) {
+                    myMax = Math.min(myMax, fMax);
+                }
+                String val = (myMin == myMax) ? String.valueOf(myMin) : myMin + "-" + myMax;
+                return s.toSymbol() + ": " + val;
+            }
+            return "";
         }
     }
 }
