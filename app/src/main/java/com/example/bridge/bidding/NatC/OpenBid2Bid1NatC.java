@@ -831,10 +831,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._4H, OpeningInviteBidding, shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
-                    shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
+                    shows(Bid._3H, shape(4, 10), DECENT_PLUS_SUIT, partner(isLastBid(Bid._3C,Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
                     shows(Bid._3S, shape(6, 10), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
 
-                    shows(Bid._3D, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
+                    shows(Bid._3D, shape(5, 10), noFit(), partner(isLastBid(Bid._3C)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
 
                     shows(Bid._4D, OpeningLowBidding, fit(), partner(isLastBid(Bid._3D)), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4D")),
 
