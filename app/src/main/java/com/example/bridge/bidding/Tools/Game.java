@@ -69,12 +69,6 @@ public class Game {
                 case "Auction":
                     game.parseAuction(String.join(" ", tag.data));
                     break;
-                case "BidSystemNS":
-                    game.bidSystemNS = tag.value;
-                    break;
-                case "BidSystemEW":
-                    game.bidSystemEW = tag.value;
-                    break;
                 // Add more tags as needed
             }
         }

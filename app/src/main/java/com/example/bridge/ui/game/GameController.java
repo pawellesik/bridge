@@ -144,19 +144,6 @@ public class GameController {
             }
 
             com.example.bridge.bidding.Tools.Game pbnGame = com.example.bridge.bidding.Tools.Game.parse(pbnContent);
-
-            if (pbnGame.tags.containsKey("Generate")) {
-                String targetBid = pbnGame.tags.get("Generate");
-                String system = pbnGame.bidSystemNS != null ? pbnGame.bidSystemNS : "NatC";
-                com.example.bridge.bidding.Tools.Game generatedGame = com.example.bridge.bidding.Tools.DealFinder.findDealMatchingOpening(
-                        targetBid, system, new com.example.bridge.bidding.Tools.Direction[]{
-                                com.example.bridge.bidding.Tools.Direction.N, 
-                                com.example.bridge.bidding.Tools.Direction.S});
-                if (generatedGame != null) {
-                    pbnGame = generatedGame;
-                }
-            }
-
             com.example.bridge.bidding.Tools.Deal deal = pbnGame.getDeal();
 
             for (Map.Entry<com.example.bridge.bidding.Tools.Direction, com.example.bridge.bidding.Tools.Hand> entry : deal.entrySet()) {
