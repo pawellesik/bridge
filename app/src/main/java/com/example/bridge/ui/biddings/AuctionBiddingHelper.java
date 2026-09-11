@@ -1,15 +1,9 @@
 package com.example.bridge.ui.biddings;
 
-import android.graphics.drawable.Drawable;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.example.bridge.R;
 import com.example.bridge.bidding.Tools.BidRule;
@@ -17,17 +11,15 @@ import com.example.bridge.bidding.Tools.BiddingState;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallDetails;
 import com.example.bridge.bidding.Tools.Direction;
-import com.example.bridge.bidding.Tools.HandSummary;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
-import com.example.bridge.bidding.Tools.Range;
+import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.ui.game.GameActivity;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class AuctionBiddingHelper {
 
@@ -78,7 +70,7 @@ public class AuctionBiddingHelper {
 
             if (showRules.isEmpty()) continue;
 
-            String desc = getDescriptionsForRules(ps, showRules);
+            String desc = BiddingInfoFormatter.getDescriptionsForRules(ps, showRules);
             if (desc == null || desc.trim().isEmpty()) {
                 desc = details.getDescription(ps);
             }
@@ -193,7 +185,7 @@ public class AuctionBiddingHelper {
         String desc = "";
         if (!isPass && bestDetails != null) {
             List<BidRule> matchedRules = getMatchingRulesForPlayer(ps, bestDetails);
-            desc = getDescriptionsForRules(ps, matchedRules);
+            desc = BiddingInfoFormatter.getDescriptionsForRules(ps, matchedRules);
             
             if (desc == null || desc.trim().isEmpty()) {
                 desc = bestDetails.getDescription(ps);
@@ -260,134 +252,17 @@ public class AuctionBiddingHelper {
         TextView tvSouth = container.findViewById(R.id.tv_pk_south);
         TextView tvTrump = container.findViewById(R.id.tv_pk_trump);
 
-        updatePlayerKnowledge(tvNorth, Direction.N, liveBiddingState);
-        updatePlayerKnowledge(tvSouth, Direction.S, liveBiddingState);
+        BiddingInfoFormatter.updatePlayerKnowledge(tvNorth, Direction.N, liveBiddingState, activity);
+        BiddingInfoFormatter.updatePlayerKnowledge(tvSouth, Direction.S, liveBiddingState, activity);
 
-        com.example.bridge.bidding.Tools.Suit nsTrump = (northPos != null) ? northPos.getPairState().getTrumpSuit() : null;
+        Suit nsTrump = (northPos != null) ? northPos.getPairState().getTrumpSuit() : null;
         if (nsTrump != null) {
             tvTrump.setVisibility(View.VISIBLE);
             SpannableStringBuilder ssb = new SpannableStringBuilder(activity.getString(R.string.agreed_ns_trump));
-            appendSuitSymbol(ssb, nsTrump, "");
+            BiddingInfoFormatter.appendSuitSymbol(activity, ssb, nsTrump, "");
             tvTrump.setText(ssb);
         } else {
             tvTrump.setVisibility(View.GONE);
-        }
-    }
-
-    private void updatePlayerKnowledge(TextView textView, Direction d, BiddingState liveBiddingState) {
-        PositionState pos = liveBiddingState.getPositions().get(d);
-        if (pos == null) {
-            textView.setVisibility(View.GONE);
-            return;
-        }
-        HandSummary summary = pos.getPublicHandSummary();
-        if (summary == null) {
-            textView.setVisibility(View.GONE);
-            return;
-        }
-
-        List<CharSequence> parts = new ArrayList<>();
-
-        Range p = summary.getHighCardPoints();
-        if (p != null) {
-            if (p.getMin() == p.getMax()) {
-                parts.add("HCP: " + p.getMin());
-            } else {
-                parts.add("HCP: " + p.getMin() + "-" + p.getMax());
-            }
-        }
-
-        com.example.bridge.bidding.Tools.Suit[] orderedSuits = {
-                com.example.bridge.bidding.Tools.Suit.Spades,
-                com.example.bridge.bidding.Tools.Suit.Hearts,
-                com.example.bridge.bidding.Tools.Suit.Diamonds,
-                com.example.bridge.bidding.Tools.Suit.Clubs
-        };
-
-        for (com.example.bridge.bidding.Tools.Suit s : orderedSuits) {
-            HandSummary.SuitSummary suitSum = summary.getSuits().get(s);
-            if (suitSum != null) {
-                Range shape = suitSum.getShape();
-                if (shape != null && shape.getMin() > 0) {
-                    SpannableStringBuilder suitSsb = new SpannableStringBuilder();
-                    String suffix = (shape.getMin() == shape.getMax()) ? ": " + shape.getMin() : ": " + shape.getMin() + "+";
-                    appendSuitSymbol(suitSsb, s, suffix);
-                    parts.add(suitSsb);
-                }
-            }
-        }
-
-        Map<com.example.bridge.bidding.Tools.Suit, String> pairMaxShapes = new java.util.EnumMap<>(com.example.bridge.bidding.Tools.Suit.class);
-        for (int i = 0; i < pos.getCallCount(); i++) {
-            CallDetails details = pos.getCallDetails(i);
-            if (details.getMatchedRules() != null) {
-                for (BidRule rule : details.getMatchedRules()) {
-                    if (rule.getConstraints() != null) {
-                        for (com.example.bridge.bidding.Tools.Constraint constraint : rule.getConstraints()) {
-                            if (constraint instanceof com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape) {
-                                com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape pms = (com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape) constraint;
-                                String desc = pms.describe(rule.getCall(), pos);
-                                com.example.bridge.bidding.Tools.Suit s = null;
-                                String text = desc;
-                                if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Spades.toSymbol())) {
-                                    s = com.example.bridge.bidding.Tools.Suit.Spades;
-                                    text = desc.substring(1);
-                                } else if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Hearts.toSymbol())) {
-                                    s = com.example.bridge.bidding.Tools.Suit.Hearts;
-                                    text = desc.substring(1);
-                                } else if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Diamonds.toSymbol())) {
-                                    s = com.example.bridge.bidding.Tools.Suit.Diamonds;
-                                    text = desc.substring(1);
-                                } else if (desc.startsWith(com.example.bridge.bidding.Tools.Suit.Clubs.toSymbol())) {
-                                    s = com.example.bridge.bidding.Tools.Suit.Clubs;
-                                    text = desc.substring(1);
-                                }
-                                
-                                if (s != null) {
-                                    pairMaxShapes.put(s, text);
-                                } else {
-                                    parts.add(desc);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        for (com.example.bridge.bidding.Tools.Suit s : orderedSuits) {
-            if (pairMaxShapes.containsKey(s)) {
-                SpannableStringBuilder suitSsb = new SpannableStringBuilder();
-                appendSuitSymbol(suitSsb, s, pairMaxShapes.get(s));
-                parts.add(suitSsb);
-            }
-        }
-
-        Set<Integer> aces = summary.getCountAces();
-        if (aces != null && !aces.isEmpty()) {
-            String acesVal = aces.toString().replace("[", "").replace("]", "");
-            parts.add(activity.getString(R.string.public_knowledge_aces, acesVal));
-        }
-        Set<Integer> kings = summary.getCountKings();
-        if (kings != null && !kings.isEmpty()) {
-            String kingsVal = kings.toString().replace("[", "").replace("]", "");
-            parts.add(activity.getString(R.string.public_knowledge_kings, kingsVal));
-        }
-
-        if (!parts.isEmpty()) {
-            SpannableStringBuilder finalSsb = new SpannableStringBuilder();
-            String fullName = (d == Direction.N) ? activity.getString(R.string.player_north) : activity.getString(R.string.player_south);
-            finalSsb.append(fullName).append(": ");
-
-            for (int i = 0; i < parts.size(); i++) {
-                if (i > 0) finalSsb.append(", ");
-                finalSsb.append(parts.get(i));
-            }
-
-            textView.setVisibility(View.VISIBLE);
-            textView.setText(finalSsb, TextView.BufferType.SPANNABLE);
-        } else {
-            textView.setVisibility(View.GONE);
         }
     }
 
@@ -401,48 +276,5 @@ public class AuctionBiddingHelper {
             }
         }
         return matched;
-    }
-
-    private String getDescriptionsForRules(PositionState ps, List<BidRule> rules) {
-        if (rules == null || rules.isEmpty()) return "";
-        List<String> ruleDescriptions = new ArrayList<>();
-        for (BidRule rule : rules) {
-            List<String> ruleDescs = rule.constraintDescriptions(ps);
-            if (ruleDescs != null && !ruleDescs.isEmpty()) {
-                String desc = String.join(", ", ruleDescs);
-                if (!ruleDescriptions.contains(desc)) {
-                    ruleDescriptions.add(desc);
-                }
-            }
-        }
-        return String.join("\n", ruleDescriptions);
-    }
-
-    private void appendSuitSymbol(SpannableStringBuilder ssb, com.example.bridge.bidding.Tools.Suit s, String suffix) {
-        com.example.bridge.model.Suit modelSuit;
-        switch (s) {
-            case Clubs: modelSuit = com.example.bridge.model.Suit.CLUBS; break;
-            case Diamonds: modelSuit = com.example.bridge.model.Suit.DIAMONDS; break;
-            case Hearts: modelSuit = com.example.bridge.model.Suit.HEARTS; break;
-            case Spades: modelSuit = com.example.bridge.model.Suit.SPADES; break;
-            default: ssb.append(s.toSymbol()).append(suffix); return;
-        }
-
-        Drawable drawable = ContextCompat.getDrawable(activity, modelSuit.resId);
-        if (drawable != null) {
-            drawable = DrawableCompat.wrap(drawable).mutate();
-            int color = modelSuit.getColor(activity);
-            DrawableCompat.setTint(drawable, color);
-            
-            int size = (int) (14 * activity.getResources().getDisplayMetrics().density);
-            drawable.setBounds(0, 0, size, size);
-            
-            ssb.append(" ");
-            ssb.setSpan(new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM), ssb.length() - 1, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        } else {
-            ssb.append(modelSuit.symbol);
-        }
-        
-        ssb.append(suffix);
     }
 }

@@ -283,59 +283,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
     }
 
     public static SpannableStringBuilder formatDescriptionText(Context context, String text) {
-        if (text == null || text.trim().isEmpty()) return new SpannableStringBuilder("");
-
-        String sortedText = sortDescriptionSuitClauses(context, text);
-        String s = sortedText;
-
-        s = s.replace("Spades", "♠")
-             .replace("Hearts", "♥")
-             .replace("Diamonds", "♦")
-             .replace("Clubs", "♣")
-             .replace("Piki", "♠")
-             .replace("Kiery", "♥")
-             .replace("Kara", "♦")
-             .replace("Trefle", "♣");
-
-        s = s.replaceAll("\\bC:", "♣:")
-             .replaceAll("\\bD:", "♦:")
-             .replaceAll("\\bH:", "♥:")
-             .replaceAll("\\bS:", "♠:");
-
-        for (int level = 1; level <= 7; level++) {
-            s = s.replace(level + "C", level + "♣")
-                 .replace(level + "D", level + "♦")
-                 .replace(level + "H", level + "♥")
-                 .replace(level + "S", level + "♠");
-        }
-
-        s = s.replace("♠\uFE0E", "♠")
-             .replace("♥\uFE0E", "♥")
-             .replace("♦\uFE0E", "♦")
-             .replace("♣\uFE0E", "♣");
-
-        SpannableStringBuilder ssb = new SpannableStringBuilder(s);
-
-        int iconSizePx = (int) (14 * context.getResources().getDisplayMetrics().density);
-
-        for (int i = 0; i < ssb.length(); i++) {
-            char ch = ssb.charAt(i);
-            Suit suit = null;
-            if (ch == '♠') suit = Suit.SPADES;
-            else if (ch == '♥') suit = Suit.HEARTS;
-            else if (ch == '♦') suit = Suit.DIAMONDS;
-            else if (ch == '♣') suit = Suit.CLUBS;
-
-            if (suit != null) {
-                Drawable drawable = getSuitDrawable(context, suit, iconSizePx);
-                if (drawable != null) {
-                    ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
-                    ssb.setSpan(imageSpan, i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-            }
-        }
-
-        return ssb;
+        return BiddingInfoFormatter.formatDescriptionText(context, text);
     }
 
     private static String sortDescriptionSuitClauses(Context context, String text) {

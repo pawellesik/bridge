@@ -53,7 +53,7 @@ public class AuctionExplanationHelper {
                     }
 
                     if (!showRules.isEmpty()) {
-                        desc = getDescriptionsForRules(ps, showRules);
+                        desc = BiddingInfoFormatter.getDescriptionsForRules(ps, showRules);
                     }
                 }
 
@@ -74,20 +74,5 @@ public class AuctionExplanationHelper {
         }
 
         return explanations;
-    }
-
-    private static String getDescriptionsForRules(PositionState ps, List<BidRule> rules) {
-        if (rules == null || rules.isEmpty()) return "";
-        List<String> ruleDescriptions = new ArrayList<>();
-        for (BidRule rule : rules) {
-            List<String> ruleDescs = rule.constraintDescriptions(ps);
-            if (ruleDescs != null && !ruleDescs.isEmpty()) {
-                String desc = String.join(", ", ruleDescs);
-                if (!ruleDescriptions.contains(desc)) {
-                    ruleDescriptions.add(desc);
-                }
-            }
-        }
-        return String.join("\n", ruleDescriptions);
     }
 }
