@@ -207,7 +207,7 @@ public class BiddingInfoFormatter {
                                     s = Suit.Clubs;
                                     text = desc.substring(1);
                                 }
-                                
+
                                 if (s != null) {
                                     pairMaxShapes.put(s, text);
                                 } else {

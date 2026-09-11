@@ -132,9 +132,13 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._4D, shape(6, 10), noFit(), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4D")),
 
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
 
-                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), shape(2), partner(isLastBid(Bid._3S)), ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
-                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), shape(2), partner(isLastBid(Bid._3H)), ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4H"))
+                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3S)), ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
+                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3H)), ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4H")),
+
+                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), shape(Suit.Spades, 2), DECENT_PLUS_SUIT, partner(isLastBid(Bid._3S)), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
+                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), shape(Suit.Hearts, 2), DECENT_PLUS_SUIT, partner(isLastBid(Bid._3H)), id("RespondBid2NatC.secondBidMinorClubStrong _4H"))
 
         );
         choices.addRules(CompeteNatC::compBids);
