@@ -27,41 +27,41 @@ public class HandSummary extends State {
         }
 
         public void showStartingPoints(int min, int max) {
-            handSummary.startingPoints = combineRange(handSummary.startingPoints, new Range(min, max), CombineRule.Merge);
+            handSummary.startingPoints = combineRange(handSummary.startingPoints, new Range(min, max), CombineRule.Show);
             handSummary.showPoints(min, max);
         }
 
         public void showHighCardPoints(int min, int max) {
-            handSummary.highCardPoints = combineRange(handSummary.highCardPoints, new Range(min, max), CombineRule.Merge);
+            handSummary.highCardPoints = combineRange(handSummary.highCardPoints, new Range(min, max), CombineRule.Show);
             handSummary.showPoints(min, max);
         }
 
         public void showNoTrumpLongHandPoints(int min, int max) {
-            handSummary.noTrumpLongHandPoints = combineRange(handSummary.noTrumpLongHandPoints, new Range(min, max), CombineRule.Merge);
+            handSummary.noTrumpLongHandPoints = combineRange(handSummary.noTrumpLongHandPoints, new Range(min, max), CombineRule.Show);
         }
 
         public void showNoTrumpDummyPoints(int min, int max) {
-            handSummary.noTrumpDummyPoints = combineRange(handSummary.noTrumpDummyPoints, new Range(min, max), CombineRule.Merge);
+            handSummary.noTrumpDummyPoints = combineRange(handSummary.noTrumpDummyPoints, new Range(min, max), CombineRule.Show);
         }
 
         public void showLosers(int min, int max) {
-            handSummary.losers = combineRange(handSummary.losers, new Range(min, max), CombineRule.Merge);
+            handSummary.losers = combineRange(handSummary.losers, new Range(min, max), CombineRule.Show);
         }
 
         public void showIsBalanced(boolean isBalanced) {
-            handSummary.isBalanced = combineBool(handSummary.isBalanced, isBalanced, CombineRule.Merge);
+            handSummary.isBalanced = combineBool(handSummary.isBalanced, isBalanced, CombineRule.Show);
         }
 
         public void showIsFlat(boolean isFlat) {
-            handSummary.isFlat = combineBool(handSummary.isFlat, isFlat, CombineRule.Merge);
+            handSummary.isFlat = combineBool(handSummary.isFlat, isFlat, CombineRule.Show);
         }
 
         public void showCountAces(Set<Integer> countAces) {
-            handSummary.countAces = combineIntSet(handSummary.countAces, countAces, CombineRule.Merge);
+            handSummary.countAces = combineIntSet(handSummary.countAces, countAces, CombineRule.Show);
         }
 
         public void showCountKings(Set<Integer> countKings) {
-            handSummary.countKings = combineIntSet(handSummary.countKings, countKings, CombineRule.Merge);
+            handSummary.countKings = combineIntSet(handSummary.countKings, countKings, CombineRule.Show);
         }
 
         public void combine(HandSummary other, CombineRule combineRule) {
@@ -80,53 +80,53 @@ public class HandSummary extends State {
             }
 
             public void showShape(int min, int max) {
-                suitSummary.shape = combineRange(suitSummary.shape, new Range(min, max), CombineRule.Merge);
+                suitSummary.shape = combineRange(suitSummary.shape, new Range(min, max), CombineRule.Show);
             }
 
             public void showDummyPoints(int min, int max) {
-                suitSummary.dummyPoints = combineRange(suitSummary.dummyPoints, new Range(min, max), CombineRule.Merge);
+                suitSummary.dummyPoints = combineRange(suitSummary.dummyPoints, new Range(min, max), CombineRule.Show);
                 handSummary.showPoints(min, max);
             }
 
             public void showLongHandPoints(int min, int max) {
-                suitSummary.longHandPoints = combineRange(suitSummary.longHandPoints, new Range(min, max), CombineRule.Merge);
+                suitSummary.longHandPoints = combineRange(suitSummary.longHandPoints, new Range(min, max), CombineRule.Show);
                 handSummary.showPoints(min, max);
             }
 
             public void showQuality(SuitQuality min, SuitQuality max) {
-                suitSummary.quality = combineRange(suitSummary.quality, new Range(min.ordinal(), max.ordinal()), CombineRule.Merge);
+                suitSummary.quality = combineRange(suitSummary.quality, new Range(min.ordinal(), max.ordinal()), CombineRule.Show);
             }
 
             public void showHighCardPoints(int min, int max) {
-                suitSummary.highCardPoints = combineRange(suitSummary.highCardPoints, new Range(min, max), CombineRule.Merge);
+                suitSummary.highCardPoints = combineRange(suitSummary.highCardPoints, new Range(min, max), CombineRule.Show);
             }
 
             public void showLosers(int min, int max) {
-                suitSummary.losers = combineRange(suitSummary.losers, new Range(min, max), CombineRule.Merge);
+                suitSummary.losers = combineRange(suitSummary.losers, new Range(min, max), CombineRule.Show);
             }
 
             public void showKeyCards(Set<Integer> keyCards) {
-                suitSummary.keyCards = combineIntSet(suitSummary.keyCards, keyCards, CombineRule.Merge);
+                suitSummary.keyCards = combineIntSet(suitSummary.keyCards, keyCards, CombineRule.Show);
             }
 
             public void showHaveQueen(boolean haveQueen) {
-                suitSummary.haveQueen = combineBool(suitSummary.haveQueen, haveQueen, CombineRule.Merge);
+                suitSummary.haveQueen = combineBool(suitSummary.haveQueen, haveQueen, CombineRule.Show);
             }
 
             public void showStopped(boolean stopped) {
-                suitSummary.stopped = combineBool(suitSummary.stopped, stopped, CombineRule.Merge);
+                suitSummary.stopped = combineBool(suitSummary.stopped, stopped, CombineRule.Show);
             }
 
             public void showRuleOf9Points(int points) {
-                suitSummary.ruleOf9Points = combineInt(suitSummary.ruleOf9Points, points, CombineRule.Merge);
+                suitSummary.ruleOf9Points = combineInt(suitSummary.ruleOf9Points, points, CombineRule.Show);
             }
 
             public void showFirstRoundControl(boolean control) {
-                suitSummary.firstRoundControl = combineBool(suitSummary.firstRoundControl, control, CombineRule.Merge);
+                suitSummary.firstRoundControl = combineBool(suitSummary.firstRoundControl, control, CombineRule.Show);
             }
 
             public void showSecondRoundControl(boolean control) {
-                suitSummary.secondRoundControl = combineBool(suitSummary.secondRoundControl, control, CombineRule.Merge);
+                suitSummary.secondRoundControl = combineBool(suitSummary.secondRoundControl, control, CombineRule.Show);
             }
         }
 
