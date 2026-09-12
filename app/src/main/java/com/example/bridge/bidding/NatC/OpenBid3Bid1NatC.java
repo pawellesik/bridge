@@ -91,7 +91,7 @@ public class OpenBid3Bid1NatC extends OpenBid1NatC {
                 shows(Bid._2S, noFit(), shape(4, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _2S")),
                 shows(Bid._3C, noFit(), shape(5, 10), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3C")),
                 shows(Bid._3D, shape(2), noFit(), id("OpenBid3NatC.thirdBidToGame1NTDiamond _3D")),
-                shows(Bid._2NT, noFit(), PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame1NTDiamond _2NT"))
+                shows(Bid._2NT, PAIR_BALANCED, id("OpenBid3NatC.thirdBidToGame1NTDiamond _2NT"))
         );
         choices.addRules(CompeteNatC::compBids);
         return choices;
