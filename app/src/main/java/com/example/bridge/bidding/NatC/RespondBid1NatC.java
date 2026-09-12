@@ -92,7 +92,7 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3D, highCardPoints(JUMP_HAND), fit(), not(PASSED_HAND), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondNatC.oneDiamond _3D")),
 
                 shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _2C")),
-                shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), noFit(),PASSED_HAND, shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _3C")),
+                shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), noFit(), PASSED_HAND, shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _3C")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _3C")),
 
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), noFit(), BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _1NT")),
@@ -177,10 +177,10 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3C, highCardPoints(JUMP_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _3C")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _3D")),
 
-                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), noFit(), BALANCED, ruleShow(1), id("RespondNatC.oneSpade _1NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), noFit(), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneSpade _2NT")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneSpade _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), noFit(), not(PASSED_HAND), BALANCED, ruleShow(1), ruleShow(1), id("RespondNatC.oneSpade _2NT"))
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, ruleShow(1), id("RespondNatC.oneSpade _1NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneSpade _2NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneSpade _3NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), not(PASSED_HAND), BALANCED, ruleShow(1), ruleShow(1), id("RespondNatC.oneSpade _2NT"))
 
         );
         choices.addRules(CompeteNatC.compBids(ps));

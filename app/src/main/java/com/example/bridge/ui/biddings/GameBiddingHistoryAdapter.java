@@ -398,14 +398,17 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
         if (symbol.isEmpty()) return trimmed;
 
         if (trimmed.matches("^[♠♥♦♣]\\s*:\\s*.+")) {
-            return trimmed.replaceAll("^[♠♥♦♣]\\s*:\\s*", symbol + ": ");
+            String suffix = "";
+            if (trimmed.toLowerCase().contains("(fit)")) suffix = " (fit)";
+            return trimmed.replaceAll("^[♠♥♦♣]\\s*:\\s*", symbol + ": ").replace(" (fit)", "") + suffix;
         }
 
         java.util.regex.Matcher m = java.util.regex.Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(trimmed);
         if (m.find() && m.group(1) != null) {
             String length = m.group(1);
             boolean isPair = trimmed.toLowerCase().contains("pair");
-            return symbol + ": " + length + (isPair ? " (pair)" : "");
+            boolean isFit = trimmed.toLowerCase().contains("fit");
+            return symbol + ": " + length + (isPair ? " (pair)" : "") + (isFit ? " (fit)" : "");
         }
 
         return symbol + ": " + trimmed.replaceAll("(?i)(spades|hearts|diamonds|clubs|piki|kiery|kara|trefle|[♠♥♦♣])", "").trim();
