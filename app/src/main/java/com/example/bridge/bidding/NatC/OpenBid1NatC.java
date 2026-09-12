@@ -34,10 +34,10 @@ public class OpenBid1NatC extends NatC {
 
     public static Iterable<CallFeature> openSuit(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-        bids.add(partnerBids(Bid._1C, RespondBid1NatC::oneClub));
-        bids.add(partnerBids(Bid._1D, RespondBid1NatC::oneDiamond));
-        bids.add(partnerBids(Bid._1H, RespondBid1NatC::oneHeart));
         bids.add(partnerBids(Bid._1S, RespondBid1NatC::oneSpade));
+        bids.add(partnerBids(Bid._1H, RespondBid1NatC::oneHeart));
+        bids.add(partnerBids(Bid._1D, RespondBid1NatC::oneDiamond));
+        bids.add(partnerBids(Bid._1C, RespondBid1NatC::oneClub));
 
         bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
 
@@ -64,10 +64,10 @@ public class OpenBid1NatC extends NatC {
     private static List<CallFeature> openSuitWeak(PositionState ps) {
         List<CallFeature> rules = new ArrayList<>();
         rules.add(partnerBids(RespondBid1NatC::weakOpen));
-        rules.add(shows(Bid._3C, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3C")));
-        rules.add(shows(Bid._3D, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3D")));
-        rules.add(shows(Bid._3H, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3H")));
         rules.add(shows(Bid._3S, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3S")));
+        rules.add(shows(Bid._3H, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3H")));
+        rules.add(shows(Bid._3D, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3D")));
+        rules.add(shows(Bid._3C, OpeningWeakBidding, shape(7, 11), ruleShow(1), id("OpenNatC.openSuitWeak _3C")));
         return rules;
     }
 
