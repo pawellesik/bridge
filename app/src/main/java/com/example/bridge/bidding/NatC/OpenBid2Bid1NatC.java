@@ -198,17 +198,17 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMinorClubStrong),
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
-                    shows(Bid._4H, OpeningStrongBidding, shape(5, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
-                    shows(Bid._4S, OpeningStrongBidding, shape(5, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
+                    shows(Bid._4H, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
+                    shows(Bid._4S, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
                     shows(Bid._3NT, OpeningStrongBidding, noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
             );
         } else {
             choices.addRules(
                     properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMinorClubStrong),
                     partnerBids(RecursionNatC::recursionFindFitGame),
-                    shows(Bid._4H, OpeningStrongBidding, shape(5, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
-                    shows(Bid._4S, OpeningStrongBidding, shape(5, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
-                    shows(Bid._3NT, OpeningStrongBidding, noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
+                    shows(Bid._4H, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
+                    shows(Bid._4S, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
+                    shows(Bid._3NT, OpeningStrongBidding, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
             );
         }
         choices.addRules(CompeteNatC.compBids(ps));
@@ -337,7 +337,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._2S, shape(4, 10), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 2S")),
 
-                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
+                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
 
                     shows(Bid._3C, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
                     shows(Bid._3H, shape(4, 10), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H"))
@@ -356,7 +356,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._2S, shape(4, 10), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 2S")),
 
-                    shows(Bid._3NT, noFit(), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
+                    shows(Bid._3NT, PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
 
                     shows(Bid._3C, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
                     shows(Bid._3H, shape(4, 10), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H"))
