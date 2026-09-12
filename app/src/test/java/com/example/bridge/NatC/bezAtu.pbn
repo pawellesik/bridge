@@ -152,5 +152,13 @@ pass pass
 [Auction "N"]
 1NT PAss 4C pass
 4NT pass 5C pass
-5H pass 5NT pass
+5H pass 6NT pass
+pass pass
+
+[Event "NatC  bezAtu 19"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A86.AT92.AT98.KQ A53.A6.97.T65432 KJT.754.KJ2.KQ87 9742.QT83.T654.9"]
+[Auction "N"]
+1NT PAss 3NT pass
 pass pass
