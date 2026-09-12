@@ -94,16 +94,17 @@ public class AcesAsk extends Bidder {
         if (suit != null) {
             if (suit.isMinor()) {
                 choices.addRules(
-                        shows(Call.PASS, pairAces(0, 1, 2, 3), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5")),
-                        shows(new Bid(5, suit), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 1-2 5")),
-                        shows(new Bid(5, suit), pairAces(0, 1, 2, 3), kings(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 3, 1-2")),
-                        shows(new Bid(6, suit), pairAces(3), kings(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 3, 1-2"))
+                        shows(Call.PASS, fit(suit), pairAces(0, 1, 2, 3), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5 to game")),
+                        //shows(Call.PASS, noFit(suit), pairAces(0, 1, 2, 3), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5")), todo
+                        shows(new Bid(5, suit), fit(suit), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 1-2 5 to game")),
+                        shows(new Bid(5, suit), fit(suit), pairAces(0, 1, 2, 3), kings(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 3, 1-2 to game"))
                 );
             } else if (suit.isMajor()) {
                 choices.addRules(
-                        shows(Call.PASS, pairAces(0, 1, 2, 3), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMajor pass 1-3")),
-                        shows(new Bid(4, suit), partnerBidLevel(4), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMajor 1-2 4")),
-                        shows(new Bid(5, suit), partnerBidLevel(5), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMajor 1-2 4")));
+                        shows(Call.PASS, pairAces(0, 1, 2), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMajor pass 1-3")),
+                        //shows(Call.PASS, noFit(suit), pairAces(0, 1, 2, 3), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5")), todo
+                        shows(new Bid(4, suit), fit(suit), partnerBidLevel(4), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMajor 1-2 4")),
+                        shows(new Bid(5, suit), fit(suit), partnerBidLevel(5), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMajor 1-2 4")));
             }
             Bid bid = getNextBidWithoutTrump(partnerCall, suit);
             choices.addRules(
