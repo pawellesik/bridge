@@ -98,7 +98,7 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), noFit(), BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _1NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), noFit(), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), noFit(), BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _2NT"))
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), noFit(), BALANCED, not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _2NT"))
         );
         //choices.addRules(CompeteNatC.compBids(ps));
         return choices;
