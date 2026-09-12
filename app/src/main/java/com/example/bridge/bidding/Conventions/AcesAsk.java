@@ -124,7 +124,7 @@ public class AcesAsk extends Bidder {
                 choices.addRules(
                         properties(bid, AcesAsk::respondKings, true),
                         shows(Bid._5NT, partnerBidLevel(5), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing 5NT 1-2")),
-                        shows(bid, pairAces(3, 4), ruleShow(1), ruleDescription("Ask for Kings"), id("askKing 3-4")));
+                        shows(bid, pairAces(2, 3, 4), ruleShow(1), ruleDescription("Ask for Kings"), id("askKing 3-4")));
             }
             choices.addRules(shows(Call.PASS));
         }
