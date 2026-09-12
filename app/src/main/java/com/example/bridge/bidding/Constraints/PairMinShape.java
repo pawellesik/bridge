@@ -133,7 +133,9 @@ public class PairMinShape {
             }
 
             if (s != null) {
-                return min + "+ pair " + s.toSymbol();
+                Range partnerShape = ps.getPartner().getPublicHandSummary().getSuits().get(s).getShape();
+                int newMin = min - partnerShape.getMin();
+                return newMin + "+ " + s.toSymbol() + " (fit)";
             }
             return null;
         }
