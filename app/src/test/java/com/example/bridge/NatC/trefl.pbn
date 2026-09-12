@@ -898,3 +898,12 @@ Pass Pass
 1C PASS 2C PASS
 3S PASS 4C PASS
 5C PASS pass pass
+
+[Event "NatC Trfel 98"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K86.762.KJ.98642 932.JT4.T52.AKQ7 AQJ75.AQ5.A94.J5 T4.K983.Q8763.T3"]
+[Auction "N"]
+pass PAss 1C pass
+2C pass 3S pass
+4S pass pass pass
