@@ -29,7 +29,7 @@ public class AcesAsk extends Bidder {
         bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 1")));
         bids.add(shows(Bid._4C, fit(partnerSuit), IS_ANY_JUMP, pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(partnerSuit), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 4")));
-        bids.add(shows(Bid._4C, IS_ANY_JUMP, pairPoints(SLAM_OR_BETTER), shape(Suit.Hearts, 2, 4), shape(Suit.Spades, 2, 4), shape(Suit.Clubs, 2, 5), shape(Suit.Diamonds, 2, 5), partner(isLastBid(Bid._1NT, Bid._2NT)), ruleShow(1), ruleDescription("Ask for Aces"), id("initiateConventionAcesAsk 5")));
+        bids.add(shows(Bid._4C, IS_ANY_JUMP, pairHighCardPoints(SLAM_OR_BETTER), shape(Suit.Hearts, 2, 4), shape(Suit.Spades, 2, 4), shape(Suit.Clubs, 2, 5), shape(Suit.Diamonds, 2, 5), partner(isLastBid(Bid._1NT, Bid._2NT)), ruleShow(1), ruleDescription("Ask for Aces"), id("initiateConventionAcesAsk 5")));
 
         return bids;
     }
@@ -94,18 +94,16 @@ public class AcesAsk extends Bidder {
         if (suit != null) {
             if (suit.isMinor()) {
                 choices.addRules(
-                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5")),
-                        shows(new Bid(5, suit), pairAces(1, 2), ruleShow(1), id("askKing isMinor 1-2 5")),
-                        shows(new Bid(5, suit), pairAces(3), kings(1, 2), ruleShow(1), id("askKing isMinor 3, 1-2")),
-                        shows(new Bid(6, suit), pairAces(3), kings(1, 2), ruleShow(1), id("askKing isMinor 3, 1-2"))
-
+                        shows(Call.PASS, pairAces(0, 1, 2, 3), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMinor 1 5")),
+                        shows(new Bid(5, suit), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 1-2 5")),
+                        shows(new Bid(5, suit), pairAces(0, 1, 2, 3), kings(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 3, 1-2")),
+                        shows(new Bid(6, suit), pairAces(3), kings(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMinor 3, 1-2"))
                 );
             } else if (suit.isMajor()) {
                 choices.addRules(
-                        shows(Call.PASS, pairAces(1, 3), kings(1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMajor pass 1-3")),
-                        shows(new Bid(4, suit), partnerBidLevel(4), pairAces(1, 2), ruleShow(1), id("askKing isMajor 1-2 4")),
-                        shows(new Bid(5, suit), partnerBidLevel(5),pairAces(1, 2), ruleShow(1), id("askKing isMajor 1-2 4")));
-
+                        shows(Call.PASS, pairAces(0, 1, 2, 3), kings(0, 1, 2), partner(isLastBid(5, suit)), ruleShow(1), id("askKing isMajor pass 1-3")),
+                        shows(new Bid(4, suit), partnerBidLevel(4), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMajor 1-2 4")),
+                        shows(new Bid(5, suit), partnerBidLevel(5), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing isMajor 1-2 4")));
             }
             Bid bid = getNextBidWithoutTrump(partnerCall, suit);
             choices.addRules(
@@ -116,12 +114,18 @@ public class AcesAsk extends Bidder {
             choices.addRules(shows(Call.PASS));
         } else {
             Bid bid = (Bid) Call.getNextCall(partnerCall);
-            choices.addRules(
-                    properties(bid, AcesAsk::respondKings, true),
-                    shows(Bid._4NT, pairAces(1, 2), ruleShow(1), ruleDescription("Ask for Kings"), id("askKing 4NT 1-2")),
-                    shows(Bid._5NT, pairAces(1, 2), ruleShow(1), ruleDescription("Ask for Kings"), id("askKing 5NT 1-2")),
-                    shows(bid, pairAces(3, 4), ruleShow(1), ruleDescription("Ask for Kings"), id("askKing 3-4")));
-
+            if (!bid.equals(Bid._4NT)) {
+                choices.addRules(
+                        properties(bid, AcesAsk::respondKings, true),
+                        shows(Bid._4NT, partnerBidLevel(4), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing 4NT 1-2")),
+                        shows(Bid._5NT, partnerBidLevel(5), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing 5NT 1-2")),
+                        shows(bid, pairAces(3, 4), ruleShow(1), ruleDescription("Ask for Kings"), id("askKing 3-4")));
+            } else {
+                choices.addRules(
+                        properties(bid, AcesAsk::respondKings, true),
+                        shows(Bid._5NT, partnerBidLevel(5), pairAces(0, 1, 2), ruleShow(1), ruleDescription("to game"), id("askKing 5NT 1-2")),
+                        shows(bid, pairAces(3, 4), ruleShow(1), ruleDescription("Ask for Kings"), id("askKing 3-4")));
+            }
             choices.addRules(shows(Call.PASS));
         }
         return choices;
@@ -155,31 +159,31 @@ public class AcesAsk extends Bidder {
         if (suit != null) {
             choices.addRules(
                     // 1. Slams in the agreed suit (ONLY if fit exists)
-                    shows(new Bid(7, suit), FIT_8_PLUS, sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 1")),
-                    shows(new Bid(7, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(GRAND_SLAM), id("AcesAsk tryGrandSlam 2")),
-                    shows(new Bid(6, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(SLAM_OR_BETTER), id("AcesAsk tryGrandSlam 2")),
-                    shows(new Bid(6, suit), FIT_8_PLUS, sumPairAcesAndKings(7), id("AcesAsk tryGrandSlam 3")),
-                    shows(new Bid(6, suit), FIT_8_PLUS, secondSuit(suit, 6), hasShortness(0, 1), sumPairAcesAndKings(6, 7), id("AcesAsk tryGrandSlam 5")),
+                    shows(new Bid(7, suit), FIT_8_PLUS, sumPairAcesAndKings(8), ruleDescription("to game"), id("AcesAsk tryGrandSlam 1")),
+                    shows(new Bid(7, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(GRAND_SLAM), ruleDescription("to game"), id("AcesAsk tryGrandSlam 2")),
+                    shows(new Bid(6, suit), FIT_8_PLUS, pairAces(4), pairKings(3), pairHighCardPoints(SLAM_OR_BETTER), ruleDescription("to game"), id("AcesAsk tryGrandSlam 2")),
+                    shows(new Bid(6, suit), FIT_8_PLUS, sumPairAcesAndKings(7), ruleDescription("to game"), id("AcesAsk tryGrandSlam 3")),
+                    shows(new Bid(6, suit), FIT_8_PLUS, secondSuit(suit, 6), hasShortness(0, 1), sumPairAcesAndKings(6, 7), ruleDescription("to game"), id("AcesAsk tryGrandSlam 5")),
 
                     // 2. FALLBACK to NoTrump if there is NO FIT (Simulated suit was used, but we decide NT at the end)
-                    shows(new Bid(7, Strain.NoTrump), fit(suit, false), pairHighCardPoints(GRAND_SLAM), sumPairAcesAndKings(8), id("AcesAsk tryGrandSlam 7 NT fall-back")),
-                    shows(new Bid(6, Strain.NoTrump), fit(suit, false), pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7, 8), id("AcesAsk tryGrandSlam 8 NT fall-back")),
-                    shows(new Bid(5, Strain.NoTrump), fit(suit, false), id("AcesAsk tryGrandSlam 9 NT exit")),
+                    shows(new Bid(7, Strain.NoTrump), fit(suit, false), pairHighCardPoints(GRAND_SLAM), sumPairAcesAndKings(8), ruleDescription("to game"), id("AcesAsk tryGrandSlam 7 NT fall-back")),
+                    shows(new Bid(6, Strain.NoTrump), fit(suit, false), pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7, 8), ruleDescription("to game"), id("AcesAsk tryGrandSlam 8 NT fall-back")),
+                    shows(new Bid(5, Strain.NoTrump), fit(suit, false), ruleDescription("to game"), id("AcesAsk tryGrandSlam 9 NT exit")),
 
                     // 3. Return to agreed suit game level (requires fit)
-                    shows(getNextBidWithTrump(partnerCall, suit), FIT_8_PLUS, sumPairAcesAndKings("Suma asów i króli mniejsza od 6", 1, 6), id("AcesAsk tryGrandSlam 6")),
-                    shows(new Bid(ps.getBiddingState().getContract().getBid().getLevel(), Strain.NoTrump), fit(suit, false), sumPairAcesAndKings("Suma asów i króli mniejsza od 7", 1, 7), id("AcesAsk tryGrandSlam 6")),
+                    shows(getNextBidWithTrump(partnerCall, suit), FIT_8_PLUS, sumPairAcesAndKings(1, 6), ruleDescription("to game"), id("AcesAsk tryGrandSlam 6")),
+                    shows(new Bid(ps.getBiddingState().getContract().getBid().getLevel(), Strain.NoTrump), fit(suit, false), sumPairAcesAndKings(1, 7), ruleDescription("to game"), id("AcesAsk tryGrandSlam 6")),
 
                     // 5. Last resort: Pass if we are already in a good contract
-                    shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, id("AcesAsk tryGrandSlam 4"))
+                    shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, ruleDescription("to game"), id("AcesAsk tryGrandSlam 4"))
             );
 
         } else {
             choices.addRules(
-                    shows(Bid._7NT, pairHighCardPoints(GRAND_SLAM), pairAces(4), pairKings(3, 4), id("AcesAsk tryGrandSlam 7NT")),
-                    shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7, 8), id("AcesAsk tryGrandSlam 6NT")),
-                    shows(Bid._5NT, partnerBidLevel(5), id("AcesAsk tryGrandSlam partnerBidLevel 5NT")),
-                    shows(Bid._6NT, partnerBidLevel(6), id("AcesAsk tryGrandSlam partnerBidLevel 6NT"))
+                    shows(Bid._7NT, pairHighCardPoints(GRAND_SLAM), pairAces(4), pairKings(3, 4), ruleDescription("to game"), id("AcesAsk tryGrandSlam 7NT")),
+                    shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER), sumPairAcesAndKings(7, 8), ruleDescription("to game"), id("AcesAsk tryGrandSlam 6NT")),
+                    shows(Bid._5NT, partnerBidLevel(5), ruleDescription("to game"), id("AcesAsk tryGrandSlam partnerBidLevel 5NT")),
+                    shows(Bid._6NT, partnerBidLevel(6), ruleDescription("to game"), id("AcesAsk tryGrandSlam partnerBidLevel 6NT"))
 
             );
         }
