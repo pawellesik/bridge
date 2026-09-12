@@ -1,7 +1,7 @@
 package com.example.bridge.bidding.Tools;
 
 public enum SuitQuality {
-    Poor, Decent, Good, Excellent, Solid
+    Nothing, Poor, Decent, Good, Excellent, Solid
 }
 
 

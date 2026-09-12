@@ -43,8 +43,12 @@ public class HandEvaluator {
                 case 7:
                     q = hand.isGoodSuit(suit) ? SuitQuality.Good : SuitQuality.Decent;
                     break;
-                default:
+                case 2:
+                case 1:
                     q = SuitQuality.Poor;
+                    break;
+                default:
+                    q = SuitQuality.Nothing;
                     break;
             }
             return q;
