@@ -821,7 +821,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._3S, shape(6, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), IS_REBID, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
                     shows(Bid._3H, pairHighCardPoints(PAIR_GAME), shape(4, 10), noFit(), IS_NEW_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
                     shows(Bid._4H, pairHighCardPoints(PAIR_GAME), shape(5, 10), noFit(), IS_NEW_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
-                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3NT"))
+                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3NT"))
             );
         } else {
             choices.addRules(
