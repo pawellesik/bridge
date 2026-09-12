@@ -125,7 +125,7 @@ public class RespondBid1NatC extends NatC {
 
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondNatC.oneHeart _2H")),
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _3H")),
-                shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondNatC.oneHeart _3H")),
+                shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Hearts), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneHeart _3H")),
 
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _1S")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _2D")),
@@ -141,7 +141,7 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), noFit(), BALANCED, ruleShow(1), id("RespondNatC.oneHeart _1NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), noFit(), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneHeart _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneSpade _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), noFit(), BALANCED, ruleShow(1), id("RespondNatC.oneHeart _2NT"))
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), noFit(), BALANCED, not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneHeart _2NT"))
         );
         choices.addRules(CompeteNatC.compBids(ps));
         return choices;
@@ -164,7 +164,7 @@ public class RespondBid1NatC extends NatC {
 
                 shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondNatC.oneSpade _2S")),
                 shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
-                shows(Bid._3S, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondNatC.oneSpade _3S")),
+                shows(Bid._3S, highCardPoints(JUMP_HAND), fit(), not(PASSED_HAND), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondNatC.oneSpade _3S")),
 
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _2H")),
                 shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _2D")),
@@ -180,7 +180,7 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), noFit(), BALANCED, ruleShow(1), id("RespondNatC.oneSpade _1NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), noFit(), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneSpade _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneSpade _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), noFit(), BALANCED, ruleShow(1), ruleShow(1), id("RespondNatC.oneSpade _2NT"))
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), noFit(), not(PASSED_HAND), BALANCED, ruleShow(1), ruleShow(1), id("RespondNatC.oneSpade _2NT"))
 
         );
         choices.addRules(CompeteNatC.compBids(ps));
