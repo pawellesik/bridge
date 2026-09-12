@@ -446,7 +446,8 @@ public class BiddingInfoFormatter {
         }
 
         boolean isComplexOrPair = lower.contains("pair") || lower.contains("nofit") 
-                || lower.contains("max") || lower.contains("min") || lower.contains("trump");
+                || lower.contains("max") || lower.contains("min") || lower.contains("trump")
+                || lower.contains("fit");
 
         double baseSuit = 0.0;
         if (clause.contains("♠") || clause.contains("Spades") || clause.contains("Piki") || clause.matches(".*\\bS[:\\d+].*")) baseSuit = 1.0;

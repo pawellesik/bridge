@@ -490,7 +490,8 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
         // Identify complex pair/limit conditions that should appear after the primary shape constraints
         boolean isComplexOrPair = lower.contains("pair") || lower.contains("nofit") 
-                || lower.contains("max") || lower.contains("min") || lower.contains("trump");
+                || lower.contains("max") || lower.contains("min") || lower.contains("trump")
+                || lower.contains("fit");
 
         double baseSuit = 0.0;
         // 2. Suits Second (Spades = 1.0, Hearts = 2.0, Diamonds = 3.0, Clubs = 4.0)
