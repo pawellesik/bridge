@@ -266,9 +266,7 @@ pass pass
 [Auction "N"]
 1D PASS 2S PASS
 3H PASS 3S pass
-4NT pass 5D pass
-5H pass 5S pass
-5NT pass pass pass
+3NT pass pass pass
 
 [Event "NatC diamond 34"]
 [Dealer "N"]
@@ -276,10 +274,8 @@ pass pass
 [Deal "N:5.A832.AKQ53.952 JT9.974.J92.Q863 AKQ862.QJ6.T4.AJ 743.KT5.876.KT74"]
 [Auction "N"]
 1D Pass 2S Pass
-2NT Pass 4NT Pass
-5H Pass 5S pass
-6C Pass 6NT Pass
-Pass Pass
+2NT Pass 3S Pass
+3NT Pass pass Pass
 
 [Event "NatC diamond 35"]
 [Dealer "N"]

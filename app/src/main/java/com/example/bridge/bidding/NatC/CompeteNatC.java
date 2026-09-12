@@ -91,6 +91,7 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3S, shape(4, 10), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Spades, 4), id("CompeteNatC.compBids _3S")));
 
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
+        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3), id("RecursionNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
 
         bids.add(shows(Call.PASS, ruleDescription("compBids _PASS"), id("CompeteNatC.compBids _PASS")));
 
@@ -131,9 +132,10 @@ public class CompeteNatC extends NatC {
         boolean agreedSuitMatch = (agreedTrump != null && lastBid != null && lastBid.getSuit() == agreedTrump && ps.getBiddingState().getContract().isOurs(ps.getDirection()));
         boolean isLevel1 = (lastBid != null && lastBid.getLevel() == 1);
         boolean isLevel2 = (lastBid != null && lastBid.getLevel() == 2);
+        boolean isLevel4 = (lastBid != null && lastBid.getLevel() == 4);
 
         if (jumpMatch || agreedSuitMatch || isLevel1 || isLevel2) {
-            if (agreedTrump != null) {
+            if (agreedTrump != null && !isLevel4) {
                 int countBefore = bids.size();
                 for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
                     bids.add(cf);
@@ -153,6 +155,12 @@ public class CompeteNatC extends NatC {
                         bids.add(cf);
                     }
                 }
+                if (lastBid.equals(Bid._2NT)) {
+                    for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+                        bids.add(cf);
+                    }
+                }
+
             }
         }
     }
