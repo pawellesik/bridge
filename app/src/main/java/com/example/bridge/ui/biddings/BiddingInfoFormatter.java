@@ -14,8 +14,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import com.example.bridge.R;
 import com.example.bridge.bidding.Tools.BidRule;
 import com.example.bridge.bidding.Tools.BiddingState;
-import com.example.bridge.bidding.Tools.CallDetails;
-import com.example.bridge.bidding.Tools.Constraint;
 import com.example.bridge.bidding.Tools.Direction;
 import com.example.bridge.bidding.Tools.HandSummary;
 import com.example.bridge.bidding.Tools.PositionState;
@@ -23,9 +21,7 @@ import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -162,6 +158,17 @@ public class BiddingInfoFormatter {
             }
         }
 
+        Set<Integer> aces = summary.getCountAces();
+        if (aces != null && !aces.isEmpty()) {
+            String acesVal = aces.toString().replace("[", "").replace("]", "");
+            parts.add(context.getString(R.string.public_knowledge_aces, acesVal));
+        }
+        Set<Integer> kings = summary.getCountKings();
+        if (kings != null && !kings.isEmpty()) {
+            String kingsVal = kings.toString().replace("[", "").replace("]", "");
+            parts.add(context.getString(R.string.public_knowledge_kings, kingsVal));
+        }
+
         Suit[] orderedSuits = {
                 Suit.Spades,
                 Suit.Hearts,
@@ -176,76 +183,23 @@ public class BiddingInfoFormatter {
                 if (shape != null) {
                     int min = shape.getMin();
                     int max = shape.getMax();
-                    if (min > 0) {
-                        SpannableStringBuilder suitSsb = new SpannableStringBuilder();
-                        String suffix = (min == max) ? ": " + min : ": " + min + (max >= 7 ? "+" : "-" + max);
+
+                    SpannableStringBuilder suitSsb = new SpannableStringBuilder();
+                    if (min == max) {
+                        if (min > 0) {
+                            appendSuitSymbol(context, suitSsb, s, ": " + min);
+                            parts.add(suitSsb);
+                        }
+                    } else if (min > 0) {
+                        String suffix = (max >= 7) ? ": " + min + "+" : ": " + min + "-" + max;
                         appendSuitSymbol(context, suitSsb, s, suffix);
                         parts.add(suitSsb);
                     } else if (max < 5) {
-                        SpannableStringBuilder suitSsb = new SpannableStringBuilder();
-                        String suffix = ": 0-" + max;
-                        appendSuitSymbol(context, suitSsb, s, suffix);
+                        appendSuitSymbol(context, suitSsb, s, ": 0-" + max);
                         parts.add(suitSsb);
                     }
                 }
             }
-        }
-
-        Map<Suit, String> pairMaxShapes = new EnumMap<>(Suit.class);
-        for (int i = 0; i < pos.getCallCount(); i++) {
-            CallDetails details = pos.getCallDetails(i);
-            if (details.getMatchedRules() != null) {
-                for (BidRule rule : details.getMatchedRules()) {
-                    if (rule.getConstraints() != null) {
-                        for (Constraint constraint : rule.getConstraints()) {
-                            if (constraint instanceof com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape) {
-                                com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape pms = (com.example.bridge.bidding.Constraints.PairMaxShape.PairShowsMaxShape) constraint;
-                                String desc = pms.describe(rule.getCall(), pos);
-                                Suit s = null;
-                                String text = desc;
-                                if (desc.startsWith(Suit.Spades.toSymbol())) {
-                                    s = Suit.Spades;
-                                    text = desc.substring(1);
-                                } else if (desc.startsWith(Suit.Hearts.toSymbol())) {
-                                    s = Suit.Hearts;
-                                    text = desc.substring(1);
-                                } else if (desc.startsWith(Suit.Diamonds.toSymbol())) {
-                                    s = Suit.Diamonds;
-                                    text = desc.substring(1);
-                                } else if (desc.startsWith(Suit.Clubs.toSymbol())) {
-                                    s = Suit.Clubs;
-                                    text = desc.substring(1);
-                                }
-
-                                if (s != null) {
-                                    pairMaxShapes.put(s, text);
-                                } else {
-                                    parts.add(desc);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        for (Suit s : orderedSuits) {
-            if (pairMaxShapes.containsKey(s)) {
-                SpannableStringBuilder suitSsb = new SpannableStringBuilder();
-                appendSuitSymbol(context, suitSsb, s, pairMaxShapes.get(s));
-                parts.add(suitSsb);
-            }
-        }
-
-        Set<Integer> aces = summary.getCountAces();
-        if (aces != null && !aces.isEmpty()) {
-            String acesVal = aces.toString().replace("[", "").replace("]", "");
-            parts.add(context.getString(R.string.public_knowledge_aces, acesVal));
-        }
-        Set<Integer> kings = summary.getCountKings();
-        if (kings != null && !kings.isEmpty()) {
-            String kingsVal = kings.toString().replace("[", "").replace("]", "");
-            parts.add(context.getString(R.string.public_knowledge_kings, kingsVal));
         }
 
         if (!parts.isEmpty()) {
