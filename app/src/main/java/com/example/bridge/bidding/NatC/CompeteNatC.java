@@ -63,7 +63,6 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5C, partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Clubs, Suit.Spades), id("CompeteNatC.compBids _5C")));
         bids.add(shows(Bid._5C, partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Hearts, 4)), betterThan(Suit.Clubs, Suit.Hearts), id("CompeteNatC.compBids _5C")));
 
-
         bids.add(shows(Bid._3D, shape(2, 10), partner(isLastBid(Bid._3C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), betterThan(Suit.Diamonds, Suit.Clubs), id("CompeteNatC.compBids _3D")));
         bids.add(shows(Bid._5D, shape(2, 10), partner(isLastBid(Bid._5C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), betterThan(Suit.Diamonds, Suit.Clubs), id("CompeteNatC.compBids _5D")));
 
