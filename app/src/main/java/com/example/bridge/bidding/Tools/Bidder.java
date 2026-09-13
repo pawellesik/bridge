@@ -508,11 +508,20 @@ public abstract class Bidder {
         return new Shape.ShowsOthersShape(skipSuit, min);
     }
 
-    public static StaticConstraint partnerLastBidLevel(int level) {
+    public static StaticConstraint partnerLastBidLevel(int... levels) {
         return new SimpleStaticConstraint((call, ps) -> {
             Call last = ps.getPartner().getLastCall();
-            return (last instanceof Bid && ((Bid) last).getLevel() == level);
-        }, (call, ps) -> "partner's last bid at level " + level);
+            if (!(last instanceof Bid)) {
+                return false;
+            }
+            int lastLevel = ((Bid) last).getLevel();
+            for (int level : levels) {
+                if (lastLevel == level) {
+                    return true;
+                }
+            }
+            return false;
+        }, (call, ps) -> "partner's last bid at level " + Arrays.toString(levels));
     }
 
     public static HandConstraint noFit(int minToFit) {

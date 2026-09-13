@@ -1,5 +1,7 @@
 package com.example.bridge.bidding.Conventions;
 
+import static com.example.bridge.bidding.NatC.OpenBid1NatC.OpeningStrongBidding;
+
 import com.example.bridge.bidding.LCStandard.NoTrump;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
@@ -49,13 +51,16 @@ public class AcesAsk extends Bidder {
         /* musi byc przeskok lub uzgodniony kolor*/
         bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
 
-        bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(partnerSuit), pairHighCardPoints(SLAM_OR_BETTER), setTrumpColor(partnerSuit), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 1")));
-        bids.add(shows(Bid._4NT, isJump(1), pairHighCardPoints(SLAM_OR_BETTER_NT), highCardPoints(ASK_ACES), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 2")));
-        bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES),  ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 3")));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(Suit.Hearts), partner(isLastBid(Bid._3H)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Hearts), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 5")));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(Suit.Spades), partner(isLastBid(Bid._3S)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Spades), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 6")));
-        bids.add(shows(Bid._4NT, pairHighCardPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 7")));
+        bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(partnerSuit), pairHighCardPoints(SLAM_OR_BETTER), setTrumpColor(partnerSuit), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 1")));
+
+        bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairHighCardPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES),  ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 3")));
         bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, pairPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 8")));
+
+        bids.add(shows(Bid._4NT, IS_ANY_JUMP, partnerLastBidLevel(2, 3), pairHighCardPoints(SLAM_OR_BETTER_NT), highCardPoints(ASK_ACES), setTrumpColor(partnerSuit), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 2a")));
+
+        bids.add(shows(Bid._4NT, pairHighCardPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 7")));
 
         return bids;
     }

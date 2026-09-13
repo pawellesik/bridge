@@ -925,3 +925,13 @@ pass PAss 1C pass
 4NT pass 5D pass
 5H pass 5NT pass
 6NT pass pass pass
+
+[Event "NatC Trfel 101"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AJT2.A5.Q86.AKQ3 8653.Q82.J542.T8 KQ7.JT963.AK.J54 94.K74.T973.9762"]
+[Auction "N"]
+1C PAss 2H pass
+4NT pass 5D pass
+5S pass 6D pass
+6NT pass pass pass
