@@ -42,17 +42,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="8dp"
                 android:text="ACCOUNT"
                 android:textColor="#4DFFFFFF"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
@@ -63,14 +63,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Login Name"
                         android:textColor="#FFFFFF"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -82,121 +82,8 @@
                         android:textColor="#FFFFFF"
                         android:textColorHint="#80FFFFFF"
                         android:backgroundTint="#4081C784"
+                        android:textSize="13sp"
                         android:singleLine="true" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- VISUALS SECTION -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="@string/category_visuals"
-                android:textColor="#4DFFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="#16321A"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#4081C784"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false">
-
-                        <FrameLayout
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:background="@drawable/bg_settings_icon">
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_palette"
-                                app:tint="#FFFFFF"
-                                android:contentDescription="@string/card_colors_title" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/card_colors_title"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="@string/card_colors_desc"
-                                android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <RadioGroup
-                        android:id="@+id/rg_card_colors"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rb_colorful"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_setting_option"
-                            android:button="@null"
-                            android:drawableStart="@android:drawable/btn_radio"
-                            android:drawablePadding="8dp"
-                            android:drawableTint="@drawable/ic_radio_tint_selector"
-                            android:paddingHorizontal="12dp"
-                            android:text="@string/card_colors_colorful"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_standard"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_setting_option"
-                            android:button="@null"
-                            android:drawableStart="@android:drawable/btn_radio"
-                            android:drawablePadding="8dp"
-                            android:drawableTint="@drawable/ic_radio_tint_selector"
-                            android:paddingHorizontal="12dp"
-                            android:text="@string/card_colors_standard"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp" />
-                    </RadioGroup>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -204,16 +91,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/category_gameplay"
                 android:textColor="#4DFFFFFF"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
@@ -224,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="16dp">
 
                     <!-- JUST DECLARE -->
                     <LinearLayout
@@ -235,12 +123,12 @@
                         android:baselineAligned="false">
 
                         <FrameLayout
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:background="@drawable/bg_settings_icon">
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_arrow"
                                 app:tint="#FFFFFF"
@@ -259,7 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/quick_game"
                                 android:textColor="#FFFFFF"
-                                android:textSize="18sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -268,7 +156,7 @@
                                 android:layout_marginTop="2dp"
                                 android:text="Select if you want to play only winning contracts or all of them."
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -276,46 +164,46 @@
                         android:id="@+id/rg_declare_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/rb_winning_only"
                             android:layout_width="0dp"
-                            android:layout_height="48dp"
+                            android:layout_height="36dp"
                             android:layout_marginEnd="4dp"
                             android:layout_weight="1"
                             android:background="@drawable/bg_setting_option"
                             android:button="@null"
                             android:drawableStart="@android:drawable/btn_radio"
-                            android:drawablePadding="8dp"
+                            android:drawablePadding="6dp"
                             android:drawableTint="@drawable/ic_radio_tint_selector"
-                            android:paddingHorizontal="12dp"
+                            android:paddingHorizontal="10dp"
                             android:text="Winning Only"
                             android:textColor="#FFFFFF"
-                            android:textSize="13sp" />
+                            android:textSize="11sp" />
 
                         <RadioButton
                             android:id="@+id/rb_all_deals"
                             android:layout_width="0dp"
-                            android:layout_height="48dp"
+                            android:layout_height="36dp"
                             android:layout_marginStart="4dp"
                             android:layout_weight="1"
                             android:background="@drawable/bg_setting_option"
                             android:button="@null"
                             android:drawableStart="@android:drawable/btn_radio"
-                            android:drawablePadding="8dp"
+                            android:drawablePadding="6dp"
                             android:drawableTint="@drawable/ic_radio_tint_selector"
-                            android:paddingHorizontal="12dp"
+                            android:paddingHorizontal="10dp"
                             android:text="All Contracts"
                             android:textColor="#FFFFFF"
-                            android:textSize="13sp" />
+                            android:textSize="11sp" />
                     </RadioGroup>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginVertical="24dp"
+                        android:layout_marginVertical="16dp"
                         android:background="#1AFFFFFF" />
 
                     <!-- SINGLEPLAYER -->
@@ -327,12 +215,12 @@
                         android:baselineAligned="false">
 
                         <FrameLayout
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:background="@drawable/bg_settings_icon">
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_person"
                                 app:tint="#FFFFFF"
@@ -351,7 +239,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/single_player"
                                 android:textColor="#FFFFFF"
-                                android:textSize="18sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -360,7 +248,7 @@
                                 android:layout_marginTop="2dp"
                                 android:text="Configure visibility of helpers during the game."
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -382,7 +270,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Explanation"
                                 android:textColor="#FFFFFF"
-                                android:textSize="16sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -390,7 +278,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Show explanations for bids"
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
                             app:thumbTint="@color/switch_thumb_color"
@@ -403,7 +291,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -417,14 +305,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="Public Knowledge"
                                 android:textColor="#FFFFFF"
-                                android:textSize="16sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Display known information about hands"
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
                             app:thumbTint="@color/switch_thumb_color"
@@ -437,7 +325,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -451,14 +339,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="Bidding Rules"
                                 android:textColor="#FFFFFF"
-                                android:textSize="16sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Show rules for the current bidding system"
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
                             app:thumbTint="@color/switch_thumb_color"
@@ -471,7 +359,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -485,14 +373,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="Bidding Hints"
                                 android:textColor="#FFFFFF"
-                                android:textSize="16sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Suggest the best bid to make"
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                         <com.google.android.material.materialswitch.MaterialSwitch
                             app:thumbTint="@color/switch_thumb_color"
@@ -505,21 +393,21 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- HISTORY SECTION -->
+            <!-- VISUALS SECTION -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp"
-                android:text="HISTORY"
+                android:layout_marginBottom="8dp"
+                android:text="@string/category_visuals"
                 android:textColor="#4DFFFFFF"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="#16321A"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
@@ -530,7 +418,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -540,12 +428,127 @@
                         android:baselineAligned="false">
 
                         <FrameLayout
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:background="@drawable/bg_settings_icon">
                             <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_palette"
+                                app:tint="#FFFFFF"
+                                android:contentDescription="@string/card_colors_title" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/card_colors_title"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/card_colors_desc"
+                                android:textColor="#80FFFFFF"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <RadioGroup
+                        android:id="@+id/rg_card_colors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_colorful"
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_setting_option"
+                            android:button="@null"
+                            android:drawableStart="@android:drawable/btn_radio"
+                            android:drawablePadding="6dp"
+                            android:drawableTint="@drawable/ic_radio_tint_selector"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/card_colors_colorful"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_standard"
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_setting_option"
+                            android:button="@null"
+                            android:drawableStart="@android:drawable/btn_radio"
+                            android:drawablePadding="6dp"
+                            android:drawableTint="@drawable/ic_radio_tint_selector"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/card_colors_standard"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp" />
+                    </RadioGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- HISTORY SECTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="HISTORY"
+                android:textColor="#4DFFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#16321A"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#4081C784"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/bg_settings_icon">
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_history"
                                 app:tint="#FFFFFF" />
@@ -563,7 +566,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="History Size"
                                 android:textColor="#FFFFFF"
-                                android:textSize="18sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -572,7 +575,7 @@
                                 android:layout_marginTop="2dp"
                                 android:text="Set the maximum number of hands to keep"
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
 
                         <TextView
@@ -581,7 +584,7 @@
                             android:layout_height="wrap_content"
                             android:text="100"
                             android:textColor="#FFFFFF"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:textStyle="bold"
                             android:layout_marginStart="8dp" />
                     </LinearLayout>
@@ -602,11 +605,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="DEBUG / TEST"
                 android:textColor="#4DFFFFFF"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1" />
 
@@ -623,7 +626,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -642,7 +645,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Load Deal from test.pbn"
                                 android:textColor="#FFFFFF"
-                                android:textSize="18sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -651,7 +654,7 @@
                                 android:layout_marginTop="2dp"
                                 android:text="Bypass random deal and load from test.pbn"
                                 android:textColor="#80FFFFFF"
-                                android:textSize="13sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
 
                         <com.google.android.material.materialswitch.MaterialSwitch
