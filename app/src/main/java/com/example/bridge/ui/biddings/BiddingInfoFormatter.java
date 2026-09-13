@@ -192,13 +192,13 @@ public class BiddingInfoFormatter {
         }
 
         Set<Integer> aces = summary.getCountAces();
-        if (aces != null && !aces.isEmpty()) {
-            String acesVal = aces.toString().replace("[", "").replace("]", "");
+        if (aces != null && aces.size() == 1) {
+            String acesVal = aces.iterator().next().toString();
             parts.add(context.getString(R.string.public_knowledge_aces, acesVal));
         }
         Set<Integer> kings = summary.getCountKings();
-        if (kings != null && !kings.isEmpty()) {
-            String kingsVal = kings.toString().replace("[", "").replace("]", "");
+        if (kings != null && kings.size() == 1) {
+            String kingsVal = kings.iterator().next().toString();
             parts.add(context.getString(R.string.public_knowledge_kings, kingsVal));
         }
 
