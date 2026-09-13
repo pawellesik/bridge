@@ -246,17 +246,32 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Configure visibility of helpers during the game."
+                                android:text="Configure singleplayer mode and bots."
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="16dp"
+                        android:background="#1AFFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HELPERS"
+                        android:textColor="#4DFFFFFF"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1" />
+
                     <!-- Toggles -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -388,6 +403,64 @@
                             android:id="@+id/switch_bidding_hints"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="16dp"
+                        android:background="#1AFFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BOTS"
+                        android:textColor="#4DFFFFFF"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Opponents Bidding"
+                                android:textColor="#80FFFFFF"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Allow bots to participate in bidding"
+                                android:textColor="#4DFFFFFF"
+                                android:textSize="11sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="This functionality is not yet available."
+                                android:textColor="#80FFFFFF"
+                                android:textSize="10sp"
+                                android:textStyle="italic" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            app:thumbTint="#4DFFFFFF"
+                            app:trackTint="#1AFFFFFF"
+                            android:id="@+id/switch_opponents_bidding"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:enabled="false" />
                     </LinearLayout>
 
                 </LinearLayout>
