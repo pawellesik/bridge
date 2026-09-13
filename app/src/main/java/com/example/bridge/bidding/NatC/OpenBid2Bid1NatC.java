@@ -828,7 +828,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         } else {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
-                    propertiesAgreeTrump(new Call[]{Bid._4D}, RespondBid2Bid1NatC::secondBidInviteMinor, true),
+                    properties(new Call[]{Bid._4D}, RespondBid2Bid1NatC::secondBidInviteMinor),
                     properties(new Call[]{Bid._3D}, RespondBid2Bid1NatC::secondBidToGameMinorHeart, false),
 
                     shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
