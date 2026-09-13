@@ -81,8 +81,11 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3C, pairHighCardPoints(PAIR_LOW_GAME), fit(Suit.Clubs), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
                 shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), fit(Suit.Diamonds), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D")),
 
-                shows(Bid._4D, shape(5, 10), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame  _4D")),
-                shows(Bid._4C, shape(5, 10), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame  _4C")),
+                shows(Bid._4D, shape(5, 10), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame  exit 1 _4D")),
+                shows(Bid._4C, shape(5, 10), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame  exit 1 _4C")),
+
+                shows(Bid._4C, shape(6, 10), IS_REBID, noFit(7), NOT_BALANCED, NOT_PAIR_BALANCED, partner(isLastBid(Bid._3H,Bid._3S)), id("RecursionNatC.recursionFindFitGame exit 2 _4C")),
+                shows(Bid._4D, shape(6, 10), IS_REBID, noFit(7), NOT_BALANCED, NOT_PAIR_BALANCED, partner(isLastBid(Bid._3H,Bid._3S)), id("RecursionNatC.recursionFindFitGame exit 2 _4D")),
 
                 CompeteNatC.bids(ps)
         );

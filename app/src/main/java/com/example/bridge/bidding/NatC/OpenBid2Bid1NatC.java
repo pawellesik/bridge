@@ -198,16 +198,16 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMinorClubStrong),
                     partnerBids(RecursionNatC::recursionFindFitGame),
 
-                    shows(Bid._4H, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
-                    shows(Bid._4S, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
+                    shows(Bid._4H, OpeningStrongBidding, DECENT_PLUS_SUIT, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
+                    shows(Bid._4S, OpeningStrongBidding, DECENT_PLUS_SUIT, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
                     shows(Bid._3NT, OpeningStrongBidding, noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
             );
         } else {
             choices.addRules(
                     properties(new Call[]{Bid._4H, Bid._4S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMinorClubStrong),
                     partnerBids(RecursionNatC::recursionFindFitGame),
-                    shows(Bid._4H, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
-                    shows(Bid._4S, OpeningStrongBidding, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
+                    shows(Bid._4H, OpeningStrongBidding, DECENT_PLUS_SUIT, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4H")),
+                    shows(Bid._4S, OpeningStrongBidding, DECENT_PLUS_SUIT, shape(6, 10), noFit(), IS_ANY_JUMP, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _4S")),
                     shows(Bid._3NT, OpeningStrongBidding, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMinorClubStrong _3NT"))
             );
         }

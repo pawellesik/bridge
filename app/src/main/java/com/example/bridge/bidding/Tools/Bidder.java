@@ -574,10 +574,10 @@ public abstract class Bidder {
 
     public static final HandConstraint FIT_8_PLUS = fit(8);
 
-    public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true, false);
-    public static final HandConstraint NOT_PAIR_BALANCED = new Balanced.ShowsBalanced(false, false);
-    public static final HandConstraint PAIR_BALANCED = new Balanced.ShowsBalanced(false, true);
-    public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false);
+    public static final HandConstraint BALANCED = new Balanced.ShowsBalanced(true, false, false, false);
+    public static final HandConstraint NOT_PAIR_BALANCED = new Balanced.ShowsBalanced(false, false, false, true);
+    public static final HandConstraint PAIR_BALANCED = new Balanced.ShowsBalanced(false, true, false, false);
+    public static final HandConstraint NOT_BALANCED = new Balanced.ShowsBalanced(false, false, true, false);
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);
     public static final HandConstraint NOT_FLAT = new Flat.ShowsFlat(false);
     public static final HandConstraint LONGEST_SUIT = new LongestSuit.ShowsLongestSuit(null);

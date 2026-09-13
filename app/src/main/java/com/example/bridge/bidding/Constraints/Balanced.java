@@ -10,580 +10,211 @@ import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 
 /**
- * Klasa określająca czy ręka jest zrównoważona (bez singli i renonsów).
- * Ręka zrównoważona może posiadać co najwyżej jeden dubleton.
+ * Klasa określająca charakter układu ręki:
+ * BALANCED, PAIR_BALANCED, NOT_BALANCED lub PAIR_NOT_BALANCED.
  */
 public class Balanced {
-    /**
-     * Pokazuje i opisuje zrównoważony charakter ręki.
-     */
-    public static class ShowsBalanced extends HandConstraint implements IShowsHand, IDescribeConstraint {
+
+    public static class ShowsBalanced extends HandConstraint
+            implements IShowsHand, IDescribeConstraint {
+
         private final boolean checkBalanced;
         private final boolean checkPairBalanced;
+        private final boolean checkNotBalanced;
+        private final boolean checkPairNotBalanced;
 
-        public ShowsBalanced(boolean checkBalanced, boolean checkPairBalanced) {
+        public ShowsBalanced(
+                boolean checkBalanced,
+                boolean checkPairBalanced,
+                boolean checkNotBalanced,
+                boolean checkPairNotBalanced) {
+
             this.checkBalanced = checkBalanced;
             this.checkPairBalanced = checkPairBalanced;
-        }
-
-        public ShowsBalanced(boolean checkBalanced) {
-            this(checkBalanced, false);
+            this.checkNotBalanced = checkNotBalanced;
+            this.checkPairNotBalanced = checkPairNotBalanced;
         }
 
         @Override
         public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+
             if (checkBalanced) {
-                // Standardowy BALANCED (np. otwarcie 1NT): brak singli, max 1 dubleton, max 5 kart
+                // Standardowy BALANCED:
+                // brak singli i renonsów, maksymalnie jeden dubleton,
+                // maksymalnie 5 kart w kolorze.
+
                 for (Suit suit : Suit.values()) {
                     Range shape = hs.getSuits().get(suit).getShape();
+
                     if (shape.getMax() < 2) return false;
                     if (shape.getMin() > 5) return false;
                 }
+
                 if (ps.hasHand() && hs == ps.getPrivateHandSummary()) {
                     int doubles = 0;
-                    for (Suit suit : Suit.values()) if (hs.getSuits().get(suit).getShape().getMin() == 2) doubles++;
+
+                    for (Suit suit : Suit.values()) {
+                        if (hs.getSuits().get(suit).getShape().getMin() == 2) {
+                            doubles++;
+                        }
+                    }
+
                     if (doubles > 1) return false;
                 }
+
                 return true;
             }
 
             if (checkPairBalanced) {
-                // PAIR_BALANCED: dopuszcza renons w kolorze partnera, sprawdza jakość w pozostałych
-                for (Suit suit : Suit.values()) {
-                    Range shape = hs.getSuits().get(suit).getShape();
-                    Range hcp = hs.getSuits().get(suit).getHighCardPoints();
-                    boolean isPartnerSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
-
-                    if (!isPartnerSuit) {
-                        // W kolorach nie licytowanych przez partnera wymagamy min 1 karty
-                        if (shape.getMax() < 1) return false; 
-                        
-                        // Jakość krótkich kolorów
-                        if (shape.getMin() == 1 && shape.getMax() == 1 && hcp.getMax() < 4) return false;
-                        if (shape.getMin() == 2 && shape.getMax() == 2 && hcp.getMax() < 3) return false;
-                        if (shape.getMin() == 3 && shape.getMax() == 3 && hcp.getMax() < 1) return false;
-                    }
-
-                    //maksymalnie 1 singiel
-                    if (ps.hasHand() && hs == ps.getPrivateHandSummary()) {
-                        int single = 0;
-                        for (Suit s : Suit.values()) if (hs.getSuits().get(s).getShape().getMin() == 1) single++;
-                        if (single > 1) return false;
-                    }
-                    // W tym trybie nie ograniczamy długości koloru do 5, aby pozwolić na licytację 3NT z długim kolorem
-                }
-                return true;
+                return isPairBalanced(ps, hs);
             }
 
-            // Przypadek NOT_BALANCED
-            if (hs.getIsBalanced() != null && hs.getIsBalanced()) return false;
+            if (checkPairNotBalanced) {
+                return !isPairBalanced(ps, hs);
+            }
+
+            if (checkNotBalanced) {
+                return hs.getIsBalanced() == null || !hs.getIsBalanced();
+            }
+
+            return false;
+        }
+
+        /**
+         * Sprawdza PAIR_BALANCED.
+         *
+         * Dopuszcza renons w kolorze partnera,
+         * ale w pozostałych kolorach wymaga minimum jednej karty
+         * oraz odpowiedniej jakości krótkiego koloru.
+         */
+        private boolean isPairBalanced(PositionState ps, HandSummary hs) {
+
+            for (Suit suit : Suit.values()) {
+
+                Range shape = hs.getSuits().get(suit).getShape();
+                Range hcp = hs.getSuits().get(suit).getHighCardPoints();
+
+                boolean isPartnerSuit =
+                        ps.getPairState().firstToShow(suit) == ps.getPartner();
+
+                if (!isPartnerSuit) {
+
+                    // W kolorach nie licytowanych przez partnera
+                    // wymagamy minimum jednej karty.
+                    if (shape.getMax() < 1) {
+                        return false;
+                    }
+
+                    // Jakość krótkich kolorów.
+                    if (shape.getMin() == 1
+                            && shape.getMax() == 1
+                            && hcp.getMax() < 4) {
+                        return false;
+                    }
+
+                    if (shape.getMin() == 2
+                            && shape.getMax() == 2
+                            && hcp.getMax() < 3) {
+                        return false;
+                    }
+
+                    if (shape.getMin() == 3
+                            && shape.getMax() == 3
+                            && hcp.getMax() < 1) {
+                        return false;
+                    }
+                }
+            }
+
+            // Maksymalnie jeden singiel.
+            if (ps.hasHand() && hs == ps.getPrivateHandSummary()) {
+
+                int single = 0;
+
+                for (Suit suit : Suit.values()) {
+                    if (hs.getSuits().get(suit).getShape().getMin() == 1) {
+                        single++;
+                    }
+                }
+
+                if (single > 1) {
+                    return false;
+                }
+            }
+
+            // Nie ograniczamy długości koloru do 5.
+            // Pozwala to np. na licytację 3NT z długim kolorem.
             return true;
         }
 
         @Override
-        public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand) {
-            if (checkBalanced) {
-                showHand.showIsBalanced(true);
-                for (Suit suit : Suit.values()) {
-                    showHand.getSuits().get(suit).showShape(2, 13);
-                }
-            } else if (checkPairBalanced) {
-                for (Suit suit : Suit.values()) {
-                    // Nie nadpisujemy wiedzy o własnych kolorach (np. otwarcie 1H)
-                    if (ps.getPairState().firstToShow(suit) == ps) continue;
+        public void showHand(
+                Call call,
+                PositionState ps,
+                HandSummary.ShowState showHand) {
 
-                    boolean isPartnerSuit = ps.getPairState().firstToShow(suit) == ps.getPartner();
-                    // Obiecujemy 0-13 w kolorze partnera (brak wymuszonego fita)
-                    // Obiecujemy 1-13 w pozostałych (brak renonsów)
-                    int min = isPartnerSuit ? 0 : 1;
-                    showHand.getSuits().get(suit).showShape(min, 13);
+            if (checkBalanced) {
+
+                showHand.showIsBalanced(true);
+
+                for (Suit suit : Suit.values()) {
+                    showHand.getSuits()
+                            .get(suit)
+                            .showShape(2, 13);
                 }
-            } else {
+
+            } else if (checkPairBalanced) {
+
+                for (Suit suit : Suit.values()) {
+
+                    // Nie nadpisujemy wiedzy o własnych kolorach
+                    // (np. otwarcie 1H).
+                    if (ps.getPairState().firstToShow(suit) == ps) {
+                        continue;
+                    }
+
+                    boolean isPartnerSuit =
+                            ps.getPairState().firstToShow(suit) == ps.getPartner();
+
+                    // 0-13 w kolorze partnera,
+                    // 1-13 w pozostałych kolorach.
+                    int min = isPartnerSuit ? 0 : 1;
+
+                    showHand.getSuits()
+                            .get(suit)
+                            .showShape(min, 13);
+                }
+
+            } else if (checkNotBalanced) {
+
+                showHand.showIsBalanced(false);
+
+            } else if (checkPairNotBalanced) {
+
                 showHand.showIsBalanced(false);
             }
         }
 
         @Override
         public String describe(Call call, PositionState ps) {
-            if (this.checkPairBalanced) return "pair_balanced";
-            if (this.checkBalanced) return "balanced";
-            return "not balanced";
+
+            if (checkBalanced) {
+                return "balanced";
+            }
+
+            if (checkPairBalanced) {
+                return "pair_balanced";
+            }
+
+            if (checkPairNotBalanced) {
+                return "pair_not_balanced";
+            }
+
+            if (checkNotBalanced) {
+                return "not_balanced";
+            }
+
+            return "";
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
