@@ -739,7 +739,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         } else {
             choices.addRules(
                     partnerBids(RecursionNatC::recursionFindFitGame),
-                    propertiesAgreeTrump(new Call[]{Bid._4C, Bid._4D}, RespondBid2Bid1NatC::secondBidInviteMinor, true),
                     propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2Bid1NatC::secondBidInviteMajorHeart, true),
                     properties(new Call[]{Bid._3H}, RespondBid2Bid1NatC::secondBidToGameHeart, false),
                     properties(new Call[]{Bid._3C, Bid._3D}, RespondBid2Bid1NatC::secondBidToGameMinorHeart, false),
