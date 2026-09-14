@@ -528,8 +528,20 @@ public abstract class Bidder {
         return new PairMaxShape.PairShowsMaxShape(minToFit - 1);
     }
 
+    public static HandConstraint noFit(int minToFit, boolean majorOnly, boolean minorOnly) {
+        return new PairMaxShape.PairShowsMaxShape(minToFit - 1, majorOnly, minorOnly);
+    }
+
     public static HandConstraint noFit() {
         return noFit(8);
+    }
+
+    public static HandConstraint noFitMajor() {
+        return noFit(8, true, false);
+    }
+
+    public static HandConstraint noFitMinor() {
+        return noFit(8, false, true);
     }
 
     public static StaticConstraint isPartnersSuit() {

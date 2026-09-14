@@ -22,26 +22,43 @@ public class PairMaxShape {
         protected final Suit suit;
         protected final int max;
         protected final boolean usePartnerSuit;
+        protected final boolean majorOnly;
+        protected final boolean minorOnly;
 
         public PairHasMaxShape(Suit suit, int max) {
             this.suit = suit;
             this.max = max;
             this.usePartnerSuit = false;
+            this.majorOnly = false;
+            this.minorOnly = false;
         }
 
         public PairHasMaxShape(int max) {
+            this(max, false, false);
+        }
+
+        public PairHasMaxShape(int max, boolean majorOnly, boolean minorOnly) {
             this.suit = null;
             this.max = max;
             this.usePartnerSuit = true;
+            this.majorOnly = majorOnly;
+            this.minorOnly = minorOnly;
         }
 
         protected Suit getTargetSuit(Call call, PositionState ps) {
+            Suit s = null;
             if (usePartnerSuit) {
                 Bid lastPartnerBid = ps.getPartner().getBid();
-                if (lastPartnerBid != null) return lastPartnerBid.getSuit();
-                return null;
+                if (lastPartnerBid != null) s = lastPartnerBid.getSuit();
+            } else {
+                s = getSuit(this.suit, call);
             }
-            return getSuit(this.suit, call);
+
+            if (s != null) {
+                if (majorOnly && !s.isMajor()) return null;
+                if (minorOnly && !s.isMinor()) return null;
+            }
+            return s;
         }
 
         @Override
@@ -54,7 +71,8 @@ public class PairMaxShape {
                     return (ss.getShape().getMin() + partnerShape.getMin()) <= max;
                 }
             }
-            return false;
+            // Jeśli filtr odrzucił kolor, uznajemy że warunek "brak fita" jest spełniony (bo nie ma mowy o ficie w tym konkretnym typie koloru)
+            return true;
         }
     }
 
@@ -73,6 +91,10 @@ public class PairMaxShape {
 
         public PairShowsMaxShape(int max) {
             super(max);
+        }
+
+        public PairShowsMaxShape(int max, boolean majorOnly, boolean minorOnly) {
+            super(max, majorOnly, minorOnly);
         }
 
         @Override
