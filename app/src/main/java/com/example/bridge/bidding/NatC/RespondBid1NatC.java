@@ -100,7 +100,7 @@ public class RespondBid1NatC extends NatC {
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionNatC::recursionFindFitGame, true)
         );
-        //choices.addRules(CompeteNatC.compBids(ps));
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
