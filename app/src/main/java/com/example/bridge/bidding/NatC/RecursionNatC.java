@@ -20,7 +20,7 @@ public class RecursionNatC extends NatC {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
 
-        List<CallFeature> conventions = new ArrayList<>();
+        //List<CallFeature> conventions = new ArrayList<>();
         //CompeteNatC.addAcesAskConventions(ps, conventions);
         //choices.addRules(conventions);
         choices.addRules(
@@ -45,10 +45,10 @@ public class RecursionNatC extends NatC {
                 shows(Bid._2S, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _2S")),
 
                 shows(Bid._2C, shape(5, 10), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _2C")),
-                shows(Bid._2D, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _2D")),
+                shows(Bid._2D, shape(5, 10), noFit(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _2D")),
 
-                shows(Bid._2H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2H")),
-                shows(Bid._2S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2S")),
+                shows(Bid._2H, shape(4, 10), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2H")),
+                shows(Bid._2S, shape(4, 10), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2S")),
 
                 shows(Bid._3C, shape(6, 10), noFit(7), not(suitBidCount(2)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
                 shows(Bid._3D, shape(6, 10), noFit(7), not(suitBidCount(2)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
@@ -70,16 +70,16 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3H, shape(6, 10), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
                 shows(Bid._3S, shape(6, 10), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
 
-                shows(Bid._3H, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3H")),
-                shows(Bid._3S, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3S")),
-                shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3C")),
-                shows(Bid._3D, shape(5, 10), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3D")),
-                shows(Bid._3H, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3H, shape(5, 10), noFit(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3H")),
+                shows(Bid._3S, shape(5, 10), noFit(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3S")),
+                shows(Bid._3C, shape(5, 10), noFit(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3C")),
+                shows(Bid._3D, shape(5, 10), noFit(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3D")),
 
-                shows(Bid._3S, shape(4, 10), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
+                shows(Bid._3H, shape(4, 10), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3S, shape(4, 10), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
-                shows(Bid._3C, pairHighCardPoints(PAIR_LOW_GAME), fit(Suit.Clubs), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
-                shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), fit(Suit.Diamonds), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D")),
+                shows(Bid._3C, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
+                shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D")),
 
                 shows(Bid._4D, shape(5, 10), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame  exit 1 _4D")),
                 shows(Bid._4C, shape(5, 10), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionNatC.recursionFindFitGame  exit 1 _4C")),
