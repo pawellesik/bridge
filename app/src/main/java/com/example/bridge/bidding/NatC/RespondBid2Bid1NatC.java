@@ -136,9 +136,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3NT"))
 
-                //shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(7), DECENT_PLUS_SUIT, partner(isLastBid(Bid._3S)),  setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
-              //  shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(7), DECENT_PLUS_SUIT, partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidMinorClubStrong _4H"))
-        );
+          );
         choices.addRules(CompeteNatC::compBids);
         return choices;
     }
