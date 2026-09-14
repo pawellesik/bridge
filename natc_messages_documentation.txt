@@ -1,0 +1,51 @@
+DOKUMENTACJA KOMUNIKATÓW SYSTEMU LICYTACYJNEGO NATC
+
+Poniżej znajduje się lista wszystkich typów komunikatów, jakie użytkownik może zobaczyć w aplikacji, z podziałem na grupy funkcjonalne.
+
+1. BIDDING HINTS (Przyciski Odzywek)
+------------------------------------
+Są to etykiety na przyciskach w panelu licytacji.
+- [1-7][C,D,H,S,NT]: Standardowe odzywki (np. 1C = 1 Trefl, 3NT = 3 Bez Atutu).
+- Pass: Pas.
+- Dbl: Kontra (wyświetlane, gdy przeciwnik licytuje).
+- Rdbl: Rekontra (wyświetlane po kontrze przeciwnika).
+- ! (Alert): Czerwony wykrzyknik przy odzywce konwencyjnej (np. 1C w NatC jest Alertowane jako Silny Trefl).
+
+2. BIDDING RULES (Zasady w panelu wyboru)
+-----------------------------------------
+Teksty wyświetlane obok odzywek w panelu licytacji, wyjaśniające wymagania dla danej ręki.
+- "X-Y HCP": Punkty honorowe (np. 12-14 HCP).
+- "[Symbol]: X-Y": Długość w konkretnym kolorze (np. ♠: 5-6).
+- "[Symbol]: X+": Minimalna długość w kolorze (np. ♥: 4+).
+- "balanced": Skład zrównoważony.
+- "not balanced": Skład nieznacznie niezrównoważony.
+- "flat": Skład płaski (np. 4-3-3-3).
+- "fit": Posiadanie co najmniej 8 kart w kolorze wspólnie z partnerem.
+- "no fit": Brak uzgodnionego koloru z partnerem.
+- "new suit": Licytacja koloru, który nie był wcześniej pokazany.
+- "jump": Odzywka z przeskokiem (pokazuje dodatkową siłę lub specyficzny skład).
+- "rebid": Powtórzenie własnego koloru.
+- "reverse": Odzywka typu "wilkosz" (pokazuje silną rękę dwukolorową).
+- "forced to bid": Odzywka wymuszona przez system/partnera.
+- "forcing to game": Odzywka forsująca do końcówki.
+- "agreed trump": Kolor został ustalony jako atutowy dla tej pary.
+
+3. EXPLANATIONS (Wyjaśnienia w historii licytacji)
+--------------------------------------------------
+Dłuższe opisy tekstowe widoczne po kliknięciu na odzywkę w historii.
+- "Ask for Aces" / "Pytanie o asy": Informacja, że odzywka (zwykle 4C lub 4NT) pyta o liczbę asów.
+- "Ask for Kings" / "Pytanie o króle": Informacja o pytaniu o króle.
+- "respondCountAces [X]": Informacja o pokazaniu X asów w odpowiedzi na pytanie.
+- "Opening Strong Bidding": Informacja o otwarciu silnym (18+ HCP).
+- "Opening Weak Bidding": Informacja o otwarciu blokującym/słabym.
+
+4. WIEDZA PUBLICZNA (Public Knowledge - Panel Gracza)
+-----------------------------------------------------
+Dynamiczne podsumowanie tego, co para wie o sobie nawzajem na podstawie licytacji.
+- "HCP: X-Y": Aktualny zakres punktowy gracza (np. "HCP: 11-17").
+- "[Symbol]: X-Y" lub "[Symbol]: X+": Pokazana długość w kolorach (np. "♠: 5+, ♥: 4").
+- "Aces: X": Dokładna liczba asów (pokazywana po Blackwoodzie).
+- "Kings: X": Dokładna liczba króli.
+
+UWAGA: Wartości X-Y są dynamiczne i zależą od konkretnych definicji w plikach NatC (np. PAIR_GAME = 25-31).
+Kolejność kolorów w opisach jest zawsze stała: ♠, ♥, ♦, ♣.

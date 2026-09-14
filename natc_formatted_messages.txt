@@ -1,0 +1,45 @@
+KOMPLEKSOWA LISTA SFORMATOWANYCH KOMUNIKATÓW SYSTEMU NATC (WERSJA JĘZYKOWA)
+
+System stosuje mieszankę symboli, języka polskiego (dla kluczowych konwencji) oraz angielskiego (dla terminów technicznych).
+
+1. BIDDING HINTS (Przyciski - Symbole)
+---------------------------------------
+- 1♣, 1♦, 1♥, 1♠, 1NT ... 7NT
+- Pass, X (Kontra), XX (Rekontra)
+- ! (Alert)
+
+2. BIDDING RULES (Warunki - Symbole i Angielski)
+------------------------------------------------
+W tej sekcji dominują symbole i skróty techniczne:
+- "12-17 HCP" (HCP jest terminem międzynarodowym)
+- "pair HCP: 25-31" (Punkty honorowe pary)
+- "♠: 5-10" (Zakres długości w kolorze)
+- "8+ ♥ (fit)" (Znaleziono fit)
+- "balanced" / "not balanced" (Układ zrównoważony / niezrównoważony)
+- "pair_balanced" / "pair_not_balanced"
+- "flat" / "not flat" (Układ płaski)
+- "new suit" (Nowy kolor)
+- "rebid" (Powtórzenie)
+- "forcing to game" (Forsuje do dogrania)
+- "others at least X" (W pozostałych min. X)
+
+3. EXPLANATIONS (Historia - Tłumaczone na Polski)
+-------------------------------------------------
+Kluczowe opisy konwencyjne są tłumaczone automatycznie:
+- "Pytanie o asy" (zamiast "Ask for Aces")
+- "Pytanie o króle" (zamiast "Ask for Kings")
+- "Asy: X" (np. Asy: 2)
+- "Króle: X" (np. Króle: 1)
+- "respondCountAces [X]" (Odpowiedź na asy)
+
+Pozostałe opisy (rzadsze) pozostają po angielsku:
+- "Opening Strong Bidding"
+- "to game"
+- "compBids _PASS"
+
+4. WIEDZA PUBLICZNA (Nad kartami - Symbole)
+-------------------------------------------
+- "HCP: 12-17"
+- "♠: 5+, ♥: 4"
+- "Asy: X" (Tłumaczone)
+- "Króle: X" (Tłumaczone)
