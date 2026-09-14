@@ -376,8 +376,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(
                 shows(Bid._3H, OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStrong 3H")),
                 shows(Bid._3S, OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStrong 3S")),
-                shows(Bid._3H, OpeningStrongBidding, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStrong 3H")),
-                shows(Bid._3S, OpeningStrongBidding, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStrong 3S")),
+                //shows(Bid._3H, OpeningStrongBidding, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStrong 3H")),
+                //shows(Bid._3S, OpeningStrongBidding, shape(4, 10), GOOD_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStrong 3S")),
                 shows(Bid._3C, OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStrong 3S")),
                 shows(Bid._3D, OpeningStrongBidding, shape(5, 10), id("OpenBid2NatC.responderd1NTClubStrong 3D")),
                 properties(new Call[]{Bid._3H, Bid._3S, Bid._3C, Bid._3D}, RecursionNatC::recursionFindFitGame, true),

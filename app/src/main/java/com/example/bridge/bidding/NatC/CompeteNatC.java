@@ -2,6 +2,7 @@ package com.example.bridge.bidding.NatC;
 
 import static com.example.bridge.bidding.NatC.OpenBid1NatC.OpeningStrongBidding;
 
+import com.example.bridge.bidding.Constraints.Balanced;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
@@ -88,8 +89,9 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3H, shape(4, 10), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Hearts, 4), id("CompeteNatC.compBids _3H")));
         bids.add(shows(Bid._3S, shape(4, 10), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Spades, 4), id("CompeteNatC.compBids _3S")));
 
-        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
-        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3), id("RecursionNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
+        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, IS_NON_JUMP, id("CompeteNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
+        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
+        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
 
         bids.add(shows(Call.PASS, ruleDescription("compBids _PASS"), id("CompeteNatC.compBids _PASS")));
 
