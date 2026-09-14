@@ -866,7 +866,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             pbnCollection.calculateAllImps();
 
             double gameImp = pbnCollection.getPbn().getImp();
-            boolean isWin = gameImp > 0;
+            boolean isWin = ("North".equals(decl) || "South".equals(decl)) && pbnCollection.getPbn().getScore() > 0;
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
                 overlayStatistic.getStatsManager().recordGame(gameMode, 0, -1, gameImp, isWin);
             }
