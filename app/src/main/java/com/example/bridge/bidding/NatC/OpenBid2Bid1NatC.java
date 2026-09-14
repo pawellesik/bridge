@@ -323,6 +323,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._3C, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
                     shows(Bid._3H, shape(4, 10), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H")),
+
                     properties(new Call[]{Bid._2S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubStandard),
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorFitClubStandard),
                     properties(new Call[]{Bid._3C}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubClubStandard),
@@ -340,7 +341,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._3NT, PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
 
                     shows(Bid._3C, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
-                    shows(Bid._3H, shape(4, 10), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H")),
+                    shows(Bid._3H, shape(4, 10), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H")),
+
+                    shows(Bid._2NT, pairHighCardPoints(PAIR_GAME), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 2NT")),
+
                     properties(new Call[]{Bid._2S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubStandard),
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorFitClubStandard),
                     properties(new Call[]{Bid._3C}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubClubStandard),
