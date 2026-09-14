@@ -32,7 +32,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3C, shape(5, 10), ruleShow(1), id("RespondBid2NatC.secondBidNegat2NTStrong _3C")),
                 partnerBids(OpenBid3Bid1NatC::thirdBidNegat2NTStrong)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -54,10 +54,8 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3C, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3C")),
                 shows(Bid._3D, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3D")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
-
-
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -82,7 +80,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStandard _2NT")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -96,7 +94,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
 
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -111,7 +109,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._2H, noFit(), shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2H")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -136,9 +134,8 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
 
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._3S}, OpenBid3Bid1NatC::thirdBidToGameMinorClubStrong)
-
           );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -154,7 +151,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._4D, shape(6, 10), noFit(), partner(isLastBid(Bid._4C)), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubForcingStrong _4D")),
                 partnerBids(OpenBid3Bid1NatC::thirdBidMinorClubForcingStrong)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -169,7 +166,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3D, shape(6, 10), noFit(), IS_REBID, id("RespondBid2NatC.secondBidMinorClubStandard _3D")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -188,7 +185,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._5NT, PAIR_BALANCED, id("RespondBid2NatC.secondBidRaiseTrumpMinorClubStrong _5NT")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -219,7 +216,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Call.PASS, OpeningLowBidding, fit(7), partner(isLastBid(Bid._3H)), id("RespondBid2NatC.secondBidRaiseTrumpMinorClubMajorStandard _pass")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -230,7 +227,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
 
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -247,7 +244,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3NT, othersAtLeast(2), id("RespondBid2NatC.secondBidRaiseTrumpMajorClubClubStrong 3NT")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -266,7 +263,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3D, shape(5, 10), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), id("RespondBid2NatC.responderdRaiseTrumpMajorClubStandard 3C")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -279,7 +276,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
 
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -296,7 +293,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3S, shape(6, 10), noFit(), IS_REBID, id("RespondBid2NatC.secondBidNoAgreeTrumpDiamods _3S")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -316,7 +313,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3Bid1NatC::thirdBidToGameDiamond)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -336,7 +333,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame)
 
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -358,7 +355,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame)
 
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -382,7 +379,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame)
 
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -401,7 +398,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3C, shape(5, 10), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidRebidDiamods _3C")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -417,7 +414,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3Bid1NatC::thirdBidToGame1NTDiamond)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -438,7 +435,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 properties(new Call[]{Bid._3H, Bid._3S}, OpenBid3Bid1NatC::thirdBidToGame2NTDiamond)
 
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -449,7 +446,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 //shows(Bid._4S, FIT_8_PLUS, pairHighCardPoints(PAIR_GAME_INVITE), id("RespondBid2NatC.openerInvitedGame _4S")),
                 //shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME))
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -467,7 +464,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3C")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -485,7 +482,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTSpade _3C")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -494,7 +491,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         List<CallFeature> conventions = new ArrayList<>();
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -507,7 +504,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
 
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -525,7 +522,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._3S}, OpenBid3Bid1NatC::thirdBidToGameHeart, false)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -542,7 +539,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3S, shape(6, 10), noFit(), IS_REBID, id("RespondBid2NatC.secondBidToGameMinorHeart _3S")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
-        choices.addRules(CompeteNatC::compBids);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 }
