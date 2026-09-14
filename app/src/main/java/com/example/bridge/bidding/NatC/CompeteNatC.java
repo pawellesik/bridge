@@ -22,8 +22,6 @@ public class CompeteNatC extends NatC {
     public static Iterable<CallFeature> bids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
 
-        bids.add(partnerBids(RecursionNatC::recursionFindFitGame));
-
         bids.add(shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteNatC.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")));
         bids.add(shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteNatC.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")));
 
@@ -98,15 +96,17 @@ public class CompeteNatC extends NatC {
 
         bids.add(shows(Call.PASS, ruleDescription("compBids _PASS"), id("CompeteNatC.compBids _PASS")));
 
+        bids.add(partnerBids(RecursionNatC::recursionFindFitGame));
+
         return bids;
     }
 
     public static Iterable<CallFeature> compBids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
 
-        bids.add(partnerBids(RecursionNatC::recursionFindFitGame));
         addAcesAskConventions(ps, bids);
         addCompBids(ps, bids);
+        bids.add(partnerBids(RecursionNatC::recursionFindFitGame));
 
         return bids;
     }

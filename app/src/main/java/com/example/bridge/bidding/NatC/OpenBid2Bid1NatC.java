@@ -826,10 +826,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             );
         } else {
             choices.addRules(
-                    partnerBids(RecursionNatC::recursionFindFitGame),
-                    properties(new Call[]{Bid._4D}, RespondBid2Bid1NatC::secondBidInviteMinor),
-                    properties(new Call[]{Bid._3D}, RespondBid2Bid1NatC::secondBidToGameMinorHeart, false),
-
                     shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._4H, OpeningInviteBidding, shape(5, 10), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
 
@@ -845,7 +841,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._4D, shape(5, 10), noFit(), partner(isLastBid(Bid._3H)), NOT_PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade NOT_PAIR_BALANCED _4D")),
 
                     shows(Bid._5C, fit(), OpeningInviteBidding, partner(isLastBid(Bid._3C)), setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5C")),
-                    shows(Bid._5D, fit(), OpeningInviteBidding, partner(isLastBid(Bid._3D)), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D"))//,
+                    shows(Bid._5D, fit(), OpeningInviteBidding, partner(isLastBid(Bid._3D)), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _5D")),
+
+                    partnerBids(RecursionNatC::recursionFindFitGame),
+                    properties(new Call[]{Bid._4D}, RespondBid2Bid1NatC::secondBidInviteMinor),
+                    properties(new Call[]{Bid._3D}, RespondBid2Bid1NatC::secondBidToGameMinorHeart, false)
 
             );
         }
