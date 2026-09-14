@@ -278,6 +278,9 @@ public class OverlayHistoryList {
                     if (i == 0) firstId = (int) id;
                 }
 
+                int historySize = com.example.bridge.core.SettingsManager.getInstance(context).getHistorySize();
+                trimNonFavoriteHistory(db, historySize);
+
                 if (listener != null) {
                     int finalFirstId = firstId;
                     activity.runOnUiThread(() -> listener.onSaved(finalFirstId));
@@ -286,6 +289,20 @@ public class OverlayHistoryList {
                 android.util.Log.e("plesik", "Błąd podczas zapisu historii: " + e.getMessage(), e);
             }
         }).start();
+    }
+
+    private void trimNonFavoriteHistory(AppDatabase db, int historySize) {
+        try {
+            List<Long> timestamps = db.gameDao().getNonFavoriteTimestampsAsc();
+            if (timestamps.size() > historySize) {
+                int toDeleteCount = timestamps.size() - historySize;
+                for (int i = 0; i < toDeleteCount; i++) {
+                    db.gameDao().deleteByTimestamp(timestamps.get(i));
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e("plesik", "Błąd podczas czyszczenia historii: " + e.getMessage(), e);
+        }
     }
 
     public int getVisibility() {

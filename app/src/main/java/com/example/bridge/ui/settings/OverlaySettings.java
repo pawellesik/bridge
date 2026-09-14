@@ -31,6 +31,7 @@ public class OverlaySettings {
         setupQuickGame();
         setupSingleplayer();
         setupTestPbnSwitch();
+        setupHistorySize();
     }
 
     private void setupCardColors() {
@@ -102,6 +103,32 @@ public class OverlaySettings {
 
         switchTestPbn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             settingsManager.setLoadFromTestPbn(isChecked);
+        });
+    }
+
+    private void setupHistorySize() {
+        android.widget.SeekBar seekHistorySize = activity.getSettingsOverlay().findViewById(R.id.seek_history_size);
+        TextView tvHistorySizeValue = activity.getSettingsOverlay().findViewById(R.id.tv_history_size_value);
+        if (seekHistorySize == null || tvHistorySizeValue == null) return;
+
+        int savedSize = settingsManager.getHistorySize();
+        seekHistorySize.setProgress(savedSize);
+        tvHistorySizeValue.setText(String.valueOf(savedSize));
+
+        seekHistorySize.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
+                tvHistorySizeValue.setText(String.valueOf(progress));
+                if (fromUser) {
+                    settingsManager.setHistorySize(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {}
         });
     }
 }

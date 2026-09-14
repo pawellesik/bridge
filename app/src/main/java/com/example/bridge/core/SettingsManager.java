@@ -95,23 +95,37 @@ public class SettingsManager {
         } catch (Exception ignored) {}
     }
 
-    // --- QUICK GAME DIFFICULTY ---
-    public String getQuickGameDifficulty() {
+    // --- HISTORY SIZE ---
+    private Integer cachedHistorySize = null;
+
+    public int getHistorySize() {
+        if (cachedHistorySize != null) {
+            return cachedHistorySize;
+        }
         try {
-            return dataStoreManager.getPreference(DataStoreManager.QUICK_GAME_DIFFICULTY, "Medium")
+            int val = dataStoreManager.getPreference(DataStoreManager.HISTORY_SIZE, 100)
                     .firstOrError()
-                    .onErrorReturnItem("Medium")
+                    .onErrorReturnItem(100)
                     .blockingGet();
+            cachedHistorySize = val;
+            return val;
         } catch (Exception e) {
-            return "Medium";
+            return 100;
         }
     }
 
-    public void setQuickGameDifficulty(String difficulty) {
-        dataStoreManager.setPreference(DataStoreManager.QUICK_GAME_DIFFICULTY, difficulty)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+    public void setHistorySize(int size) {
+        cachedHistorySize = size;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.HISTORY_SIZE, size)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
     }
+
+
+
 
     // --- BIDDING SYSTEM ---
     public String getBiddingSystem() {
