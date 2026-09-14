@@ -66,6 +66,35 @@ public class SettingsManager {
         } catch (Exception ignored) {}
     }
 
+    // --- QUICK GAME WINNING ONLY ---
+    private Boolean cachedQuickGameWinningOnly = null;
+
+    public boolean isQuickGameWinningOnly() {
+        if (cachedQuickGameWinningOnly != null) {
+            return cachedQuickGameWinningOnly;
+        }
+        try {
+            boolean val = dataStoreManager.getPreference(DataStoreManager.QUICK_GAME_WINNING_ONLY, true)
+                    .firstOrError()
+                    .onErrorReturnItem(true)
+                    .blockingGet();
+            cachedQuickGameWinningOnly = val;
+            return val;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public void setQuickGameWinningOnly(boolean winningOnly) {
+        cachedQuickGameWinningOnly = winningOnly;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.QUICK_GAME_WINNING_ONLY, winningOnly)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
+    }
+
     // --- QUICK GAME DIFFICULTY ---
     public String getQuickGameDifficulty() {
         try {

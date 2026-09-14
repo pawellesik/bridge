@@ -34,27 +34,27 @@ public class OverlaySettings {
     }
 
     private void setupCardColors() {
-        boolean isColorful = settingsManager.isCardColorsColorful();
+        com.google.android.material.materialswitch.MaterialSwitch switchCardColors = activity.getSettingsOverlay().findViewById(R.id.switch_card_colors);
+        if (switchCardColors == null) return;
 
-        RadioGroup rg = activity.getSettingsOverlay().findViewById(R.id.rg_card_colors);
-        if (rg == null) return;
+        switchCardColors.setChecked(settingsManager.isCardColorsColorful());
 
-        if (isColorful) {
-            ((RadioButton) activity.getSettingsOverlay().findViewById(R.id.rb_colorful)).setChecked(true);
-        } else {
-            ((RadioButton) activity.getSettingsOverlay().findViewById(R.id.rb_standard)).setChecked(true);
-        }
-
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
-            boolean colorful = (checkedId == R.id.rb_colorful);
-            android.util.Log.d("plesik", "Saving card_colors_colorful: " + colorful);
-            settingsManager.setCardColorsColorful(colorful);
+        switchCardColors.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            android.util.Log.d("plesik", "Saving card_colors_colorful: " + isChecked);
+            settingsManager.setCardColorsColorful(isChecked);
             activity.refreshAllColors();
         });
     }
 
     private void setupQuickGame() {
+        com.google.android.material.materialswitch.MaterialSwitch switchWinningOnly = activity.getSettingsOverlay().findViewById(R.id.switch_winning_only);
+        if (switchWinningOnly == null) return;
 
+        switchWinningOnly.setChecked(settingsManager.isQuickGameWinningOnly());
+
+        switchWinningOnly.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            settingsManager.setQuickGameWinningOnly(isChecked);
+        });
     }
 
     private void setupSingleplayer() {

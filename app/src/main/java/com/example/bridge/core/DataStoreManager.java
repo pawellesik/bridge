@@ -18,6 +18,7 @@ public class DataStoreManager {
     // Keys
     public static final Preferences.Key<String> SELECTED_LANGUAGE = PreferencesKeys.stringKey("selected_language");
     public static final Preferences.Key<Boolean> CARD_COLORS_COLORFUL = PreferencesKeys.booleanKey("card_colors_colorful");
+    public static final Preferences.Key<Boolean> QUICK_GAME_WINNING_ONLY = PreferencesKeys.booleanKey("quick_game_winning_only");
     public static final Preferences.Key<String> QUICK_GAME_DIFFICULTY = PreferencesKeys.stringKey("quick_game_difficulty");
     public static final Preferences.Key<String> BIDDING_SYSTEM = PreferencesKeys.stringKey("bidding_system");
     public static final Preferences.Key<Boolean> LOAD_FROM_TEST_PBN = PreferencesKeys.booleanKey("load_from_test_pbn");
