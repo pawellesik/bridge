@@ -58,7 +58,7 @@ public class AcesAsk extends Bidder {
         bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, aces(1, 2, 3, 4), pairHighCardPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 3")));
         bids.add(shows(Bid._4NT, CONTRACT_IS_AGREED_STRAIN, aces(1, 2, 3, 4), pairPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 8")));
 
-        bids.add(shows(Bid._4NT, IS_ANY_JUMP, aces(1, 2, 3, 4), partnerLastBidLevel(2, 3), pairHighCardPoints(SLAM_OR_BETTER_NT), highCardPoints(ASK_ACES), setTrumpColor(partnerSuit), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 2a")));
+        bids.add(shows(Bid._4NT, noFit(), aces(1, 2, 3, 4), partnerLastBidLevel(2, 3), pairHighCardPoints(SLAM_OR_BETTER_NT), highCardPoints(ASK_ACES), setTrumpColor(partnerSuit), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 2a")));
 
         bids.add(shows(Bid._4NT, aces(1, 2, 3, 4), pairHighCardPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 7")));
 

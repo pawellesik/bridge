@@ -36,15 +36,20 @@
 [Deal "N:AK92.JT4.A97.K52 Q87653.53.85.Q94 T.KQ9.AKQT4.AJ83 J4.A8762.J62.T76"]
 [Auction "N"]
 1NT Pass 3D Pass
-3NT Pass Pass Pass
+3NT Pass 4NT Pass
+5H Pass 5S Pass
+6D Pass 6NT Pass
+Pass Pass
 
 [Event "NatC bezAtu 6"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:AK92.JT4.AJ7.Q52 Q87653.53.85.Q94 T.KQ9.AKQT4.AJ83 J4.A8762.J62.T76"]
+[Deal "N:AKQ2.JT4.QJ7.Q52 Q87653.53.85.Q94 T.KQ9.AKQT4.AJ83 J4.A8762.J62.T76"]
 [Auction "N"]
 1NT Pass 3D Pass
-3NT Pass Pass Pass
+3NT Pass 4NT Pass
+5D Pass 5H Pass
+5NT Pass Pass Pass
 
 [Event "NatC Deal bezAtu 7"]
 [Dealer "N"]
