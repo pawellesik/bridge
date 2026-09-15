@@ -71,6 +71,8 @@ public class Pbn {
         this.playHistory = new ArrayList<>();
         this.contract = null;
         this.declarer = null;
+        this.score = 0;
+        this.imp = 0.0;
     }
 
     public void setEvent(String event) {

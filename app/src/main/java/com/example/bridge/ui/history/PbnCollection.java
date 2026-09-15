@@ -181,6 +181,7 @@ public class PbnCollection {
 
         } else {
             pbn.setContract(new Contract(true), null);
+            pbn.calculateAndSetScore();
         }
     }
 

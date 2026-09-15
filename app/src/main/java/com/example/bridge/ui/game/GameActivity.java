@@ -855,16 +855,19 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
 
         if (pbnCollection != null) {
-            String decl = pbnCollection.getPbn().getDeclarer();
-            if ("West".equals(decl) || "East".equals(decl)) {
-                pbnCollection.getPbn().setResult(weScore);
-            } else {
-                pbnCollection.getPbn().setResult(snScore);
+            if (pbnCollection.getPbn().getContract() != null && !pbnCollection.getPbn().getContract().isPass()) {
+                String decl = pbnCollection.getPbn().getDeclarer();
+                if ("West".equals(decl) || "East".equals(decl)) {
+                    pbnCollection.getPbn().setResult(weScore);
+                } else {
+                    pbnCollection.getPbn().setResult(snScore);
+                }
             }
             pbnCollection.getPbn().setPlayHistory(history);
             pbnCollection.getPbn().calculateAndSetScore();
             pbnCollection.calculateAllImps();
 
+            String decl = pbnCollection.getPbn().getDeclarer();
             double gameImp = pbnCollection.getPbn().getImp();
             boolean isWin = ("North".equals(decl) || "South".equals(decl)) && pbnCollection.getPbn().getScore() > 0;
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
