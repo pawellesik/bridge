@@ -96,8 +96,8 @@ public class CompeteNatC extends NatC {
 
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, IS_NON_JUMP, id("CompeteNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
-        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
-        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._2NT)), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
+        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), _3NT")));
+        bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._2NT)), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._2NT)), _3NT")));
 
         bids.add(shows(Call.PASS, ruleDescription("compBids _PASS"), id("CompeteNatC.compBids _PASS")));
 
