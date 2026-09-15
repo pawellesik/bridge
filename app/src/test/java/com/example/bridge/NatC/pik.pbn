@@ -4,15 +4,8 @@
 [Deal "N:AJT.AJ98.J5432.2 Q76.K7.9876.T987 K9854.T92.AKQJ.3 32.6543.AJ5.6542"]
 [Auction "N"]
 PASS PASS 1S PASS
-3S PASS PASS PASS
-
-[Event "NatC Deal pik 2"]
-[Dealer "N"]
-[Vulnerable "None"]
-[Deal "N:AJT.AJ98.J5432.2 Q76.K7.9876.T987 K9854.T92.AKQT.3 32.6543.AJ5.6542"]
-[Auction "N"]
-PASS PASS 1S PASS
-3S PASS PASS PASS
+3S PASS 4S PASS
+PASS PASS
 
 [Event "NatC Deal pik 3"]
 [Dealer "N"]

@@ -632,7 +632,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    shows(Bid._4H, pairPoints(PAIR_GAME), fit(9), id("OpenBid2NatC.responderRaisedMajorHeart _4H")),
+                    shows(Bid._4H, pairPoints(PAIR_MINOR_GAME), fit(), OpenBidding, id("OpenBid2NatC.responderRaisedMajorHeart _4H")),
+                    shows(Bid._4H, pairPoints(PAIR_GAME), fit(9), OpenBidding, id("OpenBid2NatC.responderRaisedMajorHeart _4H")),
 
                     shows(Call.PASS, OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorHeart OpeningLowBidding _pass")),
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorHeart PAIR_LOW_GAME _pass")),
@@ -831,7 +832,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(conventions);
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
-                    shows(Bid._4S, fit(9), pairPoints(PAIR_GAME), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S")),
+                    shows(Bid._4S, pairPoints(PAIR_MINOR_GAME), fit(), OpenBidding, id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_MINOR_GAME _4S")),
+                    shows(Bid._4S, pairPoints(PAIR_GAME), fit(9), OpenBidding, id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME 9 _4S")),
 
                     shows(Call.PASS, OpeningLowBidding, id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaisedMajorSpade _pass")),
@@ -840,7 +842,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             );
         } else {
             choices.addRules(
-                    shows(Bid._4S, pairPoints(PAIR_GAME), partner(isLastBid(Bid._2S, Bid._3S)), ruleShow(1), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S"))
+                    shows(Bid._4S, pairPoints(PAIR_GAME), ruleShow(1), id("OpenBid2NatC.responderRaisedMajorSpade pass hand PAIR_GAME _4S"))
 
             );
         }
