@@ -190,14 +190,14 @@ public class RespondBid1NatC extends NatC {
 
     public static Iterable<CallFeature> weakOpen(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-        for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) bids.add(cf);
+        //for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) bids.add(cf);
         bids.add(shows(Bid._4H, FIT_8_PLUS, setTrumpColor(Suit.Hearts), ruleOf17(), id("RespondNatC.weakOpen _4H")));
         bids.add(shows(Bid._4H, fit(10), setTrumpColor(Suit.Hearts), id("RespondNatC.weakOpen _4H")));
         bids.add(shows(Bid._4S, FIT_8_PLUS, setTrumpColor(Suit.Spades), ruleOf17(), id("RespondNatC.weakOpen _4S")));
         bids.add(shows(Bid._4S, fit(10), setTrumpColor(Suit.Spades), id("RespondNatC.weakOpen _4S")));
         bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), fit(10), setTrumpColor(Suit.Clubs), id("RespondNatC.weakOpen _5C")));
         bids.add(shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), fit(10), setTrumpColor(Suit.Diamonds), id("RespondNatC.weakOpen _5C")));
-        bids.add(shows(Call.PASS));
+        bids.add(shows(CompeteNatC.compBids(ps)));
         return bids;
     }
 }

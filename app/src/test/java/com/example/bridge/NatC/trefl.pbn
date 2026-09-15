@@ -1008,3 +1008,11 @@ pass PAss 1C pass
 5C pass 5D pass
 5S pass 6H pass
 pass pass
+
+[Event "NatC Trfel 110"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AT32.AQ98.AKJ95. 54.J65432.Q42.K9 KQ87..T.QJT76532 J96.KT7.8763.A84"]
+[Auction "N"]
+1C PAss 2C pass
+3NT pass pass pass
