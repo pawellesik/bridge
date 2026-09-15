@@ -65,6 +65,9 @@ public class RespondBid1NatC extends NatC {
 
     public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(
                 shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3S")),
                 shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3H")),
@@ -152,7 +155,6 @@ public class RespondBid1NatC extends NatC {
         List<CallFeature> conventions = new ArrayList<>();
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
-
         choices.addRules(
                 shows(Bid._4S, highCardPoints(MINIMUM_HAND), fit(9), secondSuit(Suit.Spades, 5), setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _2S")),
 
