@@ -37,6 +37,11 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3C, pairHighCardPoints(PAIR_LOW_GAME), FIT_8_PLUS, noFit(), not(currentContract(Bid._2C)), setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids FIT_8_PLUS _3C")));
         bids.add(shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), FIT_8_PLUS, noFit(), not(currentContract(Bid._2D)), setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids FIT_8_PLUS _3D")));
 
+        bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids fit(9), _5C")));
+        bids.add(shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids fit(9) _5D")));
+        bids.add(shows(Bid._5C, pairPoints(PAIR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids pairPoints, _5C")));
+        bids.add(shows(Bid._5D, pairPoints(PAIR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids pairPoints _5D")));
+
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("CompeteNatC.compBids PAIR_BALANCED PAIR_GAME _3NT")));
 
         bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteNatC.compBids PAIR_MINOR_GAME, _5C")));

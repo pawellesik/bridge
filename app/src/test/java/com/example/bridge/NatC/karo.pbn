@@ -295,3 +295,12 @@ pass PAss 1D pass
 3C pass 3D pass
 3H pass 3NT pass
 pass pass
+
+[Event "NatC diamond 37"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:Q6.2.KQJ94.KQ764 T943.QJ6.T32.JT3 A8.AT8543.7.A852 KJ752.K97.A865.9"]
+[Auction "N"]
+1D PAss 2H pass
+3C pass 5C pass
+pass pass

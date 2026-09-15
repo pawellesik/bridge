@@ -153,7 +153,7 @@ Pass Pass
 [Deal "N:3.QJT94.Q.AKJ765 Q9864.A82.T754.T AJT52.3.AK3.Q984 K7.K765.J9862.32"]
 [Auction "N"]
 1H Pass 2S Pass
-3C Pass 3NT Pass
+3C Pass 5C Pass
 Pass Pass
 
 [Event "NatC Deal kier 24"]
@@ -349,3 +349,12 @@ pass pass
 1H PAss 2S pass
 2NT pass 3S pass
 4S pass pass pass
+
+[Event "NatC kier 45"]]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A8.AT8543.7.A852 T943.QJ6.T32.JT3 Q6.2.KQJ94.KQ764 KJ752.K97.A865.9"]
+[Auction "N"]
+1H PAss 3C pass
+4C pass 5C pass
+pass pass

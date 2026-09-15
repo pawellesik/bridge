@@ -134,7 +134,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
 
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._3S}, OpenBid3Bid1NatC::thirdBidToGameMinorClubStrong)
-          );
+        );
         choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
@@ -340,7 +340,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
     public static PositionCalls secondBidRaiseNoAgreeTrumpDiamods(PositionState ps) {
         //1D ->
         //     Bid._2H, Bid._2S->
-        //                      Bid._2S, Bid._3H, Bid._3C, Bid._3C ->
+        //                      Bid._2S, Bid._3H, Bid._3D, Bid._3C ->
         PositionCalls choices = new PositionCalls(ps);
         List<CallFeature> conventions = new ArrayList<>();
         CompeteNatC.addAcesAskConventions(ps, conventions);
@@ -348,8 +348,8 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         choices.addRules(
                 shows(Bid._3S, fit(), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
                 shows(Bid._3H, fit(), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H")),
-                shows(Bid._3S, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
-                shows(Bid._3H, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H")),
+                shows(Bid._3S, shape(6, 10), noFit(), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3S")),
+                shows(Bid._3H, shape(6, 10), noFit(), IS_REBID, id("RespondBid2NatC.secondBidRaiseNoAgreeTrumpDiamods _3H")),
                 shows(Bid._3C, fit(), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
                 shows(Bid._3D, fit(), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
