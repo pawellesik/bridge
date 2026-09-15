@@ -331,3 +331,21 @@ pass PASS 1H PASS
 1H Pass 2S Pass
 2NT Pass 3C Pass
 5C Pass Pass Pass
+
+[Event "NatC kier 43"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QT.AQJ73.K962.J4 862.K86.AQ4.K753 AK975.52.J7.AQ92 J43.T94.T853.T86"]
+[Auction "N"]
+1H PAss 2S pass
+2NT pass 3NT pass
+pass pass
+
+[Event "NatC kier 44"]]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QT.AQJ73.K962.J4 862.K86.AQ4.K753 AK9752.5.J7.AQ92 J43.T94.T853.T86"]
+[Auction "N"]
+1H PAss 2S pass
+2NT pass 3S pass
+4S pass pass pass

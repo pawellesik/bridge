@@ -715,6 +715,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._3C, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3C")),
                     shows(Bid._3D, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
+                    shows(Bid._2NT, noFit(), IS_NON_JUMP, othersAtLeast(2), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsToSpadeHeart nofit _2NT")),
+
                     partnerBids(RecursionNatC::recursionFindFitGame),
                     propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2Bid1NatC::secondBidInviteMajorHeart, true),
                     properties(new Call[]{Bid._3H}, RespondBid2Bid1NatC::secondBidToGameHeart, false),
