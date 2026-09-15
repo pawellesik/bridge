@@ -1,0 +1,27 @@
+[Event "NatC Deal long 1"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ87..T.QJT76532 54.J65432.Q42.K9 AKQJ.AQ98.AKJ95. J96.KT7.8763.A84"]
+[Auction "N"]
+3C PAss 4NT pass
+5C pass 5D pass
+5S pass 5NT pass
+pass pass
+
+[Event "NatC Deal long 2"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ87..T.QJT76532 54.J65432.Q42.K9 AKQ6.AK98.AKJ.95 J96.KT7.8763.A84"]
+[Auction "N"]
+3C PAss 4NT pass
+5C pass 5D pass
+5S pass 6NT pass
+pass pass
+
+[Event "NatC Deal long 3"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ87..T.QJT76532 54.J65432.Q42.K9 AKQJ.AQ98.AKJ.95 J96.KT7.8763.A84"]
+[Auction "N"]
+3C PAss 4NT pass
+5C pass pass pass
