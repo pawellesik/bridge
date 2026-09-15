@@ -101,25 +101,25 @@ public class PbnCollection {
         pbn.initNewGame(hands, gameMode);
 
         this.pbnNatC.initNewGame(hands, gameMode);
-        runBidding(pbnNatC, "N", "NatC");
+        runBotSimulationGame(pbnNatC, "N", "NatC");
 
         this.pbnNatCRev.initNewGame(hands, gameMode);
-        runBidding(pbnNatCRev, "S", "NatC");
+        runBotSimulationGame(pbnNatCRev, "S", "NatC");
 
         this.pbnLCStandard.initNewGame(hands, gameMode);
-        runBidding(pbnLCStandard, "N", "LC-Basic");
+        runBotSimulationGame(pbnLCStandard, "N", "LC-Basic");
 
         this.pbnLCStandardRev.initNewGame(hands, gameMode);
-        runBidding(pbnLCStandardRev, "S", "LC-Basic");
+        runBotSimulationGame(pbnLCStandardRev, "S", "LC-Basic");
 
         this.twoOverOneGameForce.initNewGame(hands, gameMode);
-        runBidding(twoOverOneGameForce, "S", "TwoOverOneGameForce");
+        runBotSimulationGame(twoOverOneGameForce, "S", "TwoOverOneGameForce");
 
         this.twoOverOneGameForceRev.initNewGame(hands, gameMode);
-        runBidding(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
+        runBotSimulationGame(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
     }
 
-    private void runBidding(Pbn pbn, String dealerDirection, String biddingSystem) {
+    private void runBotSimulationGame(Pbn pbn, String dealerDirection, String biddingSystem) {
         Game game = new Game();
         Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
 
