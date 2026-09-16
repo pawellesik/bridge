@@ -56,9 +56,9 @@ public class GameTop {
 
         if (contract == null || contract.isPass()) {
             tvContract.setText(activity.getString(R.string.contract_pass));
-            tvContract.setTextColor(Color.WHITE);
+            tvContract.setTextColor(Color.BLACK);
             if (ivContractSuit != null) ivContractSuit.setVisibility(View.GONE);
-            contractContainer.setVisibility(View.VISIBLE);
+            if (contractContainer != null) contractContainer.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -79,7 +79,7 @@ public class GameTop {
                 tvContract.setTextColor(suitColor);
             }
         }
-        contractContainer.setVisibility(View.VISIBLE);
+        if (contractContainer != null) contractContainer.setVisibility(View.VISIBLE);
     }
 
     public void hideContract() {
