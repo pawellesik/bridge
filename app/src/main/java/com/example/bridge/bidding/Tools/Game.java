@@ -70,21 +70,9 @@ public class Game {
                     game.parseAuction(String.join(" ", tag.data));
                     break;
                 case "BidSystemNS":
-                case "BidSystemSN":
-                case "bidSystemNS":
-                case "bidSystemSN":
-                case "BiddingSystemNS":
-                case "SystemNS":
-                case "SystemSN":
                     game.bidSystemNS = tag.value;
                     break;
                 case "BidSystemEW":
-                case "BidSystemWE":
-                case "bidSystemEW":
-                case "bidSystemWE":
-                case "BiddingSystemEW":
-                case "SystemEW":
-                case "SystemWE":
                     game.bidSystemEW = tag.value;
                     break;
                 // Add more tags as needed
@@ -151,6 +139,7 @@ public class Game {
     public void dealRandomHands() {
         dealCards(Card.newDeck(true));
     }
+
     public Map<String, String> tags = new HashMap<>();
     public Map<String, List<String>> tagData = new HashMap<>();
     public Map<String, String> tagCommentary = new HashMap<>();
