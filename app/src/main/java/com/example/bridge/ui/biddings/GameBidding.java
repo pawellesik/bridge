@@ -92,11 +92,7 @@ public class GameBidding {
             } else {
                 btnPass.setText("PASS");
                 btnPass.setBackgroundTintList(ColorStateList.valueOf(0xFF4D7C4F)); // Traditional Green for pass
-                if (isForcedBid()) {
-                    btnPass.setVisibility(View.INVISIBLE);
-                } else {
-                    btnPass.setVisibility(View.VISIBLE);
-                }
+                btnPass.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -466,13 +462,4 @@ public class GameBidding {
         return activity.getGameController().getPlayers().get(name);
     }
 
-    private boolean isForcedBid() {
-        if (lastHistory == null) return false;
-        if (lastHistory.getCountAuction() != 3) return false;
-
-        for (String b : lastHistory.getAuction()) {
-            if (!"-".equals(b) && !"Pass".equalsIgnoreCase(b)) return false;
-        }
-        return true;
-    }
 }
