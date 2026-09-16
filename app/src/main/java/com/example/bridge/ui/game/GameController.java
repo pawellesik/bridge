@@ -225,26 +225,34 @@ public class GameController {
     public void onBiddingFinished(Contract contract, Player declarer) {
         this.currentContract = contract;
 
-        // If North won the bidding, we swap hands N<->S and E<->W
-        // This ensures the human player (South) is always the declarer if NS wins.
-        if ("North".equals(declarer.getName())) {
-            swapHands(players.get("North"), players.get("South"));
-            swapHands(players.get("East"), players.get("West"));
-            declarer = players.get("South"); // Now South is the declarer
-            callback.onPlayersSwapped(true, true);
+        if (declarer != null) {
+            // If North won the bidding, we swap hands N<->S and E<->W
+            // This ensures the human player (South) is always the declarer if NS wins.
+            if ("North".equals(declarer.getName())) {
+                swapHands(players.get("North"), players.get("South"));
+                swapHands(players.get("East"), players.get("West"));
+                declarer = players.get("South"); // Now South is the declarer
+                callback.onPlayersSwapped(true, true);
+            }
+
+            this.playerFirstPlayCard = getNextPlayer(declarer);
+
+            if (contract.getSuit() != null || contract.isNoTrump()) {
+                quickGameBidding.sortHandsByContract(contract.getSuit());
+            }
+
+            callback.onContractDetermined(contract, declarer);
+            callback.onHandUpdated("North");
+            callback.onHandUpdated("South");
+
+            handler.postDelayed(this::startGame, 300);
+        } else {
+            this.playerFirstPlayCard = null;
+            callback.onContractDetermined(contract, null);
+            callback.onHandUpdated("North");
+            callback.onHandUpdated("South");
+            callback.onGameEnded(0, 0, currentContract, playHistoryTrick, 0);
         }
-
-        this.playerFirstPlayCard = getNextPlayer(declarer);
-
-        if (contract.getSuit() != null || contract.isNoTrump()) {
-            quickGameBidding.sortHandsByContract(contract.getSuit());
-        }
-
-        callback.onContractDetermined(contract, declarer);
-        callback.onHandUpdated("North");
-        callback.onHandUpdated("South");
-
-        handler.postDelayed(this::startGame, 300);
     }
 
     private void swapHands(Player p1, Player p2) {
@@ -687,6 +695,7 @@ public class GameController {
     }
 
     private Player getNextPlayer(Player player) {
+        if (player == null) return null;
         switch (player.getName()) {
             case "North":
                 return players.get("East");

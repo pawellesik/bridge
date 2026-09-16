@@ -802,7 +802,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameTop.setContract(contract);
 
         if (pbnCollection.getPbn() != null) {
-            pbnCollection.getPbn().setContract(contract, declarer != null ? declarer.getName() : "South");
+            pbnCollection.getPbn().setContract(contract, declarer != null ? declarer.getName() : null);
         }
 
         if (biddingControlsOverlay != null) {
@@ -869,7 +869,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
             String decl = pbnCollection.getPbn().getDeclarer();
             double gameImp = pbnCollection.getPbn().getImp();
-            boolean isWin = ("North".equals(decl) || "South".equals(decl)) && pbnCollection.getPbn().getScore() > 0;
+            // Jeśli kontrakt to pas, decl może być nullem - unikamy wysypania się na .equals()
+            boolean isWin = decl != null && ("North".equals(decl) || "South".equals(decl)) && pbnCollection.getPbn().getScore() > 0;
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
                 overlayStatistic.getStatsManager().recordGame(gameMode, 0, -1, gameImp, isWin);
             }
