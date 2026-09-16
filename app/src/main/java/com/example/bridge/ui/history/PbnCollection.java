@@ -40,24 +40,38 @@ public class PbnCollection {
 
         this.pbn = new Pbn(gameActivity, "MyGame");
         this.pbn.setPlayerNames("MyGame W", "MyGame N", "MyGame E", "MyGame S");
+        this.pbn.setBidSystemNS("NatC");
+        this.pbn.setBidSystemEW("PassOnly");
 
         this.pbnNatC = new Pbn(gameActivity, "NatC");
         this.pbnNatC.setPlayerNames("NatC W", "NatC N", "NatC E", "NatC S");
+        this.pbnNatC.setBidSystemNS("NatC");
+        this.pbnNatC.setBidSystemEW("PassOnly");
 
         this.pbnNatCRev = new Pbn(gameActivity, "NatC Rev");
         this.pbnNatCRev.setPlayerNames("NatC Rev W", "NatC Rev N", "NatC Rev E", "NatC Rev S");
+        this.pbnNatCRev.setBidSystemNS("NatC");
+        this.pbnNatCRev.setBidSystemEW("PassOnly");
 
         this.pbnLCStandard = new Pbn(gameActivity, "LCStandard");
         this.pbnLCStandard.setPlayerNames("LCStandard W", "LCStandard N", "LCStandard E", "LCStandard S");
+        this.pbnLCStandard.setBidSystemNS("LC-Basic");
+        this.pbnLCStandard.setBidSystemEW("PassOnly");
 
         this.pbnLCStandardRev = new Pbn(gameActivity, "LCStandard Rev");
         this.pbnLCStandardRev.setPlayerNames("LCStandard Rev W", "LCStandard Rev N", "LCStandard Rev E", "LCStandard Rev S");
+        this.pbnLCStandardRev.setBidSystemNS("LC-Basic");
+        this.pbnLCStandardRev.setBidSystemEW("PassOnly");
 
         this.twoOverOneGameForce = new Pbn(gameActivity, "2/1 GF (S)");
         this.twoOverOneGameForce.setPlayerNames("2/1 GF W", "2/1 GF N", "2/1 GF E", "2/1 GF S");
+        this.twoOverOneGameForce.setBidSystemNS("TwoOverOneGameForce");
+        this.twoOverOneGameForce.setBidSystemEW("PassOnly");
 
         this.twoOverOneGameForceRev = new Pbn(gameActivity, "2/1 GF (N)");
         this.twoOverOneGameForceRev.setPlayerNames("2/1 GF W", "2/1 GF N", "2/1 GF E", "2/1 GF S");
+        this.twoOverOneGameForceRev.setBidSystemNS("TwoOverOneGameForce");
+        this.twoOverOneGameForceRev.setBidSystemEW("PassOnly");
 
         //this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
         //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
@@ -101,25 +115,25 @@ public class PbnCollection {
         pbn.initNewGame(hands, gameMode);
 
         this.pbnNatC.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnNatC, "N", "NatC");
+        runBotSimulationGame(pbnNatC, "N");
 
         this.pbnNatCRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnNatCRev, "S", "NatC");
+        runBotSimulationGame(pbnNatCRev, "S");
 
         this.pbnLCStandard.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnLCStandard, "N", "LC-Basic");
+        runBotSimulationGame(pbnLCStandard, "N");
 
         this.pbnLCStandardRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnLCStandardRev, "S", "LC-Basic");
+        runBotSimulationGame(pbnLCStandardRev, "S");
 
         this.twoOverOneGameForce.initNewGame(hands, gameMode);
-        runBotSimulationGame(twoOverOneGameForce, "S", "TwoOverOneGameForce");
+        runBotSimulationGame(twoOverOneGameForce, "S");
 
         this.twoOverOneGameForceRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(twoOverOneGameForceRev, "N", "TwoOverOneGameForce");
+        runBotSimulationGame(twoOverOneGameForceRev, "N");
     }
 
-    private void runBotSimulationGame(Pbn pbn, String dealerDirection, String biddingSystem) {
+    private void runBotSimulationGame(Pbn pbn, String dealerDirection) {
         Game game = new Game();
         Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
 
@@ -141,8 +155,8 @@ public class PbnCollection {
 
         pbn.setDealer(dealerDirection);
 
-        game.bidSystemNS = biddingSystem;
-        game.bidSystemEW = biddingSystem;
+        game.bidSystemNS = pbn.getBidSystemNS();
+        game.bidSystemEW = pbn.getBidSystemEW();
 
         BiddingState state = new BiddingState(game);
 

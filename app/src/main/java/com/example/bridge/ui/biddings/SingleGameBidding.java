@@ -105,6 +105,8 @@ public class SingleGameBidding {
         game.dealer = dealerDir;
         
         activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
+        activity.getPbnCollection().getPbn().setBidSystemNS("NatC");
+        activity.getPbnCollection().getPbn().setBidSystemEW("PassOnly");
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "PassOnly";
 

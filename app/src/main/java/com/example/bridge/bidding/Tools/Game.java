@@ -69,6 +69,24 @@ public class Game {
                 case "Auction":
                     game.parseAuction(String.join(" ", tag.data));
                     break;
+                case "BidSystemNS":
+                case "BidSystemSN":
+                case "bidSystemNS":
+                case "bidSystemSN":
+                case "BiddingSystemNS":
+                case "SystemNS":
+                case "SystemSN":
+                    game.bidSystemNS = tag.value;
+                    break;
+                case "BidSystemEW":
+                case "BidSystemWE":
+                case "bidSystemEW":
+                case "bidSystemWE":
+                case "BiddingSystemEW":
+                case "SystemEW":
+                case "SystemWE":
+                    game.bidSystemEW = tag.value;
+                    break;
                 // Add more tags as needed
             }
         }
@@ -139,7 +157,8 @@ public class Game {
 
     public static final String[] MTS = new String[]{
             "Event", "Site", "Date", "Board", "West", "North", "East", "South",
-            "Dealer", "Vulnerable", "Deal", "Scoring", "Declarer", "Contract", "Result"
+            "Dealer", "Vulnerable", "Deal", "Scoring", "Declarer", "Contract", "Result",
+            "BidSystemNS", "BidSystemEW"
     };
 
     @Override
@@ -170,6 +189,12 @@ public class Game {
                     break;
                 case "Contract":
                     sb.append(tagString(tagName, contract == null ? "" : contract.toString()));
+                    break;
+                case "BidSystemNS":
+                    sb.append(tagString(tagName, bidSystemNS));
+                    break;
+                case "BidSystemEW":
+                    sb.append(tagString(tagName, bidSystemEW));
                     break;
                 default:
                     if (tags.containsKey(tagName)) {

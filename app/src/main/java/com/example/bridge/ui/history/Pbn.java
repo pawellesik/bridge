@@ -35,6 +35,8 @@ public class Pbn {
     private String south = "User";
     private String dealer = "W";
     private String vulnerable = "None";
+    private String bidSystemNS;
+    private String bidSystemEW;
 
     private Map<String, List<Card>> initialHands;
     private Contract contract;
@@ -161,6 +163,22 @@ public class Pbn {
         return contract;
     }
 
+    public String getBidSystemNS() {
+        return bidSystemNS;
+    }
+
+    public void setBidSystemNS(String bidSystemNS) {
+        this.bidSystemNS = bidSystemNS;
+    }
+
+    public String getBidSystemEW() {
+        return bidSystemEW;
+    }
+
+    public void setBidSystemEW(String bidSystemEW) {
+        this.bidSystemEW = bidSystemEW;
+    }
+
     public Game toGame() {
         Game game = new Game();
         Map<String, List<Card>> hands = getInitialHands();
@@ -176,8 +194,8 @@ public class Pbn {
             else if ("South".equals(dealer) || "S".equals(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.S;
             else game.dealer = com.example.bridge.bidding.Tools.Direction.W;
         }
-        game.bidSystemNS = "NatC";
-        game.bidSystemEW = "PassOnly";
+        game.bidSystemNS = this.bidSystemNS != null ? this.bidSystemNS : "NatC";
+        game.bidSystemEW = this.bidSystemEW != null ? this.bidSystemEW : "PassOnly";
         return game;
     }
 
@@ -270,6 +288,26 @@ public class Pbn {
             this.south = json.optString("South", south);
             this.dealer = json.optString("Dealer", dealer);
             this.vulnerable = json.optString("Vulnerable", vulnerable);
+
+            if (json.has("BidSystemNS")) {
+                this.bidSystemNS = json.getString("BidSystemNS");
+            } else if (json.has("bidSystemNS")) {
+                this.bidSystemNS = json.getString("bidSystemNS");
+            } else if (json.has("BidSystemSN")) {
+                this.bidSystemNS = json.getString("BidSystemSN");
+            } else if (json.has("bidSystemSN")) {
+                this.bidSystemNS = json.getString("bidSystemSN");
+            }
+
+            if (json.has("BidSystemEW")) {
+                this.bidSystemEW = json.getString("BidSystemEW");
+            } else if (json.has("bidSystemEW")) {
+                this.bidSystemEW = json.getString("bidSystemEW");
+            } else if (json.has("BidSystemWE")) {
+                this.bidSystemEW = json.getString("BidSystemWE");
+            } else if (json.has("bidSystemWE")) {
+                this.bidSystemEW = json.getString("bidSystemWE");
+            }
 
             if (json.has("Deal")) {
                 parseDealString(json.getString("Deal"));
@@ -375,6 +413,8 @@ public class Pbn {
             json.put("South", south);
             json.put("Dealer", dealer);
             json.put("Vulnerable", vulnerable);
+            if (bidSystemNS != null) json.put("BidSystemNS", bidSystemNS);
+            if (bidSystemEW != null) json.put("BidSystemEW", bidSystemEW);
 
             if (initialHands != null) {
                 json.put("Deal", formatDeal());
@@ -421,6 +461,8 @@ public class Pbn {
         sb.append(String.format(Locale.US, "[South \"%s\"]\n", south));
         sb.append(String.format(Locale.US, "[Dealer \"%s\"]\n", dealer));
         sb.append(String.format(Locale.US, "[Vulnerable \"%s\"]\n", vulnerable));
+        if (bidSystemNS != null) sb.append(String.format(Locale.US, "[BidSystemNS \"%s\"]\n", bidSystemNS));
+        if (bidSystemEW != null) sb.append(String.format(Locale.US, "[BidSystemEW \"%s\"]\n", bidSystemEW));
 
         if (initialHands != null) {
             sb.append(String.format(Locale.US, "[Deal \"%s\"]\n", formatDeal()));
