@@ -128,6 +128,10 @@ public class Pbn {
         this.dealer = dealer;
     }
 
+    public String getDealer() {
+        return dealer;
+    }
+
     public void setVulnerable(String vulnerable) {
         this.vulnerable = vulnerable;
     }

@@ -114,23 +114,47 @@ public class PbnCollection {
 
         pbn.initNewGame(hands, gameMode);
 
+        String mainDealer = getNormalizedDealer(pbn.getDealer());
+        String oppositeDealer = getOppositeDealer(mainDealer);
+
         this.pbnNatC.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnNatC, "N");
+        runBotSimulationGame(pbnNatC, mainDealer);
 
         this.pbnNatCRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnNatCRev, "S");
+        runBotSimulationGame(pbnNatCRev, oppositeDealer);
 
         this.pbnLCStandard.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnLCStandard, "N");
+        runBotSimulationGame(pbnLCStandard, mainDealer);
 
         this.pbnLCStandardRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnLCStandardRev, "S");
+        runBotSimulationGame(pbnLCStandardRev, oppositeDealer);
 
         this.twoOverOneGameForce.initNewGame(hands, gameMode);
-        runBotSimulationGame(twoOverOneGameForce, "S");
+        runBotSimulationGame(twoOverOneGameForce, mainDealer);
 
         this.twoOverOneGameForceRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(twoOverOneGameForceRev, "N");
+        runBotSimulationGame(twoOverOneGameForceRev, oppositeDealer);
+    }
+
+    private String getNormalizedDealer(String dealer) {
+        if (dealer == null || dealer.trim().isEmpty()) return "N";
+        char c = dealer.trim().toUpperCase().charAt(0);
+        switch (c) {
+            case 'E': return "E";
+            case 'S': return "S";
+            case 'W': return "W";
+            default: return "N";
+        }
+    }
+
+    private String getOppositeDealer(String dealer) {
+        switch (dealer) {
+            case "N": return "S";
+            case "S": return "N";
+            case "E": return "W";
+            case "W": return "E";
+            default: return "S";
+        }
     }
 
     private void runBotSimulationGame(Pbn pbn, String dealerDirection) {
@@ -147,10 +171,14 @@ public class PbnCollection {
             game.getDeal().put(Direction.S, Hand.parse(pbn.formatHand(playerS.getHand())));
         }
 
-        if (dealerDirection.equals("N")) {
+        if ("N".equalsIgnoreCase(dealerDirection) || "North".equalsIgnoreCase(dealerDirection)) {
             game.dealer = Direction.N;
-        } else if (dealerDirection.equals("S")) {
+        } else if ("E".equalsIgnoreCase(dealerDirection) || "East".equalsIgnoreCase(dealerDirection)) {
+            game.dealer = Direction.E;
+        } else if ("S".equalsIgnoreCase(dealerDirection) || "South".equalsIgnoreCase(dealerDirection)) {
             game.dealer = Direction.S;
+        } else if ("W".equalsIgnoreCase(dealerDirection) || "West".equalsIgnoreCase(dealerDirection)) {
+            game.dealer = Direction.W;
         }
 
         pbn.setDealer(dealerDirection);
