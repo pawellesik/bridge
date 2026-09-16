@@ -413,8 +413,8 @@ public class Pbn {
             json.put("South", south);
             json.put("Dealer", dealer);
             json.put("Vulnerable", vulnerable);
-            if (bidSystemNS != null) json.put("BidSystemNS", bidSystemNS);
-            if (bidSystemEW != null) json.put("BidSystemEW", bidSystemEW);
+            json.put("BidSystemNS", bidSystemNS);
+            json.put("BidSystemEW", bidSystemEW);
 
             if (initialHands != null) {
                 json.put("Deal", formatDeal());
@@ -461,8 +461,8 @@ public class Pbn {
         sb.append(String.format(Locale.US, "[South \"%s\"]\n", south));
         sb.append(String.format(Locale.US, "[Dealer \"%s\"]\n", dealer));
         sb.append(String.format(Locale.US, "[Vulnerable \"%s\"]\n", vulnerable));
-        if (bidSystemNS != null) sb.append(String.format(Locale.US, "[BidSystemNS \"%s\"]\n", bidSystemNS));
-        if (bidSystemEW != null) sb.append(String.format(Locale.US, "[BidSystemEW \"%s\"]\n", bidSystemEW));
+        sb.append(String.format(Locale.US, "[BidSystemNS \"%s\"]\n", bidSystemNS));
+        sb.append(String.format(Locale.US, "[BidSystemEW \"%s\"]\n", bidSystemEW));
 
         if (initialHands != null) {
             sb.append(String.format(Locale.US, "[Deal \"%s\"]\n", formatDeal()));
