@@ -111,7 +111,7 @@ public class SingleGameBidding {
         game.bidSystemEW = "PassOnly";
 
         Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
-        activity.getPbnCollection().getPbn().initNewGame(hands,  activity.getGameMode());
+        activity.getPbnCollection().initAllPbn();
         activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
 
         game.getDeal().put(Direction.N, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("North"))));

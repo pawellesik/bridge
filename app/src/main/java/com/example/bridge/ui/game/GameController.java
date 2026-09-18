@@ -321,8 +321,8 @@ public class GameController {
                 }
             }
         }
-        //callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxOthersRank));//plesik to do
-        callback.onClaimButtonVisibilityChanged(true);
+        callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxOthersRank));
+        //callback.onClaimButtonVisibilityChanged(true);
     }
 
     private boolean hasOnlyWinningCards(Player p, Map<Suit, Integer> maxOthersRank) {

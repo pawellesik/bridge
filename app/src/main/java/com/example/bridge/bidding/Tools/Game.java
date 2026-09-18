@@ -13,7 +13,7 @@ public class Game {
     public String bidSystemNS = null;
 
     public Vulnerable vulnerable = Vulnerable.None;
-    public Direction dealer = Direction.N;
+    public Direction dealer;
     private final Deal deal;
     public Direction declarer = null;
 

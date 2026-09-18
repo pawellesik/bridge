@@ -33,7 +33,7 @@ public class Pbn {
     private String north = "Robot";
     private String east = "Robot";
     private String south = "User";
-    private String dealer = "W";
+    private String dealer;
     private String vulnerable = "None";
     private String bidSystemNS;
     private String bidSystemEW;
