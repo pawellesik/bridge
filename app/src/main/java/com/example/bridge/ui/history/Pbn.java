@@ -393,14 +393,17 @@ public class Pbn {
 
     private Trick parseTrickString(String trickStr) {
         Trick trick = new Trick();
-        String[] cardStrings = trickStr.split(" ");
-        // Note: We don't know the leader easily here without more logic, 
-        // but for now let's just parse the cards. 
-        // The format is [Suit][Rank], e.g., "H7"
-        
-        // PBN Play order depends on the leader. 
-        // For simplicity, let's assume we can map them back if needed.
-        // Actually, we'd need to know who led to map to directions.
+        if (trickStr == null || trickStr.trim().isEmpty()) return trick;
+        String[] cardStrings = trickStr.trim().split("\\s+");
+        for (String cStr : cardStrings) {
+            if (cStr.length() >= 2) {
+                Suit suit = Suit.fromPbnLetter(cStr.charAt(0));
+                Rank rank = Rank.fromPbnLetter(cStr.charAt(1));
+                if (suit != null && rank != null) {
+                    trick.addCard("", new Card(suit, rank));
+                }
+            }
+        }
         return trick;
     }
 

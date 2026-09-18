@@ -282,15 +282,28 @@ public class OverlayHistoryGame {
     private void updateSelectedGameDetails() {
         if (selectedPbn == null) return;
         updateBiddingHistory(selectedPbn);
+        com.example.bridge.model.Card wistCard = getWistCard(selectedPbn);
         Map<String, List<com.example.bridge.model.Card>> hands = selectedPbn.getInitialHands();
         if (hands != null) {
-            updateHandTextView(tvNorthCards, hands.get("North"));
-            updateHandTextView(tvSouthCards, hands.get("South"));
-            updateHandTextView(tvEastCards, hands.get("East"));
-            updateHandTextView(tvWestCards, hands.get("West"));
+            updateHandTextView(tvNorthCards, hands.get("North"), wistCard);
+            updateHandTextView(tvSouthCards, hands.get("South"), wistCard);
+            updateHandTextView(tvEastCards, hands.get("East"), wistCard);
+            updateHandTextView(tvWestCards, hands.get("West"), wistCard);
 
             updatePlayerLabelsWithHcp(hands);
         }
+    }
+
+    private com.example.bridge.model.Card getWistCard(Pbn pbn) {
+        if (pbn == null) return null;
+        List<com.example.bridge.model.Trick> playHistory = pbn.getPlayHistory();
+        if (playHistory != null && !playHistory.isEmpty()) {
+            com.example.bridge.model.Trick firstTrick = playHistory.get(0);
+            if (firstTrick != null && firstTrick.getCardsOnTable() != null && !firstTrick.getCardsOnTable().isEmpty()) {
+                return firstTrick.getCardsOnTable().get(0);
+            }
+        }
+        return null;
     }
 
     private void updatePlayerLabelsWithHcp(Map<String, List<com.example.bridge.model.Card>> hands) {
@@ -347,13 +360,13 @@ public class OverlayHistoryGame {
         biddingAdapter.notifyDataSetChanged();
     }
 
-    private void updateHandTextView(TextView tv, List<com.example.bridge.model.Card> hand) {
+    private void updateHandTextView(TextView tv, List<com.example.bridge.model.Card> hand, com.example.bridge.model.Card wistCard) {
         if (tv == null) return;
         tv.setTextColor(android.graphics.Color.BLACK);
-        tv.setText(formatHandForDisplay(hand), android.widget.TextView.BufferType.SPANNABLE);
+        tv.setText(formatHandForDisplay(hand, wistCard), android.widget.TextView.BufferType.SPANNABLE);
     }
 
-    private android.text.SpannableStringBuilder formatHandForDisplay(java.util.List<com.example.bridge.model.Card> hand) {
+    private android.text.SpannableStringBuilder formatHandForDisplay(List<com.example.bridge.model.Card> hand, com.example.bridge.model.Card wistCard) {
         android.text.SpannableStringBuilder ssb = new android.text.SpannableStringBuilder();
         if (hand == null) return ssb;
         com.example.bridge.model.Suit[] suits = {
@@ -371,15 +384,35 @@ public class OverlayHistoryGame {
             int suitColor = suits[i].getColor(activity);
             ssb.setSpan(new android.text.style.ForegroundColorSpan(suitColor), symbolStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ssb.append("\t");
-            int cardsStart = ssb.length();
+
             List<com.example.bridge.model.Card> suitCards = new ArrayList<>();
-            for (com.example.bridge.model.Card card : hand) if (card.getSuit() == suits[i]) suitCards.add(card);
+            for (com.example.bridge.model.Card card : hand) {
+                if (card.getSuit() == suits[i]) {
+                    suitCards.add(card);
+                }
+            }
             suitCards.sort((c1, c2) -> Integer.compare(c2.getRank().ordinal(), c1.getRank().ordinal()));
+
             for (int j = 0; j < suitCards.size(); j++) {
-                ssb.append(formatRank(suitCards.get(j).getRank()));
+                com.example.bridge.model.Card card = suitCards.get(j);
+                int cardStart = ssb.length();
+                ssb.append(formatRank(card.getRank()));
+                int cardEnd = ssb.length();
+
+                boolean isWist = wistCard != null 
+                        && card.getSuit() == wistCard.getSuit() 
+                        && card.getRank() == wistCard.getRank();
+
+                if (isWist) {
+                    ssb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), cardStart, cardEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), cardStart, cardEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    ssb.setSpan(new android.text.style.UnderlineSpan(), cardStart, cardEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                } else {
+                    ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), cardStart, cardEnd, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+
                 if (j < suitCards.size() - 1) ssb.append(" ");
             }
-            ssb.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.BLACK), cardsStart, ssb.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             if (i < 3) ssb.append("\n");
         }
         return ssb;
