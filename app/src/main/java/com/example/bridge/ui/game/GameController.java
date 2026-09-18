@@ -341,7 +341,6 @@ public class GameController {
             }
         }
         return totalNSWinners == p.getHand().size();
-        // return true;
     }
 
     public void claimRest() {
