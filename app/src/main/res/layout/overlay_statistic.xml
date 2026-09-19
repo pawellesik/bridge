@@ -455,7 +455,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0.0"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#FFC107"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -464,7 +464,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0.0"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#FFC107"
                             android:textSize="12sp" />
 
                         <TextView
@@ -472,7 +472,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0.0"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#FFC107"
                             android:textSize="12sp"
                             android:visibility="gone" />
                     </TableRow>
@@ -505,7 +505,7 @@
                             android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
                             android:text="CLEAR"
-                            android:textColor="#E57373"
+                            android:textColor="#FF5252"
                             android:textSize="10sp"
                             android:textStyle="bold"
                             app:cornerRadius="6dp"
@@ -513,9 +513,9 @@
                             app:iconGravity="textStart"
                             app:iconPadding="1dp"
                             app:iconSize="10dp"
-                            app:iconTint="#E57373"
-                            app:rippleColor="#33E57373"
-                            app:strokeColor="#E57373"
+                            app:iconTint="#FF5252"
+                            app:rippleColor="#33FF5252"
+                            app:strokeColor="#FF5252"
                             app:strokeWidth="1dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -533,7 +533,7 @@
                             android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
                             android:text="CLEAR"
-                            android:textColor="#E57373"
+                            android:textColor="#FF5252"
                             android:textSize="10sp"
                             android:textStyle="bold"
                             app:cornerRadius="6dp"
@@ -541,9 +541,9 @@
                             app:iconGravity="textStart"
                             app:iconPadding="1dp"
                             app:iconSize="10dp"
-                            app:iconTint="#E57373"
-                            app:rippleColor="#33E57373"
-                            app:strokeColor="#E57373"
+                            app:iconTint="#FF5252"
+                            app:rippleColor="#33FF5252"
+                            app:strokeColor="#FF5252"
                             app:strokeWidth="1dp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -561,7 +561,7 @@
                             android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
                             android:text="CLEAR"
-                            android:textColor="#E57373"
+                            android:textColor="#FF5252"
                             android:textSize="10sp"
                             android:textStyle="bold"
                             app:cornerRadius="6dp"
@@ -569,9 +569,9 @@
                             app:iconGravity="textStart"
                             app:iconPadding="1dp"
                             app:iconSize="10dp"
-                            app:iconTint="#E57373"
-                            app:rippleColor="#33E57373"
-                            app:strokeColor="#E57373"
+                            app:iconTint="#FF5252"
+                            app:rippleColor="#33FF5252"
+                            app:strokeColor="#FF5252"
                             app:strokeWidth="1dp" />
                     </TableRow>
 
@@ -995,7 +995,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0.0"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#FFC107"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -1004,7 +1004,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0.0"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#FFC107"
                             android:textSize="12sp" />
 
                         <TextView
@@ -1012,7 +1012,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="0.0"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#FFC107"
                             android:textSize="12sp"
                             android:visibility="gone" />
                     </TableRow>
@@ -1029,7 +1029,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="RESET ALL STATISTICS"
-                android:textColor="#E57373"
+                android:textColor="#FF5252"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 android:visibility="gone"
@@ -1038,9 +1038,9 @@
                 app:iconGravity="textStart"
                 app:iconPadding="4dp"
                 app:iconSize="14dp"
-                app:iconTint="#E57373"
-                app:rippleColor="#33E57373"
-                app:strokeColor="#E57373"
+                app:iconTint="#FF5252"
+                app:rippleColor="#33FF5252"
+                app:strokeColor="#FF5252"
                 app:strokeWidth="1dp" />
 
         </LinearLayout>
