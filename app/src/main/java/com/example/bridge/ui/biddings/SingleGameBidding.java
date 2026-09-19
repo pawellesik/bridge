@@ -279,6 +279,11 @@ public class SingleGameBidding {
     }
 
     public void updateBiddingHintsView() {
+        if (!com.example.bridge.core.SettingsManager.getInstance(activity).isShowBiddingHints()) {
+            View hintsContainer = activity.findViewById(R.id.bidding_hints_container);
+            if (hintsContainer != null) hintsContainer.setVisibility(View.GONE);
+            return;
+        }
         auctionBiddingHelper.updateBiddingHintsView(liveBiddingState);
     }
 

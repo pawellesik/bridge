@@ -149,7 +149,7 @@ public class AuctionBiddingHelper {
         LinearLayout hintsContent = activity.findViewById(R.id.layout_hints_content);
         if (container == null || hintsContent == null) return;
 
-        if (liveBiddingState == null || liveBiddingState.getContract().isAuctionComplete()) {
+        if (liveBiddingState == null || liveBiddingState.getContract().isAuctionComplete() || !com.example.bridge.core.SettingsManager.getInstance(activity).isShowBiddingHints()) {
             container.setVisibility(View.GONE);
             return;
         }

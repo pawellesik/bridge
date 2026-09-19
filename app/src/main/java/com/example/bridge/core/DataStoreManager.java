@@ -25,6 +25,7 @@ public class DataStoreManager {
     public static final Preferences.Key<Boolean> SHOW_EXPLANATION = PreferencesKeys.booleanKey("show_explanation");
     public static final Preferences.Key<Boolean> SHOW_PUBLIC_KNOWLEDGE = PreferencesKeys.booleanKey("show_public_knowledge");
     public static final Preferences.Key<Boolean> SHOW_BIDDING_RULES = PreferencesKeys.booleanKey("show_bidding_rules");
+    public static final Preferences.Key<Boolean> SHOW_BIDDING_HINTS = PreferencesKeys.booleanKey("show_bidding_hints");
     public static final Preferences.Key<Integer> HISTORY_SIZE = PreferencesKeys.intKey("history_size");
     public static final Preferences.Key<Integer> GAMES_PLAYED = PreferencesKeys.intKey("games_played");
     public static final Preferences.Key<Double> CAREER_IMP_SINGLE = PreferencesKeys.doubleKey("career_imp_single");

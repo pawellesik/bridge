@@ -260,4 +260,33 @@ public class SettingsManager {
                     .blockingAwait();
         } catch (Exception ignored) {}
     }
+
+    // --- SHOW BIDDING HINTS ---
+    private Boolean cachedShowBiddingHints = null;
+
+    public boolean isShowBiddingHints() {
+        if (cachedShowBiddingHints != null) {
+            return cachedShowBiddingHints;
+        }
+        try {
+            boolean val = dataStoreManager.getPreference(DataStoreManager.SHOW_BIDDING_HINTS, true)
+                    .firstOrError()
+                    .onErrorReturnItem(true)
+                    .blockingGet();
+            cachedShowBiddingHints = val;
+            return val;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public void setShowBiddingHints(boolean show) {
+        cachedShowBiddingHints = show;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.SHOW_BIDDING_HINTS, show)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
+    }
 }
