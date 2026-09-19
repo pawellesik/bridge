@@ -251,7 +251,8 @@
                             android:maxLines="1"
                             android:text="0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
                     </TableRow>
 
                     <View
@@ -360,7 +361,8 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
                     </TableRow>
 
                     <View
@@ -471,7 +473,8 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
                     </TableRow>
 
                     <!-- Separator Line before Clear Buttons -->
@@ -788,7 +791,8 @@
                             android:maxLines="1"
                             android:text="0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
                     </TableRow>
 
                     <View
@@ -897,7 +901,8 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
                     </TableRow>
 
                     <View
@@ -1008,7 +1013,8 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
                     </TableRow>
 
                 </TableLayout>
@@ -1026,6 +1032,7 @@
                 android:textColor="#E57373"
                 android:textSize="11sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:cornerRadius="8dp"
                 app:icon="@drawable/ic_delete"
                 app:iconGravity="textStart"
