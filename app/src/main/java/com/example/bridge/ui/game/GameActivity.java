@@ -188,6 +188,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
+            if (btnClaim != null) btnClaim.setVisibility(View.GONE);
+            if (loadingIndicator != null) loadingIndicator.setVisibility(View.VISIBLE);
             setBottomNavVisibility(false);
             setBiddingScrollViewMaxHeight(135);
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
@@ -198,16 +200,16 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             southAdapter.setCardsEnabled(true);
             northAdapter.setCardsEnabled(true);
 
-            if ("single".equals(gameMode) && biddingControlsOverlay != null) {
-                biddingControlsOverlay.setVisibility(View.VISIBLE);
-                gameBiddingHistoryAdapter.setHighlightLast(true);
-                singleGameBidding.start();
-
-            } else {
-                v.post(() -> {
+            v.post(() -> {
+                if ("single".equals(gameMode) && biddingControlsOverlay != null) {
+                    biddingControlsOverlay.setVisibility(View.VISIBLE);
+                    gameBiddingHistoryAdapter.setHighlightLast(true);
+                    singleGameBidding.start();
+                } else {
                     gameController.startGame();
-                });
-            }
+                }
+                if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
+            });
         });
 
         btnClaim.setOnClickListener(v -> {
