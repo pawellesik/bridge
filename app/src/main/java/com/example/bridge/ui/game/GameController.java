@@ -120,7 +120,7 @@ public class GameController {
 
             Player south = players.get("South");
             Player north = players.get("North");
-            
+
             if (south != null && north != null) {
                 int combinedHCP = south.calculateHCP() + north.calculateHCP();
                 if (combinedHCP >= 20) {
@@ -259,10 +259,10 @@ public class GameController {
         if (p1 == null || p2 == null) return;
         List<Card> tempHand = new ArrayList<>(p1.getHand());
         int tempHCP = p1.getInitialHCP();
-        
+
         p1.setHandDirectly(new ArrayList<>(p2.getHand()));
         p1.setInitialHCP(p2.getInitialHCP());
-        
+
         p2.setHandDirectly(tempHand);
         p2.setInitialHCP(tempHCP);
     }
@@ -309,61 +309,38 @@ public class GameController {
     }
 
     private void checkClaimPossibility(Player player) {
-        List<String> opponentNames;
-        List<String> teamNames;
+        Map<Suit, Integer> maxOthersRank = new HashMap<>();
 
-        if ("North".equals(player.getName()) || "South".equals(player.getName())) {
-            opponentNames = java.util.Arrays.asList("East", "West");
-            teamNames = java.util.Arrays.asList("North", "South");
-        } else {
-            opponentNames = java.util.Arrays.asList("North", "South");
-            teamNames = java.util.Arrays.asList("East", "West");
-        }
-
-        Map<Suit, Integer> maxOpponentsRank = new HashMap<>();
-        for (String oppName : opponentNames) {
-            Player opp = players.get(oppName);
-            if (opp != null && opp.getHand() != null) {
-                for (Card c : opp.getHand()) {
+        for (String p : players.keySet()) {
+            if (!p.equals(player.getName())) {
+                for (Card c : players.get(p).getHand()) {
                     int rank = c.getRank().ordinal();
-                    Integer currentMax = maxOpponentsRank.get(c.getSuit());
-                    if (currentMax == null || rank > currentMax) {
-                        maxOpponentsRank.put(c.getSuit(), rank);
+                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                        maxOthersRank.put(c.getSuit(), rank);
                     }
                 }
             }
         }
-
-        List<Player> teamPlayers = new ArrayList<>();
-        for (String tName : teamNames) {
-            Player teamP = players.get(tName);
-            if (teamP != null) {
-                teamPlayers.add(teamP);
-            }
-        }
-
-        callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(teamPlayers, maxOpponentsRank));
+        callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxOthersRank));
+        //callback.onClaimButtonVisibilityChanged(true);
     }
 
-    private boolean hasOnlyWinningCards(List<Player> teamPlayers, Map<Suit, Integer> maxOpponentsRank) {
+    private boolean hasOnlyWinningCards(Player p, Map<Suit, Integer> maxOthersRank) {
         Suit trumpSuit = getTrumpSuit();
-        boolean opponentsHaveTrumps = trumpSuit != null && maxOpponentsRank.containsKey(trumpSuit);
+        boolean othersHaveTrumps = trumpSuit != null && maxOthersRank.containsKey(trumpSuit);
 
-        for (Player p : teamPlayers) {
-            if (p == null || p.getHand() == null) continue;
-            for (Card c : p.getHand()) {
-                // Jeśli przeciwnicy mają jeszcze atu, gra w kolorach bocznych nie gwarantuje bezpiecznej wygranej
-                if (opponentsHaveTrumps && c.getSuit() != trumpSuit) {
-                    return false;
-                }
+        int totalNSWinners = 0;
+        for (Card c : p.getHand()) {
+            // Jeśli inni gracze mają jeszcze atu, nie możemy bezpiecznie claimować lew w kolorach bocznych
+            if (othersHaveTrumps && c.getSuit() != trumpSuit) {
+                return false;
+            }
 
-                int maxOppRank = maxOpponentsRank.getOrDefault(c.getSuit(), -1);
-                if (c.getRank().ordinal() <= maxOppRank) {
-                    return false;
-                }
+            if (c.getRank().ordinal() > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                totalNSWinners++;
             }
         }
-        return true;
+        return totalNSWinners == p.getHand().size();
     }
 
     public void claimRest() {
