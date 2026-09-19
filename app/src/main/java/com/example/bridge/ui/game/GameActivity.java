@@ -189,6 +189,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         findViewById(R.id.btn_start).setOnClickListener(v -> {
             onVisibleStartBar(false);
             if (btnClaim != null) btnClaim.setVisibility(View.GONE);
+            View selectionContainer = findViewById(R.id.system_selection_container);
+            if (selectionContainer != null) selectionContainer.setVisibility(View.GONE);
             if (loadingIndicator != null) loadingIndicator.setVisibility(View.VISIBLE);
             setBottomNavVisibility(false);
             setBiddingScrollViewMaxHeight(135);
