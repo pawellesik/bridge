@@ -874,7 +874,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
                 overlayStatistic.getStatsManager().recordGame(gameMode, 0, -1, gameImp, isWin);
             }
-            double careerImpAfter = statsManager.getCareerImp(gameMode);
+            double careerImpBefore = statsManager.getCareerImp(gameMode);
+            double careerImpAfter = Math.round((careerImpBefore + gameImp) * 10.0) / 10.0;
             gameTop.setTotalImp(careerImpAfter, gameImp);
 
             String jsonExport = pbnCollection.generateJsonExport();
