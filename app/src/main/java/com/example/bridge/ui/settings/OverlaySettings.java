@@ -32,6 +32,7 @@ public class OverlaySettings {
         setupSingleplayer();
         setupTestPbnSwitch();
         setupExplanationSwitch();
+        setupPublicKnowledgeSwitch();
         setupHistorySize();
     }
 
@@ -115,6 +116,17 @@ public class OverlaySettings {
 
         switchExplanation.setOnCheckedChangeListener((buttonView, isChecked) -> {
             settingsManager.setShowExplanation(isChecked);
+        });
+    }
+
+    private void setupPublicKnowledgeSwitch() {
+        com.google.android.material.materialswitch.MaterialSwitch switchPublicKnowledge = activity.getSettingsOverlay().findViewById(R.id.switch_public_knowledge);
+        if (switchPublicKnowledge == null) return;
+
+        switchPublicKnowledge.setChecked(settingsManager.isShowPublicKnowledge());
+
+        switchPublicKnowledge.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            settingsManager.setShowPublicKnowledge(isChecked);
         });
     }
 

@@ -230,7 +230,7 @@ public class AuctionBiddingHelper {
         View container = activity.findViewById(R.id.public_knowledge_container);
         if (container == null) return;
 
-        if (liveBiddingState == null) {
+        if (liveBiddingState == null || !com.example.bridge.core.SettingsManager.getInstance(activity).isShowPublicKnowledge()) {
             if (outerLayout != null) outerLayout.setVisibility(View.GONE);
             container.setVisibility(View.GONE);
             return;

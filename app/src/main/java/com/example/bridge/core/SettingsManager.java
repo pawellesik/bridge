@@ -202,4 +202,33 @@ public class SettingsManager {
                     .blockingAwait();
         } catch (Exception ignored) {}
     }
+
+    // --- SHOW PUBLIC KNOWLEDGE ---
+    private Boolean cachedShowPublicKnowledge = null;
+
+    public boolean isShowPublicKnowledge() {
+        if (cachedShowPublicKnowledge != null) {
+            return cachedShowPublicKnowledge;
+        }
+        try {
+            boolean val = dataStoreManager.getPreference(DataStoreManager.SHOW_PUBLIC_KNOWLEDGE, true)
+                    .firstOrError()
+                    .onErrorReturnItem(true)
+                    .blockingGet();
+            cachedShowPublicKnowledge = val;
+            return val;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public void setShowPublicKnowledge(boolean show) {
+        cachedShowPublicKnowledge = show;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.SHOW_PUBLIC_KNOWLEDGE, show)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
+    }
 }
