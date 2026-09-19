@@ -84,7 +84,7 @@ public class PbnCollection {
         gameActivity.getGameController().calculateAndSetTheBestContract();
         Contract contract = gameActivity.getGameController().getCurrentContract();
 
-        pbn.setContract(contract, "South");
+        pbn.setContract(contract, "S");
         pbn.setDealer("N"); //zaczyna licytacje
 
         if (contract != null) {
@@ -106,13 +106,18 @@ public class PbnCollection {
                 pbn.addBid("Pass"); // East
             }
         }
+
+        initAllPbn();
     }
+
     public void initAllPbn() {
         Map<String, List<Card>> hands = gameActivity.getGameController().getHandsMap();
 
         String gameMode = gameActivity.getGameMode();
 
-        pbn.initNewGame(hands, gameMode);
+        if (pbn.getInitialHands() == null || pbn.getInitialHands().isEmpty()) {
+            pbn.initNewGame(hands, gameMode);
+        }
 
         String mainDealer = getNormalizedDealer(pbn.getDealer());
         String oppositeDealer = getOppositeDealer(mainDealer);
@@ -161,15 +166,15 @@ public class PbnCollection {
         Game game = new Game();
         Map<String, com.example.bridge.model.Player> players = gameActivity.getGameController().getPlayers();
 
-        com.example.bridge.model.Player playerN = players.get("North");
-        com.example.bridge.model.Player playerS = players.get("South");
+        com.example.bridge.model.Player playerN = players.get("N");
+        com.example.bridge.model.Player playerE = players.get("E");
+        com.example.bridge.model.Player playerS = players.get("S");
+        com.example.bridge.model.Player playerW = players.get("W");
 
-        if (playerN != null) {
-            game.getDeal().put(Direction.N, Hand.parse(pbn.formatHand(playerN.getHand())));
-        }
-        if (playerS != null) {
-            game.getDeal().put(Direction.S, Hand.parse(pbn.formatHand(playerS.getHand())));
-        }
+        if (playerN != null) game.getDeal().put(Direction.N, Hand.parse(pbn.formatHand(playerN.getHand())));
+        if (playerE != null) game.getDeal().put(Direction.E, Hand.parse(pbn.formatHand(playerE.getHand())));
+        if (playerS != null) game.getDeal().put(Direction.S, Hand.parse(pbn.formatHand(playerS.getHand())));
+        if (playerW != null) game.getDeal().put(Direction.W, Hand.parse(pbn.formatHand(playerW.getHand())));
 
         if ("N".equalsIgnoreCase(dealerDirection) || "North".equalsIgnoreCase(dealerDirection)) {
             game.dealer = Direction.N;
@@ -267,17 +272,22 @@ public class PbnCollection {
             Map<String, List<Card>> originalHands = gameActivity.getGameController().getHandsMap();
             if (originalHands == null) return;
 
-            for (Map.Entry<String, List<Card>> entry : originalHands.entrySet()) {
-                hands.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+            String[] dirs = {"N", "E", "S", "W"};
+            for (String dir : dirs) {
+                List<Card> orig = originalHands.get(dir);
+                if (orig != null) {
+                    hands.put(dir, new ArrayList<>(orig));
+                }
             }
 
             DdsSolver solver = new DdsSolver();
             solver.initDds();
 
-            String[] playerOrder = {"North", "East", "South", "West"};
+            String[] playerOrder = {"N", "E", "S", "W"};
             int declarerIdx = -1;
+            String shortDecl = toShortDir(declarerName);
             for (int i = 0; i < 4; i++) {
-                if (playerOrder[i].equalsIgnoreCase(declarerName)) {
+                if (playerOrder[i].equalsIgnoreCase(shortDecl)) {
                     declarerIdx = i;
                     break;
                 }
@@ -310,7 +320,7 @@ public class PbnCollection {
                 currentTrick.setWinnerTrick(winner);
                 playHistory.add(currentTrick);
 
-                if ("North".equals(winner) || "South".equals(winner)) {
+                if ("N".equals(winner) || "S".equals(winner)) {
                     nsTricks++;
                 }
                 currentLeader = winner;
@@ -319,14 +329,13 @@ public class PbnCollection {
             targetPbn.setPlayHistory(playHistory);
 
             int declarerTricks;
-            if ("North".equals(declarerName) || "South".equals(declarerName)) {
+            if ("N".equals(shortDecl) || "S".equals(shortDecl)) {
                 declarerTricks = nsTricks;
             } else {
                 declarerTricks = 13 - nsTricks;
             }
             targetPbn.setResult(declarerTricks);
 
-            // Obliczanie punktacji (Score) zgodnie z zasadami brydża (przed partią)
             targetPbn.calculateAndSetScore();
 
         } catch (Exception e) {
@@ -367,7 +376,7 @@ public class PbnCollection {
 
     private Card calculateBestCardForSim(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, int trump, String leaderName, DdsSolver solver) {
         int[] ddsCards = new int[16];
-        String[] handNames = {"North", "East", "South", "West"};
+        String[] handNames = {"N", "E", "S", "W"};
         for (int h = 0; h < 4; h++) {
             List<Card> hand = hands.get(handNames[h]);
             if (hand != null) {
@@ -394,7 +403,7 @@ public class PbnCollection {
         int resSuitIdx = result / 100;
         int resRankVal = result % 100;
 
-        List<Card> currentPlayerHand = hands.get(playerName);
+        List<Card> currentPlayerHand = hands.get(toShortDir(playerName));
         if (currentPlayerHand != null) {
             for (Card c : currentPlayerHand) {
                 if (mapSuitToDdsIndex(c.getSuit()) == resSuitIdx && (c.getRank().ordinal() + 2) == resRankVal) {
@@ -438,18 +447,25 @@ public class PbnCollection {
         return false;
     }
 
+    private String toShortDir(String dir) {
+        if (dir == null) return "N";
+        switch (dir.toUpperCase()) {
+            case "N": case "NORTH": return "N";
+            case "E": case "EAST": return "E";
+            case "S": case "SOUTH": return "S";
+            case "W": case "WEST": return "W";
+            default: return dir;
+        }
+    }
+
     private int getPlayerDdsIndex(String name) {
-        switch (name) {
-            case "North":
-                return 0;
-            case "East":
-                return 1;
-            case "South":
-                return 2;
-            case "West":
-                return 3;
-            default:
-                return 0;
+        String shortDir = toShortDir(name);
+        switch (shortDir) {
+            case "N": return 0;
+            case "E": return 1;
+            case "S": return 2;
+            case "W": return 3;
+            default: return 0;
         }
     }
 
@@ -470,32 +486,24 @@ public class PbnCollection {
     }
 
     private String getNextPlayerName(String name) {
-        switch (name) {
-            case "North":
-                return "East";
-            case "East":
-                return "South";
-            case "South":
-                return "West";
-            case "West":
-                return "North";
-            default:
-                return "North";
+        String shortDir = toShortDir(name);
+        switch (shortDir) {
+            case "N": return "E";
+            case "E": return "S";
+            case "S": return "W";
+            case "W": return "N";
+            default: return "N";
         }
     }
 
     private String dirToString(Direction dir) {
+        if (dir == null) return "N";
         switch (dir) {
-            case N:
-                return "North";
-            case E:
-                return "East";
-            case S:
-                return "South";
-            case W:
-                return "West";
-            default:
-                return "";
+            case N: return "N";
+            case E: return "E";
+            case S: return "S";
+            case W: return "W";
+            default: return "N";
         }
     }
 

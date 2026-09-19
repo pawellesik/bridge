@@ -285,10 +285,10 @@ public class OverlayHistoryGame {
         com.example.bridge.model.Card wistCard = getWistCard(selectedPbn);
         Map<String, List<com.example.bridge.model.Card>> hands = selectedPbn.getInitialHands();
         if (hands != null) {
-            updateHandTextView(tvNorthCards, hands.get("North"), wistCard);
-            updateHandTextView(tvSouthCards, hands.get("South"), wistCard);
-            updateHandTextView(tvEastCards, hands.get("East"), wistCard);
-            updateHandTextView(tvWestCards, hands.get("West"), wistCard);
+            updateHandTextView(tvNorthCards, getHandFromMap(hands, "N"), wistCard);
+            updateHandTextView(tvSouthCards, getHandFromMap(hands, "S"), wistCard);
+            updateHandTextView(tvEastCards, getHandFromMap(hands, "E"), wistCard);
+            updateHandTextView(tvWestCards, getHandFromMap(hands, "W"), wistCard);
 
             updatePlayerLabelsWithHcp(hands);
         }
@@ -309,10 +309,23 @@ public class OverlayHistoryGame {
     private void updatePlayerLabelsWithHcp(Map<String, List<com.example.bridge.model.Card>> hands) {
         if (hands == null) return;
 
-        updatePlayerLabel(labelNorth, R.string.player_north, hands.get("North"));
-        updatePlayerLabel(labelSouth, R.string.player_south, hands.get("South"));
-        updatePlayerLabel(labelEast, R.string.player_east, hands.get("East"));
-        updatePlayerLabel(labelWest, R.string.player_west, hands.get("West"));
+        updatePlayerLabel(labelNorth, R.string.player_north, getHandFromMap(hands, "N"));
+        updatePlayerLabel(labelSouth, R.string.player_south, getHandFromMap(hands, "S"));
+        updatePlayerLabel(labelEast, R.string.player_east, getHandFromMap(hands, "E"));
+        updatePlayerLabel(labelWest, R.string.player_west, getHandFromMap(hands, "W"));
+    }
+
+    private List<com.example.bridge.model.Card> getHandFromMap(Map<String, List<com.example.bridge.model.Card>> hands, String dir) {
+        if (hands == null || dir == null) return null;
+        List<com.example.bridge.model.Card> hand = hands.get(dir);
+        if (hand != null) return hand;
+        switch (dir.toUpperCase()) {
+            case "N": case "NORTH": return hands.get("North");
+            case "S": case "SOUTH": return hands.get("South");
+            case "E": case "EAST": return hands.get("East");
+            case "W": case "WEST": return hands.get("West");
+            default: return null;
+        }
     }
 
     private void updatePlayerLabel(TextView tv, int stringResId, List<com.example.bridge.model.Card> hand) {

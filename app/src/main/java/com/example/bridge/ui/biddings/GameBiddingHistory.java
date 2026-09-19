@@ -51,11 +51,14 @@ public class GameBiddingHistory {
     public void updateBiddingHistory(String currentSelection, boolean shouldScroll) {
         if (firstPlayer != null) {
             int offset = 0;
-            switch (firstPlayer.getName()) {
-                case "West": offset = 0; break;
-                case "North": offset = 1; break;
-                case "East": offset = 2; break;
-                case "South": offset = 3; break;
+            String dirStr = firstPlayer.getDirectionString();
+            if (dirStr != null) {
+                switch (dirStr.toUpperCase()) {
+                    case "W": offset = 0; break;
+                    case "N": offset = 1; break;
+                    case "E": offset = 2; break;
+                    case "S": offset = 3; break;
+                }
             }
 
             int currentLeading = 0;

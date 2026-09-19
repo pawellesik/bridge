@@ -29,48 +29,49 @@ public class GamePlayerLabels {
     }
 
     public void updateAll(Map<String, Player> players, String gameMode) {
-        updateLabel("North", players.get("North"), gameMode);
-        updateLabel("South", players.get("South"), gameMode);
-        updateLabel("East", players.get("East"), gameMode);
-        updateLabel("West", players.get("West"), gameMode);
+        updateLabel("N", players.get("N"), gameMode);
+        updateLabel("S", players.get("S"), gameMode);
+        updateLabel("E", players.get("E"), gameMode);
+        updateLabel("W", players.get("W"), gameMode);
     }
 
-    public void updateLabel(String playerName, Player player, String gameMode) {
-        String logicalNameForLabel = playerName;
-        if (isRotated) {
-            switch (playerName) {
-                case "North": logicalNameForLabel = "South"; break;
-                case "South": logicalNameForLabel = "North"; break;
-                case "East": logicalNameForLabel = "West"; break;
-                case "West": logicalNameForLabel = "East"; break;
+    public void updateLabel(String playerDirection, Player player, String gameMode) {
+        String logicalDirectionForLabel = playerDirection;
+        if (isRotated && playerDirection != null) {
+            switch (playerDirection.toUpperCase()) {
+                case "N": logicalDirectionForLabel = "S"; break;
+                case "S": logicalDirectionForLabel = "N"; break;
+                case "E": logicalDirectionForLabel = "W"; break;
+                case "W": logicalDirectionForLabel = "E"; break;
             }
         }
-        TextView tv = getTextView(playerName);
+        TextView tv = getTextView(playerDirection);
         if (tv != null) {
-            tv.setText(GameLabelHelper.getFormattedPlayerName(activity, logicalNameForLabel, player, gameMode));
+            tv.setText(GameLabelHelper.getFormattedPlayerName(activity, logicalDirectionForLabel, player, gameMode));
         }
     }
 
-    public void updateTurn(String activePlayerName) {
+    public void updateTurn(String activePlayerDirection) {
         viewNorth.setBackgroundResource(0);
         viewSouth.setBackgroundResource(0);
         viewEast.setBackgroundResource(0);
         viewWest.setBackgroundResource(0);
 
-        if (activePlayerName == null) return;
+        if (activePlayerDirection == null) return;
 
-        TextView activeTv = getTextView(activePlayerName);
+        TextView activeTv = getTextView(activePlayerDirection);
         if (activeTv != null) {
             activeTv.setBackgroundResource(R.drawable.transparent_white_frame);
         }
     }
 
-    private TextView getTextView(String playerName) {
-        switch (playerName) {
-            case "North": return viewNorth;
-            case "South": return viewSouth;
-            case "East": return viewEast;
-            case "West": return viewWest;
+    private TextView getTextView(String playerDirection) {
+        if (playerDirection == null) return null;
+        switch (playerDirection.toUpperCase()) {
+            case "N": return viewNorth;
+            case "S": return viewSouth;
+            case "E": return viewEast;
+            case "W": return viewWest;
             default: return null;
         }
     }

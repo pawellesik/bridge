@@ -114,17 +114,22 @@ public class SingleGameBidding {
         activity.getPbnCollection().initAllPbn();
         activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
 
-        game.getDeal().put(Direction.N, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("North"))));
-        game.getDeal().put(Direction.E, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("East"))));
-        game.getDeal().put(Direction.S, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("South"))));
-        game.getDeal().put(Direction.W, Hand.parse(activity.getPbnCollection().getPbn().formatHand(hands.get("West"))));
+        List<Card> handN = hands.get("N") != null ? hands.get("N") : hands.get("North");
+        List<Card> handE = hands.get("E") != null ? hands.get("E") : hands.get("East");
+        List<Card> handS = hands.get("S") != null ? hands.get("S") : hands.get("South");
+        List<Card> handW = hands.get("W") != null ? hands.get("W") : hands.get("West");
+
+        if (handN != null) game.getDeal().put(Direction.N, Hand.parse(activity.getPbnCollection().getPbn().formatHand(handN)));
+        if (handE != null) game.getDeal().put(Direction.E, Hand.parse(activity.getPbnCollection().getPbn().formatHand(handE)));
+        if (handS != null) game.getDeal().put(Direction.S, Hand.parse(activity.getPbnCollection().getPbn().formatHand(handS)));
+        if (handW != null) game.getDeal().put(Direction.W, Hand.parse(activity.getPbnCollection().getPbn().formatHand(handW)));
 
         liveBiddingState = new BiddingState(game);
 
-        String firstPlayerName = "West";
-        if (dealerDir == Direction.N) firstPlayerName = "North";
-        else if (dealerDir == Direction.E) firstPlayerName = "East";
-        else if (dealerDir == Direction.S) firstPlayerName = "South";
+        String firstPlayerName = "W";
+        if (dealerDir == Direction.N) firstPlayerName = "N";
+        else if (dealerDir == Direction.E) firstPlayerName = "E";
+        else if (dealerDir == Direction.S) firstPlayerName = "S";
 
         activity.getGameBiddingHistory().setFirstPlayer(activity.getGameController().getPlayers().get(firstPlayerName));
         activity.getGameBiddingHistory().getAuction().clear();
@@ -235,12 +240,15 @@ public class SingleGameBidding {
             activity.getGameController().onBiddingFinished(new Contract(true), null);
         } else {
             Direction declarerDir = contractState.getDeclarer();
-            String declarerName = "West";
-            if (declarerDir == Direction.N) declarerName = "North";
-            else if (declarerDir == Direction.E) declarerName = "East";
-            else if (declarerDir == Direction.S) declarerName = "South";
+            String declarerName = "W";
+            if (declarerDir == Direction.N) declarerName = "N";
+            else if (declarerDir == Direction.E) declarerName = "E";
+            else if (declarerDir == Direction.S) declarerName = "S";
 
             Player declarer = activity.getGameController().getPlayers().get(declarerName);
+            if (declarer == null && declarerDir != null) {
+                declarer = activity.getGameController().getPlayers().get(declarerDir.name());
+            }
 
             com.example.bridge.bidding.Tools.Bid finalBid = contractState.getBid();
             Suit suit = null;

@@ -22,7 +22,7 @@ import java.util.Map;
 public class GameController {
 
     public interface GameCallback {
-        void onHandUpdated(String playerName);
+        void onHandUpdated(String playerDirection);
 
         void onCardPlayed(Player player, Card card);
 
@@ -34,7 +34,7 @@ public class GameController {
 
         void onVisibleStartBar(Boolean isVisible);
 
-        void onTurnChanged(String playerName);
+        void onTurnChanged(String playerDirection);
 
         void onScoreUpdated(int snScore, int weScore);
 
@@ -118,8 +118,8 @@ public class GameController {
                 player.setCurrentMove(false);
             }
 
-            Player south = players.get("South");
-            Player north = players.get("North");
+            Player south = players.get("S");
+            Player north = players.get("N");
 
             if (south != null && north != null) {
                 int combinedHCP = south.calculateHCP() + north.calculateHCP();
@@ -218,8 +218,8 @@ public class GameController {
 
     public void calculateAndSetTheBestContract() {
         setCurrentContract(quickGameBidding.determineBestContract());
-        callback.onContractDetermined(currentContract, players.get("South"));
-        playerFirstPlayCard = players.get("West");
+        callback.onContractDetermined(currentContract, players.get("S"));
+        playerFirstPlayCard = players.get("W");
     }
 
     public void onBiddingFinished(Contract contract, Player declarer) {
@@ -228,10 +228,10 @@ public class GameController {
         if (declarer != null) {
             // If North won the bidding, we swap hands N<->S and E<->W
             // This ensures the human player (South) is always the declarer if NS wins.
-            if ("North".equals(declarer.getName())) {
-                swapHands(players.get("North"), players.get("South"));
-                swapHands(players.get("East"), players.get("West"));
-                declarer = players.get("South"); // Now South is the declarer
+            if ("N".equals(declarer.getDirectionString())) {
+                swapHands(players.get("N"), players.get("S"));
+                swapHands(players.get("E"), players.get("W"));
+                declarer = players.get("S"); // Now South is the declarer
                 callback.onPlayersSwapped(true, true);
             }
 
@@ -242,15 +242,15 @@ public class GameController {
             }
 
             callback.onContractDetermined(contract, declarer);
-            callback.onHandUpdated("North");
-            callback.onHandUpdated("South");
+            callback.onHandUpdated("N");
+            callback.onHandUpdated("S");
 
             handler.postDelayed(this::startGame, 300);
         } else {
             this.playerFirstPlayCard = null;
             callback.onContractDetermined(contract, null);
-            callback.onHandUpdated("North");
-            callback.onHandUpdated("South");
+            callback.onHandUpdated("N");
+            callback.onHandUpdated("S");
             callback.onGameEnded(0, 0, currentContract, playHistoryTrick, 0);
         }
     }
@@ -271,7 +271,7 @@ public class GameController {
         if (playerFirstPlayCard == null) return;
         isGameRunning = true;
         playerFirstPlayCard.setCurrentMove(true);
-        callback.onTurnChanged(playerFirstPlayCard.getName());
+        callback.onTurnChanged(playerFirstPlayCard.getDirectionString());
         playCardOpponent(playerFirstPlayCard);
     }
 
@@ -300,20 +300,20 @@ public class GameController {
         player.setCurrentMove(false);
         player.removeCard(card);
 
-        currentTrick.addCard(player.getName(), card);
+        currentTrick.addCard(player.getDirectionString(), card);
 
         callback.onClearLastCards(currentTrick.getCardsOnTable());
         callback.onCardPlayed(player, card);
-        callback.onHandUpdated(player.getName());
+        callback.onHandUpdated(player.getDirectionString());
         setNextPlayerCurrentMove(player);
     }
 
     private void checkClaimPossibility(Player player) {
         Map<Suit, Integer> maxOthersRank = new HashMap<>();
 
-        for (String p : players.keySet()) {
-            if (!p.equals(player.getName())) {
-                for (Card c : players.get(p).getHand()) {
+        for (Player other : players.values()) {
+            if (other != player) {
+                for (Card c : other.getHand()) {
                     int rank = c.getRank().ordinal();
                     if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
                         maxOthersRank.put(c.getSuit(), rank);
@@ -347,12 +347,12 @@ public class GameController {
     public void claimRest() {
         if (!isGameRunning) return;
         isGameRunning = false;
-        int remainingTricks = players.get("South").getHand().size();
+        int remainingTricks = players.get("S") != null ? players.get("S").getHand().size() : 0;
         snScore += remainingTricks;
 
         for (Player p : players.values()) {
             p.getHand().clear();
-            callback.onHandUpdated(p.getName());
+            callback.onHandUpdated(p.getDirectionString());
         }
 
         callback.onScoreUpdated(snScore, weScore);
@@ -364,7 +364,7 @@ public class GameController {
             return true;
         }
 
-        Card leadCard = currentTrick.getCard(playerFirstPlayCard.getName());
+        Card leadCard = currentTrick.getCard(playerFirstPlayCard.getDirectionString());
         if (leadCard == null) return true;
 
         Suit ledSuit = leadCard.getSuit();
@@ -377,10 +377,10 @@ public class GameController {
 
     private void setNextPlayerCurrentMove(Player player) {
         if (currentTrick.getCardsOnTable().size() == 4) {
-            String winnerName = determineTrickWinner();
-            currentTrick.setWinnerTrick(winnerName);
+            String winnerDirection = determineTrickWinner();
+            currentTrick.setWinnerTrick(winnerDirection);
 
-            if (winnerName.equals("North") || winnerName.equals("South")) {
+            if ("N".equals(winnerDirection) || "S".equals(winnerDirection)) {
                 snScore++;
             } else {
                 weScore++;
@@ -395,21 +395,24 @@ public class GameController {
                     return;
                 }
 
-                Player nextPlayer = players.get(winnerName);
-                playerFirstPlayCard = players.get(winnerName);
-                nextPlayer.setCurrentMove(true);
-
-                callback.onTurnChanged(nextPlayer.getName());
-                if (winnerName.equals("North") || winnerName.equals("South")) {
-                    checkClaimPossibility(nextPlayer);
+                Player nextPlayer = getPlayerByDirection(winnerDirection);
+                playerFirstPlayCard = nextPlayer;
+                if (nextPlayer != null) {
+                    nextPlayer.setCurrentMove(true);
+                    callback.onTurnChanged(nextPlayer.getDirectionString());
+                    if ("N".equals(winnerDirection) || "S".equals(winnerDirection)) {
+                        checkClaimPossibility(nextPlayer);
+                    }
+                    checkOpponentMove(nextPlayer);
                 }
-                checkOpponentMove(nextPlayer);
             }, 700);
         } else {
             Player nextPlayer = getNextPlayer(player);
-            nextPlayer.setCurrentMove(true);
-            callback.onTurnChanged(nextPlayer.getName());
-            checkOpponentMove(nextPlayer);
+            if (nextPlayer != null) {
+                nextPlayer.setCurrentMove(true);
+                callback.onTurnChanged(nextPlayer.getDirectionString());
+                checkOpponentMove(nextPlayer);
+            }
         }
     }
 
@@ -427,23 +430,23 @@ public class GameController {
 
         // The first card played in the trick is the lead card
         Map.Entry<String, Card> leadEntry = currentTrick.getCardsOnTableMap().entrySet().iterator().next();
-        String leaderName = leadEntry.getKey();
+        String leaderDirection = leadEntry.getKey();
         Card leadCard = leadEntry.getValue();
 
         Suit ledSuit = leadCard.getSuit();
         Suit trumpSuit = getTrumpSuit();
 
-        String winnerName = leaderName;
+        String winnerDirection = leaderDirection;
         Card bestCard = leadCard;
 
         for (Map.Entry<String, Card> entry : currentTrick.getCardsOnTableMap().entrySet()) {
             Card card = entry.getValue();
             if (isBetterCard(card, bestCard, ledSuit, trumpSuit)) {
                 bestCard = card;
-                winnerName = entry.getKey();
+                winnerDirection = entry.getKey();
             }
         }
-        return winnerName;
+        return winnerDirection;
     }
 
     private boolean isBetterCard(Card challenger, Card currentBest, Suit ledSuit, Suit trumpSuit) {
@@ -467,7 +470,9 @@ public class GameController {
     }
 
     private void checkOpponentMove(Player player) {
-        if (isAutoPlayMode || "East".equals(player.getName()) || "West".equals(player.getName())) {
+        if (player == null) return;
+        String dir = player.getDirectionString();
+        if (isAutoPlayMode || "E".equals(dir) || "W".equals(dir)) {
             playCardOpponent(player);
         }
     }
@@ -475,9 +480,9 @@ public class GameController {
     private void playCardOpponent(Player playerOponent) {
         List<Card> hand = playerOponent.getHand();
         if (!hand.isEmpty() && playerOponent.isCurrentMove()) {
-            Card bestCard = calculateBestCard(playerOponent.getName(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, playerFirstPlayCard);
+            Card bestCard = calculateBestCard(playerOponent.getDirectionString(), getHandsMap(), currentTrick.getCardsOnTable(), currentContract, playerFirstPlayCard);
             if (bestCard == null) {
-                bestCard = hand.get((int) (Math.random() * hand.size()));//todo wybrac mozna tylko do dozwolona karte a nie losowo
+                bestCard = hand.get((int) (Math.random() * hand.size()));
             }
 
             final Card finalCard = bestCard;
@@ -485,9 +490,9 @@ public class GameController {
         }
     }
 
-    private Card calculateBestCard(String playerName, Map<String, List<Card>> hands, List<Card> cardsOnTable, Contract contract, Player leaderName) {
+    private Card calculateBestCard(String playerDirection, Map<String, List<Card>> hands, List<Card> cardsOnTable, Contract contract, Player leaderPlayer) {
         int[] ddsCards = new int[16];
-        String[] handNames = {"North", "East", "South", "West"};
+        String[] handNames = {"N", "E", "S", "W"};
         for (int h = 0; h < 4; h++) {
             List<Card> hand = hands.get(handNames[h]);
             if (hand != null) {
@@ -499,7 +504,7 @@ public class GameController {
         }
 
         int trump = getTrumpDdsIndex(contract);
-        int leaderIdx = getPlayerDdsIndex(leaderName.getName());
+        int leaderIdx = getPlayerDdsIndex(leaderPlayer != null ? leaderPlayer.getDirectionString() : "W");
 
         int[] trickSuits = {-1, -1, -1};
         int[] trickRanks = {0, 0, 0};
@@ -509,12 +514,12 @@ public class GameController {
             trickRanks[i] = c.getRank().ordinal() + 2;
         }
 
-        int result = getBestCard(playerName, ddsCards, trump, leaderIdx, trickSuits, trickRanks, cardsOnTable.size());
+        int result = getBestCard(playerDirection, ddsCards, trump, leaderIdx, trickSuits, trickRanks, cardsOnTable.size());
 
         int resSuitIdx = result / 100;
         int resRankVal = result % 100;
 
-        List<Card> currentPlayerHand = hands.get(playerName);
+        List<Card> currentPlayerHand = hands.get(playerDirection);
         if (currentPlayerHand != null) {
             for (Card c : currentPlayerHand) {
                 if (mapSuitToDdsIndex(c.getSuit()) == resSuitIdx && (c.getRank().ordinal() + 2) == resRankVal) {
@@ -525,17 +530,12 @@ public class GameController {
         return null;
     }
 
-    private int getBestCard(String playerName, int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks, int cardsOnTableCount) {
-        /*System.out.println("plesik calcBestCards params: trump=" + trump + ", leader=" + leader +
-                ", cards=" + java.util.Arrays.toString(cards) +
-                ", trickSuits=" + java.util.Arrays.toString(trickSuits) +
-                ", trickRanks=" + java.util.Arrays.toString(trickRanks));*/
-
+    private int getBestCard(String playerDirection, int[] cards, int trump, int leader, int[] trickSuits, int[] trickRanks, int cardsOnTableCount) {
         int[] resultTab = ddsSolver.calcBestCards(cards, trump, leader, trickSuits, trickRanks);
 
         boolean isFirstMove = cardsOnTableCount == 0;
 
-        boolean isNS = playerName.contains("South") || playerName.contains("North");
+        boolean isNS = playerDirection != null && (playerDirection.equals("S") || playerDirection.equals("N"));
 
         // Determine current winner and highest trump on table
         int currentWinnerIdx = -1;
@@ -654,7 +654,9 @@ public class GameController {
     public Map<String, List<Card>> getHandsMap() {
         Map<String, List<Card>> map = new HashMap<>();
         for (Player p : players.values()) {
-            map.put(p.getName(), p.getHand());
+            if (p.getDirectionString() != null) {
+                map.put(p.getDirectionString(), p.getHand());
+            }
         }
         return map;
     }
@@ -679,15 +681,16 @@ public class GameController {
         return mapSuitToDdsIndex(contract.getSuit());
     }
 
-    private int getPlayerDdsIndex(String name) {
-        switch (name) {
-            case "North":
+    private int getPlayerDdsIndex(String playerDirection) {
+        if (playerDirection == null) return 0;
+        switch (playerDirection.toUpperCase()) {
+            case "N": case "NORTH":
                 return 0;
-            case "East":
+            case "E": case "EAST":
                 return 1;
-            case "South":
+            case "S": case "SOUTH":
                 return 2;
-            case "West":
+            case "W": case "WEST":
                 return 3;
             default:
                 return 0;
@@ -696,18 +699,32 @@ public class GameController {
 
     private Player getNextPlayer(Player player) {
         if (player == null) return null;
-        switch (player.getName()) {
-            case "North":
-                return players.get("East");
-            case "East":
-                return players.get("South");
-            case "South":
-                return players.get("West");
-            case "West":
-                return players.get("North");
+        String dir = player.getDirectionString();
+        if (dir == null) return null;
+        switch (dir.toUpperCase()) {
+            case "N": case "NORTH":
+                return getPlayerByDirection("E");
+            case "E": case "EAST":
+                return getPlayerByDirection("S");
+            case "S": case "SOUTH":
+                return getPlayerByDirection("W");
+            case "W": case "WEST":
+                return getPlayerByDirection("N");
             default:
                 return null;
         }
+    }
+
+    private Player getPlayerByDirection(String dir) {
+        if (dir == null) return null;
+        Player p = players.get(dir);
+        if (p != null) return p;
+        for (Player player : players.values()) {
+            if (dir.equalsIgnoreCase(player.getDirectionString())) {
+                return player;
+            }
+        }
+        return players.get(dir);
     }
 
     private void clearTable() {

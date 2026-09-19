@@ -303,8 +303,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
         gameTop.setTotalImp(statsManager.getCareerImp(gameMode));
 
-        onHandUpdated("North");
-        onHandUpdated("South");
+        onHandUpdated("N");
+        onHandUpdated("S");
         playerLabels.updateAll(gameController.getPlayers(), gameMode);
         onVisibleStartBar(true);
     }
@@ -325,7 +325,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             if (rightInfo != null) rightInfo.setVisibility(View.GONE);
         }
         biddingOverlay.setVisibility(View.VISIBLE);
-        onHandUpdated("South");
+        onHandUpdated("S");
         playerLabels.updateAll(gameController.getPlayers(), gameMode);
         onVisibleStartBar(true);
     }
@@ -365,10 +365,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         }
 
         Map<String, Player> players = new LinkedHashMap<>();
-        players.put("North", new Player("North", playedCardContainerNorth));
-        players.put("East", new Player("East", playedCardContainerEast));
-        players.put("South", new Player("South", playedCardContainerSouth));
-        players.put("West", new Player("West", playedCardContainerWest));
+        players.put("N", new Player("N", "North", playedCardContainerNorth));
+        players.put("E", new Player("E", "East", playedCardContainerEast));
+        players.put("S", new Player("S", "South", playedCardContainerSouth));
+        players.put("W", new Player("W", "West", playedCardContainerWest));
         gameController = new GameController(this, players);
         gameController.dealCards();
     }
@@ -592,7 +592,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         southAdapter = new CardAdapter(displayHandSouth);
         southAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
-            Player south = gameController.getPlayers().get("South");
+            Player south = gameController.getPlayers().get("S");
             if (south.isCurrentMove() && gameController.isLegalMove(south, card)) {
                 isProcessingMove = true;
                 onClaimButtonVisibilityChanged(false);
@@ -608,7 +608,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         northAdapter = new CardAdapter(displayHandNorth);
         northAdapter.setOnCardClickListener(card -> {
             if (isProcessingMove) return;
-            Player north = gameController.getPlayers().get("North");
+            Player north = gameController.getPlayers().get("N");
             if (north.isCurrentMove() && gameController.isLegalMove(north, card)) {
                 isProcessingMove = true;
                 onClaimButtonVisibilityChanged(false);
@@ -662,8 +662,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void updateDisplayHandSouth() {
-        if (gameController.getPlayers().get("South") == null) return;
-        List<Card> actualHand = gameController.getPlayers().get("South").getHand();
+        if (gameController.getPlayers().get("S") == null) return;
+        List<Card> actualHand = gameController.getPlayers().get("S").getHand();
         displayHandSouth.clear();
 
         int row1End = Math.min(7, actualHand.size());
@@ -676,8 +676,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     private void updateDisplayHandNorth() {
-        if (gameController.getPlayers().get("North") == null) return;
-        List<Card> actualHand = gameController.getPlayers().get("North").getHand();
+        if (gameController.getPlayers().get("N") == null) return;
+        List<Card> actualHand = gameController.getPlayers().get("N").getHand();
         displayHandNorth.clear();
 
         int total = actualHand.size();
@@ -738,8 +738,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         container.addView(view);
     }
 
-    public void updateTurn(String playerName) {
-        playerLabels.updateTurn(playerName);
+    public void updateTurn(String playerDirection) {
+        playerLabels.updateTurn(playerDirection);
     }
 
     @Override
@@ -749,10 +749,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onHandUpdated(String playerName) {
-        if ("North".equals(playerName)) {
+    public void onHandUpdated(String playerDirection) {
+        if ("N".equals(playerDirection)) {
             updateDisplayHandNorth();
-        } else if ("South".equals(playerName)) {
+        } else if ("S".equals(playerDirection)) {
             updateDisplayHandSouth();
         }
     }
@@ -790,10 +790,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     @Override
-    public void onTurnChanged(String playerName) {
+    public void onTurnChanged(String playerDirection) {
         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
-        updateTurn(playerName);
-        if ("North".equals(playerName) || "South".equals(playerName)) {
+        updateTurn(playerDirection);
+        if ("N".equals(playerDirection) || "S".equals(playerDirection)) {
             isProcessingMove = false;
         }
     }
@@ -804,7 +804,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         gameTop.setContract(contract);
 
         if (pbnCollection.getPbn() != null) {
-            pbnCollection.getPbn().setContract(contract, declarer != null ? declarer.getName() : null);
+            pbnCollection.getPbn().setContract(contract, declarer != null ? declarer.getDirectionString() : null);
         }
 
         if (biddingControlsOverlay != null) {
@@ -859,7 +859,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (pbnCollection != null) {
             if (pbnCollection.getPbn().getContract() != null && !pbnCollection.getPbn().getContract().isPass()) {
                 String decl = pbnCollection.getPbn().getDeclarer();
-                if ("West".equals(decl) || "East".equals(decl)) {
+                if ("W".equals(decl) || "E".equals(decl) || "West".equals(decl) || "East".equals(decl)) {
                     pbnCollection.getPbn().setResult(weScore);
                 } else {
                     pbnCollection.getPbn().setResult(snScore);
@@ -872,7 +872,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
             String decl = pbnCollection.getPbn().getDeclarer();
             double gameImp = pbnCollection.getPbn().getImp();
             // Jeśli kontrakt to pas, decl może być nullem - unikamy wysypania się na .equals()
-            boolean isWin = decl != null && ("North".equals(decl) || "South".equals(decl)) && pbnCollection.getPbn().getScore() > 0;
+            boolean isWin = decl != null && ("N".equals(decl) || "S".equals(decl) || "North".equals(decl) || "South".equals(decl)) && pbnCollection.getPbn().getScore() > 0;
             if (overlayStatistic != null && overlayStatistic.getStatsManager() != null) {
                 overlayStatistic.getStatsManager().recordGame(gameMode, 0, -1, gameImp, isWin);
             }

@@ -110,12 +110,24 @@ public class GameTop {
 
     public void setLastTrickInTop(Map<String, Card> trickCards) {
         if (trickCards != null && !trickCards.isEmpty()) {
-            updateLastCard(tvLastNorth, trickCards.get("North"));
-            updateLastCard(tvLastSouth, trickCards.get("South"));
-            updateLastCard(tvLastEast, trickCards.get("East"));
-            updateLastCard(tvLastWest, trickCards.get("West"));
+            updateLastCard(tvLastNorth, getCardForDirection(trickCards, "N"));
+            updateLastCard(tvLastSouth, getCardForDirection(trickCards, "S"));
+            updateLastCard(tvLastEast, getCardForDirection(trickCards, "E"));
+            updateLastCard(tvLastWest, getCardForDirection(trickCards, "W"));
         } else {
             clearLastCards();
+        }
+    }
+
+    private Card getCardForDirection(Map<String, Card> trickCards, String shortDir) {
+        Card c = trickCards.get(shortDir);
+        if (c != null) return c;
+        switch (shortDir) {
+            case "N": return trickCards.get("North");
+            case "S": return trickCards.get("South");
+            case "E": return trickCards.get("East");
+            case "W": return trickCards.get("West");
+            default: return null;
         }
     }
 

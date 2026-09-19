@@ -457,7 +457,7 @@ public class GameBidding {
     }
 
     private Player getPlayerAtAuctionIndex(int index) {
-        String[] names = {"West", "North", "East", "South"};
+        String[] names = {"W", "N", "E", "S"};
         String name = names[index % 4];
         return activity.getGameController().getPlayers().get(name);
     }

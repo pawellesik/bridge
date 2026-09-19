@@ -30,7 +30,7 @@ public class QuickGameBidding {
         int contractCount = getContractCount(contractColorStr, totalHCP);
 
 
-        if (players.get("South").countSuit(Suit.getSuit(contractColorStr)) != players.get("North").countSuit(Suit.getSuit(contractColorStr))) {
+        if (getPlayer("S").countSuit(Suit.getSuit(contractColorStr)) != getPlayer("N").countSuit(Suit.getSuit(contractColorStr))) {
             swapNorthSouthIfSouthHasLongerTrump(contractColorStr);
         } else {
             swapNorthSouthIfSouthHaveMoreHpc();
@@ -78,8 +78,12 @@ public class QuickGameBidding {
     private int simulateMaxTricks(String contractColor) {
         int[] ddsCards = new int[16];
         String[] handNames = {"North", "East", "South", "West"};
+        String[] shortHandNames = {"N", "E", "S", "W"};
         for (int h = 0; h < 4; h++) {
             Player p = players.get(handNames[h]);
+            if (p == null) {
+                p = players.get(shortHandNames[h]);
+            }
             if (p != null) {
                 for (Card c : p.getHand()) {
                     int suitIdx = mapSuitToDdsIndex(c.getSuit());
@@ -131,9 +135,22 @@ public class QuickGameBidding {
         }
     }
 
-    private void swapNorthSouthIfSouthHasLongerTrump(String contractColor) {
+    private Player getPlayer(String dir) {
+        if (dir == null) return null;
+        Player p = players.get(dir);
+        if (p != null) return p;
+        switch (dir.toUpperCase()) {
+            case "S": case "SOUTH": return players.get("South");
+            case "N": case "NORTH": return players.get("North");
+            case "E": case "EAST": return players.get("East");
+            case "W": case "WEST": return players.get("West");
+            default: return null;
+        }
+    }
+
+    private void swapNorthSouthIfSouthHasLongerTrump(String contractColorStr) {
         Suit trumpSuit = null;
-        switch (contractColor) {
+        switch (contractColorStr) {
             case "Spades":
                 trumpSuit = Suit.SPADES;
                 break;
@@ -149,30 +166,36 @@ public class QuickGameBidding {
         }
 
         if (trumpSuit != null) {
-            int southCount = players.get("South").countSuit(trumpSuit);
-            int northCount = players.get("North").countSuit(trumpSuit);
+            Player south = getPlayer("S");
+            Player north = getPlayer("N");
+            if (south != null && north != null) {
+                int southCount = south.countSuit(trumpSuit);
+                int northCount = north.countSuit(trumpSuit);
 
-            if (southCount < northCount) {
-                List<Card> southHand = new ArrayList<>(players.get("South").getHand());
-                List<Card> northHand = new ArrayList<>(players.get("North").getHand());
+                if (southCount < northCount) {
+                    List<Card> southHand = new ArrayList<>(south.getHand());
+                    List<Card> northHand = new ArrayList<>(north.getHand());
 
-                players.get("South").clearHand();
-                players.get("South").addCards(northHand);
-                players.get("North").clearHand();
-                players.get("North").addCards(southHand);
+                    south.clearHand();
+                    south.addCards(northHand);
+                    north.clearHand();
+                    north.addCards(southHand);
+                }
             }
         }
     }
 
     private void swapNorthSouthIfSouthHaveMoreHpc() {
-        if (players.get("South").calculateHCP() < players.get("North").calculateHCP()) {
-            List<Card> southHand = new ArrayList<>(players.get("South").getHand());
-            List<Card> northHand = new ArrayList<>(players.get("North").getHand());
+        Player south = getPlayer("S");
+        Player north = getPlayer("N");
+        if (south != null && north != null && south.calculateHCP() < north.calculateHCP()) {
+            List<Card> southHand = new ArrayList<>(south.getHand());
+            List<Card> northHand = new ArrayList<>(north.getHand());
 
-            players.get("South").clearHand();
-            players.get("South").addCards(northHand);
-            players.get("North").clearHand();
-            players.get("North").addCards(southHand);
+            south.clearHand();
+            south.addCards(northHand);
+            north.clearHand();
+            north.addCards(southHand);
         }
     }
 
@@ -187,7 +210,7 @@ public class QuickGameBidding {
         boolean hasSecondColor = hasSecondColorFit();
 
         if (contractColor.equals("Spades") || contractColor.equals("Hearts")) {
-            if (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7) {
+            if (numberLongestColor(getPlayer("S")) < 7 && numberLongestColor(getPlayer("N")) < 7) {
                 if (totalHCP >= 37) return 7;
                 if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 8) return 7;
                 if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 7 && hasRenonsInOtherColor(contractColor))
@@ -205,7 +228,7 @@ public class QuickGameBidding {
                 return 3;
             }
         } else if (contractColor.equals("Diamonds") || contractColor.equals("Clubs")) {
-            if (numberLongestColor(players.get("South")) < 7 && numberLongestColor(players.get("North")) < 7) {
+            if (numberLongestColor(getPlayer("S")) < 7 && numberLongestColor(getPlayer("N")) < 7) {
                 if (totalHCP >= 37) return 7;
                 if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 8) return 7;
                 if (totalHCP >= 34 && hasSecondColor && acesAndKings >= 7 && hasRenonsInOtherColor(contractColor))
@@ -234,7 +257,10 @@ public class QuickGameBidding {
     }
 
     private int getAcesAndKingsCount() {
-        return players.get("North").countAcesAndKings() + players.get("South").countAcesAndKings();
+        Player north = getPlayer("N");
+        Player south = getPlayer("S");
+        if (north == null || south == null) return 0;
+        return north.countAcesAndKings() + south.countAcesAndKings();
     }
 
     private boolean hasRenonsInOtherColor(String contractColor) {
@@ -256,8 +282,8 @@ public class QuickGameBidding {
             }
         }
 
-        Player north = players.get("North");
-        Player south = players.get("South");
+        Player north = getPlayer("N");
+        Player south = getPlayer("S");
         if (north == null || south == null) return false;
 
         for (Suit suit : Suit.values()) {
@@ -293,7 +319,7 @@ public class QuickGameBidding {
         if (getCombinedCount(Suit.DIAMONDS) >= 8) return "Diamonds";
 
         // 2. Check for NT if we have holds in all colors
-        if (playersHaveHoldInAllSuits(players.get("North"), players.get("South"))) return "NT";
+        if (playersHaveHoldInAllSuits(getPlayer("N"), getPlayer("S"))) return "NT";
 
         // 4. Check for 7 card fits (Majors first)
         if (getCombinedCount(Suit.SPADES) == 7) return "Spades";
@@ -305,10 +331,14 @@ public class QuickGameBidding {
     }
 
     private int getCombinedCount(Suit suit) {
-        return players.get("North").countSuit(suit) + players.get("South").countSuit(suit);
+        Player north = getPlayer("N");
+        Player south = getPlayer("S");
+        if (north == null || south == null) return 0;
+        return north.countSuit(suit) + south.countSuit(suit);
     }
 
     private boolean playersHaveHoldInAllSuits(Player p1, Player p2) {
+        if (p1 == null || p2 == null) return false;
         for (Suit suit : Suit.values()) {
             if (!p1.hasHold(suit) && !p2.hasHold(suit)) {
                 return false;
@@ -319,31 +349,38 @@ public class QuickGameBidding {
 
 
     private void switchCardsIfAreToWeaks() {
-        int maxSuitS = numberLongestColor(players.get("South"));
-        int maxSuitN = numberLongestColor(players.get("North"));
+        Player south = getPlayer("S");
+        Player north = getPlayer("N");
+        Player east = getPlayer("E");
+        Player west = getPlayer("W");
+        if (south == null || north == null || east == null || west == null) return;
+
+        int maxSuitS = numberLongestColor(south);
+        int maxSuitN = numberLongestColor(north);
         int hcp = getHPCFromSNPlayers();
 
         boolean isStrongEnough = (maxSuitS > 6 && hcp >= 15) || (maxSuitN > 6 && hcp >= 15);
 
         if (!isStrongEnough && hcp < 20) {
-            List<Card> h0 = new ArrayList<>(players.get("North").getHand());
-            List<Card> h1 = new ArrayList<>(players.get("East").getHand());
-            List<Card> h2 = new ArrayList<>(players.get("South").getHand());
-            List<Card> h3 = new ArrayList<>(players.get("West").getHand());
+            List<Card> h0 = new ArrayList<>(north.getHand());
+            List<Card> h1 = new ArrayList<>(east.getHand());
+            List<Card> h2 = new ArrayList<>(south.getHand());
+            List<Card> h3 = new ArrayList<>(west.getHand());
 
-            players.get("North").clearHand();
-            players.get("East").clearHand();
-            players.get("South").clearHand();
-            players.get("West").clearHand();
+            north.clearHand();
+            east.clearHand();
+            south.clearHand();
+            west.clearHand();
 
-            players.get("North").addCards(h1);
-            players.get("East").addCards(h0);
-            players.get("South").addCards(h3);
-            players.get("West").addCards(h2);
+            north.addCards(h1);
+            east.addCards(h0);
+            south.addCards(h3);
+            west.addCards(h2);
         }
     }
 
     private int numberLongestColor(Player player) {
+        if (player == null) return 0;
         int maxCount = 0;
         for (Suit s : Suit.values()) {
             int count = player.countSuit(s);
@@ -355,8 +392,9 @@ public class QuickGameBidding {
     }
 
     private int getHPCFromSNPlayers() {
-        int hcpSouth = players.get("South").calculateHCP();
-        int hcpNorth = players.get("North").calculateHCP();
-        return hcpSouth + hcpNorth;
+        Player south = getPlayer("S");
+        Player north = getPlayer("N");
+        if (south == null || north == null) return 0;
+        return south.calculateHCP() + north.calculateHCP();
     }
 }

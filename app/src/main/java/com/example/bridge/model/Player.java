@@ -2,6 +2,8 @@ package com.example.bridge.model;
 
 import android.widget.FrameLayout;
 
+import com.example.bridge.bidding.Tools.Direction;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,14 +11,52 @@ import java.util.List;
 
 public class Player {
     private final String name;
+    private Direction direction;
     private final List<Card> hand = new ArrayList<>();
     private boolean isCurrentMove = false;
     private final FrameLayout playedCardContainer;
     private int initialHCP = 0;
 
-    public Player(String name, FrameLayout playedCardContainer) {
+    public Player(String direction, String name, FrameLayout playedCardContainer) {
+        this.direction = parseDirection(direction);
         this.name = name;
         this.playedCardContainer = playedCardContainer;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public String getDirectionString() {
+        return direction != null ? direction.name() : null;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = parseDirection(direction);
+    }
+
+    private static Direction parseDirection(String dirStr) {
+        if (dirStr == null) return null;
+        switch (dirStr.trim().toUpperCase()) {
+            case "N":
+            case "NORTH":
+                return Direction.N;
+            case "E":
+            case "EAST":
+                return Direction.E;
+            case "S":
+            case "SOUTH":
+                return Direction.S;
+            case "W":
+            case "WEST":
+                return Direction.W;
+            default:
+                return null;
+        }
     }
 
     public FrameLayout getPlayedCardContainer() {

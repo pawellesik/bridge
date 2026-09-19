@@ -187,15 +187,20 @@ public class Pbn {
         Game game = new Game();
         Map<String, List<Card>> hands = getInitialHands();
         if (hands != null) {
-            if (hands.get("North") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.N, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("North"))));
-            if (hands.get("East") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.E, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("East"))));
-            if (hands.get("South") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.S, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("South"))));
-            if (hands.get("West") != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.W, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hands.get("West"))));
+            List<Card> hN = hands.get("N") != null ? hands.get("N") : hands.get("North");
+            List<Card> hE = hands.get("E") != null ? hands.get("E") : hands.get("East");
+            List<Card> hS = hands.get("S") != null ? hands.get("S") : hands.get("South");
+            List<Card> hW = hands.get("W") != null ? hands.get("W") : hands.get("West");
+
+            if (hN != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.N, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hN)));
+            if (hE != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.E, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hE)));
+            if (hS != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.S, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hS)));
+            if (hW != null) game.getDeal().put(com.example.bridge.bidding.Tools.Direction.W, com.example.bridge.bidding.Tools.Hand.parse(formatHand(hW)));
         }
         if (dealer != null) {
-            if ("North".equals(dealer) || "N".equals(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.N;
-            else if ("East".equals(dealer) || "E".equals(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.E;
-            else if ("South".equals(dealer) || "S".equals(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.S;
+            if ("N".equalsIgnoreCase(dealer) || "North".equalsIgnoreCase(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.N;
+            else if ("E".equalsIgnoreCase(dealer) || "East".equalsIgnoreCase(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.E;
+            else if ("S".equalsIgnoreCase(dealer) || "South".equalsIgnoreCase(dealer)) game.dealer = com.example.bridge.bidding.Tools.Direction.S;
             else game.dealer = com.example.bridge.bidding.Tools.Direction.W;
         }
         game.bidSystemNS = this.bidSystemNS != null ? this.bidSystemNS : "NatC";
@@ -354,7 +359,7 @@ public class Pbn {
         String handsPart = mainParts[1].trim();
 
         String[] handStrings = handsPart.split("\\s+");
-        String[] directions = {"North", "East", "South", "West"};
+        String[] directions = {"N", "E", "S", "W"};
         
         int startIdx = getDirectionIndex(dealerPart);
 
@@ -410,20 +415,20 @@ public class Pbn {
     public JSONObject toJsonObject() {
         JSONObject json = new JSONObject();
         try {
-            json.put("Event", event);
-            json.put("GameMode", gameMode);
-            json.put("Date", date);
-            json.put("Board", board);
-            json.put("West", west);
-            json.put("North", north);
-            json.put("East", east);
-            json.put("South", south);
-            json.put("Dealer", dealer);
-            json.put("Vulnerable", vulnerable);
-            json.put("BidSystemNS", bidSystemNS);
-            json.put("BidSystemEW", bidSystemEW);
+            json.put("Event", event != null ? event : "");
+            json.put("GameMode", gameMode != null ? gameMode : "");
+            json.put("Date", date != null ? date : "");
+            json.put("Board", board != null ? board : "");
+            json.put("West", west != null ? west : "");
+            json.put("North", north != null ? north : "");
+            json.put("East", east != null ? east : "");
+            json.put("South", south != null ? south : "");
+            json.put("Dealer", dealer != null ? formatDirection(dealer) : "N");
+            json.put("Vulnerable", vulnerable != null ? vulnerable : "None");
+            json.put("BidSystemNS", bidSystemNS != null ? bidSystemNS : "");
+            json.put("BidSystemEW", bidSystemEW != null ? bidSystemEW : "");
 
-            if (initialHands != null) {
+            if (initialHands != null && !initialHands.isEmpty()) {
                 json.put("Deal", formatDeal());
             }
 
@@ -435,11 +440,11 @@ public class Pbn {
                 json.put("Imp", imp);
             }
 
-            if (!auction.isEmpty()) {
+            if (auction != null && !auction.isEmpty()) {
                 json.put("Auction", new JSONArray(auction));
             }
 
-            if (!playHistory.isEmpty()) {
+            if (playHistory != null && !playHistory.isEmpty()) {
                 JSONArray playArray = new JSONArray();
                 for (Trick trick : playHistory) {
                     if (trick.getCardsOnTable().size() == 4) {
@@ -466,7 +471,7 @@ public class Pbn {
         sb.append(String.format(Locale.US, "[North \"%s\"]\n", north));
         sb.append(String.format(Locale.US, "[East \"%s\"]\n", east));
         sb.append(String.format(Locale.US, "[South \"%s\"]\n", south));
-        sb.append(String.format(Locale.US, "[Dealer \"%s\"]\n", dealer));
+        sb.append(String.format(Locale.US, "[Dealer \"%s\"]\n", dealer != null ? formatDirection(dealer) : "N"));
         sb.append(String.format(Locale.US, "[Vulnerable \"%s\"]\n", vulnerable));
         sb.append(String.format(Locale.US, "[BidSystemNS \"%s\"]\n", bidSystemNS));
         sb.append(String.format(Locale.US, "[BidSystemEW \"%s\"]\n", bidSystemEW));
@@ -513,12 +518,16 @@ public class Pbn {
         String d = (dealer != null && !dealer.isEmpty()) ? dealer.substring(0, 1).toUpperCase() : "N";
         sb.append(d).append(":");
 
-        String[] directions = {"North", "East", "South", "West"};
+        String[] shortDirs = {"N", "E", "S", "W"};
+        String[] longDirs = {"North", "East", "South", "West"};
         int startIdx = getDirectionIndex(d);
 
         for (int i = 0; i < 4; i++) {
             int currentIdx = (startIdx + i) % 4;
-            List<Card> hand = initialHands.get(directions[currentIdx]);
+            List<Card> hand = initialHands.get(shortDirs[currentIdx]);
+            if (hand == null) {
+                hand = initialHands.get(longDirs[currentIdx]);
+            }
             sb.append(formatHand(hand));
             if (i < 3) sb.append(" ");
         }
@@ -571,19 +580,20 @@ public class Pbn {
 
     private String formatTrickPlay(Trick trick) {
         String leader = findLeadDirection(trick);
+        String shortLeader = (leader != null && !leader.isEmpty()) ? leader.substring(0, 1).toUpperCase() : "W";
         String[] order;
-        switch (leader) {
-            case "North":
-                order = new String[]{"North", "East", "South", "West"};
+        switch (shortLeader) {
+            case "N":
+                order = new String[]{"N", "E", "S", "W"};
                 break;
-            case "East":
-                order = new String[]{"East", "South", "West", "North"};
+            case "E":
+                order = new String[]{"E", "S", "W", "N"};
                 break;
-            case "South":
-                order = new String[]{"South", "West", "North", "East"};
+            case "S":
+                order = new String[]{"S", "W", "N", "E"};
                 break;
             default:
-                order = new String[]{"West", "North", "East", "South"};
+                order = new String[]{"W", "N", "E", "S"};
                 break;
         }
 
@@ -591,6 +601,10 @@ public class Pbn {
         Map<String, Card> cards = trick.getCardsOnTableMap();
         for (int i = 0; i < 4; i++) {
             Card c = cards.get(order[i]);
+            if (c == null) {
+                String longDir = toLongDir(order[i]);
+                c = cards.get(longDir);
+            }
             if (c != null) {
                 sb.append(c.getSuit().name().charAt(0)).append(formatRank(c.getRank()));
             } else {
@@ -601,4 +615,14 @@ public class Pbn {
         return sb.toString();
     }
 
+    private String toLongDir(String shortDir) {
+        if (shortDir == null) return "North";
+        switch (shortDir.toUpperCase()) {
+            case "N": return "North";
+            case "E": return "East";
+            case "S": return "South";
+            case "W": return "West";
+            default: return "North";
+        }
+    }
 }
