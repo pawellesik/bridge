@@ -31,6 +31,7 @@ public class OverlaySettings {
         setupQuickGame();
         setupSingleplayer();
         setupTestPbnSwitch();
+        setupExplanationSwitch();
         setupHistorySize();
     }
 
@@ -103,6 +104,17 @@ public class OverlaySettings {
 
         switchTestPbn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             settingsManager.setLoadFromTestPbn(isChecked);
+        });
+    }
+
+    private void setupExplanationSwitch() {
+        com.google.android.material.materialswitch.MaterialSwitch switchExplanation = activity.getSettingsOverlay().findViewById(R.id.switch_explanation);
+        if (switchExplanation == null) return;
+
+        switchExplanation.setChecked(settingsManager.isShowExplanation());
+
+        switchExplanation.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            settingsManager.setShowExplanation(isChecked);
         });
     }
 

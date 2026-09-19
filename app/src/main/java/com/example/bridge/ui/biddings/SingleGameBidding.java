@@ -213,10 +213,15 @@ public class SingleGameBidding {
 
     private void updateDescriptions() {
         if (liveBiddingState == null || activity.getGameBiddingHistoryAdapter() == null) return;
-        List<String> descs = AuctionExplanationHelper.generateExplanations(
-                liveBiddingState.getGame(),
-                activity.getGameBiddingHistory().getAuction()
-        );
+        List<String> descs = null;
+        if (com.example.bridge.core.SettingsManager.getInstance(activity).isShowExplanation()) {
+            descs = AuctionExplanationHelper.generateExplanations(
+                    liveBiddingState.getGame(),
+                    activity.getGameBiddingHistory().getAuction()
+            );
+        } else {
+            descs = new java.util.ArrayList<>();
+        }
         activity.getGameBiddingHistoryAdapter().setDescriptions(descs);
     }
 

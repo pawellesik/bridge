@@ -173,4 +173,33 @@ public class SettingsManager {
                     .blockingAwait();
         } catch (Exception ignored) {}
     }
+
+    // --- SHOW EXPLANATION ---
+    private Boolean cachedShowExplanation = null;
+
+    public boolean isShowExplanation() {
+        if (cachedShowExplanation != null) {
+            return cachedShowExplanation;
+        }
+        try {
+            boolean val = dataStoreManager.getPreference(DataStoreManager.SHOW_EXPLANATION, true)
+                    .firstOrError()
+                    .onErrorReturnItem(true)
+                    .blockingGet();
+            cachedShowExplanation = val;
+            return val;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public void setShowExplanation(boolean show) {
+        cachedShowExplanation = show;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.SHOW_EXPLANATION, show)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
+    }
 }
