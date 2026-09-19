@@ -329,20 +329,21 @@ public class GameController {
         Suit trumpSuit = getTrumpSuit();
         boolean othersHaveTrumps = trumpSuit != null && maxOthersRank.containsKey(trumpSuit);
 
-        int totalNSWinners = 0;
         for (Card c : p.getHand()) {
-            // Jeśli inni gracze mają jeszcze atu, nie możemy bezpiecznie claimować lew w kolorach bocznych
+            // Jeśli inni mają atuty, boczny kolor blokuje claim
             if (othersHaveTrumps && c.getSuit() != trumpSuit) {
                 return false;
             }
 
-            if (c.getRank().ordinal() > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
-                totalNSWinners++;
+            // Jeśli ranga naszej karty jest MNIEJSZA LUB RÓWNA najwyższej karcie innych, to nie wygrywamy
+            if (c.getRank().ordinal() <= maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                return false;
             }
         }
-        return totalNSWinners == p.getHand().size();
-    }
 
+        // Jeśli pętla doszła do końca, znaczy to, że WSZYSTKIE karty przeszły test
+        return true;
+    }
     public void claimRest() {
         if (!isGameRunning) return;
         isGameRunning = false;
