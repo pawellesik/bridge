@@ -295,7 +295,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void initGameQiuckMode() {
         initGameBase();
 
-        pbnCollection.initAllPbn();
         pbnCollection.initQiuckPbn();
 
         gameTop.setTotalImp(statsManager.getCareerImp(gameMode));
@@ -309,7 +308,6 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     private void initGameSingleMode() {
         initGameBase();
         initBiddingUi();
-        pbnCollection.initAllPbn();
 
         gameTop.setTotalImp(statsManager.getCareerImp(gameMode));
 
