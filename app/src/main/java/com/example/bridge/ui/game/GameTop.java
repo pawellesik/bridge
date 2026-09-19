@@ -96,7 +96,7 @@ public class GameTop {
         tvMiddle2.setText(String.format(java.util.Locale.US, "%.1f", totalScore));
         if (changeScore != 0) {
             tvMiddle3.setText(String.format(java.util.Locale.US, "(%s%.1f)", (changeScore > 0 ? "+" : ""), changeScore));
-            tvMiddle3.setTextColor(changeScore > 0 ? Color.parseColor("#C8E6C9") : Color.RED);
+            tvMiddle3.setTextColor(changeScore > 0 ? Color.parseColor("#C8E6C9") : Color.parseColor("#FF5252"));
         } else {
             tvMiddle3.setText("");
         }

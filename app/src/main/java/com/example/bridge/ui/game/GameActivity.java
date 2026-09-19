@@ -558,7 +558,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
         if (historyGameHeader != null) {
             ViewCompat.setOnApplyWindowInsetsListener(historyGameHeader, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(v.getPaddingLeft(), systemBars.top + (int) (8 * getResources().getDisplayMetrics().density), v.getPaddingRight(), (int) (8 * getResources().getDisplayMetrics().density));
+                v.setPadding(v.getPaddingLeft(), systemBars.top, v.getPaddingRight(), (int) (8 * getResources().getDisplayMetrics().density));
                 return insets;
             });
         }
