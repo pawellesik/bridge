@@ -270,6 +270,11 @@ public class SingleGameBidding {
     }
 
     public void updateBiddingRulesView() {
+        if (!com.example.bridge.core.SettingsManager.getInstance(activity).isShowBiddingRules()) {
+            View rulesContainer = activity.findViewById(R.id.bidding_rules_container);
+            if (rulesContainer != null) rulesContainer.setVisibility(View.GONE);
+            return;
+        }
         auctionBiddingHelper.updateBiddingRulesView(liveBiddingState);
     }
 

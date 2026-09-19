@@ -33,6 +33,7 @@ public class OverlaySettings {
         setupTestPbnSwitch();
         setupExplanationSwitch();
         setupPublicKnowledgeSwitch();
+        setupBiddingRulesSwitch();
         setupHistorySize();
     }
 
@@ -127,6 +128,17 @@ public class OverlaySettings {
 
         switchPublicKnowledge.setOnCheckedChangeListener((buttonView, isChecked) -> {
             settingsManager.setShowPublicKnowledge(isChecked);
+        });
+    }
+
+    private void setupBiddingRulesSwitch() {
+        com.google.android.material.materialswitch.MaterialSwitch switchBiddingRules = activity.getSettingsOverlay().findViewById(R.id.switch_bidding_rules);
+        if (switchBiddingRules == null) return;
+
+        switchBiddingRules.setChecked(settingsManager.isShowBiddingRules());
+
+        switchBiddingRules.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            settingsManager.setShowBiddingRules(isChecked);
         });
     }
 

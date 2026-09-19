@@ -35,7 +35,7 @@ public class AuctionBiddingHelper {
         LinearLayout rulesContent = activity.findViewById(R.id.layout_rules_content);
         if (container == null || rulesContent == null) return;
 
-        if (liveBiddingState == null || liveBiddingState.getContract().isAuctionComplete()) {
+        if (liveBiddingState == null || liveBiddingState.getContract().isAuctionComplete() || !com.example.bridge.core.SettingsManager.getInstance(activity).isShowBiddingRules()) {
             container.setVisibility(View.GONE);
             return;
         }

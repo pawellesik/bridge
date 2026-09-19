@@ -231,4 +231,33 @@ public class SettingsManager {
                     .blockingAwait();
         } catch (Exception ignored) {}
     }
+
+    // --- SHOW BIDDING RULES ---
+    private Boolean cachedShowBiddingRules = null;
+
+    public boolean isShowBiddingRules() {
+        if (cachedShowBiddingRules != null) {
+            return cachedShowBiddingRules;
+        }
+        try {
+            boolean val = dataStoreManager.getPreference(DataStoreManager.SHOW_BIDDING_RULES, true)
+                    .firstOrError()
+                    .onErrorReturnItem(true)
+                    .blockingGet();
+            cachedShowBiddingRules = val;
+            return val;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public void setShowBiddingRules(boolean show) {
+        cachedShowBiddingRules = show;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.SHOW_BIDDING_RULES, show)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
+    }
 }
