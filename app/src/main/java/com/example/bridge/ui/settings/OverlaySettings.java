@@ -159,11 +159,12 @@ public class OverlaySettings {
         TextView tvHistorySizeValue = activity.getSettingsOverlay().findViewById(R.id.tv_history_size_value);
         if (seekHistorySize == null || tvHistorySizeValue == null) return;
 
+        int minSize = 5;
         int step = 5;
         int savedSize = settingsManager.getHistorySize();
         int snappedSaved = Math.round((float) savedSize / step) * step;
         if (snappedSaved > 1000) snappedSaved = 1000;
-        if (snappedSaved < 0) snappedSaved = 0;
+        if (snappedSaved < minSize) snappedSaved = minSize;
 
         seekHistorySize.setProgress(snappedSaved);
         tvHistorySizeValue.setText(String.valueOf(snappedSaved));
@@ -173,7 +174,7 @@ public class OverlaySettings {
             public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
                 int snappedProgress = Math.round((float) progress / step) * step;
                 if (snappedProgress > 1000) snappedProgress = 1000;
-                if (snappedProgress < 0) snappedProgress = 0;
+                if (snappedProgress < minSize) snappedProgress = minSize;
 
                 if (progress != snappedProgress) {
                     seekBar.setProgress(snappedProgress);

@@ -115,6 +115,7 @@ public class SettingsManager {
     }
 
     public void setHistorySize(int size) {
+        if (size < 5) size = 5;
         cachedHistorySize = size;
         try {
             dataStoreManager.setPreference(DataStoreManager.HISTORY_SIZE, size)

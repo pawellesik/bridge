@@ -602,6 +602,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:max="1000"
+                        android:min="5"
                         android:progress="100"
                         android:progressTint="#81C784"
                         android:thumbTint="#81C784" />
