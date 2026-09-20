@@ -43,8 +43,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3D, highCardPoints(JUMP_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub JUMP_HAND _3D")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub JUMP_HAND _3C")),
 
-                shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), ruleShow(1), id("RespondNatC.oneClub _3H")),
-                shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), ruleShow(1), id("RespondNatC.oneClub _3S")),
+                shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub _3H")),
+                shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub _3S")),
 
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub _2NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondNatC.oneClub _2NT")),
