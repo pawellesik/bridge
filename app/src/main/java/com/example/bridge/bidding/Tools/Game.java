@@ -102,10 +102,8 @@ public class Game {
                 throw new RuntimeException("Deal prefix " + dealStr.substring(0, 2) + " is invalid");
             }
 
-            if (overrideDealer) {
+            if (overrideDealer || this.dealer == null) {
                 this.dealer = direction;
-            } else if (direction != this.dealer) {
-                throw new IllegalArgumentException("Deal direction prefix " + direction + " does not match game Dealer " + this.dealer);
             }
         } else {
             direction = this.dealer;

@@ -6,10 +6,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bridge.R;
+import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.BidRule;
 import com.example.bridge.bidding.Tools.BiddingState;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallDetails;
+import com.example.bridge.bidding.Tools.Constraint;
 import com.example.bridge.bidding.Tools.Direction;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
@@ -64,6 +66,9 @@ public class AuctionBiddingHelper {
             List<BidRule> showRules = new ArrayList<>();
             for (BidRule rule : details.getRules()) {
                 if (com.example.bridge.bidding.Constraints.RuleShow.hasRuleShow(rule)) {
+                    if (shouldFilterOutFitRule(rule, call, ps)) {
+                        continue;
+                    }
                     showRules.add(rule);
                 }
             }
@@ -276,5 +281,27 @@ public class AuctionBiddingHelper {
             }
         }
         return matched;
+    }
+
+    public static boolean shouldFilterOutFitRule(BidRule rule, Call call, PositionState ps) {
+        if (rule == null || call == null || ps == null) return false;
+
+        Bid partnerBid = ps.getPartner().getBid();
+        if (partnerBid == null || partnerBid.getSuit() == null) {
+            return false;
+        }
+
+        Suit partnerSuit = partnerBid.getSuit();
+        Suit candidateSuit = (call instanceof Bid) ? ((Bid) call).getSuit() : null;
+
+        if (candidateSuit != null && candidateSuit != partnerSuit) {
+            for (Constraint c : rule.getConstraints()) {
+                if (c instanceof com.example.bridge.bidding.Constraints.PairMinShape.PairHasMinShape) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

@@ -48,6 +48,9 @@ public class AuctionExplanationHelper {
                     List<BidRule> showRules = new ArrayList<>();
                     for (BidRule rule : details.getRules()) {
                         if (com.example.bridge.bidding.Constraints.RuleShow.hasRuleShow(rule)) {
+                            if (AuctionBiddingHelper.shouldFilterOutFitRule(rule, call, ps)) {
+                                continue;
+                            }
                             showRules.add(rule);
                         }
                     }

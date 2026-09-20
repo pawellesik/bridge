@@ -173,17 +173,18 @@ public class GameController {
     }
 
     private String getPlayerNameForDirection(com.example.bridge.bidding.Tools.Direction dir) {
+        if (dir == null) return "S";
         switch (dir) {
             case N:
-                return "North";
+                return "N";
             case E:
-                return "East";
+                return "E";
             case S:
-                return "South";
+                return "S";
             case W:
-                return "West";
+                return "W";
             default:
-                return "South";
+                return "S";
         }
     }
 
