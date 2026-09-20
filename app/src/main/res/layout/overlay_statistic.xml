@@ -180,8 +180,7 @@
                             android:maxLines="1"
                             android:text="0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_session_games_sp"
@@ -234,8 +233,7 @@
                             android:maxLines="1"
                             android:text="0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_session_deals_sp"
@@ -290,8 +288,7 @@
                             android:maxLines="1"
                             android:text="0 (0%)"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_session_concedes_sp"
@@ -344,8 +341,7 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_session_imp_sp"
@@ -399,8 +395,7 @@
                             android:maxLines="1"
                             android:text="0 (0%)"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_session_wins_sp"
@@ -465,7 +460,8 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFC107"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_session_max_imp_mp"
@@ -474,6 +470,7 @@
                             android:text="0.0"
                             android:textColor="#FFC107"
                             android:textSize="12sp"
+                            android:textStyle="bold"
                             android:visibility="gone" />
                     </TableRow>
 
@@ -507,7 +504,6 @@
                             android:text="CLEAR"
                             android:textColor="#FF5252"
                             android:textSize="10sp"
-                            android:textStyle="bold"
                             app:cornerRadius="6dp"
                             app:icon="@drawable/ic_delete"
                             app:iconGravity="textStart"
@@ -535,7 +531,6 @@
                             android:text="CLEAR"
                             android:textColor="#FF5252"
                             android:textSize="10sp"
-                            android:textStyle="bold"
                             app:cornerRadius="6dp"
                             app:icon="@drawable/ic_delete"
                             app:iconGravity="textStart"
@@ -563,7 +558,6 @@
                             android:text="CLEAR"
                             android:textColor="#FF5252"
                             android:textSize="10sp"
-                            android:textStyle="bold"
                             app:cornerRadius="6dp"
                             app:icon="@drawable/ic_delete"
                             app:iconGravity="textStart"
@@ -608,7 +602,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:text="GLOBAL"
+                            android:text="ALL TIME"
                             android:textColor="#81C784"
                             android:textSize="10sp"
                             android:textStyle="bold" />
@@ -720,8 +714,7 @@
                             android:maxLines="1"
                             android:text="0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_global_games_sp"
@@ -774,8 +767,7 @@
                             android:maxLines="1"
                             android:text="0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_global_deals_sp"
@@ -830,8 +822,7 @@
                             android:maxLines="1"
                             android:text="0 (0%)"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_global_concedes_sp"
@@ -884,8 +875,7 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_global_imp_sp"
@@ -939,8 +929,7 @@
                             android:maxLines="1"
                             android:text="0 (0%)"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_global_wins_sp"
@@ -1005,7 +994,8 @@
                             android:maxLines="1"
                             android:text="0.0"
                             android:textColor="#FFC107"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_global_max_imp_mp"
@@ -1014,6 +1004,7 @@
                             android:text="0.0"
                             android:textColor="#FFC107"
                             android:textSize="12sp"
+                            android:textStyle="bold"
                             android:visibility="gone" />
                     </TableRow>
 
@@ -1031,7 +1022,6 @@
                 android:text="RESET ALL STATISTICS"
                 android:textColor="#FF5252"
                 android:textSize="11sp"
-                android:textStyle="bold"
                 android:visibility="gone"
                 app:cornerRadius="8dp"
                 app:icon="@drawable/ic_delete"
