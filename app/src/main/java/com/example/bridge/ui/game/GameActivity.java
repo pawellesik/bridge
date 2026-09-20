@@ -208,6 +208,7 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
                     gameBiddingHistoryAdapter.setHighlightLast(true);
                     singleGameBidding.start();
                 } else {
+                    pbnCollection.initAllPbn();
                     gameController.startGame();
                 }
                 if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);

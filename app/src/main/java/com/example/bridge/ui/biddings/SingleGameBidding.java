@@ -104,15 +104,16 @@ public class SingleGameBidding {
         Direction dealerDir = dirs[(int) (Math.random() * 4)];
         game.dealer = dealerDir;
         
+        Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
+        activity.getPbnCollection().getPbn().initNewGame(hands, activity.getGameMode());
         activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
         activity.getPbnCollection().getPbn().setBidSystemNS("NatC");
         activity.getPbnCollection().getPbn().setBidSystemEW("PassOnly");
+        activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
         game.bidSystemNS = "NatC";
         game.bidSystemEW = "PassOnly";
 
-        Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
         activity.getPbnCollection().initAllPbn();
-        activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
 
         List<Card> handN = hands.get("N") != null ? hands.get("N") : hands.get("North");
         List<Card> handE = hands.get("E") != null ? hands.get("E") : hands.get("East");

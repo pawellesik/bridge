@@ -84,10 +84,11 @@ public class PbnCollection {
         gameActivity.getGameController().calculateAndSetTheBestContract();
         Contract contract = gameActivity.getGameController().getCurrentContract();
 
-        pbn.setContract(contract, "S");
         pbn.setDealer("N"); //zaczyna licytacje
+        pbn.setContract(contract, "S");
 
         if (contract != null) {
+            pbn.getAuction().clear();
             if (contract.isPass()) {
                 pbn.addBid("Pass");
                 pbn.addBid("Pass");
@@ -106,18 +107,11 @@ public class PbnCollection {
                 pbn.addBid("Pass"); // East
             }
         }
-
-        initAllPbn();
     }
 
     public void initAllPbn() {
         Map<String, List<Card>> hands = gameActivity.getGameController().getHandsMap();
-
         String gameMode = gameActivity.getGameMode();
-
-        if (pbn.getInitialHands() == null || pbn.getInitialHands().isEmpty()) {
-            pbn.initNewGame(hands, gameMode);
-        }
 
         String mainDealer = getNormalizedDealer(pbn.getDealer());
         String oppositeDealer = getOppositeDealer(mainDealer);
