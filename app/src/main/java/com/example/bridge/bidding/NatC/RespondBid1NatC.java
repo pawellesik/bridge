@@ -69,8 +69,8 @@ public class RespondBid1NatC extends NatC {
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
         choices.addRules(
-                shows(Bid._3S, highCardPoints(WEAK_LONG), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3S")),
-                shows(Bid._3H, highCardPoints(WEAK_LONG), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3H")),
+                shows(Bid._3S, highCardPoints(WEAK_LONG), not(PASSED_HAND), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3S")),
+                shows(Bid._3H, highCardPoints(WEAK_LONG), not(PASSED_HAND), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3H")),
 
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _1S")),
                 shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _1H")),
@@ -116,7 +116,7 @@ public class RespondBid1NatC extends NatC {
         choices.addRules(
                 shows(Bid._4H, highCardPoints(MINIMUM_HAND), fit(9), secondSuit(Suit.Hearts, 5), setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _4H")),
 
-                shows(Bid._3S, highCardPoints(WEAK_LONG), noFit(), shape(7, 10), ruleShow(1), id("RespondNatC.oneHeart WEAK_LONG _3S")),
+                shows(Bid._3S, highCardPoints(WEAK_LONG), noFit(), not(PASSED_HAND), shape(7, 10), ruleShow(1), id("RespondNatC.oneHeart WEAK_LONG _3S")),
 
                 shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondNatC.oneHeart _2H")),
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _3H")),
