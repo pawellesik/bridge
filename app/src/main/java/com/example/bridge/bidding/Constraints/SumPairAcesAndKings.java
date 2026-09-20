@@ -32,6 +32,7 @@ public class SumPairAcesAndKings extends HandConstraint implements IDescribeCons
         this.counts = new HashSet<>();
         for (int c : counts) this.counts.add(c);
         this.range = null;
+        this.includeInDescription = true;
     }
 
     public SumPairAcesAndKings(Range range) {

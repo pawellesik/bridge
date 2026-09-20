@@ -63,9 +63,9 @@ public class BidRule extends CallFeature {
 
         List<String> descriptions = new ArrayList<>();
         for (Constraint constraint : getConstraints()) {
-            if (constraint instanceof IDescribeConstraint) {
+            if (constraint instanceof IDescribeConstraint && constraint.isIncludeInDescription()) {
                 String d = ((IDescribeConstraint) constraint).describe(getCall(), ps);
-                if (d != null) {
+                if (d != null && !d.trim().isEmpty()) {
                     descriptions.add(d);
                 }
             }

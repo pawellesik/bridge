@@ -33,6 +33,7 @@ public class Balanced {
             this.checkPairBalanced = checkPairBalanced;
             this.checkNotBalanced = checkNotBalanced;
             this.checkPairNotBalanced = checkPairNotBalanced;
+            this.includeInDescription = true;
         }
 
         @Override

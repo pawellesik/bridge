@@ -31,6 +31,7 @@ public class PairMinShape {
             this.desiredValue = desiredValue;
             this.useContractSuit = false;
             this.useCurrentCallSuit = false;
+            this.includeInDescription = true;
         }
 
         public PairHasMinShape(int min, boolean desiredValue) {
@@ -39,6 +40,7 @@ public class PairMinShape {
             this.desiredValue = desiredValue;
             this.useContractSuit = true;
             this.useCurrentCallSuit = false;
+            this.includeInDescription = true;
         }
 
         public PairHasMinShape(int min, boolean desiredValue, boolean useCurrentCallSuit) {
@@ -47,6 +49,7 @@ public class PairMinShape {
             this.desiredValue = desiredValue;
             this.useContractSuit = false;
             this.useCurrentCallSuit = useCurrentCallSuit;
+            this.includeInDescription = true;
         }
 
         @Override

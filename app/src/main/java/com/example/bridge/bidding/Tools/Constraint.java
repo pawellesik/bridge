@@ -1,6 +1,16 @@
 package com.example.bridge.bidding.Tools;
 
 public abstract class Constraint {
+    protected boolean includeInDescription = false;
+
+    public boolean isIncludeInDescription() {
+        return includeInDescription;
+    }
+
+    public void setIncludeInDescription(boolean includeInDescription) {
+        this.includeInDescription = includeInDescription;
+    }
+
     public static Suit getSuit(Suit s, Call call) {
         if (s != null) return s;
         if (call instanceof Bid) {

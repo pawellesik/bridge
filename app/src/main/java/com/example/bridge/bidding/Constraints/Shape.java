@@ -27,6 +27,7 @@ public class Shape {
             this.suit = suit;
             this.min = min;
             this.max = max;
+            this.includeInDescription = true;
         }
 
         @Override

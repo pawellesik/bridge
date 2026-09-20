@@ -158,6 +158,7 @@ public class PairPoints {
         public PairHasShownPoints(Suit suit, int min, int max, boolean highCard) {
             this.pairPoints = new PairPoints(suit, min, max);
             this.highCard = highCard;
+            this.includeInDescription = true;
         }
 
         @Override
@@ -179,11 +180,13 @@ public class PairPoints {
         public PairShowsPoints(Suit suit, int min, int max, boolean highCard) {
             this.pairPoints = new PairPoints(suit, min, max);
             this.highCard = highCard;
+            this.includeInDescription = true;
         }
 
         public PairShowsPoints(int min, int max, boolean highCard) {
             this.pairPoints = new PairPoints(min, max);
             this.highCard = highCard;
+            this.includeInDescription = true;
         }
 
         @Override

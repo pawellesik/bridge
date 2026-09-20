@@ -37,6 +37,7 @@ public class Points {
             this.min = min;
             this.max = max;
             this.pointType = pointType;
+            this.includeInDescription = true;
         }
 
         protected Range getPoints(Call call, PositionState ps, HandSummary hs) {

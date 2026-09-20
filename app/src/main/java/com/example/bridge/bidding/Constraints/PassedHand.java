@@ -12,6 +12,7 @@ public class PassedHand extends StaticConstraint {
 
     public PassedHand(boolean desiredValue) {
         this.desiredValue = desiredValue;
+        this.includeInDescription = true;
     }
 
     @Override

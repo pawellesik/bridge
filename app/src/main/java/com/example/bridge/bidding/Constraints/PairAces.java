@@ -17,6 +17,7 @@ public class PairAces extends HandConstraint implements IDescribeConstraint {
 
     public PairAces(int... count) {
         this.count = count;
+        this.includeInDescription = true;
     }
 
     @Override

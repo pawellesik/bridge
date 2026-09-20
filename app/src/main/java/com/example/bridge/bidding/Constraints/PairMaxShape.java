@@ -31,6 +31,7 @@ public class PairMaxShape {
             this.usePartnerSuit = false;
             this.majorOnly = false;
             this.minorOnly = false;
+            this.includeInDescription = true;
         }
 
         public PairHasMaxShape(int max) {
@@ -43,6 +44,7 @@ public class PairMaxShape {
             this.usePartnerSuit = true;
             this.majorOnly = majorOnly;
             this.minorOnly = minorOnly;
+            this.includeInDescription = true;
         }
 
         protected Suit getTargetSuit(Call call, PositionState ps) {

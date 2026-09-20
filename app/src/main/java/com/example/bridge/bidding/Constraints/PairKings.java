@@ -17,6 +17,7 @@ public class PairKings extends HandConstraint implements IDescribeConstraint {
 
     public PairKings(int... count) {
         this.count = count;
+        this.includeInDescription = true;
     }
 
     @Override
