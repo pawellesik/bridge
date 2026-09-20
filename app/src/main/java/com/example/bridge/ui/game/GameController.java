@@ -438,12 +438,36 @@ public class GameController {
         List<Card> hand = p.getHand();
         if (hand.isEmpty()) return false;
 
+        int myMinTrumpRank = Integer.MAX_VALUE;
+
+        // 1. Sprawdzamy czy WSZYSTKIE karty gracza na ręce to atuty i wyznaczamy nasz najniższy atut
         for (Card c : hand) {
             if (c.getSuit() != trumpSuit) {
                 return false; // Znaleziono kartę w innym kolorze
             }
+            if (c.getRank().ordinal() < myMinTrumpRank) {
+                myMinTrumpRank = c.getRank().ordinal();
+            }
         }
-        return true; // Wszystkie karty na ręce to atuty
+
+        // 2. Szukamy najwyższego atutu u przeciwników
+        Player partner = getPartner(p);
+        int opponentsMaxTrumpRank = -1;
+
+        for (Player other : players.values()) {
+            if (other != p && other != partner) {
+                for (Card c : other.getHand()) {
+                    if (c.getSuit() == trumpSuit) {
+                        if (c.getRank().ordinal() > opponentsMaxTrumpRank) {
+                            opponentsMaxTrumpRank = c.getRank().ordinal();
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3. Przeciwnicy nie mają w ogóle atutów LUB wszystkie ich atuty są niższe niż nasz najniższy atut
+        return opponentsMaxTrumpRank == -1 || opponentsMaxTrumpRank < myMinTrumpRank;
     }
 
     private boolean hasOnlyWinningCards(Player p, Suit trumpSuit) {
