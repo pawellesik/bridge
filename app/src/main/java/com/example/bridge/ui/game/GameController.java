@@ -363,9 +363,73 @@ public class GameController {
             callback.onClaimButtonVisibilityChanged(true);
         } else if (isHandOnlyTrumps(getPartner(player), trumpSuit)) {
             callback.onClaimButtonVisibilityChanged(true);
+        } else if (hasHigherTrumpsAndWinningSideCards(player, trumpSuit)) {
+            callback.onClaimButtonVisibilityChanged(true);
+        } else if (hasHigherTrumpsAndWinningSideCards(getPartner(player), trumpSuit)) {
+            callback.onClaimButtonVisibilityChanged(true);
         } else {
             callback.onClaimButtonVisibilityChanged(false);
         }
+    }
+
+    private boolean hasHigherTrumpsAndWinningSideCards(Player player, Suit trumpSuit) {
+        if (player == null || trumpSuit == null) return false;
+        Player partner = getPartner(player);
+        if (partner == null) return false;
+
+        Map<Suit, Integer> maxOpponentsRank = new HashMap<>();
+        Map<Suit, Integer> maxOthersRank = new HashMap<>();
+
+        for (Player other : players.values()) {
+            if (other != player) {
+                for (Card c : other.getHand()) {
+                    int rank = c.getRank().ordinal();
+                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                        maxOthersRank.put(c.getSuit(), rank);
+                    }
+                    if (other != partner) {
+                        if (rank > maxOpponentsRank.getOrDefault(c.getSuit(), -1)) {
+                            maxOpponentsRank.put(c.getSuit(), rank);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 1. Przeciwnicy nie mogą mieć atutów
+        if (maxOpponentsRank.containsKey(trumpSuit)) {
+            return false;
+        }
+
+        // 2. Najwyższy atut partnera
+        int partnerMaxTrumpRank = -1;
+        for (Card c : partner.getHand()) {
+            if (c.getSuit() == trumpSuit) {
+                if (c.getRank().ordinal() > partnerMaxTrumpRank) {
+                    partnerMaxTrumpRank = c.getRank().ordinal();
+                }
+            }
+        }
+
+        List<Card> myHand = player.getHand();
+        if (myHand.isEmpty()) return false;
+
+        // 3. Sprawdzamy rękę gracza
+        for (Card c : myHand) {
+            if (c.getSuit() == trumpSuit) {
+                // Wszystkie moje atuty muszą być wyższe od najwyższego atutu partnera
+                if (partnerMaxTrumpRank != -1 && c.getRank().ordinal() <= partnerMaxTrumpRank) {
+                    return false;
+                }
+            } else {
+                // Pozostałe karty boczne muszą być wyższe od kart WSZYSTKICH pozostałych graczy (przeciwników i partnera)
+                if (c.getRank().ordinal() <= maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private boolean isHandOnlyTrumps(Player p, Suit trumpSuit) {
