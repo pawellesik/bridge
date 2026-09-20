@@ -355,14 +355,36 @@ public class GameController {
 
     private void checkClaimPossibility(Player player) {
         Suit trumpSuit = getTrumpSuit();
+        Map<Suit, Integer> maxOpponentsRank = new HashMap<>();
+        Map<Suit, Integer> maxOthersRank = new HashMap<>();
+        Player partner = getPartner(player);
+        boolean othersHaveTrumps = trumpSuit != null && maxOthersRank.containsKey(trumpSuit);
 
-        if (hasOnlyWinningCards(player, trumpSuit)) {
+
+        for (Player other : players.values()) {
+            if (other != player) {
+                for (Card c : other.getHand()) {
+                    int rank = c.getRank().ordinal();
+                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                        maxOthersRank.put(c.getSuit(), rank);
+                    }
+                    if (other != partner) {
+                        if (rank > maxOpponentsRank.getOrDefault(c.getSuit(), -1)) {
+                            maxOpponentsRank.put(c.getSuit(), rank);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        if (hasOnlyWinningCards(player, trumpSuit, maxOthersRank, othersHaveTrumps)) {
             callback.onClaimButtonVisibilityChanged(true);
-        } else if (hasOnlyWinningCards(getPartner(player), trumpSuit)) {
+        } else if (hasOnlyWinningCards(partner, trumpSuit, maxOthersRank, othersHaveTrumps)) {
             callback.onClaimButtonVisibilityChanged(true);
-        } else if (isHandOnlyTrumps(player, trumpSuit)) {
+        } else if (isHandOnlyTrumps(player, trumpSuit, partner)) {
             callback.onClaimButtonVisibilityChanged(true);
-        } else if (isHandOnlyTrumps(getPartner(player), trumpSuit)) {
+        } else if (isHandOnlyTrumps(getPartner(player), trumpSuit, partner)) {
             callback.onClaimButtonVisibilityChanged(true);
         } else if (hasHigherTrumpsAndWinningSideCards(player, trumpSuit)) {
             callback.onClaimButtonVisibilityChanged(true);
@@ -433,7 +455,7 @@ public class GameController {
         return true;
     }
 
-    private boolean isHandOnlyTrumps(Player p, Suit trumpSuit) {
+    private boolean isHandOnlyTrumps(Player p, Suit trumpSuit, Player partner) {
         if (p == null || trumpSuit == null) return false;
         List<Card> hand = p.getHand();
         if (hand.isEmpty()) return false;
@@ -451,7 +473,6 @@ public class GameController {
         }
 
         // 2. Szukamy najwyższego atutu u przeciwników
-        Player partner = getPartner(p);
         int opponentsMaxTrumpRank = -1;
 
         for (Player other : players.values()) {
@@ -470,33 +491,17 @@ public class GameController {
         return opponentsMaxTrumpRank == -1 || opponentsMaxTrumpRank < myMinTrumpRank;
     }
 
-    private boolean hasOnlyWinningCards(Player p, Suit trumpSuit) {
-        Map<Suit, Integer> maxOthersRank = new HashMap<>();
-        for (Player other : players.values()) {
-            if (other != p) {
-                for (Card c : other.getHand()) {
-                    int rank = c.getRank().ordinal();
-                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
-                        maxOthersRank.put(c.getSuit(), rank);
-                    }
-                }
-            }
-        }
-
-        boolean othersHaveTrumps = trumpSuit != null && maxOthersRank.containsKey(trumpSuit);
-
+    private boolean hasOnlyWinningCards(Player p, Suit trumpSuit, Map<Suit, Integer> maxOthersRank, boolean othersHaveTrumps) {
         for (Card c : p.getHand()) {
             // Jeśli inni mają atuty, boczny kolor blokuje claim
             if (othersHaveTrumps && c.getSuit() != trumpSuit) {
                 return false;
             }
-
             // Jeśli ranga naszej karty jest MNIEJSZA LUB RÓWNA najwyższej karcie innych, to nie wygrywamy
             if (c.getRank().ordinal() <= maxOthersRank.getOrDefault(c.getSuit(), -1)) {
                 return false;
             }
         }
-        // Jeśli pętla doszła do końca, znaczy to, że WSZYSTKIE karty przeszły test
         return true;
     }
 
