@@ -14,6 +14,7 @@ import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -173,40 +174,83 @@ public class GameController {
 
     private String getPlayerNameForDirection(com.example.bridge.bidding.Tools.Direction dir) {
         switch (dir) {
-            case N: return "North";
-            case E: return "East";
-            case S: return "South";
-            case W: return "West";
-            default: return "South";
+            case N:
+                return "North";
+            case E:
+                return "East";
+            case S:
+                return "South";
+            case W:
+                return "West";
+            default:
+                return "South";
         }
     }
 
     private Card toModelCard(com.example.bridge.bidding.Tools.Card bCard) {
         com.example.bridge.model.Suit mSuit;
         switch (bCard.getSuit()) {
-            case Clubs: mSuit = com.example.bridge.model.Suit.CLUBS; break;
-            case Diamonds: mSuit = com.example.bridge.model.Suit.DIAMONDS; break;
-            case Hearts: mSuit = com.example.bridge.model.Suit.HEARTS; break;
-            case Spades: mSuit = com.example.bridge.model.Suit.SPADES; break;
-            default: mSuit = com.example.bridge.model.Suit.SPADES; break;
+            case Clubs:
+                mSuit = com.example.bridge.model.Suit.CLUBS;
+                break;
+            case Diamonds:
+                mSuit = com.example.bridge.model.Suit.DIAMONDS;
+                break;
+            case Hearts:
+                mSuit = com.example.bridge.model.Suit.HEARTS;
+                break;
+            case Spades:
+                mSuit = com.example.bridge.model.Suit.SPADES;
+                break;
+            default:
+                mSuit = com.example.bridge.model.Suit.SPADES;
+                break;
         }
 
         com.example.bridge.model.Rank mRank;
         switch (bCard.getRank()) {
-            case Two: mRank = com.example.bridge.model.Rank.TWO; break;
-            case Three: mRank = com.example.bridge.model.Rank.THREE; break;
-            case Four: mRank = com.example.bridge.model.Rank.FOUR; break;
-            case Five: mRank = com.example.bridge.model.Rank.FIVE; break;
-            case Six: mRank = com.example.bridge.model.Rank.SIX; break;
-            case Seven: mRank = com.example.bridge.model.Rank.SEVEN; break;
-            case Eight: mRank = com.example.bridge.model.Rank.EIGHT; break;
-            case Nine: mRank = com.example.bridge.model.Rank.NINE; break;
-            case Ten: mRank = com.example.bridge.model.Rank.TEN; break;
-            case Jack: mRank = com.example.bridge.model.Rank.JACK; break;
-            case Queen: mRank = com.example.bridge.model.Rank.QUEEN; break;
-            case King: mRank = com.example.bridge.model.Rank.KING; break;
-            case Ace: mRank = com.example.bridge.model.Rank.ACE; break;
-            default: mRank = com.example.bridge.model.Rank.ACE; break;
+            case Two:
+                mRank = com.example.bridge.model.Rank.TWO;
+                break;
+            case Three:
+                mRank = com.example.bridge.model.Rank.THREE;
+                break;
+            case Four:
+                mRank = com.example.bridge.model.Rank.FOUR;
+                break;
+            case Five:
+                mRank = com.example.bridge.model.Rank.FIVE;
+                break;
+            case Six:
+                mRank = com.example.bridge.model.Rank.SIX;
+                break;
+            case Seven:
+                mRank = com.example.bridge.model.Rank.SEVEN;
+                break;
+            case Eight:
+                mRank = com.example.bridge.model.Rank.EIGHT;
+                break;
+            case Nine:
+                mRank = com.example.bridge.model.Rank.NINE;
+                break;
+            case Ten:
+                mRank = com.example.bridge.model.Rank.TEN;
+                break;
+            case Jack:
+                mRank = com.example.bridge.model.Rank.JACK;
+                break;
+            case Queen:
+                mRank = com.example.bridge.model.Rank.QUEEN;
+                break;
+            case King:
+                mRank = com.example.bridge.model.Rank.KING;
+                break;
+            case Ace:
+                mRank = com.example.bridge.model.Rank.ACE;
+                break;
+            default:
+                mRank = com.example.bridge.model.Rank.ACE;
+                break;
         }
 
         return new Card(mSuit, mRank);
@@ -309,10 +353,38 @@ public class GameController {
     }
 
     private void checkClaimPossibility(Player player) {
-        Map<Suit, Integer> maxOthersRank = new HashMap<>();
+        Suit trumpSuit = getTrumpSuit();
 
+        if (hasOnlyWinningCards(player, trumpSuit)) {
+            callback.onClaimButtonVisibilityChanged(true);
+        } else if (hasOnlyWinningCards(getPartner(player), trumpSuit)) {
+            callback.onClaimButtonVisibilityChanged(true);
+        } else if (isHandOnlyTrumps(player, trumpSuit)) {
+            callback.onClaimButtonVisibilityChanged(true);
+        } else if (isHandOnlyTrumps(getPartner(player), trumpSuit)) {
+            callback.onClaimButtonVisibilityChanged(true);
+        } else {
+            callback.onClaimButtonVisibilityChanged(false);
+        }
+    }
+
+    private boolean isHandOnlyTrumps(Player p, Suit trumpSuit) {
+        if (p == null || trumpSuit == null) return false;
+        List<Card> hand = p.getHand();
+        if (hand.isEmpty()) return false;
+
+        for (Card c : hand) {
+            if (c.getSuit() != trumpSuit) {
+                return false; // Znaleziono kartę w innym kolorze
+            }
+        }
+        return true; // Wszystkie karty na ręce to atuty
+    }
+
+    private boolean hasOnlyWinningCards(Player p, Suit trumpSuit) {
+        Map<Suit, Integer> maxOthersRank = new HashMap<>();
         for (Player other : players.values()) {
-            if (other != player) {
+            if (other != p) {
                 for (Card c : other.getHand()) {
                     int rank = c.getRank().ordinal();
                     if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
@@ -321,12 +393,7 @@ public class GameController {
                 }
             }
         }
-        callback.onClaimButtonVisibilityChanged(hasOnlyWinningCards(player, maxOthersRank));
-        //callback.onClaimButtonVisibilityChanged(true);
-    }
 
-    private boolean hasOnlyWinningCards(Player p, Map<Suit, Integer> maxOthersRank) {
-        Suit trumpSuit = getTrumpSuit();
         boolean othersHaveTrumps = trumpSuit != null && maxOthersRank.containsKey(trumpSuit);
 
         for (Card c : p.getHand()) {
@@ -340,10 +407,10 @@ public class GameController {
                 return false;
             }
         }
-
         // Jeśli pętla doszła do końca, znaczy to, że WSZYSTKIE karty przeszły test
         return true;
     }
+
     public void claimRest() {
         if (!isGameRunning) return;
         isGameRunning = false;
@@ -684,13 +751,17 @@ public class GameController {
     private int getPlayerDdsIndex(String playerDirection) {
         if (playerDirection == null) return 0;
         switch (playerDirection.toUpperCase()) {
-            case "N": case "NORTH":
+            case "N":
+            case "NORTH":
                 return 0;
-            case "E": case "EAST":
+            case "E":
+            case "EAST":
                 return 1;
-            case "S": case "SOUTH":
+            case "S":
+            case "SOUTH":
                 return 2;
-            case "W": case "WEST":
+            case "W":
+            case "WEST":
                 return 3;
             default:
                 return 0;
@@ -702,14 +773,34 @@ public class GameController {
         String dir = player.getDirectionString();
         if (dir == null) return null;
         switch (dir.toUpperCase()) {
-            case "N": case "NORTH":
+            case "N":
+            case "NORTH":
                 return getPlayerByDirection("E");
-            case "E": case "EAST":
+            case "E":
+            case "EAST":
                 return getPlayerByDirection("S");
-            case "S": case "SOUTH":
+            case "S":
+            case "SOUTH":
                 return getPlayerByDirection("W");
-            case "W": case "WEST":
+            case "W":
+            case "WEST":
                 return getPlayerByDirection("N");
+            default:
+                return null;
+        }
+    }
+
+    public Player getPartner(Player player) {
+        if (player == null || player.getDirectionString() == null) return null;
+        switch (player.getDirectionString().toUpperCase()) {
+            case "N":
+                return players.get("S");
+            case "S":
+                return players.get("N");
+            case "E":
+                return players.get("W");
+            case "W":
+                return players.get("E");
             default:
                 return null;
         }
