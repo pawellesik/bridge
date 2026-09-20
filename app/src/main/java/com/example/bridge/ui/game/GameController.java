@@ -14,7 +14,6 @@ import com.example.bridge.model.Suit;
 import com.example.bridge.model.Trick;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -355,62 +354,58 @@ public class GameController {
 
     private void checkClaimPossibility(Player player) {
         Suit trumpSuit = getTrumpSuit();
-        Map<Suit, Integer> maxOpponentsRank = new HashMap<>();
-        Map<Suit, Integer> maxOthersRank = new HashMap<>();
-        Player partner = getPartner(player);
-        boolean othersHaveTrumps = trumpSuit != null && maxOthersRank.containsKey(trumpSuit);
 
-
-        for (Player other : players.values()) {
-            if (other != player) {
-                for (Card c : other.getHand()) {
-                    int rank = c.getRank().ordinal();
-                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
-                        maxOthersRank.put(c.getSuit(), rank);
-                    }
-                    if (other != partner) {
-                        if (rank > maxOpponentsRank.getOrDefault(c.getSuit(), -1)) {
-                            maxOpponentsRank.put(c.getSuit(), rank);
-                        }
-                    }
-                }
-            }
-        }
-
-
-        if (hasOnlyWinningCards(player, trumpSuit, maxOthersRank, othersHaveTrumps)) {
+        if (oponnetsDontHaveTrumpAndAllCardsIHaveWinner(player, trumpSuit)) {
             callback.onClaimButtonVisibilityChanged(true);
-        } else if (hasOnlyWinningCards(partner, trumpSuit, maxOthersRank, othersHaveTrumps)) {
+        } else if (oponnetsDontHaveTrumpAndAllCardsIHaveWinner(getPartner(player), trumpSuit)) {
             callback.onClaimButtonVisibilityChanged(true);
-        } else if (isHandOnlyTrumps(player, trumpSuit, partner)) {
+        } else if (oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(player, trumpSuit)) {
             callback.onClaimButtonVisibilityChanged(true);
-        } else if (isHandOnlyTrumps(getPartner(player), trumpSuit, partner)) {
-            callback.onClaimButtonVisibilityChanged(true);
-        } else if (hasHigherTrumpsAndWinningSideCards(player, trumpSuit)) {
-            callback.onClaimButtonVisibilityChanged(true);
-        } else if (hasHigherTrumpsAndWinningSideCards(getPartner(player), trumpSuit)) {
+        } else if (oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(getPartner(player), trumpSuit)) {
             callback.onClaimButtonVisibilityChanged(true);
         } else {
             callback.onClaimButtonVisibilityChanged(false);
         }
     }
 
-    private boolean hasHigherTrumpsAndWinningSideCards(Player player, Suit trumpSuit) {
-        if (player == null || trumpSuit == null) return false;
-        Player partner = getPartner(player);
-        if (partner == null) return false;
-
+    private boolean oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(Player p, Suit trumpSuit) {
         Map<Suit, Integer> maxOpponentsRank = new HashMap<>();
         Map<Suit, Integer> maxOthersRank = new HashMap<>();
 
         for (Player other : players.values()) {
-            if (other != player) {
+            if (other != p) {
                 for (Card c : other.getHand()) {
                     int rank = c.getRank().ordinal();
                     if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
                         maxOthersRank.put(c.getSuit(), rank);
                     }
-                    if (other != partner) {
+                    if (other != getPartner(p)) {
+                        if (rank > maxOpponentsRank.getOrDefault(c.getSuit(), -1)) {
+                            maxOpponentsRank.put(c.getSuit(), rank);
+                        }
+                    }
+                }
+            }
+        }
+        if (maxOpponentsRank.containsKey(trumpSuit)) {
+            return false;
+        }
+        return hasOnlyTrumps(p, trumpSuit);
+    }
+
+    private boolean oponnetsDontHaveTrumpAndAllCardsIHaveWinner(Player p, Suit trumpSuit) {
+        Map<Suit, Integer> maxOpponentsRank = new HashMap<>();
+        Map<Suit, Integer> maxOthersRank = new HashMap<>();
+        //boolean othersHaveTrumps = trumpSuit != null && maxOthersRank.containsKey(trumpSuit);
+
+        for (Player other : players.values()) {
+            if (other != p) {
+                for (Card c : other.getHand()) {
+                    int rank = c.getRank().ordinal();
+                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                        maxOthersRank.put(c.getSuit(), rank);
+                    }
+                    if (other != getPartner(p)) {
                         if (rank > maxOpponentsRank.getOrDefault(c.getSuit(), -1)) {
                             maxOpponentsRank.put(c.getSuit(), rank);
                         }
@@ -419,84 +414,10 @@ public class GameController {
             }
         }
 
-        // 1. Przeciwnicy nie mogą mieć atutów
         if (maxOpponentsRank.containsKey(trumpSuit)) {
             return false;
         }
-
-        // 2. Najwyższy atut partnera
-        int partnerMaxTrumpRank = -1;
-        for (Card c : partner.getHand()) {
-            if (c.getSuit() == trumpSuit) {
-                if (c.getRank().ordinal() > partnerMaxTrumpRank) {
-                    partnerMaxTrumpRank = c.getRank().ordinal();
-                }
-            }
-        }
-
-        List<Card> myHand = player.getHand();
-        if (myHand.isEmpty()) return false;
-
-        // 3. Sprawdzamy rękę gracza
-        for (Card c : myHand) {
-            if (c.getSuit() == trumpSuit) {
-                // Wszystkie moje atuty muszą być wyższe od najwyższego atutu partnera
-                if (partnerMaxTrumpRank != -1 && c.getRank().ordinal() <= partnerMaxTrumpRank) {
-                    return false;
-                }
-            } else {
-                // Pozostałe karty boczne muszą być wyższe od kart WSZYSTKICH pozostałych graczy (przeciwników i partnera)
-                if (c.getRank().ordinal() <= maxOthersRank.getOrDefault(c.getSuit(), -1)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    private boolean isHandOnlyTrumps(Player p, Suit trumpSuit, Player partner) {
-        if (p == null || trumpSuit == null) return false;
-        List<Card> hand = p.getHand();
-        if (hand.isEmpty()) return false;
-
-        int myMinTrumpRank = Integer.MAX_VALUE;
-
-        // 1. Sprawdzamy czy WSZYSTKIE karty gracza na ręce to atuty i wyznaczamy nasz najniższy atut
-        for (Card c : hand) {
-            if (c.getSuit() != trumpSuit) {
-                return false; // Znaleziono kartę w innym kolorze
-            }
-            if (c.getRank().ordinal() < myMinTrumpRank) {
-                myMinTrumpRank = c.getRank().ordinal();
-            }
-        }
-
-        // 2. Szukamy najwyższego atutu u przeciwników
-        int opponentsMaxTrumpRank = -1;
-
-        for (Player other : players.values()) {
-            if (other != p && other != partner) {
-                for (Card c : other.getHand()) {
-                    if (c.getSuit() == trumpSuit) {
-                        if (c.getRank().ordinal() > opponentsMaxTrumpRank) {
-                            opponentsMaxTrumpRank = c.getRank().ordinal();
-                        }
-                    }
-                }
-            }
-        }
-
-        // 3. Przeciwnicy nie mają w ogóle atutów LUB wszystkie ich atuty są niższe niż nasz najniższy atut
-        return opponentsMaxTrumpRank == -1 || opponentsMaxTrumpRank < myMinTrumpRank;
-    }
-
-    private boolean hasOnlyWinningCards(Player p, Suit trumpSuit, Map<Suit, Integer> maxOthersRank, boolean othersHaveTrumps) {
         for (Card c : p.getHand()) {
-            // Jeśli inni mają atuty, boczny kolor blokuje claim
-            if (othersHaveTrumps && c.getSuit() != trumpSuit) {
-                return false;
-            }
             // Jeśli ranga naszej karty jest MNIEJSZA LUB RÓWNA najwyższej karcie innych, to nie wygrywamy
             if (c.getRank().ordinal() <= maxOthersRank.getOrDefault(c.getSuit(), -1)) {
                 return false;
@@ -504,6 +425,23 @@ public class GameController {
         }
         return true;
     }
+
+    private boolean hasOnlyTrumps(Player player, Suit trumpSuit) {
+        if (player == null || player.getHand() == null || trumpSuit == null) {
+            return false;
+        }
+        List<Card> hand = player.getHand();
+        if (hand.isEmpty()) {
+            return false; // Brak kart na ręce
+        }
+        for (Card c : hand) {
+            if (c.getSuit() != trumpSuit) {
+                return false; // Znaleziono kartę w innym kolorze niż atut
+            }
+        }
+        return true; // Wszystkie karty na ręce to atuty
+    }
+
 
     public void claimRest() {
         if (!isGameRunning) return;
