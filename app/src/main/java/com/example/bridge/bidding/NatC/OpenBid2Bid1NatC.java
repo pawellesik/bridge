@@ -651,7 +651,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
     public static PositionCalls responderChangedSuitsHeart(PositionState ps) {
         //Bid._1H ->
-        //       Bid._1S, Bid._2C, Bid._2D, Bid._1NT ->
+        //       Bid._1S, Bid._2C, Bid._2D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._3H, shape(7, 10), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
