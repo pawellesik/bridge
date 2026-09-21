@@ -414,7 +414,8 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
 
     public void showBiddingReview() {
         if (biddingOverlay == null || "quick".equals(gameMode)) return;
-        
+
+        biddingOverlay.setClipToOutline(true);
         biddingOverlay.setVisibility(View.VISIBLE);
         setBiddingScrollViewMaxHeight(135);
         
@@ -454,7 +455,10 @@ public class GameActivity extends AppCompatActivity implements GameController.Ga
     }
 
     public void hideBiddingOverlay() {
-        if (biddingOverlay != null) biddingOverlay.setVisibility(View.GONE);
+        if (biddingOverlay != null) {
+            biddingOverlay.setClipToOutline(false);
+            biddingOverlay.setVisibility(View.GONE);
+        }
 
         View btnClose = findViewById(R.id.btn_close_bidding_overlay);
         if (btnClose != null) btnClose.setVisibility(View.GONE);

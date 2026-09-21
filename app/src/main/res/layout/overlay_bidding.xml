@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bidding_container"
     android:padding="1dp"
-    android:clipToOutline="true">
+    android:clipToOutline="false">
 
     <!-- Table Header (Fixed at top) -->
     <LinearLayout
