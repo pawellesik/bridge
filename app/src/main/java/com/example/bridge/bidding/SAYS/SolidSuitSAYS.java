@@ -1,0 +1,23 @@
+package com.example.bridge.bidding.SAYS;
+
+import com.example.bridge.bidding.Tools.Bid;
+import com.example.bridge.bidding.Tools.CallFeature;
+import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Suit;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SolidSuitSAYS extends SAYS {
+    public static Iterable<CallFeature> BIDS(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
+        for (Suit suit : Suit.values()) {
+            bids.add(shows(new Bid(7, suit), shape(13)));
+            bids.add(shows(new Bid(7, suit), aces(2), shape(12)));
+            bids.add(shows(new Bid(6, suit), aces(1), shape(12)));
+            bids.add(shows(new Bid(6, suit), aces(3), shape(11)));
+            bids.add(shows(new Bid(6, suit), aces(4), shape(10)));
+        }
+        return bids;
+    }
+}

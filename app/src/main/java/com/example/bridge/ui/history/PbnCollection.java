@@ -32,8 +32,8 @@ public class PbnCollection {
     private Pbn pbnWj2025;
     private Pbn pbnLCStandard;
     private Pbn pbnLCStandardRev;
-    private Pbn twoOverOneGameForce;
-    private Pbn twoOverOneGameForceRev;
+    private Pbn pbnSayc;
+    private Pbn pbnSaycRev;
 
     public PbnCollection(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
@@ -63,15 +63,15 @@ public class PbnCollection {
         this.pbnLCStandardRev.setBidSystemNS("LC-Basic");
         this.pbnLCStandardRev.setBidSystemEW("PassOnly");
 
-        this.twoOverOneGameForce = new Pbn(gameActivity, "2/1 GF (S)");
-        this.twoOverOneGameForce.setPlayerNames("2/1 GF W", "2/1 GF N", "2/1 GF E", "2/1 GF S");
-        this.twoOverOneGameForce.setBidSystemNS("TwoOverOneGameForce");
-        this.twoOverOneGameForce.setBidSystemEW("PassOnly");
+        this.pbnSayc = new Pbn(gameActivity, "SAYC");
+        this.pbnSayc.setPlayerNames("SAYC", "SAYC", "SAYC", "SAYC");
+        this.pbnSayc.setBidSystemNS("SAYC");
+        this.pbnSayc.setBidSystemEW("PassOnly");
 
-        this.twoOverOneGameForceRev = new Pbn(gameActivity, "2/1 GF (N)");
-        this.twoOverOneGameForceRev.setPlayerNames("2/1 GF W", "2/1 GF N", "2/1 GF E", "2/1 GF S");
-        this.twoOverOneGameForceRev.setBidSystemNS("TwoOverOneGameForce");
-        this.twoOverOneGameForceRev.setBidSystemEW("PassOnly");
+        this.pbnSaycRev = new Pbn(gameActivity, "SAYC rev");
+        this.pbnSaycRev.setPlayerNames("SAYC rev", "SAYC rev", "SAYC rev", "SAYC rev");
+        this.pbnSaycRev.setBidSystemNS("SAYC");
+        this.pbnSaycRev.setBidSystemEW("PassOnly");
 
         //this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
         //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
@@ -128,11 +128,11 @@ public class PbnCollection {
         this.pbnLCStandardRev.initNewGame(hands, gameMode);
         runBotSimulationGame(pbnLCStandardRev, oppositeDealer);
 
-        this.twoOverOneGameForce.initNewGame(hands, gameMode);
-        runBotSimulationGame(twoOverOneGameForce, mainDealer);
+        this.pbnSayc.initNewGame(hands, gameMode);
+        runBotSimulationGame(pbnSayc, mainDealer);
 
-        this.twoOverOneGameForceRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(twoOverOneGameForceRev, oppositeDealer);
+        this.pbnSaycRev.initNewGame(hands, gameMode);
+        runBotSimulationGame(pbnSaycRev, oppositeDealer);
     }
 
     private String getNormalizedDealer(String dealer) {
@@ -233,8 +233,8 @@ public class PbnCollection {
         if (pbnNatCRev != null) allPbns.add(pbnNatCRev);
         if (pbnLCStandard != null) allPbns.add(pbnLCStandard);
         if (pbnLCStandardRev != null) allPbns.add(pbnLCStandardRev);
-        if (twoOverOneGameForce != null) allPbns.add(twoOverOneGameForce);
-        if (twoOverOneGameForceRev != null) allPbns.add(twoOverOneGameForceRev);
+        if (pbnSayc != null) allPbns.add(pbnSayc);
+        if (pbnSaycRev != null) allPbns.add(pbnSaycRev);
 
         int n = allPbns.size();
         if (n <= 1) {
@@ -530,8 +530,8 @@ public class PbnCollection {
             allPbns.add(pbnNatCRev);
             allPbns.add(pbnLCStandard);
             allPbns.add(pbnLCStandardRev);
-            allPbns.add(twoOverOneGameForce);
-            allPbns.add(twoOverOneGameForceRev);
+            allPbns.add(pbnSayc);
+            allPbns.add(pbnSaycRev);
 
             for (Pbn p : allPbns) {
                 if (p != null) {

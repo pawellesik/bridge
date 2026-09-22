@@ -2,6 +2,7 @@ package com.example.bridge.bidding.Tools;
 
 import com.example.bridge.bidding.LCStandard.LCStandard;
 import com.example.bridge.bidding.NatC.NatC;
+import com.example.bridge.bidding.SAYS.SAYS;
 
 import java.util.*;
 
@@ -42,6 +43,9 @@ public class BiddingState {
     private static IBiddingSystem getBidSystem(String bidSystem) {
         if (bidSystem == null || bidSystem.isEmpty() || bidSystem.equals("TwoOverOneGameForce") || bidSystem.equals("LC-Basic")) {
             return new LCStandard();
+        }
+        else if (bidSystem.contains("SAYC") || bidSystem.contains("SAYS")) {
+            return new SAYS();
         }
         else if (bidSystem.equals("NatC")){
             return new NatC();
