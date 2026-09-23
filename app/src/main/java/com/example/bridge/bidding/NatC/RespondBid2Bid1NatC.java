@@ -47,12 +47,19 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._4S, pairPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _4S")),
                 shows(Bid._4H, pairPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _4H")),
                 shows(Bid._2S, shape(5, 10), noFit(), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _2S")),
+
                 shows(Bid._3H, shape(6, 10), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3H")),
                 shows(Bid._3H, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3H")),
+
+                shows(Bid._3S, shape(6, 10), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3S")),
+                shows(Bid._3S, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3S")),
+
                 shows(Bid._3C, shape(5, 10), noFit(), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3C")),
                 shows(Bid._3D, shape(5, 10), noFit(), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3D")),
+
                 shows(Bid._3C, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3C")),
                 shows(Bid._3D, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3D")),
+
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
         choices.addRules(CompeteNatC.compBids(ps));
