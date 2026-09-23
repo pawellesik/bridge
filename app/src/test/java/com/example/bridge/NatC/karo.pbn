@@ -316,3 +316,12 @@ pass pass
 4H pass 4S pass
 5D pass 6D pass
 pass pass
+
+[Event "NatC diamond 39"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:Q9.QT754.JT2.KT3 K54.AJ632.K93.J5 JT86.K8.AQ654.A8 A732.9.87.Q97642"]
+[Auction "N"]
+pass PAss 1D pass
+1H pass 1NT pass
+2D pass pass pass

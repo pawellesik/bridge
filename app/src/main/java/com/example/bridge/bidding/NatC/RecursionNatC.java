@@ -36,6 +36,11 @@ public class RecursionNatC extends NatC {
                 shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._2S, Bid._2H)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionNatC.recursionFindFitGame fit _Pass")),
                 shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3C, Bid._3D)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionNatC.recursionFindFitGame fit _Pass")),
 
+                shows(Bid._2C, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _2C")),
+                shows(Bid._2D, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _2D")),
+                shows(Bid._2H, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _2H")),
+                shows(Bid._2S, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _2S")),
+
                 shows(Bid._2H, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _2H")),
                 shows(Bid._2S, shape(6, 10), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _2S")),
                 shows(Bid._2C, shape(6, 10), id("RecursionNatC.recursionFindFitGame IS_REBID _2C")),
