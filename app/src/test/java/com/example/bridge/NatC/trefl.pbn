@@ -1035,3 +1035,23 @@ pass pass
 pass PAss 1C pass
 1D pass 3C pass
 3H pass pass pass
+
+[Event "NatC Trfel 113"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "S:AK874.8.QT74.AJT 93.762.9532.Q963 QJ65.AQJ5.AKJ.85 T2.KT943.86.K742"]
+[Auction "N"]
+1C PAss 2S pass
+4NT pass 5H pass
+5NT pass 6D pass
+6S pass pass pass
+
+[Event "NatC Trfel 114"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "S:QJ65.AQJ5.AKJ.85 93.762.9532.Q963 AK874.8.QT74.AJT T2.KT943.86.K742"]
+[Auction "N"]
+1S PAss 4C pass
+4S pass 4NT pass
+5D pass 5S pass
+pass pass

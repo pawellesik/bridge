@@ -29,12 +29,12 @@ public class AcesAsk extends Bidder {
         Bid partnerBid = ps.getPartner().getBid();
         Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
 
-        bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
         bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, aces(1, 2, 3, 4), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 1")));
         bids.add(shows(Bid._4C, fit(partnerSuit), aces(1, 2, 3, 4), IS_ANY_JUMP, pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(partnerSuit), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 4")));
         bids.add(shows(Bid._4C, IS_ANY_JUMP, aces(1, 2, 3, 4), pairHighCardPoints(SLAM_OR_BETTER), shape(Suit.Hearts, 2, 4), shape(Suit.Spades, 2, 4), shape(Suit.Clubs, 2, 5), shape(Suit.Diamonds, 2, 5), partner(isLastBid(Bid._1NT, Bid._2NT)), ruleShow(1), ruleDescription("Ask for Aces"), id("initiateConventionAcesAsk 5")));
         bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, aces(1, 2, 3, 4), pairPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionAcesAsk AcesAsk 6")));
 
+        bids.add(properties(Bid._4C, AcesAsk::respondCountAces, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
         return bids;
     }
 
@@ -49,7 +49,6 @@ public class AcesAsk extends Bidder {
         Bid partnerBid = ps.getPartner().getBid();
         Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
         /* musi byc przeskok lub uzgodniony kolor*/
-        bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
 
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(Suit.Hearts), aces(1, 2, 3, 4), partner(isLastBid(Bid._3H)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Hearts), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 5")));
         bids.add(shows(Bid._4NT, IS_ANY_JUMP, fit(Suit.Spades), aces(1, 2, 3, 4), partner(isLastBid(Bid._3S)), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(Suit.Spades), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 6")));
@@ -62,20 +61,21 @@ public class AcesAsk extends Bidder {
 
         bids.add(shows(Bid._4NT, aces(1, 2, 3, 4), pairHighCardPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionBlok AcesAsk 7")));
 
+        bids.add(properties(Bid._4NT, AcesAsk::respondCountAcesBlok, true, true, false, partnerSuit, null, null, UserText.AcesAsc, null));
+
         return bids;
     }
 
     public static PositionCalls respondCountAcesBlok(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S, Bid._5NT}, AcesAsk::askKing, true),
-
                 shows(Bid._5C, aces(0), ruleShow(1), id("respondCountAcesBlok 0")),
                 shows(Bid._5D, aces(1), ruleShow(1), id("respondCountAcesBlok 1")),
                 shows(Bid._5H, aces(2), ruleShow(1), id("respondCountAcesBlok 2")),
                 shows(Bid._5S, aces(3), ruleShow(1), id("respondCountAcesBlok 3")),
-                shows(Bid._5NT, aces(4), ruleShow(1), id("respondCountAcesBlok 4"))
-        );
+                shows(Bid._5NT, aces(4), ruleShow(1), id("respondCountAcesBlok 4")),
+                properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S, Bid._5NT}, AcesAsk::askKing, true)
+                );
         return choices;
     }
 
@@ -151,13 +151,13 @@ public class AcesAsk extends Bidder {
         Call call4Kings = Call.getNextCall(call3Kings);
 
         choices.addRules(
-                properties(new Call[]{call0Kings, call1Kings, call2Kings, call3Kings, call4Kings}, AcesAsk::tryGrandSlam, false),
                 shows(call0Kings, kings(0), ruleShow(1), id("respondKings 0")),
                 shows(call1Kings, kings(1), ruleShow(1), id("respondKings 1")),
                 shows(call2Kings, kings(2), ruleShow(1), id("respondKings 2")),
                 shows(call3Kings, kings(3), ruleShow(1), id("respondKings 3")),
-                shows(call4Kings, kings(4), ruleShow(1), id("respondKings 4"))
-        );
+                shows(call4Kings, kings(4), ruleShow(1), id("respondKings 4")),
+                properties(new Call[]{call0Kings, call1Kings, call2Kings, call3Kings, call4Kings}, AcesAsk::tryGrandSlam, false)
+                );
         return choices;
     }
 
