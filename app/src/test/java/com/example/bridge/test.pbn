@@ -1,9 +1,8 @@
 [Event "NatC  bezAtu 20"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "E:KQ4.A542.A32.QJ4 JT965.QT83..T987 872.J7.JT974.653 A3.K96.KQ865.AK2"]
+[Deal "N:96.AT864.Q764.83 T872.9753.T85.A5 KQ.KQ2.AK9.KJT96 AJ543.J.J32.Q742"]
 [Auction "N"]
-1C PAss 2NT pass
-4C pass 4NT pass
-5C pass 5D pass
-5NT pass pass
+pass PAss 1C pass
+1D pass 3C pass
+3H pass pass pass

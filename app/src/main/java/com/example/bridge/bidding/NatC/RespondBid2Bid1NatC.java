@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.NatC;
 
+import static com.example.bridge.bidding.NatC.OpenBid1NatC.GameAfterNegat;
 import static com.example.bridge.bidding.NatC.OpenBid1NatC.OpeningInviteBidding;
 import static com.example.bridge.bidding.NatC.OpenBid1NatC.OpeningLowBidding;
 
@@ -49,16 +50,18 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._2S, shape(5, 10), noFit(), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _2S")),
 
                 shows(Bid._3H, shape(6, 10), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3H")),
-                shows(Bid._3H, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3H")),
+                shows(Bid._3H, shape(5, 10), noFit(), GameAfterNegat, id("RespondBid2NatC.secondBidNegatStrong _3H")),
+                shows(Bid._3H, shape(5, 10), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3H")),
 
                 shows(Bid._3S, shape(6, 10), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3S")),
-                shows(Bid._3S, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3S")),
+                shows(Bid._3S, shape(5, 10), noFit(), GameAfterNegat, id("RespondBid2NatC.secondBidNegatStrong _3S")),
+                shows(Bid._3S, shape(5, 10), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3S")),
 
                 shows(Bid._3C, shape(5, 10), noFit(), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3C")),
                 shows(Bid._3D, shape(5, 10), noFit(), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3D")),
 
-                shows(Bid._3C, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3C")),
-                shows(Bid._3D, shape(5, 10), shape(ps.getPartner().getBid().getSuit(), 0, 1), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3D")),
+                shows(Bid._3C, shape(5, 10), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3C")),
+                shows(Bid._3D, shape(5, 10), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3D")),
 
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
