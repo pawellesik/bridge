@@ -355,17 +355,11 @@ public class GameController {
     private void checkClaimPossibility(Player player) {
         Suit trumpSuit = getTrumpSuit();
 
-        if (oponnetsDontHaveTrumpAndAllCardsIHaveWinner(player, trumpSuit)) {
-            callback.onClaimButtonVisibilityChanged(true);
-        } else if (oponnetsDontHaveTrumpAndAllCardsIHaveWinner(getPartner(player), trumpSuit)) {
-            callback.onClaimButtonVisibilityChanged(true);
-        } else if (oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(player, trumpSuit)) {
-            callback.onClaimButtonVisibilityChanged(true);
-        } else if (oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(getPartner(player), trumpSuit)) {
-            callback.onClaimButtonVisibilityChanged(true);
-        } else {
-            callback.onClaimButtonVisibilityChanged(false);
-        }
+        boolean canClaim = oponnetsDontHaveTrumpAndAllCardsIHaveWinner(player, trumpSuit)
+                || oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(player, trumpSuit)
+                || oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(getPartner(player), trumpSuit);
+
+        callback.onClaimButtonVisibilityChanged(canClaim);
     }
 
     private boolean oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(Player p, Suit trumpSuit) {
