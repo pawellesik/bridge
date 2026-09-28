@@ -178,8 +178,8 @@ public class RespondBid2Bid1SAYS extends RespondBid1SAYS {
 
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, id("RespondBid2SAYS.secondBidRaiseTrumpMinorClubMajorStandard _3NT")),
 
-                shows(Call.PASS, OpeningLowBidding, fit(7), partner(isLastBid(Bid._3S)), id("RespondBid2SAYS.secondBidRaiseTrumpMinorClubMajorStandard _pass")),
-                shows(Call.PASS, OpeningLowBidding, fit(7), partner(isLastBid(Bid._3H)), id("RespondBid2SAYS.secondBidRaiseTrumpMinorClubMajorStandard _pass")),
+                shows(Call.PASS, OpeningLowBidding, fit(7, Suit.Spades), partner(isLastBid(Bid._3S)), id("RespondBid2SAYS.secondBidRaiseTrumpMinorClubMajorStandard _pass")),
+                shows(Call.PASS, OpeningLowBidding, fit(7, Suit.Hearts), partner(isLastBid(Bid._3H)), id("RespondBid2SAYS.secondBidRaiseTrumpMinorClubMajorStandard _pass")),
                 partnerBids(RecursionSAYS::recursionFindFitGame)
         );
         choices.addRules(CompeteSAYS.compBids(ps));
@@ -309,7 +309,7 @@ public class RespondBid2Bid1SAYS extends RespondBid1SAYS {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondBid2SAYS.secondBidMinorAgreeTrumpDiamods 3D")),
                 shows(Bid._5D, pairHighCardPoints(PAIR_GAME), noFit(), id("RespondBid2SAYS.secondBidMinorAgreeTrumpDiamods 5D")),
 
-                shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(), id("RespondBid2SAYS.secondBidMinorAgreeTrumpDiamods Pass")),
+                shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), id("RespondBid2SAYS.secondBidMinorAgreeTrumpDiamods Pass")),
 
                 shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), noFit(), id("RespondBid2SAYS.secondBidMinorAgreeTrumpDiamods 3D")),
                 partnerBids(RecursionSAYS::recursionFindFitGame)

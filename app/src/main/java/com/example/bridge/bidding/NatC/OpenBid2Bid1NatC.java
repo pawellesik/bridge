@@ -855,7 +855,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //                          Bid._2H, Bid._2C, Bid._2D, Bid._1NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(), partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderChangedSuitsSpade _pass")),
+                //shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(Suit.Hearts), partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderChangedSuitsSpade _pass")),
 
                 shows(Bid._2S, shape(6), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
                 shows(Bid._3S, shape(7, 10), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
