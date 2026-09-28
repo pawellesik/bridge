@@ -857,10 +857,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(
                 shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(), partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderChangedSuitsSpade _pass")),
 
+                shows(Bid._2S, shape(6), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
                 shows(Bid._3S, shape(7, 10), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
 
-                shows(Bid._2H, shape(4, 10), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2H")),
-                shows(Bid._2S, shape(6), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
+                shows(Bid._2H, shape(4, 10), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuit sSpade _2H")),
 
                 shows(Bid._2C, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2C")),
                 shows(Bid._2D, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2D")),
@@ -868,8 +868,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._3C, OpeningInviteBidding, fit(), setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3C")),
                 shows(Bid._3D, OpeningInviteBidding, fit(), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3D")),
 
-                shows(Bid._2NT, PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2NT")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3NT")),
+                shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, noFit(), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3C")),
+
+                shows(Bid._2NT, PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsSpade _2NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsSpade _3NT")),
 
                 shows(Bid._4H, pairPoints(PAIR_GAME), fit(), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _4H")),
                 partnerBids(RecursionNatC::recursionFindFitGame),
