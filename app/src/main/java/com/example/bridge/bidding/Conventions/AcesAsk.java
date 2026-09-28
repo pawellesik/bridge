@@ -69,11 +69,11 @@ public class AcesAsk extends Bidder {
     public static PositionCalls respondCountAcesBlok(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._5C, aces(0), ruleShow(1), id("respondCountAcesBlok 0")),
-                shows(Bid._5D, aces(1), ruleShow(1), id("respondCountAcesBlok 1")),
-                shows(Bid._5H, aces(2), ruleShow(1), id("respondCountAcesBlok 2")),
-                shows(Bid._5S, aces(3), ruleShow(1), id("respondCountAcesBlok 3")),
-                shows(Bid._5NT, aces(4), ruleShow(1), id("respondCountAcesBlok 4")),
+                shows(Bid._5C, aces(0), ruleShow(1), ruleDescription("0 Aces"), id("respondCountAcesBlok 0")),
+                shows(Bid._5D, aces(1), ruleShow(1), ruleDescription("1 Ace"), id("respondCountAcesBlok 1")),
+                shows(Bid._5H, aces(2), ruleShow(1), ruleDescription("2 Aces"), id("respondCountAcesBlok 2")),
+                shows(Bid._5S, aces(3), ruleShow(1), ruleDescription("3 Aces"), id("respondCountAcesBlok 3")),
+                shows(Bid._5NT, aces(4), ruleShow(1), ruleDescription("4 Aces"), id("respondCountAcesBlok 4")),
                 properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S, Bid._5NT}, AcesAsk::askKing, true)
                 );
         return choices;
@@ -84,11 +84,11 @@ public class AcesAsk extends Bidder {
         choices.addRules(
                 properties(new Call[]{Bid._4D, Bid._4H, Bid._4S, Bid._4NT, Bid._5C}, AcesAsk::askKing, true),
 
-                shows(Bid._4D, aces(0), ruleShow(1), id("respondCountAces 0")),
-                shows(Bid._4H, aces(1), ruleShow(1), id("respondCountAces 1")),
-                shows(Bid._4S, aces(2), ruleShow(1), id("respondCountAces 2")),
-                shows(Bid._4NT, aces(3), ruleShow(1), id("respondCountAces 3")),
-                shows(Bid._5C, aces(4), ruleShow(1), id("respondCountAces 4"))
+                shows(Bid._4D, aces(0), ruleShow(1), ruleDescription("0 Aces"), id("respondCountAces 0")),
+                shows(Bid._4H, aces(1), ruleShow(1), ruleDescription("1 Ace"), id("respondCountAces 1")),
+                shows(Bid._4S, aces(2), ruleShow(1), ruleDescription("2 Aces"), id("respondCountAces 2")),
+                shows(Bid._4NT, aces(3), ruleShow(1), ruleDescription("3 Aces"), id("respondCountAces 3")),
+                shows(Bid._5C, aces(4), ruleShow(1), ruleDescription("4 Aces"), id("respondCountAces 4"))
         );
         return choices;
     }
@@ -151,11 +151,11 @@ public class AcesAsk extends Bidder {
         Call call4Kings = Call.getNextCall(call3Kings);
 
         choices.addRules(
-                shows(call0Kings, kings(0), ruleShow(1), id("respondKings 0")),
-                shows(call1Kings, kings(1), ruleShow(1), id("respondKings 1")),
-                shows(call2Kings, kings(2), ruleShow(1), id("respondKings 2")),
-                shows(call3Kings, kings(3), ruleShow(1), id("respondKings 3")),
-                shows(call4Kings, kings(4), ruleShow(1), id("respondKings 4")),
+                shows(call0Kings, kings(0), ruleShow(1), ruleDescription("0 Kings"), id("respondKings 0")),
+                shows(call1Kings, kings(1), ruleShow(1), ruleDescription("1 King"), id("respondKings 1")),
+                shows(call2Kings, kings(2), ruleShow(1), ruleDescription("2 Kings"), id("respondKings 2")),
+                shows(call3Kings, kings(3), ruleShow(1), ruleDescription("3 Kings"), id("respondKings 3")),
+                shows(call4Kings, kings(4), ruleShow(1), ruleDescription("4 Kings"), id("respondKings 4")),
                 properties(new Call[]{call0Kings, call1Kings, call2Kings, call3Kings, call4Kings}, AcesAsk::tryGrandSlam, false)
                 );
         return choices;
