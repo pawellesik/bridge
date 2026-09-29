@@ -286,6 +286,10 @@ public class AuctionBiddingHelper {
     public static boolean shouldFilterOutFitRule(BidRule rule, Call call, PositionState ps) {
         if (rule == null || call == null || ps == null) return false;
 
+        if (com.example.bridge.bidding.Constraints.RuleDescription.getRuleDescription(rule) != null) {
+            return false;
+        }
+
         Bid partnerBid = ps.getPartner().getBid();
         if (partnerBid == null || partnerBid.getSuit() == null) {
             return false;
