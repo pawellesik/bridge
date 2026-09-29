@@ -77,11 +77,11 @@ public class RecursionNatC extends NatC {
 
                 shows(Bid._3H, shape(5, 10), noFitMajor(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3H")),
                 shows(Bid._3S, shape(5, 10), noFitMajor(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3S")),
-                shows(Bid._3C, shape(5, 10), noFitMajor(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3C")),
-                shows(Bid._3D, shape(5, 10), noFitMajor(), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3D")),
+                shows(Bid._3C, shape(5, 10), noFitMajor(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3C")),
+                shows(Bid._3D, shape(5, 10), noFitMajor(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3D")),
 
-                shows(Bid._3H, shape(4, 10), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
-                shows(Bid._3S, shape(4, 10), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
+                shows(Bid._3H, shape(4, 10), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3S, shape(4, 10), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
                 shows(Bid._3C, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _3C")),
                 shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _3D")),
