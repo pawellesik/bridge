@@ -57,7 +57,9 @@ public class AuctionBiddingHelper {
         rulesContent.removeAllViews();
         PositionState ps = liveBiddingState.getNextToAct();
 
-        List<Map.Entry<Call, String>> ruleHints = new ArrayList<>();
+        List<Map.Entry<Call, String>> standardHints = new ArrayList<>();
+        List<Map.Entry<Call, String>> ruleDescriptionHints = new ArrayList<>();
+
         for (Map.Entry<Call, CallDetails> entry : choices.entrySet()) {
             Call call = entry.getKey();
             CallDetails details = entry.getValue();
@@ -75,14 +77,30 @@ public class AuctionBiddingHelper {
 
             if (showRules.isEmpty()) continue;
 
+            boolean hasRuleDescription = false;
+            for (BidRule rule : showRules) {
+                if (com.example.bridge.bidding.Constraints.RuleDescription.getRuleDescription(rule) != null) {
+                    hasRuleDescription = true;
+                    break;
+                }
+            }
+
             String desc = BiddingInfoFormatter.getDescriptionsForRules(ps, showRules);
             if (desc == null || desc.trim().isEmpty()) {
                 desc = details.getDescription(ps);
             }
             if (desc == null || desc.trim().isEmpty()) continue;
 
-            ruleHints.add(new AbstractMap.SimpleEntry<>(call, desc));
+            Map.Entry<Call, String> hintEntry = new AbstractMap.SimpleEntry<>(call, desc);
+            if (hasRuleDescription) {
+                ruleDescriptionHints.add(hintEntry);
+            } else {
+                standardHints.add(hintEntry);
+            }
         }
+
+        List<Map.Entry<Call, String>> ruleHints = new ArrayList<>(standardHints);
+        ruleHints.addAll(ruleDescriptionHints);
 
         int addedCount = 0;
         for (Map.Entry<Call, String> hint : ruleHints) {
