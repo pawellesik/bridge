@@ -567,7 +567,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._2S, shape(4, 10), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond _2S")),
                     shows(Bid._3D, shape(6, 10), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
                     shows(Bid._3C, shape(5, 10), noFit(), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond _3C")),
-                    shows(Bid._3H, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, shape(4, 10), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
+                    shows(Bid._3H, pairHighCardPoints(PAIR_GAME), OpeningInviteBidding, shape(4, 10), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond _3H")),
                     properties(new Call[]{Bid._2S, Bid._3H, Bid._3D, Bid._3C}, RespondBid2Bid1NatC::secondBidRaiseNoAgreeTrumpDiamods),
                     partnerBids(RecursionNatC::recursionFindFitGame)
             );
