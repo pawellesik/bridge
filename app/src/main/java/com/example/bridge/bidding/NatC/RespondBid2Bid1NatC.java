@@ -466,12 +466,12 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         //                                                                2NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3S, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3S")),
-                shows(Bid._3D, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3D")),
-                shows(Bid._3C, shape(6, 10), IS_REBID, id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3C")),
+                shows(Bid._3S, shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3S")),
+                shows(Bid._3D, shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3D")),
+                shows(Bid._3C, shape(6, 10), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3C")),
 
-                shows(Bid._3D, shape(5, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3D")),
-                shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3C")),
+                shows(Bid._3D, shape(5, 10), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3D")),
+                shows(Bid._3C, shape(5, 10), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidSearchSuitAfter2NTHeart _3C")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
         choices.addRules(CompeteNatC.compBids(ps));
