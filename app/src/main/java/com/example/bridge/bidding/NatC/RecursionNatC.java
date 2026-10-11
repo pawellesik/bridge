@@ -36,6 +36,11 @@ public class RecursionNatC extends NatC {
                 shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._2S, Bid._2H)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionNatC.recursionFindFitGame fit _Pass")),
                 shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3C, Bid._3D)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionNatC.recursionFindFitGame fit _Pass")),
 
+                shows(Bid._3C, shape(7, 10), noFit(7), IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
+                shows(Bid._3D, shape(7, 10), noFit(7), IS_REBID, ruleShow(1),id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
+                shows(Bid._3H, shape(7, 10), noFit(7), IS_REBID, ruleShow(1),id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
+                shows(Bid._3S, shape(7, 10), noFit(7), IS_REBID, ruleShow(1),id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
+
                 shows(Bid._2C, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _2C")),
                 shows(Bid._2D, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionNatC.recursionFindFitGame  _2D")),
                 shows(Bid._2H, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionNatC.recursionFindFitGame  _2H")),
@@ -64,11 +69,6 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3D, shape(6, 10), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
                 shows(Bid._3H, shape(6, 10), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
                 shows(Bid._3S, shape(6, 10), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
-
-                shows(Bid._3C, shape(7, 10), noFit(7), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
-                shows(Bid._3D, shape(7, 10), noFit(7), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
-                shows(Bid._3H, shape(7, 10), noFit(7), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
-                shows(Bid._3S, shape(7, 10), noFit(7), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
 
                 shows(Bid._3C, shape(6, 10), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
                 shows(Bid._3D, shape(6, 10), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
