@@ -27,11 +27,15 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1H")),
                 shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(6, 10), id("RespondNatC.oneClub _1S")),
 
-                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneClub _1H")),
-                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneClub _1S")),
+                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub _1H")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub _1S")),
+                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneClub _1H")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneClub _1S")),
 
-                shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneClub _2D")),
-                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneClub _2C")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneClub _2C")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneClub _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneClub _2C")),
 
                 shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneClub JUMP_AFTER_PASS _2H")),
                 shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneClub JUMP_AFTER_PASS _2S")),
@@ -72,8 +76,10 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3S, highCardPoints(WEAK_LONG), not(PASSED_HAND), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3S")),
                 shows(Bid._3H, highCardPoints(WEAK_LONG), not(PASSED_HAND), shape(7, 10), ruleShow(1), id("RespondNatC.oneDiamond _3H")),
 
-                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _1S")),
-                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _1H")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 10),  not(PASSED_HAND),ruleShow(1), id("RespondNatC.oneDiamond _1S")),
+                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 10),  not(PASSED_HAND),ruleShow(1), id("RespondNatC.oneDiamond _1H")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), shape(5, 6),  PASSED_HAND,ruleShow(1), id("RespondNatC.oneDiamond _1S")),
+                shows(Bid._1H, highCardPoints(MINIMUM_HAND), shape(5, 6),  PASSED_HAND,ruleShow(1), id("RespondNatC.oneDiamond _1H")),
 
                 shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneDiamond _2S")),
                 shows(Bid._2H, highCardPoints(JUMP_AFTER_PASS), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneDiamond _2H")),
@@ -85,7 +91,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3D, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondNatC.oneDiamond _3D")),
                 shows(Bid._3D, highCardPoints(JUMP_HAND), fit(), not(PASSED_HAND), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondNatC.oneDiamond _3D")),
 
-                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneDiamond _2C")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10),  not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _2C")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 6),  PASSED_HAND, ruleShow(1), id("RespondNatC.oneDiamond _2C")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), noFit(), PASSED_HAND, shape(5, 6), ruleShow(1), id("RespondNatC.oneDiamond _3C")),
                 shows(Bid._3C, highCardPoints(JUMP_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _3C")),
 
@@ -122,9 +129,12 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Hearts), id("RespondNatC.oneHeart _3H")),
                 shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Hearts), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneHeart _3H")),
 
-                shows(Bid._1S, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _1S")),
-                shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _2D")),
-                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneHeart _2C")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneHeart _1S")),
+                shows(Bid._1S, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _1S")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneHeart _2D")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneHeart _2C")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _2C")),
 
                 shows(Bid._2S, highCardPoints(JUMP_AFTER_PASS), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _2S")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneHeart _3C")),
@@ -162,9 +172,12 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Spades), id("RespondNatC.oneSpade _3S")),
                 shows(Bid._3S, highCardPoints(JUMP_HAND), fit(), not(PASSED_HAND), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondNatC.oneSpade _3S")),
 
-                shows(Bid._2H, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _2H")),
-                shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _2D")),
-                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), ruleShow(1), id("RespondNatC.oneSpade _2C")),
+                shows(Bid._2H, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _2H")),
+                shows(Bid._2H, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneSpade _2H")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _2D")),
+                shows(Bid._2D, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneSpade _2D")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 10), not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneSpade _2C")),
+                shows(Bid._2C, highCardPoints(MINIMUM_HAND), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneSpade _2C")),
 
                 shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneSpade _3H")),
                 shows(Bid._3C, highCardPoints(JUMP_AFTER_PASS), noFit(), shape(5, 6), PASSED_HAND, ruleShow(1), id("RespondNatC.oneSpade _3C")),
