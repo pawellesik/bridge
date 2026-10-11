@@ -19,6 +19,7 @@ import java.util.List;
 
 public class AcesAsk extends Bidder {
     public static final Range ASK_ACES = new Range(14, 40);
+    public static final Range PAIR_HIGH_CARD_POINTS = new Range(26, 40);
     public static final Range SLAM_OR_BETTER = new Range(30, 40);
     public static final Range SLAM_OR_BETTER_NT = new Range(32, 40);
     public static final Range GRAND_SLAM = new Range(36, 40);
@@ -29,8 +30,8 @@ public class AcesAsk extends Bidder {
         Bid partnerBid = ps.getPartner().getBid();
         Suit partnerSuit = (partnerBid != null) ? partnerBid.getSuit() : null;
 
-        bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, aces(1, 2, 3, 4), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 1")));
-        bids.add(shows(Bid._4C, fit(partnerSuit), aces(1, 2, 3, 4), IS_ANY_JUMP, pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(partnerSuit), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 4")));
+        bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, aces(1, 2, 3, 4), pairHighCardPoints(PAIR_HIGH_CARD_POINTS), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 1")));
+        bids.add(shows(Bid._4C, fit(partnerSuit), aces(1, 2, 3, 4), IS_ANY_JUMP, pairHighCardPoints(PAIR_HIGH_CARD_POINTS), pairPoints(SLAM_OR_BETTER), highCardPoints(ASK_ACES), setTrumpColor(partnerSuit), ruleShow(1), ruleDescription("Ask for Aces"), id(" initiateConventionAcesAsk 4")));
         bids.add(shows(Bid._4C, IS_ANY_JUMP, aces(1, 2, 3, 4), pairHighCardPoints(SLAM_OR_BETTER), shape(Suit.Hearts, 2, 4), shape(Suit.Spades, 2, 4), shape(Suit.Clubs, 2, 5), shape(Suit.Diamonds, 2, 5), partner(isLastBid(Bid._1NT, Bid._2NT)), ruleShow(1), ruleDescription("Ask for Aces"), id("initiateConventionAcesAsk 5")));
         bids.add(shows(Bid._4C, CONTRACT_IS_AGREED_STRAIN, aces(1, 2, 3, 4), pairPoints(GRAND_SLAM), ruleDescription("Ask for Aces"), ruleShow(1), id("initiateConventionAcesAsk AcesAsk 6")));
 
