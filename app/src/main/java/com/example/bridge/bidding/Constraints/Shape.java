@@ -61,7 +61,14 @@ public class Shape {
         public String describe(Call call, PositionState ps) {
             Suit s = getSuit(this.suit, call);
             if (s != null) {
-                String rangeStr = min + (min == max ? "" : "-" + max);
+                String rangeStr;
+                if (min == max) {
+                    rangeStr = String.valueOf(min);
+                } else if (max >= 7) {
+                    rangeStr = min + "+";
+                } else {
+                    rangeStr = min + "-" + max;
+                }
                 return rangeStr + " " + s.toSymbol();
             }
             return null;
