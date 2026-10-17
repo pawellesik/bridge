@@ -40,22 +40,22 @@ public class NoTrumpNatC extends Bidder {
         choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
-                shows(Bid._2C, INVITE_GAME, shape(5, 11), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2C")),
-                shows(Bid._2D, INVITE_GAME, shape(5, 11), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2D")),
+                shows(Bid._2C, INVITE_GAME, shape(5, 13), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2C")),
+                shows(Bid._2D, INVITE_GAME, shape(5, 13), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2D")),
 
-                shows(Bid._3C, GAME_OR_BETTER, shape(5, 11), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 3C")),
-                shows(Bid._3D, GAME_OR_BETTER, shape(5, 11), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 3D")),
+                shows(Bid._3C, GAME_OR_BETTER, shape(5, 13), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 3C")),
+                shows(Bid._3D, GAME_OR_BETTER, shape(5, 13), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 3D")),
 
-                shows(Bid._2H, LESS_THAT_INVITE, shape(7, 11), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2H")),
-                shows(Bid._2S, LESS_THAT_INVITE, shape(7, 11), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2S")),
+                shows(Bid._2H, LESS_THAT_INVITE, shape(7, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2H")),
+                shows(Bid._2S, LESS_THAT_INVITE, shape(7, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2S")),
 
-                shows(Bid._2H, INVITE_GAME, shape(5, 11), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2H")),
-                shows(Bid._2S, INVITE_GAME, shape(5, 11), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2S")),
+                shows(Bid._2H, INVITE_GAME, shape(5, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2H")),
+                shows(Bid._2S, INVITE_GAME, shape(5, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2S")),
 
                 shows(Bid._2NT, INVITE_GAME, longestMajor(4), id("NoTrumpNatC.Natural1NTNatC 2NT")),
 
-                shows(Bid._3H, GAME_OR_BETTER, shape(5, 11), id("NoTrumpNatC.Natural1NTNatC 3H")),
-                shows(Bid._3S, GAME_OR_BETTER, shape(5, 11), id("NoTrumpNatC.Natural1NTNatC 3S")),
+                shows(Bid._3H, GAME_OR_BETTER, shape(5, 13), id("NoTrumpNatC.Natural1NTNatC 3H")),
+                shows(Bid._3S, GAME_OR_BETTER, shape(5, 13), id("NoTrumpNatC.Natural1NTNatC 3S")),
 
                 shows(Bid._3NT, GAME_OR_BETTER, longestMajor(4), id("NoTrumpNatC.Natural1NTNatC 3NT")),
 
