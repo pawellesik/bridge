@@ -260,6 +260,35 @@ public class PbnCollection {
         }
     }
 
+    private boolean isContractAlreadyPlayed(Contract contract, String declarerName, Pbn targetPbn) {
+        if (contract == null || contract.isPass()) return false;
+
+        List<Pbn> pbns = new ArrayList<>();
+        if (pbn != null && pbn != targetPbn) pbns.add(pbn);
+        if (pbnNatC != null && pbnNatC != targetPbn) pbns.add(pbnNatC);
+        if (pbnNatCRev != null && pbnNatCRev != targetPbn) pbns.add(pbnNatCRev);
+        if (pbnLCStandard != null && pbnLCStandard != targetPbn) pbns.add(pbnLCStandard);
+        if (pbnLCStandardRev != null && pbnLCStandardRev != targetPbn) pbns.add(pbnLCStandardRev);
+        if (pbnSayc != null && pbnSayc != targetPbn) pbns.add(pbnSayc);
+        if (pbnSaycRev != null && pbnSaycRev != targetPbn) pbns.add(pbnSaycRev);
+
+        String targetDecl = toShortDir(declarerName);
+
+        for (Pbn p : pbns) {
+            Contract c = p.getContract();
+            if (c != null && !c.isPass() && p.getPlayHistory() != null && !p.getPlayHistory().isEmpty()) {
+                boolean sameSuit = (c.isNoTrump() && contract.isNoTrump()) || (!c.isNoTrump() && !contract.isNoTrump() && c.getSuit() == contract.getSuit());
+                if (c.getLevel() == contract.getLevel() && sameSuit) {
+                    String pDecl = toShortDir(p.getDeclarer());
+                    if (targetDecl.equalsIgnoreCase(pDecl)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     private void simulateRobotPlay(Pbn targetPbn, Contract contract, String declarerName) {
         try {
             Map<String, List<Card>> hands = new HashMap<>();
@@ -272,6 +301,26 @@ public class PbnCollection {
                 if (orig != null) {
                     hands.put(dir, new ArrayList<>(orig));
                 }
+            }
+
+            boolean repeatContract = isContractAlreadyPlayed(contract, declarerName, targetPbn);
+
+            Map<String, List<Card>> fakeHands = new HashMap<>();
+            for (String dir : dirs) {
+                List<Card> hList = hands.get(dir);
+                fakeHands.put(dir, hList != null ? new ArrayList<>(hList) : new ArrayList<>());
+            }
+
+            if (repeatContract) {
+                List<Card> combinedWE = new ArrayList<>();
+                if (hands.get("W") != null) combinedWE.addAll(hands.get("W"));
+                if (hands.get("E") != null) combinedWE.addAll(hands.get("E"));
+
+                java.util.Collections.shuffle(combinedWE);
+
+                int wSize = hands.get("W") != null ? hands.get("W").size() : 13;
+                fakeHands.put("W", new ArrayList<>(combinedWE.subList(0, wSize)));
+                fakeHands.put("E", new ArrayList<>(combinedWE.subList(wSize, combinedWE.size())));
             }
 
             DdsSolver solver = new DdsSolver();
@@ -299,14 +348,43 @@ public class PbnCollection {
                 String currentPlayer = currentLeader;
 
                 for (int p = 0; p < 4; p++) {
-                    Card cardToPlay = calculateBestCardForSim(currentPlayer, hands, currentTrick.getCardsOnTable(), trumpDds, currentLeader, solver);
+                    boolean isDeclarerOrDummy = "N".equals(currentPlayer) || "S".equals(currentPlayer);
+                    Map<String, List<Card>> handsForSim = (repeatContract && isDeclarerOrDummy) ? fakeHands : hands;
+
+                    Card cardToPlay = calculateBestCardForSim(currentPlayer, handsForSim, currentTrick.getCardsOnTable(), trumpDds, currentLeader, solver);
                     if (cardToPlay == null) break;
 
                     currentTrick.addCard(currentPlayer, cardToPlay);
-                    List<Card> hand = hands.get(currentPlayer);
-                    if (hand != null) {
-                        hand.remove(cardToPlay);
+
+                    List<Card> realHand = hands.get(currentPlayer);
+                    if (realHand != null) {
+                        realHand.remove(cardToPlay);
                     }
+
+                    if (isDeclarerOrDummy) {
+                        List<Card> fHand = fakeHands.get(currentPlayer);
+                        if (fHand != null) fHand.remove(cardToPlay);
+                    } else if (repeatContract) {
+                        List<Card> fakeW = fakeHands.get("W");
+                        List<Card> fakeE = fakeHands.get("E");
+
+                        if (fakeW != null) fakeW.remove(cardToPlay);
+                        if (fakeE != null) fakeE.remove(cardToPlay);
+
+                        int realWSize = hands.get("W") != null ? hands.get("W").size() : 0;
+                        int realESize = hands.get("E") != null ? hands.get("E").size() : 0;
+
+                        if (fakeW != null && fakeE != null) {
+                            if (fakeW.size() > realWSize) {
+                                Card moveCard = fakeW.remove(fakeW.size() - 1);
+                                fakeE.add(moveCard);
+                            } else if (fakeE.size() > realESize) {
+                                Card moveCard = fakeE.remove(fakeE.size() - 1);
+                                fakeW.add(moveCard);
+                            }
+                        }
+                    }
+
                     currentPlayer = getNextPlayerName(currentPlayer);
                 }
 
