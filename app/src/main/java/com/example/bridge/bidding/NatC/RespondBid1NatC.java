@@ -101,8 +101,8 @@ public class RespondBid1NatC extends NatC {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _3NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), BALANCED, not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _2NT")),
 
-                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod2D, true),
-                propertiesAgreeTrump(new Call[]{Bid._2D, Bid._3D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod3D, true),
+                propertiesAgreeTrump(new Call[]{Bid._2D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod2D, true),
+                propertiesAgreeTrump(new Call[]{Bid._3D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod3D, true),
                 properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2Bid1NatC::responderChangedSuitsDiamond, false),
                 propertiesForcingToGame(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1NatC::responderRaiseChangedSuitsMajorDiamond, true),
                 properties(new Call[]{Bid._3C}, OpenBid2Bid1NatC::responderRaiseChangedSuitsMinorDiamond, false),
