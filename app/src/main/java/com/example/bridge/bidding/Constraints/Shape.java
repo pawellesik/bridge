@@ -64,8 +64,11 @@ public class Shape {
                 String rangeStr;
                 if (min == max) {
                     rangeStr = String.valueOf(min);
-                } else if (max >= 7) {
-                    rangeStr = min + "+";
+                } else if (min > 0) {
+                    rangeStr = (max >= 7) ? min + "+" : min + "-" + max;
+                } else if (max < 5) {
+                    int maxx = max + 1;
+                    rangeStr = maxx + "-";
                 } else {
                     rangeStr = min + "-" + max;
                 }

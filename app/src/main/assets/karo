@@ -22,50 +22,40 @@ S:AT.TJ65.42.AJ932 Q76.K7.9876.T987 T9.K985.AKQT2.43 32.6543.AJ5.6542
 pass pass 1D pass
 2C pass 2H pass (3C, 2S, 4C)
 
+S:AT.TJ65.42.AJ932 Q76.K7.9876.T987 K985.T9.AKQT2.43 32.6543.AJ5.6542
+pass pass 1D pass
+2C pass 2S pass (3C, 4C)
 
+S:AT.TJ65.42.AJ932 Q76.K7.9876.T987 3298.T95.AKQT2.K 32.6543.AJ5.6542
+pass pass 1D pass
+2C pass 2NT pass () --nigdy po 2C nie da 2NT
 
+-----------
+S:AT.AJ932.42.TJ65 Q76.K7.9876.T987 3.95.AKQT2.KT298 32.6543.AJ5.6542
+pass pass 1D pass
+1H pass 2C pass (2H, 2S, 4C)
 
+S:AT.AJ932.42.TJ65 Q76.K7.9876.T987 3.95.AKQT82.KT29 32.6543.AJ5.6542
+pass pass 1D pass
+1H pass 2D pass (2H, 2S, 3C, 4C)
 
-S:AT.J6.T542.AJ932 Q76.K7.9876.T987 AKQT.K98542.T.32 32.6543.AJ5.6542
-pass pass 1H pass
-2C pass 2H pass (2S, 3D, 4C, 4NT)
+S:AT.AJ932.42.TJ65 Q76.K7.9876.T987 KT83.95.AKQT2.29 32.6543.AJ5.6542
+pass pass 1D pass
+1H pass 1S pass (2H, 2C, 4C)
 
-S:AT.J6.T542.AJ932 Q76.K7.9876.T987 KQT.K9852.AT4.32 32.6543.AJ5.6542
-pass pass 1H pass
-2C pass 2NT pass (3C, 3D, 4C, 4NT)
+pass pass 1D pass
+1H pass 1NT pass (4C)
 
 -----------
 
-S:AT.J6.AT542.J932 Q76.K7.9876.T987 T.K9854.A.KQT432 32.6543.AJ5.6542
-pass pass 1H pass
-2D pass 3C pass (4C)
+pass pass 1D pass
+1S pass 2C pass (4C)
 
-S:AT.J6.AT542.J932 Q76.K7.9876.T987 AKQT.K9854.T2.32 32.6543.AJ5.6542
-pass pass 1H pass
-2D pass 2S pass (3D, 3C, 4C, 4NT)
+pass pass 1D pass
+1S pass 2D pass (4C)
 
-S:AT.J6.AT542.J932 Q76.K7.9876.T987 AKQT.K98542.T.32 32.6543.AJ5.6542
-pass pass 1H pass
-2D pass 2H pass (2S, 3D, 3C, 4C, 4NT)
+pass pass 1D pass
+1S pass 2H pass (4C)
 
-S:AT.J6.AT542.J932 Q76.K7.9876.T987 KQT.K9852.4.AT32 32.6543.AJ5.6542
-pass pass 1H pass
-2D pass 2NT pass (3D, 3C, 4C, 4NT)
-
------------
-
-S:AT542.AT.J6.J932 Q76.K7.9876.T987 T.K9854.32.AKQT3 32.6543.AJ5.6542
-pass pass 1H pass
-1S pass 2C pass (2D, 2S, 4C, 4NT)
-
-S:AT542.AT.J6.J932 Q76.K7.9876.T987 T.K9854.AKQT3.32 32.6543.AJ5.6542
-pass pass 1H pass
-1S pass 2D pass (2S, 3C, 4C, 4NT)
-
-S:AT542.AT.J6.J932 Q76.K7.9876.T987 T.AK9854.KQT3.32 32.6543.AJ5.6542
-pass pass 1H pass
-1S pass 2H pass (2S, 3C, 3D, 4C, 4NT)
-
-S:AT542.AT.J6.J932 Q76.K7.9876.T987 4.K9852.KQT.A432 32.6543.AJ5.6542
-pass pass 1H pass
-1S pass 1NT pass (2C, 2D, 2S, 4C, 4NT)
+pass pass 1D pass
+1S pass 2NT pass (4C)

@@ -142,7 +142,17 @@ public class PairMaxShape {
                 if (fMax != null) {
                     myMax = Math.min(myMax, fMax);
                 }
-                String val = (myMin == myMax) ? String.valueOf(myMin) : myMin + "-" + myMax;
+                String val;
+                if (myMin == myMax) {
+                    val = String.valueOf(myMin);
+                } else if (myMin > 0) {
+                    val = (myMax >= 7) ? myMin + "+" : myMin + "-" + myMax;
+                } else if (myMax < 5) {
+                    int maxx = myMax + 1;
+                    val = maxx + "-";
+                } else {
+                    val = myMin + "-" + myMax;
+                }
                 return s.toSymbol() + ": " + val;
             }
             return "";
