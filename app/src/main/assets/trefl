@@ -1,0 +1,64 @@
+1C pass 1D pass ()
+
+1C pass 2C pass ()
+
+1C pass 2D pass ()
+
+1C pass 1H pass ()
+
+1C pass 1S pass ()
+
+1C pass 1NT pass ()
+
+-----------
+
+pass pass 1C pass
+1D pass 2C pass
+
+pass pass 1C pass
+1D pass 1H pass
+
+pass pass 1C pass
+1D pass 1S pass
+
+pass pass 1C pass
+1D pass 1NT pass
+
+-----------
+
+pass pass 1C pass
+2C pass 2D pass
+
+pass pass 1C pass
+2C pass 2H pass
+
+pass pass 1C pass
+2C pass 2S pass
+
+-----------
+
+pass pass 1C pass
+1H pass 2C pass
+
+pass pass 1C pass
+1H pass 2D pass --??
+
+pass pass 1C pass
+1H pass 1S pass
+
+pass pass 1C pass
+1H pass 1NT pass
+
+-----------
+
+pass pass 1C pass
+1S pass 2C pass
+
+pass pass 1C pass
+1S pass 2D pass --?
+
+pass pass 1C pass
+1S pass 2H pass
+
+pass pass 1C pass
+1S pass 1NT pass
