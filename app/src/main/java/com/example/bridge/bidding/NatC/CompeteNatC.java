@@ -143,32 +143,40 @@ public class CompeteNatC extends NatC {
         boolean isLevel4 = (lastBid != null && lastBid.getLevel() == 4);
 
         if (jumpMatch || agreedSuitMatch || isLevel1 || isLevel2) {
+            boolean added4C = false;
+
             if (agreedTrump != null && !isLevel4) {
                 int countBefore = bids.size();
                 for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
                     bids.add(cf);
                 }
-                if (bids.size() == countBefore) {
+                if (bids.size() > countBefore) {
+                    added4C = true;
+                } else {
                     for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
                         bids.add(cf);
                     }
                 }
             } else {
                 if (isLevel1 || isLevel2) {
+                    int countBefore = bids.size();
                     for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
                         bids.add(cf);
+                    }
+                    if (bids.size() > countBefore) {
+                        added4C = true;
                     }
                 } else {
                     for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
                         bids.add(cf);
                     }
                 }
-                if (lastBid.equals(Bid._2NT)) {
-                    for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-                        bids.add(cf);
-                    }
-                }
+            }
 
+            if (added4C) {
+                for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
+                    bids.add(cf);
+                }
             }
         }
     }

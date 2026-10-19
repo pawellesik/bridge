@@ -17,12 +17,12 @@ public class RecursionNatC extends NatC {
 
     public static PositionCalls recursionFindFitGame(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(AcesAsk.initiateConvention(ps));
-        choices.addRules(AcesAsk.initiateConventionBlok(ps));
+        //choices.addRules(AcesAsk.initiateConvention(ps));
+        //choices.addRules(AcesAsk.initiateConventionBlok(ps));
 
-        //List<CallFeature> conventions = new ArrayList<>();
-        //CompeteNatC.addAcesAskConventions(ps, conventions);
-        //choices.addRules(conventions);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteNatC.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
         choices.addRules(
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, not(PARTNER_DID_NOT_SIGN_OFF), id("RecursionNatC.recursionFindFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
                 shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partnerBidLevel(2, 3), id("RecursionNatC.recursionFindFitGame pass")),
