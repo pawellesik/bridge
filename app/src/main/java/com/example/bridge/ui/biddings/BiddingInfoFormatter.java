@@ -184,7 +184,8 @@ public class BiddingInfoFormatter {
                         appendSuitSymbol(context, suitSsb, s, suffix);
                         parts.add(suitSsb);
                     } else if (max < 5) {
-                        appendSuitSymbol(context, suitSsb, s, ": 0-" + max);
+                        int maxx = max + 1;
+                        appendSuitSymbol(context, suitSsb, s, ": " + maxx +"-");
                         parts.add(suitSsb);
                     }
                 }
