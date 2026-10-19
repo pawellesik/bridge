@@ -43,19 +43,23 @@ S:AT.AJ932.42.TJ65 Q76.K7.9876.T987 KT83.95.AKQT2.29 32.6543.AJ5.6542
 pass pass 1D pass
 1H pass 1S pass (2H, 2C, 4C)
 
+S:AT.AJ932.42.TJ65 Q76.K7.9876.T987 KT3.95.AKQT2.289 32.6543.AJ5.6542
 pass pass 1D pass
-1H pass 1NT pass (4C)
+1H pass 1NT pass (2C, 2H, 2S, 4C, 4NT)
 
 -----------
-
+S:AJ932.AT.42.TJ65 Q76.K7.9876.T987 3.95.AKQT2.KT298 32.6543.AJ5.6542
 pass pass 1D pass
-1S pass 2C pass (4C)
+1S pass 2C pass (2S, 2H, 4C)
 
+S:AJ932.AT.42.TJ65 Q76.K7.9876.T987 3.95.AKQT82.KT29 32.6543.AJ5.6542
 pass pass 1D pass
-1S pass 2D pass (4C)
+1S pass 2D pass (2S, 2H, 3C, 4C)
 
+S:AJ932.AT.42.TJ65 Q76.K7.9876.T987 95.KT83.AKQT2.29 32.6543.AJ5.6542
 pass pass 1D pass
-1S pass 2H pass (4C)
+1S pass 2H pass (2S, 3C, 4C)
 
+S:AJ932.AT.42.TJ65 Q76.K7.9876.T987 95.KT3.AKQT2.289 32.6543.AJ5.6542
 pass pass 1D pass
-1S pass 2NT pass (4C)
+1S pass 1NT pass (2C, 2H, 2S, 4C, 4NT)
