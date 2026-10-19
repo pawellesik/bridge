@@ -652,7 +652,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
 
-                shows(Bid._3H, shape(7, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
+                shows(Bid._3H, shape(7, 13), noFit(),  partner(isLastBid(Bid._1S)), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
+                shows(Bid._3H, shape(7, 13), not(partner(isLastBid(Bid._1S))), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
 
                 shows(Bid._2S, fit(), partner(isLastBid(Bid._1S)), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _2S")),
 
@@ -853,13 +854,14 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
     public static PositionCalls responderChangedSuitsSpade(PositionState ps) {
         //odpowiedzi na: Bid._1S ->
-        //                          Bid._2H, Bid._2C, Bid._2D, Bid._1NT ->
+        //                          Bid._2H, Bid._2C, Bid._2D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 //shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(Suit.Hearts), partner(isLastBid(Bid._2H)), id("OpenBid2NatC.responderChangedSuitsSpade _pass")),
+                shows(Bid._3S, shape(7, 13), noFit(), partner(isLastBid(Bid._2H)), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
+                shows(Bid._3S, shape(7, 13), not(partner(isLastBid(Bid._2H))), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
 
                 shows(Bid._2S, shape(6), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
-                shows(Bid._3S, shape(7, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
 
                 shows(Bid._2H, shape(4, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuit sSpade _2H")),
 
