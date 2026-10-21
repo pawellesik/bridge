@@ -403,7 +403,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
             return trimmed.replaceAll("^[♠♥♦♣]\\s*:\\s*", symbol + ": ").replace(" (fit)", "") + suffix;
         }
 
-        java.util.regex.Matcher m = java.util.regex.Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(trimmed);
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("(\\d+(?:-\\d*|\\+)?)").matcher(trimmed);
         if (m.find() && m.group(1) != null) {
             String length = m.group(1);
             boolean isPair = trimmed.toLowerCase().contains("pair");
@@ -458,7 +458,7 @@ public class GameBiddingHistoryAdapter extends RecyclerView.Adapter<GameBiddingH
 
         String lower = clause.toLowerCase();
 
-        java.util.regex.Matcher rangeMatcher = java.util.regex.Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(clause);
+        java.util.regex.Matcher rangeMatcher = java.util.regex.Pattern.compile("(\\d+(?:-\\d*|\\+)?)").matcher(clause);
         String range = "";
         if (rangeMatcher.find()) {
             range = rangeMatcher.group(1);

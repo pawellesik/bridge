@@ -362,7 +362,7 @@ public class BiddingInfoFormatter {
             return trimmed.replaceAll("^[♠♥♦♣]\\s*:\\s*", symbol + ": ").replace(" (fit)", "") + suffix;
         }
 
-        Matcher m = Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(trimmed);
+        Matcher m = Pattern.compile("(\\d+(?:-\\d*|\\+)?)").matcher(trimmed);
         if (m.find() && m.group(1) != null) {
             String length = m.group(1);
             boolean isPair = trimmed.toLowerCase().contains("pair");
@@ -417,7 +417,7 @@ public class BiddingInfoFormatter {
 
         String lower = clause.toLowerCase();
 
-        Matcher rangeMatcher = Pattern.compile("(\\d+(?:-\\d+|\\+)?)").matcher(clause);
+        Matcher rangeMatcher = Pattern.compile("(\\d+(?:-\\d*|\\+)?)").matcher(clause);
         String range = "";
         if (rangeMatcher.find()) {
             range = rangeMatcher.group(1);
