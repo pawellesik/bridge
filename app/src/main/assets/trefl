@@ -1,15 +1,20 @@
 N:T5.J6.T542.AJ932 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
-1C pass 1D pass ()
+1C pass 1D pass (2C, 2D, 1S, 1H, 1NT, 4C, 4NT)
 
-1C pass 2C pass ()
+N:K5.J6.T542.AJ932 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 2C pass (2S, 2H, 3D, 4C, 4NT)
 
-1C pass 2D pass ()
+N:K5.J6.AJ932.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 2D pass (3C, 2S, 2H, 4C, 4NT)
 
-1C pass 1H pass ()
+N:K5.AJ932.J6.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 1H pass (2H, 2C, 2D, 1S, 1NT, 4C, 4NT)
 
-1C pass 1S pass ()
+N:AJ932.K5.J6.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 1S pass (2S, 2C, 2D, 2H, 1NT, 4C, 4NT)
 
-1C pass 1NT pass ()
+N:AJ9.K5.J632.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 1NT pass (2S, 2H, 2C, 2D, 4C, 4NT)
 
 -----------
 
@@ -63,3 +68,5 @@ pass pass 1C pass
 
 pass pass 1C pass
 1S pass 1NT pass
+
+----------------todo strong

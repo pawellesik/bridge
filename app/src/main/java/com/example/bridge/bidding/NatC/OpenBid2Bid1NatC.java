@@ -393,11 +393,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._2S, shape(5, 13), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2S")),
                 shows(Bid._2H, shape(5, 13), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2H")),
 
-                shows(Bid._2S, shape(4, 13), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStandard shape(4, 10) 2S")),
-                shows(Bid._2H, shape(4, 13), DECENT_PLUS_SUIT, id("OpenBid2NatC.responderd1NTClubStandard shape(4, 10) 2H")),
+                shows(Bid._2S, shape(4, 13), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderd1NTClubStandard shape(4, 10) 2S")),
+                shows(Bid._2H, shape(4, 13), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderd1NTClubStandard shape(4, 10) 2H")),
 
-                shows(Bid._2C, shape(5, 13), id("OpenBid2NatC.responderd1NTClubStandard 2C")),
-                shows(Bid._2D, shape(5, 13), id("OpenBid2NatC.responderd1NTClubStandard 2D")),
+                shows(Bid._2C, shape(5, 13), ruleShow(1), id("OpenBid2NatC.responderd1NTClubStandard 2C")),
+                shows(Bid._2D, shape(5, 13), ruleShow(1), id("OpenBid2NatC.responderd1NTClubStandard 2D")),
                 properties(new Call[]{Bid._2H, Bid._2S, Bid._2C, Bid._2D}, RecursionNatC::recursionFindFitGame, true),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
