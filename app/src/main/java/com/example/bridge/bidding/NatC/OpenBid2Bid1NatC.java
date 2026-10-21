@@ -47,11 +47,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //                          Bid._1D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._2D, shape(6, 13), id("OpenBid2NatC.responderNegatStandard _2D")),
-                shows(Bid._2C, shape(6, 13), id("OpenBid2NatC.responderNegatStandard _2C")),
-                shows(Bid._2D, shape(5, 13), id("OpenBid2NatC.responderNegatStandard _2D")),
                 shows(Bid._2C, shape(5, 13), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _2C")),
-                shows(Bid._1NT, id("OpenBid2NatC.responderNegatStandard _1NT")),
+                shows(Bid._2D, shape(5, 13), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _2D")),
+                shows(Bid._1S, shape(4, 13), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _1S")),
+                shows(Bid._1H, shape(4, 13), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _1H")),
+                shows(Bid._1NT, shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), ruleShow(1), id("OpenBid2NatC.responderNegatStandard _1NT")),
                 properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame),
                 partnerBids(RespondBid2Bid1NatC::secondBidNegatStandard)
         );
@@ -652,7 +652,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
 
-                shows(Bid._3H, shape(7, 13), noFit(),  partner(isLastBid(Bid._1S)), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
+                shows(Bid._3H, shape(7, 13), noFit(), partner(isLastBid(Bid._1S)), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
                 shows(Bid._3H, shape(7, 13), not(partner(isLastBid(Bid._1S))), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3H")),
 
                 shows(Bid._2S, fit(), partner(isLastBid(Bid._1S)), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _2S")),

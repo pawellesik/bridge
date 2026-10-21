@@ -17,8 +17,6 @@ public class RecursionNatC extends NatC {
 
     public static PositionCalls recursionFindFitGame(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        //choices.addRules(AcesAsk.initiateConvention(ps));
-        //choices.addRules(AcesAsk.initiateConventionBlok(ps));
 
         List<CallFeature> conventions = new ArrayList<>();
         CompeteNatC.addAcesAskConventions(ps, conventions);
