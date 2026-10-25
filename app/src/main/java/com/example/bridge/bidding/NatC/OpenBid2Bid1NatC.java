@@ -83,6 +83,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._3S, OpeningStrongBidding, fit(), isJump(1), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3S")),
 
                 shows(Bid._2S, OpeningStrongBidding, IS_NEW_SUIT, shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _2S")),
+                shows(Bid._3H, OpeningStrongBidding, IS_NEW_SUIT, shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3H")),
 
                 shows(Bid._3C, OpeningStrongBidding, noFit(), shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3C")),
                 shows(Bid._3D, OpeningStrongBidding, noFit(), shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStrong _3D")),
