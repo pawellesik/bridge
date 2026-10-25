@@ -797,13 +797,13 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             choices.addRules(
                     shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), pairHighCardPoints(PAIR_LOW_GAME), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
-                    shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3H)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
+                    shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3H)), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._4H, pairHighCardPoints(PAIR_GAME), IS_NEW_SUIT, shape(5, 13), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._3S, pairHighCardPoints(PAIR_GAME), shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
                     shows(Bid._3S, shape(6, 13), noFit(), IS_REBID, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
                     shows(Bid._3H, pairHighCardPoints(PAIR_GAME), shape(4, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
-                    shows(Bid._4H, pairHighCardPoints(PAIR_GAME), shape(5, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
-                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3NT")),
+                    shows(Bid._4H, pairHighCardPoints(PAIR_GAME), shape(5, 13), noFit(), IS_NEW_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
+                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3NT")),
                     partnerBids(RecursionNatC::recursionFindFitGame)
             );
         } else {
