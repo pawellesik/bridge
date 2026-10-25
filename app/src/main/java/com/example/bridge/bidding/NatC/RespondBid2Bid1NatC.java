@@ -72,20 +72,20 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
     public static PositionCalls secondBidNegatStandard(PositionState ps) {
         //odpowiedzi na: Bid._1C ->
         //                          Bid._1D ->
-        //                                    1H, 1S, 1NT, 2C, 2D ->
+        //                                    1H, 1S, 2C, 2D ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNegatStandard Pass")),
-                shows(Bid._1S, shape(6, 13), IS_NON_JUMP, id("RespondBid2NatC.secondBidNegatStandard _1S")),
-                shows(Bid._2H, shape(6, 13), IS_NON_JUMP, id("RespondBid2NatC.secondBidNegatStandard _2H")),
-                shows(Bid._2S, shape(6, 13), IS_NON_JUMP, id("RespondBid2NatC.secondBidNegatStandard _2S")),
-                shows(Bid._2D, shape(6, 13), IS_NON_JUMP, id("RespondBid2NatC.secondBidNegatStandard _2D")),
-                shows(Bid._2C, shape(6, 13), IS_NON_JUMP, id("RespondBid2NatC.secondBidNegatStandard _2C")),
-                shows(Bid._1S, shape(5, 13), IS_NON_JUMP, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _1S")),
-                shows(Bid._2H, shape(5, 13), IS_NON_JUMP, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2H")),
-                shows(Bid._2S, shape(5, 13), IS_NON_JUMP, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2S")),
-                shows(Bid._2D, shape(5, 13), IS_NON_JUMP, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2D")),
-                shows(Bid._2C, shape(5, 13), IS_NON_JUMP, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2C")),
+                shows(Bid._1S, shape(6, 13), IS_NON_JUMP, IS_NEW_SUIT, id("RespondBid2NatC.secondBidNegatStandard _1S")),
+                shows(Bid._2H, shape(6, 13), IS_NON_JUMP, IS_NEW_SUIT, id("RespondBid2NatC.secondBidNegatStandard _2H")),
+                shows(Bid._2S, shape(6, 13), IS_NON_JUMP, IS_NEW_SUIT, id("RespondBid2NatC.secondBidNegatStandard _2S")),
+                shows(Bid._2D, shape(6, 13), IS_NON_JUMP, IS_NEW_SUIT, id("RespondBid2NatC.secondBidNegatStandard _2D")),
+                shows(Bid._2C, shape(6, 13), IS_NON_JUMP, IS_NEW_SUIT, id("RespondBid2NatC.secondBidNegatStandard _2C")),
+                shows(Bid._1S, shape(5, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _1S")),
+                shows(Bid._2H, shape(5, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2H")),
+                shows(Bid._2S, shape(5, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2S")),
+                shows(Bid._2D, shape(5, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2D")),
+                shows(Bid._2C, shape(5, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStandard _2C")),
                 shows(Bid._1NT, id("RespondBid2NatC.secondBidNegatStandard _1NT")),
                 shows(Bid._2NT, shape(ps.getPartner().getBid().getSuit(), 0, 1), id("RespondBid2NatC.secondBidNegatStandard _2NT")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
@@ -171,9 +171,10 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         //                      3C, 2H, 2S, 3C ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._2S, shape(4, 13), noFit(), IS_NEW_SUIT, id("RespondBid2NatC.secondBidMinorClubStandard _2S")),
-                shows(Bid._3C, shape(6, 13), noFit(), IS_REBID, id("RespondBid2NatC.secondBidMinorClubStandard _3C")),
-                shows(Bid._3D, shape(6, 13), noFit(), IS_REBID, id("RespondBid2NatC.secondBidMinorClubStandard _3D")),
+                shows(Bid._2S, shape(4, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStandard _2S")),
+                shows(Bid._3C, shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStandard _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStandard _3D")),
+                shows(Bid._3D, shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStandard _3D")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
         choices.addRules(CompeteNatC.compBids(ps));

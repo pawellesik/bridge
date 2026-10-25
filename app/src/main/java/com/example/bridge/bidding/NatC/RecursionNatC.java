@@ -47,7 +47,7 @@ public class RecursionNatC extends NatC {
                 shows(Bid._2H, shape(6, 13), IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _2H")),
                 shows(Bid._2S, shape(6, 13), IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _2S")),
                 shows(Bid._2C, shape(6, 13), id("RecursionNatC.recursionFindFitGame IS_REBID _2C")),
-                shows(Bid._2D, shape(6, 13), IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _2D")),
+                shows(Bid._2D, shape(6, 13), IS_REBID, IS_OPENER, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _2D")),
 
                 shows(Bid._2H, shape(5, 13), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _2H")),
                 shows(Bid._2S, shape(5, 13), IS_NEW_SUIT, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _2S")),
