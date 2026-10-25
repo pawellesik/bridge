@@ -54,7 +54,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
                 shows(Bid._3H, shape(5, 13), IS_NEW_SUIT, IS_NON_JUMP, noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3H")),
 
                 shows(Bid._3S, shape(6, 13), IS_NEW_SUIT, IS_NON_JUMP, noFit(), id("RespondBid2NatC.secondBidNegatStrong _3S")),
-                shows(Bid._3S, shape(5, 13), IS_NEW_SUIT, IS_NON_JUMP,noFit(), GameAfterNegat, ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _3S")),
+                shows(Bid._3S, shape(5, 13), IS_NEW_SUIT, IS_NON_JUMP, noFit(), GameAfterNegat, ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _3S")),
                 shows(Bid._3S, shape(5, 13), IS_NEW_SUIT, IS_NON_JUMP, noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3S")),
 
                 shows(Bid._3C, shape(5, 13), noFit(), IS_NON_JUMP, IS_NEW_SUIT, DECENT_PLUS_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _3C")),
@@ -136,21 +136,27 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
     public static PositionCalls secondBidMinorClubStrong(PositionState ps) {
         //1C ->
         //      Bid._2C, Bid._2D ->
-        //                          3S, 3H, 4D, 4C, 3NT ->
+        //                          3D, 3S, 3H, 4D, 4C, 3NT ->
         PositionCalls choices = new PositionCalls(ps);
         List<CallFeature> conventions = new ArrayList<>();
         CompeteNatC.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
         choices.addRules(
-                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3S)), ruleShow(1), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
-                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3H)), ruleShow(1), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidMinorClubStrong _4H")),
+                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3S)), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
+                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidMinorClubStrong _4H")),
 
+                shows(Bid._3H, shape(4, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3H")),
                 shows(Bid._3S, shape(4, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3S")),
                 shows(Bid._4C, shape(6, 13), noFit(), IS_REBID, PARTNER_DID_NOT_SIGN_OFF, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4C")),
                 shows(Bid._4D, shape(6, 13), noFit(), IS_REBID, PARTNER_DID_NOT_SIGN_OFF, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4D")),
 
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
+                shows(Bid._4C, shape(5, 13), noFit(), IS_NON_JUMP, IS_NEW_SUIT, PARTNER_DID_NOT_SIGN_OFF, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4C")),
+                shows(Bid._4D, shape(5, 13), noFit(), IS_NON_JUMP, IS_NEW_SUIT, PARTNER_DID_NOT_SIGN_OFF, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4D")),
+                shows(Bid._4H, shape(5, 13), noFit(), IS_NON_JUMP, IS_NEW_SUIT, PARTNER_DID_NOT_SIGN_OFF, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4H")),
+                shows(Bid._4S, shape(5, 13), noFit(), IS_NON_JUMP, IS_NEW_SUIT, PARTNER_DID_NOT_SIGN_OFF, ruleShow(1), id("RespondBid2NatC.secondBidMinorClubStrong _4S")),
+
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, id("RespondBid2NatC.secondBidMinorClubStrong _3NT")),
 
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 properties(new Call[]{Bid._3S}, OpenBid3Bid1NatC::thirdBidToGameMinorClubStrong)

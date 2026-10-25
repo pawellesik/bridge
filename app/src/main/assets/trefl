@@ -101,22 +101,27 @@ S:J932.T54.J6.K542 Q76.K7.9876.T987 AQ.AK643.K95.QT8 32.6543.AJ5.6542
 pass pass 1C pass
 1D pass 2H pass (2S, 3C, 3D, 4C, 4NT)
 
+S:J932.T54.J6.K542 Q76.K7.9876.T987 AK643.AQ.K95.QT8 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 2S pass
+1D pass 2S pass (3H, 3C, 3D, 4C, 4NT)
 
 ----------------
 
+S:932.T54.J6.AK542 Q76.K7.9876.T987 AQ.K95.QT8.AK643 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 4C pass
+2C pass 4C pass (4NT)
 
+S:932.T54.J6.AK542 Q76.K7.9876.T987 AQ8.KQ5.AK9643.T 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 3D pass
+2C pass 3D pass (3H, 3S, 4C, 4NT)
 
+S:932.T54.J6.AK542 Q76.K7.9876.T987 AQ8.KQ543.AK96.T 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 3H pass
+2C pass 3H pass (3S, 4C, 4D, 4NT)
 
+S:932.T54.J6.AK542 Q76.K7.9876.T987 KQ543.AQ8.AK96.T 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 3S pass
+2C pass 3S pass (4C, 4D, 4H, 4NT)
 
 ---------------
 

@@ -139,6 +139,10 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         choices.addRules(
                 shows(Bid._3S, OpeningStrongBidding, shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3S")),
                 shows(Bid._3H, OpeningStrongBidding, shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3H")),
+                shows(Bid._3D, OpeningStrongBidding, shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3D")),
+                shows(Bid._3C, OpeningStrongBidding, shape(5, 13), isJump(1), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStrong _3C")),
+
+
                 shows(Bid._4D, OpeningStrongBidding, fit(), partner(isLastBid(Bid._2D)), isJump(1), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStrong fit() _4D")),
                 shows(Bid._4C, OpeningStrongBidding, fit(), partner(isLastBid(Bid._2C)), isJump(1), setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStrong fit() _4C")),
 
