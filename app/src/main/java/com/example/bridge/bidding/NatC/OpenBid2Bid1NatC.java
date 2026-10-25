@@ -707,26 +707,26 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             choices.addRules(
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderRaiseChangedSuitsHeart Pass")),
 
-                    shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
+                    shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
                     shows(Bid._3H, pairHighCardPoints(PAIR_GAME), shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
                     shows(Bid._3H, shape(6, 13), noFit(7), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
                     shows(Bid._3S, shape(5, 13), noFit(7), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
 
-                    shows(Bid._2NT, noFit(7), IS_NON_JUMP, othersAtLeast(2), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsToSpadeHeart exit _2NT")),
-                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3NT")),
+                    shows(Bid._2NT, noFit(7), IS_NON_JUMP, othersAtLeast(2), id("OpenBid2NatC.responderRaiseChangedSuitsToSpadeHeart exit _2NT")),
+                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3NT")),
                     partnerBids(RecursionNatC::recursionFindFitGame)
             );
         } else {
             choices.addRules(
                     shows(Bid._3S, OpeningLowBidding, fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
-                    shows(Bid._4S, OpeningInviteBidding, fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
+                    shows(Bid._4S, OpeningInviteBidding, fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4S")),
 
                     shows(Bid._3H, shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
                     shows(Bid._3C, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3C")),
                     shows(Bid._3D, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3D")),
-                    shows(Bid._2NT, noFit(), IS_NON_JUMP, othersAtLeast(2), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsToSpadeHeart nofit _2NT")),
+                    shows(Bid._2NT, noFit(), IS_NON_JUMP, othersAtLeast(2), id("OpenBid2NatC.responderRaiseChangedSuitsToSpadeHeart nofit _2NT")),
 
                     partnerBids(RecursionNatC::recursionFindFitGame),
                     propertiesAgreeTrump(new Call[]{Bid._3S, Bid._4S}, RespondBid2Bid1NatC::secondBidInviteMajorHeart, true),
