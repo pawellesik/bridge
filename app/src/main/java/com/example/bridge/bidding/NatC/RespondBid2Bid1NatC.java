@@ -45,20 +45,20 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         choices.addRules(
                 shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidNegatStrong Pass")),
 
-                shows(Bid._4S, pairPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _4S")),
-                shows(Bid._4H, pairPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _4H")),
+                shows(Bid._4S, pairPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Spades), id("RespondBid2NatC.secondBidNegatStrong _4S")),
+                shows(Bid._4H, pairPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Hearts), id("RespondBid2NatC.secondBidNegatStrong _4H")),
                 shows(Bid._2S, shape(5, 13), noFit(), ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _2S")),
 
                 shows(Bid._3H, shape(6, 13), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3H")),
-                shows(Bid._3H, shape(5, 13), noFit(), GameAfterNegat, id("RespondBid2NatC.secondBidNegatStrong _3H")),
+                shows(Bid._3H, shape(5, 13), noFit(), GameAfterNegat, ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _3H")),
                 shows(Bid._3H, shape(5, 13), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3H")),
 
                 shows(Bid._3S, shape(6, 13), noFit(), id("RespondBid2NatC.secondBidNegatStrong _3S")),
-                shows(Bid._3S, shape(5, 13), noFit(), GameAfterNegat, id("RespondBid2NatC.secondBidNegatStrong _3S")),
+                shows(Bid._3S, shape(5, 13), noFit(), GameAfterNegat, ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _3S")),
                 shows(Bid._3S, shape(5, 13), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3S")),
 
-                shows(Bid._3C, shape(5, 13), noFit(), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3C")),
-                shows(Bid._3D, shape(5, 13), noFit(), DECENT_PLUS_SUIT, id("RespondBid2NatC.secondBidNegatStrong _3D")),
+                shows(Bid._3C, shape(5, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidNegatStrong _3D")),
 
                 shows(Bid._3C, shape(5, 13), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3C")),
                 shows(Bid._3D, shape(5, 13), noFit(7), id("RespondBid2NatC.secondBidNegatStrong _3D")),
