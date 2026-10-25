@@ -142,7 +142,7 @@ pass pass 1C pass
 2D pass 3S pass (4D, 4C, 4H, 4NT)
 
 ---------------
-??czy dorabiać ??
+todo ??
 
 S:932.AK542.T54.J6 Q76.K7.9876.T987 AQ8.AK.T96.KQ543 32.6543.AJ5.6542
 pass pass 1C pass
@@ -161,7 +161,7 @@ pass pass 1C pass
 1H pass 2S pass (4C, 4NT)
 
 ---------------
-??czy dorabiać ??
+todo ??
 
 S:AK542.932.T54.J6 Q76.K7.9876.T987 AQ8.AK.T96.KQ543 32.6543.AJ5.6542
 pass pass 1C pass
@@ -179,14 +179,17 @@ S:AK542.932.T54.J6 Q76.K7.9876.T987 AQ8.AK.KQ543.T96 32.6543.AJ5.6542
 pass pass 1C pass
 1S pass 3S pass  (4C, 4NT)
 
---------------- strong partner
+--------------- 12+ N partner, 12-17 S
 
-1C pass 3D pass
+N:T5.J6.AJ932.AK42 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 3D pass (4NT) ??
 
-1C pass 3C pass
+N:AK.J6.T542.AJ932 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 3C pass (4NT) ??
 
-1C pass 2H pass
+N:AK.AJ932.J6.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
+1C pass 2H pass (3H, 2S, 3C, 3D,  4C, 4NT)
 
 1C pass 2S pass
 
----------------
+--------------- 12+ N partner, 18+ S

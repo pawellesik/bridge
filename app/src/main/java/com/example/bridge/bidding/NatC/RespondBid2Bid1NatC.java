@@ -310,7 +310,7 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
     public static PositionCalls secondBidRaiseTrumpMajorClubClubStandard(PositionState ps) {
         //1C ->
         //     2H, 2S ->
-        //              3C ->
+        //              3C, 3D ->
         PositionCalls choices = new PositionCalls(ps);
         List<CallFeature> conventions = new ArrayList<>();
         CompeteNatC.addAcesAskConventions(ps, conventions);

@@ -323,9 +323,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._2S, shape(4, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 2S")),
 
-                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
+                    shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
 
                     shows(Bid._3C, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
+                    shows(Bid._3D, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3D")),
+
                     shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H")),
 
                     properties(new Call[]{Bid._2S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubStandard),
@@ -342,9 +344,11 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
 
                     shows(Bid._2S, shape(4, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 2S")),
 
-                    shows(Bid._3NT, PAIR_BALANCED, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
+                    shows(Bid._3NT, PAIR_BALANCED, id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 3NT")),
 
                     shows(Bid._3C, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
+                    shows(Bid._3D, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3D")),
+
                     shows(Bid._3H, shape(4, 13), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H")),
 
                     shows(Bid._2NT, pairHighCardPoints(PAIR_GAME), noFit(), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard 2NT")),
