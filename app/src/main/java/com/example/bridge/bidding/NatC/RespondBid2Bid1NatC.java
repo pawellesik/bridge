@@ -111,12 +111,18 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
     public static PositionCalls secondBidMajorClubStandard(PositionState ps) {
         //1C ->
         //      1S, 1H ->
-        //              1S, 2C, 2H, 2S, 1NT ->
+        //              1S, 2C, 2H, 2S ->
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
                 shows(Bid._2S, noFit(), shape(6, 13), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2S")),
                 shows(Bid._2H, noFit(), shape(6, 13), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2H")),
+                shows(Bid._2H, noFit(), shape(4, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2H")),
+                shows(Bid._2S, noFit(), shape(4, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2S")),
+                shows(Bid._2C, noFit(), shape(5, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2C")),
+                shows(Bid._2D, noFit(), shape(5, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2D")),
+                shows(Bid._3C, noFit(), shape(5, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _3C")),
+                shows(Bid._3D, noFit(), shape(5, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _3D")),
                 partnerBids(RecursionNatC::recursionFindFitGame)
         );
         choices.addRules(CompeteNatC.compBids(ps));
