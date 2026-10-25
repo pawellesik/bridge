@@ -68,17 +68,22 @@ pass pass 1C pass
 1H pass 1NT pass (2C, 2D, 2H, 2S, 4C, 4NT)
 
 -----------
+S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T9.K9.QT84.AK653 32.6543.AJ5.6542
+pass pass 1C pass
+1S pass 2C pass (2S, 2H, 2D, 4C, 4NT)
 
 S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T98.K9.QT4.AK653 32.6543.AJ5.6542
 pass pass 1C pass
-1S pass 2C pass (3H, 3C, 3D, 4C, 4NT)
+1S pass 2S pass (3H, 3C, 3D, 4C, 4NT)
 
 pass pass 1C pass
 1S pass 2D pass --nie będzie takiej sytuacji
 
+S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T9.K953.QT84.AK6 32.6543.AJ5.6542
 pass pass 1C pass
-1S pass 2H pass
+1S pass 2H pass (2S, 3C, 3D, 4C, 4NT)
 
+S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T9.K953.QT84.AK6 32.6543.AJ5.6542
 pass pass 1C pass
 1S pass 1NT pass
 
