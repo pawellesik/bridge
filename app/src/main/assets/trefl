@@ -125,17 +125,21 @@ pass pass 1C pass
 
 ---------------
 
+S:932.T54.AK542.J6 Q76.K7.9876.T987 AQ8.AK96.T.KQ543 32.6543.AJ5.6542
 pass pass 1C pass
-2D pass 4C pass
+2D pass 4C pass (4D, 4NT)
 
+S:932.T54.AK542.J6 Q76.K7.9876.T987 AQ8.AK96.KQ543.T 32.6543.AJ5.6542
 pass pass 1C pass
-2D pass 4D pass
+2D pass 4D pass (4NT)
 
+S:932.T54.AK542.J6 Q76.K7.9876.T987 AQ8.KQ543.AK96.T 32.6543.AJ5.6542
 pass pass 1C pass
-2D pass 3H pass
+2D pass 3H pass (3S, 4D, 4C, 4NT)
 
+S:932.T54.AK542.J6 Q76.K7.9876.T987 KQ543.AQ8.AK96.T 32.6543.AJ5.6542
 pass pass 1C pass
-2D pass 3S pass
+2D pass 3S pass (4D, 4C, 4H, 4NT)
 
 ---------------
 
