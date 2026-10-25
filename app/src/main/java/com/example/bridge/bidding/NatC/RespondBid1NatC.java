@@ -98,7 +98,7 @@ public class RespondBid1NatC extends NatC {
 
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _1NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _2NT")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneDiamond _3NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneDiamond _3NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), BALANCED, not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneDiamond _2NT")),
 
                 propertiesAgreeTrump(new Call[]{Bid._2D}, OpenBid2Bid1NatC::responderdTrumpMinorDiamod2D, true),
@@ -145,7 +145,7 @@ public class RespondBid1NatC extends NatC {
 
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, ruleShow(1), id("RespondNatC.oneHeart _1NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneHeart _2NT")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneSpade _3NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), BALANCED, not(PASSED_HAND), ruleShow(1), id("RespondNatC.oneHeart _2NT")),
 
                 propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2Bid1NatC::responderTrumpMajorHeart, true),
@@ -188,8 +188,8 @@ public class RespondBid1NatC extends NatC {
 
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, ruleShow(1), id("RespondNatC.oneSpade _1NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, ruleShow(1), id("RespondNatC.oneSpade _2NT")),
-                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, ruleShow(1), id("RespondNatC.oneSpade _3NT")),
-                shows(Bid._2NT, highCardPoints(JUMP_HAND), not(PASSED_HAND), BALANCED, ruleShow(1), ruleShow(1), id("RespondNatC.oneSpade _2NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondNatC.oneSpade _3NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), not(PASSED_HAND), BALANCED, ruleShow(1), id("RespondNatC.oneSpade _2NT")),
 
                 propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2Bid1NatC::responderTrumpMajorSpade, true),
                 properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2Bid1NatC::responderChangedSuitsSpade, false),
