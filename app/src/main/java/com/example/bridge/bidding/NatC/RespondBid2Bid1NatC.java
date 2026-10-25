@@ -115,9 +115,11 @@ public class RespondBid2Bid1NatC extends RespondBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
+                shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RespondBid2NatC.secondBidMajorClubStandard Pass")),
                 shows(Bid._2S, noFit(), shape(6, 13), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2S")),
                 shows(Bid._2H, noFit(), shape(6, 13), IS_REBID, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2H")),
-                shows(Bid._2H, noFit(), shape(4, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2H")),
+                shows(Bid._3H, noFit(), shape(4, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _3H")),
+                shows(Bid._3H, noFit(), shape(4, 13), IS_NON_JUMP, IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _3H")),
                 shows(Bid._2S, noFit(), shape(4, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2S")),
                 shows(Bid._2C, noFit(), shape(5, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2C")),
                 shows(Bid._2D, noFit(), shape(5, 13), IS_NEW_SUIT, ruleShow(1), id("RespondBid2NatC.secondBidMajorClubStandard _2D")),
