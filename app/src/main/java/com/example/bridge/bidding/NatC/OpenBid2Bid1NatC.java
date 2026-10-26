@@ -761,13 +761,13 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
             choices.addRules(
                     shows(Bid._3H, shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
-                    shows(Bid._3S, OpeningLowBidding, shape(5, 13), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
+                    shows(Bid._3S, shape(5, 13), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
 
-                    shows(Bid._4C, OpeningLowBidding, fit(), partner(isLastBid(Bid._3C)), setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
-                    shows(Bid._4D, OpeningLowBidding, fit(), partner(isLastBid(Bid._3D)), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
+                    shows(Bid._4C, OpeningLowBidding, fit(), setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
+                    shows(Bid._4D, OpeningLowBidding, fit(), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
 
-                    shows(Bid._4C, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
-                    shows(Bid._4D, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
+                    shows(Bid._4C, shape(5, 13), noFit(), partner(isLastBid(Bid._3D)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
+                    shows(Bid._4D, shape(5, 13), noFit(), partner(isLastBid(Bid._3C)), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
 
                     shows(Bid._5C, OpeningInviteBidding, fit(), partner(isLastBid(Bid._3C)), setTrumpColor(Suit.Clubs), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5C")),
                     shows(Bid._5D, OpeningInviteBidding, fit(), partner(isLastBid(Bid._3D)), setTrumpColor(Suit.Diamonds), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _5D")),
