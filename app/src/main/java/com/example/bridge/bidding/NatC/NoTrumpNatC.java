@@ -17,15 +17,11 @@ import java.util.List;
 
 public class NoTrumpNatC extends Bidder {
 
-    public static final HandConstraint OPEN = highCardPoints(15, 17);
-    public static final HandConstraint OPEN_DONT_ACCEPT_INVITE = highCardPoints(15, 15);
-    public static final HandConstraint OPEN_ACCEPT_INVITE = highCardPoints(16, 17);
-    public static final HandConstraint LESS_THAT_INVITE = highCardPoints(0, 7);
-    public static final HandConstraint INVITE_GAME = highCardPoints(8, 9);
+    public static final HandConstraint OPEN = highCardPoints(16, 17);
+    public static final HandConstraint LESS_THAT_INVITE = highCardPoints(0, 6);
+    public static final HandConstraint INVITE_GAME = highCardPoints(7, 9);
     public static final HandConstraint GAME_OR_BETTER = highCardPoints(10, 40);
-    public static final HandConstraint INVITE_SLAM = highCardPoints(16, 17);
     public static final HandConstraint SMALL_SLAM = highCardPoints(18, 19);
-    public static final HandConstraint GRAND_SLAM = highCardPoints(20, 40);
 
     public static Iterable<CallFeature> open1NTBid1(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
@@ -45,9 +41,6 @@ public class NoTrumpNatC extends Bidder {
 
                 shows(Bid._3C, GAME_OR_BETTER, shape(5, 13), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 3C")),
                 shows(Bid._3D, GAME_OR_BETTER, shape(5, 13), GOOD_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 3D")),
-
-                shows(Bid._2H, LESS_THAT_INVITE, shape(7, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2H")),
-                shows(Bid._2S, LESS_THAT_INVITE, shape(7, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2S")),
 
                 shows(Bid._2H, INVITE_GAME, shape(5, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2H")),
                 shows(Bid._2S, INVITE_GAME, shape(5, 13), DECENT_PLUS_SUIT, id("NoTrumpNatC.Natural1NTNatC 2S")),
@@ -94,14 +87,14 @@ public class NoTrumpNatC extends Bidder {
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 shows(Call.PASS, partner(isLastBid(Bid._3NT)), id("NoTrumpNatC.openerRebid PASS")),
-                shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid PASS")),
-                shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2C)), id("NoTrumpNatC.openerRebid PASS")),
-                shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2D)), id("NoTrumpNatC.openerRebid PASS")),
-                shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2H)), id("NoTrumpNatC.openerRebid PASS")),
-                shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2S)), id("NoTrumpNatC.openerRebid PASS")),
+                //shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid PASS")),
+                //shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2C)), id("NoTrumpNatC.openerRebid PASS")),
+               // shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2D)), id("NoTrumpNatC.openerRebid PASS")),
+               // shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2H)), id("NoTrumpNatC.openerRebid PASS")),
+               // shows(Call.PASS, OPEN_DONT_ACCEPT_INVITE, partner(isLastBid(Bid._2S)), id("NoTrumpNatC.openerRebid PASS")),
 
-                shows(Bid._4H, OPEN_ACCEPT_INVITE, fit(), partner(isLastBid(Bid._2H)), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4H")),
-                shows(Bid._4S, OPEN_ACCEPT_INVITE, fit(), partner(isLastBid(Bid._2S)), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4S")),
+                shows(Bid._4H, pairPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._2H)), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4H")),
+                shows(Bid._4S, pairPoints(PAIR_GAME), fit(), partner(isLastBid(Bid._2S)), setTrumpColor(Suit.Spades), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4S")),
 
                 shows(Bid._3H, shape(4), partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid shape 3H)")),
                 shows(Bid._3S, shape(4), partner(isLastBid(Bid._2NT)), id("NoTrumpNatC.openerRebid shape 3S")),
