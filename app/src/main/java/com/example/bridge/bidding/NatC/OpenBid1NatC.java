@@ -38,18 +38,18 @@ public class OpenBid1NatC extends NatC {
         bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
 
         if (ps.getSeat() < 3) {
-            bids.add(shows(Bid._1S, OpenBidding, shape(6, 13), id("OpenNatC.openSuit _1S")));
-            bids.add(shows(Bid._1H, OpenBidding, shape(6, 13), id("OpenNatC.openSuit _1H")));
-            bids.add(shows(Bid._1S, OpenBidding, shape(5, 13), ruleShow(1), id("OpenNatC.openSuit _1S")));
-            bids.add(shows(Bid._1H, OpenBidding, shape(5, 13), ruleShow(1), id("OpenNatC.openSuit _1H")));
-            bids.add(shows(Bid._1D, OpenBidding, shape(5, 13), ruleShow(1), id("OpenNatC.openSuit _1D")));
+            bids.add(shows(Bid._1S, shape(6, 13), OpenBidding, id("OpenNatC.openSuit _1S")));
+            bids.add(shows(Bid._1H, shape(6, 13), OpenBidding, id("OpenNatC.openSuit _1H")));
+            bids.add(shows(Bid._1S, shape(5, 13), OpenBidding, ruleShow(1), id("OpenNatC.openSuit _1S")));
+            bids.add(shows(Bid._1H, shape(5, 13), OpenBidding, ruleShow(1), id("OpenNatC.openSuit _1H")));
+            bids.add(shows(Bid._1D, shape(5, 13), OpenBidding, ruleShow(1), id("OpenNatC.openSuit _1D")));
             bids.add(shows(Bid._1C, OpenBidding, ruleShow(1), id("OpenNatC.openSuit _1C")));
         } else if (ps.getSeat() >= 3) {
-            bids.add(shows(Bid._1S, OpenBiddingThirtSeat, shape(6, 13), id("OpenNatC.openSuit _1S")));
-            bids.add(shows(Bid._1H, OpenBiddingThirtSeat, shape(6, 13), id("OpenNatC.openSuit _1H")));
-            bids.add(shows(Bid._1S, OpenBiddingThirtSeat, shape(5, 13), ruleShow(1), id("OpenNatC.openSuit OpenAfterPass _1S")));
-            bids.add(shows(Bid._1H, OpenBiddingThirtSeat, shape(5, 13), ruleShow(1), id("OpenNatC.openSuit OpenAfterPass _1H")));
-            bids.add(shows(Bid._1D, OpenBiddingThirtSeat, shape(5, 13), ruleShow(1), id("OpenNatC.openSuit OpenAfterPass _1D")));
+            bids.add(shows(Bid._1S, shape(6, 13), OpenBiddingThirtSeat, id("OpenNatC.openSuit _1S")));
+            bids.add(shows(Bid._1H, shape(6, 13), OpenBiddingThirtSeat, id("OpenNatC.openSuit _1H")));
+            bids.add(shows(Bid._1S, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenNatC.openSuit OpenAfterPass _1S")));
+            bids.add(shows(Bid._1H, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenNatC.openSuit OpenAfterPass _1H")));
+            bids.add(shows(Bid._1D, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenNatC.openSuit OpenAfterPass _1D")));
             bids.add(shows(Bid._1C, OpenBiddingThirtSeat, ruleShow(1), id("OpenNatC.openSuit OpenAfterPass _1C")));
         }
         bids.add(shows(Call.PASS, DontOpen, id("OpenNatC.openSuit _PASS")));
@@ -64,10 +64,10 @@ public class OpenBid1NatC extends NatC {
 
     private static List<CallFeature> openSuitWeak(PositionState ps) {
         List<CallFeature> rules = new ArrayList<>();
-        rules.add(shows(Bid._3S, OpeningWeakBidding, shape(7, 13), ruleShow(1), id("OpenNatC.openSuitWeak _3S")));
-        rules.add(shows(Bid._3H, OpeningWeakBidding, shape(7, 13), ruleShow(1), id("OpenNatC.openSuitWeak _3H")));
-        rules.add(shows(Bid._3D, OpeningWeakBidding, shape(7, 13), ruleShow(1), id("OpenNatC.openSuitWeak _3D")));
-        rules.add(shows(Bid._3C, OpeningWeakBidding, shape(7, 13), ruleShow(1), id("OpenNatC.openSuitWeak _3C")));
+        rules.add(shows(Bid._3S, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenNatC.openSuitWeak _3S")));
+        rules.add(shows(Bid._3H, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenNatC.openSuitWeak _3H")));
+        rules.add(shows(Bid._3D, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenNatC.openSuitWeak _3D")));
+        rules.add(shows(Bid._3C, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenNatC.openSuitWeak _3C")));
         rules.add(partnerBids(RespondBid1NatC::weakOpen));
         return rules;
     }
