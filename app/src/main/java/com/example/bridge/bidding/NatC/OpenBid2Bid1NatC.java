@@ -318,8 +318,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Call.PASS, OpeningLowBidding, fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
                     shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard Pass")),
 
-                    shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 4H")),
-                    shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 4S")),
+                    shows(Bid._4H, pairHighCardPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Hearts), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 4H")),
+                    shows(Bid._4S, pairHighCardPoints(PAIR_GAME), fit(), setTrumpColor(Suit.Spades), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard fit 4S")),
 
                     shows(Bid._2S, shape(4, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 2S")),
 
@@ -328,7 +328,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._3C, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3C")),
                     shows(Bid._3D, shape(5, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3D")),
 
-                    shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), ruleShow(1), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H")),
+                    shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 0, 2), noFit(), partner(isLastBid(Bid._2S)), id("OpenBid2NatC.responderdRaiseTrumpMajorClubStandard noFit 3H")),
 
                     properties(new Call[]{Bid._2S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorClubStandard),
                     properties(new Call[]{Bid._3H, Bid._3S}, RespondBid2Bid1NatC::secondBidRaiseTrumpMajorFitClubStandard),
