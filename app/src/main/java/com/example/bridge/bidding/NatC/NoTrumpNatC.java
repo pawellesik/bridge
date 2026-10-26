@@ -73,7 +73,7 @@ public class NoTrumpNatC extends Bidder {
 
     public static PositionCalls open1NTBid2Major(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        //choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(AcesAsk.initiateConvention(ps));
         if (ps.getPartner().isPassedHand()) {
             choices.addRules(
                     shows(Bid._4H, fit(), partner(isLastBid(Bid._3H)), setTrumpColor(Suit.Hearts), id("NoTrumpNatC.openerRebid OPEN_ACCEPT_INVITE 4H")),
@@ -90,7 +90,7 @@ public class NoTrumpNatC extends Bidder {
     //        -->
     public static PositionCalls open1NTBid2(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        //choices.addRules(AcesAsk.initiateConvention(ps));
+        choices.addRules(AcesAsk.initiateConvention(ps));
         choices.addRules(AcesAsk.initiateConventionBlok(ps));
         choices.addRules(
                 shows(Call.PASS, partner(isLastBid(Bid._3NT)), id("NoTrumpNatC.openerRebid PASS")),
