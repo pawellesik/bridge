@@ -886,7 +886,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._2NT, PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsSpade _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsSpade _3NT")),
 
-                shows(Bid._4H, pairPoints(PAIR_GAME), fit(), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _4H")),
+                shows(Bid._4H, pairPoints(PAIR_GAME), fit(), id("OpenBid2NatC.responderChangedSuitsSpade _4H")),
                 partnerBids(RecursionNatC::recursionFindFitGame),
                 propertiesForcingToGame(new Call[]{Bid._3S}, RespondBid2Bid1NatC::secondBidLong, true),
                 properties(new Call[]{Bid._2NT}, RespondBid2Bid1NatC::secondBidSearchSuitAfter2NTSpade),
