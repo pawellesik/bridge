@@ -103,7 +103,7 @@ public class Shape {
             Suit skip = getSkipSuit(call, ps);
             for (Suit s : Suit.values()) {
                 if (s != skip) {
-                    if (hs.getSuits().get(s).getShape().getMin() < min) return false;
+                    if (hs.getSuits().get(s).getShape().getMax() < min) return false;
                 }
             }
             return true;

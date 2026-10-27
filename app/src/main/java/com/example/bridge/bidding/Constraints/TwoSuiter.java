@@ -39,7 +39,7 @@ public class TwoSuiter extends HandConstraint implements IDescribeConstraint {
             if (primarySuit != null && s == primarySuit) continue;
             
             Range shape = hs.getSuits().get(s).getShape();
-            if (shape.getMin() >= minSecondLen) {
+            if (shape.getMax() >= minSecondLen) {
                 if (primarySuit != null) return true; // Znaleźliśmy drugi kolor
                 longSuitsFound++;
             }

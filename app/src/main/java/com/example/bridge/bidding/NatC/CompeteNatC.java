@@ -86,10 +86,10 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._2NT, noFit(7), partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), PAIR_BALANCED, IS_NON_JUMP, id("CompeteNatC.compBids exit _2NT")));
         bids.add(shows(Bid._5NT, pairHighCardPoints(PAIR_MINOR_GAME), noFit(7), partner(isLastBid(Bid._5C, Bid._5D)), PAIR_BALANCED, IS_NON_JUMP, id("CompeteNatC.compBids PAIR_MINOR_GAME exit _5NT")));
 
-        bids.add(shows(Bid._3C, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Clubs, 5), id("CompeteNatC.compBids _3C")));
-        bids.add(shows(Bid._3D, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Diamonds, 5), id("CompeteNatC.compBids _3D")));
-        bids.add(shows(Bid._3H, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Hearts, 5), id("CompeteNatC.compBids _3H")));
-        bids.add(shows(Bid._3S, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Spades, 5), id("CompeteNatC.compBids _3S")));
+        bids.add(shows(Bid._3C, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Clubs, 5), IS_NEW_SUIT, id("CompeteNatC.compBids _3C")));
+        bids.add(shows(Bid._3D, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Diamonds, 5), IS_NEW_SUIT, id("CompeteNatC.compBids _3D")));
+        bids.add(shows(Bid._3H, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Hearts, 5), IS_NEW_SUIT, id("CompeteNatC.compBids _3H")));
+        bids.add(shows(Bid._3S, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Spades, 5), IS_NEW_SUIT, id("CompeteNatC.compBids _3S")));
 
         bids.add(shows(Bid._3H, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Hearts, 4), id("CompeteNatC.compBids _3H")));
         bids.add(shows(Bid._3S, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Spades, 4), id("CompeteNatC.compBids _3S")));
