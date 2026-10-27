@@ -356,6 +356,8 @@ public class GameController {
         Suit trumpSuit = getTrumpSuit();
 
         boolean canClaim = oponnetsDontHaveTrumpAndAllCardsIHaveWinner(player, trumpSuit)
+                || oponnetsDontHaveTrumpAndIHaveSameTrumpAndAllCardsIHaveWinner(player, trumpSuit)
+                || oponnetsDontHaveTrumpAndIHaveSameTrumpAndAllCardsIHaveWinner(getPartner(player), trumpSuit)
                 || oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(player, trumpSuit)
                 || oponnetsDontHaveTrumpAndAllCardsIHaveAreTrump(getPartner(player), trumpSuit);
 
@@ -418,6 +420,48 @@ public class GameController {
             }
         }
         return true;
+    }
+
+    private boolean oponnetsDontHaveTrumpAndIHaveSameTrumpAndAllCardsIHaveWinner(Player p, Suit trumpSuit) {
+        if (p == null || p.getHand() == null || p.getHand().isEmpty() || trumpSuit == null) {
+            return false;
+        }
+
+        Map<Suit, Integer> maxOpponentsRank = new HashMap<>();
+        Map<Suit, Integer> maxOthersRank = new HashMap<>();
+
+        for (Player other : players.values()) {
+            if (other != p) {
+                for (Card c : other.getHand()) {
+                    int rank = c.getRank().ordinal();
+                    if (rank > maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                        maxOthersRank.put(c.getSuit(), rank);
+                    }
+                    if (other != getPartner(p)) {
+                        if (rank > maxOpponentsRank.getOrDefault(c.getSuit(), -1)) {
+                            maxOpponentsRank.put(c.getSuit(), rank);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (maxOpponentsRank.containsKey(trumpSuit)) {
+            return false;
+        }
+
+        boolean hasTrump = false;
+        for (Card c : p.getHand()) {
+            if (c.getSuit() == trumpSuit) {
+                hasTrump = true;
+            } else {
+                if (c.getRank().ordinal() <= maxOthersRank.getOrDefault(c.getSuit(), -1)) {
+                    return false;
+                }
+            }
+        }
+
+        return hasTrump;
     }
 
     private boolean hasOnlyTrumps(Player player, Suit trumpSuit) {
