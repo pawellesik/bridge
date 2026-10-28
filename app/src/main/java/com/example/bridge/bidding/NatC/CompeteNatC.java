@@ -52,10 +52,10 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._5D, pairPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteNatC.compBids pairPoints _5D")));
 
         bids.add(shows(Bid._2S, shape(2, 3), partner(isLastBid(Bid._2H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids _2S")));
-        bids.add(shows(Bid._3S, shape(3, 4), shape(Suit.Hearts, 0, 3), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids _3S")));
-        bids.add(shows(Bid._3S, shape(2, 3), shape(Suit.Hearts, 0, 2), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids _3S")));
-        bids.add(shows(Bid._4S, shape(2, 3), shape(Suit.Hearts, 0, 2), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids _4S")));
-        bids.add(shows(Bid._4S, shape(3, 4), shape(Suit.Hearts, 0, 3), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids _4S")));
+        bids.add(shows(Bid._3S, shape(3, 4), shape(Suit.Hearts, 0, 3), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids betterThan _3S")));
+        bids.add(shows(Bid._3S, shape(2, 3), shape(Suit.Hearts, 0, 2), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids betterThan _3S")));
+        bids.add(shows(Bid._4S, shape(2, 3), shape(Suit.Hearts, 0, 2), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids betterThan _4S")));
+        bids.add(shows(Bid._4S, shape(3, 4), shape(Suit.Hearts, 0, 3), partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteNatC.compBids betterThan _4S")));
 
         bids.add(shows(Bid._4S, partner(isLastBid(Bid._4D)), shape(2, 3), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Diamonds), id("CompeteNatC.compBids betterThan(Suit.Diamonds) _4S")));
         bids.add(shows(Bid._4S, partner(isLastBid(Bid._4C)), shape(2, 3), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Clubs), id("CompeteNatC.compBids betterThan(Suit.Clubs) _4S")));
@@ -91,8 +91,8 @@ public class CompeteNatC extends NatC {
         bids.add(shows(Bid._3H, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Hearts, 5), IS_NEW_SUIT, id("CompeteNatC.compBids _3H")));
         bids.add(shows(Bid._3S, shape(5, 13), partner(isLastBid(Bid._2NT)), secondSuit(Suit.Spades, 5), IS_NEW_SUIT, id("CompeteNatC.compBids _3S")));
 
-        bids.add(shows(Bid._3H, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Hearts, 4), id("CompeteNatC.compBids _3H")));
-        bids.add(shows(Bid._3S, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Spades, 4), id("CompeteNatC.compBids _3S")));
+        bids.add(shows(Bid._3H, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Hearts, 4), GOOD_PLUS_SUIT, id("CompeteNatC.compBids _3H")));
+        bids.add(shows(Bid._3S, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Spades, 4), GOOD_PLUS_SUIT,  id("CompeteNatC.compBids _3S")));
 
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, IS_NON_JUMP, id("CompeteNatC.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3), id("CompeteNatC.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
