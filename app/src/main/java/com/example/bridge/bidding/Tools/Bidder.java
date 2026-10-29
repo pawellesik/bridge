@@ -369,6 +369,13 @@ public abstract class Bidder {
     public static final StaticConstraint PASSED_HAND = new PassedHand(true);
     public static final StaticConstraint NOT_PASSED_HAND = new PassedHand(false);
     public static final StaticConstraint IS_OPENER = new SimpleStaticConstraint((call, ps) -> ps.getRole() == PositionRole.Opener, "is opener");
+    public static final StaticConstraint IS_RESPONDER = new SimpleStaticConstraint((call, ps) -> ps.getRole() == PositionRole.Responder, "is responder");
+    public static final StaticConstraint IS_OVERCALLER = new SimpleStaticConstraint((call, ps) -> ps.getRole() == PositionRole.Overcaller, "is overcaller");
+    public static final StaticConstraint IS_ADVANCER = new SimpleStaticConstraint((call, ps) -> ps.getRole() == PositionRole.Advancer, "is advancer");
+
+    public static StaticConstraint isRole(PositionRole role) {
+        return new SimpleStaticConstraint((call, ps) -> ps.getRole() == role, "is " + role.name().toLowerCase());
+    }
     public static final StaticConstraint CONTRACT_IS_AGREED_STRAIN = new SimpleStaticConstraint((call, ps) -> {
         Call contractBid = ps.getBiddingState().getContract().getBid();
         if (contractBid instanceof Bid) {

@@ -75,8 +75,11 @@ public class RecursionNatC extends NatC {
                 shows(Bid._3C, shape(5, 13), noFitMajor(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3C")),
                 shows(Bid._3D, shape(5, 13), noFitMajor(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT _3D")),
 
-                shows(Bid._3H, shape(4, 13), highCardPoints(7, 40), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
-                shows(Bid._3S, shape(4, 13), highCardPoints(7, 40), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
+                shows(Bid._3H, shape(4, 13), highCardPoints(7, 10), not(IS_OPENER), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3S, shape(4, 13), highCardPoints(7, 10), not(IS_OPENER), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
+                shows(Bid._3H, shape(4, 13), IS_OPENER, noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3S, shape(4, 13), IS_OPENER, noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
+
                 shows(Bid._3H, shape(4, 13), pairHighCardPoints(PAIR_GAME), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
                 shows(Bid._3S, shape(4, 13), pairHighCardPoints(PAIR_GAME), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
