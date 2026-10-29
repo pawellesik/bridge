@@ -763,7 +763,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._3H, shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3H")),
 
                     shows(Bid._3S, shape(5, 13), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
-                    shows(Bid._3S, shape(4, 13), noFit(), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
+                    shows(Bid._3S, shape(4, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _3S")),
 
                     shows(Bid._4C, OpeningLowBidding, fit(), setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4C")),
                     shows(Bid._4D, OpeningLowBidding, fit(), setTrumpColor(Suit.Diamonds), ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsHeart _4D")),
@@ -802,7 +802,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                     shows(Bid._4H, pairHighCardPoints(PAIR_GAME), IS_NEW_SUIT, shape(5, 13), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._3S, pairHighCardPoints(PAIR_GAME), shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
                     shows(Bid._3S, shape(6, 13), noFit(), IS_REBID, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3S")),
-                    shows(Bid._3H, pairHighCardPoints(PAIR_GAME), shape(4, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
+                    shows(Bid._3H, pairHighCardPoints(PAIR_GAME), shape(4, 13), DECENT_PLUS_SUIT, noFit(), IS_NEW_SUIT, ruleShow(1), id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3H")),
                     shows(Bid._4H, pairHighCardPoints(PAIR_GAME), shape(5, 13), noFit(), IS_NEW_SUIT, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _4H")),
                     shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.responderRaiseChangedSuitsSpade _3NT")),
                     partnerBids(RecursionNatC::recursionFindFitGame)
