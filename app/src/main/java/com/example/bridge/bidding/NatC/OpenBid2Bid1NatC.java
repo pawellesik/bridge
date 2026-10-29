@@ -871,7 +871,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._3S, shape(7, 13), noFit(), partner(isLastBid(Bid._2H)), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
                 shows(Bid._3S, shape(7, 13), not(partner(isLastBid(Bid._2H))), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _3S")),
 
-                shows(Bid._2S, shape(6), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
+                shows(Bid._2S, shape(6), IS_REBID, not(partner(isLastBid(Bid._2H))), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
+                shows(Bid._2S, shape(6), noFit(), IS_REBID, partner(isLastBid(Bid._2H)), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsSpade _2S")),
 
                 shows(Bid._2H, shape(4, 13), noFit(), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuit sSpade _2H")),
 
