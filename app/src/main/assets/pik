@@ -29,48 +29,48 @@ pass pass 1S pass
 
 S:AT.J6.T542.AJ932 Q76.K7.9876.T987 K9852.KQT.AT4.32 32.6543.AJ5.6542
 pass pass 1S pass
-2C pass 2NT pass (3C, 3D, 4C, 4NT)
+2C pass 2NT pass (3C, 3D, 4C, 4NT) +
 
 -----------
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 K9854.T.A.KQT432 32.6543.AJ5.6542
 pass pass 1S pass
-2D pass 3C pass (4C)
+2D pass 3C pass (4C, 4NT) +
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 K9854.AKQT.T2.32 32.6543.AJ5.6542
 pass pass 1S pass
-2D pass 2H pass (3C, 4C, 4NT)
+2D pass 2H pass (3C, 3D, 4C, 4NT) +
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 K98542.AKQT.T.32 32.6543.AJ5.6542
 pass pass 1S pass
-2D pass 2S pass (3H, 3C, 4C, 4NT)
+2D pass 2S pass (3C, 3H, 3D, 4C, 4NT) +
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 K9852.KQT.4.AT32 32.6543.AJ5.6542
 pass pass 1S pass
-2D pass 2NT pass (3D, 3C, 4C, 4NT)
+2D pass 2NT pass (3D, 3C, 4C, 4NT) +
 
 -----------
 
 S:AT.AT542.J6.J932 Q76.K7.9876.T987 K9854.T.32.AKQT3 32.6543.AJ5.6542
 pass pass 1S pass
-2H pass 3C pass (4C)
+2H pass 3C pass (4C, 4NT) +
 
 S:AT.AT542.J6.J932 Q76.K7.9876.T987 K9854.T.AKQT2.32 32.6543.AJ5.6542
 pass pass 1S pass
-2H pass 3D pass (4C)
+2H pass 3D pass (4C, 4NT) +
 
 S:AT.AT542.J6.J932 Q76.K7.9876.T987 K98542.T.AKQT.32 32.6543.AJ5.6542
 pass pass 1S pass
-2H pass 2S pass (3C, 3D, 4C, 4NT)
+2H pass 2S pass (3H, 3C, 3D, 4C, 4NT) +
 
 S:AT.AT542.J6.J932 Q76.K7.9876.T987 K9852.4.KQT.A432 32.6543.AJ5.6542
 pass pass 1S pass
-2H pass 2NT pass (3H, 3D, 3C, 4C, 4NT)
+2H pass 2NT pass (3H, 3D, 3C, 4C, 4NT) +
 
 ----------- przeskok
 
 N:AT.A542.J6.KJT32 Q76.K7.9876.T987 K9854.T.AKQT3.32 32.6543.AJ5.6542
-1S pass 3C pass  (3S, 3H, 4C, 3D, 4NT)
+1S pass 3C pass  (3S, 3H, 3D, 5C, 4NT)
 
 N:AT.A542.KJT32.J6 Q76.K7.9876.T987 K9854.T.AKQT3.32 32.6543.AJ5.6542
 1S pass 3D pass (3S, 3H, 4D, 4C, 4NT)
