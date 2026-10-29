@@ -58,10 +58,10 @@ public class RecursionNatC extends NatC {
                 shows(Bid._2H, shape(4, 13), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2H")),
                 shows(Bid._2S, shape(4, 13), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2S")),
 
-                shows(Bid._3C, shape(6, 13), noFit(7), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
-                shows(Bid._3D, shape(6, 13), noFit(7), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
-                shows(Bid._3H, shape(6, 13), noFit(7), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
-                shows(Bid._3S, shape(6, 13), noFit(7), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
+                shows(Bid._3C, shape(6, 13), noFit(), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
+                shows(Bid._3D, shape(6, 13), noFit(), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
+                shows(Bid._3H, shape(6, 13), noFit(), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3H")),
+                shows(Bid._3S, shape(6, 13), noFit(), not(suitBidCount(2)), IS_NON_JUMP, IS_REBID, ruleShow(1), id("RecursionNatC.recursionFindFitGame IS_REBID _3S")),
 
                 shows(Bid._3C, shape(6, 13), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3C")),
                 shows(Bid._3D, shape(6, 13), partner(isLastBid(Bid._2NT)), IS_REBID, id("RecursionNatC.recursionFindFitGame IS_REBID _3D")),
