@@ -17,55 +17,55 @@ N:A5J6.AT.452.J932 Q76.K7.9876.T987 T9.K9854.AKQT2.3 32.6543.AJ5.6542
 
 S:AT.J6.T542.AJ932 Q76.K7.9876.T987 T.K9854.AKQT32.3 32.6543.AJ5.6542
 pass pass 1H pass
-2C pass 2D pass (2S, 4C, 4NT)
+2C pass 2D pass (2S, 3C, 4C, 4NT)
 
 S:AT.J6.T542.AJ932 Q76.K7.9876.T987 AKQT.K9854.T2.32 32.6543.AJ5.6542
 pass pass 1H pass
-2C pass 2S pass (3D, 4C, 4NT)  nie wiem, może pokazać 3C ?
+2C pass 2S pass (3C, 3D, 4C, 4NT) +
 
 S:AT.J6.T542.AJ932 Q76.K7.9876.T987 AKQT.K98542.T.32 32.6543.AJ5.6542
 pass pass 1H pass
-2C pass 2H pass (2S, 3D, 4C, 4NT)
+2C pass 2H pass (2S, 3C, 3D, 4C, 4NT) +
 
 S:AT.J6.T542.AJ932 Q76.K7.9876.T987 KQT.K9852.AT4.32 32.6543.AJ5.6542
 pass pass 1H pass
-2C pass 2NT pass (3C, 3D, 4C, 4NT)
+2C pass 2NT pass (3C, 3D, 4C, 4NT) +
 
 -----------
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 T.K9854.A.KQT432 32.6543.AJ5.6542
 pass pass 1H pass
-2D pass 3C pass (4C)
+2D pass 3C pass (4C , 4NT) +
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 AKQT.K9854.T2.32 32.6543.AJ5.6542
 pass pass 1H pass
-2D pass 2S pass (3D, 3C, 4C, 4NT)
+2D pass 2S pass (3D, 3C, 4C, 4NT) +
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 AKQT.K98542.T.32 32.6543.AJ5.6542
 pass pass 1H pass
-2D pass 2H pass (2S, 3D, 3C, 4C, 4NT)
+2D pass 2H pass (2S, 3D, 3C, 4C, 4NT) +
 
 S:AT.J6.AT542.J932 Q76.K7.9876.T987 KQT.K9852.4.AT32 32.6543.AJ5.6542
 pass pass 1H pass
-2D pass 2NT pass (3D, 3C, 4C, 4NT)
+2D pass 2NT pass (3D, 3C, 4C, 4NT) +
 
 -----------
 
 S:AT542.AT.J6.J932 Q76.K7.9876.T987 T.K9854.32.AKQT3 32.6543.AJ5.6542
 pass pass 1H pass
-1S pass 2C pass (2D, 2S, 4C, 4NT)
+1S pass 2C pass (2D, 2S, 4C, 4NT) +
 
 S:AT542.AT.J6.J932 Q76.K7.9876.T987 T.K9854.AKQT3.32 32.6543.AJ5.6542
 pass pass 1H pass
-1S pass 2D pass (2S, 3C, 4C, 4NT)
+1S pass 2D pass (2S, 3C, 4C, 4NT) +
 
 S:AT542.AT.J6.J932 Q76.K7.9876.T987 T.AK9854.KQT3.32 32.6543.AJ5.6542
 pass pass 1H pass
-1S pass 2H pass (2S, 3C, 3D, 4C, 4NT)
+1S pass 2H pass (2S, 3C, 3D, 4C, 4NT) +
 
 S:AT542.AT.J6.J932 Q76.K7.9876.T987 4.K9852.KQT.A432 32.6543.AJ5.6542
 pass pass 1H pass
-1S pass 1NT pass (2C, 2D, 2S, 4C, 4NT)
+1S pass 1NT pass (2C, 2D, 2S, 4C, 4NT) +
 
 ----------- przeskok
 
