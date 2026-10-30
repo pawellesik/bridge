@@ -29,6 +29,7 @@ public class PbnCollection {
     private Pbn pbnNatC;
     private Pbn pbnNatCRev;
     private Pbn pbnWJSimple;
+    private Pbn pbnWJSimpleRev;
     private Pbn pbnLCStandard;
     private Pbn pbnLCStandardRev;
     private Pbn pbnSayc;
@@ -76,6 +77,11 @@ public class PbnCollection {
         this.pbnWJSimple.setPlayerNames("WJSimple W", "WJSimple N", "WJSimple E", "WJSimple S");
         this.pbnWJSimple.setBidSystemNS("WJSimple");
         this.pbnWJSimple.setBidSystemEW("PassOnly");
+
+        this.pbnWJSimpleRev = new Pbn(gameActivity, "WJSimple Rev");
+        this.pbnWJSimpleRev.setPlayerNames("WJSimple W Rev", "WJSimple N Rev", "WJSimple E Rev", "WJSimple S Rev");
+        this.pbnWJSimpleRev.setBidSystemNS("WJSimple");
+        this.pbnWJSimpleRev.setBidSystemEW("PassOnly");
     }
 
     public void initQiuckPbn(){
@@ -134,6 +140,13 @@ public class PbnCollection {
 
         this.pbnSaycRev.initNewGame(hands, gameMode);
         runBotSimulationGame(pbnSaycRev, oppositeDealer);
+
+        this.pbnWJSimple.initNewGame(hands, gameMode);
+        runBotSimulationGame(pbnWJSimple, mainDealer);
+
+        this.pbnWJSimpleRev.initNewGame(hands, gameMode);
+        runBotSimulationGame(pbnWJSimpleRev, oppositeDealer);
+
     }
 
     private String getNormalizedDealer(String dealer) {
@@ -232,6 +245,8 @@ public class PbnCollection {
         if (pbn != null) allPbns.add(pbn);
         if (pbnNatC != null) allPbns.add(pbnNatC);
         if (pbnNatCRev != null) allPbns.add(pbnNatCRev);
+        if (pbnWJSimple != null) allPbns.add(pbnWJSimple);
+        if (pbnWJSimpleRev != null) allPbns.add(pbnWJSimpleRev);
         if (pbnLCStandard != null) allPbns.add(pbnLCStandard);
         if (pbnLCStandardRev != null) allPbns.add(pbnLCStandardRev);
         if (pbnSayc != null) allPbns.add(pbnSayc);
@@ -271,6 +286,8 @@ public class PbnCollection {
         if (pbn != null && pbn != targetPbn) pbns.add(pbn);
         if (pbnNatC != null && pbnNatC != targetPbn) pbns.add(pbnNatC);
         if (pbnNatCRev != null && pbnNatCRev != targetPbn) pbns.add(pbnNatCRev);
+        if (pbnWJSimple != null && pbnWJSimple != targetPbn) pbns.add(pbnWJSimple);
+        if (pbnWJSimpleRev != null && pbnWJSimpleRev != targetPbn) pbns.add(pbnWJSimpleRev);
         if (pbnLCStandard != null && pbnLCStandard != targetPbn) pbns.add(pbnLCStandard);
         if (pbnLCStandardRev != null && pbnLCStandardRev != targetPbn) pbns.add(pbnLCStandardRev);
         if (pbnSayc != null && pbnSayc != targetPbn) pbns.add(pbnSayc);
@@ -591,6 +608,10 @@ public class PbnCollection {
         return pbnWJSimple;
     }
 
+    public Pbn getPbnWJSimpleRev() {
+        return pbnWJSimpleRev;
+    }
+
     public Pbn getPbnLCStandard() {
         return pbnLCStandard;
     }
@@ -606,6 +627,8 @@ public class PbnCollection {
             allPbns.add(pbn);
             allPbns.add(pbnNatC);
             allPbns.add(pbnNatCRev);
+            allPbns.add(pbnWJSimple);
+            allPbns.add(pbnWJSimpleRev);
             allPbns.add(pbnLCStandard);
             allPbns.add(pbnLCStandardRev);
             allPbns.add(pbnSayc);
