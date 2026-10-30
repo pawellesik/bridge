@@ -682,7 +682,6 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._1NT, noFit(7), id("OpenBid2NatC.responderChangedSuitsDiamond _1NT")),
 
                 shows(Bid._3C, shape(5, 13), IS_NEW_SUIT, noFit(), partner(isLastBid(Bid._2D)), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3C noFit")),
-                shows(Bid._3D, shape(5, 13), IS_NEW_SUIT, noFit(), not(partner(isLastBid(Bid._2C))), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsHeart _3D noFit")),
 
                 shows(Bid._2NT, PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsHeart _2NT")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("OpenBid2NatC.responderChangedSuitsHeart _3NT")),
