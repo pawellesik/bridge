@@ -5,8 +5,7 @@ N:K5.J6.T542.AJ932 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
 1C pass 2C pass (2S, 2H, 2D, 4C, 4NT) +
 
 N:K5.J6.AJ932.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
-1C pass 2D pass (3C, 2S, 2H, 4C, 4NT) +
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ok
+1C pass 2D pass (3C, 2S, 2H, 4C, 4NT) +                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ok
 
 N:K5.AJ932.J6.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
 1C pass 1H pass (3C, 2H, 2C, 2D, 1S, 1NT, 4C, 4NT) +
@@ -21,22 +20,22 @@ N:AJ9.K5.J632.T542 Q76.K7.9876.T987 K985.T9.AKQT.543 32.6543.AJ5.6542
 
 S:T5.J6.T542.AJ932 Q76.K7.9876.T987 K98.T9.QT.AK6543 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 2C pass (2H, 2S, 2D, 4C, 4NT)
+1D pass 2C pass (2H, 2S, 2D, 4C, 4NT) +
 
 pass pass 1C pass
 1D pass 2D pass --nie będzie takiej sytuacji
 
 S:T5.J6.T542.AJ932 Q76.K7.9876.T987 T98.K943.QT.AK65 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 1H pass (1S, 2D, 2C, 4C, 4NT)
+1D pass 1H pass (1S, 2D, 2C, 4C, 4NT) +
 
 S:T5.J6.T542.AJ932 Q76.K7.9876.T987 K943.T98.QT.AK65 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 1S pass (2H, 2D, 2C, 4C, 4NT)
+1D pass 1S pass (2H, 2D, 2C, 4C, 4NT) +
 
 S:T5.J6.T542.AJ932 Q76.K7.9876.T987 K94.T98.QT3.AK65 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 1NT pass (2C, 2D, 2H, 2S, 4C, 4NT)
+1D pass 1NT pass (2C, 2D, 2H, 2S, 4C, 4NT) +
 
 -----------
 
@@ -45,84 +44,84 @@ pass pass 1C pass
 
 S:T5.J6.K542.AJ932 Q76.K7.9876.T987 T98.K943.QT.AK65 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 2H pass (2S, 3C, 3D, 4C, 4NT)
+2C pass 2H pass (2S, 3C, 3D, 4C, 4NT) +
 
 S:T5.J6.K542.AJ932 Q76.K7.9876.T987 K943.T98.QT.AK65 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 2S pass
+2C pass 2S pass  (3C, 3D, 4C, 4NT) +
 
 -----------
 
 S:T5.AJ932.J6.K542 Q76.K7.9876.T987 T98.K9.QT4.AK653 32.6543.AJ5.6542
 pass pass 1C pass
-1H pass 2C pass (2H, 2S, 2D, 4C, 4NT)
+1H pass 2C pass (2H, 2S, 2D, 4C, 4NT) +
 
 pass pass 1C pass
 1H pass 2D pass --nie będzie takiej sytuacji
 
 S:T5.AJ932.J6.K542 Q76.K7.9876.T987 K983.T9.QT54.AK6 32.6543.AJ5.6542
 pass pass 1C pass
-1H pass 1S pass (2H, 2C, 2D, 4C, 4NT)
+1H pass 1S pass (2H, 2C, 2D, 4C, 4NT) +
 
 S:T5.AJ932.J6.K542 Q76.K7.9876.T987 K98.T9.QT54.AK63 32.6543.AJ5.6542
 pass pass 1C pass
-1H pass 1NT pass (2C, 2D, 2H, 2S, 4C, 4NT)
+1H pass 1NT pass (2C, 2D, 2H, 2S, 4C, 4NT) +
 
 -----------
 S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T9.K9.QT84.AK653 32.6543.AJ5.6542
 pass pass 1C pass
-1S pass 2C pass (2S, 2H, 2D, 4C, 4NT)
+1S pass 2C pass (2S, 2H, 2D, 4C, 4NT) +
 
 S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T98.K9.QT4.AK653 32.6543.AJ5.6542
 pass pass 1C pass
-1S pass 2S pass (3H, 3C, 3D, 4C, 4NT)
+1S pass 2S pass (3H, 3C, 3D, 4C, 4NT) +
 
 pass pass 1C pass
 1S pass 2D pass --nie będzie takiej sytuacji
 
 S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T9.K953.QT84.AK6 32.6543.AJ5.6542
 pass pass 1C pass
-1S pass 2H pass (2S, 3C, 3D, 4C, 4NT)
+1S pass 2H pass (2S, 3C, 3D, 4C, 4NT) +
 
 S:AJ932.T5.J6.K542 Q76.K7.9876.T987 T9.K95.QT84.AK63 32.6543.AJ5.6542
 pass pass 1C pass
-1S pass 1NT pass (2C, 2D, 2H, 2S, 4C, 4NT)
+1S pass 1NT pass (2C, 2D, 2H, 2S, 4C, 4NT) +
 
 ---------------- strong
 
 S:J932.T54.J6.K542 Q76.K7.9876.T987 AQ.K95.QT8.AK643 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 3C pass (3H, 3S, 3D, 4NT)
+1D pass 3C pass (3H, 3S, 3D, 4NT) +
 
 S:J932.T54.J6.K542 Q76.K7.9876.T987 AQ.K95.AK643.QT8 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 3D pass (3H, 3S, 4C, 4NT)
+1D pass 3D pass (3H, 3S, 4C, 4NT) +
 
 S:J932.T54.J6.K542 Q76.K7.9876.T987 AQ.AK643.K95.QT8 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 2H pass (2S, 3C, 3D, 4C, 4NT)
+1D pass 2H pass (2S, 3C, 3D, 4C, 4NT) +
 
 S:J932.T54.J6.K542 Q76.K7.9876.T987 AK643.AQ.K95.QT8 32.6543.AJ5.6542
 pass pass 1C pass
-1D pass 2S pass (3H, 3C, 3D, 4C, 4NT)
+1D pass 2S pass (3H, 3C, 3D, 4C, 4NT) +
 
 ----------------
 
 S:932.T54.J6.AK542 Q76.K7.9876.T987 AQ.K95.QT8.AK643 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 4C pass (4NT)
+2C pass 4C pass (4NT) +
 
 S:932.T54.J6.AK542 Q76.K7.9876.T987 AQ8.KQ5.AK9643.T 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 3D pass (3H, 3S, 4C, 4NT)
+2C pass 3D pass (3H, 3S, 4C, 4NT) +
 
 S:932.T54.J6.AK542 Q76.K7.9876.T987 AQ8.KQ543.AK96.T 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 3H pass (3S, 4C, 4D, 4NT)
+2C pass 3H pass (3S, 4C, 4D, 4NT) +
 
 S:932.T54.J6.AK542 Q76.K7.9876.T987 KQ543.AQ8.AK96.T 32.6543.AJ5.6542
 pass pass 1C pass
-2C pass 3S pass (4C, 4D, 4H, 4NT)
+2C pass 3S pass (4C, 4D, 4H, 4NT) +
 
 ---------------
 
