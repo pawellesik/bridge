@@ -536,6 +536,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
+                shows(Bid._3D, shape(7, 13), noFitMajor(), IS_REBID, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond _3D")),
+
                 shows(Bid._2H, fit(), partner(isLastBid(Bid._1H)), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond 2H")),
                 shows(Bid._2H, shape(4, 13), noFit(), DECENT_PLUS_SUIT, IS_NEW_SUIT, ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond _2H")),
                 shows(Bid._2S, fit(), partner(isLastBid(Bid._1S)), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderChangedSuitsDiamond 2S")),
