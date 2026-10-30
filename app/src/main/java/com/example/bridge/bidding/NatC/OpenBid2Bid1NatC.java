@@ -103,6 +103,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //      1S, 1H ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
+                shows(Bid._3C, noFit(), shape(7, 13), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _3C")),
+
                 shows(Bid._2H, fit(), partner(isLastBid(Bid._1H)), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2H")),
                 shows(Bid._2S, fit(), partner(isLastBid(Bid._1S)), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenBid2NatC.responderdTrumpMajorClubStandard _2S")),
 
@@ -166,7 +168,7 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
                 shows(Bid._2S, shape(4, 13), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2S")),
                 shows(Bid._2H, shape(4, 13), DECENT_PLUS_SUIT, ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2H")),
                 shows(Bid._3C, shape(5, 13), noFit(), partner(isLastBid(Bid._2D)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStandard _3C")),
-                //shows(Bid._2D, shape(5, 13), noFit(), partner(isLastBid(Bid._2C)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2D")),
+                shows(Bid._2D, shape(5, 13), noFit(), partner(isLastBid(Bid._2C)), ruleShow(1), id("OpenBid2NatC.responderdTrumpMinorClubStandard _2D")),
                 partnerBids(RespondBid2Bid1NatC::secondBidMinorClubStandard)
         );
         choices.addRules(CompeteNatC.compBids(ps));
@@ -398,6 +400,8 @@ public class OpenBid2Bid1NatC extends OpenBid1NatC {
         //     1NT ->
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
+                shows(Bid._3C, shape(7, 13), ruleShow(1), id("OpenBid2NatC.responderd1NTClubStandard 3C")),
+
                 shows(Bid._2S, shape(5, 13), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2S")),
                 shows(Bid._2H, shape(5, 13), id("OpenBid2NatC.responderd1NTClubStandard shape(5, 10) 2H")),
 
