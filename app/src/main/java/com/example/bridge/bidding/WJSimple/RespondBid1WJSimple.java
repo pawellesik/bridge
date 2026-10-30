@@ -1,0 +1,217 @@
+package com.example.bridge.bidding.WJSimple;
+
+import com.example.bridge.bidding.Conventions.AcesAsk;
+import com.example.bridge.bidding.Tools.Bid;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.CallFeature;
+import com.example.bridge.bidding.Tools.PositionCalls;
+import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
+import com.example.bridge.bidding.Tools.Suit;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RespondBid1WJSimple extends WJSimple {
+    public static final Range RESPOND_PASS = new Range(0, 6);
+    public static final Range MINIMUM_HAND = new Range(7, 10);
+    public static final Range JUMP_HAND = new Range(11, 28);
+    public static final Range JUMP_AFTER_PASS = new Range(11, 11);
+    public static final Range WEAK_LONG = new Range(7, 10);
+
+
+    public static PositionCalls oneClub(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._1D, highCardPoints(RESPOND_PASS), ruleShow(1), id("RespondWJSimple.oneClub _1D")),
+                shows(Bid._1H, shape(6, 13), highCardPoints(MINIMUM_HAND), id("RespondWJSimple.oneClub _1H")),
+                shows(Bid._1S, shape(6, 13), highCardPoints(MINIMUM_HAND), id("RespondWJSimple.oneClub _1S")),
+
+                shows(Bid._1H, shape(5, 13), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub _1H")),
+                shows(Bid._1S, shape(5, 13), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub _1S")),
+                shows(Bid._1H, shape(5, 13), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub _1H")),
+                shows(Bid._1S, shape(5, 13), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub _1S")),
+
+                shows(Bid._2D, shape(5, 13), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub _2D")),
+                shows(Bid._2C, shape(5, 13), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub _2C")),
+                shows(Bid._2D, shape(5, 13), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub _2D")),
+                shows(Bid._2C, shape(5, 13), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub _2C")),
+
+                shows(Bid._2H, shape(5, 13), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub JUMP_AFTER_PASS _2H")),
+                shows(Bid._2S, shape(5, 13), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub JUMP_AFTER_PASS _2S")),
+                shows(Bid._3D, shape(5, 13), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub JUMP_AFTER_PASS _3D")),
+                shows(Bid._3C, shape(5, 13), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub JUMP_AFTER_PASS _3C")),
+
+                shows(Bid._2H, shape(5, 13), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub JUMP_HAND _2H")),
+                shows(Bid._2S, shape(5, 13), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub JUMP_HAND _2S")),
+                shows(Bid._3D, shape(5, 13), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub JUMP_HAND _3D")),
+                shows(Bid._3C, shape(5, 13), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub JUMP_HAND _3C")),
+
+                shows(Bid._3H, shape(7, 13), highCardPoints(WEAK_LONG), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub _3H")),
+                shows(Bid._3S, shape(7, 13), highCardPoints(WEAK_LONG), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub _3S")),
+
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneClub _2NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub _2NT")),
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), ruleShow(1), id("RespondWJSimple.oneClub _1NT")),
+
+                properties(new Call[]{Bid._1D}, OpenBid2Bid1WJSimple::responderNegat, false),
+                properties(new Call[]{Bid._1S, Bid._1H}, OpenBid2Bid1WJSimple::responderdTrumpMajorClub, false),
+                propertiesForcingToGame(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1WJSimple::responderdRaiseTrumpMajorClub, true),
+                properties(new Call[]{Bid._2C, Bid._2D}, OpenBid2Bid1WJSimple::responderdTrumpMinorClub, false),
+                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2Bid1WJSimple::responderdRaiseTrumpMinorClub, true),
+                properties(new Call[]{Bid._1NT}, OpenBid2Bid1WJSimple::responderd1NTClub, true),
+                properties(new Call[]{Bid._2NT}, OpenBid2Bid1WJSimple::responderd2NTClub, true),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2Bid1WJSimple::weakRespond, true)
+        );
+        choices.addRules(CompeteWJSimple.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls oneDiamond(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteWJSimple.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
+        choices.addRules(
+                shows(Bid._3S, shape(7, 13), highCardPoints(WEAK_LONG), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _3S")),
+                shows(Bid._3H, shape(7, 13), highCardPoints(WEAK_LONG), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _3H")),
+
+                shows(Bid._1S, shape(5, 13), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _1S")),
+                shows(Bid._1H, shape(5, 13), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _1H")),
+                shows(Bid._1S, shape(5, 13), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneDiamond _1S")),
+                shows(Bid._1H, shape(5, 13), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneDiamond _1H")),
+
+                shows(Bid._2S, shape(5, 13), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneDiamond _2S")),
+                shows(Bid._2H, shape(5, 13), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneDiamond _2H")),
+
+                shows(Bid._2S, shape(5, 13), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _2S")),
+                shows(Bid._2H, shape(5, 13), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _2H")),
+
+                shows(Bid._2D, fit(), highCardPoints(MINIMUM_HAND), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondWJSimple.oneDiamond _2D")),
+                shows(Bid._3D, fit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondWJSimple.oneDiamond _3D")),
+                shows(Bid._3D, fit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondWJSimple.oneDiamond _3D")),
+
+                shows(Bid._2C, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _2C")),
+                shows(Bid._2C, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneDiamond _2C")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneDiamond _3C")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _3C")),
+
+                shows(Bid._1NT, highCardPoints(MINIMUM_HAND), BALANCED, ruleShow(1), id("RespondWJSimple.oneDiamond _1NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, BALANCED, ruleShow(1), id("RespondWJSimple.oneDiamond _2NT")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondWJSimple.oneDiamond _3NT")),
+                shows(Bid._2NT, highCardPoints(JUMP_HAND), BALANCED, not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _2NT")),
+
+                propertiesAgreeTrump(new Call[]{Bid._2D}, OpenBid2Bid1WJSimple::responderdTrumpMinorDiamod2D, true),
+                propertiesAgreeTrump(new Call[]{Bid._3D}, OpenBid2Bid1WJSimple::responderdTrumpMinorDiamod3D, true),
+                properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2Bid1WJSimple::responderChangedSuitsDiamond, false),
+                propertiesForcingToGame(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsMajorDiamond, true),
+                properties(new Call[]{Bid._3C}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsMinorDiamond, false),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2Bid1WJSimple::weakRespond, false),
+                properties(new Call[]{Bid._1NT}, RecursionWJSimple::recursionFindFitGame, false),
+                properties(new Call[]{Bid._2NT}, RecursionWJSimple::recursionFindFitGame, true)
+        );
+        choices.addRules(CompeteWJSimple.compBids(ps));
+        return choices;
+    }
+
+
+    public static PositionCalls oneHeart(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteWJSimple.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
+        choices.addRules(
+                shows(Bid._4H, highCardPoints(MINIMUM_HAND), fit(9), secondSuit(Suit.Hearts, 5), setTrumpColor(Suit.Hearts), id("RespondWJSimple.oneHeart _4H")),
+
+                shows(Bid._3S, highCardPoints(WEAK_LONG), noFit(), not(PASSED_HAND), shape(7, 13), ruleShow(1), id("RespondWJSimple.oneHeart WEAK_LONG _3S")),
+
+                shows(Bid._2H, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondWJSimple.oneHeart _2H")),
+                shows(Bid._3H, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondWJSimple.oneHeart _3H")),
+                shows(Bid._3H, highCardPoints(JUMP_HAND), fit(), setTrumpColor(Suit.Hearts), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _3H")),
+
+                shows(Bid._1S, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _1S")),
+                shows(Bid._1S, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneHeart _1S")),
+                shows(Bid._2D, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _2D")),
+                shows(Bid._2D, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneHeart _2D")),
+                shows(Bid._2C, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _2C")),
+                shows(Bid._2C, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneHeart _2C")),
+
+                shows(Bid._2S, shape(5, 13), noFit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneHeart _2S")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneHeart _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneHeart _3D")),
+                shows(Bid._2S, shape(5, 13), noFit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _2S")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _3D")),
+
+                shows(Bid._1NT, BALANCED, highCardPoints(MINIMUM_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _1NT")),
+                shows(Bid._2NT, BALANCED, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneHeart _2NT")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondWJSimple.oneSpade _3NT")),
+                shows(Bid._2NT, BALANCED, highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _2NT")),
+
+                propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2Bid1WJSimple::responderTrumpMajorHeart, true),
+                properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2Bid1WJSimple::responderChangedSuitsHeart, false),
+                propertiesForcingToGame(new Call[]{Bid._2S}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsToSpadeHeart, true),
+                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsToMinorHeart, false),
+                properties(new Call[]{Bid._3S}, OpenBid2Bid1WJSimple::weakRespond, false),
+                properties(new Call[]{Bid._1NT}, RecursionWJSimple::recursionFindFitGame, false),
+                properties(new Call[]{Bid._2NT}, RecursionWJSimple::recursionFindFitGame, true)
+        );
+        choices.addRules(CompeteWJSimple.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls oneSpade(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        List<CallFeature> conventions = new ArrayList<>();
+        CompeteWJSimple.addAcesAskConventions(ps, conventions);
+        choices.addRules(conventions);
+        choices.addRules(
+                shows(Bid._4S, highCardPoints(MINIMUM_HAND), fit(9), secondSuit(Suit.Spades, 5), setTrumpColor(Suit.Spades), id("RespondWJSimple.oneSpade _2S")),
+
+                shows(Bid._2S, highCardPoints(MINIMUM_HAND), fit(), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondWJSimple.oneSpade _2S")),
+                shows(Bid._3S, highCardPoints(JUMP_AFTER_PASS), fit(), PASSED_HAND, setTrumpColor(Suit.Spades), ruleShow(1), id("RespondWJSimple.oneSpade _3S")),
+                shows(Bid._3S, highCardPoints(JUMP_HAND), not(PASSED_HAND), setTrumpColor(Suit.Spades), ruleShow(1), id("RespondWJSimple.oneSpade _3S")),
+
+                shows(Bid._2H, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _2H")),
+                shows(Bid._2H, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneSpade _2H")),
+                shows(Bid._2D, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _2D")),
+                shows(Bid._2D, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneSpade _2D")),
+                shows(Bid._2C, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _2C")),
+                shows(Bid._2C, shape(5, 13), noFit(), highCardPoints(MINIMUM_HAND), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneSpade _2C")),
+
+                shows(Bid._3H, shape(5, 13), noFit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneSpade _3H")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneSpade _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneSpade _3D")),
+                shows(Bid._3H, shape(5, 13), noFit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _3H")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _3D")),
+
+                shows(Bid._1NT, BALANCED, highCardPoints(MINIMUM_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _1NT")),
+                shows(Bid._2NT, BALANCED, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneSpade _2NT")),
+                shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondWJSimple.oneSpade _3NT")),
+                shows(Bid._2NT, BALANCED, highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _2NT")),
+
+                propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2Bid1WJSimple::responderTrumpMajorSpade, true),
+                properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2Bid1WJSimple::responderChangedSuitsSpade, false),
+                propertiesForcingToGame(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsSpade, true),
+                properties(new Call[]{Bid._1NT}, RecursionWJSimple::recursionFindFitGame, false),
+                properties(new Call[]{Bid._2NT}, RecursionWJSimple::recursionFindFitGame, true)
+        );
+        choices.addRules(CompeteWJSimple.compBids(ps));
+        return choices;
+    }
+
+    public static Iterable<CallFeature> weakOpen(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
+        bids.add(shows(Bid._4H, FIT_8_PLUS, setTrumpColor(Suit.Hearts), ruleOf17(), id("RespondWJSimple.weakOpen _4H")));
+        bids.add(shows(Bid._4H, fit(10), setTrumpColor(Suit.Hearts), id("RespondWJSimple.weakOpen _4H")));
+        bids.add(shows(Bid._4S, FIT_8_PLUS, setTrumpColor(Suit.Spades), ruleOf17(), id("RespondWJSimple.weakOpen _4S")));
+        bids.add(shows(Bid._4S, fit(10), setTrumpColor(Suit.Spades), id("RespondWJSimple.weakOpen _4S")));
+        bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), fit(10), setTrumpColor(Suit.Clubs), id("RespondWJSimple.weakOpen _5C")));
+        bids.add(shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), fit(10), setTrumpColor(Suit.Diamonds), id("RespondWJSimple.weakOpen _5C")));
+        for (CallFeature cf : CompeteWJSimple.compBids(ps)) {
+            bids.add(cf);
+        }
+        return bids;
+    }
+}

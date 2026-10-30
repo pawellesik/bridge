@@ -28,6 +28,7 @@ public class PbnCollection {
     private Pbn pbn;
     private Pbn pbnNatC;
     private Pbn pbnNatCRev;
+    private Pbn pbnWJSimple;
     private Pbn pbnLCStandard;
     private Pbn pbnLCStandardRev;
     private Pbn pbnSayc;
@@ -70,6 +71,11 @@ public class PbnCollection {
         this.pbnSaycRev.setPlayerNames("SAYC rev", "SAYC rev", "SAYC rev", "SAYC rev");
         this.pbnSaycRev.setBidSystemNS("SAYC");
         this.pbnSaycRev.setBidSystemEW("PassOnly");
+
+        this.pbnWJSimple = new Pbn(gameActivity, "WJSimple");
+        this.pbnWJSimple.setPlayerNames("WJSimple W", "WJSimple N", "WJSimple E", "WJSimple S");
+        this.pbnWJSimple.setBidSystemNS("WJSimple");
+        this.pbnWJSimple.setBidSystemEW("PassOnly");
     }
 
     public void initQiuckPbn(){
@@ -255,6 +261,9 @@ public class PbnCollection {
         }
     }
 
+    //todo nalezy sprawdzac ile razy dany kontrakt wystapil, tak ze polowa gra normalnie a druga
+    // polowa gra z kartami mieszanymi, jesli sa 3 takie same rozdania to 1 jest normalnie a 2
+    // mieszane
     private boolean isContractAlreadyPlayed(Contract contract, String declarerName, Pbn targetPbn) {
         if (contract == null || contract.isPass()) return false;
 
@@ -576,6 +585,10 @@ public class PbnCollection {
 
     public Pbn getPbnNatC() {
         return pbnNatC;
+    }
+
+    public Pbn getPbnWJSimple() {
+        return pbnWJSimple;
     }
 
     public Pbn getPbnLCStandard() {
