@@ -28,8 +28,6 @@ public class PbnCollection {
     private Pbn pbn;
     private Pbn pbnNatC;
     private Pbn pbnNatCRev;
-    private Pbn pbnWj2025Simple;
-    private Pbn pbnWj2025;
     private Pbn pbnLCStandard;
     private Pbn pbnLCStandardRev;
     private Pbn pbnSayc;
@@ -72,9 +70,6 @@ public class PbnCollection {
         this.pbnSaycRev.setPlayerNames("SAYC rev", "SAYC rev", "SAYC rev", "SAYC rev");
         this.pbnSaycRev.setBidSystemNS("SAYC");
         this.pbnSaycRev.setBidSystemEW("PassOnly");
-
-        //this.pbnWj2025Simple = new Pbn(gameActivity, "Wj2025Simple");
-        //this.pbnWj2025 = new Pbn(gameActivity, "Wj2025");
     }
 
     public void initQiuckPbn(){
@@ -581,14 +576,6 @@ public class PbnCollection {
 
     public Pbn getPbnNatC() {
         return pbnNatC;
-    }
-
-    public Pbn getPbnWj2025Simple() {
-        return pbnWj2025Simple;
-    }
-
-    public Pbn getPbnWj2025() {
-        return pbnWj2025;
     }
 
     public Pbn getPbnLCStandard() {
