@@ -142,6 +142,9 @@ public class PairMaxShape {
                 if (fMax != null) {
                     myMax = Math.min(myMax, fMax);
                 }
+                if (myMin > myMax) {
+                    myMin = myMax;
+                }
                 String val;
                 if (myMin == myMax) {
                     val = String.valueOf(myMin);
