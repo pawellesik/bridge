@@ -44,6 +44,8 @@ public class SingleGameBidding {
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final AuctionBiddingHelper auctionBiddingHelper;
 
+    private String selectedBidSystemNS = "NatC";
+
     public SingleGameBidding(GameActivity activity) {
         this.activity = activity;
         this.auctionBiddingHelper = new AuctionBiddingHelper(activity);
@@ -51,33 +53,64 @@ public class SingleGameBidding {
     }
 
     private void setupSystemSelectionListeners() {
+        View cardNatc = activity.findViewById(R.id.system_natc);
         View cardWj = activity.findViewById(R.id.system_wj);
         View cardSayc = activity.findViewById(R.id.system_sayc);
-        View cardNatc = activity.findViewById(R.id.system_natc);
 
-        if (cardWj == null) return;
+        if (cardNatc == null) return;
+
+        // Load saved bidding system from SettingsManager
+        String savedSystem = com.example.bridge.core.SettingsManager.getInstance(activity).getBiddingSystem();
+        if ("WJSimple".equalsIgnoreCase(savedSystem) || "WJ".equalsIgnoreCase(savedSystem)) {
+            selectedBidSystemNS = "WJSimple";
+        } else {
+            selectedBidSystemNS = "NatC";
+        }
+
+        resetSystemSelection();
+        if ("WJSimple".equals(selectedBidSystemNS)) {
+            if (cardWj != null) cardWj.setBackgroundResource(R.drawable.bg_system_card_selected);
+            View checkWj = activity.findViewById(R.id.iv_wj_check);
+            if (checkWj != null) checkWj.setVisibility(View.VISIBLE);
+        } else {
+            if (cardNatc != null) cardNatc.setBackgroundResource(R.drawable.bg_system_card_selected);
+            View checkNatc = activity.findViewById(R.id.iv_natc_check);
+            if (checkNatc != null) checkNatc.setVisibility(View.VISIBLE);
+        }
 
         View.OnClickListener listener = v -> {
+            int vid = v.getId();
+            if (vid == R.id.system_sayc) {
+                android.widget.Toast.makeText(activity, "SAYC - dostępne wkrótce", android.widget.Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             resetSystemSelection();
             v.setBackgroundResource(R.drawable.bg_system_card_selected);
             int checkId = -1;
-            int vid = v.getId();
-            if (vid == R.id.system_wj) checkId = R.id.iv_wj_check;
-            else if (vid == R.id.system_sayc) checkId = R.id.iv_sayc_check;
-            else if (vid == R.id.system_natc) checkId = R.id.iv_natc_check;
+            if (vid == R.id.system_natc) {
+                checkId = R.id.iv_natc_check;
+                selectedBidSystemNS = "NatC";
+            } else if (vid == R.id.system_wj) {
+                checkId = R.id.iv_wj_check;
+                selectedBidSystemNS = "WJSimple";
+            }
 
             View check = activity.findViewById(checkId);
             if (check != null) check.setVisibility(View.VISIBLE);
+
+            // Save choice to SettingsManager
+            com.example.bridge.core.SettingsManager.getInstance(activity).setBiddingSystem(selectedBidSystemNS);
         };
 
-        cardWj.setOnClickListener(listener);
-        cardSayc.setOnClickListener(listener);
         cardNatc.setOnClickListener(listener);
+        cardWj.setOnClickListener(listener);
+        if (cardSayc != null) cardSayc.setOnClickListener(listener);
     }
 
     private void resetSystemSelection() {
-        int[] cardIds = {R.id.system_wj, R.id.system_sayc, R.id.system_natc};
-        int[] checkIds = {R.id.iv_wj_check, R.id.iv_sayc_check, R.id.iv_natc_check};
+        int[] cardIds = {R.id.system_natc, R.id.system_wj};
+        int[] checkIds = {R.id.iv_natc_check, R.id.iv_wj_check};
         for (int i = 0; i < cardIds.length; i++) {
             View card = activity.findViewById(cardIds[i]);
             if (card != null) card.setBackgroundResource(R.drawable.bg_system_card_unselected);
@@ -107,10 +140,10 @@ public class SingleGameBidding {
         Map<String, List<Card>> hands = activity.getGameController().getHandsMap();
         activity.getPbnCollection().getPbn().initNewGame(hands, activity.getGameMode());
         activity.getPbnCollection().getPbn().setDealer(dealerDir.toString());
-        activity.getPbnCollection().getPbn().setBidSystemNS("NatC");
+        activity.getPbnCollection().getPbn().setBidSystemNS(selectedBidSystemNS);
         activity.getPbnCollection().getPbn().setBidSystemEW("PassOnly");
         activity.getPbnCollection().getPbn().setPlayerNames("West", "North", "East", "South");
-        game.bidSystemNS = "NatC";
+        game.bidSystemNS = selectedBidSystemNS;
         game.bidSystemEW = "PassOnly";
 
         activity.getPbnCollection().initAllPbn();

@@ -129,21 +129,32 @@ public class SettingsManager {
 
 
     // --- BIDDING SYSTEM ---
+    private String cachedBiddingSystem = null;
+
     public String getBiddingSystem() {
+        if (cachedBiddingSystem != null) {
+            return cachedBiddingSystem;
+        }
         try {
-            return dataStoreManager.getPreference(DataStoreManager.BIDDING_SYSTEM, "SAYC")
+            String val = dataStoreManager.getPreference(DataStoreManager.BIDDING_SYSTEM, "NatC")
                     .firstOrError()
-                    .onErrorReturnItem("SAYC")
+                    .onErrorReturnItem("NatC")
                     .blockingGet();
+            cachedBiddingSystem = val;
+            return val;
         } catch (Exception e) {
-            return "SAYC";
+            return "NatC";
         }
     }
 
     public void setBiddingSystem(String system) {
-        dataStoreManager.setPreference(DataStoreManager.BIDDING_SYSTEM, system)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+        cachedBiddingSystem = system;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.BIDDING_SYSTEM, system)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
     }
 
     // --- LOAD FROM TEST.PBN ---

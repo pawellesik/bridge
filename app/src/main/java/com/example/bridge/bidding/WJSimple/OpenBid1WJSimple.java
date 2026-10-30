@@ -38,26 +38,26 @@ public class OpenBid1WJSimple extends WJSimple {
         bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
 
         if (ps.getSeat() < 3) {
-            bids.add(shows(Bid._1S, shape(6, 13), OpenBidding, id("OpenWJSimple.openSuit _1S")));
-            bids.add(shows(Bid._1H, shape(6, 13), OpenBidding, id("OpenWJSimple.openSuit _1H")));
-            bids.add(shows(Bid._1S, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1S")));
-            bids.add(shows(Bid._1H, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1H")));
-            bids.add(shows(Bid._1D, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-            bids.add(shows(Bid._1C, OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
+            bids.add(shows(Bid._2S, shape(6, 13), OpenBidding, id("OpenWJSimple.openSuit _1S")));
+            bids.add(shows(Bid._2H, shape(6, 13), OpenBidding, id("OpenWJSimple.openSuit _1H")));
+            bids.add(shows(Bid._2S, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1S")));
+            bids.add(shows(Bid._2H, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1H")));
+            bids.add(shows(Bid._2D, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
+            bids.add(shows(Bid._2C, OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
         } else if (ps.getSeat() >= 3) {
-            bids.add(shows(Bid._1S, shape(6, 13), OpenBiddingThirtSeat, id("OpenWJSimple.openSuit _1S")));
-            bids.add(shows(Bid._1H, shape(6, 13), OpenBiddingThirtSeat, id("OpenWJSimple.openSuit _1H")));
-            bids.add(shows(Bid._1S, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1S")));
-            bids.add(shows(Bid._1H, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1H")));
-            bids.add(shows(Bid._1D, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1D")));
-            bids.add(shows(Bid._1C, OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1C")));
+            bids.add(shows(Bid._2S, shape(6, 13), OpenBiddingThirtSeat, id("OpenWJSimple.openSuit _1S")));
+            bids.add(shows(Bid._2H, shape(6, 13), OpenBiddingThirtSeat, id("OpenWJSimple.openSuit _1H")));
+            bids.add(shows(Bid._2S, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1S")));
+            bids.add(shows(Bid._2H, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1H")));
+            bids.add(shows(Bid._2D, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1D")));
+            bids.add(shows(Bid._2C, OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1C")));
         }
         bids.add(shows(Call.PASS, DontOpen, id("OpenWJSimple.openSuit _PASS")));
 
-        bids.add(partnerBids(Bid._1S, RespondBid1WJSimple::oneSpade));
-        bids.add(partnerBids(Bid._1H, RespondBid1WJSimple::oneHeart));
-        bids.add(partnerBids(Bid._1D, RespondBid1WJSimple::oneDiamond));
-        bids.add(partnerBids(Bid._1C, RespondBid1WJSimple::oneClub));
+        bids.add(partnerBids(Bid._2S, RespondBid1WJSimple::oneSpade));
+        bids.add(partnerBids(Bid._2H, RespondBid1WJSimple::oneHeart));
+        bids.add(partnerBids(Bid._2D, RespondBid1WJSimple::oneDiamond));
+        bids.add(partnerBids(Bid._2C, RespondBid1WJSimple::oneClub));
 
         return bids;
     }
