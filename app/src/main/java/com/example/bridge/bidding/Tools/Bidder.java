@@ -35,6 +35,7 @@ import com.example.bridge.bidding.Constraints.RuleOf17;
 import com.example.bridge.bidding.Constraints.RuleOf9;
 import com.example.bridge.bidding.Constraints.SetTrumpSuit;
 import com.example.bridge.bidding.Constraints.Shape;
+import com.example.bridge.bidding.Constraints.Shape4441;
 import com.example.bridge.bidding.Constraints.SumPairAcesAndKings;
 import com.example.bridge.bidding.Constraints.TakeoutSuit;
 import com.example.bridge.bidding.Constraints.TwoSuiter;
@@ -610,6 +611,11 @@ public abstract class Bidder {
     public static final HandConstraint FLAT = new Flat.ShowsFlat(true);
     public static final HandConstraint NOT_FLAT = new Flat.ShowsFlat(false);
     public static final HandConstraint LONGEST_SUIT = new LongestSuit.ShowsLongestSuit(null);
+    public static final HandConstraint SHAPE_4441 = new Shape4441.Shows4441();
+
+    public static HandConstraint shape4441() {
+        return SHAPE_4441;
+    }
 
     public static HandConstraint longerThan(Suit worse) {
         return new BetterSuit.ShowsBetterSuit(null, worse, worse, true);

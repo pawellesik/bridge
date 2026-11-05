@@ -1,0 +1,299 @@
+# ==============================================================================
+# SEKCJA: 2NT (Otwarcie 2NT na młodszych 5-5 słabe 6-10 HCP)
+# ==============================================================================
+
+[Event "OpenWJSimple 2NT - Młodsze 5-5 słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:4.74.QJ987.AJ987 862.86.A43.AT853 AK975.A2.K853.64 JT3.KQJ53.T6.J72"]
+[Auction "N"]
+2NT Pass Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 2S (Otwarcie 2S dwukolorowe słabe 5-5, 6-10 HCP)
+# ==============================================================================
+
+[Event "OpenWJSimple 2S - Piki i Trefle 5-5 słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QJ987.74.4.QJ987 862.86.A43.T8532 975.A2.J853.7642 T3.KQJ543.T976.A"]
+[Auction "N"]
+2S Pass Pass Pass
+
+[Event "OpenWJSimple 2S - Piki i Kara 5-5 słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QJ987.74.QJ987.4 862.86.A43.T8532 975.A2.J853.7642 T3.KQJ543.T976.A"]
+[Auction "N"]
+2S Pass Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 2H (Otwarcie 2H dwukolorowe słabe 5-5, 6-10 HCP)
+# ==============================================================================
+
+[Event "OpenWJSimple 2H - Kiery i Trefle 5-5 słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:74.QJ987.4.QJ987 862.86.A43.T8532 975.A2.J853.7642 JT3.T543.T9762.A"]
+[Auction "N"]
+2H Pass Pass Pass
+
+[Event "OpenWJSimple 2H - Kiery i Kara 5-5 słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:74.QJ987.QJ987.4 862.86.A43.T8532 975.A2.J853.7642 JT3.T543.T9762.A"]
+[Auction "N"]
+2H Pass Pass Pass
+
+[Event "OpenWJSimple 2H - Kiery i Piki 5-5 słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QJ987.QJ987.4.74 862.86.A43.T8532 975.A2.J853.7642 JT3.T543.T9762.A"]
+[Auction "N"]
+2H Pass Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 2D (Otwarcie 2D słabe 6+ w kolorze starszym, 6-10 HCP - Wilkosz/Multi)
+# ==============================================================================
+
+[Event "OpenWJSimple 2D - 6+ Piki słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQJ987.74.82.742 862.86.K43.T8532 975.A2.J853.Q964 AT3.T543.AT976.J"]
+[Auction "N"]
+2D Pass Pass Pass
+
+[Event "OpenWJSimple 2D - 6+ Kiery słabe (6-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:74.KQJ987.82.742 862.86.K43.T8532 975.A2.J853.Q964 AT3.T543.AT976.J"]
+[Auction "N"]
+2D Pass Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 2C (Otwarcie 2C - Precision/WJ, 11-14 HCP)
+# ==============================================================================
+
+[Event "OpenWJSimple 2C - 5+ Trefle i 4+ Kiery (11-14 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A4.KJ73.82.QJ974 862.86.K43.T8532 975.92.J853.A642 JT3.AQT5.AT976.8"]
+[Auction "N"]
+2C Pass Pass Pass
+
+[Event "OpenWJSimple 2C - 5+ Trefle i 4+ Piki (11-14 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KJ73.A4.82.QJ974 862.86.K43.T8532 975.92.J853.A642 JT3.AQT5.AT976.8"]
+[Auction "N"]
+2C Pass Pass Pass
+
+[Event "OpenWJSimple 2C - 6+ Trefle (11-14 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A4.K3.J52.QJ9742 862.86.K43.T8532 975.92.853.A6432 JT3.AQJ5.AT976.8"]
+[Auction "N"]
+2C Pass Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 1S (Otwarcie 1S - 12-17 HCP poz. 1-2, 11-17 HCP poz. 3-4)
+# ==============================================================================
+
+[Event "OpenWJSimple 1S - 6+ Piki (12-17 HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK9854.T92.KQT.3 Q76.K7.9876.T987 32.6543.J542.J65 JT.AQJ.A3.AKQ842"]
+[Auction "N"]
+1S Pass Pass Pass
+
+[Event "OpenWJSimple 1S - 5+ Piki (12-17 HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.T92.KQT.32 Q76.K7.9876.T987 43.654.J542.J654 JT52.AQJ83.A3.AK"]
+[Auction "N"]
+1S Pass Pass Pass
+
+[Event "OpenWJSimple 1S - 6+ Piki (11-17 HCP, poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K98542.T92.KQT.3 Q76.K7.9876.T987 32.654.J542.J654 AT.AQJ.A3.AKQ862"]
+[Auction "N"]
+PASS PASS 1S Pass
+Pass Pass
+
+[Event "OpenWJSimple 1S - 5+ Piki (11-17 HCP, poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K9854.T92.KQT.32 Q76.K7.9876.T987 32.654.J542.J654 AT.AQJ.A3.AKQ862"]
+[Auction "N"]
+PASS PASS 1S Pass
+Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 1H (Otwarcie 1H - 12-17 HCP poz. 1-2, 11-17 HCP poz. 3-4)
+# ==============================================================================
+
+[Event "OpenWJSimple 1H - 6+ Kiery (12-17 HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:T2.AK9854.KQT.32 862.K86.AQ4.K753 753.5.J742.J9862 AKQJ94.QJT97.3.A"]
+[Auction "N"]
+1H Pass Pass Pass
+
+[Event "OpenWJSimple 1H - 5+ Kiery (12-17 HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:QT.AQJ73.K962.J4 862.K86.AQ4.K753 7543.5.J742.T986 AK96.T984.A853.A"]
+[Auction "N"]
+1H Pass Pass Pass
+
+[Event "OpenWJSimple 1H - 6+ Kiery (11-17 HCP, poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:T2.K98542.KQT.32 862.K86.AQ4.K753 753.5.J742.J9862 AKQJ94.QJT97.3.A"]
+[Auction "N"]
+PASS PASS 1H Pass
+Pass Pass
+
+[Event "OpenWJSimple 1H - 5+ Kiery (11-17 HCP, poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:T2.K9854.KQT.J42 862.K86.AQ4.K753 7532.5.J742.T986 AKQJ9.QJT97.3.AK"]
+[Auction "N"]
+PASS PASS 1H Pass
+Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 1D (Otwarcie 1D - 12-17 HCP poz. 1-2, 11-17 HCP poz. 3-4)
+# ==============================================================================
+
+[Event "OpenWJSimple 1D - 5+ Kara (12-17 HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A4.K73.AQJ73.J42 862.Q86.K4.K7532 9753.T92.95.8654 QJ2.AJ54.T862.KT"]
+[Auction "N"]
+1D Pass Pass Pass
+
+[Event "OpenWJSimple 1D - 4 Kara + 5 Trefli (12-13 HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K4.73.AQJ7.K9432 862.Q86.K4.K7532 9753.T92.95.8654 QJ2.AJ54.T862.KT"]
+[Auction "N"]
+1D Pass Pass Pass
+
+[Event "OpenWJSimple 1D - Układ 4-4-4-1 (12-17 HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K942.AQJ7.KJ42.3 862.Q86.K4.K7532 9753.T92.95.8654 QJ2.543.T862.AKJT"]
+[Auction "N"]
+1D Pass Pass Pass
+
+[Event "OpenWJSimple 1D - 5+ Kara (11-17 HCP, poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A4.732.KJ973.J42 862.Q86.K4.K7532 9753.T92.95.8654 QJ2.AJ54.T862.KT"]
+[Auction "N"]
+PASS PASS 1D Pass
+Pass Pass
+
+[Event "OpenWJSimple 1D - 4 Kara + 5 Trefli (11-13 HCP, poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K4.73.KJ97.Q9432 862.Q86.K4.K7532 9753.T92.95.8654 QJ2.AJ54.T862.KT"]
+[Auction "N"]
+PASS PASS 1D Pass
+Pass Pass
+
+[Event "OpenWJSimple 1D - Układ 4-4-4-1 (11-17 HCP, poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K942.QJ73.KJ42.3 862.Q86.K4.K7532 9753.T92.95.8654 QJ2.543.T862.AKJT"]
+[Auction "N"]
+PASS PASS 1D Pass
+Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 1C (Otwarcie 1C - 12-13 zrównoważone, 14-17 z 5+ trefli, lub 18+ silne)
+# ==============================================================================
+
+[Event "OpenWJSimple 1C - 12-13 HCP zrównoważone (poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A43.K73.K92.QJ73 862.Q86.A4.K8532 975.T92.J85.9642 QJ2.AJ54.QT76.KT"]
+[Auction "N"]
+1C Pass Pass Pass
+
+[Event "OpenWJSimple 1C - 14-17 HCP z 5+ Trefli (poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A4.K73.K92.AQJ73 862.Q86.A4.K8532 975.T92.J85.9642 QJ2.AJ54.QT76.KT"]
+[Auction "N"]
+1C Pass Pass Pass
+
+[Event "OpenWJSimple 1C - Silne otwarcie 1C (18+ HCP, poz. 1-2)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKQ.AKQ.AKJ.T982 765.765.765.7654 432.432.432.5432 JT9.JT9.QT98.AKJ"]
+[Auction "N"]
+1C Pass Pass Pass
+
+[Event "OpenWJSimple 1C - 11-13 HCP zrównoważone (poz. 3-4 po pasie)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A43.K73.J92.QJ73 862.Q86.A4.K8532 975.T92.J85.9642 QJ2.AJ54.QT76.KT"]
+[Auction "N"]
+PASS PASS 1C Pass
+Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: 3C, 3D, 3H, 3S (Otwarcia blokujące 3. poziomu, 6-10 HCP)
+# ==============================================================================
+
+[Event "OpenWJSimple 3C - Otwarcie blokujące 3C"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:4.742.82.KQJ9874 862.86.A43.AT853 975.A2.J853.6421 JT3.KQJ54.KT97.A"]
+[Auction "N"]
+3C Pass Pass Pass
+
+[Event "OpenWJSimple 3D - Otwarcie blokujące 3D"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:4.742.KQJ9874.82 862.86.A43.AT853 975.A2.J8.964321 JT3.KQJ54.T65.A"]
+[Auction "N"]
+3D Pass Pass Pass
+
+[Event "OpenWJSimple 3H - Otwarcie blokujące 3H"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:4.KQJ9874.82.742 862.86.A43.AT853 975.A2.J85.96432 JT3.T53.KT976.A"]
+[Auction "N"]
+3H Pass Pass Pass
+
+[Event "OpenWJSimple 3S - Otwarcie blokujące 3S"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQJ9874.4.82.742 862.86.A43.AT853 953.A2.J85.Q9642 JT.KQJT53.T976.A"]
+[Auction "N"]
+3S Pass Pass Pass
+
+
+# ==============================================================================
+# SEKCJA: PASS (Pas na otwarciu - 0-10 HCP)
+# ==============================================================================
+
+[Event "OpenWJSimple PASS - Pas na otwarciu (0-10 HCP)"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:J4.K73.J92.QJ732 Q76.K7.9876.T987 985.T92.542.6543 AK32.A643.AKQ.AK"]
+[Auction "N"]
+PASS Pass Pass Pass
