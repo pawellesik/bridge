@@ -24,11 +24,11 @@ import java.util.Collection;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-public class PlesikTest {
+public class PlesikTestNatC {
 
     private final PBNTest test;
 
-    public PlesikTest(PBNTest test) {
+    public PlesikTestNatC(PBNTest test) {
         this.test = test;
     }
 

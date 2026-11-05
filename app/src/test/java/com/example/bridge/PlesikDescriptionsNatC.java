@@ -8,7 +8,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.Set;
 
-public class PlesikDescriptions {
+public class PlesikDescriptionsNatC {
 
     @Test
     public void testAILicytacja() throws Exception {
