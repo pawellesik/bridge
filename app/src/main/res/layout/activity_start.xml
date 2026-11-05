@@ -161,7 +161,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Trening i nauka systemów licytacji"
+                    android:text="@string/single_player_desc"
                     android:textColor="#80FFFFFF"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="@id/tv_title_2"
@@ -212,7 +212,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rywalizacja z innymi graczami"
+                    android:text="@string/multiplayer_desc"
                     android:textColor="#80FFFFFF"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="@id/tv_title_multi"
@@ -295,7 +295,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Stwórz własne rozdanie kart"
+                        android:text="@string/create_deal_desc"
                         android:textColor="#80FFFFFF"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="@id/tv_title_create"
@@ -345,7 +345,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dostosuj parametry gry"
+                        android:text="@string/settings_desc"
                         android:textColor="#80FFFFFF"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="@id/tv_title_settings"
@@ -395,7 +395,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Informacje o aplikacji"
+                        android:text="@string/about_desc"
                         android:textColor="#80FFFFFF"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="@id/tv_title_about"

@@ -39,6 +39,7 @@ public class StartActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_lang_en).setOnClickListener(v -> changeLanguage("en"));
         findViewById(R.id.btn_lang_pl).setOnClickListener(v -> changeLanguage("pl"));
+        updateLanguageButtonStates();
 
         findViewById(R.id.btn_start).setOnClickListener(v -> launchGame("quick"));
         findViewById(R.id.btn_single).setOnClickListener(v -> launchGame("single"));
@@ -82,10 +83,31 @@ public class StartActivity extends AppCompatActivity {
 
         if (loadingIndicator != null) loadingIndicator.setVisibility(View.GONE);
         if (menuContainer != null) menuContainer.setVisibility(View.VISIBLE);
+        updateLanguageButtonStates();
+    }
+
+    private void updateLanguageButtonStates() {
+        String currentLang = LocaleHelper.getLanguage(this);
+        View btnEn = findViewById(R.id.btn_lang_en);
+        View btnPl = findViewById(R.id.btn_lang_pl);
+
+        if (btnEn != null && btnPl != null) {
+            if ("pl".equalsIgnoreCase(currentLang)) {
+                btnEn.setAlpha(0.5f);
+                btnPl.setAlpha(1.0f);
+            } else {
+                btnEn.setAlpha(1.0f);
+                btnPl.setAlpha(0.5f);
+            }
+        }
     }
 
     private void changeLanguage(String lang) {
+        String currentLang = LocaleHelper.getLanguage(this);
+        if (currentLang != null && currentLang.equalsIgnoreCase(lang)) {
+            return; // Already selected, do nothing
+        }
         LocaleHelper.setLocale(this, lang);
-        recreate(); // Refresh activity to apply new strings
+        recreate();
     }
 }

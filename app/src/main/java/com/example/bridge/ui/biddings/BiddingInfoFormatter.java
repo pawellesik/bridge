@@ -315,22 +315,62 @@ public class BiddingInfoFormatter {
         String trimmed = clause.trim();
         String lower = trimmed.toLowerCase();
 
+        boolean isPl = (context != null)
+                ? com.example.bridge.core.LocaleHelper.getLanguage(context).equalsIgnoreCase("pl")
+                : java.util.Locale.getDefault().getLanguage().equalsIgnoreCase("pl");
+
         if (trimmed.equalsIgnoreCase("Ask for Aces") || trimmed.equalsIgnoreCase("Ask about aces") || trimmed.equalsIgnoreCase("Pytanie o asy")) {
-            return context != null ? context.getString(R.string.ask_for_aces) : "Pytanie o asy";
+            return context != null ? context.getString(R.string.ask_for_aces) : (isPl ? "Pytanie o asy" : "Ask for Aces");
         }
         if (trimmed.equalsIgnoreCase("Ask for Kings") || trimmed.equalsIgnoreCase("Ask about kings") || trimmed.equalsIgnoreCase("Pytanie o króle")) {
-            return context != null ? context.getString(R.string.ask_for_kings) : "Pytanie o króle";
+            return context != null ? context.getString(R.string.ask_for_kings) : (isPl ? "Pytanie o króle" : "Ask for Kings");
         }
 
-        if (lower.startsWith("aces:")) {
-            String val = normalizeCommaRangeToDash(trimmed.substring(5).trim());
-            String prefix = (context != null) ? context.getString(R.string.public_knowledge_aces, "").replace("%1$s", "").trim() : "Asy:";
+        if (lower.startsWith("aces:") || lower.startsWith("asy:")) {
+            int idx = trimmed.indexOf(':');
+            String val = idx >= 0 ? normalizeCommaRangeToDash(trimmed.substring(idx + 1).trim()) : "";
+            String prefix = (context != null) ? context.getString(R.string.public_knowledge_aces, "").replace("%1$s", "").trim() : (isPl ? "Asy:" : "Aces:");
             return prefix + " " + val;
         }
-        if (lower.startsWith("kings:")) {
-            String val = normalizeCommaRangeToDash(trimmed.substring(6).trim());
-            String prefix = (context != null) ? context.getString(R.string.public_knowledge_kings, "").replace("%1$s", "").trim() : "Króle:";
+        if (lower.startsWith("kings:") || lower.startsWith("króle:") || lower.startsWith("krole:")) {
+            int idx = trimmed.indexOf(':');
+            String val = idx >= 0 ? normalizeCommaRangeToDash(trimmed.substring(idx + 1).trim()) : "";
+            String prefix = (context != null) ? context.getString(R.string.public_knowledge_kings, "").replace("%1$s", "").trim() : (isPl ? "Króle:" : "Kings:");
             return prefix + " " + val;
+        }
+
+        if (isPl) {
+            if (lower.equals("balanced")) return "zrównoważony";
+            if (lower.equals("not balanced") || lower.equals("not_balanced")) return "niezrównoważony";
+            if (lower.equals("new suit")) return "nowy kolor";
+            if (lower.equals("not a jump bid")) return "bez skoku";
+            if (lower.equals("rule of 17")) return "prawo 17";
+            if (lower.equals("rule of 9")) return "prawo 9";
+            if (lower.equals("any void")) return "dowolna renons";
+            if (lower.equals("any singleton")) return "dowolny singiel";
+
+            if (lower.startsWith("4441 shape")) {
+                String symbol = extractSuitSymbol(trimmed);
+                if (!symbol.isEmpty()) {
+                    return "skład 4441 (singiel " + symbol + ")";
+                }
+                return "skład 4441";
+            }
+        } else {
+            if (lower.equals("zrównoważony") || lower.equals("zrownowazony")) return "balanced";
+            if (lower.equals("niezrównoważony") || lower.equals("niezrownowazony")) return "not balanced";
+            if (lower.equals("nowy kolor")) return "new suit";
+            if (lower.equals("bez skoku")) return "not a jump bid";
+            if (lower.equals("prawo 17")) return "rule of 17";
+            if (lower.equals("prawo 9")) return "rule of 9";
+
+            if (lower.startsWith("skład 4441") || lower.startsWith("sklad 4441")) {
+                String symbol = extractSuitSymbol(trimmed);
+                if (!symbol.isEmpty()) {
+                    return "4441 shape (" + symbol + " singleton)";
+                }
+                return "4441 shape";
+            }
         }
 
         if (isHcpClause(trimmed)) {
@@ -338,18 +378,30 @@ public class BiddingInfoFormatter {
         }
 
         if (hasSuitSymbolOrName(trimmed)) {
-            return formatSuitClause(trimmed);
+            return formatSuitClause(trimmed, isPl);
         }
 
         return trimmed;
     }
 
-    private static String formatSuitClause(String clause) {
+    private static String extractSuitSymbol(String text) {
+        if (text.contains("♠")) return "♠";
+        if (text.contains("♥")) return "♥";
+        if (text.contains("♦")) return "♦";
+        if (text.contains("♣")) return "♣";
+        return "";
+    }
+
+    private static String formatSuitClause(String clause, boolean isPl) {
         if (clause == null) return "";
         String trimmed = clause.trim();
 
         if (trimmed.toLowerCase().contains("4441") || trimmed.toLowerCase().contains("singleton") || trimmed.toLowerCase().contains("singiel")) {
-            return trimmed;
+            if (isPl) {
+                return trimmed.replace("4441 shape", "skład 4441").replace("singleton", "singiel");
+            } else {
+                return trimmed.replace("skład 4441", "4441 shape").replace("sklad 4441", "4441 shape").replace("singiel", "singleton");
+            }
         }
 
         String symbol = "";

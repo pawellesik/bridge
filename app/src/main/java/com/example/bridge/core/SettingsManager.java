@@ -20,21 +20,32 @@ public class SettingsManager {
     }
 
     // --- LANGUAGE ---
+    private String cachedLanguage = null;
+
     public String getLanguage(String defaultLanguage) {
+        if (cachedLanguage != null) {
+            return cachedLanguage;
+        }
         try {
-            return dataStoreManager.getPreference(DataStoreManager.SELECTED_LANGUAGE, defaultLanguage)
+            String val = dataStoreManager.getPreference(DataStoreManager.SELECTED_LANGUAGE, defaultLanguage)
                     .firstOrError()
                     .onErrorReturnItem(defaultLanguage)
                     .blockingGet();
+            cachedLanguage = val;
+            return val;
         } catch (Exception e) {
             return defaultLanguage;
         }
     }
 
     public void setLanguage(String language) {
-        dataStoreManager.setPreference(DataStoreManager.SELECTED_LANGUAGE, language)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+        cachedLanguage = language;
+        try {
+            dataStoreManager.setPreference(DataStoreManager.SELECTED_LANGUAGE, language)
+                    .ignoreElement()
+                    .onErrorComplete()
+                    .blockingAwait();
+        } catch (Exception ignored) {}
     }
 
     // --- CARD COLORS ---
