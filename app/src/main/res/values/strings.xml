@@ -115,5 +115,8 @@
     <string name="public_knowledge_kings">Kings: %1$s</string>
     <string name="ask_for_aces">Ask for Aces</string>
     <string name="ask_for_kings">Ask for Kings</string>
+    <string name="select_bidding_system">Select Bidding System</string>
+    <string name="more_systems_available">More systems will be available in future updates.</string>
+    <string name="soon">Soon</string>
     <string name="bidding_rules_footer_note">💡 Note: Above bids follow the system. Other legal bids outside the system are also allowed.</string>
 </resources>
