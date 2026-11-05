@@ -1,12 +1,6 @@
 package com.example.bridge.ui.history;
 
-import com.example.bridge.bidding.Tools.BiddingState;
-import com.example.bridge.bidding.Tools.Call;
-import com.example.bridge.bidding.Tools.CallDetails;
-import com.example.bridge.bidding.Tools.Direction;
 import com.example.bridge.bidding.Tools.Game;
-import com.example.bridge.bidding.Tools.Hand;
-import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.model.Card;
 import com.example.bridge.model.Contract;
 import com.example.bridge.model.Rank;
