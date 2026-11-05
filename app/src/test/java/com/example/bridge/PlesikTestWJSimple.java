@@ -23,11 +23,11 @@ import java.util.Collection;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-public class PlesikTestWJSimple {
+public class PlesikTestWjSimple {
 
     private final PBNTest test;
 
-    public PlesikTestWJSimple(PBNTest test) {
+    public PlesikTestWjSimple(PBNTest test) {
         this.test = test;
     }
 
