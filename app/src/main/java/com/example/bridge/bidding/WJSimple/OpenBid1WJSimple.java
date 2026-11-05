@@ -66,7 +66,7 @@ public class OpenBid1WJSimple extends WJSimple {
 
             bids.add(shows(Bid._1D, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
             bids.add(shows(Bid._1D, shape(4, 13), shape(Suit.Clubs, 5, 13), OpenBiddingLow, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-            bids.add(shows(Bid._1D, shape(4, 13), shape4441(), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
+            bids.add(shows(Bid._1D, shape(4, 4), shape(Suit.Clubs, 1, 1),  shape4441(), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
 
             bids.add(shows(Bid._1C, OpenBiddingLow, BALANCED, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
             bids.add(shows(Bid._1C, shape(5, 13), OpenBiddingHight, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
@@ -80,7 +80,7 @@ public class OpenBid1WJSimple extends WJSimple {
 
             bids.add(shows(Bid._1D, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
             bids.add(shows(Bid._1D, shape(4, 13), shape(Suit.Clubs, 5, 13), OpenBiddingLowThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-            bids.add(shows(Bid._1D, shape(4, 13), shape4441(), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
+            bids.add(shows(Bid._1D, shape(4, 4), shape(Suit.Clubs, 1, 1), shape4441(), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
 
             bids.add(shows(Bid._1C, OpenBiddingLowThirtSeat, BALANCED, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
             bids.add(shows(Bid._1C, shape(5, 13), OpenBiddingHight, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
@@ -89,7 +89,7 @@ public class OpenBid1WJSimple extends WJSimple {
 
         bids.add(shows(Call.PASS, DontOpen, id("OpenWJSimple.openSuit _PASS")));
 
-        bids.add(shows(Bid._1D, id("OpenWJSimple.openSuit _1D")));// czy to konieczne ?
+        //bids.add(shows(Bid._1D, id("OpenWJSimple.openSuit _1D")));// czy to konieczne ?
 
         bids.add(partnerBids(Bid._1S, RespondBid1WJSimple::oneSpade));
         bids.add(partnerBids(Bid._1H, RespondBid1WJSimple::oneHeart));
