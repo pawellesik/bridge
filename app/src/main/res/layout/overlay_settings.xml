@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="ACCOUNT"
+                android:text="@string/category_account"
                 android:textColor="#4DFFFFFF"
                 android:textSize="11sp"
                 android:textStyle="bold"
@@ -68,7 +68,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Login Name"
+                        android:text="@string/settings_login_name"
                         android:textColor="#FFFFFF"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -78,7 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:hint="Enter your login name"
+                        android:hint="@string/settings_login_name_hint"
                         android:textColor="#FFFFFF"
                         android:textColorHint="#80FFFFFF"
                         android:backgroundTint="#4081C784"
@@ -154,7 +154,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Select if you want to play only winning contracts."
+                                android:text="@string/settings_winning_only_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -213,7 +213,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Configure singleplayer mode and bots."
+                                android:text="@string/settings_singleplayer_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -228,7 +228,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="HELPERS"
+                        android:text="@string/category_helpers"
                         android:textColor="#4DFFFFFF"
                         android:textSize="10sp"
                         android:textStyle="bold"
@@ -264,7 +264,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Explanation"
+                                    android:text="@string/settings_explanation"
                                     android:textColor="#FFFFFF"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
@@ -273,7 +273,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Show explanations for bids"
+                                android:text="@string/settings_explanation_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -314,7 +314,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Public Knowledge"
+                                    android:text="@string/settings_public_knowledge"
                                     android:textColor="#FFFFFF"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
@@ -323,7 +323,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Display known information about hands"
+                                android:text="@string/settings_public_knowledge_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -364,7 +364,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Bidding Rules"
+                                    android:text="@string/settings_bidding_rules"
                                     android:textColor="#FFFFFF"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
@@ -373,7 +373,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Show rules for the current bidding system"
+                                android:text="@string/settings_bidding_rules_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -414,7 +414,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Bidding Hints"
+                                    android:text="@string/settings_bidding_hints"
                                     android:textColor="#FFFFFF"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
@@ -423,7 +423,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Suggest the best bid to make"
+                                android:text="@string/settings_bidding_hints_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -444,7 +444,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="BOTS"
+                        android:text="@string/category_bots"
                         android:textColor="#4DFFFFFF"
                         android:textSize="10sp"
                         android:textStyle="bold"
@@ -465,21 +465,21 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Opponents Bidding"
+                                android:text="@string/settings_opponents_bidding"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Allow bots to participate in bidding"
+                                android:text="@string/settings_opponents_bidding_desc"
                                 android:textColor="#4DFFFFFF"
                                 android:textSize="11sp" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="This functionality is not yet available."
+                                android:text="@string/settings_not_available_yet"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp"
                                 android:textStyle="italic" />
@@ -583,7 +583,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="HISTORY"
+                android:text="@string/category_history"
                 android:textColor="#4DFFFFFF"
                 android:textSize="11sp"
                 android:textStyle="bold"
@@ -634,7 +634,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="History Size"
+                                android:text="@string/settings_history_size"
                                 android:textColor="#FFFFFF"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -643,7 +643,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Set the maximum number of hands to keep"
+                                android:text="@string/settings_history_size_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -678,7 +678,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="DEBUG / TEST"
+                android:text="@string/category_debug"
                 android:textColor="#4DFFFFFF"
                 android:textSize="11sp"
                 android:textStyle="bold"
@@ -714,7 +714,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Load Deal from test.pbn"
+                                android:text="@string/settings_load_test_pbn"
                                 android:textColor="#FFFFFF"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -723,7 +723,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Bypass random deal and load from test.pbn"
+                                android:text="@string/settings_load_test_pbn_desc"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="11sp" />
                         </LinearLayout>
