@@ -617,6 +617,10 @@ public abstract class Bidder {
         return SHAPE_4441;
     }
 
+    public static HandConstraint shape4441(Suit singletonSuit) {
+        return new Shape4441.Shows4441(singletonSuit);
+    }
+
     public static HandConstraint longerThan(Suit worse) {
         return new BetterSuit.ShowsBetterSuit(null, worse, worse, true);
     }
