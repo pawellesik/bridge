@@ -142,5 +142,14 @@
     <string name="category_debug">DIAGNOSTYKA / TEST</string>
     <string name="settings_load_test_pbn">Wczytaj rozdanie z test.pbn</string>
     <string name="settings_load_test_pbn_desc">Pomiń losowe rozdanie i wczytaj z test.pbn</string>
+    <string name="stats_session">SESJA</string>
+    <string name="stats_all_time">ŁĄCZNIE</string>
+    <string name="stats_games">Gry</string>
+    <string name="stats_deals">Rozdania</string>
+    <string name="stats_concedes">Poddane</string>
+    <string name="stats_wins">Wygrane</string>
+    <string name="stats_max_imp">Maks IMP</string>
+    <string name="stats_clear">WYCZYŚĆ</string>
+    <string name="stats_reset_all">RESETUJ WSZYSTKIE STATYSTYKI</string>
     <string name="bidding_rules_footer_note">💡 Uwaga: Powyższe odzywki opierają się na systemie. Możesz wykonać również inne, dowolne legalne odzywki spoza systemu.</string>
 </resources>

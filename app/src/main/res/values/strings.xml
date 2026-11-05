@@ -142,5 +142,14 @@
     <string name="category_debug">DEBUG / TEST</string>
     <string name="settings_load_test_pbn">Load Deal from test.pbn</string>
     <string name="settings_load_test_pbn_desc">Bypass random deal and load from test.pbn</string>
+    <string name="stats_session">SESSION</string>
+    <string name="stats_all_time">ALL TIME</string>
+    <string name="stats_games">Games</string>
+    <string name="stats_deals">Deals</string>
+    <string name="stats_concedes">Concedes</string>
+    <string name="stats_wins">Wins</string>
+    <string name="stats_max_imp">Max IMP</string>
+    <string name="stats_clear">CLEAR</string>
+    <string name="stats_reset_all">RESET ALL STATISTICS</string>
     <string name="bidding_rules_footer_note">💡 Note: Above bids follow the system. Other legal bids outside the system are also allowed.</string>
 </resources>

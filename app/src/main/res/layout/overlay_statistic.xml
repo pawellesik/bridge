@@ -68,7 +68,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:text="SESSION"
+                            android:text="@string/stats_session"
                             android:textColor="#81C784"
                             android:textSize="10sp"
                             android:textStyle="bold" />
@@ -92,7 +92,7 @@
                                 android:layout_marginTop="2dp"
                                 android:gravity="center"
                                 android:maxLines="2"
-                                android:text="Just Declare"
+                                android:text="@string/quick_game"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -116,7 +116,7 @@
                                 android:layout_marginTop="2dp"
                                 android:gravity="center"
                                 android:maxLines="2"
-                                android:text="Singleplayer"
+                                android:text="@string/single_player"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -140,7 +140,7 @@
                                 android:layout_marginTop="2dp"
                                 android:gravity="center"
                                 android:maxLines="2"
-                                android:text="Multiplayer"
+                                android:text="@string/multiplayer"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -169,7 +169,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Games"
+                                android:text="@string/stats_games"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -222,7 +222,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Deals"
+                                android:text="@string/stats_deals"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -277,7 +277,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Concedes"
+                                android:text="@string/stats_concedes"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -330,7 +330,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="IMP"
+                                android:text="@string/imp_label"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -384,7 +384,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Wins"
+                                android:text="@string/stats_wins"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -439,7 +439,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Max IMP"
+                                android:text="@string/stats_max_imp"
                                 android:textColor="#81C784"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -501,7 +501,7 @@
                             android:minHeight="0dp"
                             android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
-                            android:text="CLEAR"
+                            android:text="@string/stats_clear"
                             android:textColor="#FF5252"
                             android:textSize="10sp"
                             app:cornerRadius="6dp"
@@ -528,7 +528,7 @@
                             android:minHeight="0dp"
                             android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
-                            android:text="CLEAR"
+                            android:text="@string/stats_clear"
                             android:textColor="#FF5252"
                             android:textSize="10sp"
                             app:cornerRadius="6dp"
@@ -555,7 +555,7 @@
                             android:minHeight="0dp"
                             android:paddingHorizontal="2dp"
                             android:paddingVertical="0dp"
-                            android:text="CLEAR"
+                            android:text="@string/stats_clear"
                             android:textColor="#FF5252"
                             android:textSize="10sp"
                             app:cornerRadius="6dp"
@@ -602,7 +602,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:text="ALL TIME"
+                            android:text="@string/stats_all_time"
                             android:textColor="#81C784"
                             android:textSize="10sp"
                             android:textStyle="bold" />
@@ -626,7 +626,7 @@
                                 android:layout_marginTop="2dp"
                                 android:gravity="center"
                                 android:maxLines="2"
-                                android:text="Just Declare"
+                                android:text="@string/quick_game"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -650,7 +650,7 @@
                                 android:layout_marginTop="2dp"
                                 android:gravity="center"
                                 android:maxLines="2"
-                                android:text="Singleplayer"
+                                android:text="@string/single_player"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -674,7 +674,7 @@
                                 android:layout_marginTop="2dp"
                                 android:gravity="center"
                                 android:maxLines="2"
-                                android:text="Multiplayer"
+                                android:text="@string/multiplayer"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -703,7 +703,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Games"
+                                android:text="@string/stats_games"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -756,7 +756,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Deals"
+                                android:text="@string/stats_deals"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -811,7 +811,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Concedes"
+                                android:text="@string/stats_concedes"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -864,7 +864,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="IMP"
+                                android:text="@string/imp_label"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -918,7 +918,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Wins"
+                                android:text="@string/stats_wins"
                                 android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -973,7 +973,7 @@
                                 android:layout_marginStart="4dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Max IMP"
+                                android:text="@string/stats_max_imp"
                                 android:textColor="#81C784"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -1019,7 +1019,7 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="RESET ALL STATISTICS"
+                android:text="@string/stats_reset_all"
                 android:textColor="#FF5252"
                 android:textSize="11sp"
                 android:visibility="gone"

@@ -127,7 +127,18 @@ public class OverlayStatistic {
     }
 
     private void confirmClearSessionStats(String mode) {
-        String message = activity.getString(R.string.clear_stats_confirm_message, mode);
+        String localizedMode;
+        if ("Just Declare".equals(mode)) {
+            localizedMode = activity.getString(R.string.quick_game);
+        } else if ("Singleplayer".equals(mode)) {
+            localizedMode = activity.getString(R.string.single_player);
+        } else if ("Multiplayer".equals(mode)) {
+            localizedMode = activity.getString(R.string.multiplayer);
+        } else {
+            localizedMode = mode;
+        }
+
+        String message = activity.getString(R.string.clear_stats_confirm_message, localizedMode);
         new androidx.appcompat.app.AlertDialog.Builder(activity)
                 .setTitle(R.string.clear_stats_confirm_title)
                 .setMessage(message)
