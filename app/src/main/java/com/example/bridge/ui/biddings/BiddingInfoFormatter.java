@@ -348,6 +348,10 @@ public class BiddingInfoFormatter {
         if (clause == null) return "";
         String trimmed = clause.trim();
 
+        if (trimmed.toLowerCase().contains("4441") || trimmed.toLowerCase().contains("singleton") || trimmed.toLowerCase().contains("singiel")) {
+            return trimmed;
+        }
+
         String symbol = "";
         if (trimmed.contains("♠") || trimmed.contains("Spades") || trimmed.contains("Piki") || trimmed.matches(".*\\bS[:\\d+].*")) symbol = "♠";
         else if (trimmed.contains("♥") || trimmed.contains("Hearts") || trimmed.contains("Kiery") || trimmed.matches(".*\\bH[:\\d+].*")) symbol = "♥";
