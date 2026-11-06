@@ -1,13 +1,11 @@
 package com.example.bridge.bidding.NatC;
 
-import static com.example.bridge.bidding.NatC.OpenBid1NatC.OpeningStrongBidding;
+import static com.example.bridge.bidding.NatC.OpenNatC.OpeningStrongBidding;
 
-import com.example.bridge.bidding.Constraints.Balanced;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
-import com.example.bridge.bidding.Tools.CallDetails;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;

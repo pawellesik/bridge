@@ -10,7 +10,7 @@ import com.example.bridge.bidding.Tools.PositionState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenBid1NatC extends NatC {
+public class OpenNatC extends NatC {
 
     public static final HandConstraint OpenBidding = highCardPoints(12, 17);
     public static final HandConstraint OpeningInviteBidding = highCardPoints(14, 17);

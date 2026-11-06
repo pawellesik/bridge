@@ -1,6 +1,5 @@
 package com.example.bridge.bidding.NatC;
 
-import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
@@ -10,7 +9,7 @@ import com.example.bridge.bidding.Tools.PositionState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenBid3Bid1NatC extends OpenBid1NatC {
+public class OpenBid3NatC extends OpenNatC {
 
     public static PositionCalls thirdBidNegat2NTStrong(PositionState ps) {
         //odpowiedzi na: Bid._1C ->

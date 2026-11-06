@@ -85,7 +85,7 @@ public class OpenBid1WJSimple extends WJSimple {
 
         bids.add(shows(Call.PASS, DontOpen, id("OpenWJSimple.openSuit _PASS")));
 
-        //bids.add(shows(Bid._1D, id("OpenWJSimple.openSuit _1D")));// czy to konieczne ?
+        bids.add(shows(Bid._1C, id("OpenWJSimple.openSuit _1C")));
 
         bids.add(partnerBids(Bid._1S, RespondBid1WJSimple::oneSpade));
         bids.add(partnerBids(Bid._1H, RespondBid1WJSimple::oneHeart));

@@ -4,7 +4,6 @@ import static com.example.bridge.bidding.WJSimple.OpenBid1WJSimple.GameAfterNega
 import static com.example.bridge.bidding.WJSimple.OpenBid1WJSimple.OpeningInviteBidding;
 import static com.example.bridge.bidding.WJSimple.OpenBid1WJSimple.OpeningLowBidding;
 
-import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
@@ -15,7 +14,7 @@ import com.example.bridge.bidding.Tools.Suit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RespondBid2Bid1WJSimple extends RespondBid1WJSimple {
+public class RespondBid2WJSimple extends RespondBid1WJSimple {
 
     public static PositionCalls secondBidNegat2NTStrong(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);

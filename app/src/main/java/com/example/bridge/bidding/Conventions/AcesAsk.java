@@ -1,8 +1,5 @@
 package com.example.bridge.bidding.Conventions;
 
-import static com.example.bridge.bidding.NatC.OpenBid1NatC.OpeningStrongBidding;
-
-import com.example.bridge.bidding.LCStandard.NoTrump;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.Call;
