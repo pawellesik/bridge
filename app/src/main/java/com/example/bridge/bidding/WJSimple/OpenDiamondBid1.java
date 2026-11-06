@@ -73,4 +73,17 @@ public class OpenDiamondBid1 extends WJSimple {
         return choices;
     }
 
+
+    //  1D -->  1NT
+    //
+    public static PositionCalls diamond_1NT(PositionState ps) { //todo
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+
+        );
+        return choices;
+    }
+
+
 }
