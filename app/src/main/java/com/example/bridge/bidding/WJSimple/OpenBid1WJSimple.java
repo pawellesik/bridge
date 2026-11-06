@@ -24,7 +24,8 @@ public class OpenBid1WJSimple extends WJSimple {
 
     public static final HandConstraint DontOpen = highCardPoints(0, 10);
 
-    public static final HandConstraint OpeningWeakBidding = highCardPoints(6, 10);
+    public static final HandConstraint OpeningWeakBidding = highCardPoints(6, 11);
+    public static final HandConstraint Opening2NT = highCardPoints(4, 11);
     public static final HandConstraint GameAfterNegat = highCardPoints(5, 6);
 
     public static PositionCalls getOpenPositionCalls(PositionState ps) {
@@ -41,7 +42,7 @@ public class OpenBid1WJSimple extends WJSimple {
     public static Iterable<CallFeature> openSuit(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
 
-        bids.add(shows(Bid._2NT, shape(Suit.Clubs, 5, 13),shape(Suit.Diamonds, 5, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuit _2NT")));
+        bids.add(shows(Bid._2NT, shape(Suit.Clubs, 5, 13), shape(Suit.Diamonds, 5, 13), Opening2NT, ruleShow(1), id("OpenWJSimple.openSuit _2NT")));
 
         bids.add(shows(Bid._2S, shape(5, 13), shape(Suit.Clubs, 5, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2S")));
         bids.add(shows(Bid._2S, shape(5, 13), shape(Suit.Diamonds, 5, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2S")));
@@ -53,10 +54,7 @@ public class OpenBid1WJSimple extends WJSimple {
         bids.add(shows(Bid._2D, shape(Suit.Spades, 6, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2D")));
         bids.add(shows(Bid._2D, shape(Suit.Hearts, 6, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2D")));
 
-        bids.add(shows(Bid._2C, shape(5, 13), shape(Suit.Hearts, 4, 13), OpenBiddingLowThirtSeat, ruleShow(1),id("OpenWJSimple.openSuit _2C")));
-        bids.add(shows(Bid._2C, shape(5, 13), shape(Suit.Spades, 4, 13), OpenBiddingLowThirtSeat, ruleShow(1),id("OpenWJSimple.openSuit _2C")));
-        bids.add(shows(Bid._2C, shape(6, 13), OpenBiddingLowThirtSeat, ruleShow(1),id("OpenWJSimple.openSuit _2C")));
-
+        bids.add(shows(Bid._2C, shape(Suit.Spades, 4, 13), shape(Suit.Hearts, 4, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2C")));
 
         if (ps.getSeat() < 3) {
             bids.add(shows(Bid._1S, shape(6, 13), OpenBidding, id("OpenWJSimple.openSuit _1S")));
@@ -64,12 +62,11 @@ public class OpenBid1WJSimple extends WJSimple {
             bids.add(shows(Bid._1S, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1S")));
             bids.add(shows(Bid._1H, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1H")));
 
-            //bids.add(shows(Bid._1D, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-            //bids.add(shows(Bid._1D, shape(4, 13), shape(Suit.Clubs, 5, 13), OpenBiddingLow, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
+            bids.add(shows(Bid._1D, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
             bids.add(shows(Bid._1D, shape4441(Suit.Clubs), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
 
             bids.add(shows(Bid._1C, OpenBiddingLow, BALANCED, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
-            bids.add(shows(Bid._1C, shape(5, 13), OpenBiddingHight, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
+            bids.add(shows(Bid._1C, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
             bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
 
         } else if (ps.getSeat() >= 3) {
@@ -78,12 +75,11 @@ public class OpenBid1WJSimple extends WJSimple {
             bids.add(shows(Bid._1S, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1S")));
             bids.add(shows(Bid._1H, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1H")));
 
-            //bids.add(shows(Bid._1D, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-            //bids.add(shows(Bid._1D, shape(4, 13), shape(Suit.Clubs, 5, 13), OpenBiddingLowThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
+            bids.add(shows(Bid._1D, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
             bids.add(shows(Bid._1D, shape4441(Suit.Clubs), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
 
             bids.add(shows(Bid._1C, OpenBiddingLowThirtSeat, BALANCED, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
-            bids.add(shows(Bid._1C, shape(5, 13), OpenBiddingHight, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
+            bids.add(shows(Bid._1C, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
             bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
         }
 

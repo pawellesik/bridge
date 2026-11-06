@@ -17,7 +17,7 @@ import java.util.List;
 
 public class NoTrumpWJSimple extends Bidder {
 
-    public static final HandConstraint OPEN = highCardPoints(16, 17);
+    public static final HandConstraint OPEN = highCardPoints(15, 17);
     public static final HandConstraint LESS_THAT_INVITE = highCardPoints(0, 6);
     public static final HandConstraint INVITE_GAME = highCardPoints(7, 10);
     public static final HandConstraint GAME_OR_BETTER = highCardPoints(11, 40);
