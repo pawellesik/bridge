@@ -112,7 +112,8 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2S, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
                 shows(Bid._3D, shape(2, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3D")),
 
-                properties(new Call[]{Bid._2NT}, OpenDiamondBid2::oneSpade_twoHeard_2NT, true)
+                properties(new Call[]{Bid._2NT}, OpenDiamondBid2::oneSpade_twoHeard_2NT, true),
+                properties(new Call[]{Bid._3H}, OpenDiamondBid2::diamond_1S_2H_3H, true)
                 );
         return choices;
     }

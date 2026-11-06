@@ -126,4 +126,19 @@ public class OpenDiamondBid2 extends WJSimple {
         );
         return choices;
     }
+
+    //  1D   -->  1S
+    //  2H   -->  2H
+    //
+    public static PositionCalls diamond_1S_2H_3H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._3S, shape(3, 3),shape(Suit.Diamonds, 6, 13), ruleShow(1), id("OpenDiamondBid2.diamond_1S_2H_3H _3S")),
+                shows(Bid._4H, shape(4, 4),shape(Suit.Diamonds, 5, 13), ruleShow(1), id("OpenDiamondBid2.diamond_1S_2H_3H _4H"))
+
+                 );
+        return choices;
+    }
+
+
 }
