@@ -59,7 +59,7 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._2NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Spades), highCardPoints(LOW), ruleShow(1), id("OpenDiamondBid2.oneHeart_twoClub_twoSpade _3D"))
 
 
-                );
+        );
         return choices;
     }
 
@@ -107,7 +107,22 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._3C, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 5, 13), highCardPoints(LOW), ruleShow(1), id("OpenDiamondBid2.oneHeart_twoClub_twoSpade _3D")),
                 shows(Bid._2NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Hearts), highCardPoints(LOW), ruleShow(1), id("OpenDiamondBid2.oneHeart_twoClub_twoSpade _3D"))
 
+        );
+        return choices;
+    }
 
+
+    //  1D   -->   1S
+    //  2H   -->  2NT
+    //
+    public static PositionCalls oneSpade_twoHeard_2NT(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._3NT, shape(Suit.Hearts, 4, 4), ruleShow(1), id("OpenDiamondBid2.oneSpade_twoHeard_2NT _3NT")),
+                shows(Bid._3S, shape(Suit.Diamonds, 6, 13), shape(Suit.Spades, 3, 3), ruleShow(1), id("OpenDiamondBid2.oneSpade_twoHeard_2NT _3S")),
+                shows(Bid._3H, shape(Suit.Diamonds, 5, 5), shape(Suit.Hearts, 4, 4), shape(Suit.Spades, 3, 3), ruleShow(1), id("OpenDiamondBid2.oneSpade_twoHeard_2NT _3H")),
+                shows(Bid._3D, shape(6, 13), shape(Suit.Hearts, 4, 4), ruleShow(1), id("OpenDiamondBid2.oneSpade_twoHeard_2NT _3D")),
+                shows(Bid._3C, shape(Suit.Diamonds, 5, 5), shape(Suit.Hearts, 4, 4), shape(Suit.Clubs, 3, 3), ruleShow(1), id("OpenDiamondBid2.oneSpade_twoHeard_2NT _3C"))
         );
         return choices;
     }

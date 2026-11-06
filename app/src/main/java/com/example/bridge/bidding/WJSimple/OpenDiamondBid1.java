@@ -18,8 +18,8 @@ public class OpenDiamondBid1 extends WJSimple {
     public static final Range OPEN_NT = new Range(14, 17);
 
 
-    //1D -->
-    //    1H -->
+    //  1D -->  1H
+    //
     public static PositionCalls oneHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
@@ -45,8 +45,8 @@ public class OpenDiamondBid1 extends WJSimple {
         return choices;
     }
 
-    //1D -->
-    //    1S -->
+    //  1D -->  1S
+    //
     public static PositionCalls oneSpade(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
