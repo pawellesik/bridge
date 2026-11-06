@@ -60,7 +60,8 @@ public class RespondDiamondBid1 extends WJSimple {
                 //properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderRaiseChangedSuitsToMinorHeart, false),
                 //properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
                 //properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
-                properties(new Call[]{Bid._1H}, OpenDiamondBid1::oneHeart, true)
+                properties(new Call[]{Bid._1H}, OpenDiamondBid1::oneHeart, true),
+                properties(new Call[]{Bid._1S}, OpenDiamondBid1::oneSpade, true)
         );
         return choices;
     }
