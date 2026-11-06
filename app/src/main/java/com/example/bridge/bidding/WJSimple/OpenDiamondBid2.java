@@ -16,12 +16,12 @@ public class OpenDiamondBid2 extends WJSimple {
     //  1D      -->  1H
     //  1NT, 1S -->  2C
     //
-    public static PositionCalls oneHeart_oneSpade1NT_twoClub(PositionState ps) {
+    public static PositionCalls diamond_1H_1NT1S_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
                 shows(Bid._2D, ruleShow(1), id("OpenDiamondBid2.oneHeart_oneSpade1NT_twoClub _2D")),
-                properties(new Call[]{Bid._2D}, RespondDiamondBid3::oneHeart_oneSpade1NT_twoClub_twoDiamond, true)
+                properties(new Call[]{Bid._2D}, RespondDiamondBid3::diamond_1H_1NT1S_2C_2D, true)
         );
         return choices;
     }
@@ -30,7 +30,7 @@ public class OpenDiamondBid2 extends WJSimple {
     //  1D      -->  1H
     //  1NT, 1S -->  2D
     //
-    public static PositionCalls oneHeart_oneSpade1NT_twoDiamond(PositionState ps) {
+    public static PositionCalls diamond_1H_1NT1S_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -47,7 +47,7 @@ public class OpenDiamondBid2 extends WJSimple {
     //  1D     -->  1H
     //  2C     -->  2S
     //
-    public static PositionCalls oneHeart_twoClub_twoSpade(PositionState ps) {
+    public static PositionCalls diamond_1H_2C_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -66,12 +66,12 @@ public class OpenDiamondBid2 extends WJSimple {
     //  1D      -->  1S
     //  1NT     -->  2C
     //
-    public static PositionCalls oneSpade_1NT_twoClub(PositionState ps) {
+    public static PositionCalls diamond_1S_1NT_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
                 shows(Bid._2D, ruleShow(1), id("OpenDiamondBid2.oneSpade_1NT_twoClub _2D")),
-                properties(new Call[]{Bid._2D}, RespondDiamondBid3::oneSpade_1NT_twoClub_twoDiamond, true)
+                properties(new Call[]{Bid._2D}, RespondDiamondBid3::diamond_1S_1NT_2C_2D, true)
         );
         return choices;
     }
@@ -79,7 +79,7 @@ public class OpenDiamondBid2 extends WJSimple {
     //  1D      -->  1S
     //  1NT     -->  2D
     //
-    public static PositionCalls oneSpade_1NT_twoDiamond(PositionState ps) {
+    public static PositionCalls diamond_1S_1NT_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -96,7 +96,7 @@ public class OpenDiamondBid2 extends WJSimple {
     //  1D     -->  1S
     //  2C     -->  2H
     //
-    public static PositionCalls oneSpade_twoClub_twoHeart(PositionState ps) {
+    public static PositionCalls diamond_1S_2C_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -115,7 +115,7 @@ public class OpenDiamondBid2 extends WJSimple {
     //  1D   -->   1S
     //  2H   -->  2NT
     //
-    public static PositionCalls oneSpade_twoHeard_2NT(PositionState ps) {
+    public static PositionCalls diamond_1S_2H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._3NT, shape(Suit.Hearts, 4, 4), ruleShow(1), id("OpenDiamondBid2.oneSpade_twoHeard_2NT _3NT")),

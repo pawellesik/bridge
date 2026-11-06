@@ -20,7 +20,7 @@ public class OpenDiamondBid1 extends WJSimple {
 
     //  1D -->  1H
     //
-    public static PositionCalls oneHeart(PositionState ps) {
+    public static PositionCalls diamond_1H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -39,15 +39,15 @@ public class OpenDiamondBid1 extends WJSimple {
                 shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid1.oneHeart _1S")),
 
 
-                properties(new Call[]{Bid._1NT,Bid._1S}, RespondDiamondBid2::oneHeart_oneSpade1NT, true),
-                properties(new Call[]{Bid._2C}, RespondDiamondBid2::oneHeart_twoClub, true)
+                properties(new Call[]{Bid._1NT,Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, true),
+                properties(new Call[]{Bid._2C}, RespondDiamondBid2::diamond_1H_2C, true)
                 );
         return choices;
     }
 
     //  1D -->  1S
     //
-    public static PositionCalls oneSpade(PositionState ps) {
+    public static PositionCalls diamond_1S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -66,9 +66,9 @@ public class OpenDiamondBid1 extends WJSimple {
                 shows(Bid._2C, shape(4, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid1.oneHeart _2C")),
                 shows(Bid._1NT, highCardPoints(OPEN_WEAK), shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), ruleShow(1), id("OpenDiamondBid1.oneHeart _1NT")),
 
-                properties(new Call[]{Bid._1NT}, RespondDiamondBid2::oneSpade_oneSpade1NT, true),
-                properties(new Call[]{Bid._2C}, RespondDiamondBid2::oneSpade_twoClub, true),
-                properties(new Call[]{Bid._2H}, RespondDiamondBid2::oneSpade_twoHeard, true)
+                properties(new Call[]{Bid._1NT}, RespondDiamondBid2::diamond_1S_1NT, true),
+                properties(new Call[]{Bid._2C}, RespondDiamondBid2::diamond_1S_2C, true),
+                properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_1S_2H, true)
         );
         return choices;
     }

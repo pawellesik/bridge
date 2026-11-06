@@ -19,7 +19,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  1D        -->  1H
     //  1NT, 1S   -->
     //
-    public static PositionCalls oneHeart_oneSpade1NT(PositionState ps) {
+    public static PositionCalls diamond_1H_1NT1S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -29,8 +29,8 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2D")),
                 shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2C")),
 
-                properties(new Call[]{Bid._2C}, OpenDiamondBid2::oneHeart_oneSpade1NT_twoClub, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid2::oneHeart_oneSpade1NT_twoDiamond, true)
+                properties(new Call[]{Bid._2C}, OpenDiamondBid2::diamond_1H_1NT1S_2C, true),
+                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_1H_1NT1S_2D, true)
 
         );
         return choices;
@@ -39,7 +39,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  1D   -->  1H
     //  2C   -->
     //
-    public static PositionCalls oneHeart_twoClub(PositionState ps) {
+    public static PositionCalls diamond_1H_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -51,7 +51,7 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2D")),
                 shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _pass")),
 
-                propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid2::oneHeart_twoClub_twoSpade, true)
+                propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid2::diamond_1H_2C_2S, true)
 
         );
         return choices;
@@ -61,7 +61,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  1D   -->  1S
     //  1NT   -->
     //
-    public static PositionCalls oneSpade_oneSpade1NT(PositionState ps) {
+    public static PositionCalls diamond_1S_1NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -71,8 +71,8 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2D")),
                 shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2C")),
 
-                properties(new Call[]{Bid._2C}, OpenDiamondBid2::oneSpade_1NT_twoClub, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid2::oneSpade_1NT_twoDiamond, true)
+                properties(new Call[]{Bid._2C}, OpenDiamondBid2::diamond_1S_1NT_2C, true),
+                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_1S_1NT_2D, true)
 
         );
         return choices;
@@ -81,7 +81,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  1D   -->  1S
     //  2C   -->
     //
-    public static PositionCalls oneSpade_twoClub(PositionState ps) {
+    public static PositionCalls diamond_1S_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -93,7 +93,7 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2D")),
                 shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _pass")),
 
-                propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid2::oneSpade_twoClub_twoHeart, true)
+                propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid2::diamond_1S_2C_2H, true)
 
         );
         return choices;
@@ -102,7 +102,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  1D   -->  1S
     //  2H   -->
     //
-    public static PositionCalls oneSpade_twoHeard(PositionState ps) {
+    public static PositionCalls diamond_1S_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -112,7 +112,7 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2S, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
                 shows(Bid._3D, shape(2, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3D")),
 
-                properties(new Call[]{Bid._2NT}, OpenDiamondBid2::oneSpade_twoHeard_2NT, true),
+                properties(new Call[]{Bid._2NT}, OpenDiamondBid2::diamond_1S_2H_2NT, true),
                 properties(new Call[]{Bid._3H}, OpenDiamondBid2::diamond_1S_2H_3H, true)
                 );
         return choices;
