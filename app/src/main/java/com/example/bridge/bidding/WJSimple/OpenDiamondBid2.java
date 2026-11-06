@@ -8,8 +8,9 @@ import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.Tools.SuitQuality;
 
-
 public class OpenDiamondBid2 extends WJSimple {
+    public static final Range HIGHT = new Range(15, 17);
+
 
     //1D -->
     //    1H -->
@@ -34,7 +35,7 @@ public class OpenDiamondBid2 extends WJSimple {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-
+                shows(Bid._3NT, shape(Suit.Hearts, 0, 2), highCardPoints(HIGHT), ruleShow(1), id("OpenDiamondBid2.twoClub _2D"))
 
         );
         return choices;
