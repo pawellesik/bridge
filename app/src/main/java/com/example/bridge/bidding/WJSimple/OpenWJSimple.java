@@ -89,7 +89,7 @@ public class OpenWJSimple extends WJSimple {
 
         bids.add(partnerBids(Bid._1S, RespondBid1WJSimple::oneSpade));
         bids.add(partnerBids(Bid._1H, RespondBid1WJSimple::oneHeart));
-        bids.add(partnerBids(Bid._1D, RespondBid1WJSimple::oneDiamond));
+        bids.add(partnerBids(Bid._1D, RespondDiamondBid1::oneDiamond));
         bids.add(partnerBids(Bid._1C, RespondBid1WJSimple::oneClub));
 
         return bids;

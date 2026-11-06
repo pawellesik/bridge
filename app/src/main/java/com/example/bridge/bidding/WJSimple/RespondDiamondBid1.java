@@ -1,11 +1,15 @@
 package com.example.bridge.bidding.WJSimple;
 
+import com.example.bridge.bidding.NatC.CompeteNatC;
+import com.example.bridge.bidding.NatC.OpenBid2NatC;
+import com.example.bridge.bidding.NatC.RecursionNatC;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
@@ -13,95 +17,52 @@ import java.util.List;
 
 public class RespondDiamondBid1 extends WJSimple {
 
-    public static final HandConstraint OpenBidding = highCardPoints(12, 17);
-    public static final HandConstraint OpenBiddingThirtSeat = highCardPoints(11, 17);
-    public static final HandConstraint OpenBiddingLow = highCardPoints(12, 14);
-    public static final HandConstraint OpeningLowBidding = OpenBiddingLow;
-    public static final HandConstraint OpenBiddingLowThirtSeat = highCardPoints(11, 14);
-    public static final HandConstraint OpenBiddingHight = highCardPoints(15, 17);
-    public static final HandConstraint OpeningInviteBidding = OpenBiddingHight;
-    public static final HandConstraint OpeningStrongBidding = highCardPoints(18, 40);
+    public static final Range RESPOND_STANDARD = new Range(6, 40);
+    public static final Range RESPOND_TO_1NT = new Range(7, 10);
+    public static final Range RESPOND_TO_2NT = new Range(11, 12);
+    public static final Range RESPOND_TO_GAME = new Range(13, 16);
+    public static final Range RESPOND_FORCING = new Range(13, 40);
+    public static final Range RESPOND_FORCING_2C = new Range(12, 40);
+    public static final Range RESPOND_WEAK = new Range(5, 9);
+    public static final Range RESPOND_3C = new Range(10, 11);
+    public static final Range RESPOND_2D = new Range(10, 40);
 
-    public static final HandConstraint DontOpen = highCardPoints(0, 10);
-
-    public static final HandConstraint OpeningWeakBidding = highCardPoints(6, 11);
-    public static final HandConstraint Opening2NT = highCardPoints(4, 11);
-    public static final HandConstraint GameAfterNegat = highCardPoints(5, 6);
-
-    public static PositionCalls getOpenPositionCalls(PositionState ps) {
+    public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(SolidSuitWJSimple.BIDS(ps));
-        choices.addRules(NoTrumpWJSimple.open1NTBid1(ps));
-        choices.addRules(openSuitWeak(ps));
-        choices.addRules(openSuit(ps));
+        choices.addRules(
+                shows(Bid._3NT, shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_TO_GAME), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3NT")),
 
+                shows(Bid._3H, shape(Suit.Diamonds, 4, 13), shape(Suit.Hearts, 0, 1), highCardPoints(RESPOND_TO_GAME), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3H")),
+                shows(Bid._3S, shape(Suit.Diamonds, 4, 13), shape(Suit.Spades, 0, 1), highCardPoints(RESPOND_TO_GAME), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3H")),
+                shows(Bid._4C, shape(Suit.Diamonds, 4, 13), shape(Suit.Clubs, 0, 1), highCardPoints(RESPOND_TO_GAME), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3H")),
+
+                shows(Bid._3D, shape(4, 13), shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_WEAK), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3D")),
+
+                shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_3C), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3C")),
+
+                shows(Bid._2NT, shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_TO_2NT), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2NT")),
+
+                shows(Bid._2S, highCardPoints(RESPOND_FORCING), shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2S")),
+
+                shows(Bid._2H, highCardPoints(RESPOND_WEAK), shape(Suit.Spades, 5, 13), shape(Suit.Hearts, 4, 13), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2H")),
+
+                shows(Bid._2D, shape(4, 13), highCardPoints(RESPOND_2D), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2D")),
+
+                shows(Bid._2C, shape(5, 13), highCardPoints(RESPOND_FORCING_2C), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2C")),
+
+                shows(Bid._1NT, shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_TO_1NT), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1H")),
+                shows(Bid._1H, shape(4, 13), highCardPoints(RESPOND_STANDARD), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1H")),
+                shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_STANDARD), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1S")),
+
+                //propertiesForcingToGame(new Call[]{Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsToSpadeHeart, true),
+                //properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderRaiseChangedSuitsToMinorHeart, false),
+                //properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
+                //properties(new Call[]{Bid._1NT}, RecursionNatC::recursionFindFitGame, false),
+                properties(new Call[]{Bid._1H}, OpenDiamondBid1::oneHeart, true)
+        );
         return choices;
     }
 
-    public static Iterable<CallFeature> openSuit(PositionState ps) {
-        List<CallFeature> bids = new ArrayList<>();
 
-        bids.add(shows(Bid._2NT, shape(Suit.Clubs, 5, 13), shape(Suit.Diamonds, 5, 13), Opening2NT, ruleShow(1), id("OpenWJSimple.openSuit _2NT")));
-
-        bids.add(shows(Bid._2S, shape(5, 13), shape(Suit.Clubs, 5, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2S")));
-        bids.add(shows(Bid._2S, shape(5, 13), shape(Suit.Diamonds, 5, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2S")));
-
-        bids.add(shows(Bid._2H, shape(5, 13), shape(Suit.Clubs, 5, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2H")));
-        bids.add(shows(Bid._2H, shape(5, 13), shape(Suit.Diamonds, 5, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2H")));
-        bids.add(shows(Bid._2H, shape(5, 13), shape(Suit.Spades, 5, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2H")));
-
-        bids.add(shows(Bid._2D, shape(Suit.Spades, 6, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2D")));
-        bids.add(shows(Bid._2D, shape(Suit.Hearts, 6, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2D")));
-
-        bids.add(shows(Bid._2C, shape(Suit.Spades, 4, 13), shape(Suit.Hearts, 4, 13), OpeningWeakBidding, ruleShow(1),id("OpenWJSimple.openSuit _2C")));
-
-        if (ps.getSeat() < 3) {
-            bids.add(shows(Bid._1S, shape(6, 13), OpenBidding, id("OpenWJSimple.openSuit _1S")));
-            bids.add(shows(Bid._1H, shape(6, 13), OpenBidding, id("OpenWJSimple.openSuit _1H")));
-            bids.add(shows(Bid._1S, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1S")));
-            bids.add(shows(Bid._1H, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1H")));
-
-            bids.add(shows(Bid._1D, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-            bids.add(shows(Bid._1D, shape4441(Suit.Clubs), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-
-            bids.add(shows(Bid._1C, OpenBiddingLow, BALANCED, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
-            bids.add(shows(Bid._1C, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
-            bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
-
-        } else if (ps.getSeat() >= 3) {
-            bids.add(shows(Bid._1S, shape(6, 13), OpenBiddingThirtSeat, id("OpenWJSimple.openSuit _1S")));
-            bids.add(shows(Bid._1H, shape(6, 13), OpenBiddingThirtSeat, id("OpenWJSimple.openSuit _1H")));
-            bids.add(shows(Bid._1S, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1S")));
-            bids.add(shows(Bid._1H, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit OpenAfterPass _1H")));
-
-            bids.add(shows(Bid._1D, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-            bids.add(shows(Bid._1D, shape4441(Suit.Clubs), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1D")));
-
-            bids.add(shows(Bid._1C, OpenBiddingLowThirtSeat, BALANCED, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
-            bids.add(shows(Bid._1C, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJSimple.openSuit _1C")));
-            bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
-        }
-
-        bids.add(shows(Call.PASS, DontOpen, id("OpenWJSimple.openSuit _PASS")));
-
-        bids.add(shows(Bid._1C, id("OpenWJSimple.openSuit _1C")));
-
-        bids.add(partnerBids(Bid._1S, RespondBid1WJSimple::oneSpade));
-        bids.add(partnerBids(Bid._1H, RespondBid1WJSimple::oneHeart));
-        bids.add(partnerBids(Bid._1D, RespondBid1WJSimple::oneDiamond));
-        bids.add(partnerBids(Bid._1C, RespondBid1WJSimple::oneClub));
-
-        return bids;
-    }
-
-    private static List<CallFeature> openSuitWeak(PositionState ps) {
-        List<CallFeature> rules = new ArrayList<>();
-        rules.add(shows(Bid._3S, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuitWeak _3S")));
-        rules.add(shows(Bid._3H, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuitWeak _3H")));
-        rules.add(shows(Bid._3D, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuitWeak _3D")));
-        rules.add(shows(Bid._3C, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuitWeak _3C")));
-        rules.add(partnerBids(RespondBid1WJSimple::weakOpen));
-        return rules;
-    }
 }
