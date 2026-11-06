@@ -18,7 +18,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //1D -->
     //    1H -->
     //          1NT, 1S -->
-    public static PositionCalls oneSpade1NT(PositionState ps) {
+    public static PositionCalls oneHeartOneSpade1NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
@@ -38,7 +38,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //1D -->
     //    1H -->
     //          2C -->
-    public static PositionCalls twoClub(PositionState ps) {
+    public static PositionCalls oneHeartTwoClub(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
