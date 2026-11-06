@@ -443,6 +443,15 @@ public abstract class Bidder {
         });
     }
 
+    public static HandConstraint not(HandConstraint c) {
+        return new HandConstraint() {
+            @Override
+            public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+                return !c.conforms(call, ps, hs);
+            }
+        };
+    }
+
     public static StaticConstraint isJump(int... jumpLevels) {
         return new JumpBid(jumpLevels);
     }
@@ -786,6 +795,23 @@ public abstract class Bidder {
 
     public static final HandConstraint OPPS_STOPPED = new OppsStopped.ShowsOppsStopped(true);
     public static final HandConstraint OPPS_NOT_STOPPED = new OppsStopped.ShowsOppsStopped(false);
+
+    public static HandConstraint stopped(Suit suit) {
+        return new OppsStopped.ShowsSuitStopped(suit, true);
+    }
+
+    public static HandConstraint stopped() {
+        return stopped(null);
+    }
+
+    public static HandConstraint notStopped(Suit suit) {
+        return new OppsStopped.ShowsSuitStopped(suit, false);
+    }
+
+    public static HandConstraint notStopped() {
+        return notStopped(null);
+    }
+
     public static final HandConstraint REVERSE_SHAPE = new ReverseShape.ShowsReverseShape();
 
     public static Constraint breakConstraint(boolean isStatic, String name) {

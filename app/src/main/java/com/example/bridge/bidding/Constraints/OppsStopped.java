@@ -69,6 +69,54 @@ public class OppsStopped {
             return null;
         }
     }
+
+    /**
+     * Sprawdza i deklaruje trzymanie (lub jego brak) w konkretnym kolorze.
+     */
+    public static class ShowsSuitStopped extends HandConstraint implements IShowsHand, IDescribeConstraint {
+        protected final Suit suit;
+        protected final boolean desiredValue;
+
+        public ShowsSuitStopped(Suit suit, boolean desiredValue) {
+            this.suit = suit;
+            this.desiredValue = desiredValue;
+        }
+
+        public ShowsSuitStopped(Suit suit) {
+            this(suit, true);
+        }
+
+        @Override
+        public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+            Suit s = getSuit(suit, call);
+            if (s != null) {
+                Boolean stopped = hs.getSuits().get(s).getStopped();
+                if (desiredValue) {
+                    return Boolean.TRUE.equals(stopped);
+                } else {
+                    return !Boolean.TRUE.equals(stopped);
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public void showHand(Call call, PositionState ps, HandSummary.ShowState showHand) {
+            Suit s = getSuit(suit, call);
+            if (s != null) {
+                showHand.getSuits().get(s).showStopped(desiredValue);
+            }
+        }
+
+        @Override
+        public String describe(Call call, PositionState ps) {
+            Suit s = getSuit(suit, call);
+            if (s != null) {
+                return s.toSymbol() + (desiredValue ? " stopped" : " not stopped");
+            }
+            return desiredValue ? "suit stopped" : "suit not stopped";
+        }
+    }
 }
 
 
