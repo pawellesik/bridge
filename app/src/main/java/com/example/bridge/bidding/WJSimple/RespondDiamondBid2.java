@@ -14,6 +14,7 @@ public class RespondDiamondBid2 extends WJSimple {
     public static final Range STRONG = new Range(13, 40);
     public static final Range TO_GAME = new Range(7, 9);
 
+
     //1D -->
     //    1H -->
     //          1NT, 1S -->
@@ -34,5 +35,25 @@ public class RespondDiamondBid2 extends WJSimple {
         return choices;
     }
 
+    //1D -->
+    //    1H -->
+    //          2C -->
+    public static PositionCalls twoClub(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3H, shape(6, 13), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.twoClub _3H")),
+                shows(Bid._3D, fit(), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.twoClub _3D")),
+                shows(Bid._3C, fit(), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.twoClub _3C")),
+                shows(Bid._2NT, highCardPoints(WEAK), BALANCED, ruleShow(1), id("RespondDiamondBid2.twoClub _2NT")),
+                shows(Bid._2S, shape(4,13), highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.twoClub _2S")),
+                shows(Bid._2D, shape(4,13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.twoClub _2D")),
+                shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.twoClub _pass")),
+
+                propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid2::twoSpade, true)
+
+        );
+        return choices;
+    }
 
 }
