@@ -27,6 +27,7 @@ public class RespondDiamondBid1 extends WJSimple {
     public static final Range RESPOND_3C = new Range(10, 11);
     public static final Range RESPOND_2D = new Range(10, 40);
 
+    //1D -->
     public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
