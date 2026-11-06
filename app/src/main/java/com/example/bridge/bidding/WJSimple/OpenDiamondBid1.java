@@ -64,8 +64,8 @@ public class OpenDiamondBid1 extends WJSimple {
 
                 shows(Bid._2D, shape(6, 13), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid1.oneHeart _2H")),
                 shows(Bid._2C, shape(4, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid1.oneHeart _2C")),
-                shows(Bid._1NT, highCardPoints(OPEN_WEAK), shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), ruleShow(1), id("OpenDiamondBid1.oneHeart _1NT")),
-                //to do
+                shows(Bid._1NT, highCardPoints(OPEN_WEAK), shape(Suit.Hearts, 0, 3), shape(Suit.Spades, 0, 3), ruleShow(1), id("OpenDiamondBid1.oneHeart _1NT"))
+                //todo
                 //properties(new Call[]{Bid._1NT,Bid._1S}, RespondDiamondBid2::oneSpade1NT, true),
                 //properties(new Call[]{Bid._2C}, RespondDiamondBid2::twoClub, true)
         );
