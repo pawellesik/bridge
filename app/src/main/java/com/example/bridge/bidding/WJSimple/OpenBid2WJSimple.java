@@ -11,7 +11,7 @@ import com.example.bridge.bidding.Tools.Suit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenBid2Bid1WJSimple extends OpenBid1WJSimple {
+public class OpenBid2WJSimple extends OpenWJSimple {
 
     public static PositionCalls responderNegat(PositionState ps) {
         //odpowiedzi na: Bid._1C ->

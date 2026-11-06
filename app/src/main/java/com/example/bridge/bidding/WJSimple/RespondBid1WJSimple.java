@@ -1,6 +1,5 @@
 package com.example.bridge.bidding.WJSimple;
 
-import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
@@ -54,14 +53,14 @@ public class RespondBid1WJSimple extends WJSimple {
                 shows(Bid._2NT, highCardPoints(JUMP_AFTER_PASS), PASSED_HAND, ruleShow(1), id("RespondWJSimple.oneClub _2NT")),
                 shows(Bid._1NT, highCardPoints(MINIMUM_HAND), ruleShow(1), id("RespondWJSimple.oneClub _1NT")),
 
-                properties(new Call[]{Bid._1D}, OpenBid2Bid1WJSimple::responderNegat, false),
-                properties(new Call[]{Bid._1S, Bid._1H}, OpenBid2Bid1WJSimple::responderdTrumpMajorClub, false),
-                propertiesForcingToGame(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1WJSimple::responderdRaiseTrumpMajorClub, true),
-                properties(new Call[]{Bid._2C, Bid._2D}, OpenBid2Bid1WJSimple::responderdTrumpMinorClub, false),
-                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2Bid1WJSimple::responderdRaiseTrumpMinorClub, true),
-                properties(new Call[]{Bid._1NT}, OpenBid2Bid1WJSimple::responderd1NTClub, true),
-                properties(new Call[]{Bid._2NT}, OpenBid2Bid1WJSimple::responderd2NTClub, true),
-                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2Bid1WJSimple::weakRespond, true)
+                properties(new Call[]{Bid._1D}, OpenBid2WJSimple::responderNegat, false),
+                properties(new Call[]{Bid._1S, Bid._1H}, OpenBid2WJSimple::responderdTrumpMajorClub, false),
+                propertiesForcingToGame(new Call[]{Bid._2S, Bid._2H}, OpenBid2WJSimple::responderdRaiseTrumpMajorClub, true),
+                properties(new Call[]{Bid._2C, Bid._2D}, OpenBid2WJSimple::responderdTrumpMinorClub, false),
+                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2WJSimple::responderdRaiseTrumpMinorClub, true),
+                properties(new Call[]{Bid._1NT}, OpenBid2WJSimple::responderd1NTClub, true),
+                properties(new Call[]{Bid._2NT}, OpenBid2WJSimple::responderd2NTClub, true),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2WJSimple::weakRespond, true)
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
@@ -101,12 +100,12 @@ public class RespondBid1WJSimple extends WJSimple {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("RespondWJSimple.oneDiamond _3NT")),
                 shows(Bid._2NT, highCardPoints(JUMP_HAND), BALANCED, not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneDiamond _2NT")),
 
-                propertiesAgreeTrump(new Call[]{Bid._2D}, OpenBid2Bid1WJSimple::responderdTrumpMinorDiamod2D, true),
-                propertiesAgreeTrump(new Call[]{Bid._3D}, OpenBid2Bid1WJSimple::responderdTrumpMinorDiamod3D, true),
-                properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2Bid1WJSimple::responderChangedSuitsDiamond, false),
-                propertiesForcingToGame(new Call[]{Bid._2S, Bid._2H}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsMajorDiamond, true),
-                properties(new Call[]{Bid._3C}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsMinorDiamond, false),
-                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2Bid1WJSimple::weakRespond, false),
+                propertiesAgreeTrump(new Call[]{Bid._2D}, OpenBid2WJSimple::responderdTrumpMinorDiamod2D, true),
+                propertiesAgreeTrump(new Call[]{Bid._3D}, OpenBid2WJSimple::responderdTrumpMinorDiamod3D, true),
+                properties(new Call[]{Bid._1S, Bid._1H, Bid._2C}, OpenBid2WJSimple::responderChangedSuitsDiamond, false),
+                propertiesForcingToGame(new Call[]{Bid._2S, Bid._2H}, OpenBid2WJSimple::responderRaiseChangedSuitsMajorDiamond, true),
+                properties(new Call[]{Bid._3C}, OpenBid2WJSimple::responderRaiseChangedSuitsMinorDiamond, false),
+                properties(new Call[]{Bid._3S, Bid._3H}, OpenBid2WJSimple::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, RecursionWJSimple::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionWJSimple::recursionFindFitGame, true)
         );
@@ -148,11 +147,11 @@ public class RespondBid1WJSimple extends WJSimple {
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondWJSimple.oneSpade _3NT")),
                 shows(Bid._2NT, BALANCED, highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneHeart _2NT")),
 
-                propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2Bid1WJSimple::responderTrumpMajorHeart, true),
-                properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2Bid1WJSimple::responderChangedSuitsHeart, false),
-                propertiesForcingToGame(new Call[]{Bid._2S}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsToSpadeHeart, true),
-                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsToMinorHeart, false),
-                properties(new Call[]{Bid._3S}, OpenBid2Bid1WJSimple::weakRespond, false),
+                propertiesAgreeTrump(new Call[]{Bid._2H, Bid._3H}, OpenBid2WJSimple::responderTrumpMajorHeart, true),
+                properties(new Call[]{Bid._1S, Bid._2C, Bid._2D}, OpenBid2WJSimple::responderChangedSuitsHeart, false),
+                propertiesForcingToGame(new Call[]{Bid._2S}, OpenBid2WJSimple::responderRaiseChangedSuitsToSpadeHeart, true),
+                properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2WJSimple::responderRaiseChangedSuitsToMinorHeart, false),
+                properties(new Call[]{Bid._3S}, OpenBid2WJSimple::weakRespond, false),
                 properties(new Call[]{Bid._1NT}, RecursionWJSimple::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionWJSimple::recursionFindFitGame, true)
         );
@@ -191,9 +190,9 @@ public class RespondBid1WJSimple extends WJSimple {
                 shows(Bid._3NT, PAIR_BALANCED, pairHighCardPoints(PAIR_GAME), id("RespondWJSimple.oneSpade _3NT")),
                 shows(Bid._2NT, BALANCED, highCardPoints(JUMP_HAND), not(PASSED_HAND), ruleShow(1), id("RespondWJSimple.oneSpade _2NT")),
 
-                propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2Bid1WJSimple::responderTrumpMajorSpade, true),
-                properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2Bid1WJSimple::responderChangedSuitsSpade, false),
-                propertiesForcingToGame(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2Bid1WJSimple::responderRaiseChangedSuitsSpade, true),
+                propertiesAgreeTrump(new Call[]{Bid._2S, Bid._3S}, OpenBid2WJSimple::responderTrumpMajorSpade, true),
+                properties(new Call[]{Bid._2H, Bid._2C, Bid._2D}, OpenBid2WJSimple::responderChangedSuitsSpade, false),
+                propertiesForcingToGame(new Call[]{Bid._3C, Bid._3D, Bid._3H}, OpenBid2WJSimple::responderRaiseChangedSuitsSpade, true),
                 properties(new Call[]{Bid._1NT}, RecursionWJSimple::recursionFindFitGame, false),
                 properties(new Call[]{Bid._2NT}, RecursionWJSimple::recursionFindFitGame, true)
         );

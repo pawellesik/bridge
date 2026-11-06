@@ -16,7 +16,7 @@ public class WJSimple extends Bidder implements IBiddingSystem {
     public PositionCalls getPositionCalls(PositionState ps) {
         PositionCalls choices;
         if (ps.getRole() == PositionRole.Opener && ps.getRoleRound() == 1) {
-            choices = OpenBid1WJSimple.getOpenPositionCalls(ps);
+            choices = OpenWJSimple.getOpenPositionCalls(ps);
         } else {
             choices = new PositionCalls(ps);
             //choices.addRules(CompeteWJSimple::compBids);

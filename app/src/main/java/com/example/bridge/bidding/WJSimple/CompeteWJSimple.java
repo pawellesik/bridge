@@ -1,13 +1,11 @@
 package com.example.bridge.bidding.WJSimple;
 
-import static com.example.bridge.bidding.WJSimple.OpenBid1WJSimple.OpeningStrongBidding;
+import static com.example.bridge.bidding.WJSimple.OpenWJSimple.OpeningStrongBidding;
 
-import com.example.bridge.bidding.Constraints.Balanced;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
-import com.example.bridge.bidding.Tools.CallDetails;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;

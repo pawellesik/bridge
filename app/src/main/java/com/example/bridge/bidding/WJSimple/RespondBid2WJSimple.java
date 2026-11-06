@@ -1,8 +1,8 @@
 package com.example.bridge.bidding.WJSimple;
 
-import static com.example.bridge.bidding.WJSimple.OpenBid1WJSimple.GameAfterNegat;
-import static com.example.bridge.bidding.WJSimple.OpenBid1WJSimple.OpeningInviteBidding;
-import static com.example.bridge.bidding.WJSimple.OpenBid1WJSimple.OpeningLowBidding;
+import static com.example.bridge.bidding.WJSimple.OpenWJSimple.GameAfterNegat;
+import static com.example.bridge.bidding.WJSimple.OpenWJSimple.OpeningInviteBidding;
+import static com.example.bridge.bidding.WJSimple.OpenWJSimple.OpeningLowBidding;
 
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
@@ -27,7 +27,7 @@ public class RespondBid2WJSimple extends RespondBid1WJSimple {
                 shows(Bid._3S, shape(5, 13), ruleShow(1), id("RespondBid2WJSimple.secondBidNegat2NTStrong _3S")),
                 shows(Bid._3D, shape(5, 13), ruleShow(1), id("RespondBid2WJSimple.secondBidNegat2NTStrong _3D")),
                 shows(Bid._3C, shape(5, 13), ruleShow(1), id("RespondBid2WJSimple.secondBidNegat2NTStrong _3C")),
-                partnerBids(OpenBid3Bid1WJSimple::thirdBidNegat2NTStrong)
+                partnerBids(OpenBid3WJSimple::thirdBidNegat2NTStrong)
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
@@ -140,7 +140,7 @@ public class RespondBid2WJSimple extends RespondBid1WJSimple {
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, id("RespondBid2WJSimple.secondBidMinorClubStrong _3NT")),
 
                 partnerBids(RecursionWJSimple::recursionFindFitGame),
-                properties(new Call[]{Bid._3S}, OpenBid3Bid1WJSimple::thirdBidToGameMinorClubStrong)
+                properties(new Call[]{Bid._3S}, OpenBid3WJSimple::thirdBidToGameMinorClubStrong)
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
@@ -153,7 +153,7 @@ public class RespondBid2WJSimple extends RespondBid1WJSimple {
         choices.addRules(conventions);
         choices.addRules(
                 shows(Bid._4D, shape(6, 13), noFit(), partner(isLastBid(Bid._4C)), IS_REBID, ruleShow(1), id("RespondBid2WJSimple.secondBidMinorClubForcingStrong _4D")),
-                partnerBids(OpenBid3Bid1WJSimple::thirdBidMinorClubForcingStrong)
+                partnerBids(OpenBid3WJSimple::thirdBidMinorClubForcingStrong)
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
@@ -293,7 +293,7 @@ public class RespondBid2WJSimple extends RespondBid1WJSimple {
                 shows(Bid._3C, shape(5, 13), IS_NON_JUMP, noFit(7), IS_NEW_SUIT, ruleShow(1), id("RespondBid2WJSimple.secondBidNoAgreeTrumpDiamods _3C")),
                 shows(Bid._3C, shape(6, 13), noFit(7), IS_REBID, ruleShow(1), id("RespondBid2WJSimple.secondBidNoAgreeTrumpDiamods _3C")),
                 partnerBids(RecursionWJSimple::recursionFindFitGame),
-                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3Bid1WJSimple::thirdBidToGameDiamond)
+                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3WJSimple::thirdBidToGameDiamond)
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
@@ -379,7 +379,7 @@ public class RespondBid2WJSimple extends RespondBid1WJSimple {
                 shows(Bid._2H, shape(4, 13), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RespondBid2WJSimple.secondBid1NTDiamods _2H")),
                 shows(Bid._2S, shape(4, 13), noFit(), IS_NEW_SUIT, DECENT_PLUS_SUIT, id("RespondBid2WJSimple.secondBid1NTDiamods _2S")),
                 partnerBids(RecursionWJSimple::recursionFindFitGame),
-                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3Bid1WJSimple::thirdBidToGame1NTDiamond)
+                properties(new Call[]{Bid._2H, Bid._2S}, OpenBid3WJSimple::thirdBidToGame1NTDiamond)
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
@@ -396,7 +396,7 @@ public class RespondBid2WJSimple extends RespondBid1WJSimple {
                 shows(Bid._3NT, PAIR_BALANCED, id("RespondBid2WJSimple.secondBid2NTDiamods _3NT")),
                 shows(Bid._5D, fit(), partner(isLastBid(Bid._3D)), id("RespondBid2WJSimple.secondBid2NTDiamods _5D")),
                 partnerBids(RecursionWJSimple::recursionFindFitGame),
-                properties(new Call[]{Bid._3H, Bid._3S}, OpenBid3Bid1WJSimple::thirdBidToGame2NTDiamond)
+                properties(new Call[]{Bid._3H, Bid._3S}, OpenBid3WJSimple::thirdBidToGame2NTDiamond)
 
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
@@ -469,7 +469,7 @@ public class RespondBid2WJSimple extends RespondBid1WJSimple {
                 shows(Bid._3S, shape(4, 13), noFit(), IS_NEW_SUIT, ruleShow(1), id("RespondBid2WJSimple.secondBidToGameHeart  not(myLastBid(Bid._2S)) _3S")),
                 shows(Bid._3S, shape(6, 13), noFit(), IS_REBID, ruleShow(1), id("RespondBid2WJSimple.secondBidToGameHeart _3S")),
                 partnerBids(RecursionWJSimple::recursionFindFitGame),
-                properties(new Call[]{Bid._3S}, OpenBid3Bid1WJSimple::thirdBidToGameHeart, false)
+                properties(new Call[]{Bid._3S}, OpenBid3WJSimple::thirdBidToGameHeart, false)
         );
         choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;

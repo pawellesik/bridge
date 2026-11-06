@@ -11,7 +11,7 @@ import com.example.bridge.bidding.Tools.Suit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiamondBid1 extends WJSimple {
+public class RespondDiamondBid1 extends WJSimple {
 
     public static final HandConstraint OpenBidding = highCardPoints(12, 17);
     public static final HandConstraint OpenBiddingThirtSeat = highCardPoints(11, 17);
