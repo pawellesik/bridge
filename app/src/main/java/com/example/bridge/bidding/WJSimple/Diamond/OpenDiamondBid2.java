@@ -13,8 +13,9 @@ public class OpenDiamondBid2 extends WJSimple {
 
     public static final Range OPEN_STANDARD = new Range(12, 17);
     public static final Range OPEN_WEAK = new Range(12, 14);
-    public static final Range OPEN_STRONG = new Range(15, 17);
 
+    public static final Range OPEN_WEAK_GAME = new Range(12, 13);
+    public static final Range OPEN_STRONG = new Range(15, 17);
     public static final Range OPEN_STRONG_FORSING = new Range(16, 17);
     public static final Range OPEN_NT = new Range(14, 17);
 
@@ -155,6 +156,23 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._2S, fit(7), noFit(7), id("OpenDiamondBid2.diamond_2H _2S")), //bez ruleShow
 
                 properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2H_3C, true)
+        );
+        return choices;
+    }
+
+    //  1D -->  2S
+    //
+    public static PositionCalls diamond_2S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3NT, BALANCED, highCardPoints(OPEN_WEAK_GAME), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3NT")),
+                shows(Bid._3D, shape(6,13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3D")),
+                shows(Bid._3C, shape(4,13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3C")),
+                shows(Bid._3H, shape(4,13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3H")),
+                shows(Bid._3S, shape(4,13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3S")),
+                shows(Bid._2NT, BALANCED, highCardPoints(OPEN_NT), ruleShow(1), id("OpenDiamondBid2.diamond_2S _2NT"))
+
         );
         return choices;
     }
