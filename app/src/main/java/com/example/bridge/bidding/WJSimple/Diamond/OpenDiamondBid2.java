@@ -75,11 +75,14 @@ public class OpenDiamondBid2 extends WJSimple {
 
     //  1D -->  1NT
     //
-    public static PositionCalls diamond_1NT(PositionState ps) { //todo
+    public static PositionCalls diamond_1NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-
+                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STRONG), GOOD_PLUS_SUIT, ruleShow(1), id("OpenDiamondBid2.diamond_1NT _2H")),
+                shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STRONG), GOOD_PLUS_SUIT, ruleShow(1), id("OpenDiamondBid2.diamond_1NT _2S")),
+                shows(Bid._3C, shape(4, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), GOOD_PLUS_SUIT, ruleShow(1), id("OpenDiamondBid2.diamond_1NT _3C")),
+                properties(new Call[]{Bid._2H, Bid._2S, Bid._3C}, RespondDiamondBid2::diamond_1NT_2H2S3C, true)
         );
         return choices;
     }
