@@ -252,6 +252,14 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._4NT, setTrumpColor(Suit.Hearts), highCardPoints(17, 40), id("RespondDiamondBid2.diamond_1H_2H _4NT")),
+
+                shows(Bid._4H, setTrumpColor(Suit.Hearts), highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2H _4H")),
+                shows(Bid._3H, setTrumpColor(Suit.Hearts), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2H _3H")),
+                shows(Call.PASS, highCardPoints(7, 10), id("RespondDiamondBid2.diamond_1H_2H PASS"))
+        );
         return choices;
     }
 
