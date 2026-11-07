@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.WJSimple;
+package com.example.bridge.bidding.WJSimple.Diamond;
 
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
@@ -6,6 +6,7 @@ import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
+import com.example.bridge.bidding.WJSimple.WJSimple;
 
 public class RespondDiamondBid3 extends WJSimple {
 

@@ -1,19 +1,12 @@
-package com.example.bridge.bidding.WJSimple;
+package com.example.bridge.bidding.WJSimple.Diamond;
 
-import com.example.bridge.bidding.NatC.CompeteNatC;
-import com.example.bridge.bidding.NatC.OpenBid2NatC;
-import com.example.bridge.bidding.NatC.RecursionNatC;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
-import com.example.bridge.bidding.Tools.CallFeature;
-import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.bridge.bidding.WJSimple.WJSimple;
 
 public class RespondDiamondBid1 extends WJSimple {
 
@@ -60,9 +53,9 @@ public class RespondDiamondBid1 extends WJSimple {
                 //properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderRaiseChangedSuitsToMinorHeart, false),
                 //properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
 
-                properties(new Call[]{Bid._1H}, OpenDiamondBid1::diamond_1H, true),
-                properties(new Call[]{Bid._1S}, OpenDiamondBid1::diamond_1S, true),
-                properties(new Call[]{Bid._1NT}, OpenDiamondBid1::diamond_1NT, false)//todo
+                properties(new Call[]{Bid._1H}, OpenDiamondBid2::diamond_1H, true),
+                properties(new Call[]{Bid._1S}, OpenDiamondBid2::diamond_1S, true),
+                properties(new Call[]{Bid._1NT}, OpenDiamondBid2::diamond_1NT, false)//todo
         );
         return choices;
     }

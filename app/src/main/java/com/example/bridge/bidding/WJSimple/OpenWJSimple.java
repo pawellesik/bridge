@@ -7,6 +7,7 @@ import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
+import com.example.bridge.bidding.WJSimple.Diamond.RespondDiamondBid1;
 
 import java.util.ArrayList;
 import java.util.List;

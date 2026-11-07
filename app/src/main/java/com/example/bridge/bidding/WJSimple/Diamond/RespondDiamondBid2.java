@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.WJSimple;
+package com.example.bridge.bidding.WJSimple.Diamond;
 
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
@@ -6,7 +6,7 @@ import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
-import com.example.bridge.bidding.Tools.SuitQuality;
+import com.example.bridge.bidding.WJSimple.WJSimple;
 
 public class RespondDiamondBid2 extends WJSimple {
 
@@ -29,8 +29,8 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2D")),
                 shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2C")),
 
-                properties(new Call[]{Bid._2C}, OpenDiamondBid2::diamond_1H_1NT1S_2C, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_1H_1NT1S_2D, true)
+                properties(new Call[]{Bid._2C}, OpenDiamondBid3::diamond_1H_1NT1S_2C, true),
+                properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1H_1NT1S_2D, true)
 
         );
         return choices;
@@ -51,7 +51,7 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2D")),
                 shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _pass")),
 
-                propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid2::diamond_1H_2C_2S, true)
+                propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid3::diamond_1H_2C_2S, true)
 
         );
         return choices;
@@ -71,8 +71,8 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2D")),
                 shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2C")),
 
-                properties(new Call[]{Bid._2C}, OpenDiamondBid2::diamond_1S_1NT_2C, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_1S_1NT_2D, true)
+                properties(new Call[]{Bid._2C}, OpenDiamondBid3::diamond_1S_1NT_2C, true),
+                properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1S_1NT_2D, true)
 
         );
         return choices;
@@ -93,7 +93,7 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2D")),
                 shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _pass")),
 
-                propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid2::diamond_1S_2C_2H, true)
+                propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid3::diamond_1S_2C_2H, true)
 
         );
         return choices;
@@ -112,8 +112,8 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._2S, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
                 shows(Bid._3D, shape(2, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3D")),
 
-                properties(new Call[]{Bid._2NT}, OpenDiamondBid2::diamond_1S_2H_2NT, true),
-                properties(new Call[]{Bid._3H}, OpenDiamondBid2::diamond_1S_2H_3H, true)
+                properties(new Call[]{Bid._2NT}, OpenDiamondBid3::diamond_1S_2H_2NT, true),
+                properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_1S_2H_3H, true)
                 );
         return choices;
     }
