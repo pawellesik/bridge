@@ -111,5 +111,15 @@ public class OpenDiamondBid2 extends WJSimple {
         return choices;
     }
 
+    //  1D -->  2D
+    //
+    public static PositionCalls diamond_2D(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
 
+        choices.addRules(
+                shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3H"))
+
+        );
+        return choices;
+    }
 }
