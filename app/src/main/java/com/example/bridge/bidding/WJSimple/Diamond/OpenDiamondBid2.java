@@ -39,7 +39,7 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._3NT, shape(Suit.Diamonds, 7, 13), quality(Suit.Diamonds, SuitQuality.Excellent, SuitQuality.Solid), highCardPoints(OPEN_NT), ruleShow(1), id("OpenDiamondBid2.oneHeart _3NT")),
                 shows(Bid._3S, shape(0, 1), shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3S")),
                 shows(Bid._4C, shape(0, 1), shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _4C")),
-                shows(Bid._3H, shape(4, 4), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.oneHeart _3H")),
+                shows(Bid._3H, shape(4, 4), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3H")),
                 shows(Bid._3D, shape(6, 13), shape(Suit.Hearts, 0, 2), shape(Suit.Spades, 2, 13), shape(Suit.Clubs, 2, 13),highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3D")),
                 shows(Bid._3C, shape(5, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3C")),
                 shows(Bid._2NT, shape(Suit.Diamonds, 6, 13), shape(Suit.Hearts, 0, 2), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3C")),
