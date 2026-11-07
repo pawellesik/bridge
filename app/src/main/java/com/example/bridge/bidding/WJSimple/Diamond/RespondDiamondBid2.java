@@ -132,4 +132,18 @@ public class RespondDiamondBid2 extends WJSimple {
         return choices;
     }
 
+    //  1D   -->  2H
+    //  3C   -->
+    //
+    public static PositionCalls diamond_2H_3C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3NT,  ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3NT")),
+
+        );
+        return choices;
+    }
+
+
 }
