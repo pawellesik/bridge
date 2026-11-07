@@ -351,7 +351,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  Runda 2: 3D - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
-    //  * Gracza N (Otwierający 1D) : HCP: 15-17 | Diamonds: 6-13 | Hearts: 0-2
+    //  * Gracza N (Otwierający 1D) : HCP: 15-17 | Diamonds: 6-13 | Hearts: 0-2 | Spades: 2-13 | Clubs: 2-13
     //  * Gracza S (Odpowiadający 1H): HCP: 7-25  | Hearts: 4-13
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_3D(PositionState ps) {
