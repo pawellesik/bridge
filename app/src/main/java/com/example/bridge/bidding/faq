@@ -64,7 +64,7 @@ suitBidCount(2) – licytujesz ten kolor po raz trzeci (drugi rebid).
 • isOpeningBid(Bid) - Sprawdza, czy wskazana odzywka otworzyła licytację w tym rozdaniu.
 • IS_NEW_SUIT - Licytacja koloru, który nie był wcześniej zgłoszony przez Twoją parę.
 • IS_REBID - Powtórzenie koloru, który już wcześniej sam licytowałeś.
-• IS_FORCED_TO_BID - Sytuacja, w której system lub partner zmusza Cię do licytacji (nie możesz spasować). (ustawienie forcing1Round na true)
+• IS_FORCED_TO_BID - jesli jest ustawiona ta flage to przy odpowiedzi mozemy dac na nia waruenk IS_FORCED_TO_BID i tylko wtedy licytacja pojdzie
 • IS_FORCED_TO_GAME - Sytuacja forsingu do końcówki (licytacja musi trwać aż do osiągnięcia poziomu końcówki). (propertiesForcingToGame)
 • CONTRACT_IS_AGREED_STRAIN - Obecny kontrakt jest w kolorze, który para uznała za atutowy.
 • isJump(levels...) - Odzywka z przeskokiem (0=bez, 1=pojedynczy, 2=podwójny przeskok).
@@ -82,6 +82,8 @@ suitBidCount(2) – licytujesz ten kolor po raz trzeci (drugi rebid).
 • isPartnersSuit() - Statyczny warunek sprawdzający, czy licytujemy kolor partnera.
 • PARTNER_DID_NOT_SIGN_OFF - sprawdza czy partner zalicytowal koncowkę 3NT, 4H, 4S
 • PASSED_HAND- pierwsza odzywka gracza była pasem (partner(not(PASSED_HAND)))
+
+
 
 8. FIT I WSPÓLNA LICYTACJA
 --------------------------
