@@ -212,31 +212,6 @@ public class RespondDiamondBid2 extends WJSimple {
     ////////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //  SEKWENCJA LICYTACJI:
-    //  Runda 1: 1D - Pass - 1H - Pass
-    //  Runda 2: 1S - Pass
-    //  -----------------------------------------------------------------------
-    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
-    //  * Gracza N (Otwierający 1D) : HCP: 12-17 | Diamonds: 5-13 | Spades: 4-13
-    //  * Gracza S (Odpowiadający 1H): HCP: 7-28  | Hearts: 4-13
-    //  -----------------------------------------------------------------------
-    public static PositionCalls diamond_1H_1S(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        return choices;
-    }
-
-    //  SEKWENCJA LICYTACJI:
-    //  Runda 1: 1D - Pass - 1H - Pass
-    //  Runda 2: 1NT - Pass
-    //  -----------------------------------------------------------------------
-    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
-    //  * Gracza N (Otwierający 1D) : HCP: 12-14 | Diamonds: 4-13 | Hearts: 0-3 | Spades: 0-3
-    //  * Gracza S (Odpowiadający 1H): HCP: 7-28  | Hearts: 4-13
-    //  -----------------------------------------------------------------------
-    public static PositionCalls diamond_1H_1NT(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        return choices;
-    }
 
     //  SEKWENCJA LICYTACJI:
     //  Runda 1: 1D - Pass - 1H - Pass

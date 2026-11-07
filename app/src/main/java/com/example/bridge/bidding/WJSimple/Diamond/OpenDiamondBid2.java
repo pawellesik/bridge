@@ -51,8 +51,7 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.oneHeart _1S")),
 
 
-                properties(new Call[]{Bid._1S}, RespondDiamondBid2::diamond_1H_1S, true),
-                properties(new Call[]{Bid._1NT}, RespondDiamondBid2::diamond_1H_1NT, false),
+                properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
                 properties(new Call[]{Bid._2C}, RespondDiamondBid2::diamond_1H_2C, true),
                 properties(new Call[]{Bid._2D}, RespondDiamondBid2::diamond_1H_2D, false),
                 properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_1H_2H, false),
