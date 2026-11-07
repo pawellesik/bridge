@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.WJSimple.Diamond;
 
+import com.example.bridge.bidding.NatC.OpenBid2NatC;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -174,6 +175,21 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._2NT, BALANCED, highCardPoints(OPEN_NT), ruleShow(1), id("OpenDiamondBid2.diamond_2S _2NT"))
 
         );
+        return choices;
+    }
+
+    //  1D -->  2NT
+    //
+    public static PositionCalls diamond_2NT(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3D, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3D")),
+                shows(Bid._3C, setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3C")),
+
+                propertiesForcingToGame(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2NT_3C, true)
+
+                );
         return choices;
     }
 }

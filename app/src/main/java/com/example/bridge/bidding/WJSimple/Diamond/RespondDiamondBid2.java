@@ -148,5 +148,19 @@ public class RespondDiamondBid2 extends WJSimple {
         return choices;
     }
 
+    //  1D   -->  2NT
+    //  3C   -->
+    //
+    public static PositionCalls diamond_2NT_3C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._5D, fit(Suit.Diamonds), id("RespondDiamondBid2.diamond_2NT_3C _5D")),
+                shows(Bid._3NT, BALANCED, id("RespondDiamondBid2.diamond_2NT_3C _3NT"))
+
+        );
+        return choices;
+    }
+
 
 }
