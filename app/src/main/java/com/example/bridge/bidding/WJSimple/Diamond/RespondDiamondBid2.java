@@ -218,11 +218,27 @@ public class RespondDiamondBid2 extends WJSimple {
     //  Runda 2: 2D - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
-    //  * Gracza N (Otwierający 1D) : HCP: 12-14 | Diamonds: 6-13
+    //  * Gracza N (Otwierający 1D) : HCP: 12-14 | Diamonds: 6-13 | Hearts: 0-2
     //  * Gracza S (Odpowiadający 1H): HCP: 7-28  | Hearts: 4-13
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                // --- Końcówki (13-16 HCP) ---
+                shows(Bid._3NT, PAIR_BALANCED, highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2D _3NT")),
+                shows(Bid._5D, fit(), highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2D _5D")),
+
+                // --- Inwity do końcówki (11-12 HCP) ---
+                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(11, 12),  id("RespondDiamondBid2.diamond_1H_2D _3H")),
+                shows(Bid._3D, shape(Suit.Diamonds, 3, 13), highCardPoints(11, 12),  id("RespondDiamondBid2.diamond_1H_2D _3D")),
+                shows(Bid._2NT, BALANCED, highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _2NT")),
+                shows(Bid._2S, shape(Suit.Spades, 4, 13), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _2S")),
+
+                // --- Odzywki częściowe / Słabe (7-10 HCP) ---
+                shows(Bid._2H, shape(Suit.Hearts, 6, 13), highCardPoints(7, 10), id("RespondDiamondBid2.diamond_1H_2D _2H")),
+                shows(Call.PASS, highCardPoints(7, 10), id("RespondDiamondBid2.diamond_1H_2D PASS"))
+        );
         return choices;
     }
 
