@@ -356,6 +356,16 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                //todo blackwood
+
+                // --- 2. Końcówki (10-16 HCP po silnym przeskoku 15-17 N) ---
+                shows(Bid._3NT, BALANCED, highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D _3NT")),
+                shows(Bid._5D, fit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D _5D")),
+
+                shows(Call.PASS, fit(), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_3D PASS"))
+        );
         return choices;
     }
 
