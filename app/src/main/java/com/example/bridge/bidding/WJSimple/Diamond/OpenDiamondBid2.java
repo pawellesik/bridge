@@ -51,8 +51,19 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.oneHeart _1S")),
 
 
-                properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, true),
-                properties(new Call[]{Bid._2C}, RespondDiamondBid2::diamond_1H_2C, true)
+                properties(new Call[]{Bid._1S}, RespondDiamondBid2::diamond_1H_1S, true),
+                properties(new Call[]{Bid._1NT}, RespondDiamondBid2::diamond_1H_1NT, false),
+                properties(new Call[]{Bid._2C}, RespondDiamondBid2::diamond_1H_2C, true),
+                properties(new Call[]{Bid._2D}, RespondDiamondBid2::diamond_1H_2D, false),
+                properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_1H_2H, false),
+                properties(new Call[]{Bid._2S}, RespondDiamondBid2::diamond_1H_2S, true),
+                properties(new Call[]{Bid._2NT}, RespondDiamondBid2::diamond_1H_2NT, true),
+                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_1H_3C, true),
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_1H_3D, true),
+                properties(new Call[]{Bid._3H}, RespondDiamondBid2::diamond_1H_3H, true),
+                properties(new Call[]{Bid._3S}, RespondDiamondBid2::diamond_1H_3S, true),
+                properties(new Call[]{Bid._4C}, RespondDiamondBid2::diamond_1H_4C, true),
+                properties(new Call[]{Bid._3NT}, RespondDiamondBid2::diamond_1H_3NT, false)
         );
         return choices;
     }
@@ -85,7 +96,16 @@ public class OpenDiamondBid2 extends WJSimple {
 
                 properties(new Call[]{Bid._1NT}, RespondDiamondBid2::diamond_1S_1NT, true),
                 properties(new Call[]{Bid._2C}, RespondDiamondBid2::diamond_1S_2C, true),
-                properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_1S_2H, true)
+                properties(new Call[]{Bid._2D}, RespondDiamondBid2::diamond_1S_2D, false),
+                properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_1S_2H, true),
+                properties(new Call[]{Bid._2S}, RespondDiamondBid2::diamond_1S_2S, false),
+                properties(new Call[]{Bid._2NT}, RespondDiamondBid2::diamond_1S_2NT, false),
+                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_1S_3C, false),
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_1S_3D, false),
+                properties(new Call[]{Bid._3S}, RespondDiamondBid2::diamond_1S_3S, false),
+                properties(new Call[]{Bid._3H}, RespondDiamondBid2::diamond_1S_3H, false),
+                properties(new Call[]{Bid._4C}, RespondDiamondBid2::diamond_1S_4C, false),
+                properties(new Call[]{Bid._3NT}, RespondDiamondBid2::diamond_1S_3NT, false)
         );
         return choices;
     }
@@ -133,8 +153,16 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2H")),
                 shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2S")),
 
-                shows(Bid._2D, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2D"))
+                shows(Bid._2D, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2D")),
 
+                properties(new Call[]{Bid._2D}, RespondDiamondBid2::diamond_2C_2D, false),
+                properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_2C_2H, false),
+                properties(new Call[]{Bid._2S}, RespondDiamondBid2::diamond_2C_2S, false),
+                properties(new Call[]{Bid._2NT}, RespondDiamondBid2::diamond_2C_2NT, false),
+                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2C_3C, false),
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_2C_3D, false),
+                properties(new Call[]{Bid._3H}, RespondDiamondBid2::diamond_2C_3H, false),
+                properties(new Call[]{Bid._3S}, RespondDiamondBid2::diamond_2C_3S, false)
         );
         return choices;
     }
@@ -158,9 +186,15 @@ public class OpenDiamondBid2 extends WJSimple {
 
                 shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
                 shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
-                shows(Bid._3C, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3C"))
+                shows(Bid._3C, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3C")),
 
-
+                properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_2D_2H, false),
+                properties(new Call[]{Bid._2S}, RespondDiamondBid2::diamond_2D_2S, false),
+                properties(new Call[]{Bid._2NT}, RespondDiamondBid2::diamond_2D_2NT, false),
+                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2D_3C, false),
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_2D_3D, false),
+                properties(new Call[]{Bid._3H}, RespondDiamondBid2::diamond_2D_3H, false),
+                properties(new Call[]{Bid._3S}, RespondDiamondBid2::diamond_2D_3S, false)
         );
         return choices;
     }
@@ -190,7 +224,12 @@ public class OpenDiamondBid2 extends WJSimple {
 
                 shows(Bid._2S, fit(7), noFit(7), id("OpenDiamondBid2.diamond_2H _2S")), //bez ruleShow
 
-                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2H_3C, true)
+                properties(new Call[]{Bid._2S}, RespondDiamondBid2::diamond_2H_2S, false),
+                properties(new Call[]{Bid._2NT}, RespondDiamondBid2::diamond_2H_2NT, false),
+                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2H_3C, true),
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_2H_3D, false),
+                properties(new Call[]{Bid._4H}, RespondDiamondBid2::diamond_2H_4H, false),
+                properties(new Call[]{Bid._4S}, RespondDiamondBid2::diamond_2H_4S, false)
         );
         return choices;
     }
@@ -211,8 +250,14 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._3C, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3C")),
                 shows(Bid._3H, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3H")),
                 shows(Bid._3S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3S")),
-                shows(Bid._2NT, BALANCED, highCardPoints(OPEN_NT), ruleShow(1), id("OpenDiamondBid2.diamond_2S _2NT"))
+                shows(Bid._2NT, BALANCED, highCardPoints(OPEN_NT), ruleShow(1), id("OpenDiamondBid2.diamond_2S _2NT")),
 
+                properties(new Call[]{Bid._2NT}, RespondDiamondBid2::diamond_2S_2NT, false),
+                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2S_3C, false),
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_2S_3D, false),
+                properties(new Call[]{Bid._3H}, RespondDiamondBid2::diamond_2S_3H, false),
+                properties(new Call[]{Bid._3S}, RespondDiamondBid2::diamond_2S_3S, false),
+                properties(new Call[]{Bid._3NT}, RespondDiamondBid2::diamond_2S_3NT, false)
         );
         return choices;
     }
@@ -231,8 +276,8 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._3D, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3D")),
                 shows(Bid._3C, setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3C")),
 
-                propertiesForcingToGame(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2NT_3C, true)
-
+                propertiesForcingToGame(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_2NT_3C, true),
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_2NT_3D, true)
         );
         return choices;
     }
@@ -252,11 +297,20 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._3H, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Hearts), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3H")),
                 shows(Bid._3S, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Spades), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3S")),
                 shows(Bid._3D, shape(6, 13), noFit(), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3D")),
-                shows(Call.PASS, highCardPoints(OPEN_WEAK_GAME), ruleShow(1), id("OpenDiamondBid2.diamond_2S _PASS"))
+                shows(Call.PASS, highCardPoints(OPEN_WEAK_GAME), ruleShow(1), id("OpenDiamondBid2.diamond_2S _PASS")),
 
+                properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_3C_3D, false),
+                properties(new Call[]{Bid._3H}, RespondDiamondBid2::diamond_3C_3H, true),
+                properties(new Call[]{Bid._3S}, RespondDiamondBid2::diamond_3C_3S, true),
+                properties(new Call[]{Bid._4C}, RespondDiamondBid2::diamond_3C_4C, true)
         );
         return choices;
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //  SEKWENCJA LICYTACJI:
     //  Runda 1: 1D - Pass - 3D - Pass
