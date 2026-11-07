@@ -276,6 +276,19 @@ public class RespondDiamondBid2 extends WJSimple {
         choices.addRules(
                 //todo blackwood
 
+                // --- 2. Końcówki (10-16 HCP po silnym rebidzie 15-17 N) ---
+                // a) 4H przy 5+ kierach S (N ma 3 + S ma 5 = fit 8+ kart w kierach)
+                shows(Bid._4H, setTrumpColor(Suit.Hearts), shape(Suit.Hearts, 5, 13), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2S _4H")),
+                // c) 5D przy ficie karowym (N ma 6, S ma 3+ kara)
+                shows(Bid._5D, fit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2S _5D")),
+
+                // b) 3NT przy 4 kierach S (7-kartowy fit, układ zrównoważony)
+                shows(Bid._3NT, BALANCED, shape(Suit.Hearts, 4, 4), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2S _3NT")),
+
+                // --- 3. Inwity / Bilansowanie przy dół odpowiedzi (7-9 HCP) ---
+                shows(Bid._3H, shape(Suit.Hearts, 5, 13), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2S _3H")),
+                shows(Bid._3D, fit(), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2S _3D")),
+                shows(Bid._2NT, id("RespondDiamondBid2.diamond_1H_2S _2NT"))
         );
         return choices;
     }
@@ -290,6 +303,20 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                //todo blackwood
+
+                shows(Bid._5D, fit(), highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _5D")),
+
+                shows(Bid._3S, shape(4, 13), highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _3S")),
+
+                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _4H")),
+
+                shows(Bid._3NT, highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _3NT")),
+
+                shows(Bid._3D, fit(7), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2NT _3D"))
+        );
         return choices;
     }
 
