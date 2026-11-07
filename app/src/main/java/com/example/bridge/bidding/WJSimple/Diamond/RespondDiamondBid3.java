@@ -16,10 +16,19 @@ public class RespondDiamondBid3 extends WJSimple {
     public static final Range HIGHT = new Range(11, 12);
 
 
+    // =========================================================================
+    // WIEDZA PUBLICZNA (PublicHandSummary) W 3. OKRĄŻENIU ODPOWIADAJĄCEGO S (1D)
+    // =========================================================================
 
-    //  1D      -->  1H
-    //  1NT, 1S -->  2C
-    //  2D      -->
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 1H - Pass
+    //  Runda 2: 1NT (lub 1S) - Pass - 2C - Pass
+    //  Runda 3: 2D - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary):
+    //  * Gracza N (Otwierający 1D)  : HCP: 12-14 | Diamonds: 4-13 | Hearts: 0-2 | Spades: 0-3
+    //  * Gracza S (Odpowiadający 1H): HCP: 10-12 | Hearts: 4-13
+    //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_1NT1S_2C_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
@@ -36,9 +45,15 @@ public class RespondDiamondBid3 extends WJSimple {
         return choices;
     }
 
-    //  1D      -->  1S
-    // 1NT      -->  2C
-    //  2D      -->
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 1S - Pass
+    //  Runda 2: 1NT - Pass - 2C - Pass
+    //  Runda 3: 2D - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary):
+    //  * Gracza N (Otwierający 1D)  : HCP: 12-14 | Diamonds: 4-13 | Spades: 0-2 | Hearts: 0-3
+    //  * Gracza S (Odpowiadający 1S): HCP: 10-12 | Spades: 4-13 | Hearts: 0-3
+    //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_1NT_2C_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 

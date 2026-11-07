@@ -20,7 +20,16 @@ public class RespondDiamondBid1 extends WJSimple {
     public static final Range RESPOND_3C = new Range(10, 11);
     public static final Range RESPOND_2D = new Range(10, 40);
 
-    //1D -->
+    // =========================================================================
+    // WIEDZA PUBLICZNA (PublicHandSummary) W 1. OKRĄŻENIU ODPOWIADAJĄCEGO S (1D)
+    // =========================================================================
+
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary):
+    //  * Gracza N (Otwierający 1D) : HCP: 12-17 | Diamonds: 4-13 (lub 4441 z ♣)
+    //  -----------------------------------------------------------------------
     public static PositionCalls oneDiamond(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
