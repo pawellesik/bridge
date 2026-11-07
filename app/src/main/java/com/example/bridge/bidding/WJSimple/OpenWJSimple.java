@@ -16,17 +16,12 @@ public class OpenWJSimple extends WJSimple {
     public static final HandConstraint OpenBidding = highCardPoints(12, 17);
     public static final HandConstraint OpenBiddingThirtSeat = highCardPoints(11, 17);
     public static final HandConstraint OpenBiddingLow = highCardPoints(12, 14);
-    public static final HandConstraint OpeningLowBidding = OpenBiddingLow;
     public static final HandConstraint OpenBiddingLowThirtSeat = highCardPoints(11, 14);
     public static final HandConstraint OpenBiddingHight = highCardPoints(15, 17);
-    public static final HandConstraint OpeningInviteBidding = OpenBiddingHight;
     public static final HandConstraint OpeningStrongBidding = highCardPoints(18, 40);
-
     public static final HandConstraint DontOpen = highCardPoints(0, 10);
-
     public static final HandConstraint OpeningWeakBidding = highCardPoints(6, 11);
     public static final HandConstraint Opening2NT = highCardPoints(4, 11);
-    public static final HandConstraint GameAfterNegat = highCardPoints(5, 6);
 
     public static PositionCalls getOpenPositionCalls(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
@@ -87,10 +82,10 @@ public class OpenWJSimple extends WJSimple {
 
         bids.add(shows(Bid._1C, id("OpenWJSimple.openSuit _1C")));
 
-        bids.add(partnerBids(Bid._1S, RespondBid1WJSimple::oneSpade));
-        bids.add(partnerBids(Bid._1H, RespondBid1WJSimple::oneHeart));
+        //bids.add(partnerBids(Bid._1S, RespondBid1WJSimple::oneSpade));
+        //bids.add(partnerBids(Bid._1H, RespondBid1WJSimple::oneHeart));
         bids.add(partnerBids(Bid._1D, RespondDiamondBid1::oneDiamond));
-        bids.add(partnerBids(Bid._1C, RespondBid1WJSimple::oneClub));
+        //bids.add(partnerBids(Bid._1C, RespondBid1WJSimple::oneClub));
 
         return bids;
     }
@@ -101,7 +96,7 @@ public class OpenWJSimple extends WJSimple {
         rules.add(shows(Bid._3H, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuitWeak _3H")));
         rules.add(shows(Bid._3D, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuitWeak _3D")));
         rules.add(shows(Bid._3C, shape(7, 13), OpeningWeakBidding, ruleShow(1), id("OpenWJSimple.openSuitWeak _3C")));
-        rules.add(partnerBids(RespondBid1WJSimple::weakOpen));
+        //rules.add(partnerBids(RespondBid1WJSimple::weakOpen)); todo
         return rules;
     }
 }

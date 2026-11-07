@@ -1,7 +1,5 @@
 package com.example.bridge.bidding.WJSimple;
 
-import static com.example.bridge.bidding.WJSimple.WJSimple.PAIR_GAME;
-
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
@@ -10,6 +8,7 @@ import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
@@ -22,6 +21,8 @@ public class NoTrumpWJSimple extends Bidder {
     public static final HandConstraint INVITE_GAME = highCardPoints(7, 10);
     public static final HandConstraint GAME_OR_BETTER = highCardPoints(11, 40);
     public static final HandConstraint SMALL_SLAM = highCardPoints(18, 19);
+
+    public static final Range PAIR_GAME = new Range (25, 40);
 
     public static Iterable<CallFeature> open1NTBid1(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
@@ -66,7 +67,7 @@ public class NoTrumpWJSimple extends Bidder {
                 properties(new Call[]{Bid._3H, Bid._3S}, NoTrumpWJSimple::open1NTBid2Major)
 
         );
-        choices.addRules(CompeteWJSimple.compBids(ps));
+        //choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
     }
 
@@ -81,7 +82,7 @@ public class NoTrumpWJSimple extends Bidder {
         } else {
             choices.addRules(AcesAsk.initiateConventionBlok(ps));
         }
-        choices.addRules(CompeteWJSimple.compBids(ps));
+       // choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
     }
 
@@ -119,7 +120,7 @@ public class NoTrumpWJSimple extends Bidder {
         );
 
 
-        choices.addRules(CompeteWJSimple.compBids(ps));
+        //choices.addRules(CompeteWJSimple.compBids(ps));
         return choices;
     }
 
@@ -136,7 +137,7 @@ public class NoTrumpWJSimple extends Bidder {
                 shows(Bid._4H, partner(isLastBid(Bid._3H)), fit(), setTrumpColor(Suit.Hearts), id("NoTrumpWJSimple.responderRebid 4H")),
                 shows(Bid._4S, partner(isLastBid(Bid._3S)), fit(), setTrumpColor(Suit.Spades), id("NoTrumpWJSimple.responderRebid 4S"))
         );
-        choices.addRules(CompeteWJSimple::compBids);
+        //choices.addRules(CompeteWJSimple::compBids);
         return choices;
     }
 
@@ -147,7 +148,7 @@ public class NoTrumpWJSimple extends Bidder {
                 shows(Bid._5C, partner(isLastBid(Bid._4C)), setTrumpColor(Suit.Clubs), id("NoTrumpWJSimple.inviteMinor 5C")),
                 shows(Bid._5D, partner(isLastBid(Bid._4D)), setTrumpColor(Suit.Diamonds), id("NoTrumpWJSimple.inviteMinor 5D"))
         );
-        choices.addRules(CompeteWJSimple::compBids);
+        //choices.addRules(CompeteWJSimple::compBids);
         return choices;
     }
 }
