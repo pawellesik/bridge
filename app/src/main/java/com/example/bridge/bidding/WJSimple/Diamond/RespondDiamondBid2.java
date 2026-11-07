@@ -143,7 +143,7 @@ public class RespondDiamondBid2 extends WJSimple {
 
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid3::diamond_1S_2H_2NT, true),
                 properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_1S_2H_3H, true)
-                );
+        );
         return choices;
     }
 
@@ -159,10 +159,10 @@ public class RespondDiamondBid2 extends WJSimple {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3D, fit(), noFit(), partner(isLastBid(Bid._2H, Bid._2C)),  ruleShow(1), id("RespondDiamondBid2.diamond_1NT_2H2S3C _3D")),
+                shows(Bid._3D, fit(), noFit(), partner(isLastBid(Bid._2H, Bid._2C)), ruleShow(1), id("RespondDiamondBid2.diamond_1NT_2H2S3C _3D")),
                 shows(Bid._3D, partner(isLastBid(Bid._3C)), betterThan(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_1NT_2H2S3C _3D"))
 
-                );
+        );
         return choices;
     }
 
@@ -178,10 +178,10 @@ public class RespondDiamondBid2 extends WJSimple {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT,  stopped(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3NT")),
-                shows(Bid._3S,  GOOD_PLUS_SUIT, ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3S")),
-                shows(Bid._3H,  shape(5,13), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3H")),
-                shows(Bid._3D,  shape(2,2), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3D"))
+                shows(Bid._3NT, stopped(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3NT")),
+                shows(Bid._3S, GOOD_PLUS_SUIT, ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3S")),
+                shows(Bid._3H, shape(5, 13), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3H")),
+                shows(Bid._3D, shape(2, 2), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3D"))
 
         );
         return choices;
@@ -207,10 +207,10 @@ public class RespondDiamondBid2 extends WJSimple {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     //  SEKWENCJA LICYTACJI:
@@ -230,8 +230,8 @@ public class RespondDiamondBid2 extends WJSimple {
                 shows(Bid._5D, fit(), highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2D _5D")),
 
                 // --- Inwity do końcówki (11-12 HCP) ---
-                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(11, 12),  id("RespondDiamondBid2.diamond_1H_2D _3H")),
-                shows(Bid._3D, shape(Suit.Diamonds, 3, 13), highCardPoints(11, 12),  id("RespondDiamondBid2.diamond_1H_2D _3D")),
+                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _3H")),
+                shows(Bid._3D, shape(Suit.Diamonds, 3, 13), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _3D")),
                 shows(Bid._2NT, BALANCED, highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _2NT")),
                 shows(Bid._2S, shape(Suit.Spades, 4, 13), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _2S")),
 
@@ -330,6 +330,19 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                //todo blackwood
+
+                shows(Bid._5D, fit(), highCardPoints(7, 16), id("RespondDiamondBid2.diamond_1H_3C _5D")),
+                shows(Bid._5C, fit(), highCardPoints(7, 16), id("RespondDiamondBid2.diamond_1H_3C _5C")),
+
+                shows(Call.PASS, betterThan(Suit.Diamonds), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2NT _pass")),
+                shows(Bid._3D, betterThan(Suit.Clubs), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2NT _pass")),
+                shows(Bid._3H, shape(6, 13), shape(Suit.Diamonds, 0, 2), shape(Suit.Clubs, 0, 2), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2NT _pass")),
+                shows(Bid._3NT, stopped(Suit.Hearts), stopped(Suit.Spades), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2NT 3NT"))
+
+        );
         return choices;
     }
 
