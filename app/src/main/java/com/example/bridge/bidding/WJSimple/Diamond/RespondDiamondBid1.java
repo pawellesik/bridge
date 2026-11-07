@@ -63,10 +63,15 @@ public class RespondDiamondBid1 extends WJSimple {
                 properties(new Call[]{Bid._1NT}, OpenDiamondBid2::diamond_1NT, false),
                 properties(new Call[]{Bid._2C}, OpenDiamondBid2::diamond_2C, true),
                 properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_2D, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_2H, true),
+                properties(new Call[]{Bid._2H}, OpenDiamondBid2::diamond_2H, true),
                 properties(new Call[]{Bid._2S}, OpenDiamondBid2::diamond_2S, true),
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid2::diamond_2NT, true),
-                properties(new Call[]{Bid._3C}, OpenDiamondBid2::diamond_3C, true)
+                properties(new Call[]{Bid._3C}, OpenDiamondBid2::diamond_3C, true),
+                properties(new Call[]{Bid._3D}, OpenDiamondBid2::diamond_3D, false),
+                properties(new Call[]{Bid._3H}, OpenDiamondBid2::diamond_3H, false),
+                properties(new Call[]{Bid._3S}, OpenDiamondBid2::diamond_3S, false),
+                properties(new Call[]{Bid._4C}, OpenDiamondBid2::diamond_4C, false),
+                properties(new Call[]{Bid._3NT}, OpenDiamondBid2::diamond_3NT, false)
 
         );
         return choices;

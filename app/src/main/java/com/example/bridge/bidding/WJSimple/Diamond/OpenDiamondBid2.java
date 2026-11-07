@@ -257,4 +257,64 @@ public class OpenDiamondBid2 extends WJSimple {
         );
         return choices;
     }
+
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 3D - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
+    //  * Gracza N (Otwierający 1D)  : HCP: 12-17 | Diamonds: 4-13
+    //  * Gracza S (Odpowiadający 3D) : HCP: 7-9   | Diamonds: 4-13 | Spades: 0-3 | Hearts: 0-3
+    //  -----------------------------------------------------------------------
+    public static PositionCalls diamond_3D(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        return choices;
+    }
+
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 3H - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
+    //  * Gracza N (Otwierający 1D)  : HCP: 12-17 | Diamonds: 4-13
+    //  * Gracza S (Odpowiadający 3H) : HCP: 13-28 | Diamonds: 4-13 | Hearts: 0-1
+    //  -----------------------------------------------------------------------
+    public static PositionCalls diamond_3H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        return choices;
+    }
+
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 3S - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
+    //  * Gracza N (Otwierający 1D)  : HCP: 12-17 | Diamonds: 4-13
+    //  * Gracza S (Odpowiadający 3S) : HCP: 13-28 | Diamonds: 4-13 | Spades: 0-1
+    //  -----------------------------------------------------------------------
+    public static PositionCalls diamond_3S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        return choices;
+    }
+
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 4C - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
+    //  * Gracza N (Otwierający 1D)  : HCP: 12-17 | Diamonds: 4-13
+    //  * Gracza S (Odpowiadający 4C) : HCP: 13-28 | Diamonds: 4-13 | Clubs: 0-1
+    //  -----------------------------------------------------------------------
+    public static PositionCalls diamond_4C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        return choices;
+    }
+
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 3NT - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
+    //  * Gracza N (Otwierający 1D)   : HCP: 12-17 | Diamonds: 4-13
+    //  * Gracza S (Odpowiadający 3NT) : HCP: 13-16 | Spades: 0-3 | Hearts: 0-3
+    //  -----------------------------------------------------------------------
+    public static PositionCalls diamond_3NT(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        return choices;
+    }
 }
