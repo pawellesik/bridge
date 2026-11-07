@@ -360,9 +360,12 @@ public class RespondDiamondBid2 extends WJSimple {
         choices.addRules(
                 //todo blackwood
 
-                // --- 2. Końcówki (10-16 HCP po silnym przeskoku 15-17 N) ---
-                shows(Bid._3NT, BALANCED, highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D _3NT")),
                 shows(Bid._5D, fit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D _5D")),
+
+                shows(Bid._3H, noFit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D 3H")),
+                shows(Bid._3S, shape(4,13), noFit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D 3S")),
+
+                shows(Bid._3NT, BALANCED, highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D _3NT")),
 
                 shows(Call.PASS, fit(), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_3D PASS"))
         );
