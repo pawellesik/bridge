@@ -254,8 +254,7 @@ public class RespondDiamondBid2 extends WJSimple {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._4NT, setTrumpColor(Suit.Hearts), highCardPoints(17, 40), id("RespondDiamondBid2.diamond_1H_2H _4NT")),
-
+                //todo blackwood
                 shows(Bid._4H, setTrumpColor(Suit.Hearts), highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2H _4H")),
                 shows(Bid._3H, setTrumpColor(Suit.Hearts), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2H _3H")),
                 shows(Call.PASS, highCardPoints(7, 10), id("RespondDiamondBid2.diamond_1H_2H PASS"))
@@ -268,11 +267,16 @@ public class RespondDiamondBid2 extends WJSimple {
     //  Runda 2: 2S - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
-    //  * Gracza N (Otwierający 1D) : HCP: 15-17 | Diamonds: 6-13 | Hearts: 3-3
+    //  * Gracza N (Otwierający 1D) : HCP: 12-14 | Diamonds: 6-13 | Hearts: 3-3
     //  * Gracza S (Odpowiadający 1H): HCP: 7-25  | Hearts: 4-13
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                //todo blackwood
+
+        );
         return choices;
     }
 
