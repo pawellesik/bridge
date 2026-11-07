@@ -56,7 +56,7 @@ public class RespondDiamondBid1 extends WJSimple {
                 properties(new Call[]{Bid._1H}, OpenDiamondBid2::diamond_1H, true),
                 properties(new Call[]{Bid._1S}, OpenDiamondBid2::diamond_1S, true),
                 properties(new Call[]{Bid._1NT}, OpenDiamondBid2::diamond_1NT, false),
-                properties(new Call[]{Bid._1NT}, OpenDiamondBid2::diamond_2C, false)
+                properties(new Call[]{Bid._2C}, OpenDiamondBid2::diamond_2C, false)
         );
         return choices;
     }
