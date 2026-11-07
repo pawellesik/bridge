@@ -14,6 +14,8 @@ public class OpenDiamondBid2 extends WJSimple {
     public static final Range OPEN_STANDARD = new Range(12, 17);
     public static final Range OPEN_WEAK = new Range(12, 14);
     public static final Range OPEN_STRONG = new Range(15, 17);
+
+    public static final Range OPEN_STRONG_FORSING = new Range(16, 17);
     public static final Range OPEN_NT = new Range(14, 17);
 
 
@@ -120,13 +122,39 @@ public class OpenDiamondBid2 extends WJSimple {
                 shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3H")), //splinter
                 shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3S")), //splinter
 
-                shows(Bid._3D, NOT_BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3D")),
-                shows(Bid._2NT, BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2NT")),
+                shows(Bid._3D, NOT_PAIR_BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3D")),
+                shows(Bid._2NT, PAIR_BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2NT")),
 
-                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2NT")),
+                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
+                shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
+                shows(Bid._3C, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3C"))
 
-                PAIR_BALANCED
+
                 );
+        return choices;
+    }
+
+    //  1D -->  2H
+    //
+    public static PositionCalls diamond_2H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3D, noFit(), shape(Suit.Spades, 0,2), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3D")),
+
+                shows(Bid._2NT, noFit(), shape(Suit.Spades, 0,2), PAIR_BALANCED, highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3C")),
+
+                shows(Bid._3C, highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3C")),
+
+                shows(Bid._4S, shape(Suit.Spades, 4,4), highCardPoints(OPEN_STRONG_FORSING), id("OpenDiamondBid2.diamond_2H _4S")),
+                shows(Bid._4H, fit(), highCardPoints(OPEN_STRONG_FORSING), id("OpenDiamondBid2.diamond_2H _4H")),
+
+                shows(Bid._2S, noFit(), shape(Suit.Spades, 4,4), ruleShow(1), id("OpenDiamondBid2.diamond_2H _2S")),
+                shows(Call.PASS, fit(), ruleShow(1), id("OpenDiamondBid2.diamond_2H _pass")),
+
+                shows(Bid._2S, fit(7), noFit(7), id("OpenDiamondBid2.diamond_2H _2S")) //bez ruleShow
+
+        );
         return choices;
     }
 }

@@ -10,13 +10,13 @@ import com.example.bridge.bidding.WJSimple.WJSimple;
 
 public class RespondDiamondBid1 extends WJSimple {
 
-    public static final Range RESPOND_STANDARD = new Range(6, 40);
+    public static final Range RESPOND_STANDARD = new Range(7, 40); // oryginalenie jest 6,40
     public static final Range RESPOND_TO_1NT = new Range(7, 10);
     public static final Range RESPOND_TO_2NT = new Range(11, 12);
     public static final Range RESPOND_TO_GAME = new Range(13, 16);
     public static final Range RESPOND_FORCING = new Range(13, 40);
     public static final Range RESPOND_FORCING_2C = new Range(12, 40);
-    public static final Range RESPOND_WEAK = new Range(5, 9);
+    public static final Range RESPOND_WEAK = new Range(7, 9); // oryginalenie jest 5,9
     public static final Range RESPOND_3C = new Range(10, 11);
     public static final Range RESPOND_2D = new Range(10, 40);
 
@@ -49,15 +49,12 @@ public class RespondDiamondBid1 extends WJSimple {
                 shows(Bid._1H, shape(4, 13), highCardPoints(RESPOND_STANDARD), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1H")),
                 shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_STANDARD), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1S")),
 
-                //propertiesForcingToGame(new Call[]{Bid._2S}, OpenBid2NatC::responderRaiseChangedSuitsToSpadeHeart, true),
-                //properties(new Call[]{Bid._3C, Bid._3D}, OpenBid2NatC::responderRaiseChangedSuitsToMinorHeart, false),
-                //properties(new Call[]{Bid._3S}, OpenBid2NatC::weakRespond, false),
-
                 properties(new Call[]{Bid._1H}, OpenDiamondBid2::diamond_1H, true),
                 properties(new Call[]{Bid._1S}, OpenDiamondBid2::diamond_1S, true),
                 properties(new Call[]{Bid._1NT}, OpenDiamondBid2::diamond_1NT, false),
                 properties(new Call[]{Bid._2C}, OpenDiamondBid2::diamond_2C, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_2D, true)
+                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_2D, true),
+                properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_2H, true)
         );
         return choices;
     }
