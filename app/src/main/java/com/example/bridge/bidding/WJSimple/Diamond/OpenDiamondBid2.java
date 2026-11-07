@@ -94,8 +94,8 @@ public class OpenDiamondBid2 extends WJSimple {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3H")),
-                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3S")),
+                shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3H")), //splinter
+                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3S")), //splinter
 
                 shows(Bid._3D, shape(6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3D")),
                 shows(Bid._3C, shape(3, 13), highCardPoints(OPEN_STRONG), not(hasShortness(0, 1)), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3D")),
@@ -117,9 +117,16 @@ public class OpenDiamondBid2 extends WJSimple {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3H"))
+                shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3H")), //splinter
+                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3S")), //splinter
 
-        );
+                shows(Bid._3D, NOT_BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3D")),
+                shows(Bid._2NT, BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2NT")),
+
+                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2NT")),
+
+                PAIR_BALANCED
+                );
         return choices;
     }
 }
