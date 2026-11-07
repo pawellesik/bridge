@@ -21,6 +21,8 @@
 • secondSuit(exclude, min) - Posiadanie drugiego koloru (poza wykluczonym) o danej minimalnej długości.
 • twoSuiter(min) - Ręka dwukolorowa (posiadanie co najmniej dwóch kolorów o min. długości).
 • shape4441(Suit.Clubs)- uklad 444 z singlem trefl
+• stopped(Suit.Clubs)- mówi ze mam trzymanie np w treflach
+
 
 suitBidCount(0) – licytujesz ten kolor po raz pierwszy.
 •

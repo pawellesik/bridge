@@ -139,7 +139,10 @@ public class RespondDiamondBid2 extends WJSimple {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT,  ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3NT")),
+                shows(Bid._3NT,  stopped(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3NT")),
+                shows(Bid._3S,  GOOD_PLUS_SUIT, ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3S")),
+                shows(Bid._3H,  shape(5,13), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3H")),
+                shows(Bid._3D,  shape(2,2), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3D"))
 
         );
         return choices;
