@@ -33,12 +33,48 @@ public class PlesikTestWJ2025 {
 
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() {
-        String content = loadPbnFileStatic("test.pbn");
-        List<PBNTest> pbnTests = PBNUtils.importTests(content);
         List<Object[]> result = new ArrayList<>();
-        for (PBNTest t : pbnTests) {
-            result.add(new Object[]{t});
+
+        String[] possiblePaths = {
+                "app/src/test/java/com/example/bridge/",
+                "src/test/java/com/example/bridge/"
+        };
+
+        // Load files from WJ2025 directory
+        for (String basePath : possiblePaths) {
+            File wjDir = new File(basePath + "WJ2025");
+            if (wjDir.exists() && wjDir.isDirectory()) {
+                File[] files = wjDir.listFiles((dir, name) -> new File(dir, name).isFile());
+                if (files != null) {
+                    for (File file : files) {
+                        try {
+                            String content = new String(Files.readAllBytes(file.toPath()));
+                            List<PBNTest> pbnTests = PBNUtils.importTests(content);
+                            for (PBNTest t : pbnTests) {
+                                t.setName("[" + file.getName() + "] " + t.getName());
+                                result.add(new Object[]{t});
+                            }
+                        } catch (IOException e) {
+                            // continue
+                        }
+                    }
+                }
+                break;
+            }
         }
+
+        // Also load test.pbn if present
+        try {
+            String content = loadPbnFileStatic("test.pbn");
+            List<PBNTest> pbnTests = PBNUtils.importTests(content);
+            for (PBNTest t : pbnTests) {
+                t.setName("[test.pbn] " + t.getName());
+                result.add(new Object[]{t});
+            }
+        } catch (Exception e) {
+            // ignore if test.pbn not found
+        }
+
         return result;
     }
 
