@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.WJSimple.Diamond;
 
+import com.example.bridge.bidding.NatC.CompeteNatC;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -224,21 +225,8 @@ public class RespondDiamondBid2 extends WJSimple {
     public static PositionCalls diamond_1H_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(
-                // --- Końcówki (13-16 HCP) ---
-                shows(Bid._3NT, PAIR_BALANCED, highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2D _3NT")),
-                shows(Bid._5D, fit(), highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2D _5D")),
+        choices.addRules(CompeteNatC.compBids(ps));
 
-                // --- Inwity do końcówki (11-12 HCP) ---
-                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _3H")),
-                shows(Bid._3D, shape(Suit.Diamonds, 3, 13), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _3D")),
-                shows(Bid._2NT, BALANCED, highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _2NT")),
-                shows(Bid._2S, shape(Suit.Spades, 4, 13), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2D _2S")),
-
-                // --- Odzywki częściowe / Słabe (7-10 HCP) ---
-                shows(Bid._2H, shape(Suit.Hearts, 6, 13), highCardPoints(7, 10), id("RespondDiamondBid2.diamond_1H_2D _2H")),
-                shows(Call.PASS, highCardPoints(7, 10), id("RespondDiamondBid2.diamond_1H_2D PASS"))
-        );
         return choices;
     }
 
@@ -253,12 +241,7 @@ public class RespondDiamondBid2 extends WJSimple {
     public static PositionCalls diamond_1H_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(
-                //todo blackwood
-                shows(Bid._4H, setTrumpColor(Suit.Hearts), highCardPoints(13, 16), id("RespondDiamondBid2.diamond_1H_2H _4H")),
-                shows(Bid._3H, setTrumpColor(Suit.Hearts), highCardPoints(11, 12), id("RespondDiamondBid2.diamond_1H_2H _3H")),
-                shows(Call.PASS, highCardPoints(7, 10), id("RespondDiamondBid2.diamond_1H_2H PASS"))
-        );
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -273,23 +256,7 @@ public class RespondDiamondBid2 extends WJSimple {
     public static PositionCalls diamond_1H_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(
-                //todo blackwood
-
-                // --- 2. Końcówki (10-16 HCP po silnym rebidzie 15-17 N) ---
-                // a) 4H przy 5+ kierach S (N ma 3 + S ma 5 = fit 8+ kart w kierach)
-                shows(Bid._4H, setTrumpColor(Suit.Hearts), shape(Suit.Hearts, 5, 13), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2S _4H")),
-                // c) 5D przy ficie karowym (N ma 6, S ma 3+ kara)
-                shows(Bid._5D, fit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2S _5D")),
-
-                // b) 3NT przy 4 kierach S (7-kartowy fit, układ zrównoważony)
-                shows(Bid._3NT, BALANCED, shape(Suit.Hearts, 4, 4), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2S _3NT")),
-
-                // --- 3. Inwity / Bilansowanie przy dół odpowiedzi (7-9 HCP) ---
-                shows(Bid._3H, shape(Suit.Hearts, 5, 13), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2S _3H")),
-                shows(Bid._3D, fit(), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2S _3D")),
-                shows(Bid._2NT, id("RespondDiamondBid2.diamond_1H_2S _2NT"))
-        );
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -304,19 +271,7 @@ public class RespondDiamondBid2 extends WJSimple {
     public static PositionCalls diamond_1H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(
-                //todo blackwood
-
-                shows(Bid._5D, fit(), highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _5D")),
-
-                shows(Bid._3S, shape(4, 13), highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _3S")),
-
-                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _4H")),
-
-                shows(Bid._3NT, highCardPoints(10, 14), id("RespondDiamondBid2.diamond_1H_2NT _3NT")),
-
-                shows(Bid._3D, fit(7), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2NT _3D"))
-        );
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -331,18 +286,7 @@ public class RespondDiamondBid2 extends WJSimple {
     public static PositionCalls diamond_1H_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(
-                //todo blackwood
-
-                shows(Bid._5D, fit(), highCardPoints(7, 16), id("RespondDiamondBid2.diamond_1H_3C _5D")),
-                shows(Bid._5C, fit(), highCardPoints(7, 16), id("RespondDiamondBid2.diamond_1H_3C _5C")),
-
-                shows(Call.PASS, betterThan(Suit.Diamonds), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2NT _pass")),
-                shows(Bid._3D, betterThan(Suit.Clubs), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_2NT _pass")),
-                shows(Bid._3H, shape(6, 13), shape(Suit.Diamonds, 0, 2), shape(Suit.Clubs, 0, 2), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2NT _pass")),
-                shows(Bid._3NT, stopped(Suit.Hearts), stopped(Suit.Spades), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_2NT 3NT"))
-
-        );
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -357,18 +301,7 @@ public class RespondDiamondBid2 extends WJSimple {
     public static PositionCalls diamond_1H_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(
-                //todo blackwood
-
-                shows(Bid._5D, fit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D _5D")),
-
-                shows(Bid._3H, noFit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D 3H")),
-                shows(Bid._3S, shape(4,13), noFit(), highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D 3S")),
-
-                shows(Bid._3NT, BALANCED, highCardPoints(10, 16), id("RespondDiamondBid2.diamond_1H_3D _3NT")),
-
-                shows(Call.PASS, fit(), highCardPoints(7, 9), id("RespondDiamondBid2.diamond_1H_3D PASS"))
-        );
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -382,6 +315,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -395,6 +329,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -408,6 +343,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -421,6 +357,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_3NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -434,6 +371,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -447,6 +385,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -460,6 +399,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -473,6 +413,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -486,6 +427,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -499,6 +441,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -512,6 +455,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -525,6 +469,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -538,6 +483,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_3NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -552,6 +498,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -565,6 +512,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -578,6 +526,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -591,6 +540,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -604,6 +554,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -617,6 +568,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -630,6 +582,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -643,6 +596,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -656,6 +610,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -669,6 +624,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -682,6 +638,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -695,6 +652,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -708,6 +666,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -721,6 +680,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -734,6 +694,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -747,6 +708,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2H_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -760,6 +722,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -773,6 +736,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2H_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -786,6 +750,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2H_4H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -799,6 +764,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2H_4S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -812,6 +778,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -825,6 +792,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -838,6 +806,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -851,6 +820,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -864,6 +834,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -877,6 +848,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_3NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -890,6 +862,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2NT_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -903,6 +876,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3C_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -916,6 +890,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3C_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -929,6 +904,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3C_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 
@@ -942,6 +918,7 @@ public class RespondDiamondBid2 extends WJSimple {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3C_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(CompeteNatC.compBids(ps));
         return choices;
     }
 }

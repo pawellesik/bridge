@@ -19,10 +19,22 @@ public class WJSimple extends Bidder implements IBiddingSystem {
             choices = OpenWJSimple.getOpenPositionCalls(ps);
         } else {
             choices = new PositionCalls(ps);
-            //choices.addRules(CompeteWJSimple::compBids);
+            choices.addRules(CompeteWJSimple::compBids);
         }
 
         return choices;
     }
 
+    public static final Range PAIR_GAME_INVITE = new Range(23, 24);
+    public static final Range PAIR_GAME = new Range(25, 31);
+    public static final Range PAIR_MINOR_GAME = new Range(27, 31);
+    public static final Range PAIR_LOW_GAME = new Range(16, 24);
+
+    public static Iterable<CallFeature> finishBiddingCompBids(PositionState ps) {
+        List<CallFeature> bids = new ArrayList<>();
+        for (CallFeature cf : CompeteWJSimple.compBids(ps)) {
+            bids.add(cf);
+        }
+        return bids;
+    }
 }
