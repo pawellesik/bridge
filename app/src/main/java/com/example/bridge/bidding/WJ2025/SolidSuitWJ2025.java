@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.WJSimple;
+package com.example.bridge.bidding.WJ2025;
 
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.CallFeature;
@@ -8,7 +8,7 @@ import com.example.bridge.bidding.Tools.Suit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SolidSuitWJSimple extends WJSimple {
+public class SolidSuitWJ2025 extends WJ2025 {
     public static Iterable<CallFeature> BIDS(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         for (Suit suit : Suit.values()) {

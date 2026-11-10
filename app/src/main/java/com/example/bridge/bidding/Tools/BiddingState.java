@@ -50,8 +50,8 @@ public class BiddingState {
         else if (bidSystem.equals("NatC")){
             return new NatC();
         }
-        else if (bidSystem.equals("WJSimple") || bidSystem.equals("WJ") || bidSystem.equals("Wj2025Simple") || bidSystem.equals("Wj2025")){
-            return new com.example.bridge.bidding.WJSimple.WJSimple();
+        else if (bidSystem.equals("WJ2025") || bidSystem.equals("WJSimple") || bidSystem.equals("WJ") || bidSystem.equals("Wj2025Simple") || bidSystem.equals("Wj2025")){
+            return new com.example.bridge.bidding.WJ2025.WJ2025();
         }
         else if (bidSystem.equals("PassOnly")) {
             return new PassOnlySystem();

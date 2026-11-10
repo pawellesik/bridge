@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.WJSimple;
+package com.example.bridge.bidding.WJ2025;
 
 import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.CallFeature;
@@ -11,15 +11,15 @@ import com.example.bridge.bidding.Tools.Range;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WJSimple extends Bidder implements IBiddingSystem {
+public class WJ2025 extends Bidder implements IBiddingSystem {
     @Override
     public PositionCalls getPositionCalls(PositionState ps) {
         PositionCalls choices;
         if (ps.getRole() == PositionRole.Opener && ps.getRoleRound() == 1) {
-            choices = OpenWJSimple.getOpenPositionCalls(ps);
+            choices = OpenWJ2025.getOpenPositionCalls(ps);
         } else {
             choices = new PositionCalls(ps);
-            choices.addRules(CompeteWJSimple::compBids);
+            choices.addRules(CompeteWJ2025::compBids);
         }
 
         return choices;
@@ -32,7 +32,7 @@ public class WJSimple extends Bidder implements IBiddingSystem {
 
     public static Iterable<CallFeature> finishBiddingCompBids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-        for (CallFeature cf : CompeteWJSimple.compBids(ps)) {
+        for (CallFeature cf : CompeteWJ2025.compBids(ps)) {
             bids.add(cf);
         }
         return bids;

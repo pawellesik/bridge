@@ -1,6 +1,5 @@
-package com.example.bridge.bidding.WJSimple.Diamond;
+package com.example.bridge.bidding.WJ2025.Diamond;
 
-import com.example.bridge.bidding.NatC.OpenBid2NatC;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -8,9 +7,9 @@ import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.Tools.SuitQuality;
-import com.example.bridge.bidding.WJSimple.WJSimple;
+import com.example.bridge.bidding.WJ2025.WJ2025;
 
-public class OpenDiamondBid2 extends WJSimple {
+public class OpenDiamondBid2 extends WJ2025 {
 
     public static final Range OPEN_STANDARD = new Range(12, 17);
     public static final Range OPEN_WEAK = new Range(12, 14);

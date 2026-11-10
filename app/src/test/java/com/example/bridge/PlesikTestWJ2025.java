@@ -23,11 +23,11 @@ import java.util.Collection;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-public class PlesikTestWjSimple {
+public class PlesikTestWJ2025 {
 
     private final PBNTest test;
 
-    public PlesikTestWjSimple(PBNTest test) {
+    public PlesikTestWJ2025(PBNTest test) {
         this.test = test;
     }
 
@@ -43,14 +43,14 @@ public class PlesikTestWjSimple {
     }
 
     @Test
-    public void testWJSimple() {
-        String suggestion = BridgeBidder.suggestBid(test.getDeal(), test.getVulnerable(), test.getAuction(), "WJSimple", "PassOnly");
+    public void testWJ2025() {
+        String suggestion = BridgeBidder.suggestBid(test.getDeal(), test.getVulnerable(), test.getAuction(), "WJ2025", "PassOnly");
 
         if (!test.getExpectedCall().equals(suggestion)) {
             // Detailed breakdown on failure (Identical to NatCTest)
-            System.err.println("\n--- DETAILED LICYTACJA BREAKDOWN (WJSimple) ---");
+            System.err.println("\n--- DETAILED LICYTACJA BREAKDOWN (WJ2025) ---");
             Game game = Game.parse(test.getDeal(), test.getVulnerable());
-            game.bidSystemNS = "WJSimple";
+            game.bidSystemNS = "WJ2025";
             game.bidSystemEW = "PassOnly";
             BiddingState debugState = new BiddingState(game);
 

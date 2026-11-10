@@ -61,14 +61,14 @@ public class SingleGameBidding {
 
         // Load saved bidding system from SettingsManager
         String savedSystem = com.example.bridge.core.SettingsManager.getInstance(activity).getBiddingSystem();
-        if ("WJSimple".equalsIgnoreCase(savedSystem) || "WJ".equalsIgnoreCase(savedSystem)) {
-            selectedBidSystemNS = "WJSimple";
+        if ("WJ2025".equalsIgnoreCase(savedSystem) || "WJSimple".equalsIgnoreCase(savedSystem) || "WJ".equalsIgnoreCase(savedSystem)) {
+            selectedBidSystemNS = "WJ2025";
         } else {
             selectedBidSystemNS = "NatC";
         }
 
         resetSystemSelection();
-        if ("WJSimple".equals(selectedBidSystemNS)) {
+        if ("WJ2025".equals(selectedBidSystemNS) || "WJSimple".equals(selectedBidSystemNS)) {
             if (cardWj != null) cardWj.setBackgroundResource(R.drawable.bg_system_card_selected);
             View checkWj = activity.findViewById(R.id.iv_wj_check);
             if (checkWj != null) checkWj.setVisibility(View.VISIBLE);
@@ -93,7 +93,7 @@ public class SingleGameBidding {
                 selectedBidSystemNS = "NatC";
             } else if (vid == R.id.system_wj) {
                 checkId = R.id.iv_wj_check;
-                selectedBidSystemNS = "WJSimple";
+                selectedBidSystemNS = "WJ2025";
             }
 
             View check = activity.findViewById(checkId);

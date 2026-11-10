@@ -28,8 +28,8 @@ public class PbnCollection {
     private Pbn pbn;
     private Pbn pbnNatC;
     private Pbn pbnNatCRev;
-    private Pbn pbnWJSimple;
-    private Pbn pbnWJSimpleRev;
+    private Pbn pbnWJ2025;
+    private Pbn pbnWJ2025Rev;
     private Pbn pbnLCStandard;
     private Pbn pbnLCStandardRev;
     private Pbn pbnSayc;
@@ -73,15 +73,15 @@ public class PbnCollection {
         this.pbnSaycRev.setBidSystemNS("SAYC");
         this.pbnSaycRev.setBidSystemEW("PassOnly");
 
-        this.pbnWJSimple = new Pbn(gameActivity, "WJSimple");
-        this.pbnWJSimple.setPlayerNames("WJSimple W", "WJSimple N", "WJSimple E", "WJSimple S");
-        this.pbnWJSimple.setBidSystemNS("WJSimple");
-        this.pbnWJSimple.setBidSystemEW("PassOnly");
+        this.pbnWJ2025 = new Pbn(gameActivity, "WJ2025");
+        this.pbnWJ2025.setPlayerNames("WJ2025 W", "WJ2025 N", "WJ2025 E", "WJ2025 S");
+        this.pbnWJ2025.setBidSystemNS("WJ2025");
+        this.pbnWJ2025.setBidSystemEW("PassOnly");
 
-        this.pbnWJSimpleRev = new Pbn(gameActivity, "WJSimple Rev");
-        this.pbnWJSimpleRev.setPlayerNames("WJSimple W Rev", "WJSimple N Rev", "WJSimple E Rev", "WJSimple S Rev");
-        this.pbnWJSimpleRev.setBidSystemNS("WJSimple");
-        this.pbnWJSimpleRev.setBidSystemEW("PassOnly");
+        this.pbnWJ2025Rev = new Pbn(gameActivity, "WJ2025 Rev");
+        this.pbnWJ2025Rev.setPlayerNames("WJ2025 W Rev", "WJ2025 N Rev", "WJ2025 E Rev", "WJ2025 S Rev");
+        this.pbnWJ2025Rev.setBidSystemNS("WJ2025");
+        this.pbnWJ2025Rev.setBidSystemEW("PassOnly");
     }
 
     public void initQiuckPbn(){
@@ -141,11 +141,11 @@ public class PbnCollection {
         this.pbnSaycRev.initNewGame(hands, gameMode);
         runBotSimulationGame(pbnSaycRev, oppositeDealer);
 
-        this.pbnWJSimple.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnWJSimple, mainDealer);
+        this.pbnWJ2025.initNewGame(hands, gameMode);
+        runBotSimulationGame(pbnWJ2025, mainDealer);
 
-        this.pbnWJSimpleRev.initNewGame(hands, gameMode);
-        runBotSimulationGame(pbnWJSimpleRev, oppositeDealer);
+        this.pbnWJ2025Rev.initNewGame(hands, gameMode);
+        runBotSimulationGame(pbnWJ2025Rev, oppositeDealer);
 
     }
 
@@ -245,8 +245,8 @@ public class PbnCollection {
         if (pbn != null) allPbns.add(pbn);
         if (pbnNatC != null) allPbns.add(pbnNatC);
         if (pbnNatCRev != null) allPbns.add(pbnNatCRev);
-        if (pbnWJSimple != null) allPbns.add(pbnWJSimple);
-        if (pbnWJSimpleRev != null) allPbns.add(pbnWJSimpleRev);
+        if (pbnWJ2025 != null) allPbns.add(pbnWJ2025);
+        if (pbnWJ2025Rev != null) allPbns.add(pbnWJ2025Rev);
         if (pbnLCStandard != null) allPbns.add(pbnLCStandard);
         if (pbnLCStandardRev != null) allPbns.add(pbnLCStandardRev);
         if (pbnSayc != null) allPbns.add(pbnSayc);
@@ -286,8 +286,8 @@ public class PbnCollection {
         if (pbn != null && pbn != targetPbn) pbns.add(pbn);
         if (pbnNatC != null && pbnNatC != targetPbn) pbns.add(pbnNatC);
         if (pbnNatCRev != null && pbnNatCRev != targetPbn) pbns.add(pbnNatCRev);
-        if (pbnWJSimple != null && pbnWJSimple != targetPbn) pbns.add(pbnWJSimple);
-        if (pbnWJSimpleRev != null && pbnWJSimpleRev != targetPbn) pbns.add(pbnWJSimpleRev);
+        if (pbnWJ2025 != null && pbnWJ2025 != targetPbn) pbns.add(pbnWJ2025);
+        if (pbnWJ2025Rev != null && pbnWJ2025Rev != targetPbn) pbns.add(pbnWJ2025Rev);
         if (pbnLCStandard != null && pbnLCStandard != targetPbn) pbns.add(pbnLCStandard);
         if (pbnLCStandardRev != null && pbnLCStandardRev != targetPbn) pbns.add(pbnLCStandardRev);
         if (pbnSayc != null && pbnSayc != targetPbn) pbns.add(pbnSayc);
@@ -604,12 +604,12 @@ public class PbnCollection {
         return pbnNatC;
     }
 
-    public Pbn getPbnWJSimple() {
-        return pbnWJSimple;
+    public Pbn getPbnWJ2025() {
+        return pbnWJ2025;
     }
 
-    public Pbn getPbnWJSimpleRev() {
-        return pbnWJSimpleRev;
+    public Pbn getPbnWJ2025Rev() {
+        return pbnWJ2025Rev;
     }
 
     public Pbn getPbnLCStandard() {
@@ -627,8 +627,8 @@ public class PbnCollection {
             allPbns.add(pbn);
             allPbns.add(pbnNatC);
             allPbns.add(pbnNatCRev);
-            allPbns.add(pbnWJSimple);
-            allPbns.add(pbnWJSimpleRev);
+            allPbns.add(pbnWJ2025);
+            allPbns.add(pbnWJ2025Rev);
             allPbns.add(pbnLCStandard);
             allPbns.add(pbnLCStandardRev);
             allPbns.add(pbnSayc);

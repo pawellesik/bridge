@@ -8,7 +8,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.Set;
 
-public class PlesikDescriptionsWJSimple {
+public class PlesikDescriptionsWJ2025 {
 
     @Test
     public void testAILicytacja() throws Exception {
@@ -23,7 +23,7 @@ public class PlesikDescriptionsWJSimple {
 
         // Czyścimy aukcję, aby AI licytowało samodzielnie od początku rozdania
         game.getAuction().clear();
-        game.bidSystemNS = "WJSimple";
+        game.bidSystemNS = "WJ2025";
         game.bidSystemEW = "PassOnly";
 
         BiddingState state = new BiddingState(game);
