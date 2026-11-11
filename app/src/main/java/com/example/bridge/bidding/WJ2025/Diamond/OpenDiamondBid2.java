@@ -358,15 +358,4 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
-    //  Runda 1: 1D - Pass - 3NT - Pass
-    //  -----------------------------------------------------------------------
-    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
-    //  * Gracza N (Otwierający 1D)   : HCP: 12-17 | Diamonds: 4-13
-    //  * Gracza S (Odpowiadający 3NT) : HCP: 13-16 | Spades: 0-3 | Hearts: 0-3
-    //  -----------------------------------------------------------------------
-    public static PositionCalls diamond_3NT(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        return choices;
-    }
 }
