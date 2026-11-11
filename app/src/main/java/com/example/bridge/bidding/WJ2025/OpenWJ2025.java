@@ -64,7 +64,7 @@ public class OpenWJ2025 extends WJ2025 {
             bids.add(shows(Bid._1C, OpenBiddingLow, BALANCED, ruleShow(1), id("OpenWJ2025.openSuit _1C")));
             bids.add(shows(Bid._1C, shape(5, 13), OpenBidding, ruleShow(1), id("OpenWJ2025.openSuit _1C")));
             bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
-            bids.add(shows(Bid._1C, OpenBiddingLow, id("OpenWJ2025.openSuit _1C")));
+            bids.add(shows(Bid._1C, OpenBidding, id("OpenWJ2025.openSuit _1C")));
 
         } else if (ps.getSeat() >= 3) {
             bids.add(shows(Bid._1S, shape(6, 13), OpenBiddingThirtSeat, id("OpenWJ2025.openSuit _1S")));
@@ -78,7 +78,7 @@ public class OpenWJ2025 extends WJ2025 {
             bids.add(shows(Bid._1C, OpenBiddingLowThirtSeat, BALANCED, ruleShow(1), id("OpenWJ2025.openSuit _1C")));
             bids.add(shows(Bid._1C, shape(5, 13), OpenBiddingThirtSeat, ruleShow(1), id("OpenWJ2025.openSuit _1C")));
             bids.add(shows(Bid._1C, OpeningStrongBidding, ruleShow(1)));
-            bids.add(shows(Bid._1C, OpenBiddingLowThirtSeat, id("OpenWJ2025.openSuit _1C")));
+            bids.add(shows(Bid._1C, OpenBiddingThirtSeat, id("OpenWJ2025.openSuit _1C")));
         }
 
         bids.add(shows(Call.PASS, DontOpen, id("OpenWJ2025.openSuit _PASS")));
