@@ -34,7 +34,7 @@ public class RespondDiamondBid1 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT, shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_TO_GAME), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3NT")),
+                shows(Bid._3NT, shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_TO_GAME), PAIR_BALANCED, ruleShow(1), id("RespondDiamondBid1.oneDiamond _3NT")),
 
                 shows(Bid._3H, shape(Suit.Diamonds, 4, 13), shape(Suit.Hearts, 0, 1), setTrumpColor(Suit.Diamonds), highCardPoints(RESPOND_TO_GAME), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3H")),
                 shows(Bid._3S, shape(Suit.Diamonds, 4, 13), shape(Suit.Spades, 0, 1), setTrumpColor(Suit.Diamonds), highCardPoints(RESPOND_TO_GAME), ruleShow(1), id("RespondDiamondBid1.oneDiamond _3S")),
