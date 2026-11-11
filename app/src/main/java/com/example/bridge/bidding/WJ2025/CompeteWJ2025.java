@@ -103,77 +103,12 @@ public class CompeteWJ2025 extends WJ2025 {
 
     public static Iterable<CallFeature> compBids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-        addAcesAskConventions(ps, bids);
         addCompBids(ps, bids);
         bids.add(partnerBids(RecursionWJ2025::recursionFindFitGame));
 
         return bids;
     }
 
-    public static void addAcesAskConventions(PositionState ps, List<CallFeature> bids) {
-        Suit agreedTrump = ps.getPairState().getTrumpSuit();
-        Bid lastBid = ps.getPartner().getBid();
-
-        boolean pairHadJump = false;
-        for (int i = 0; i < ps.getPartner().getCallCount(); i++) {
-            if (ps.getPartner().getCallDetails(i).getJumpLevel() > 0) {
-                pairHadJump = true;
-                break;
-            }
-        }
-        if (!pairHadJump) {
-            for (int i = 0; i < ps.getCallCount(); i++) {
-                if (ps.getCallDetails(i).getJumpLevel() > 0) {
-                    pairHadJump = true;
-                    break;
-                }
-            }
-        }
-
-        boolean jumpMatch = pairHadJump;
-        boolean agreedSuitMatch = (agreedTrump != null && lastBid != null && lastBid.getSuit() == agreedTrump && ps.getBiddingState().getContract().isOurs(ps.getDirection()));
-        boolean isLevel1 = (lastBid != null && lastBid.getLevel() == 1);
-        boolean isLevel2 = (lastBid != null && lastBid.getLevel() == 2);
-        boolean isLevel4 = (lastBid != null && lastBid.getLevel() == 4);
-
-        if (jumpMatch || agreedSuitMatch || isLevel1 || isLevel2) {
-            boolean added4C = false;
-
-            if (agreedTrump != null && !isLevel4) {
-                int countBefore = bids.size();
-                for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
-                    bids.add(cf);
-                }
-                if (bids.size() > countBefore) {
-                    added4C = true;
-                } else {
-                    for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-                        bids.add(cf);
-                    }
-                }
-            } else {
-                if (isLevel1 || isLevel2) {
-                    int countBefore = bids.size();
-                    for (CallFeature cf : AcesAsk.initiateConvention(ps)) {
-                        bids.add(cf);
-                    }
-                    if (bids.size() > countBefore) {
-                        added4C = true;
-                    }
-                } else {
-                    for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-                        bids.add(cf);
-                    }
-                }
-            }
-
-            if (added4C) {
-                for (CallFeature cf : AcesAsk.initiateConventionBlok(ps)) {
-                    bids.add(cf);
-                }
-            }
-        }
-    }
 
     private static void addCompBids(PositionState ps, List<CallFeature> bids) {
         for (CallFeature cf : CompeteWJ2025.bids(ps)) {
