@@ -12,9 +12,9 @@ import com.example.bridge.bidding.WJ2025.WJ2025;
 public class RespondDiamondBid2 extends WJ2025 {
 
     public static final Range WEAK = new Range(10, 12);
-    public static final Range STRONG = new Range(13, 40);
+    public static final Range STRONG = new Range(13, 28);
     public static final Range TO_GAME = new Range(7, 9);
-    public static final Range FORCING = new Range(10, 40);
+    public static final Range FORCING = new Range(10, 28);
 
 
     // =========================================================================

@@ -10,15 +10,15 @@ import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class RespondDiamondBid1 extends WJ2025 {
 
-    public static final Range RESPOND_STANDARD = new Range(7, 40); // oryginalenie jest 6,40
+    public static final Range RESPOND_STANDARD = new Range(7, 28); // oryginalenie jest 6,40
     public static final Range RESPOND_TO_1NT = new Range(7, 10);
     public static final Range RESPOND_TO_2NT = new Range(11, 12);
     public static final Range RESPOND_TO_GAME = new Range(13, 16);
-    public static final Range RESPOND_FORCING = new Range(13, 40);
-    public static final Range RESPOND_FORCING_2C = new Range(12, 40);
+    public static final Range RESPOND_FORCING = new Range(13, 28);
+    public static final Range RESPOND_FORCING_2C = new Range(12, 28);
     public static final Range RESPOND_WEAK = new Range(7, 9); // oryginalenie jest 5,9
     public static final Range RESPOND_3C = new Range(10, 11);
-    public static final Range RESPOND_2D = new Range(10, 40);
+    public static final Range RESPOND_2D = new Range(10, 28);
 
     // =========================================================================
     // WIEDZA PUBLICZNA (PublicHandSummary) W 1. OKRĄŻENIU ODPOWIADAJĄCEGO S (1D)
