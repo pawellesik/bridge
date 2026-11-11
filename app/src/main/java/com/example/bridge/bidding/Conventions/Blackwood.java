@@ -46,10 +46,10 @@ public class Blackwood extends Bidder {
         if (suit != null) {
             choices.addRules(
                 properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S}, Blackwood::placeContract, true),
-                shows(Bid._5C, keyCards(suit, 1, 4), ruleShow(1)),
-                shows(Bid._5D, keyCards(suit, 0, 3), ruleShow(1)),
-                shows(Bid._5H, keyCards(suit, false, 2, 5), ruleShow(1)),
-                shows(Bid._5S, keyCards(suit, true, 2, 5), ruleShow(1), ruleDescription("Blackwood- 2-5 + Quin"))
+                shows(Bid._5C, keyCards(suit, 1, 4), ruleShow(1), ruleDescription("Blackwood: 1 or 4 Key Cards")),
+                shows(Bid._5D, keyCards(suit, 0, 3), ruleShow(1), ruleDescription("Blackwood: 0 or 3 Key Cards")),
+                shows(Bid._5H, keyCards(suit, false, 2, 5), ruleShow(1), ruleDescription("Blackwood: 2 or 5 Key Cards (without Queen)")),
+                shows(Bid._5S, keyCards(suit, true, 2, 5), ruleShow(1), ruleDescription("Blackwood: 2 or 5 Key Cards with Queen"))
             );
             return choices;
         }
@@ -62,8 +62,8 @@ public class Blackwood extends Bidder {
         if (suit != null) {
             choices.addRules(
                 properties(Bid._5NT, Blackwood::respondKings, true),
-                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(GRAND_SLAM)),
-                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(SLAM_OR_BETTER), fit(9, suit)),
+                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(GRAND_SLAM), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
+                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(SLAM_OR_BETTER), fit(9, suit), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
 
                 shows(new Bid(6, suit), pairPoints(SLAM_OR_BETTER), pairKeyCards(suit, null, 4, 5)),
 
@@ -81,10 +81,10 @@ public class Blackwood extends Bidder {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
             properties(new Call[]{Bid._6C, Bid._6D, Bid._6H, Bid._6S}, Blackwood::tryGrandSlam, true),
-            shows(Bid._6C, kings(0, 4), ruleShow(1)),
-            shows(Bid._6D, kings(1), ruleShow(1)),
-            shows(Bid._6H, kings(2), ruleShow(1)),
-            shows(Bid._6S, kings(3), ruleShow(1))
+            shows(Bid._6C, kings(0, 4), ruleShow(1), ruleDescription("Blackwood: 0 or 4 Kings")),
+            shows(Bid._6D, kings(1), ruleShow(1), ruleDescription("Blackwood: 1 King")),
+            shows(Bid._6H, kings(2), ruleShow(1), ruleDescription("Blackwood: 2 Kings")),
+            shows(Bid._6S, kings(3), ruleShow(1), ruleDescription("Blackwood: 3 Kings"))
         );
         return choices;
     }
