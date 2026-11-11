@@ -81,7 +81,7 @@ public class OpenWJ2025 extends WJ2025 {
 
         bids.add(shows(Call.PASS, DontOpen, id("OpenWJ2025.openSuit _PASS")));
 
-        bids.add(shows(Bid._1C, id("OpenWJ2025.openSuit _1C")));
+        //bids.add(shows(Bid._1C, id("OpenWJ2025.openSuit _1C")));
 
         bids.add(partnerBids(Bid._1D, RespondDiamondBid1::oneDiamond));
 
