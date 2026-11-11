@@ -3,7 +3,7 @@ package com.example.bridge.bidding.WJ2025;
 import static com.example.bridge.bidding.WJ2025.OpenWJ2025.OpeningStrongBidding;
 
 import com.example.bridge.bidding.Constraints.Shape;
-import com.example.bridge.bidding.Conventions.AcesAsk;
+import com.example.bridge.bidding.Conventions.Blackwood;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;

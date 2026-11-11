@@ -16,13 +16,20 @@ import java.util.List;
 public class Blackwood extends Bidder {
     private static final Range SLAM_OR_BETTER = new Range(32, 100);
     private static final Range GRAND_SLAM = new Range(36, 100);
+    public static final Range OPEN_STRONG = new Range(15, 17);
 
     public static Iterable<CallFeature> initiateConvention(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
             bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, UserText.Blackwood));
-            bids.add(shows(Bid._4NT, pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax())));
+            bids.add(shows(Bid._4NT, pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(3, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(3, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(3, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+
+
         }
         return bids;
     }
@@ -39,10 +46,10 @@ public class Blackwood extends Bidder {
         if (suit != null) {
             choices.addRules(
                 properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S}, Blackwood::placeContract, true),
-                shows(Bid._5C, keyCards(suit, 1, 4)),
-                shows(Bid._5D, keyCards(suit, 0, 3)),
-                shows(Bid._5H, keyCards(suit, false, 2, 5)),
-                shows(Bid._5S, keyCards(suit, true, 2, 5))
+                shows(Bid._5C, keyCards(suit, 1, 4), ruleShow(1)),
+                shows(Bid._5D, keyCards(suit, 0, 3), ruleShow(1)),
+                shows(Bid._5H, keyCards(suit, false, 2, 5), ruleShow(1)),
+                shows(Bid._5S, keyCards(suit, true, 2, 5), ruleShow(1), ruleDescription("Blackwood- 2-5 + Quin"))
             );
             return choices;
         }
@@ -74,10 +81,10 @@ public class Blackwood extends Bidder {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
             properties(new Call[]{Bid._6C, Bid._6D, Bid._6H, Bid._6S}, Blackwood::tryGrandSlam, true),
-            shows(Bid._6C, kings(0, 4)),
-            shows(Bid._6D, kings(1)),
-            shows(Bid._6H, kings(2)),
-            shows(Bid._6S, kings(3))
+            shows(Bid._6C, kings(0, 4), ruleShow(1)),
+            shows(Bid._6D, kings(1), ruleShow(1)),
+            shows(Bid._6H, kings(2), ruleShow(1)),
+            shows(Bid._6S, kings(3), ruleShow(1))
         );
         return choices;
     }

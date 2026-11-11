@@ -16,7 +16,6 @@ public class RecursionWJ2025 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         List<CallFeature> conventions = new ArrayList<>();
-        CompeteWJ2025.addAcesAskConventions(ps, conventions);
         choices.addRules(conventions);
         choices.addRules(
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, not(PARTNER_DID_NOT_SIGN_OFF), id("RecursionWJ2025.recursionFindFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
