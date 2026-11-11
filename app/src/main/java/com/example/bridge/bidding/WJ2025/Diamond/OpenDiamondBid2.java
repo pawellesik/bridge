@@ -41,7 +41,7 @@ public class OpenDiamondBid2 extends WJ2025 {
                 shows(Bid._3S, shape(0, 1), shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3S")),
                 shows(Bid._4C, shape(0, 1), shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _4C")),
                 shows(Bid._3H, shape(4, 4), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3H")),
-                shows(Bid._3D, shape(6, 13), shape(Suit.Hearts, 0, 2), shape(Suit.Spades, 2, 13), shape(Suit.Clubs, 2, 13),highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3D")),
+                shows(Bid._3D, shape(6, 13), shape(Suit.Hearts, 0, 2), shape(Suit.Spades, 2, 13), shape(Suit.Clubs, 2, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3D")),
                 shows(Bid._3C, shape(5, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3C")),
                 shows(Bid._2NT, shape(Suit.Diamonds, 6, 13), shape(Suit.Hearts, 0, 2), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _3C")),
                 shows(Bid._2S, shape(Suit.Diamonds, 6, 13), shape(Suit.Hearts, 3, 3), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.oneHeart _2S")),
@@ -307,10 +307,10 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //  SEKWENCJA LICYTACJI:
     //  Runda 1: 1D - Pass - 3D - Pass
@@ -321,7 +321,9 @@ public class OpenDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(CompeteWJ2025.compBids(ps));
+        choices.addRules(
+                shows(Call.PASS, id("OpenDiamondBid2.diamond_3D _PASS"))
+        );
         return choices;
     }
 
@@ -336,7 +338,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(
-                shows(Bid._3S, shape(4,4), DECENT_PLUS_SUIT, id("OpenDiamondBid2.diamond_3H _3S"))
+                shows(Bid._3S, shape(4, 4), DECENT_PLUS_SUIT, id("OpenDiamondBid2.diamond_3H _3S"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
