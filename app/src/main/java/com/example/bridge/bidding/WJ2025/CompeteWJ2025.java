@@ -62,6 +62,9 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._5C, partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Clubs, Suit.Spades), id("CompeteWJ2025.compBids _5C")));
         bids.add(shows(Bid._5C, partner(isLastBid(Bid._4C)), partner(new Shape.HasMinShape(Suit.Hearts, 4)), betterThan(Suit.Clubs, Suit.Hearts), id("CompeteWJ2025.compBids _5C")));
 
+        //bids.add(shows(Bid._5C, partner(isLastBid(Bid._4H)), partner(new Shape.HasMinShape(Suit.Hearts, 4)), partner(new Shape.HasMinShape(Suit.Clubs, 6)), betterThan(Suit.Clubs, Suit.Hearts), id("CompeteWJ2025.compBids _5C")));
+        //bids.add(shows(Bid._5C, partner(isLastBid(Bid._4S)), partner(new Shape.HasMinShape(Suit.Spades, 4)), partner(new Shape.HasMinShape(Suit.Clubs, 6)), betterThan(Suit.Clubs, Suit.Spades), id("CompeteWJ2025.compBids _5C")));
+
         bids.add(shows(Bid._3D, partner(isLastBid(Bid._3C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), betterThan(Suit.Diamonds, Suit.Clubs), id("CompeteWJ2025.compBids _3D")));
         bids.add(shows(Bid._5D, partner(isLastBid(Bid._5C)), partner(new Shape.HasMinShape(Suit.Diamonds, 5)), betterThan(Suit.Diamonds, Suit.Clubs), id("CompeteWJ2025.compBids _5D")));
 

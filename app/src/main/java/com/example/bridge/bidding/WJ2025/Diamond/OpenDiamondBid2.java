@@ -294,8 +294,8 @@ public class OpenDiamondBid2 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._4C, fit(), highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_3C _4C")),
-                shows(Bid._3H, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Hearts), ruleShow(1), id("OpenDiamondBid2.diamond_3C _3H")),
-                shows(Bid._3S, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Spades), ruleShow(1), id("OpenDiamondBid2.diamond_3C _3S")),
+                shows(Bid._3H, highCardPoints(OPEN_STRONG), stopped(Suit.Hearts), stopped(Suit.Diamonds), ruleShow(1), id("OpenDiamondBid2.diamond_3C _3H")),
+                shows(Bid._3S, highCardPoints(OPEN_STRONG), stopped(Suit.Spades), stopped(Suit.Diamonds), ruleShow(1), id("OpenDiamondBid2.diamond_3C _3S")),
                 shows(Bid._3D, shape(6, 13), noFit(), ruleShow(1), DECENT_PLUS_SUIT, id("OpenDiamondBid2.diamond_3C _3D")),
                 shows(Call.PASS, highCardPoints(OPEN_WEAK_GAME), ruleShow(1), id("OpenDiamondBid2.diamond_3C _PASS")),
 

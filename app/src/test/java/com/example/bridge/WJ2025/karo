@@ -78,8 +78,48 @@ Pass Pass
 [Event "WJ Deal karo 10"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:K742.K.AJ9832.A7 QT9.T9854.643.T9 J82.Q3.82.AKJ874 A765.KJ6.KQT.Q64"]
+[Deal "N:K74.K.AJ9832.A72 QT9.T9854.643.T9 J82.Q3.82.AKJ874 A765.KJ6.KQT.Q64"]
 [Auction "N"]
 1D Pass 3C Pass
-3S Pass 5C Pass
+3S Pass 4C Pass
+5C Pass Pass Pass
+
+[Event "WJ Deal karo 11"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K74.K.AJ9832.A72 QT9.T9854.643.T9 Q3.AJ8.82.KJ8742 A765.KJ6.KQT.Q64"]
+[Auction "N"]
+1D Pass 3C Pass
+3S Pass 3NT Pass
 Pass Pass
+
+[Event "WJ Deal karo 12"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K742.T7.AKJ832.A QT9.T9854.643.T9 QJ82..8T3.AKJ874 A765.KJ6.KQT.Q64"]
+[Auction "N"]
+1D Pass 3C Pass
+3S Pass 4S Pass
+Pass Pass
+
+[Event "WJ Deal karo 13"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K742.T7.AKJ82.A3 QT9.T9854.643.T9 QJ8.32.8T.AKJ874 A765.KJ6.KQT.Q64"]
+[Auction "N"]
+1D Pass 3C Pass
+3S Pass 4C Pass
+5C Pass Pass Pass
+
+[Event "WJ Deal karo 13"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K742.T73.AKJ82.A QT9.T9854.643.T9 QJ8.3.T82.AKJ874 A765.KJ6.KQT.Q64"]
+[Auction "N"]
+1D Pass 3C Pass
+3S Pass 4C Pass
+4D Pass 5D Pass
+Pass Pass
+
+
+

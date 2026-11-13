@@ -6,6 +6,7 @@ import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
+import com.example.bridge.bidding.WJ2025.CompeteWJ2025;
 import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class OpenDiamondBid3 extends WJ2025 {
@@ -181,6 +182,21 @@ public class OpenDiamondBid3 extends WJ2025 {
                 shows(Bid._4H, shape(4, 4),shape(Suit.Diamonds, 5, 13), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_3H _4H"))
 
                  );
+        return choices;
+    }
+
+
+
+    public static PositionCalls diamond_3C_3S_4C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._5C, fit(), id("RespondDiamondBid2.diamond_3C_3S_4C _5C")),
+                shows(Bid._4D, shape(5,13),  id("RespondDiamondBid2.diamond_3C_3S_4C _4D"))
+
+        );
+
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
