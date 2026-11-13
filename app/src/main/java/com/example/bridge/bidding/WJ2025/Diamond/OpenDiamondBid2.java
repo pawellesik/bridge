@@ -282,7 +282,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: --
     //  Runda 1: 1D - Pass - 3C - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
@@ -312,7 +312,7 @@ public class OpenDiamondBid2 extends WJ2025 {
     /// /////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 3D - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
@@ -327,7 +327,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 3H - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
@@ -344,7 +344,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 3S - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
@@ -358,7 +358,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 4C - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):

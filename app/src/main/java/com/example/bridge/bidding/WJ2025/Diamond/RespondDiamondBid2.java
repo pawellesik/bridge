@@ -866,7 +866,7 @@ public class RespondDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 3C - Pass
     //  Runda 2: 3D - Pass
     //  -----------------------------------------------------------------------
