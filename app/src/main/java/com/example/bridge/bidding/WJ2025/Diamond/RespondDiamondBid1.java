@@ -66,7 +66,7 @@ public class RespondDiamondBid1 extends WJ2025 {
                 properties(new Call[]{Bid._2H}, OpenDiamondBid2::diamond_2H, true),
                 properties(new Call[]{Bid._2S}, OpenDiamondBid2::diamond_2S, true),
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid2::diamond_2NT, true),
-                properties(new Call[]{Bid._3C}, OpenDiamondBid2::diamond_3C, true),
+                properties(new Call[]{Bid._3C}, OpenDiamondBid2::diamond_3C, false),
                 properties(new Call[]{Bid._3D}, OpenDiamondBid2::diamond_3D, false),
                 properties(new Call[]{Bid._3H}, OpenDiamondBid2::diamond_3H, false),
                 properties(new Call[]{Bid._3S}, OpenDiamondBid2::diamond_3S, false),

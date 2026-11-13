@@ -58,3 +58,19 @@ Pass Pass
 [Auction "N"]
 1D Pass 4C Pass
 5D Pass Pass Pass
+
+[Event "WJ Deal karo 8"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K42.A73.AJ982.73 QT9.T9854.643.T9 J82.Q3.82.AKJ874 A765.KJ6.KQT.Q64"]
+[Auction "N"]
+1D Pass 3C Pass
+Pass Pass
+
+[Event "WJ Deal karo 9"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K42.A73.AJ9832.7 QT9.T9854.643.T9 J82.Q3.82.AKJ874 A765.KJ6.KQT.Q64"]
+[Auction "N"]
+1D Pass 3C Pass
+3D Pass Pass Pass
