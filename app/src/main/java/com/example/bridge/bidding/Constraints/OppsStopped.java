@@ -88,6 +88,9 @@ public class OppsStopped {
 
         @Override
         public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+            if (!ps.hasHand() || hs != ps.getPrivateHandSummary()) {
+                return true;
+            }
             Suit s = getSuit(suit, call);
             if (s != null) {
                 Boolean stopped = hs.getSuits().get(s).getStopped();

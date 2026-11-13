@@ -293,11 +293,11 @@ public class OpenDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._4C, fit(), highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_2S _4C")),
-                shows(Bid._3H, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Hearts), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3H")),
-                shows(Bid._3S, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Spades), ruleShow(1), id("OpenDiamondBid2.diamond_2S _3S")),
-                shows(Bid._3D, shape(6, 13), noFit(), ruleShow(1), DECENT_PLUS_SUIT, id("OpenDiamondBid2.diamond_2S _3D")),
-                shows(Call.PASS, highCardPoints(OPEN_WEAK_GAME), ruleShow(1), id("OpenDiamondBid2.diamond_2S _PASS")),
+                shows(Bid._4C, fit(), highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_3C _4C")),
+                shows(Bid._3H, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Hearts), ruleShow(1), id("OpenDiamondBid2.diamond_3C _3H")),
+                shows(Bid._3S, fit(Suit.Clubs), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), stopped(Suit.Spades), ruleShow(1), id("OpenDiamondBid2.diamond_3C _3S")),
+                shows(Bid._3D, shape(6, 13), noFit(), ruleShow(1), DECENT_PLUS_SUIT, id("OpenDiamondBid2.diamond_3C _3D")),
+                shows(Call.PASS, highCardPoints(OPEN_WEAK_GAME), ruleShow(1), id("OpenDiamondBid2.diamond_3C _PASS")),
 
                 properties(new Call[]{Bid._3D}, RespondDiamondBid2::diamond_3C_3D, false),
                 properties(new Call[]{Bid._3H}, RespondDiamondBid2::diamond_3C_3H, true),
