@@ -42,9 +42,6 @@
 [Auction "N"]
 1D Pass 3D Pass Pass Pass
 
-
-
-
 # 6. Odpowiedź 3C: 10-11 HCP, inwit na własnych długich treflach (6+)
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 3C (Inwit z 6+ trefli, 10-11 HCP)"]
 [Dealer "N"]
@@ -52,6 +49,9 @@
 [Deal "N:K42.A73.AJ982.73 QT9.T9854.643.T9 J82.Q32.82.AKJ875 A765.KJ6.KQT.Q64"]
 [Auction "N"]
 1D Pass 3C Pass Pass Pass
+
+
+
 
 # 7. Odpowiedź 2NT: 11-12 HCP, inwit do 3NT, bez 4-kartowego koloru starszego
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2NT (Inwit do bezatu 11-12 HCP, bez 4m)"]
