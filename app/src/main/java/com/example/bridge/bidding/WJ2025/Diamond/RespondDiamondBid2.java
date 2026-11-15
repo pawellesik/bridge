@@ -821,6 +821,9 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._4H, shape(3), DECENT_PLUS_SUIT, shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_2S_3H _4H"))
+        );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -835,6 +838,9 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2S_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._4S, shape(3), DECENT_PLUS_SUIT, shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_2S_3S _4S"))
+        );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
