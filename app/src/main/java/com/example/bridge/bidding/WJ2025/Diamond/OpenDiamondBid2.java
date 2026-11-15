@@ -199,7 +199,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: todo
     //  Runda 1: 1D - Pass - 2H - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
@@ -210,14 +210,14 @@ public class OpenDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3D, noFit(), shape(Suit.Spades, 0, 2), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3D")),
+                shows(Bid._3D, noFit(), shape(Suit.Spades, 0, 2), shape(Suit.Hearts, 0, 3), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3D")),
 
-                shows(Bid._2NT, noFit(), shape(Suit.Spades, 0, 2), PAIR_BALANCED, highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3C")),
-
-                shows(Bid._3C, highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3C")),
+                shows(Bid._2NT, noFit(), PAIR_BALANCED, highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3C")),
 
                 shows(Bid._4S, shape(Suit.Spades, 4, 4), highCardPoints(OPEN_STRONG_FORSING), id("OpenDiamondBid2.diamond_2H _4S")),
                 shows(Bid._4H, fit(), highCardPoints(OPEN_STRONG_FORSING), id("OpenDiamondBid2.diamond_2H _4H")),
+
+                shows(Bid._3C, highCardPoints(OPEN_STRONG_FORSING), ruleShow(1), id("OpenDiamondBid2.diamond_2H _3C")),
 
                 shows(Bid._2S, noFit(), shape(Suit.Spades, 4, 4), ruleShow(1), id("OpenDiamondBid2.diamond_2H _2S")),
                 shows(Call.PASS, fit(), ruleShow(1), id("OpenDiamondBid2.diamond_2H _pass")),
@@ -262,7 +262,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI: --+
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 2NT - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
