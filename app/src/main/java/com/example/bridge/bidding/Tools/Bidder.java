@@ -845,6 +845,7 @@ public abstract class Bidder {
 
         public Note(String text) {
             this.text = text;
+            this.includeInDescription = true;
         }
 
         @Override
