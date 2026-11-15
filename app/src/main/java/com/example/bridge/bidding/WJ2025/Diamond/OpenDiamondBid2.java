@@ -222,7 +222,7 @@ public class OpenDiamondBid2 extends WJ2025 {
                 shows(Bid._2S, noFit(), shape(Suit.Spades, 4, 4), ruleShow(1), id("OpenDiamondBid2.diamond_2H _2S")),
                 shows(Call.PASS, fit(), ruleShow(1), id("OpenDiamondBid2.diamond_2H _pass")),
 
-                shows(Bid._2S, fit(7), noFit(7), id("OpenDiamondBid2.diamond_2H _2S")), //bez ruleShow
+                shows(Bid._2S, noFit(7), shape(Suit.Spades, 3, 3), betterThan(Suit.Spades, Suit.Hearts), id("OpenDiamondBid2.diamond_2H _2S")), //bez ruleShow
 
                 properties(new Call[]{Bid._2S}, RespondDiamondBid2::diamond_2H_2S, false),
                 properties(new Call[]{Bid._2NT}, RespondDiamondBid2::diamond_2H_2NT, false),
