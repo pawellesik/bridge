@@ -58,10 +58,6 @@
 [Auction "N"]
 1D Pass 2NT Pass Pass Pass
 
-
-
-
-
 # 8. Odpowiedź 2S: 17+ HCP (GF), brak 4m (przekracza zakres 13-16 dla 3NT)
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2S (Forsujący bilans GF 17+ HCP bez 4m)"]
 [Dealer "N"]
@@ -69,6 +65,9 @@
 [Deal "N:K42.A73.AJ982.73 QT97.T985.64.T85 A83.KQ2.K75.AQ94 J65.J64.QT3.KJ62"]
 [Auction "N"]
 1D Pass 2S Pass Pass Pass
+
+
+
 
 # 9. Odpowiedź 2H: 7-9 HCP, dwukolorówka słaba 5+ piki i 4+ kiery
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2H (Słaba ręka 7-9 HCP z 5+ piki i 4+ kiery)"]
