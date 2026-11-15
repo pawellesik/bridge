@@ -50,9 +50,6 @@
 [Auction "N"]
 1D Pass 3C Pass Pass Pass
 
-
-
-
 # 7. Odpowiedź 2NT: 11-12 HCP, inwit do 3NT, bez 4-kartowego koloru starszego
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2NT (Inwit do bezatu 11-12 HCP, bez 4m)"]
 [Dealer "N"]
@@ -60,6 +57,10 @@
 [Deal "N:K42.A73.AJ982.73 QT9.T954.64.T865 J83.Q82.K75.AJ94 A765.KJ6.QT3.KQ2"]
 [Auction "N"]
 1D Pass 2NT Pass Pass Pass
+
+
+
+
 
 # 8. Odpowiedź 2S: 17+ HCP (GF), brak 4m (przekracza zakres 13-16 dla 3NT)
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2S (Forsujący bilans GF 17+ HCP bez 4m)"]
