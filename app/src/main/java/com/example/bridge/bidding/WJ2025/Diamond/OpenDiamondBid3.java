@@ -219,7 +219,7 @@ public class OpenDiamondBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._4H, fit(), id("RespondDiamondBid2.diamond_3C_3S_4C _5C"))
+                shows(Bid._4H, fit(), id("RespondDiamondBid2.diamond_2H_3C_3H _4H"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -229,7 +229,7 @@ public class OpenDiamondBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._4S, fit(), id("RespondDiamondBid2.diamond_3C_3S_4C _5C"))
+                shows(Bid._4S, fit(7), id("RespondDiamondBid2.diamond_2H_3C_3S _4S"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;

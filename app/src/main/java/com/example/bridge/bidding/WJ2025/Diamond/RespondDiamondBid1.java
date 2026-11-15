@@ -55,6 +55,11 @@ public class RespondDiamondBid1 extends WJ2025 {
                 shows(Bid._2C, shape(5, 13), highCardPoints(RESPOND_FORCING_2C), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2C")),
 
                 shows(Bid._1NT, shape(Suit.Spades, 0, 3), shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_TO_1NT), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1NT")),
+
+                shows(Bid._1H, shape(6, 13), highCardPoints(RESPOND_STANDARD), id("RespondDiamondBid1.oneDiamond _1H")),
+                shows(Bid._1S, shape(6, 13), highCardPoints(RESPOND_STANDARD), id("RespondDiamondBid1.oneDiamond _1S")),
+                shows(Bid._1H, shape(5, 13), highCardPoints(RESPOND_STANDARD), id("RespondDiamondBid1.oneDiamond _1H")),
+                shows(Bid._1S, shape(5, 13), highCardPoints(RESPOND_STANDARD), id("RespondDiamondBid1.oneDiamond _1S")),
                 shows(Bid._1H, shape(4, 13), highCardPoints(RESPOND_STANDARD), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1H")),
                 shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_STANDARD), ruleShow(1), id("RespondDiamondBid1.oneDiamond _1S")),
 
@@ -65,7 +70,7 @@ public class RespondDiamondBid1 extends WJ2025 {
                 properties(new Call[]{Bid._2D}, OpenDiamondBid2::diamond_2D, true),
                 properties(new Call[]{Bid._2H}, OpenDiamondBid2::diamond_2H, true),
                 properties(new Call[]{Bid._2S}, OpenDiamondBid2::diamond_2S, true),
-                properties(new Call[]{Bid._2NT}, OpenDiamondBid2::diamond_2NT, true), //todo
+                properties(new Call[]{Bid._2NT}, OpenDiamondBid2::diamond_2NT, true),
                 properties(new Call[]{Bid._3C}, OpenDiamondBid2::diamond_3C, false),
                 properties(new Call[]{Bid._3D}, OpenDiamondBid2::diamond_3D, false),
                 properties(new Call[]{Bid._3H}, OpenDiamondBid2::diamond_3H, false),

@@ -167,7 +167,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: todo
     //  Runda 1: 1D - Pass - 2D - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
@@ -199,7 +199,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI: todo
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 2H - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
