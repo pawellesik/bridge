@@ -594,6 +594,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -608,6 +609,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -622,6 +624,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -694,6 +697,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -708,6 +712,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2D_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }

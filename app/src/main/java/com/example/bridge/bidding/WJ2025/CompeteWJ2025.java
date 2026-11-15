@@ -100,8 +100,6 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), id("CompeteWJ2025.recursionFindFitGame pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), _3NT")));
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._2NT)), id("CompeteWJ2025.recursionFindFitGame pairHighCardPoints(PAIR_MINOR_GAME), partner(isLastBid(Bid._2NT)), _3NT")));
 
-        //bids.add(shows(Call.PASS, ruleDescription("compBids _PASS"), id("CompeteWJ2025.compBids _PASS")));
-
         bids.add(partnerBids(RecursionWJ2025::recursionFindFitGame));
 
         return bids;
