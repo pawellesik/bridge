@@ -447,6 +447,9 @@ public abstract class Bidder {
         return new HandConstraint() {
             @Override
             public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+                if (!ps.hasHand() || hs != ps.getPrivateHandSummary()) {
+                    return true;
+                }
                 return !c.conforms(call, ps, hs);
             }
         };

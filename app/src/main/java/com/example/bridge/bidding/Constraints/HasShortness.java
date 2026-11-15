@@ -30,6 +30,9 @@ public class HasShortness extends HandConstraint implements IDescribeConstraint 
      */
     @Override
     public boolean conforms(Call call, PositionState ps, HandSummary hs) {
+        if (!ps.hasHand() || hs != ps.getPrivateHandSummary()) {
+            return true;
+        }
         for (Suit s : Suit.values()) {
             Range shape = hs.getSuits().get(s).getShape();
             // Sprawdzamy czy MOŻLIWE jest, że ten kolor ma długość w zakresie [min, max]
