@@ -150,8 +150,8 @@ public class OpenDiamondBid2 extends WJ2025 {
 
                 shows(Bid._2NT, shape(3, 13), highCardPoints(OPEN_STANDARD), shape4441(Suit.Clubs), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2NT")),
 
-                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2H")),
-                shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2S")),
+                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STRONG), shape(Suit.Diamonds, 5,13), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2H")),
+                shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STRONG), shape(Suit.Diamonds, 5,13), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2S")),
 
                 shows(Bid._2D, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2D")),
 
@@ -167,7 +167,7 @@ public class OpenDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI: todo
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 2D - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):

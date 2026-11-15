@@ -74,10 +74,6 @@
 [Auction "N"]
 1D Pass 2H Pass Pass Pass
 
-
-
-
-
 # 10. Odpowiedź 2D: 10+ HCP, inwitowe/forsujące podniesienie kar (fit 4+), bez 4m
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2D (Inwitowe/Forsujące podniesienie kar 10+ HCP, 4+ kara)"]
 [Dealer "N"]
@@ -85,6 +81,8 @@
 [Deal "N:K42.A73.AJ982.73 QT9.T985.643.T98 J82.Q32.KJ87.K75 A765.KJ64.QT.AQ6"]
 [Auction "N"]
 1D Pass 2D Pass Pass Pass
+
+
 
 # 11. Odpowiedź 2C: 12+ HCP, forsujące 2C z 5+ trefli, bez 4m
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2C (Forsująca odpowiedź 2C, 12+ HCP, 5+ trefli)"]
