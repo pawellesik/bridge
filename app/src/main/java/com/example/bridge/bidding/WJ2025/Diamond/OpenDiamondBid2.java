@@ -148,7 +148,7 @@ public class OpenDiamondBid2 extends WJ2025 {
                 shows(Bid._3D, shape(6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3D")),
                 shows(Bid._3C, shape(3, 13), highCardPoints(OPEN_STRONG), not(hasShortness(0, 1)), setTrumpColor(Suit.Clubs), ruleShow(1), id("OpenDiamondBid2.diamond_2C _3D")),
 
-                shows(Bid._2NT, shape(3, 13), highCardPoints(OPEN_STANDARD), shape4441(Suit.Clubs), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2NT")),
+                shows(Bid._2NT, highCardPoints(OPEN_STANDARD), shape4441(Suit.Clubs), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2NT")),
 
                 shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STRONG), shape(Suit.Diamonds, 5,13), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2H")),
                 shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STRONG), shape(Suit.Diamonds, 5,13), ruleShow(1), id("OpenDiamondBid2.diamond_2C _2S")),
