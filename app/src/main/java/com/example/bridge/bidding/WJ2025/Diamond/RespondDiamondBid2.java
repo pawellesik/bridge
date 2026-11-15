@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.WJ2025.Diamond;
 
+import com.example.bridge.bidding.Conventions.Blackwood;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -938,6 +939,11 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3C_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(
+                shows(Bid._4H, shape(4), DECENT_PLUS_SUIT,  betterThan(Suit.Hearts, Suit.Spades), id("RespondDiamondBid2.diamond_3C_4C _4H")),
+                shows(Bid._4S, shape(4), DECENT_PLUS_SUIT,  betterThan(Suit.Spades, Suit.Hearts), id("RespondDiamondBid2.diamond_3C_4C _4S"))
+        );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
