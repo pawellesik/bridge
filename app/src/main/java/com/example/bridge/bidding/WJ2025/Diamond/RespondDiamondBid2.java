@@ -527,6 +527,10 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondDiamondBid1.diamond_2C_2H _4H"))
+        );
+
         choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -542,6 +546,10 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("RespondDiamondBid1.diamond_2C_2S _4S"))
+        );
+
         choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -558,8 +566,8 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static PositionCalls diamond_2C_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")),
-                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")),
+                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondDiamondBid1.diamond_2C_2NT FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")),
+                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("RespondDiamondBid1.diamond_2C_2NT FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")),
 
                 shows(Bid._3H, shape(4, 4), id("RespondDiamondBid1.diamond_2C_2NT _3H")),
                 shows(Bid._3S, shape(4, 4), id("RespondDiamondBid1.diamond_2C_2NT _3S")),

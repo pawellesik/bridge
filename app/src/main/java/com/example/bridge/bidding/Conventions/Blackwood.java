@@ -5,6 +5,7 @@ import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Bidder;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
+import com.example.bridge.bidding.Tools.HandSummary;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
@@ -22,12 +23,17 @@ public class Blackwood extends Bidder {
         List<CallFeature> bids = new ArrayList<>();
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
-            bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, false, true, suit, null, null, UserText.Blackwood, null));
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, UserText.Blackwood));
 
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            if (ps.getPairState().getTrumpSuit() != null) {
+                bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            } else {
+                bids.add(shows(Bid._4NT, pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            }
+
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
         }
         return bids;
     }
@@ -35,6 +41,22 @@ public class Blackwood extends Bidder {
     private static Suit getAgreedSuit(PositionState ps) {
         Suit trump = ps.getPairState().getTrumpSuit();
         if (trump != null) return trump;
+
+        if (ps.getPublicHandSummary() != null && ps.getPartner() != null && ps.getPartner().getPublicHandSummary() != null) {
+            Suit[] suitsToCheck = {Suit.Hearts, Suit.Spades, Suit.Diamonds, Suit.Clubs};
+            for (Suit s : suitsToCheck) {
+                HandSummary.SuitSummary ss1 = ps.getPublicHandSummary().getSuits().get(s);
+                HandSummary.SuitSummary ss2 = ps.getPartner().getPublicHandSummary().getSuits().get(s);
+                if (ss1 != null && ss2 != null) {
+                    Range shape = ss1.getShape();
+                    Range partnerShape = ss2.getShape();
+                    if (shape != null && partnerShape != null && (shape.getMin() + partnerShape.getMin() >= 8)) {
+                        return s;
+                    }
+                }
+            }
+        }
+
         return ps.getPairState().getLastShownSuit();
     }
 
