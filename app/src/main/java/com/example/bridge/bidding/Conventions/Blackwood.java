@@ -22,14 +22,12 @@ public class Blackwood extends Bidder {
         List<CallFeature> bids = new ArrayList<>();
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
-            bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, UserText.Blackwood));
-            bids.add(shows(Bid._4NT, pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, false, true, suit, null, null, UserText.Blackwood, null));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
 
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-
-
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
         }
         return bids;
     }
@@ -65,12 +63,16 @@ public class Blackwood extends Bidder {
                 shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(GRAND_SLAM), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
                 shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(SLAM_OR_BETTER), fit(9, suit), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
 
-                shows(new Bid(6, suit), pairPoints(SLAM_OR_BETTER), pairKeyCards(suit, null, 4, 5)),
+                shows(new Bid(6, suit), fit(suit), pairPoints(SLAM_OR_BETTER), pairKeyCards(suit, null, 4, 5, 6)),
+                shows(Bid._6NT, not(fit(suit)), pairPoints(SLAM_OR_BETTER), pairKeyCards(suit, null, 4, 5, 6)),
+
+                shows(new Bid(5, suit), fit(suit), pairKeyCards(suit, null, 0, 1, 2, 3)),
+                shows(Bid._5NT, not(fit(suit)), pairKeyCards(suit, null, 0, 1, 2, 3)),
 
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, pairKeyCards(suit, null, 0, 1, 2, 3)),
 
-                shows(new Bid(5, suit), pairKeyCards(suit, null, 0, 1, 2, 3)),
-                shows(new Bid(6, suit), IS_NON_JUMP, pairKeyCards(suit, null, 0, 1, 2, 3))
+                shows(new Bid(6, suit), fit(suit), IS_NON_JUMP, pairKeyCards(suit, null, 0, 1, 2, 3)),
+                shows(Bid._6NT, not(fit(suit)), IS_NON_JUMP, pairKeyCards(suit, null, 0, 1, 2, 3))
             );
             return choices;
         }
@@ -94,10 +96,13 @@ public class Blackwood extends Bidder {
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
             choices.addRules(
-                shows(new Bid(7, suit), pairKeyCards(suit, true, 5), pairKings(4)),
+                shows(new Bid(7, suit), fit(suit), pairKeyCards(suit, true, 5), pairKings(4)),
+                shows(Bid._7NT, not(fit(suit)), pairKeyCards(suit, true, 5), pairKings(4)),
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN),
-                shows(new Bid(6, suit)),
-                shows(new Bid(7, suit))
+                shows(new Bid(6, suit), fit(suit)),
+                shows(Bid._6NT, not(fit(suit))),
+                shows(new Bid(7, suit), fit(suit)),
+                shows(Bid._7NT, not(fit(suit)))
             );
             return choices;
         }
