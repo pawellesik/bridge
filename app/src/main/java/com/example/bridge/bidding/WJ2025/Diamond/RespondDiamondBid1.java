@@ -50,7 +50,7 @@ public class RespondDiamondBid1 extends WJ2025 {
 
                 shows(Bid._2H, highCardPoints(RESPOND_WEAK), shape(Suit.Spades, 5, 13), shape(Suit.Hearts, 4, 13), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2H")),
 
-                shows(Bid._2D, shape(4, 13), highCardPoints(RESPOND_2D), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2D")),
+                shows(Bid._2D, shape(4, 13), highCardPoints(RESPOND_2D), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2D")),
 
                 shows(Bid._2C, shape(5, 13), highCardPoints(RESPOND_FORCING_2C), ruleShow(1), id("RespondDiamondBid1.oneDiamond _2C")),
 
