@@ -82,8 +82,6 @@
 [Auction "N"]
 1D Pass 2D Pass Pass Pass
 
-
-
 # 11. Odpowiedź 2C: 12+ HCP, forsujące 2C z 5+ trefli, bez 4m
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2C (Forsująca odpowiedź 2C, 12+ HCP, 5+ trefli)"]
 [Dealer "N"]
@@ -92,6 +90,9 @@
 [Auction "N"]
 1D Pass 2C Pass Pass Pass
 
+
+
+//todo
 # 12. Odpowiedź 1NT: 7-10 HCP, bez 4m, brak 4 kar
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 1NT (Słaba odpowiedź 1NT, 7-10 HCP, bez 4m)"]
 [Dealer "N"]
@@ -115,11 +116,3 @@
 [Deal "N:K42.A73.AJ982.73 JT9.T954.643.T95 KQ82.832.J85.Q82 A765.KJ6.QT.AKJ4"]
 [Auction "N"]
 1D Pass 1S Pass Pass Pass
-
-# 15. Pas: 0-6 HCP
-[Event "WJ2025 RespondDiamondBid1 1D - Pass - Pass (Pas z bardzo słabą ręką 0-6 HCP)"]
-[Dealer "N"]
-[Vulnerable "None"]
-[Deal "N:K42.A73.AJ982.73 QT9.T954.643.T96 832.832.852.J852 AJ765.KQJ6.QT.AKQ"]
-[Auction "N"]
-1D Pass Pass Pass

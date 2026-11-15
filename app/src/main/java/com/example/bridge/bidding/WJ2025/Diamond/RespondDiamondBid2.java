@@ -513,6 +513,12 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._3C, shape(6,13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _3C")),
+                shows(Bid._2H, shape(4,13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2H")),
+                shows(Bid._2S, shape(4,13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2S"))
+        );
+
         choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
