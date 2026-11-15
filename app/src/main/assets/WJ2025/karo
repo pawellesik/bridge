@@ -66,9 +66,6 @@
 [Auction "N"]
 1D Pass 2S Pass Pass Pass
 
-
-
-
 # 9. Odpowiedź 2H: 7-9 HCP, dwukolorówka słaba 5+ piki i 4+ kiery
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2H (Słaba ręka 7-9 HCP z 5+ piki i 4+ kiery)"]
 [Dealer "N"]
@@ -76,6 +73,10 @@
 [Deal "N:K42.A73.AJ982.73 T73.T954.643.T98 QJ982.J872.Q5.J4 A65.KQ6.KT.AKQ65"]
 [Auction "N"]
 1D Pass 2H Pass Pass Pass
+
+
+
+
 
 # 10. Odpowiedź 2D: 10+ HCP, inwitowe/forsujące podniesienie kar (fit 4+), bez 4m
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 2D (Inwitowe/Forsujące podniesienie kar 10+ HCP, 4+ kara)"]
