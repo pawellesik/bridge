@@ -215,5 +215,24 @@ public class OpenDiamondBid3 extends WJ2025 {
         return choices;
     }
 
+    public static PositionCalls diamond_2H_3C_3H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._4H, fit(), id("RespondDiamondBid2.diamond_3C_3S_4C _5C"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls diamond_2H_3C_3S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._4S, fit(), id("RespondDiamondBid2.diamond_3C_3S_4C _5C"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
 
 }

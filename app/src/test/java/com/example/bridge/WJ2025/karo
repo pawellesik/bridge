@@ -235,3 +235,21 @@ Pass Pass
 [Auction "N"]
 1D Pass 2H Pass
 2NT Pass Pass Pass
+
+[Event "WJ Deal karo 28"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK.A72.AJ9825.43 T73.T954.643.T98 QJ982.J872.Q5.K4 A65.KQ6.KT.AKQ65"]
+[Auction "N"]
+1D Pass 2H Pass
+3C Pass 3NT Pass
+Pass Pass
+
+[Event "WJ Deal karo 29"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK.A72.AJ9825.43 T73.T954.643.T98 QJ982.J8752.Q.K4 A65.KQ6.KT.AKQ65"]
+[Auction "N"]
+1D Pass 2H Pass
+3C Pass 3H Pass
+4H Pass Pass Pass

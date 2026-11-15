@@ -44,6 +44,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1H_1NT1S_2D, true)
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -70,6 +71,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid3::diamond_1H_2C_2S, true)
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -96,6 +98,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1S_1NT_2D, true)
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -122,6 +125,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid3::diamond_1S_2C_2H, true)
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -146,6 +150,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid3::diamond_1S_2H_2NT, true),
                 properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_1S_2H_3H, true)
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -165,6 +170,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3D, partner(isLastBid(Bid._3C)), betterThan(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_1NT_2H2S3C _3D"))
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -180,12 +186,16 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT, stopped(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3NT")),
                 shows(Bid._3S, GOOD_PLUS_SUIT, ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3S")),
                 shows(Bid._3H, shape(5, 13), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3H")),
-                shows(Bid._3D, shape(2, 2), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3D"))
+                shows(Bid._3NT, stopped(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3NT")),
+                shows(Bid._3D, shape(2, 2), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3D")),
+
+                properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_2H_3C_3H, false),
+                properties(new Call[]{Bid._3S}, OpenDiamondBid3::diamond_2H_3C_3S, false)
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -205,6 +215,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3NT, BALANCED, id("RespondDiamondBid2.diamond_2NT_3C _3NT"))
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
