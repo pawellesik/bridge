@@ -1,5 +1,8 @@
 package com.example.bridge.bidding.WJ2025.Diamond;
 
+import static com.example.bridge.bidding.Conventions.AcesAsk.SLAM_OR_BETTER;
+import static com.example.bridge.bidding.Conventions.AcesAsk.SLAM_OR_BETTER_NT;
+
 import com.example.bridge.bidding.Conventions.Blackwood;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
@@ -554,7 +557,16 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_2C_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(
+                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")),
+                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")),
+
+                shows(Bid._3H, shape(4, 4), id("RespondDiamondBid1.diamond_2C_2NT _3H")),
+                shows(Bid._3S, shape(4, 4), id("RespondDiamondBid1.diamond_2C_2NT _3S")),
+
+                shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER_NT), id("RespondDiamondBid1.diamond_2C_2NT _6NT"))
+        );
+
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
