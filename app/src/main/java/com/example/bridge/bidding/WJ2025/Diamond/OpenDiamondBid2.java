@@ -178,14 +178,15 @@ public class OpenDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), note("(splinter)"), id("OpenDiamondBid2.diamond_2D _3H")), //splinter
-                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_STRONG), ruleShow(1), note("(splinter)"), id("OpenDiamondBid2.diamond_2D _3S")), //splinter
+                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
+                shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
+
+                shows(Bid._3H, shape(0, 1), highCardPoints(OPEN_STRONG), ruleShow(1), note("(splinter)"), id("OpenDiamondBid2.diamond_2D _3H")), //splinter
+                shows(Bid._3S, shape(0, 1), highCardPoints(OPEN_STRONG), ruleShow(1), note("(splinter)"), id("OpenDiamondBid2.diamond_2D _3S")), //splinter
 
                 shows(Bid._3D, NOT_PAIR_BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3D")),
                 shows(Bid._2NT, PAIR_BALANCED, highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2NT")),
 
-                shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
-                shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _2H")),
                 shows(Bid._3C, shape(4, 4), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_2D _3C")),
 
                 properties(new Call[]{Bid._2H}, RespondDiamondBid2::diamond_2D_2H, false),

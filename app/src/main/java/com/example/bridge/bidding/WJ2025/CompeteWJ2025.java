@@ -21,6 +21,9 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")));
         bids.add(shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")));
 
+        bids.add(shows(Bid._4H, pairPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")));
+        bids.add(shows(Bid._4S, pairPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")));
+
         bids.add(shows(Bid._4H, pairHighCardPoints(PAIR_GAME_INVITE), FIT_8_PLUS, IS_FORCED_TO_GAME, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids PAIR_GAME_INVITE _4H")));
         bids.add(shows(Bid._4S, pairHighCardPoints(PAIR_GAME_INVITE), FIT_8_PLUS, IS_FORCED_TO_GAME, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids PAIR_GAME_INVITE _4S")));
 
@@ -35,7 +38,7 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteWJ2025.compBids fit(9), _5C")));
         bids.add(shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids fit(9) _5D")));
         bids.add(shows(Bid._5C, pairPoints(PAIR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteWJ2025.compBids pairPoints, _5C")));
-        bids.add(shows(Bid._5D, pairPoints(PAIR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids pairPoints _5D")));
+        bids.add(shows(Bid._5D, pairPoints(PAIR_GAME), fit(9), PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids 1 pairPoints _5D")));
 
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), PAIR_BALANCED, id("CompeteWJ2025.compBids PAIR_BALANCED PAIR_GAME _3NT")));
 
@@ -44,7 +47,7 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, IS_FORCED_TO_GAME, setTrumpColor(Suit.Clubs), id("CompeteWJ2025.compBids IS_FORCED_TO_GAME _5C")));
         bids.add(shows(Bid._5D, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, IS_FORCED_TO_GAME, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids IS_FORCED_TO_GAME _5D")));
         bids.add(shows(Bid._5C, pairPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteWJ2025.compBids pairPoints _5C")));
-        bids.add(shows(Bid._5D, pairPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids pairPoints _5D")));
+        bids.add(shows(Bid._5D, pairPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids 2 pairPoints _5D")));
 
         bids.add(shows(Bid._2S, shape(2, 3), partner(isLastBid(Bid._2H)), partner(new Shape.HasMinShape(Suit.Spades, 5)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteWJ2025.compBids _2S")));
         bids.add(shows(Bid._3S, shape(3, 4), shape(Suit.Hearts, 0, 3), partner(isLastBid(Bid._3H)), partner(new Shape.HasMinShape(Suit.Spades, 4)), betterThan(Suit.Spades, Suit.Hearts), id("CompeteWJ2025.compBids betterThan _3S")));
