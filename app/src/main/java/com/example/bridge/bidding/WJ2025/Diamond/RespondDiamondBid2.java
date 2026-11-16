@@ -201,8 +201,9 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3D, noFit(), id("RespondDiamondBid2.diamond_1NT_2H2S _3D"))
+                shows(Bid._3D, noFit(), id("RespondDiamondBid2.diamond_1NT_2H2S _3D")),
 
+                properties(new Call[]{Bid._3D}, OpenDiamondBid3::diamond_1NT_2H2S_3D, false)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -213,6 +214,7 @@ public class RespondDiamondBid2 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._3D, noFit(), id("RespondDiamondBid2.diamond_1NT_3C _3D"))
+
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;

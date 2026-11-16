@@ -37,8 +37,12 @@ public class BetterSuit {
             Suit d = getSuit(this.defaultIfEqual, call);
             
             if (b != null && w != null) {
-                Range bShape = hs.getSuits().get(b).getShape();
-                Range wShape = hs.getSuits().get(w).getShape();
+                HandSummary.SuitSummary bSum = hs.getSuits().get(b);
+                HandSummary.SuitSummary wSum = hs.getSuits().get(w);
+                if (bSum == null || wSum == null) return false;
+
+                Range bShape = bSum.getShape();
+                Range wShape = wSum.getShape();
                 
                 // 1. Jeśli lepszy kolor jest ewidentnie krótszy niż gorszy -> FALSE
                 if (bShape.getMax() < wShape.getMin()) return false;
@@ -50,13 +54,21 @@ public class BetterSuit {
 
                     // Jeśli sprawdzamy też JAKOŚĆ (to jest Twój przypadek!)
                     if (!lengthOnly) {
-                        int bq = hs.getSuits().get(b).getQuality().getMin();
-                        int wq = hs.getSuits().get(w).getQuality().getMin();
+                        int bq = bSum.getQuality() != null ? bSum.getQuality().getMin() : 0;
+                        int wq = wSum.getQuality() != null ? wSum.getQuality().getMin() : 0;
                         
                         if (bq > wq) return true;  // Kiery (8 pkt) > Piki (4 pkt) -> TRUE
                         if (wq > bq) return false; // Piki silniejsze -> FALSE
                         
-                        // Jeśli jakość też jest identyczna, decyduje defaultIfEqual
+                        // Gdy kategoria jakości (SuitQuality) jest identyczna (np. obydwa Poor), porównujemy bezpośrednio punkty HCP w kolorach
+                        Range bHcp = bSum.getHighCardPoints();
+                        Range wHcp = wSum.getHighCardPoints();
+                        if (bHcp != null && wHcp != null) {
+                            if (bHcp.getMin() > wHcp.getMin()) return true;  // np. Q32 (2 HCP) > J82 (1 HCP) -> TRUE
+                            if (wHcp.getMin() > bHcp.getMin()) return false;
+                        }
+
+                        // Jeśli jakość i punkty HCP są również identyczne, decyduje defaultIfEqual
                         if (w == d) return false;
                     }
                 }

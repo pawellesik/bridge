@@ -235,4 +235,18 @@ public class OpenDiamondBid3 extends WJ2025 {
         return choices;
     }
 
+    public static PositionCalls diamond_1NT_2H2S_3D(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Call.PASS, shape(Suit.Diamonds, 5,13), id("RespondDiamondBid2.diamond_1NT_2H2S_3D pass")),
+                shows(Bid._3H, shape(4,4), IS_NEW_SUIT, id("RespondDiamondBid2.diamond_1NT_2H2S_3D _3H")),
+                shows(Bid._3S, shape(4,4), IS_NEW_SUIT, id("RespondDiamondBid2.diamond_1NT_2H2S_3D _3S")),
+                properties(new Call[]{Bid._3H, Bid._3S}, RespondDiamondBid3::diamond_1NT_2H2S_3D_3H3S, false)
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+
 }

@@ -41,7 +41,7 @@ public class RespondDiamondBid3 extends WJ2025 {
                 shows(Bid._2H, shape(5, 13), highCardPoints(MEDUIM), ruleShow(1), id("RespondDiamondBid3.twoDiamond _2H")),
                 shows(Call.PASS, id("RespondDiamondBid3.twoDiamond PASS"))
 
-                );
+        );
         return choices;
     }
 
@@ -69,4 +69,23 @@ public class RespondDiamondBid3 extends WJ2025 {
         );
         return choices;
     }
+
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public static PositionCalls diamond_1NT_2H2S_3D_3H3S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._4S, fit(7), pairPoints(PAIR_GAME), betterThan(Suit.Spades, Suit.Hearts), id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _4S")),
+                shows(Bid._4H, fit(7), pairPoints(PAIR_GAME), betterThan(Suit.Hearts, Suit.Spades), id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _4H")),
+                shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), stopped(Suit.Clubs), id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _3NT"))
+        );
+        return choices;
+    }
+
+
 }

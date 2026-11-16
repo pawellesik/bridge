@@ -661,6 +661,10 @@ public abstract class Bidder {
         return new BetterSuit.ShowsBetterSuit(null, worse, null, false);
     }
 
+    public static HandConstraint betterOrEqualTo(Suit better, Suit worse) {
+        return new BetterSuit.ShowsBetterSuit(better, worse, better, false);
+    }
+
     public static Constraint longestMajor(int max) {
         return and(shape(Suit.Hearts, 0, max), shape(Suit.Spades, 0, max));
     }
