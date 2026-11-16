@@ -111,7 +111,7 @@ public class OpenDiamondBid2 extends WJ2025 {
     }
 
 
-    //  SEKWENCJA LICYTACJI:
+    //  SEKWENCJA LICYTACJI: +
     //  Runda 1: 1D - Pass - 1NT - Pass
     //  -----------------------------------------------------------------------
     //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
