@@ -157,25 +157,6 @@ public class RespondDiamondBid2 extends WJ2025 {
         return choices;
     }
 
-    //  SEKWENCJA LICYTACJI:
-    //  Runda 1: 1D - Pass - 1NT - Pass
-    //  Runda 2: 2H (lub 2S / 3C) - Pass
-    //  -----------------------------------------------------------------------
-    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
-    //  * Gracza N (Otwierający 1D)  : HCP: 15-17 | Diamonds: 5-13 | Hearts/Spades/Clubs: 4-13
-    //  * Gracza S (Odpowiadający 1NT): HCP: 7-10  | Hearts: 0-3 | Spades: 0-3
-    //  -----------------------------------------------------------------------
-    public static PositionCalls diamond_1NT_2H2S3C(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-
-        choices.addRules(
-                shows(Bid._3D, fit(), noFit(), partner(isLastBid(Bid._2H, Bid._2C)), ruleShow(1), id("RespondDiamondBid2.diamond_1NT_2H2S3C _3D")),
-                shows(Bid._3D, partner(isLastBid(Bid._3C)), betterThan(Suit.Clubs), ruleShow(1), id("RespondDiamondBid2.diamond_1NT_2H2S3C _3D"))
-
-        );
-        choices.addRules(CompeteWJ2025.compBids(ps));
-        return choices;
-    }
 
     //  SEKWENCJA LICYTACJI:
     //  Runda 1: 1D - Pass - 2H - Pass
@@ -202,6 +183,41 @@ public class RespondDiamondBid2 extends WJ2025 {
         return choices;
     }
 
+
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //  SEKWENCJA LICYTACJI:
+    //  Runda 1: 1D - Pass - 1NT - Pass
+    //  Runda 2: 2H (lub 2S) - Pass
+    //  -----------------------------------------------------------------------
+    //  WIEDZA PUBLICZNA (PublicHandSummary po trimHCP):
+    //  * Gracza N (Otwierający 1D)  : HCP: 15-17 | Diamonds: 5-13 | Hearts/Spades/Clubs: 4-13
+    //  * Gracza S (Odpowiadający 1NT): HCP: 7-10  | Hearts: 0-3 | Spades: 0-3
+    //  -----------------------------------------------------------------------
+    public static PositionCalls diamond_1NT_2H2S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3D, noFit(), id("RespondDiamondBid2.diamond_1NT_2H2S _3D"))
+
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls diamond_1NT_3C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3D, noFit(), id("RespondDiamondBid2.diamond_1NT_3C _3D"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
     //  SEKWENCJA LICYTACJI:
     //  Runda 1: 1D - Pass - 2NT - Pass
     //  Runda 2: 3C - Pass
@@ -221,13 +237,6 @@ public class RespondDiamondBid2 extends WJ2025 {
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
-
-
-    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /// /////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
-    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     //  SEKWENCJA LICYTACJI:
     //  Runda 1: 1D - Pass - 1H - Pass

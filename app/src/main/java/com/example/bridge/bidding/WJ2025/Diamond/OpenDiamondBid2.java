@@ -125,7 +125,8 @@ public class OpenDiamondBid2 extends WJ2025 {
                 shows(Bid._2H, shape(4, 4), highCardPoints(OPEN_STRONG), GOOD_PLUS_SUIT, ruleShow(1), id("OpenDiamondBid2.diamond_1NT _2H")),
                 shows(Bid._2S, shape(4, 4), highCardPoints(OPEN_STRONG), GOOD_PLUS_SUIT, ruleShow(1), id("OpenDiamondBid2.diamond_1NT _2S")),
                 shows(Bid._3C, shape(5, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), GOOD_PLUS_SUIT, ruleShow(1), id("OpenDiamondBid2.diamond_1NT _3C")),
-                properties(new Call[]{Bid._2H, Bid._2S, Bid._3C}, RespondDiamondBid2::diamond_1NT_2H2S3C, true)
+                properties(new Call[]{Bid._2H, Bid._2S}, RespondDiamondBid2::diamond_1NT_2H2S, true),
+                properties(new Call[]{Bid._3C}, RespondDiamondBid2::diamond_1NT_3C, true)
         );
         return choices;
     }
