@@ -523,3 +523,13 @@ pass pass
 3H Pass 4NT Pass
 5C pass 6H pass
 pass pass
+
+[Event "WJ Deal karo 59"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:A732.AK83.AJT9.T QT9.T954.643.T95 AK2.KQ842.K8.AK5 AJ765.J6.QT.AKJ4"]
+[Auction "N"]
+1D Pass 1H Pass
+4C Pass 4NT Pass
+5C pass 6H pass
+pass pass
