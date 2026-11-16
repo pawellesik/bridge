@@ -6,6 +6,7 @@ import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
+import com.example.bridge.bidding.WJ2025.CompeteWJ2025;
 import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class RespondDiamondBid3 extends WJ2025 {
@@ -42,6 +43,7 @@ public class RespondDiamondBid3 extends WJ2025 {
                 shows(Call.PASS, id("RespondDiamondBid3.twoDiamond PASS"))
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -67,6 +69,7 @@ public class RespondDiamondBid3 extends WJ2025 {
                 shows(Call.PASS, id("RespondDiamondBid3.twoDiamond PASS"))
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -84,6 +87,7 @@ public class RespondDiamondBid3 extends WJ2025 {
                 shows(Bid._4H, fit(7), pairPoints(PAIR_GAME), betterThan(Suit.Hearts, Suit.Spades), id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _4H")),
                 shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), stopped(Suit.Clubs), id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _3NT"))
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
