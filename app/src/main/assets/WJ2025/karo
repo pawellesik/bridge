@@ -90,9 +90,6 @@
 [Auction "N"]
 1D Pass 2C Pass Pass Pass
 
-
-
-//todo
 # 12. Odpowiedź 1NT: 7-10 HCP, bez 4m, brak 4 kar
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 1NT (Słaba odpowiedź 1NT, 7-10 HCP, bez 4m)"]
 [Dealer "N"]
@@ -100,6 +97,8 @@
 [Deal "N:K42.A73.AJ982.73 QT9.T985.643.985 J82.Q32.852.KQT4 A765.KJ64.QT.AJ6"]
 [Auction "N"]
 1D Pass 1NT Pass Pass Pass
+
+
 
 # 13. Odpowiedź 1H: 7+ HCP, 4+ kiery
 [Event "WJ2025 RespondDiamondBid1 1D - Pass - 1H (Naturalna odpowiedź 1H, 7+ HCP, 4+ kiery)"]
