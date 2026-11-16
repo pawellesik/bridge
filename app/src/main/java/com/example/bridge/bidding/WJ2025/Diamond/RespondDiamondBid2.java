@@ -342,6 +342,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1H_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -468,6 +469,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_1S_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
