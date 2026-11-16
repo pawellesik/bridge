@@ -25,15 +25,11 @@ public class Blackwood extends Bidder {
         if (suit != null) {
             bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, UserText.Blackwood));
 
-            if (ps.getPairState().getTrumpSuit() != null) {
-                bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            } else {
-                bids.add(shows(Bid._4NT, pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            }
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
 
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_STRONG), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
         }
         return bids;
     }
