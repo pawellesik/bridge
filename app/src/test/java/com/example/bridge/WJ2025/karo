@@ -526,7 +526,7 @@ pass pass
 [Event "WJ Deal karo 59"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:A732.A7.JT985.AK QT9.T954.643.T95 AK2.KQ832.985.T8 AJ765.J6.QT.AKJ4"]
+[Deal "N:A732.A7.JT985.AK QT9.T954.643.T95 AK2.KQ832.98.T85 AJ765.J6.QT.AKJ4"]
 [Auction "N"]
 1D Pass 1H Pass
 1S Pass 2C Pass
@@ -536,12 +536,13 @@ pass pass
 [Event "WJ Deal karo 60"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:A732.A7.JT985.AK QT9.T954.643.T95 AK82.KQ832.985.T AJ765.J6.QT.AKJ4"]
+[Deal "N:A732.A7.JT985.AK QT9.T954.643.T95 AK82.KQ832.95.T8 AJ765.J6.QT.AKJ4"]
 [Auction "N"]
 1D Pass 1H Pass
 1S Pass 2C Pass
 2D pass 2H pass
-3NT pass pass pass
+3NT pass 4S pass
+pass pass
 
 [Event "WJ Deal karo 61"]
 [Dealer "N"]
@@ -582,10 +583,7 @@ pass pass
 2D pass 3D pass
 3NT pass pass pass
 
-
-
-
-[Event "WJ Deal karo 56"]
+[Event "WJ Deal karo 65"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:K43.A72.AJT98.T3 QT9.T954.643.T95 AK2.KQ82.K8.T985 AJ765.J6.QT.AKJ4"]
@@ -595,7 +593,7 @@ pass pass
 2H pass 3NT pass
 pass pass
 
-[Event "WJ Deal karo 57"]
+[Event "WJ Deal karo 66"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:K43.A72.AJT98.T3 QT9.T954.643.T95 AK2.KQ842.K8.T95 AJ765.J6.QT.AKJ4"]
@@ -605,7 +603,7 @@ pass pass
 2H pass 4H pass
 pass pass
 
-[Event "WJ Deal karo 58"]
+[Event "WJ Deal karo 67"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:A7.AK32.AJT98.T3 QT9.T954.643.T95 AK2.KQ842.K8.T95 AJ765.J6.QT.AKJ4"]
@@ -615,7 +613,7 @@ pass pass
 5C pass 6H pass
 pass pass
 
-[Event "WJ Deal karo 59"]
+[Event "WJ Deal karo 68"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:A732.AK83.AJT9.T QT9.T954.643.T95 AK2.KQ842.K8.AK5 AJ765.J6.QT.AKJ4"]
@@ -625,7 +623,7 @@ pass pass
 5C pass 6H pass
 pass pass
 
-[Event "WJ Deal karo 60"]
+[Event "WJ Deal karo 69"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:A73.AJ.AKT983.T2 QT9.T954.643.T95 AK2.KQ842.K8.AK5 AJ765.J6.QT.AKJ4"]
@@ -635,7 +633,7 @@ pass pass
 5C pass 6D pass
 pass pass
 
-[Event "WJ Deal karo 61"]
+[Event "WJ Deal karo 70"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:A73.AJ.AKT983.T2 QT9.T954.643.T95 T2.AKQ432.K.AK85 AJ765.J6.QT.AKJ4"]
@@ -645,7 +643,7 @@ pass pass
 5C pass 6NT pass
 pass pass
 
-[Event "WJ Deal karo 62"]
+[Event "WJ Deal karo 71"]
 [Dealer "N"]
 [Vulnerable "None"]
 [Deal "N:A7.AJ83.AKT93.T2 QT9.T954.643.T95 T2.AKQ432.K.AK85 AJ765.J6.QT.AKJ4"]
