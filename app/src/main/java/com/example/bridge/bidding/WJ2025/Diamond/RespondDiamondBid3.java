@@ -34,8 +34,8 @@ public class RespondDiamondBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT, highCardPoints(TO_GAME), BALANCED, ruleShow(1), id("RespondDiamondBid3.twoDiamond _3NT")),
-                shows(Bid._3D, shape(Suit.Hearts, 5, 5), shape(Suit.Diamonds, 4, 13), highCardPoints(MEDUIM), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3D")),
+                //shows(Bid._3NT, highCardPoints(TO_GAME), BALANCED, ruleShow(1), id("RespondDiamondBid3.twoDiamond _3NT")),
+                shows(Bid._3D, shape(Suit.Hearts, 5, 5), shape(Suit.Diamonds, 3, 13), highCardPoints(MEDUIM), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3D")),
                 shows(Bid._3C, shape(Suit.Hearts, 4, 4), shape(Suit.Clubs, 5, 13), highCardPoints(MEDUIM), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3C")),
                 shows(Bid._2NT, shape(Suit.Hearts, 5, 5), BALANCED, highCardPoints(HIGHT), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3C")),
                 shows(Bid._2S, shape(4, 4), highCardPoints(LOW), ruleShow(1), id("RespondDiamondBid3.twoDiamond _2S")),
@@ -60,8 +60,8 @@ public class RespondDiamondBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT, highCardPoints(TO_GAME), BALANCED, ruleShow(1), id("RespondDiamondBid3.twoDiamond _3NT")),
-                shows(Bid._3D, shape(Suit.Hearts, 5, 5), shape(Suit.Diamonds, 4, 13), highCardPoints(MEDUIM), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3D")),
+                //shows(Bid._3NT, highCardPoints(TO_GAME), BALANCED, ruleShow(1), id("RespondDiamondBid3.twoDiamond _3NT")),
+                shows(Bid._3D, shape(Suit.Hearts, 5, 5), shape(Suit.Diamonds, 3, 13), highCardPoints(MEDUIM), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3D")),
                 shows(Bid._3C, shape(Suit.Hearts, 4, 4), shape(Suit.Clubs, 5, 13), highCardPoints(MEDUIM), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3C")),
                 shows(Bid._2NT, shape(Suit.Hearts, 5, 5), BALANCED, highCardPoints(HIGHT), ruleShow(1), id("RespondDiamondBid3.twoDiamond _3C")),
                 shows(Bid._2H, shape(4, 4), highCardPoints(LOW), ruleShow(1), id("RespondDiamondBid3.twoDiamond _2H")),
