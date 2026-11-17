@@ -1,62 +1,33 @@
-1d - 1H
+1d - 1S
 
-3S
-4C
+3NT
 3H
+4C
+3S
 3D
 3C
-2BA
+2NT
 2S
-2H
 2D
 2C
-	pass
-	2D
+1NT
+2H
+	3H
+	3C
 	2S
-		2NT
-		3C
-		3D
-		3H
-		3S
-		3NT
+	3D
 	2NT
-	3C
-	3D
-	3H
-
-1BA
-	2C
-		pass
-		2H
-		2S
-		2BA
-		3C
-		3D
 		3NT
-	2D
-		2H
-		2NT
-	3C
-	3D
-	3H
-
-1S
-	2C
-		pass
-		2H
-		2S
-		2NT
-		3C
-		3D
-		3NT
-	2D
-		2H
-		2S
-		2NT
+		3S
 		3H
-		3NT
-	3C
-	3D
-	3H
+		3D
+		3C
+
+
+
+
+
+
+
 
 

@@ -107,6 +107,9 @@ public class CompeteWJ2025 extends WJ2025 {
 
     public static Iterable<CallFeature> compBids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
+        for (CallFeature cf : Blackwood.initiateConvention(ps)) {
+            bids.add(cf);
+        }
         addCompBids(ps, bids);
         bids.add(partnerBids(RecursionWJ2025::recursionFindFitGame));
 

@@ -82,6 +82,9 @@ public class OpenDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
+                shows(Bid._2H, shape(4, 4), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _2H")),
+                shows(Bid._2H, shape(Suit.Spades, 3, 4), shape(Suit.Diamonds, 6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _2H")),
+
                 shows(Bid._3NT, shape(Suit.Diamonds, 7, 13), quality(Suit.Diamonds, SuitQuality.Excellent, SuitQuality.Solid), highCardPoints(OPEN_NT), ruleShow(1), id("OpenDiamondBid2.diamond_1S _3NT")),
                 shows(Bid._3H, shape(0, 1), shape(Suit.Spades, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _3H")),
                 shows(Bid._4C, shape(0, 1), shape(Suit.Spades, 4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _4C")),
@@ -90,8 +93,6 @@ public class OpenDiamondBid2 extends WJ2025 {
                 shows(Bid._3C, shape(5, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _3C")),
                 shows(Bid._2NT, shape(Suit.Diamonds, 6, 13), shape(Suit.Spades, 0, 2), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _3C")),
                 shows(Bid._2S, shape(Suit.Diamonds, 5, 13), shape(Suit.Spades, 4, 4), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_1S _2S")),
-                shows(Bid._2H, shape(4, 4), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _2H")),
-                shows(Bid._2H, shape(Suit.Spades, 3, 3), shape(Suit.Diamonds, 6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1S _2H")),
 
                 shows(Bid._2D, shape(6, 13), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_1S _2H")),
                 shows(Bid._2C, shape(4, 13), shape(Suit.Diamonds, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1S _2C")),
