@@ -624,6 +624,7 @@ public abstract class Bidder {
     public static final HandConstraint NOT_FLAT = new Flat.ShowsFlat(false);
     public static final HandConstraint LONGEST_SUIT = new LongestSuit.ShowsLongestSuit(null);
     public static final HandConstraint SHAPE_4441 = new Shape4441.Shows4441();
+    public static final HandConstraint SHAPE_5332 = new com.example.bridge.bidding.Constraints.Shape5332.Shows5332();
 
     public static HandConstraint shape4441() {
         return SHAPE_4441;
@@ -631,6 +632,14 @@ public abstract class Bidder {
 
     public static HandConstraint shape4441(Suit singletonSuit) {
         return new Shape4441.Shows4441(singletonSuit);
+    }
+
+    public static HandConstraint shape5332() {
+        return SHAPE_5332;
+    }
+
+    public static HandConstraint shape5332(Suit fiveCardSuit) {
+        return new com.example.bridge.bidding.Constraints.Shape5332.Shows5332(fiveCardSuit);
     }
 
     public static HandConstraint longerThan(Suit worse) {
