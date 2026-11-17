@@ -43,7 +43,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2D")),
                 shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2C")),
 
-                shows(Bid._1NT, noFit(7), id("RespondDiamondBid2.oneHeart_OneSpade1NT _1NT")),
+                shows(Bid._1NT, noFit(7), id("RespondDiamondBid2.oneHeart_OneSpade1NT _1NT")), //plesik moje, moze dać 2D ?
 
                 properties(new Call[]{Bid._2C}, OpenDiamondBid3::diamond_1H_1NT1S_2C, true),
                 properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1H_1NT1S_2D, true)
