@@ -200,7 +200,19 @@ public class OpenDiamondBid3 extends WJ2025 {
     /// /////////////////////////////////////////////////Licytacja bez rules show/////////////////////////////////////////////////////////
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public static PositionCalls diamond_1S_2H_3C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(
+                shows(Bid._4S, fit(), id("OpenDiamondBid3.diamond_1S_2H_3C _4S")),
+                shows(Bid._3NT, stopped(Suit.Clubs), id("OpenDiamondBid3.diamond_1S_2H_3C _3NT")),
+                shows(Bid._3D, shape(6, 13), shape(Suit.Spades, 3,3), id("OpenDiamondBid3.diamond_1S_2H_3C _3D")),
+                shows(Bid._3H, shape(4, 13), id("OpenDiamondBid3.diamond_1S_2H_3C _3H"))
 
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
     public static PositionCalls diamond_3C_3S_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 

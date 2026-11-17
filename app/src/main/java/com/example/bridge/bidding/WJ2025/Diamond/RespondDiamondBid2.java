@@ -151,7 +151,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3D, shape(2, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3D")),
 
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid3::diamond_1S_2H_2NT, true),
-                properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_1S_2H_3H, true)
+                properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_1S_2H_3H, true),
+                properties(new Call[]{Bid._3C}, OpenDiamondBid3::diamond_1S_2H_3C, true)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
