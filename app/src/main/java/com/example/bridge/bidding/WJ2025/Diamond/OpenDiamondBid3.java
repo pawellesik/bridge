@@ -165,7 +165,7 @@ public class OpenDiamondBid3 extends WJ2025 {
     public static PositionCalls diamond_1S_2H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3NT, shape(Suit.Hearts, 4, 4), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_2NT _3NT")),
+                shows(Bid._3NT, shape(Suit.Hearts, 4, 4), shape(Suit.Diamonds, 5, 5), shape(Suit.Spades, 2, 2), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_2NT _3NT")),
                 shows(Bid._3S, shape(Suit.Diamonds, 6, 13), shape(Suit.Spades, 3, 3), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_2NT _3S")),
                 shows(Bid._3H, shape(Suit.Diamonds, 5, 5), shape(Suit.Hearts, 4, 4), shape(Suit.Spades, 3, 3), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_2NT _3H")),
                 shows(Bid._3D, shape(6, 13), shape(Suit.Hearts, 4, 4), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_2NT _3D")),
@@ -187,10 +187,10 @@ public class OpenDiamondBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(
-                shows(Bid._3S, shape(3, 3),shape(Suit.Diamonds, 6, 13), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_3H _3S")),
-                shows(Bid._4H, shape(4, 4),shape(Suit.Diamonds, 5, 13), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_3H _4H"))
+                shows(Bid._3S, shape(3, 3), shape(Suit.Diamonds, 6, 13), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_3H _3S")),
+                shows(Bid._4H, shape(4, 4), shape(Suit.Diamonds, 5, 13), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2H_3H _4H"))
 
-                 );
+        );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -206,19 +206,20 @@ public class OpenDiamondBid3 extends WJ2025 {
         choices.addRules(
                 shows(Bid._4S, fit(), id("OpenDiamondBid3.diamond_1S_2H_3C _4S")),
                 shows(Bid._3NT, stopped(Suit.Clubs), id("OpenDiamondBid3.diamond_1S_2H_3C _3NT")),
-                shows(Bid._3D, shape(6, 13), shape(Suit.Spades, 3,3), id("OpenDiamondBid3.diamond_1S_2H_3C _3D")),
+                shows(Bid._3D, shape(6, 13), shape(Suit.Spades, 3, 3), id("OpenDiamondBid3.diamond_1S_2H_3C _3D")),
                 shows(Bid._3H, shape(4, 13), id("OpenDiamondBid3.diamond_1S_2H_3C _3H"))
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
+
     public static PositionCalls diamond_3C_3S_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
                 shows(Bid._5C, fit(), id("RespondDiamondBid2.diamond_3C_3S_4C _5C")),
-                shows(Bid._4D, shape(5,13),  id("RespondDiamondBid2.diamond_3C_3S_4C _4D"))
+                shows(Bid._4D, shape(5, 13), id("RespondDiamondBid2.diamond_3C_3S_4C _4D"))
 
         );
 
@@ -231,7 +232,7 @@ public class OpenDiamondBid3 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._5C, fit(), id("RespondDiamondBid2.diamond_3C_3S_4C _5C")),
-                shows(Bid._4D, shape(5,13),  id("RespondDiamondBid2.diamond_3C_3S_4C _4D"))
+                shows(Bid._4D, shape(5, 13), id("RespondDiamondBid2.diamond_3C_3S_4C _4D"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -261,9 +262,9 @@ public class OpenDiamondBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Call.PASS, shape(Suit.Diamonds, 5,13), id("RespondDiamondBid2.diamond_1NT_2H2S_3D pass")),
-                shows(Bid._3H, shape(4,4), IS_NEW_SUIT, id("RespondDiamondBid2.diamond_1NT_2H2S_3D _3H")),
-                shows(Bid._3S, shape(4,4), IS_NEW_SUIT, id("RespondDiamondBid2.diamond_1NT_2H2S_3D _3S")),
+                shows(Call.PASS, shape(Suit.Diamonds, 5, 13), id("RespondDiamondBid2.diamond_1NT_2H2S_3D pass")),
+                shows(Bid._3H, shape(4, 4), IS_NEW_SUIT, id("RespondDiamondBid2.diamond_1NT_2H2S_3D _3H")),
+                shows(Bid._3S, shape(4, 4), IS_NEW_SUIT, id("RespondDiamondBid2.diamond_1NT_2H2S_3D _3S")),
                 properties(new Call[]{Bid._3H, Bid._3S}, RespondDiamondBid3::diamond_1NT_2H2S_3D_3H3S, false)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));

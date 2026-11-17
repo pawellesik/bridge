@@ -147,7 +147,7 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(FORCING), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3H")),
                 shows(Bid._3C, shape(Suit.Hearts, 0, 3), not(stopped(Suit.Clubs)), highCardPoints(FORCING), ruleShow(1), ruleDescription("Ask for a stopper"), id("RespondDiamondBid2.oneSpade_twoHeard _3C")),
                 shows(Bid._2NT, shape(Suit.Hearts, 0, 3), highCardPoints(FORCING), ruleShow(1), ruleDescription("Asking about shape"), id("RespondDiamondBid2.oneSpade_twoHeard _2NT")),
-                shows(Bid._2S, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
+                shows(Bid._2S, shape(5, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
                 shows(Bid._3D, shape(2, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3D")),
 
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid3::diamond_1S_2H_2NT, true),
