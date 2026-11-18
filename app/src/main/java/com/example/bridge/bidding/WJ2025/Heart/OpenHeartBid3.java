@@ -7,8 +7,6 @@ import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.WJ2025.CompeteWJ2025;
-import com.example.bridge.bidding.WJ2025.Diamond.OpenDiamondBid4;
-import com.example.bridge.bidding.WJ2025.Diamond.RespondDiamondBid3;
 import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class OpenHeartBid3 extends WJ2025 {
