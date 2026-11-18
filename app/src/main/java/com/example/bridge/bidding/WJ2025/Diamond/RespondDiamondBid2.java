@@ -96,8 +96,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3S, shape(6, 13), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3H")),
                 shows(Bid._3D, shape(4, 13), shape(Suit.Spades, 4, 4), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3D")),
                 shows(Bid._3C, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3C")),
-                shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2D")),
-                shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2C")),
+                shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), note("strong checkback"), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2D")),
+                shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), note("weak checkback"), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2C")),
 
                 properties(new Call[]{Bid._2C}, OpenDiamondBid3::diamond_1S_1NT_2C, true),
                 properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1S_1NT_2D, true)
