@@ -19,7 +19,6 @@ public class OpenHeartBid2 extends WJ2025 {
     public static final Range OPEN_WEAK = new Range(12, 14);
 
 
-
     public static final Range OPEN_WEAK_GAME = new Range(12, 13);
     public static final Range OPEN_STRONG_FORSING = new Range(16, 17);
     public static final Range OPEN_NT = new Range(14, 17);
@@ -128,8 +127,20 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_1NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
+                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3H")),
+
+                shows(Bid._3C, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3C")),
+                shows(Bid._3D, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
+
+                shows(Bid._2NT, shape5332(), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
+                shows(Bid._2S, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
+
+                shows(Bid._2C, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.heart_1NT _2C")),
+                shows(Bid._2D, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.heart_1NT _2D")),
+
+                shows(Call.PASS, shape(4, 13), shape5332(), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.heart_1NT _pass")),
+
+                properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1NT_2C, false)
         );
         return choices;
     }

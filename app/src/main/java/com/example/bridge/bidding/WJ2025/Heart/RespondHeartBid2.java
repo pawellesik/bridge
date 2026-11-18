@@ -14,6 +14,7 @@ public class RespondHeartBid2 extends WJ2025 {
 
     public static final Range RESPOND_WEAK = new Range(7, 9);
     public static final Range RESPOND_NORMAL = new Range(10, 12);
+    public static final Range RESPOND_NORMAL_NT = new Range(8, 11);
     public static final Range RESPOND_TO_GAME = new Range(12, 28);
     public static final Range RESPOND_STRONG = new Range(15, 28);
 
@@ -92,6 +93,17 @@ public class RespondHeartBid2 extends WJ2025 {
         choices.addRules(
                 shows(Bid._3S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
                 shows(Bid._3H, shape(3, 3), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3H"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls heart_1NT_2C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3C, shape(4, 13), highCardPoints(RESPOND_NORMAL_NT), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
+                shows(Bid._2S, shape(Suit.Clubs, 5, 13), highCardPoints(RESPOND_NORMAL), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _2S"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
