@@ -37,4 +37,16 @@ public class OpenHeartBid3 extends WJ2025 {
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
+
+    public static PositionCalls heart_1S_2C_2D(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                //todo
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+
+
 }
