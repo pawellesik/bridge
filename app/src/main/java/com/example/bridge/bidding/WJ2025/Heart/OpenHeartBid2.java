@@ -14,16 +14,12 @@ import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class OpenHeartBid2 extends WJ2025 {
 
-    public static final Range OPEN_STRONG = new Range(15, 17);
-    public static final Range OPEN_STANDARD = new Range(12, 17);
-    public static final Range OPEN_WEAK = new Range(12, 14);
+    public static final Range OPEN_12_14 = new Range(12, 14);
+    public static final Range OPEN_15_17 = new Range(15, 17);
+    public static final Range OPEN_12_17 = new Range(12, 17);
 
 
-    public static final Range OPEN_WEAK_GAME = new Range(12, 13);
-    public static final Range OPEN_STRONG_FORSING = new Range(16, 17);
-    public static final Range OPEN_NT = new Range(14, 17);
-
-
+    
     public static PositionCalls heart_3NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
@@ -127,14 +123,14 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), ruleShow(1), note("splinter"), id("OpenDiamondBid2.diamond_1H _3S")),
-                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3H")),
-                shows(Bid._3D, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3H")),
-                shows(Bid._3C, shape(4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3C")),
-                shows(Bid._2NT, highCardPoints(OPEN_STRONG), BALANCED, ruleShow(1), id("OpenDiamondBid2.diamond_1H _2NT")),
-                shows(Bid._2S, shape(4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2S")),
-                shows(Bid._2H, highCardPoints(OPEN_WEAK), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2S")),
-                shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2D")),
+                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_15_17), ruleShow(1), note("splinter"), id("OpenDiamondBid2.diamond_1H _3S")),
+                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3H")),
+                shows(Bid._3D, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3H")),
+                shows(Bid._3C, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3C")),
+                shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenDiamondBid2.diamond_1H _2NT")),
+                shows(Bid._2S, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2S")),
+                shows(Bid._2H, highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2S")),
+                shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2D")),
 
                 properties(new Call[]{Bid._2D}, RespondHeartBid2::heart_2C_2D, false),
                 properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_2C_2H, false)
@@ -147,18 +143,18 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_1NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3H")),
+                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3H")),
 
-                shows(Bid._3C, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3C")),
-                shows(Bid._3D, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
+                shows(Bid._3C, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3C")),
+                shows(Bid._3D, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
 
-                shows(Bid._2NT, shape5332(), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
-                shows(Bid._2S, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
+                shows(Bid._2NT, shape5332(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
+                shows(Bid._2S, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_1NT _3D")),
 
-                shows(Bid._2C, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.heart_1NT _2C")),
-                shows(Bid._2D, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.heart_1NT _2D")),
+                shows(Bid._2C, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenDiamondBid2.heart_1NT _2C")),
+                shows(Bid._2D, shape(4, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenDiamondBid2.heart_1NT _2D")),
 
-                shows(Call.PASS, shape(4, 13), shape5332(), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.heart_1NT _pass")),
+                shows(Call.PASS, shape(4, 13), shape5332(), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid2.heart_1NT _pass")),
 
                 properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1NT_2C, false)
         );
@@ -169,25 +165,25 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_1S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4C, shape(Suit.Spades, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(OPEN_STRONG), ruleShow(1), note("(splinter)"), id("OpenHeartBid2.heart_1S _4C")),
-                shows(Bid._4D, shape(Suit.Spades, 4, 13), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(OPEN_STRONG), ruleShow(1), note("(splinter)"), id("OpenHeartBid2.heart_1S _4D")),
+                shows(Bid._4C, shape(Suit.Spades, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(OPEN_15_17), ruleShow(1), note("(splinter)"), id("OpenHeartBid2.heart_1S _4C")),
+                shows(Bid._4D, shape(Suit.Spades, 4, 13), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(OPEN_15_17), ruleShow(1), note("(splinter)"), id("OpenHeartBid2.heart_1S _4D")),
 
-                shows(Bid._3S, fit(), highCardPoints(OPEN_STRONG), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenHeartBid2.heart_1S _3S")),
-                shows(Bid._3S, fit(), shape(Suit.Hearts, 6, 13), highCardPoints(OPEN_STANDARD), setTrumpColor(Suit.Spades), id("OpenHeartBid2.heart_1S _3S")),
+                shows(Bid._3S, fit(), highCardPoints(OPEN_15_17), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenHeartBid2.heart_1S _3S")),
+                shows(Bid._3S, fit(), shape(Suit.Hearts, 6, 13), highCardPoints(OPEN_12_17), setTrumpColor(Suit.Spades), id("OpenHeartBid2.heart_1S _3S")),
 
-                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(OPEN_STRONG), id("OpenHeartBid2.heart_1S _3C")),
-                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(OPEN_STRONG), id("OpenHeartBid2.heart_1S _3D")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), id("OpenHeartBid2.heart_1S _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), id("OpenHeartBid2.heart_1S _3D")),
 
-                shows(Bid._2NT, noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_STRONG), id("OpenHeartBid2.heart_1S _2NT")),
+                shows(Bid._2NT, noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_15_17), id("OpenHeartBid2.heart_1S _2NT")),
 
-                shows(Bid._2S, fit(), highCardPoints(OPEN_WEAK), id("OpenHeartBid2.heart_1S _2S")),
+                shows(Bid._2S, fit(), highCardPoints(OPEN_12_14), id("OpenHeartBid2.heart_1S _2S")),
 
-                shows(Bid._2H, shape(6, 13), noFit(), highCardPoints(OPEN_WEAK), id("OpenHeartBid2.heart_1S _2H")),
+                shows(Bid._2H, shape(6, 13), noFit(), highCardPoints(OPEN_12_14), id("OpenHeartBid2.heart_1S _2H")),
 
-                shows(Bid._2C, shape(4, 13), noFit(), highCardPoints(OPEN_STANDARD), id("OpenHeartBid2.heart_1S _2C")),
-                shows(Bid._2D, shape(4, 13), noFit(), highCardPoints(OPEN_STANDARD), id("OpenHeartBid2.heart_1S _2D")),
+                shows(Bid._2C, shape(4, 13), noFit(), highCardPoints(OPEN_12_17), id("OpenHeartBid2.heart_1S _2C")),
+                shows(Bid._2D, shape(4, 13), noFit(), highCardPoints(OPEN_12_17), id("OpenHeartBid2.heart_1S _2D")),
 
-                shows(Bid._1NT, shape(4, 13), noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_STANDARD), id("OpenHeartBid2.heart_1S _1NT")),
+                shows(Bid._1NT, shape(4, 13), noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_12_17), id("OpenHeartBid2.heart_1S _1NT")),
 
                 properties(new Call[]{Bid._1NT}, RespondHeartBid2::heart_1S_1NT, false),
                 properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1S_2C, true),

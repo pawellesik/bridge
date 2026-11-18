@@ -11,42 +11,40 @@ import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class RespondHeartBid1 extends WJ2025 {
 
-    public static final Range RESPOND_TO_3NT = new Range(9, 14);
-    public static final Range RESPOND_SPLINTER_GAME = new Range(12, 16);
-    public static final Range RESPOND_INWIT = new Range(10, 11);
-    public static final Range RESPOND_TO_2NT = new Range(10, 11);
-    public static final Range RESPOND_WEAK = new Range(7, 9);
-    public static final Range RESPOND_FORCING_2C = new Range(12, 28);
-    public static final Range RESPOND_TO_1NT = new Range(7, 11);
-
-    public static final Range RESPOND_TO_SPADE = new Range(7,28);
+    public static final Range RESPOND_9_14 = new Range(9, 14);
+    public static final Range RESPOND_12_16 = new Range(12, 16);
+    public static final Range RESPOND_10_11 = new Range(10, 11);
+    public static final Range RESPOND_7_9 = new Range(7, 9);
+    public static final Range RESPOND_12_28 = new Range(12, 28);
+    public static final Range RESPOND_7_11 = new Range(7, 11);
+    public static final Range RESPOND_7_28 = new Range(7, 28);
 
     public static PositionCalls oneHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT, shape(Suit.Hearts, 4, 13), highCardPoints(RESPOND_TO_3NT), DECENT_PLUS_SUIT, ruleShow(1), id("RespondHeartBid1.oneHeart _3NT")),
+                shows(Bid._3NT, shape(Suit.Hearts, 4, 13), highCardPoints(RESPOND_9_14), DECENT_PLUS_SUIT, ruleShow(1), id("RespondHeartBid1.oneHeart _3NT")),
 
-                shows(Bid._3S, shape(Suit.Hearts, 4, 13), shape(Suit.Spades, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_SPLINTER_GAME), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _3S")),
-                shows(Bid._4C, shape(Suit.Hearts, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_SPLINTER_GAME), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4C")),
-                shows(Bid._4D, shape(Suit.Hearts, 4, 13), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_SPLINTER_GAME), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4D")),
+                shows(Bid._3S, shape(Suit.Hearts, 4, 13), shape(Suit.Spades, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _3S")),
+                shows(Bid._4C, shape(Suit.Hearts, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4C")),
+                shows(Bid._4D, shape(Suit.Hearts, 4, 13), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4D")),
 
-                shows(Bid._3D, shape(6, 13), highCardPoints(RESPOND_INWIT), ruleShow(1), id("RespondHeartBid1.oneHeart _3D")),
-                shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_INWIT), ruleShow(1), id("RespondHeartBid1.oneHeart _3C")),
+                shows(Bid._3D, shape(6, 13), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _3D")),
+                shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _3C")),
 
-                shows(Bid._2NT, shape(Suit.Hearts, 3, 13), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_TO_2NT), ruleShow(1), id("RespondHeartBid1.oneHeart _2NT")),
+                shows(Bid._2NT, shape(Suit.Hearts, 3, 13), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _2NT")),
 
-                shows(Bid._2S, shape(6, 13), highCardPoints(RESPOND_WEAK), ruleShow(1), id("RespondHeartBid1.oneHeart _2S")),
+                shows(Bid._2S, shape(6, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid1.oneHeart _2S")),
 
-                shows(Bid._2H, fit(), highCardPoints(RESPOND_WEAK), ruleShow(1), id("RespondHeartBid1.oneHeart _2H")),
+                shows(Bid._2H, fit(), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid1.oneHeart _2H")),
 
-                shows(Bid._2D, shape(5, 13), highCardPoints(RESPOND_FORCING_2C), ruleShow(1), id("RespondHeartBid1.oneHeart _2D")),
+                shows(Bid._2D, shape(5, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondHeartBid1.oneHeart _2D")),
 
-                shows(Bid._2C, shape(2, 13), highCardPoints(RESPOND_FORCING_2C), ruleShow(1), id("RespondHeartBid1.oneHeart _2C")),
+                shows(Bid._2C, shape(2, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondHeartBid1.oneHeart _2C")),
 
-                shows(Bid._1NT, shape(Suit.Hearts, 0, 2), highCardPoints(RESPOND_TO_1NT), ruleShow(1), id("RespondHeartBid1.oneHeart _1NT")),
+                shows(Bid._1NT, shape(Suit.Hearts, 0, 2), highCardPoints(RESPOND_7_11), ruleShow(1), id("RespondHeartBid1.oneHeart _1NT")),
 
-                shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_TO_SPADE), id("RespondHeartBid1.oneHeart _1S")),
+                shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_7_28), id("RespondHeartBid1.oneHeart _1S")),
 
                 properties(new Call[]{Bid._3NT}, OpenHeartBid2::heart_3NT, false),
                 properties(new Call[]{Bid._3S}, OpenHeartBid2::heart_3S, false),
