@@ -30,6 +30,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenHeartBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -39,6 +40,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenHeartBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -48,6 +50,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -57,6 +60,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -66,6 +70,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -75,6 +80,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -84,6 +90,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -93,6 +100,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -102,6 +110,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -111,15 +120,26 @@ public class OpenHeartBid2 extends WJ2025 {
                 //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
                 //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
     public static PositionCalls heart_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
+                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_STRONG), ruleShow(1), note("splinter"), id("OpenDiamondBid2.diamond_1H _3S")),
+                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3H")),
+                shows(Bid._3D, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3H")),
+                shows(Bid._3C, shape(4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _3C")),
+                shows(Bid._2NT, highCardPoints(OPEN_STRONG), BALANCED, ruleShow(1), id("OpenDiamondBid2.diamond_1H _2NT")),
+                shows(Bid._2S, shape(4, 13), highCardPoints(OPEN_STRONG), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2S")),
+                shows(Bid._2H, highCardPoints(OPEN_WEAK), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2S")),
+                shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_WEAK), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2D")),
+
+                properties(new Call[]{Bid._2D}, RespondHeartBid2::heart_2C_2D, false),
+                properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_2C_2H, false)
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -142,6 +162,7 @@ public class OpenHeartBid2 extends WJ2025 {
 
                 properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1NT_2C, false)
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -175,6 +196,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 properties(new Call[]{Bid._3D}, RespondHeartBid2::heart_1S_3D, false)
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
