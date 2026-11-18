@@ -1,12 +1,11 @@
 package com.example.bridge.bidding.WJ2025;
 
-import static com.example.bridge.bidding.WJ2025.OpenWJ2025.OpeningStrongBidding;
-
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Conventions.Blackwood;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
+import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
 
@@ -14,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompeteWJ2025 extends WJ2025 {
+
+    public static final HandConstraint OPEN_BIDDING_18_40 = highCardPoints(18, 40);
 
     public static Iterable<CallFeature> bids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
@@ -77,12 +78,12 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._3C, pairHighCardPoints(PAIR_LOW_GAME), shape(6, 13), noFit(), IS_REBID, id("CompeteWJ2025.compBids PAIR_GAME _3C")));
         bids.add(shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), shape(7, 13), noFit(), id("CompeteWJ2025.compBids PAIR_GAME _3D")));
 
-        bids.add(shows(Bid._3NT, OpeningStrongBidding, noFit(7), partner(isLastBid(Bid._3H, Bid._3S)), IS_NON_JUMP, othersAtLeast(3), id("CompeteWJ2025.compBids OpeningStrongBidding exit _3NT")));
+        bids.add(shows(Bid._3NT, OPEN_BIDDING_18_40, noFit(7), partner(isLastBid(Bid._3H, Bid._3S)), IS_NON_JUMP, othersAtLeast(3), id("CompeteWJ2025.compBids OpeningStrongBidding exit _3NT")));
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(7), partner(isLastBid(Bid._3H, Bid._3S)), IS_NON_JUMP, othersAtLeast(3), id("CompeteWJ2025.compBids PAIR_GAME exit _3NT")));
         bids.add(shows(Bid._2NT, noFit(7), partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), IS_NON_JUMP, othersAtLeast(3), id("CompeteWJ2025.compBids exit _2NT")));
         bids.add(shows(Bid._5NT, pairHighCardPoints(PAIR_MINOR_GAME), noFit(7), partner(isLastBid(Bid._5C, Bid._5D)), IS_NON_JUMP, othersAtLeast(3), id("CompeteWJ2025.compBids PAIR_MINOR_GAME exit _5NT")));
 
-        bids.add(shows(Bid._3NT, OpeningStrongBidding, noFit(7), partner(isLastBid(Bid._3H, Bid._3S)), PAIR_BALANCED, IS_NON_JUMP, id("CompeteWJ2025.compBids OpeningStrongBidding exit _3NT")));
+        bids.add(shows(Bid._3NT, OPEN_BIDDING_18_40, noFit(7), partner(isLastBid(Bid._3H, Bid._3S)), PAIR_BALANCED, IS_NON_JUMP, id("CompeteWJ2025.compBids OpeningStrongBidding exit _3NT")));
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(7), partner(isLastBid(Bid._3H, Bid._3S)), PAIR_BALANCED, IS_NON_JUMP, id("CompeteWJ2025.compBids PAIR_GAME exit _3NT")));
         bids.add(shows(Bid._2NT, noFit(7), partner(isLastBid(Bid._2C, Bid._2D, Bid._2H, Bid._2S)), PAIR_BALANCED, IS_NON_JUMP, id("CompeteWJ2025.compBids exit _2NT")));
         bids.add(shows(Bid._5NT, pairHighCardPoints(PAIR_MINOR_GAME), noFit(7), partner(isLastBid(Bid._5C, Bid._5D)), PAIR_BALANCED, IS_NON_JUMP, id("CompeteWJ2025.compBids PAIR_MINOR_GAME exit _5NT")));
