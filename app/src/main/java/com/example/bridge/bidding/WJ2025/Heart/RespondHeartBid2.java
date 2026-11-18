@@ -60,4 +60,40 @@ public class RespondHeartBid2 extends WJ2025 {
         return choices;
     }
 
+    public static PositionCalls heart_1S_2H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._2NT, highCardPoints(RESPOND_STRONG), ruleShow(1), id("RespondHeartBid2.heart_1S_2H _2NT")),
+                shows(Bid._2S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_2H _2S")),
+                shows(Bid._3S, shape(6, 13), ruleShow(1), highCardPoints(RESPOND_TO_GAME), id("RespondHeartBid2.heart_1S_2H _2S")),
+                properties(new Call[]{Bid._2NT}, OpenHeartBid3::heart_1S_2H_2NT, true)
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls heart_1S_3C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
+                shows(Bid._3H, shape(3, 3), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3H")),
+                shows(Bid._3D, shape(4, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3D"))
+
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls heart_1S_3D(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
+                shows(Bid._3H, shape(3, 3), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3H"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
 }

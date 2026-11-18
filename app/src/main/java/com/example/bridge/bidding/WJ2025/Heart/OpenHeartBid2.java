@@ -158,7 +158,10 @@ public class OpenHeartBid2 extends WJ2025 {
                 shows(Bid._1NT, shape(4, 13), noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_STANDARD), id("OpenHeartBid2.heart_1S _1NT")),
 
                 properties(new Call[]{Bid._1NT}, RespondHeartBid2::heart_1S_1NT, false),
-                properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1S_2C, false)
+                properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1S_2C, true),
+                properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_1S_2H, false),
+                properties(new Call[]{Bid._3C}, RespondHeartBid2::heart_1S_3C, false),
+                properties(new Call[]{Bid._3D}, RespondHeartBid2::heart_1S_3D, false)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
