@@ -15,10 +15,10 @@ import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class RespondDiamondBid2 extends WJ2025 {
 
-    public static final Range WEAK = new Range(10, 12);
-    public static final Range STRONG = new Range(13, 28);
-    public static final Range TO_GAME = new Range(7, 9);
-    public static final Range FORCING = new Range(10, 28);
+    public static final Range RESPOND_10_12 = new Range(10, 12);
+    public static final Range RESPOND_13_28 = new Range(13, 28);
+    public static final Range RESPOND_7_9 = new Range(7, 9);
+    public static final Range RESPOND_10_28 = new Range(10, 28);
 
 
     // =========================================================================
@@ -37,11 +37,11 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3H, shape(6, 13), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3H")),
-                shows(Bid._3D, shape(4, 13), shape(Suit.Hearts, 4, 4), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3D")),
-                shows(Bid._3C, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3C")),
-                shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), note("strong checkback"), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2D")),
-                shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), note("weak checkback"), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2C")),
+                shows(Bid._3H, shape(6, 13), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3H")),
+                shows(Bid._3D, shape(4, 13), shape(Suit.Hearts, 4, 4), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3D")),
+                shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3C")),
+                shows(Bid._2D, highCardPoints(RESPOND_13_28), ruleShow(1), note("strong checkback"), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2D")),
+                shows(Bid._2C, highCardPoints(RESPOND_10_12), ruleShow(1), note("weak checkback"), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2C")),
 
                 shows(Bid._1NT, noFit(7), id("RespondDiamondBid2.oneHeart_OneSpade1NT _1NT")), //plesik moje, moze dać 2D ?
 
@@ -65,13 +65,13 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3H, shape(6, 13), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _3H")),
-                shows(Bid._3D, fit(), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _3D")),
-                shows(Bid._3C, fit(), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _3C")),
-                shows(Bid._2NT, highCardPoints(WEAK), BALANCED, ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2NT")),
-                shows(Bid._2S, shape(4, 13), highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2S")),
-                shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2D")),
-                shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _pass")),
+                shows(Bid._3H, shape(6, 13), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _3H")),
+                shows(Bid._3D, fit(), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _3D")),
+                shows(Bid._3C, fit(), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _3C")),
+                shows(Bid._2NT, highCardPoints(RESPOND_10_12), BALANCED, ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2NT")),
+                shows(Bid._2S, shape(4, 13), highCardPoints(RESPOND_13_28), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2S")),
+                shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2D")),
+                shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _pass")),
 
                 propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid3::diamond_1H_2C_2S, true)
 
@@ -93,11 +93,11 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3S, shape(6, 13), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3H")),
-                shows(Bid._3D, shape(4, 13), shape(Suit.Spades, 4, 4), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3D")),
-                shows(Bid._3C, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3C")),
-                shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), note("strong checkback"), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2D")),
-                shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), note("weak checkback"), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2C")),
+                shows(Bid._3S, shape(6, 13), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3H")),
+                shows(Bid._3D, shape(4, 13), shape(Suit.Spades, 4, 4), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3D")),
+                shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_OneSpade1NT _3C")),
+                shows(Bid._2D, highCardPoints(RESPOND_13_28), ruleShow(1), note("strong checkback"), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2D")),
+                shows(Bid._2C, highCardPoints(RESPOND_10_12), ruleShow(1), note("weak checkback"), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2C")),
 
                 properties(new Call[]{Bid._2C}, OpenDiamondBid3::diamond_1S_1NT_2C, true),
                 properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1S_1NT_2D, true)
@@ -119,13 +119,13 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3S, shape(6, 13), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _3S")),
-                shows(Bid._3D, fit(), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _3D")),
-                shows(Bid._3C, fit(), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _3C")),
-                shows(Bid._2NT, highCardPoints(WEAK), BALANCED, ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2NT")),
-                shows(Bid._2H, shape(4, 13), highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2S")),
-                shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2D")),
-                shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _pass")),
+                shows(Bid._3S, shape(6, 13), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _3S")),
+                shows(Bid._3D, fit(), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _3D")),
+                shows(Bid._3C, fit(), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _3C")),
+                shows(Bid._2NT, highCardPoints(RESPOND_10_12), BALANCED, ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2NT")),
+                shows(Bid._2H, shape(4, 13), highCardPoints(RESPOND_13_28), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2S")),
+                shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2D")),
+                shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _pass")),
 
                 propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid3::diamond_1S_2C_2H, true)
 
@@ -146,11 +146,11 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(FORCING), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3H")),
-                shows(Bid._3C, shape(Suit.Hearts, 0, 3), not(stopped(Suit.Clubs)), highCardPoints(FORCING), ruleShow(1), ruleDescription("Ask for a stopper"), id("RespondDiamondBid2.oneSpade_twoHeard _3C")),
-                shows(Bid._2NT, shape(Suit.Hearts, 0, 3), highCardPoints(FORCING), ruleShow(1), ruleDescription("Asking about shape"), id("RespondDiamondBid2.oneSpade_twoHeard _2NT")),
-                shows(Bid._2S, shape(5, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
-                shows(Bid._3D, shape(2, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3D")),
+                shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(RESPOND_10_28), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3H")),
+                shows(Bid._3C, shape(Suit.Hearts, 0, 3), not(stopped(Suit.Clubs)), highCardPoints(RESPOND_10_28), ruleShow(1), ruleDescription("Ask for a stopper"), id("RespondDiamondBid2.oneSpade_twoHeard _3C")),
+                shows(Bid._2NT, shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_10_28), ruleShow(1), ruleDescription("Asking about shape"), id("RespondDiamondBid2.oneSpade_twoHeard _2NT")),
+                shows(Bid._2S, shape(5, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
+                shows(Bid._3D, shape(2, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3D")),
 
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid3::diamond_1S_2H_2NT, true),
                 properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_1S_2H_3H, true),
