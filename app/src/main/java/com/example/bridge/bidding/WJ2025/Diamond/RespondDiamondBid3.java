@@ -91,5 +91,27 @@ public class RespondDiamondBid3 extends WJ2025 {
         return choices;
     }
 
+    public static PositionCalls diamond_1H_1NT1S_2D_2S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
 
+        choices.addRules(
+                shows(Bid._3NT, stopped(Suit.Clubs), id("RespondDiamondBid3.diamond_1H_1NT1S_2D_2S 3NT")),
+                shows(Bid._4H, fit(7),  id("RespondDiamondBid3.diamond_1H_1NT1S_2D_2S 4H")),
+                shows(Bid._4S, fit(7),  id("RespondDiamondBid3.diamond_1H_1NT1S_2D_2S 4S"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls diamond_1S_1NT_2D_2S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3NT, stopped(Suit.Clubs), id("RespondDiamondBid3.diamond_1S_1NT_2D_2S 3NT")),
+                shows(Bid._4H, fit(7),  id("RespondDiamondBid3.diamond_1S_1NT_2D_2S 4H")),
+                shows(Bid._4S, fit(7),  id("RespondDiamondBid3.diamond_1S_1NT_2D_2S 4S"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
 }

@@ -6,6 +6,8 @@ import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
+import com.example.bridge.bidding.WJ2025.CompeteWJ2025;
+import com.example.bridge.bidding.WJ2025.Diamond.OpenDiamondBid3;
 import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class RespondHeartBid2 extends WJ2025 {
@@ -28,12 +30,13 @@ public class RespondHeartBid2 extends WJ2025 {
                 shows(Bid._2S, shape(5, 13), shape(Suit.Spades, 4, 13), highCardPoints(RESPOND_WEAK), id("RespondHeartBid2.heart_1S_1NT _2S")),
                 shows(Bid._2H, shape(3, 13), shape(Suit.Spades, 5, 13), highCardPoints(RESPOND_WEAK), id("RespondHeartBid2.heart_1S_1NT _2H")),
 
-                shows(Bid._2D, highCardPoints(RESPOND_STRONG), id("RespondHeartBid2.heart_1S_1NT _2D")), //?
-                shows(Bid._2C, highCardPoints(RESPOND_STRONG), id("RespondHeartBid2.heart_1S_1NT _2C")) //?
+                shows(Bid._2D, highCardPoints(RESPOND_TO_GAME), note("strong checkback"), id("RespondHeartBid2.heart_1S_1NT _2D")),
+                shows(Bid._2C, highCardPoints(RESPOND_NORMAL),  note("weak checkback"), id("RespondHeartBid2.heart_1S_1NT _2C")),
 
-                //properties(new Call[]{Bid._3NT}, OpenHeartBid2::heart_3NT, false),
-
+                properties(new Call[]{Bid._2C}, OpenHeartBid3::heart_1S_1NT_2C, true),
+                properties(new Call[]{Bid._2D}, OpenHeartBid3::heart_1S_1NT_2D, true)
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 
@@ -47,6 +50,7 @@ public class RespondHeartBid2 extends WJ2025 {
 
 
         );
+        choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
 

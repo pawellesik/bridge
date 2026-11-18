@@ -40,8 +40,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3H, shape(6, 13), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3H")),
                 shows(Bid._3D, shape(4, 13), shape(Suit.Hearts, 4, 4), highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3D")),
                 shows(Bid._3C, shape(6, 13), highCardPoints(TO_GAME), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _3C")),
-                shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2D")),
-                shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2C")),
+                shows(Bid._2D, highCardPoints(STRONG), ruleShow(1), note("strong checkback"), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2D")),
+                shows(Bid._2C, highCardPoints(WEAK), ruleShow(1), note("weak checkback"), id("RespondDiamondBid2.oneHeart_OneSpade1NT _2C")),
 
                 shows(Bid._1NT, noFit(7), id("RespondDiamondBid2.oneHeart_OneSpade1NT _1NT")), //plesik moje, moze dać 2D ?
 
@@ -533,9 +533,9 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static PositionCalls diamond_2C_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3C, shape(6,13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _3C")),
-                shows(Bid._2H, shape(4,13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2H")),
-                shows(Bid._2S, shape(4,13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2S"))
+                shows(Bid._3C, shape(6, 13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _3C")),
+                shows(Bid._2H, shape(4, 13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2H")),
+                shows(Bid._2S, shape(4, 13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2S"))
         );
 
         choices.addRules(Blackwood.initiateConvention(ps));

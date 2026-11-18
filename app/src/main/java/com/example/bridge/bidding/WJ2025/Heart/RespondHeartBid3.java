@@ -1,0 +1,49 @@
+package com.example.bridge.bidding.WJ2025.Heart;
+
+import com.example.bridge.bidding.Tools.Bid;
+import com.example.bridge.bidding.Tools.Call;
+import com.example.bridge.bidding.Tools.PositionCalls;
+import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
+import com.example.bridge.bidding.Tools.Suit;
+import com.example.bridge.bidding.WJ2025.CompeteWJ2025;
+import com.example.bridge.bidding.WJ2025.WJ2025;
+
+public class RespondHeartBid3 extends WJ2025 {
+
+
+    public static final Range RESPOND_TO_GAME = new Range(13, 16);
+    public static final Range RESPOND_NORMAL = new Range(10, 12);
+    public static final Range RESPOND_2NT = new Range(11, 12);
+
+
+    public static PositionCalls heart_1S_1NT_2C_2D(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3NT, highCardPoints(RESPOND_TO_GAME), BALANCED, shape5332(), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3NT")),
+                shows(Bid._3D, shape(Suit.Spades, 5, 5), shape(Suit.Hearts, 3, 13), highCardPoints(RESPOND_NORMAL), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3D")),
+                shows(Bid._3C, shape(Suit.Spades, 4, 4), shape(Suit.Clubs, 5, 13), highCardPoints(RESPOND_NORMAL), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3C")),
+                shows(Bid._2NT, shape(Suit.Spades, 5, 5), BALANCED, highCardPoints(RESPOND_2NT), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2NT")),
+                shows(Bid._2H, shape(4, 4), highCardPoints(RESPOND_NORMAL), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2H")),
+                shows(Bid._2S, shape(5, 13), highCardPoints(RESPOND_NORMAL), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2S")),
+                shows(Call.PASS, id("RespondHeartBid3.heart_1S_1NT_2C_2D PASS"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls heart_1S_1NT_2D_2S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3NT, stopped(Suit.Clubs), id("RespondHeartBid3.heart_1S_1NT_2D_2S 3NT")),
+                shows(Bid._4S, fit(7),  id("RespondHeartBid3.heart_1S_1NT_2D_2S 4S")),
+                shows(Bid._4H, fit(7),  id("RespondHeartBid3.heart_1S_1NT_2D_2S 4H"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+
+}
