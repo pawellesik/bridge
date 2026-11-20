@@ -22,10 +22,18 @@ public class Blackwood extends Bidder {
     public static Iterable<CallFeature> initiateConvention(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
         Suit suit = getAgreedSuit(ps);
+        boolean hasRealFit = hasAgreedFit(ps, suit);
+
         if (suit != null) {
             bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, UserText.Blackwood));
 
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            if (hasRealFit) {
+                // Gdy Mamy faktyczny fit (8+ kart w parze): punkty pary doliczają krótkości i ustawiamy atut
+                bids.add(shows(Bid._4NT, setTrumpColor(suit), fit(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            } else {
+                // Gdy NIE Mamy fitu: sprawdzamy czyste punkty honorowe HCP (32+ HCP) bez doliczania krótkości i nie ustawiamy atutu
+                bids.add(shows(Bid._4NT, pairHighCardPoints(PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            }
 
             bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_15_17), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
             bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_15_17), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
@@ -34,23 +42,60 @@ public class Blackwood extends Bidder {
         return bids;
     }
 
+    private static boolean hasAgreedFit(PositionState ps, Suit suit) {
+        if (ps == null || suit == null) return false;
+        if (ps.getPairState().getTrumpSuit() != null) return true;
+
+        HandSummary hs1 = ps.getPrivateHandSummary() != null ? ps.getPrivateHandSummary() : ps.getPublicHandSummary();
+        HandSummary hs2 = ps.getPartner() != null ? ps.getPartner().getPublicHandSummary() : null;
+
+        if (hs1 != null && hs2 != null) {
+            HandSummary.SuitSummary ss1 = hs1.getSuits().get(suit);
+            HandSummary.SuitSummary ss2 = hs2.getSuits().get(suit);
+            if (ss1 != null && ss2 != null) {
+                Range shape1 = ss1.getShape();
+                Range shape2 = ss2.getShape();
+                if (shape1 != null && shape2 != null) {
+                    return (shape1.getMin() + shape2.getMin() >= 8);
+                }
+            }
+        }
+        return false;
+    }
+
     private static Suit getAgreedSuit(PositionState ps) {
+        if (ps == null) return null;
         Suit trump = ps.getPairState().getTrumpSuit();
         if (trump != null) return trump;
 
-        if (ps.getPublicHandSummary() != null && ps.getPartner() != null && ps.getPartner().getPublicHandSummary() != null) {
-            Suit[] suitsToCheck = {Suit.Hearts, Suit.Spades, Suit.Diamonds, Suit.Clubs};
+        HandSummary hs1 = ps.getPrivateHandSummary() != null ? ps.getPrivateHandSummary() : ps.getPublicHandSummary();
+        HandSummary hs2 = ps.getPartner() != null ? ps.getPartner().getPublicHandSummary() : null;
+
+        if (hs1 != null && hs2 != null) {
+            Suit bestSuit = null;
+            int maxCards = 0;
+
+            Suit lastSuit = ps.getPairState().getLastShownSuit();
+            Suit[] suitsToCheck = lastSuit != null 
+                    ? new Suit[]{lastSuit, Suit.Spades, Suit.Hearts, Suit.Diamonds, Suit.Clubs}
+                    : new Suit[]{Suit.Spades, Suit.Hearts, Suit.Diamonds, Suit.Clubs};
+
             for (Suit s : suitsToCheck) {
-                HandSummary.SuitSummary ss1 = ps.getPublicHandSummary().getSuits().get(s);
-                HandSummary.SuitSummary ss2 = ps.getPartner().getPublicHandSummary().getSuits().get(s);
+                HandSummary.SuitSummary ss1 = hs1.getSuits().get(s);
+                HandSummary.SuitSummary ss2 = hs2.getSuits().get(s);
                 if (ss1 != null && ss2 != null) {
-                    Range shape = ss1.getShape();
-                    Range partnerShape = ss2.getShape();
-                    if (shape != null && partnerShape != null && (shape.getMin() + partnerShape.getMin() >= 8)) {
-                        return s;
+                    Range shape1 = ss1.getShape();
+                    Range shape2 = ss2.getShape();
+                    if (shape1 != null && shape2 != null) {
+                        int total = shape1.getMin() + shape2.getMin();
+                        if (total >= 8 && total > maxCards) {
+                            maxCards = total;
+                            bestSuit = s;
+                        }
                     }
                 }
             }
+            if (bestSuit != null) return bestSuit;
         }
 
         return ps.getPairState().getLastShownSuit();

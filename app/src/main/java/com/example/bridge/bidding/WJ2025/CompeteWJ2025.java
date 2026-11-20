@@ -45,6 +45,7 @@ public class CompeteWJ2025 extends WJ2025 {
 
         bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteWJ2025.compBids PAIR_MINOR_GAME, _5C")));
         bids.add(shows(Bid._5D, pairHighCardPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids PAIR_MINOR_GAME _5D")));
+
         bids.add(shows(Bid._5C, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, IS_FORCED_TO_GAME, setTrumpColor(Suit.Clubs), id("CompeteWJ2025.compBids IS_FORCED_TO_GAME _5C")));
         bids.add(shows(Bid._5D, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, IS_FORCED_TO_GAME, setTrumpColor(Suit.Diamonds), id("CompeteWJ2025.compBids IS_FORCED_TO_GAME _5D")));
         bids.add(shows(Bid._5C, pairPoints(PAIR_MINOR_GAME), FIT_8_PLUS, PARTNER_DID_NOT_SIGN_OFF, setTrumpColor(Suit.Clubs), id("CompeteWJ2025.compBids pairPoints _5C")));
