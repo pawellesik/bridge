@@ -216,4 +216,14 @@ pass pass
 1NT pass 2S pass
 pass pass
 
+[Event "WJ Deal kier 20"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ.AK985.93.JT92 862.K86.AQ4.K753 KQJ7.Q.J987.A982 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+1NT pass 2D pass
+2H pass 3NT pass
+pass pass
+
 

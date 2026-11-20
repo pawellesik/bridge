@@ -50,7 +50,8 @@ public class OpenHeartBid3 extends WJ2025 {
                 shows(Bid._3C, shape(5, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _3D")),
                 shows(Bid._2NT, highCardPoints(OPEN_12_14), stopped(Suit.Diamonds), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2NT")),
                 shows(Bid._2S, shape(3, 3), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2S")),
-                shows(Bid._2H, shape(Suit.Spades, 0, 2), not(stopped(Suit.Diamonds)), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2H"))
+                shows(Bid._2H, shape(Suit.Spades, 0, 2), not(stopped(Suit.Diamonds)), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2H")),
+                properties(new Call[]{Bid._2H}, RespondHeartBid3::heart_1S_2C_2D_2H, false)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
