@@ -112,7 +112,6 @@ public class CompeteWJ2025 extends WJ2025 {
             bids.add(cf);
         }
         addCompBids(ps, bids);
-        bids.add(partnerBids(RecursionWJ2025::recursionFindFitGame));
 
         return bids;
     }

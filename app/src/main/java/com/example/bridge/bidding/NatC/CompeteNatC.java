@@ -109,7 +109,6 @@ public class CompeteNatC extends NatC {
 
         addAcesAskConventions(ps, bids);
         addCompBids(ps, bids);
-        bids.add(partnerBids(RecursionNatC::recursionFindFitGame));
 
         return bids;
     }
