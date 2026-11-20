@@ -16,6 +16,7 @@ public class RespondHeartBid1 extends WJ2025 {
     public static final Range RESPOND_10_11 = new Range(10, 11);
     public static final Range RESPOND_7_9 = new Range(7, 9);
     public static final Range RESPOND_12_28 = new Range(12, 28);
+    public static final Range RESPOND_15_28 = new Range(15, 28);
     public static final Range RESPOND_7_11 = new Range(7, 11);
     public static final Range RESPOND_7_28 = new Range(7, 28);
 
@@ -39,13 +40,17 @@ public class RespondHeartBid1 extends WJ2025 {
 
                 shows(Bid._2H, fit(), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid1.oneHeart _2H")),
 
+                shows(Bid._1S, shape(5, 13), highCardPoints(RESPOND_7_28), id("RespondHeartBid1.oneHeart _1S")),
+
+                shows(Bid._2C, shape(2, 13), highCardPoints(RESPOND_15_28), note("forcing"), id("RespondHeartBid1.oneHeart _2C")),
+
+                shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_7_28), ruleShow(1), id("RespondHeartBid1.oneHeart _1S")),
+
                 shows(Bid._2D, shape(5, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondHeartBid1.oneHeart _2D")),
 
                 shows(Bid._2C, shape(2, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondHeartBid1.oneHeart _2C")),
 
                 shows(Bid._1NT, shape(Suit.Hearts, 0, 2), highCardPoints(RESPOND_7_11), ruleShow(1), id("RespondHeartBid1.oneHeart _1NT")),
-
-                shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_7_28), id("RespondHeartBid1.oneHeart _1S")),
 
                 properties(new Call[]{Bid._3NT}, OpenHeartBid2::heart_3NT, false),
                 properties(new Call[]{Bid._3S}, OpenHeartBid2::heart_3S, false),

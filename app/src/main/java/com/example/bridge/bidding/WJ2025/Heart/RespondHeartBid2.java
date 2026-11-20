@@ -15,6 +15,7 @@ public class RespondHeartBid2 extends WJ2025 {
     public static final Range RESPOND_7_9 = new Range(7, 9);
     public static final Range RESPOND_10_12 = new Range(10, 12);
     public static final Range RESPOND_8_11 = new Range(8, 11);
+    public static final Range RESPOND_9_11 = new Range(9, 11);
     public static final Range RESPOND_12_28 = new Range(12, 28);
     public static final Range RESPOND_15_28 = new Range(15, 28);
 
@@ -66,8 +67,8 @@ public class RespondHeartBid2 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._2NT, highCardPoints(RESPOND_15_28), ruleShow(1), id("RespondHeartBid2.heart_1S_2H _2NT")),
-                shows(Bid._2S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_2H _2S")),
                 shows(Bid._3S, shape(6, 13), ruleShow(1), highCardPoints(RESPOND_12_28), id("RespondHeartBid2.heart_1S_2H _2S")),
+                shows(Bid._2S, noFit(), shape(5, 13), ruleShow(1), highCardPoints(RESPOND_9_11), DECENT_PLUS_SUIT, id("RespondHeartBid2.heart_1S_2H _2S")),
                 properties(new Call[]{Bid._2NT}, OpenHeartBid3::heart_1S_2H_2NT, true)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));

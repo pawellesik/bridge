@@ -58,12 +58,12 @@ public class OpenHeartBid3 extends WJ2025 {
     public static PositionCalls heart_1S_2H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3NT, shape(Suit.Hearts, 6, 6), shape(Suit.Spades, 0, 2), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3NT")),
+                shows(Bid._3H, shape(7, 13), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3H")),
                 shows(Bid._3S, shape(Suit.Spades, 3, 3), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3S")),
-                shows(Bid._3H, shape(7, 13), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3S")),
                 shows(Bid._3D, shape(4, 13), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3D")),
-                shows(Bid._3C, shape(4, 13), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3C"))
-        );
+                shows(Bid._3C, shape(4, 13), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3C")),
+                shows(Bid._3NT, shape(Suit.Hearts, 6, 6), shape(Suit.Spades, 0, 2), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3NT"))
+                );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
