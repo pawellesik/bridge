@@ -85,12 +85,25 @@ public class OpenHeartBid3 extends WJ2025 {
     public static PositionCalls heart_2C_2H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3NT, shape(4, 13), shape(Suit.Spades, 2, 13), shape(Suit.Clubs, 2, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3NT")),
+                shows(Bid._3NT, shape5422(), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3NT")),
                 shows(Bid._3S, shape(3, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3S")),
                 shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3H")),
                 shows(Bid._3D, shape(5, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3D")),
                 shows(Bid._3C, shape(3, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3C"))
 
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls heart_2D_2H_2NT(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._3NT, shape5422(), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3NT")),
+                shows(Bid._3S, shape(3, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3S")),
+                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3H")),
+                shows(Bid._3D, shape(3, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3D")),
+                shows(Bid._3C, shape(5, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_2C_2D_2NT _3C"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
