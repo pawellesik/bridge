@@ -22,8 +22,7 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_3NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenHeartBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
+
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -31,9 +30,8 @@ public class OpenHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenHeartBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -41,9 +39,8 @@ public class OpenHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -51,9 +48,8 @@ public class OpenHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_4D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -62,8 +58,6 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_3D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -72,8 +66,6 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -82,8 +74,8 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
+                shows(Bid._4H, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_2NT _4H")),
+                shows(Bid._3H, ruleShow(1), id("OpenDiamondBid2.heart_2NT _3H"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -92,8 +84,6 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -102,8 +92,6 @@ public class OpenHeartBid2 extends WJ2025 {
     public static PositionCalls heart_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                //shows(Bid._1S, shape(4, 13), highCardPoints(OPEN_STANDARD), ruleShow(1), id("OpenDiamondBid2.diamond_1H _1S")),
-                //properties(new Call[]{Bid._1NT, Bid._1S}, RespondDiamondBid2::diamond_1H_1NT1S, false),
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;

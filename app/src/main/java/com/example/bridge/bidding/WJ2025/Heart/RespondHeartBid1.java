@@ -22,8 +22,9 @@ public class RespondHeartBid1 extends WJ2025 {
     public static PositionCalls oneHeart(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
+
         choices.addRules(
-                shows(Bid._3NT, shape(Suit.Hearts, 4, 13), highCardPoints(RESPOND_9_14), DECENT_PLUS_SUIT, ruleShow(1), id("RespondHeartBid1.oneHeart _3NT")),
+                //shows(Bid._3NT, shape(Suit.Hearts, 4, 13), highCardPoints(RESPOND_9_14), DECENT_PLUS_SUIT, ruleShow(1), id("RespondHeartBid1.oneHeart _3NT")),
 
                 shows(Bid._3S, shape(Suit.Hearts, 4, 13), shape(Suit.Spades, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _3S")),
                 shows(Bid._4C, shape(Suit.Hearts, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4C")),
