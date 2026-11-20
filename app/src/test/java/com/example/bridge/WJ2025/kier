@@ -91,4 +91,15 @@ pass pass
 3D pass 3NT pass
 pass pass
 
+[Event "WJ Deal kier 10"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT.AK9853.4.QT32 862.K86.AQ4.K753 AKQJ9.9.Q3T.A472 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+2H pass 2NT pass
+3C pass 4NT pass
+5C pass 6C pass
+pass pass
+
 
