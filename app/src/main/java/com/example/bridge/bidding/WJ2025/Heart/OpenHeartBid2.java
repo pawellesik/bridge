@@ -10,6 +10,7 @@ import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.Tools.SuitQuality;
 import com.example.bridge.bidding.WJ2025.CompeteWJ2025;
 import com.example.bridge.bidding.WJ2025.Diamond.RespondDiamondBid2;
+import com.example.bridge.bidding.WJ2025.RecursionWJ2025;
 import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class OpenHeartBid2 extends WJ2025 {
@@ -75,7 +76,8 @@ public class OpenHeartBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._4H, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_2NT _4H")),
-                shows(Bid._3H, ruleShow(1), id("OpenDiamondBid2.heart_2NT _3H"))
+                shows(Bid._3H, ruleShow(1), id("OpenDiamondBid2.heart_2NT _3H")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -108,7 +110,8 @@ public class OpenHeartBid2 extends WJ2025 {
                 shows(Bid._2S, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.heart_2D _2S")),
                 shows(Bid._2H, highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 3), ruleShow(1), id("OpenDiamondBid2.heart_2D _2H")),
 
-                properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_2D_2H, false)
+                properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_2D_2H, false),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -128,7 +131,8 @@ public class OpenHeartBid2 extends WJ2025 {
                 shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2D")),
 
                 properties(new Call[]{Bid._2D}, RespondHeartBid2::heart_2C_2D, false),
-                properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_2C_2H, false)
+                properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_2C_2H, false),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -151,7 +155,8 @@ public class OpenHeartBid2 extends WJ2025 {
 
                 shows(Call.PASS, shape(4, 13), shape5332(), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid2.heart_1NT _pass")),
 
-                properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1NT_2C, false)
+                properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1NT_2C, false),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -187,7 +192,8 @@ public class OpenHeartBid2 extends WJ2025 {
                 properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1S_2C, true),
                 properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_1S_2H, false),
                 properties(new Call[]{Bid._3C}, RespondHeartBid2::heart_1S_3C, false),
-                properties(new Call[]{Bid._3D}, RespondHeartBid2::heart_1S_3D, false)
+                properties(new Call[]{Bid._3D}, RespondHeartBid2::heart_1S_3D, false),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));

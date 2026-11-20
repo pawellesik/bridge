@@ -7,6 +7,7 @@ import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ import java.util.List;
 public class CompeteWJ2025 extends WJ2025 {
 
     public static final HandConstraint OPEN_BIDDING_18_40 = highCardPoints(18, 40);
+    public static final Range PAIR_GAME_INVITE = new Range(23, 24);
+
+    public static final Range PAIR_GAME = new Range(25, 31);
+    public static final Range PAIR_MINOR_GAME = new Range(27, 31);
+    public static final Range PAIR_LOW_GAME = new Range(16, 24);
 
     public static Iterable<CallFeature> bids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();

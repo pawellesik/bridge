@@ -11,6 +11,7 @@ import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.WJ2025.CompeteWJ2025;
+import com.example.bridge.bidding.WJ2025.RecursionWJ2025;
 import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class RespondDiamondBid2 extends WJ2025 {
@@ -19,7 +20,7 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static final Range RESPOND_13_28 = new Range(13, 28);
     public static final Range RESPOND_7_9 = new Range(7, 9);
     public static final Range RESPOND_10_28 = new Range(10, 28);
-
+    public static final Range RESPOND_PAIR_25_31 = new Range(25, 31);
 
     // =========================================================================
     // WIEDZA PUBLICZNA (PublicHandSummary) W 2. OKRĄŻENIU ODPOWIADAJĄCEGO S (1D)
@@ -46,7 +47,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._1NT, noFit(7), id("RespondDiamondBid2.oneHeart_OneSpade1NT _1NT")), //plesik moje, moze dać 2D ?
 
                 properties(new Call[]{Bid._2C}, OpenDiamondBid3::diamond_1H_1NT1S_2C, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1H_1NT1S_2D, true)
+                properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1H_1NT1S_2D, true),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -73,7 +75,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _2D")),
                 shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneHeart_TwoClub _pass")),
 
-                propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid3::diamond_1H_2C_2S, true)
+                propertiesForcingToGame(new Call[]{Bid._2S}, OpenDiamondBid3::diamond_1H_2C_2S, true),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -100,7 +103,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._2C, highCardPoints(RESPOND_10_12), ruleShow(1), note("weak checkback"), id("RespondDiamondBid2.oneSpade_OneSpade1NT _2C")),
 
                 properties(new Call[]{Bid._2C}, OpenDiamondBid3::diamond_1S_1NT_2C, true),
-                properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1S_1NT_2D, true)
+                properties(new Call[]{Bid._2D}, OpenDiamondBid3::diamond_1S_1NT_2D, true),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -127,7 +131,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._2D, shape(4, 13), betterThan(Suit.Diamonds, Suit.Clubs), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _2D")),
                 shows(Call.PASS, betterThan(Suit.Clubs, Suit.Diamonds), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_TwoClub _pass")),
 
-                propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid3::diamond_1S_2C_2H, true)
+                propertiesForcingToGame(new Call[]{Bid._2H}, OpenDiamondBid3::diamond_1S_2C_2H, true),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -154,7 +159,8 @@ public class RespondDiamondBid2 extends WJ2025 {
 
                 properties(new Call[]{Bid._2NT}, OpenDiamondBid3::diamond_1S_2H_2NT, true),
                 properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_1S_2H_3H, true),
-                properties(new Call[]{Bid._3C}, OpenDiamondBid3::diamond_1S_2H_3C, true)
+                properties(new Call[]{Bid._3C}, OpenDiamondBid3::diamond_1S_2H_3C, true),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -179,7 +185,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3D, shape(2, 2), ruleShow(1), id("RespondDiamondBid2.diamond_2H_3C _3D")),
 
                 properties(new Call[]{Bid._3H}, OpenDiamondBid3::diamond_2H_3C_3H, false),
-                properties(new Call[]{Bid._3S}, OpenDiamondBid3::diamond_2H_3C_3S, false)
+                properties(new Call[]{Bid._3S}, OpenDiamondBid3::diamond_2H_3C_3S, false),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -204,10 +211,11 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._4S, fit(7), pairPoints(PAIR_GAME), DECENT_PLUS_SUIT, id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _4S")),
-                shows(Bid._4H, fit(7), pairPoints(PAIR_GAME), DECENT_PLUS_SUIT, id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _4H")),
+                shows(Bid._4S, fit(7), pairPoints(RESPOND_PAIR_25_31), DECENT_PLUS_SUIT, id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _4S")),
+                shows(Bid._4H, fit(7), pairPoints(RESPOND_PAIR_25_31), DECENT_PLUS_SUIT, id("RespondDiamondBid3.diamond_1NT_2H2S_3D_3H3S _4H")),
                 shows(Bid._3D, id("RespondDiamondBid2.diamond_1NT_2H2S _3D")),
-                properties(new Call[]{Bid._3D}, OpenDiamondBid3::diamond_1NT_2H2S_3D, false)
+                properties(new Call[]{Bid._3D}, OpenDiamondBid3::diamond_1NT_2H2S_3D, false),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -217,7 +225,8 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3D, noFit(), id("RespondDiamondBid2.diamond_1NT_3C _3D"))
+                shows(Bid._3D, noFit(), id("RespondDiamondBid2.diamond_1NT_3C _3D")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -237,7 +246,8 @@ public class RespondDiamondBid2 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._5D, fit(Suit.Diamonds), id("RespondDiamondBid2.diamond_2NT_3C _5D")),
-                shows(Bid._3NT, BALANCED, id("RespondDiamondBid2.diamond_2NT_3C _3NT"))
+                shows(Bid._3NT, BALANCED, id("RespondDiamondBid2.diamond_2NT_3C _3NT")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -535,7 +545,8 @@ public class RespondDiamondBid2 extends WJ2025 {
         choices.addRules(
                 shows(Bid._3C, shape(6, 13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _3C")),
                 shows(Bid._2H, shape(4, 13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2H")),
-                shows(Bid._2S, shape(4, 13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2S"))
+                shows(Bid._2S, shape(4, 13), noFit(), id("RespondDiamondBid1.diamond_2C_2D _2S")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
 
         choices.addRules(Blackwood.initiateConvention(ps));
@@ -554,7 +565,8 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static PositionCalls diamond_2C_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondDiamondBid1.diamond_2C_2H _4H"))
+                shows(Bid._4H, pairHighCardPoints(RESPOND_PAIR_25_31), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondDiamondBid1.diamond_2C_2H _4H")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
 
         choices.addRules(Blackwood.initiateConvention(ps));
@@ -573,7 +585,8 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static PositionCalls diamond_2C_2S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("RespondDiamondBid1.diamond_2C_2S _4S"))
+                shows(Bid._4S, pairHighCardPoints(RESPOND_PAIR_25_31), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("RespondDiamondBid1.diamond_2C_2S _4S")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
 
         choices.addRules(Blackwood.initiateConvention(ps));
@@ -592,13 +605,14 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static PositionCalls diamond_2C_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondDiamondBid1.diamond_2C_2NT FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")),
-                shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("RespondDiamondBid1.diamond_2C_2NT FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")),
+                shows(Bid._4H, pairHighCardPoints(RESPOND_PAIR_25_31), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondDiamondBid1.diamond_2C_2NT FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")),
+                shows(Bid._4S, pairHighCardPoints(RESPOND_PAIR_25_31), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("RespondDiamondBid1.diamond_2C_2NT FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")),
 
                 shows(Bid._3H, shape(4, 4), id("RespondDiamondBid1.diamond_2C_2NT _3H")),
                 shows(Bid._3S, shape(4, 4), id("RespondDiamondBid1.diamond_2C_2NT _3S")),
 
-                shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER_NT), id("RespondDiamondBid1.diamond_2C_2NT _6NT"))
+                shows(Bid._6NT, pairHighCardPoints(SLAM_OR_BETTER_NT), id("RespondDiamondBid1.diamond_2C_2NT _6NT")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
 
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -794,7 +808,8 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._3S, shape(6, 13), id("RespondDiamondBid2.diamond_2H_2NT _3S")),
-                shows(Bid._3H, shape(5, 13), id("RespondDiamondBid2.diamond_2H_2NT _3H"))
+                shows(Bid._3H, shape(5, 13), id("RespondDiamondBid2.diamond_2H_2NT _3H")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -896,7 +911,8 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static PositionCalls diamond_2S_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, shape(3), DECENT_PLUS_SUIT, shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_2S_3H _4H"))
+                shows(Bid._4H, shape(3), DECENT_PLUS_SUIT, shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_2S_3H _4H")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -913,7 +929,8 @@ public class RespondDiamondBid2 extends WJ2025 {
     public static PositionCalls diamond_2S_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4S, shape(3), DECENT_PLUS_SUIT, shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_2S_3S _4S"))
+                shows(Bid._4S, shape(3), DECENT_PLUS_SUIT, shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_2S_3S _4S")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -978,7 +995,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3NT, stopped(Suit.Spades), stopped(Suit.Clubs), id("RespondDiamondBid2.diamond_3C_3H _3NT")),
                 shows(Bid._4C, shape(6, 13), shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_3C_3H _4C")),
 
-                properties(new Call[]{Bid._4C}, OpenDiamondBid3::diamond_3C_3H_4C, true)
+                properties(new Call[]{Bid._4C}, OpenDiamondBid3::diamond_3C_3H_4C, true),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -1002,7 +1020,8 @@ public class RespondDiamondBid2 extends WJ2025 {
                 shows(Bid._3NT, stopped(Suit.Hearts), stopped(Suit.Clubs), id("RespondDiamondBid2.diamond_3C_3S _3NT")),
                 shows(Bid._4C, shape(6, 13), shape(Suit.Diamonds, 0, 3), id("RespondDiamondBid2.diamond_3C_3S _4C")),
 
-                properties(new Call[]{Bid._4C}, OpenDiamondBid3::diamond_3C_3S_4C, true)
+                properties(new Call[]{Bid._4C}, OpenDiamondBid3::diamond_3C_3S_4C, true),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
 
         choices.addRules(CompeteWJ2025.compBids(ps));

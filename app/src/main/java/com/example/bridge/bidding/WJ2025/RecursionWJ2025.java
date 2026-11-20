@@ -5,9 +5,18 @@ import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
 import com.example.bridge.bidding.Tools.PositionState;
+import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 
 public class RecursionWJ2025 extends WJ2025 {
+
+
+    public static final Range PAIR_25_31 = new Range(25, 31);
+    public static final Range PAIR_27_31 = new Range(27, 31);
+    public static final Range PAIR_16_24 = new Range(16, 24);
+
+    public static final Range PAIR_PASS_16_22 = new Range(16, 22);
+
 
     public static PositionCalls recursionFindFitGame(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
@@ -15,7 +24,7 @@ public class RecursionWJ2025 extends WJ2025 {
         choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, not(PARTNER_DID_NOT_SIGN_OFF), id("RecursionWJ2025.recursionFindFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
-                shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partnerBidLevel(2, 3), id("RecursionWJ2025.recursionFindFitGame pass")),
+                shows(Call.PASS, pairHighCardPoints(PAIR_PASS_16_22), fit(ps.getPartner().getBid().getSuit()), partnerBidLevel(2, 3), id("RecursionWJ2025.recursionFindFitGame pass")),
 
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3NT)), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._4H)), setTrumpColor(Suit.Hearts), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
@@ -23,18 +32,18 @@ public class RecursionWJ2025 extends WJ2025 {
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._5D)), setTrumpColor(Suit.Diamonds), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
                 shows(Call.PASS, fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._5C)), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
 
-                shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._2S, Bid._2H)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
-                shows(Call.PASS, pairHighCardPoints(PAIR_LOW_GAME), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3C, Bid._3D)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, pairHighCardPoints(PAIR_PASS_16_22), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._2S, Bid._2H)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
+                shows(Call.PASS, pairHighCardPoints(PAIR_PASS_16_22), fit(ps.getPartner().getBid().getSuit()), partner(isLastBid(Bid._3C, Bid._3D)), setTrumpColor(ps.getPartner().getBid().getSuit()), id("RecursionWJ2025.recursionFindFitGame fit _Pass")),
 
                 shows(Bid._3C, shape(7, 13), noFitMajor(), IS_ANY_JUMP, IS_REBID, IS_OPENER, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_REBID _3C")),
                 shows(Bid._3D, shape(7, 13), noFitMajor(), IS_ANY_JUMP, IS_REBID, IS_OPENER, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_REBID _3D")),
                 shows(Bid._3H, shape(7, 13), noFitMajor(), IS_ANY_JUMP, IS_REBID, IS_OPENER, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_REBID _3H")),
                 shows(Bid._3S, shape(7, 13), noFitMajor(), IS_ANY_JUMP, IS_REBID, IS_OPENER, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_REBID _3S")),
 
-                shows(Bid._2C, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame  _2C")),
-                shows(Bid._2D, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionWJ2025.recursionFindFitGame  _2D")),
-                shows(Bid._2H, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame  _2H")),
-                shows(Bid._2S, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionWJ2025.recursionFindFitGame  _2S")),
+                shows(Bid._2C, pairHighCardPoints(PAIR_16_24), fit(), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame  _2C")),
+                shows(Bid._2D, pairHighCardPoints(PAIR_16_24), fit(), setTrumpColor(Suit.Diamonds), id("RecursionWJ2025.recursionFindFitGame  _2D")),
+                shows(Bid._2H, pairHighCardPoints(PAIR_16_24), fit(), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame  _2H")),
+                shows(Bid._2S, pairHighCardPoints(PAIR_16_24), fit(), setTrumpColor(Suit.Diamonds), id("RecursionWJ2025.recursionFindFitGame  _2S")),
 
                 shows(Bid._2H, shape(6, 13), noFitMajor(), IS_REBID, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_REBID _2H")),
                 shows(Bid._2S, shape(6, 13), noFitMajor(), IS_REBID, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_REBID _2S")),
@@ -62,8 +71,8 @@ public class RecursionWJ2025 extends WJ2025 {
 
                 shows(Bid._3H, shape(5, 13), noFitMajor(), highCardPoints(7, 40), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3H")),
                 shows(Bid._3S, shape(5, 13), noFitMajor(), highCardPoints(7, 40), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3S")),
-                shows(Bid._3H, shape(5, 13), noFitMajor(), pairHighCardPoints(PAIR_GAME), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3H")),
-                shows(Bid._3S, shape(5, 13), noFitMajor(), pairHighCardPoints(PAIR_GAME), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3S")),
+                shows(Bid._3H, shape(5, 13), noFitMajor(), pairHighCardPoints(PAIR_25_31), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3H")),
+                shows(Bid._3S, shape(5, 13), noFitMajor(), pairHighCardPoints(PAIR_25_31), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3S")),
                 shows(Bid._3C, shape(5, 13), noFit(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3C")),
                 shows(Bid._3D, shape(5, 13), noFit(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3D")),
 
@@ -72,11 +81,11 @@ public class RecursionWJ2025 extends WJ2025 {
                 shows(Bid._3H, shape(4, 13), IS_OPENER, noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
                 shows(Bid._3S, shape(4, 13), IS_OPENER, noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
-                shows(Bid._3H, shape(4, 13), pairHighCardPoints(PAIR_GAME), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
-                shows(Bid._3S, shape(4, 13), pairHighCardPoints(PAIR_GAME), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
+                shows(Bid._3H, shape(4, 13), pairHighCardPoints(PAIR_25_31), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3S, shape(4, 13), pairHighCardPoints(PAIR_25_31), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
-                shows(Bid._3C, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame  _3C")),
-                shows(Bid._3D, pairHighCardPoints(PAIR_LOW_GAME), fit(), setTrumpColor(Suit.Diamonds), id("RecursionWJ2025.recursionFindFitGame  _3D")),
+                shows(Bid._3C, pairHighCardPoints(PAIR_16_24), fit(), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame  _3C")),
+                shows(Bid._3D, pairHighCardPoints(PAIR_16_24), fit(), setTrumpColor(Suit.Diamonds), id("RecursionWJ2025.recursionFindFitGame  _3D")),
 
                 shows(Bid._4D, shape(5, 13), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionWJ2025.recursionFindFitGame  exit 1 _4D")),
                 shows(Bid._4C, shape(5, 13), twoSuiter(5), hasShortness(0, 0), partner(isLastBid(Bid._3NT)), id("RecursionWJ2025.recursionFindFitGame  exit 1 _4C")),

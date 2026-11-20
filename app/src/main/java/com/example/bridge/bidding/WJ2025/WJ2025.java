@@ -19,15 +19,11 @@ public class WJ2025 extends Bidder implements IBiddingSystem {
             choices = OpenWJ2025.getOpenPositionCalls(ps);
         } else {
             choices = new PositionCalls(ps);
-            choices.addRules(CompeteWJ2025::compBids);
+            //choices.addRules(CompeteWJ2025::compBids);
         }
 
         return choices;
     }
 
-    public static final Range PAIR_GAME_INVITE = new Range(23, 24);
-    public static final Range PAIR_GAME = new Range(25, 31);
-    public static final Range PAIR_MINOR_GAME = new Range(27, 31);
-    public static final Range PAIR_LOW_GAME = new Range(16, 24);
 
 }

@@ -7,6 +7,7 @@ import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Range;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.WJ2025.Diamond.OpenDiamondBid2;
+import com.example.bridge.bidding.WJ2025.RecursionWJ2025;
 import com.example.bridge.bidding.WJ2025.WJ2025;
 
 public class RespondHeartBid1 extends WJ2025 {
@@ -64,7 +65,8 @@ public class RespondHeartBid1 extends WJ2025 {
                 properties(new Call[]{Bid._2D}, OpenHeartBid2::heart_2D, false),
                 properties(new Call[]{Bid._2C}, OpenHeartBid2::heart_2C, false),
                 properties(new Call[]{Bid._1NT}, OpenHeartBid2::heart_1NT, false),
-                properties(new Call[]{Bid._1S}, OpenHeartBid2::heart_1S, false)
+                properties(new Call[]{Bid._1S}, OpenHeartBid2::heart_1S, false),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
         return choices;
