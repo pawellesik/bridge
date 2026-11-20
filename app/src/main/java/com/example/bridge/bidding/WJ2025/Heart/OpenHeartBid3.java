@@ -25,15 +25,16 @@ public class OpenHeartBid3 extends WJ2025 {
         return choices;
     }
 
-    public static PositionCalls heart_1S_1NT_2D(PositionState ps) {
+    public static PositionCalls heart_1S_1NT_2D(PositionState ps) {//tutaj zmienilem aby bylo od 12, od 15 ktos zalicytowalby 2NT
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3NT, shape(Suit.Spades, 0, 2), stopped(Suit.Clubs), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2D _3NT")), //nigdy nie zajdzie
-                shows(Bid._3S, shape(3, 3), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2D _3H")),
+                shows(Bid._3NT, shape(Suit.Spades, 0, 2), stopped(Suit.Clubs), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2D _3NT")), //nigdy nie zajdzie
+                shows(Bid._3S, shape(3, 3), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2D _3H")),
                 shows(Bid._2NT, shape(Suit.Spades, 0, 2), stopped(Suit.Clubs), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2D _2NT")),
                 shows(Bid._2H, shape(Suit.Spades, 0, 2), not(stopped(Suit.Clubs)), ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2D _2H")),
                 shows(Bid._2S, shape(3, 3), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2D _2S")),
-                properties(new Call[]{Bid._2S}, RespondHeartBid3::heart_1S_1NT_2D_2S, true)
+                properties(new Call[]{Bid._2S}, RespondHeartBid3::heart_1S_1NT_2D_2S, true),
+                properties(new Call[]{Bid._2H}, RespondHeartBid3::heart_1S_1NT_2D_2H, false)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;

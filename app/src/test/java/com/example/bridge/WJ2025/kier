@@ -169,3 +169,13 @@ pass pass
 1NT pass 2D pass
 3NT pass pass pass
 
+[Event "WJ Deal kier 18"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ.AK985.J93.T92 862.K86.AQ4.K753 AKQJ9.9.AJT.T472 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+1NT pass 2D pass
+2H pass 2NT pass
+3NT pass pass pass
+
