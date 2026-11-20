@@ -165,21 +165,23 @@ public class OpenHeartBid2 extends WJ2025 {
 
                 shows(Bid._3S, fit(), highCardPoints(OPEN_12_17), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenHeartBid2.heart_1S _3S")),
 
-                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(OPEN_15_17), id("OpenHeartBid2.heart_1S _3H")),
+                shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3H")),
 
-                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), id("OpenHeartBid2.heart_1S _3C")),
-                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), id("OpenHeartBid2.heart_1S _3D")),
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3C")),
+                shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3D")),
 
-                shows(Bid._2NT, noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_15_17), id("OpenHeartBid2.heart_1S _2NT")),
+                shows(Bid._2NT, noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _2NT")),
 
-                shows(Bid._2S, fit(), highCardPoints(OPEN_12_14), id("OpenHeartBid2.heart_1S _2S")),
+                shows(Bid._2S, fit(), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid2.heart_1S _2S")),
 
-                shows(Bid._2H, shape(6, 13), noFit(), highCardPoints(OPEN_12_14), id("OpenHeartBid2.heart_1S _2H")),
+                shows(Bid._2C, shape(6, 13), noFit(), highCardPoints(OPEN_12_17), id("OpenHeartBid2.heart_1S _2C")),
 
-                shows(Bid._2C, shape(4, 13), noFit(), highCardPoints(OPEN_12_17), id("OpenHeartBid2.heart_1S _2C")),
-                shows(Bid._2D, shape(4, 13), noFit(), highCardPoints(OPEN_12_17), id("OpenHeartBid2.heart_1S _2D")),
+                shows(Bid._2H, shape(6, 13), noFit(), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid2.heart_1S _2H")),
 
-                shows(Bid._1NT, noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_12_14), id("OpenHeartBid2.heart_1S _1NT")),
+                shows(Bid._2C, shape(4, 13), noFit(), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid2.heart_1S _2C")),
+                shows(Bid._2D, shape(4, 13), noFit(), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenHeartBid2.heart_1S _2D")),
+
+                shows(Bid._1NT, noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid2.heart_1S _1NT")),
 
                 properties(new Call[]{Bid._1NT}, RespondHeartBid2::heart_1S_1NT, false),
                 properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1S_2C, true),
