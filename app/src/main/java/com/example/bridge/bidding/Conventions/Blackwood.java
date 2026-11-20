@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blackwood extends Bidder {
-    private static final Range SLAM_OR_BETTER = new Range(32, 100);
-    private static final Range GRAND_SLAM = new Range(36, 100);
-    public static final Range OPEN_STRONG = new Range(15, 17);
+    private static final Range PAIR_32_40 = new Range(32, 100);
+    private static final Range PAIR_36_40= new Range(36, 100);
+    public static final Range OPEN_15_17 = new Range(15, 17);
 
     public static Iterable<CallFeature> initiateConvention(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
@@ -25,11 +25,11 @@ public class Blackwood extends Bidder {
         if (suit != null) {
             bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, UserText.Blackwood));
 
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, SLAM_OR_BETTER.getMin(), SLAM_OR_BETTER.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
 
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_STRONG), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_15_17), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_15_17), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, setTrumpColor(suit), highCardPoints(OPEN_15_17), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
         }
         return bids;
     }
@@ -78,11 +78,11 @@ public class Blackwood extends Bidder {
         if (suit != null) {
             choices.addRules(
                 properties(Bid._5NT, Blackwood::respondKings, true),
-                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(GRAND_SLAM), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
-                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(SLAM_OR_BETTER), fit(9, suit), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
+                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(PAIR_36_40), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
+                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(PAIR_32_40), fit(9, suit), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
 
-                shows(new Bid(6, suit), fit(suit), pairPoints(SLAM_OR_BETTER), pairKeyCards(suit, null, 4, 5, 6)),
-                shows(Bid._6NT, not(fit(suit)), pairPoints(SLAM_OR_BETTER), pairKeyCards(suit, null, 4, 5, 6)),
+                shows(new Bid(6, suit), fit(suit), pairPoints(PAIR_32_40), pairKeyCards(suit, null, 4, 5, 6)),
+                shows(Bid._6NT, not(fit(suit)), pairPoints(PAIR_32_40), pairKeyCards(suit, null, 4, 5, 6)),
 
                 shows(new Bid(5, suit), fit(suit), pairKeyCards(suit, null, 0, 1, 2, 3)),
                 shows(Bid._5NT, not(fit(suit)), pairKeyCards(suit, null, 0, 1, 2, 3)),
