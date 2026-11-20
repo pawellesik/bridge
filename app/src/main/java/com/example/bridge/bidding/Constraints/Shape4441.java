@@ -125,9 +125,9 @@ public class Shape4441 {
 
         @Override
         public String describe(Call call, PositionState ps) {
-            if (singletonSuit != null) {
-                return "4441 shape (" + singletonSuit.toSymbol() + " singleton)";
-            }
+            //if (singletonSuit != null) {
+            //    return "4441 shape (" + singletonSuit.toSymbol() + " singleton)";
+            //}
             return "4441 shape";
         }
     }

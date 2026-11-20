@@ -36,6 +36,7 @@ import com.example.bridge.bidding.Constraints.RuleOf9;
 import com.example.bridge.bidding.Constraints.SetTrumpSuit;
 import com.example.bridge.bidding.Constraints.Shape;
 import com.example.bridge.bidding.Constraints.Shape4441;
+import com.example.bridge.bidding.Constraints.Shape5422;
 import com.example.bridge.bidding.Constraints.SumPairAcesAndKings;
 import com.example.bridge.bidding.Constraints.TakeoutSuit;
 import com.example.bridge.bidding.Constraints.TwoSuiter;
@@ -640,6 +641,20 @@ public abstract class Bidder {
 
     public static HandConstraint shape5332(Suit fiveCardSuit) {
         return new com.example.bridge.bidding.Constraints.Shape5332.Shows5332(fiveCardSuit);
+    }
+
+    public static final HandConstraint SHAPE_5422 = new Shape5422.Shows5422();
+
+    public static HandConstraint shape5422() {
+        return SHAPE_5422;
+    }
+
+    public static HandConstraint shape5422(Suit suit5) {
+        return new Shape5422.Shows5422(suit5);
+    }
+
+    public static HandConstraint shape5422(Suit suit5, Suit suit4) {
+        return new Shape5422.Shows5422(suit5, suit4);
     }
 
     public static HandConstraint longerThan(Suit worse) {

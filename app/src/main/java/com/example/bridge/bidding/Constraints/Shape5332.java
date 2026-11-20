@@ -104,9 +104,9 @@ public class Shape5332 {
 
         @Override
         public String describe(Call call, PositionState ps) {
-            if (fiveCardSuit != null) {
-                return "5332 shape (" + fiveCardSuit.toSymbol() + " 5-card suit)";
-            }
+            //if (fiveCardSuit != null) {
+            //    return "5332 shape (" + fiveCardSuit.toSymbol() + " 5-card suit)";
+            //}
             return "5332 shape";
         }
     }
