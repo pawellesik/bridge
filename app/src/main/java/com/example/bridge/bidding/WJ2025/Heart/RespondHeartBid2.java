@@ -88,7 +88,7 @@ public class RespondHeartBid2 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._3S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
-                shows(Bid._3H, shape(3, 3), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3H")),
+                shows(Bid._3H, shape(3, 3), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3H")),//nigdy nie nastapi
                 shows(Bid._3D, shape(4, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3D")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
 
