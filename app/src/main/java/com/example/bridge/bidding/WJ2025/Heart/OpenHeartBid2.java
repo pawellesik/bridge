@@ -168,7 +168,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 shows(Bid._4C, shape(Suit.Spades, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(OPEN_15_17), ruleShow(1), note("(splinter)"), id("OpenHeartBid2.heart_1S _4C")),
                 shows(Bid._4D, shape(Suit.Spades, 4, 13), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(OPEN_15_17), ruleShow(1), note("(splinter)"), id("OpenHeartBid2.heart_1S _4D")),
 
-                shows(Bid._3S, fit(), highCardPoints(OPEN_12_17), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenHeartBid2.heart_1S _3S")),
+                shows(Bid._3S, fit(), highCardPoints(OPEN_15_17), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenHeartBid2.heart_1S _3S")),
 
                 shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3H")),
 
