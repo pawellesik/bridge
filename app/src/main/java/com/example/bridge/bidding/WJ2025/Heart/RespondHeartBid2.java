@@ -117,7 +117,7 @@ public class RespondHeartBid2 extends WJ2025 {
                 shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondHeartBid2.heart_2C_2D2H _3C")),
                 shows(Bid._2S, shape(4, 13), ruleShow(1), highCardPoints(RESPOND_12_28), id("RespondHeartBid2.heart_2C_2D2H _2NT")),
                 shows(Bid._2NT, highCardPoints(RESPOND_12_28), ruleShow(1), note("forcing"), id("RespondHeartBid2.heart_2C_2D2H _2NT")),
-                properties(new Call[]{Bid._2NT}, OpenHeartBid3::heart_2C_2D_2NT, false)
+                properties(new Call[]{Bid._2NT}, OpenHeartBid3::heart_2C_2D_2NT, true)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
