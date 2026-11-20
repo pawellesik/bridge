@@ -21,12 +21,12 @@ public class RespondHeartBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT, highCardPoints(RESPOND_13_16), shape5332(), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3NT")),
-                shows(Bid._3H, shape(4,13), shape(Suit.Spades, 5, 5), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3H")),
+                shows(Bid._3NT, highCardPoints(RESPOND_13_16), shape5332(), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3NT")),//nigdy nie zajdzie
+                shows(Bid._3H, shape(4,13), shape(Suit.Spades, 5, 5), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3H")),//nigdy nie zajdzie
                 shows(Bid._3C, shape(5,13), shape(Suit.Spades, 4, 4), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _3C")),
                 shows(Bid._2NT, shape(Suit.Spades, 5, 5), BALANCED, highCardPoints(RESPOND_11_12), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2NT")),
-                shows(Bid._2H, shape(4, 4), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2H")),
-                shows(Bid._2S, shape(5, 13), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2S"))
+                shows(Bid._2S, shape(5, 13), highCardPoints(RESPOND_10_12), ruleShow(1), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2S")),
+                shows(Bid._2H, shape(2, 2), highCardPoints(RESPOND_10_12), id("RespondHeartBid3.heart_1S_1NT_2C_2D _2S"))
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
@@ -36,7 +36,7 @@ public class RespondHeartBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3NT, stopped(Suit.Clubs), id("RespondHeartBid3.heart_1S_1NT_2D_2S 3NT")),
+                shows(Bid._3NT, PAIR_BALANCED, id("RespondHeartBid3.heart_1S_1NT_2D_2S 3NT")),
                 shows(Bid._4S, fit(7), id("RespondHeartBid3.heart_1S_1NT_2D_2S 4S")),
                 shows(Bid._4H, fit(7), id("RespondHeartBid3.heart_1S_1NT_2D_2S 4H"))
         );
