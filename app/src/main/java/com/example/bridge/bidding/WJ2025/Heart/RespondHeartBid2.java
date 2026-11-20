@@ -31,8 +31,8 @@ public class RespondHeartBid2 extends WJ2025 {
 
                 shows(Bid._3C, shape(6, 13), shape(Suit.Spades, 4, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _3D")),
 
-                shows(Bid._2S, shape(5, 13), shape(Suit.Spades, 4, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2S")),
-                shows(Bid._2H, shape(3, 13), shape(Suit.Spades, 5, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2H")),
+                shows(Bid._2S, shape(5, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2S")),
+                shows(Bid._2H, shape(3, 13), shape(Suit.Spades, 5, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2H")),//to chyba niemozliwe
 
                 shows(Bid._2D, highCardPoints(RESPOND_13_28), note("strong checkback"), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2D")),
                 shows(Bid._2C, highCardPoints(RESPOND_10_12), note("weak checkback"), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2C")),
