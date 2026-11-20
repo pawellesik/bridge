@@ -59,6 +59,14 @@ public class OpenHeartBid3 extends WJ2025 {
         return choices;
     }
 
+    public static PositionCalls heart_1S_2C_2H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS,  highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _3NT"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
     public static PositionCalls heart_1S_2H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
