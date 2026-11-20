@@ -18,7 +18,7 @@ public class OpenHeartBid3 extends WJ2025 {
     public static PositionCalls heart_1S_1NT_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._2D, ruleShow(1), id("OpenHeartBid3.heart_1S_1NT_2C _2D")),
+                shows(Bid._2D, ruleShow(1), note("weak checkback respond"), id("OpenHeartBid3.heart_1S_1NT_2C _2D")),
                 properties(new Call[]{Bid._2D}, RespondHeartBid3::heart_1S_1NT_2C_2D, false)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
