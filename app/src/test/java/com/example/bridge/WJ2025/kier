@@ -219,11 +219,49 @@ pass pass
 [Event "WJ Deal kier 20"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:KQ.AK985.93.JT92 862.K86.AQ4.K753 KQJ7.Q.J987.A982 753.5.J742.J9862"]
+[Deal "N:KQ.AK985.932.JT9 862.K86.AQ4.K753 KQJ7.Q.J987.A982 753.5.J742.J9862"]
 [Auction "N"]
 1H Pass 1S Pass
 1NT pass 2D pass
 2H pass 3NT pass
 pass pass
 
+[Event "WJ Deal kier 21"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ3.AK985.9.JT92 862.K86.AQ4.K753 KQJ7.Q.J987.A982 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+2C pass 2D pass
+2S pass 3NT pass
+pass pass
 
+[Event "WJ Deal kier 22"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ.AK985.93.JT92 862.K86.AQ4.K753 KQJ7.Q.J987.A982 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+2C pass 2D pass
+2H pass 3NT pass
+pass pass
+
+[Event "WJ Deal kier 23"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ.K9854.A3.JT92 862.K86.AQ4.K753 KQJ7.Q.J987.A982 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+2C pass 2D pass
+2NT pass 3NT pass
+pass pass
+
+[Event "WJ Deal kier 24"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ.K9854.A3.JT92 862.K86.AQ4.K753 KQJ7.K.A987.9862 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+2C pass 2D pass
+2NT pass 5C pass
+pass pass

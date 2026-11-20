@@ -67,4 +67,15 @@ public class RespondHeartBid3 extends WJ2025 {
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
+    public static PositionCalls heart_1S_2C_2D_2NT(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+
+        choices.addRules(
+                shows(Bid._3NT, PAIR_BALANCED, stopped(Suit.Clubs), id("RespondHeartBid3.heart_1S_2C_2D_2H 3NT")),
+                shows(Bid._4H, fit(7), id("RespondHeartBid3.heart_1S_2C_2D_2H 4H")),
+                shows(Bid._4S, fit(7), id("RespondHeartBid3.heart_1S_2C_2D_2H 4S"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
 }
