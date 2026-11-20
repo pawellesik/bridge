@@ -167,7 +167,8 @@ pass pass
 [Auction "N"]
 1H Pass 1S Pass
 1NT pass 2D pass
-3NT pass pass pass
+2NT pass 3NT pass
+pass pass
 
 [Event "WJ Deal kier 18"]
 [Dealer "N"]

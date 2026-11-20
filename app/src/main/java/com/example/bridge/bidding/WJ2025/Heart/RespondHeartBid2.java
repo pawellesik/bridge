@@ -17,6 +17,7 @@ public class RespondHeartBid2 extends WJ2025 {
     public static final Range RESPOND_8_11 = new Range(8, 11);
     public static final Range RESPOND_9_11 = new Range(9, 11);
     public static final Range RESPOND_12_28 = new Range(12, 28);
+    public static final Range RESPOND_13_28 = new Range(13, 28);
     public static final Range RESPOND_15_28 = new Range(15, 28);
 
     public static PositionCalls heart_1S_1NT(PositionState ps) {
@@ -33,7 +34,7 @@ public class RespondHeartBid2 extends WJ2025 {
                 shows(Bid._2S, shape(5, 13), shape(Suit.Spades, 4, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2S")),
                 shows(Bid._2H, shape(3, 13), shape(Suit.Spades, 5, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2H")),
 
-                shows(Bid._2D, highCardPoints(RESPOND_12_28), note("strong checkback"), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2D")),
+                shows(Bid._2D, highCardPoints(RESPOND_13_28), note("strong checkback"), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2D")),
                 shows(Bid._2C, highCardPoints(RESPOND_10_12), note("weak checkback"), ruleShow(1), id("RespondHeartBid2.heart_1S_1NT _2C")),
 
                 properties(new Call[]{Bid._2C}, OpenHeartBid3::heart_1S_1NT_2C, true),
