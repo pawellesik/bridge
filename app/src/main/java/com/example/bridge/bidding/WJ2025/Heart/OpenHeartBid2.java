@@ -1,6 +1,6 @@
 package com.example.bridge.bidding.WJ2025.Heart;
 
-import com.example.bridge.bidding.Conventions.Blackwood;
+import com.example.bridge.bidding.Conventions.BlackwoodWJ2025;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -31,7 +31,7 @@ public class OpenHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -40,7 +40,7 @@ public class OpenHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -49,7 +49,7 @@ public class OpenHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_4D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
         );
         choices.addRules(CompeteWJ2025.compBids(ps));

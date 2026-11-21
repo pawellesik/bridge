@@ -1,6 +1,6 @@
 package com.example.bridge.bidding.WJ2025;
 
-import com.example.bridge.bidding.Conventions.Blackwood;
+import com.example.bridge.bidding.Conventions.BlackwoodWJ2025;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -21,7 +21,7 @@ public class RecursionWJ2025 extends WJ2025 {
     public static PositionCalls recursionFindFitGame(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
 
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
                 shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, not(PARTNER_DID_NOT_SIGN_OFF), id("RecursionWJ2025.recursionFindFitGame CONTRACT_IS_AGREED_STRAIN _Pass")),
                 shows(Call.PASS, pairHighCardPoints(PAIR_PASS_16_22), fit(ps.getPartner().getBid().getSuit()), partnerBidLevel(2, 3), id("RecursionWJ2025.recursionFindFitGame pass")),

@@ -1,9 +1,8 @@
 package com.example.bridge.bidding.WJ2025;
 
 import com.example.bridge.bidding.Constraints.Shape;
-import com.example.bridge.bidding.Conventions.Blackwood;
+import com.example.bridge.bidding.Conventions.BlackwoodWJ2025;
 import com.example.bridge.bidding.Tools.Bid;
-import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.CallFeature;
 import com.example.bridge.bidding.Tools.HandConstraint;
 import com.example.bridge.bidding.Tools.PositionState;
@@ -115,7 +114,7 @@ public class CompeteWJ2025 extends WJ2025 {
 
     public static Iterable<CallFeature> compBids(PositionState ps) {
         List<CallFeature> bids = new ArrayList<>();
-        for (CallFeature cf : Blackwood.initiateConvention(ps)) {
+        for (CallFeature cf : BlackwoodWJ2025.initiateConvention(ps)) {
             bids.add(cf);
         }
         addCompBids(ps, bids);

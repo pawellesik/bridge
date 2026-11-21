@@ -1,6 +1,6 @@
 package com.example.bridge.bidding.WJ2025.Heart;
 
-import com.example.bridge.bidding.Conventions.Blackwood;
+import com.example.bridge.bidding.Conventions.BlackwoodWJ2025;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -87,7 +87,7 @@ public class RespondHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_1S_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
                 shows(Bid._5C, fit(), id("RespondHeartBid2.heart_1S_3C _3S")),
                 shows(Bid._3S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),

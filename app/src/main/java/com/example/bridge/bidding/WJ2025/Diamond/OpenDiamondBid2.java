@@ -1,6 +1,6 @@
 package com.example.bridge.bidding.WJ2025.Diamond;
 
-import com.example.bridge.bidding.Conventions.Blackwood;
+import com.example.bridge.bidding.Conventions.BlackwoodWJ2025;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -352,7 +352,7 @@ public class OpenDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
                 shows(Bid._3S, shape(4, 4), DECENT_PLUS_SUIT, id("OpenDiamondBid2.diamond_3H _3S")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
@@ -370,7 +370,7 @@ public class OpenDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_3S(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
@@ -384,7 +384,7 @@ public class OpenDiamondBid2 extends WJ2025 {
     //  -----------------------------------------------------------------------
     public static PositionCalls diamond_4C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(Blackwood.initiateConvention(ps));
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
