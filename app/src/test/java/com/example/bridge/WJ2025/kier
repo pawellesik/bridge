@@ -564,3 +564,12 @@ pass pass
 1H Pass 1NT Pass
 2S pass 3NT pass
 pass pass
+
+[Event "WJ Deal kier 57"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ42.KT9786.Q.Q5 862.K86.AQ4.K753 KQT.K7.K864.T972 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1NT Pass
+2H pass 4H pass
+pass pass
