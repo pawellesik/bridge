@@ -158,6 +158,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 shows(Call.PASS, shape(4, 13), shape5332(), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid2.heart_1NT _pass")),
 
                 properties(new Call[]{Bid._2C}, RespondHeartBid2::heart_1NT_2C, false),
+                properties(new Call[]{Bid._2D}, RespondHeartBid2::heart_1NT_2D, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
