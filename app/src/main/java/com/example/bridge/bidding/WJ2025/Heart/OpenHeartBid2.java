@@ -128,7 +128,7 @@ public class OpenHeartBid2 extends WJ2025 {
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenDiamondBid2.diamond_1H _2NT")),
                 shows(Bid._2S, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2S")),
                 shows(Bid._2H, highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2H")),
-                shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2D")),
+                shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenDiamondBid2.diamond_1H _2D")),
 
                 properties(new Call[]{Bid._2D}, RespondHeartBid2::heart_2C_2D, false),
                 properties(new Call[]{Bid._2H}, RespondHeartBid2::heart_2C_2H, false),
