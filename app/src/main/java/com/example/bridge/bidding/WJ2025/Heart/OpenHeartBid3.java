@@ -13,8 +13,8 @@ import com.example.bridge.bidding.WJ2025.WJ2025;
 public class OpenHeartBid3 extends WJ2025 {
 
     public static final Range OPEN_12_14 = new Range(12, 14);
-    public static final Range OPEN_15_17= new Range(15, 17);
-    public static final Range OPEN_12_17= new Range(12, 17);
+    public static final Range OPEN_15_17 = new Range(15, 17);
+    public static final Range OPEN_12_17 = new Range(12, 17);
 
     public static PositionCalls heart_1S_1NT_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
@@ -52,8 +52,9 @@ public class OpenHeartBid3 extends WJ2025 {
                 shows(Bid._3D, shape(Suit.Spades, 0, 2), not(stopped(Suit.Diamonds)), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _3D")),
                 shows(Bid._3C, shape(5, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _3D")),
                 shows(Bid._2NT, highCardPoints(OPEN_12_14), stopped(Suit.Diamonds), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2NT")),
-                shows(Bid._2S, shape(3, 3), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2S")),
-                shows(Bid._2H, shape(Suit.Spades, 0, 2), not(stopped(Suit.Diamonds)), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2H")),
+                shows(Bid._2S, shape(3, 3), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2S")),
+                shows(Bid._2H, shape(Suit.Spades, 0, 2), highCardPoints(OPEN_12_14), not(stopped(Suit.Diamonds)), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _2H")),
+                shows(Bid._2H, id("OpenHeartBid3.heart_1S_2C_2D _2H")), //sam dalem
                 properties(new Call[]{Bid._2H}, RespondHeartBid3::heart_1S_2C_2D_2H, false),
                 properties(new Call[]{Bid._2NT}, RespondHeartBid3::heart_1S_2C_2D_2NT, false),
                 properties(new Call[]{Bid._3S}, RespondHeartBid3::heart_1S_2C_2D_3S, false),
@@ -66,12 +67,13 @@ public class OpenHeartBid3 extends WJ2025 {
     public static PositionCalls heart_1S_2C_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Call.PASS,  highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _3NT")),
+                shows(Call.PASS, highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid3.heart_1S_2C_2D _3NT")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
+
     public static PositionCalls heart_1S_2H_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
@@ -81,7 +83,7 @@ public class OpenHeartBid3 extends WJ2025 {
                 shows(Bid._3C, shape(4, 13), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3C")),
                 shows(Bid._3NT, shape(Suit.Hearts, 6, 6), shape(Suit.Spades, 0, 2), ruleShow(1), id("OpenHeartBid3.heart_1S_2H_2NT _3NT")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
-                );
+        );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
