@@ -172,9 +172,9 @@ public class OpenHeartBid2 extends WJ2025 {
 
                 shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3C")),
                 shows(Bid._2C, shape(4, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _2C")),
+
                 shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3H")),
 
-                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3C")),
                 shows(Bid._3D, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3D")),
 
                 shows(Bid._2NT, noFit(), shape5332(Suit.Hearts), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _2NT")),
