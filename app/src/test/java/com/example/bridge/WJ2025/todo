@@ -1,44 +1,14 @@
 1H->
-	2C ->
-		2H ->
-			2S
-			2NT ->
-				3NT
-				3S
-				3H
-				3D
-				3C
-			3C
-		2S
-		2NT ->
-			3C
-			3D
-			3H
-			3S
-			3NT
-		3C
-		3D
-		3H
 	2D ->  troche trzeba poprawic
 		2D ->
 			2S
-			2NT ->
-				3NT
-				3S
-				3H
-				3D
-				3C
+			2NT
 			3C
 			2H
 			3H
 		2H ->
 			2S
-			2NT ->
-				3NT
-				3S
-				3H
-				3D
-				3C
+			2NT
 			3C
 		2S
 		2NT ->
