@@ -1,10 +1,8 @@
-[Event "NatC Deal kier 5"]
+[Event "NatC Deal kier 19"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:Q83.KQJ875..KQJ4 Q76.K7.9876.T987 AT942.AT.KT2.653 32.6543.AJ5.6542"]
+[Deal "N:.QJT632.AKJ973.A T75432.4.Q.Q7643 AK8654.A.T5.J852 KQ98.973.865.KT9"]
 [Auction "N"]
-1H PASS 2S PASS
-2H PASS 2NT PASS
-3NT PASS 4NT PASS
-5S PASS 6H PASS
-PASS PASS
+1H Pass 1S Pass
+3H Pass 3S Pass
+Pass Pass
