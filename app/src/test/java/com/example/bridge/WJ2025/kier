@@ -823,3 +823,99 @@ pass pass
 1H Pass 2C Pass
 2S pass 3NT pass
 pass pass
+
+[Event "WJ Deal kier 84"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ63.KQ987.K94.Q 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+2S pass 3NT pass
+pass pass
+
+[Event "WJ Deal kier 85"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K.KQ987.KQ94.Q63 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+3S pass 4NT pass
+5C pass 6D pass
+pass pass
+
+[Event "WJ Deal kier 86"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K.KQ9874.KQ9.Q63 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+3H pass 4NT pass
+5C pass 6H pass
+pass pass
+
+[Event "WJ Deal kier 87"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K.KQ987.Q6.KQ963 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+3C pass 3NT pass
+pass pass
+
+[Event "WJ Deal kier 88"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K9.KQ987.Q675.KQ 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+3D pass 4NT pass
+5D pass 5NT pass
+6S pass 7D pass
+pass pass
+
+[Event "WJ Deal kier 89"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:K9.KQ987.Q67.KQ5 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+2NT pass 3NT pass
+pass pass
+
+[Event "WJ Deal kier 90"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ59.KQ987.Q67.K 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+2S pass 3NT pass
+pass pass
+
+[Event "WJ Deal kier 91"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ59.KQ987.J67.K 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+2H pass 2NT pass
+3S pass 3NT pass
+pass pass
+
+[Event "WJ Deal kier 92"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ59.KQ987.J6.K7 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+2H pass 2NT pass
+3NT pass pass pass
+
+[Event "WJ Deal kier 93"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ59.KQJ987.6.K7 862.K86.AQ4.K753 KQ2.K9.K5476.AT8 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2D Pass
+2H pass 2NT pass
+3H pass 4H pass
+pass pass
