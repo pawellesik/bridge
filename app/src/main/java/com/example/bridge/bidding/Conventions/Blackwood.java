@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Blackwood extends Bidder {
     private static final Range PAIR_32_40 = new Range(32, 100);
-    private static final Range PAIR_36_40= new Range(36, 100);
+    private static final Range PAIR_36_40 = new Range(36, 100);
     public static final Range OPEN_15_17 = new Range(15, 17);
 
     public static Iterable<CallFeature> initiateConvention(PositionState ps) {
@@ -29,14 +29,14 @@ public class Blackwood extends Bidder {
             bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, UserText.Blackwood));
 
             if (hasRealFit) {
-                if(trump != null) {
+                if (trump != null) {
                     // Gdy Mamy faktyczny fit od początku (8+ kart w parze): punkty pary doliczają krótkości i ustawiamy atut
                     bids.add(shows(Bid._4NT, setTrumpColor(suit), fit(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
                 } else {
                     // Gdy Mamy faktyczny fit teraz ustawiany musi być przeskok (8+ kart w parze): punkty pary doliczają krótkości i ustawiamy atut
                     bids.add(shows(Bid._4NT, setTrumpColor(suit), fit(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), IS_ANY_JUMP, ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
                 }
-                } else {
+            } else {
                 // Gdy NIE Mamy fitu: sprawdzamy czyste punkty honorowe HCP (32+ HCP) bez doliczania krótkości i nie ustawiamy atutu
                 bids.add(shows(Bid._4NT, pairHighCardPoints(PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
             }
@@ -89,11 +89,11 @@ public class Blackwood extends Bidder {
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
             choices.addRules(
-                properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S}, Blackwood::placeContract, true),
-                shows(Bid._5C, keyCards(suit, 1, 4), ruleShow(1), ruleDescription("Blackwood: 1 or 4 Key Cards")),
-                shows(Bid._5D, keyCards(suit, 0, 3), ruleShow(1), ruleDescription("Blackwood: 0 or 3 Key Cards")),
-                shows(Bid._5H, keyCards(suit, false, 2, 5), ruleShow(1), ruleDescription("Blackwood: 2 or 5 Key Cards (without Queen)")),
-                shows(Bid._5S, keyCards(suit, true, 2, 5), ruleShow(1), ruleDescription("Blackwood: 2 or 5 Key Cards with Queen"))
+                    properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S}, Blackwood::placeContract, true),
+                    shows(Bid._5C, keyCards(suit, 1, 4), ruleShow(1), ruleDescription("Blackwood: 1 or 4 Key Cards")),
+                    shows(Bid._5D, keyCards(suit, 0, 3), ruleShow(1), ruleDescription("Blackwood: 0 or 3 Key Cards")),
+                    shows(Bid._5H, keyCards(suit, false, 2, 5), ruleShow(1), ruleDescription("Blackwood: 2 or 5 Key Cards (without Queen)")),
+                    shows(Bid._5S, keyCards(suit, true, 2, 5), ruleShow(1), ruleDescription("Blackwood: 2 or 5 Key Cards with Queen"))
             );
             return choices;
         }
@@ -105,20 +105,21 @@ public class Blackwood extends Bidder {
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
             choices.addRules(
-                properties(Bid._5NT, Blackwood::respondKings, true),
-                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(PAIR_36_40), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
-                shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(PAIR_32_40), fit(9, suit), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
+                    properties(Bid._5NT, Blackwood::respondKings, true),
 
-                shows(new Bid(6, suit), fit(suit), pairPoints(PAIR_32_40), pairKeyCards(suit, null, 4, 5, 6)),
-                shows(Bid._6NT, not(fit(suit)), pairPoints(PAIR_32_40), pairKeyCards(suit, null, 4, 5, 6)),
+                    shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(PAIR_36_40), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
+                    shows(Bid._5NT, pairKeyCards(suit, true, 5), pairPoints(PAIR_32_40), fit(9, suit), ruleShow(1), ruleDescription("Blackwood: Ask for Kings")),
 
-                shows(new Bid(5, suit), fit(suit), pairKeyCards(suit, null, 0, 1, 2, 3)),
-                shows(Bid._5NT, not(fit(suit)), pairKeyCards(suit, null, 0, 1, 2, 3)),
+                    shows(new Bid(6, suit), fit(suit), pairPoints(PAIR_32_40), pairKeyCards(suit, null, 4, 5, 6)),
+                    shows(Bid._6NT, not(fit(suit)), pairPoints(PAIR_32_40), pairKeyCards(suit, null, 4, 5, 6)),
 
-                shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, pairKeyCards(suit, null, 0, 1, 2, 3)),
+                    shows(new Bid(5, suit), fit(suit), pairKeyCards(suit, null, 0, 1, 2, 3)),
+                    shows(Bid._5NT, not(fit(suit)), pairKeyCards(suit, null, 0, 1, 2, 3)),
 
-                shows(new Bid(6, suit), fit(suit), IS_NON_JUMP, pairKeyCards(suit, null, 0, 1, 2, 3)),
-                shows(Bid._6NT, not(fit(suit)), IS_NON_JUMP, pairKeyCards(suit, null, 0, 1, 2, 3))
+                    shows(new Bid(6, suit), fit(suit), IS_NON_JUMP, pairKeyCards(suit, null, 0, 1, 2, 3)),
+                    shows(Bid._6NT, not(fit(suit)), IS_NON_JUMP, pairKeyCards(suit, null, 0, 1, 2, 3)),
+
+                    shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN, pairKeyCards(suit, null, 0, 1, 2, 3))
             );
             return choices;
         }
@@ -128,11 +129,11 @@ public class Blackwood extends Bidder {
     public static PositionCalls respondKings(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-            properties(new Call[]{Bid._6C, Bid._6D, Bid._6H, Bid._6S}, Blackwood::tryGrandSlam, true),
-            shows(Bid._6C, kings(0, 4), ruleShow(1), ruleDescription("Blackwood: 0 or 4 Kings")),
-            shows(Bid._6D, kings(1), ruleShow(1), ruleDescription("Blackwood: 1 King")),
-            shows(Bid._6H, kings(2), ruleShow(1), ruleDescription("Blackwood: 2 Kings")),
-            shows(Bid._6S, kings(3), ruleShow(1), ruleDescription("Blackwood: 3 Kings"))
+                properties(new Call[]{Bid._6C, Bid._6D, Bid._6H, Bid._6S}, Blackwood::tryGrandSlam, true),
+                shows(Bid._6C, kings(0, 4), ruleShow(1), ruleDescription("Blackwood: 0 or 4 Kings")),
+                shows(Bid._6D, kings(1), ruleShow(1), ruleDescription("Blackwood: 1 King")),
+                shows(Bid._6H, kings(2), ruleShow(1), ruleDescription("Blackwood: 2 Kings")),
+                shows(Bid._6S, kings(3), ruleShow(1), ruleDescription("Blackwood: 3 Kings"))
         );
         return choices;
     }
@@ -142,13 +143,13 @@ public class Blackwood extends Bidder {
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
             choices.addRules(
-                shows(new Bid(7, suit), fit(suit), pairKeyCards(suit, true, 5), pairKings(4)),
-                shows(Bid._7NT, not(fit(suit)), pairKeyCards(suit, true, 5), pairKings(4)),
-                shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN),
-                shows(new Bid(6, suit), fit(suit)),
-                shows(Bid._6NT, not(fit(suit))),
-                shows(new Bid(7, suit), fit(suit)),
-                shows(Bid._7NT, not(fit(suit)))
+                    shows(new Bid(7, suit), fit(suit), pairKeyCards(suit, true, 5), pairKings(4)),
+                    shows(Bid._7NT, not(fit(suit)), pairKeyCards(suit, true, 5), pairKings(4)),
+                    shows(Call.PASS, CONTRACT_IS_AGREED_STRAIN),
+                    shows(new Bid(6, suit), fit(suit)),
+                    shows(Bid._6NT, not(fit(suit))),
+                    shows(new Bid(7, suit), fit(suit)),
+                    shows(Bid._7NT, not(fit(suit)))
             );
             return choices;
         }
