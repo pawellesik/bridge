@@ -170,6 +170,7 @@ public class OpenHeartBid2 extends WJ2025 {
 
                 shows(Bid._3S, fit(), highCardPoints(OPEN_15_17), setTrumpColor(Suit.Spades), ruleShow(1), id("OpenHeartBid2.heart_1S _3S")),
 
+                shows(Bid._3C, shape(5, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3C")),
                 shows(Bid._2C, shape(4, 13), noFit(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _2C")),
                 shows(Bid._3H, shape(Suit.Hearts, 6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_1S _3H")),
 

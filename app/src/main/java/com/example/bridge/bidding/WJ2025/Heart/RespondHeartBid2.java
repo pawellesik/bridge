@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.WJ2025.Heart;
 
+import com.example.bridge.bidding.Conventions.Blackwood;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
 import com.example.bridge.bidding.Tools.PositionCalls;
@@ -15,6 +16,7 @@ public class RespondHeartBid2 extends WJ2025 {
 
     public static final Range RESPOND_7_9 = new Range(7, 9);
     public static final Range RESPOND_7_10 = new Range(7, 10);
+    public static final Range RESPOND_7_12 = new Range(7, 14);
     public static final Range RESPOND_10_12 = new Range(10, 12);
     public static final Range RESPOND_8_11 = new Range(8, 11);
     public static final Range RESPOND_9_11 = new Range(9, 11);
@@ -85,13 +87,13 @@ public class RespondHeartBid2 extends WJ2025 {
 
     public static PositionCalls heart_1S_3C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-
+        choices.addRules(Blackwood.initiateConvention(ps));
         choices.addRules(
+                shows(Bid._5C, fit(), id("RespondHeartBid2.heart_1S_3C _3S")),
                 shows(Bid._3S, shape(5, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
                 shows(Bid._3H, shape(3, 3), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3H")),//nigdy nie nastapi
                 shows(Bid._3D, shape(4, 13), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3D")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
-
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;

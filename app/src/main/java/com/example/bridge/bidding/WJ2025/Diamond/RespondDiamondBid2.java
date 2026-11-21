@@ -151,7 +151,7 @@ public class RespondDiamondBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(RESPOND_10_28), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3H")),
+                shows(Bid._3H, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(RESPOND_10_28), setTrumpColor(Suit.Hearts), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _3H")),
                 shows(Bid._3C, shape(Suit.Hearts, 0, 3), not(stopped(Suit.Clubs)), highCardPoints(RESPOND_10_28), ruleShow(1), ruleDescription("Ask for a stopper"), id("RespondDiamondBid2.oneSpade_twoHeard _3C")),
                 shows(Bid._2NT, shape(Suit.Hearts, 0, 3), highCardPoints(RESPOND_10_28), ruleShow(1), ruleDescription("Asking about shape"), id("RespondDiamondBid2.oneSpade_twoHeard _2NT")),
                 shows(Bid._2S, shape(5, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondDiamondBid2.oneSpade_twoHeard _2S")),
