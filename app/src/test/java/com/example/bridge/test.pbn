@@ -1,8 +1,9 @@
 [Event "WJ Deal kier 42"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:KQ6.KQ978.KQ54.2 862.K86.AQ4.K753 KQ25.K9.KT4.A876 753.5.J742.J9862"]
+[Deal "N:KQ.KQ978.K6542.J 862.K86.AQ4.K753 KQ2.K9.K54.AT876 753.5.J742.J9862"]
 [Auction "N"]
 1H Pass 2C Pass
-2D pass 2S pass
-3NT pass pass pass
+2H pass 2NT pass
+3C pass 3NT pass
+pass pass
