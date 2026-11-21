@@ -38,7 +38,7 @@ public class Blackwood extends Bidder {
                 }
             } else {
                 // Gdy NIE Mamy fitu: sprawdzamy czyste punkty honorowe HCP (32+ HCP) bez doliczania krótkości i nie ustawiamy atutu
-                bids.add(shows(Bid._4NT, pairHighCardPoints(PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
+                bids.add(shows(Bid._4NT, setTrumpColor(suit), pairHighCardPoints(PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT"))); //dodałem set trump ale nie jstem pewny
             }
 
             bids.add(shows(Bid._4NT, highCardPoints(OPEN_15_17), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("Blackwood.initiateConvention _4NT")));
