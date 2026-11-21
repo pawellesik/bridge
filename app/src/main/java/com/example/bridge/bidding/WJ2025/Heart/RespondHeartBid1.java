@@ -37,9 +37,9 @@ public class RespondHeartBid1 extends WJ2025 {
                 shows(Bid._3D, shape(6, 13), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _3D")),
                 shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _3C")),
 
-                shows(Bid._2S, shape(6, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid1.oneHeart _2S")),
-
                 shows(Bid._2H, fit(), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid1.oneHeart _2H")),
+
+                shows(Bid._2S, shape(6, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid1.oneHeart _2S")),
 
                 shows(Bid._1S, shape(5, 13), highCardPoints(RESPOND_7_28), id("RespondHeartBid1.oneHeart _1S")),
 
