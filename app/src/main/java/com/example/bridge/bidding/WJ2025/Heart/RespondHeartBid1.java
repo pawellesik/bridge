@@ -32,10 +32,10 @@ public class RespondHeartBid1 extends WJ2025 {
                 shows(Bid._4C, shape(Suit.Hearts, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4C")),
                 shows(Bid._4D, shape(Suit.Hearts, 4, 13), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4D")),
 
+                shows(Bid._2NT, shape(Suit.Hearts, 3, 13), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _2NT")),
+
                 shows(Bid._3D, shape(6, 13), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _3D")),
                 shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _3C")),
-
-                shows(Bid._2NT, shape(Suit.Hearts, 3, 13), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _2NT")),
 
                 shows(Bid._2S, shape(6, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondHeartBid1.oneHeart _2S")),
 

@@ -423,3 +423,84 @@ pass pass
 3H pass 4NT pass
 5D pass 6H pass
 pass pass
+
+[Event "WJ Deal kier 41"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT42.AK985.QT3.A 862.K86.AQ4.K753 AKQJ94.Q.AJT97.2 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+4C pass 4NT pass
+5D pass 6S pass
+pass pass
+
+[Event "WJ Deal kier 42"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT42.AK985.QT.A3 862.K86.AQ4.K753 AKQJ94.Q.AJT97.2 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+3S pass 4NT pass
+5D pass 6S pass
+pass pass
+
+[Event "WJ Deal kier 43"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT42.AKT985.Q.A3 862.K86.AQ4.K753 AKQJ94.Q.AJT97.2 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 1S Pass
+4D pass 4NT pass
+5D pass 6S pass
+pass pass
+
+[Event "WJ Deal kier 44"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT42.AKT985.Q.A3 862.K86.AQ4.K753 AKQ.QJ94.KJT97.2 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 4C Pass
+4NT pass 5C pass
+6H pass pass pass
+
+[Event "WJ Deal kier 45"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KT42.AKT985.Q.A3 862.K86.AQ4.K753 AKQ.QJ94.2.KJT97 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 4D Pass
+4NT pass 5C pass
+6H pass pass pass
+
+[Event "WJ Deal kier 46"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ42.KT9785.Q.AQ 862.K86.AQ4.K753 A.QJ94.KQ2.KJT97 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 3S Pass
+4NT pass 5C pass
+6H pass pass pass
+
+[Event "WJ Deal kier 47"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ42.KT9785.AQ.Q 862.K86.AQ4.K753 984.QJ.KQT972.K7 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 3D Pass
+5D pass pass pass
+
+[Event "WJ Deal kier 48"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ42.KT9785.AQ.Q 862.K86.AQ4.K753 984.QJ.K7.KQT972 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 3C Pass
+3NT pass pass pass
+
+[Event "WJ Deal kier 49"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:KQ42.KT978.AQ5.Q 862.K86.AQ4.K753 64.QJ9.K7.KQT972 753.5.J742.J9862"]
+[Auction "N"]
+1H Pass 2NT Pass
+4H pass pass pass
