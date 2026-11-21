@@ -30,19 +30,19 @@ public class BlackwoodWJ2025 extends Bidder {
             if (hasRealFit) {
                 if (trump != null) {
                     // Gdy Mamy faktyczny fit od początku (8+ kart w parze): punkty pary doliczają krótkości i ustawiamy atut
-                    bids.add(shows(Bid._4NT, setTrumpColor(suit), fit(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT")));
+                    bids.add(shows(Bid._4NT, setTrumpColor(suit), fit(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT 1")));
                 } else {
                     // Gdy Mamy faktyczny fit teraz ustawiany musi być przeskok (8+ kart w parze): punkty pary doliczają krótkości i ustawiamy atut
-                    bids.add(shows(Bid._4NT, setTrumpColor(suit), fit(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), IS_ANY_JUMP, ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT")));
+                    bids.add(shows(Bid._4NT, setTrumpColor(suit), fit(suit), pairPoints(suit, PAIR_32_40.getMin(), PAIR_32_40.getMax()), IS_ANY_JUMP, ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT 2")));
                 }
             } else {
-                // Gdy NIE Mamy fitu: sprawdzamy czyste punkty honorowe HCP (32+ HCP) bez doliczania krótkości i ustawiamy sztuczny atut
-                bids.add(shows(Bid._4NT, pairHighCardPoints(PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT"))); //dodałem set trump ale nie jstem pewny
+                // Gdy NIE Mamy fitu: sprawdzamy czyste punkty honorowe HCP (32+ HCP) bez doliczania krótkości, nie ustawiamy atutu
+                bids.add(shows(Bid._4NT, pairHighCardPoints(PAIR_32_40.getMin(), PAIR_32_40.getMax()), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT 3"))); //dodałem set trump ale nie jstem pewny
             }
 
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_15_17), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_15_17), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT")));
-            bids.add(shows(Bid._4NT, highCardPoints(OPEN_15_17), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT")));
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_15_17), fit(2, Suit.Hearts, false), partner(isLastBid(Bid._3H)), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT 4")));
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_15_17), fit(2, Suit.Spades, false), partner(isLastBid(Bid._3S)), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT 5")));
+            bids.add(shows(Bid._4NT, highCardPoints(OPEN_15_17), fit(2, Suit.Clubs, false), partner(isLastBid(Bid._4C)), ruleShow(1), ruleDescription("Blackwood"), id("BlackwoodWJ2025.initiateConvention _4NT 6")));
         }
         return bids;
     }
