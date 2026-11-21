@@ -25,7 +25,7 @@ public class BlackwoodWJ2025 extends Bidder {
         boolean hasRealFit = hasRealAgreedFit(ps, suit);
 
         if (suit != null) {
-            bids.add(properties(Bid._4NT, Blackwood::respondKeyCards, true, "Blackwood"));
+            bids.add(properties(Bid._4NT, BlackwoodWJ2025::respondKeyCards, true, "Blackwood"));
 
             if (hasRealFit) {
                 if (trump != null) {
@@ -88,7 +88,7 @@ public class BlackwoodWJ2025 extends Bidder {
         Suit suit = getAgreedSuit(ps);
         if (suit != null) {
             choices.addRules(
-                    properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S}, Blackwood::placeContract, true),
+                    properties(new Call[]{Bid._5C, Bid._5D, Bid._5H, Bid._5S}, BlackwoodWJ2025::placeContract, true),
                     shows(Bid._5C, keyCards(suit, 1, 4), ruleShow(1), ruleDescription("Blackwood: 1 or 4 Key Cards")),
                     shows(Bid._5D, keyCards(suit, 0, 3), ruleShow(1), ruleDescription("Blackwood: 0 or 3 Key Cards")),
                     shows(Bid._5H, keyCards(suit, false, 2, 5), ruleShow(1), ruleDescription("Blackwood: 2 or 5 Key Cards (without Queen)")),
