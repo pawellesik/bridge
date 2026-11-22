@@ -38,7 +38,7 @@ public class RespondSpadeBid1 extends WJ2025 {
 
                 shows(Bid._2S, fit(), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondSpadeBid1.oneSpade _2S")),
 
-                shows(Bid._2H, shape(6, 13), highCardPoints(RESPOND_7_9), ruleShow(1), id("RespondSpadeBid1.oneSpade _2S")),
+                shows(Bid._2H, shape(5, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondSpadeBid1.oneSpade _2S")),
 
                 shows(Bid._2D, shape(5, 13), highCardPoints(RESPOND_15_28),  id("RespondSpadeBid1.oneSpade _2D")),
                 shows(Bid._2C, shape(2, 13), highCardPoints(RESPOND_15_28), note("forcing"), id("RespondSpadeBid1.oneSpade _2C")),
