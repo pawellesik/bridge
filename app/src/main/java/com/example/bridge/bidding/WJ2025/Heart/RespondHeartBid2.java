@@ -16,8 +16,8 @@ public class RespondHeartBid2 extends WJ2025 {
 
     public static final Range RESPOND_7_9 = new Range(7, 9);
     public static final Range RESPOND_7_10 = new Range(7, 10);
-    public static final Range RESPOND_7_12 = new Range(7, 14);
     public static final Range RESPOND_10_12 = new Range(10, 12);
+    public static final Range RESPOND_10_11 = new Range(10, 11);
     public static final Range RESPOND_8_11 = new Range(8, 11);
     public static final Range RESPOND_9_11 = new Range(9, 11);
     public static final Range RESPOND_12_28 = new Range(12, 28);
@@ -115,7 +115,7 @@ public class RespondHeartBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._2S, shape(Suit.Clubs, 5, 13), highCardPoints(RESPOND_10_12), setTrumpColor(Suit.Clubs), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _2S")),
+                shows(Bid._2S, shape(Suit.Clubs, 5, 13), highCardPoints(RESPOND_10_11), setTrumpColor(Suit.Clubs), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _2S")),
                 shows(Bid._3C, shape(4, 13), highCardPoints(RESPOND_8_11), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
@@ -127,7 +127,7 @@ public class RespondHeartBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._2S, shape(Suit.Diamonds, 5, 13), highCardPoints(RESPOND_10_12), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _2S")),
+                shows(Bid._2S, shape(Suit.Diamonds, 5, 13), highCardPoints(RESPOND_10_11), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _2S")),
                 shows(Bid._3D, shape(4, 13), highCardPoints(RESPOND_8_11), ruleShow(1), id("RespondHeartBid2.heart_1S_3C _3S")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
