@@ -59,7 +59,7 @@ public class RespondSpadeBid1 extends WJ2025 {
                 properties(new Call[]{Bid._3C}, OpenSpadeBid2::spade_3C, false),
                 properties(new Call[]{Bid._2NT}, OpenSpadeBid2::spade_2NT, false),
                 properties(new Call[]{Bid._2S}, OpenSpadeBid2::spade_2S, false),
-                properties(new Call[]{Bid._2H}, OpenSpadeBid2::spade_2H, false),
+                properties(new Call[]{Bid._2H}, OpenSpadeBid2::spade_2H, false),//todo
                 properties(new Call[]{Bid._2D}, OpenSpadeBid2::spade_2D, false),
                 properties(new Call[]{Bid._2C}, OpenSpadeBid2::spade_2C, false),
                 properties(new Call[]{Bid._1NT}, OpenSpadeBid2::spade_1NT, false),
