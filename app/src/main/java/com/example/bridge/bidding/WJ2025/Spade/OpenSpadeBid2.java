@@ -106,9 +106,9 @@ public class OpenSpadeBid2 extends WJ2025 {
                 shows(Bid._3D, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3H")),
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.spade_2D _2NT")),
                 shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _2H")),
-                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Spades, 0, 3), ruleShow(1), id("OpenSpadeBid2.spade_2D _2H")),
+                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 3), ruleShow(1), id("OpenSpadeBid2.spade_2D _2S")),
 
-                properties(new Call[]{Bid._2H}, RespondSpadeBid2::spade_2D_2H, false),
+                properties(new Call[]{Bid._2S}, RespondSpadeBid2::spade_2D_2S, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );
