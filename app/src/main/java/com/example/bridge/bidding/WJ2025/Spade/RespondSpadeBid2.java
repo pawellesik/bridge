@@ -23,7 +23,7 @@ public class RespondSpadeBid2 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._2H, shape(Suit.Clubs, 5, 13), highCardPoints(RESPOND_10_11), setTrumpColor(Suit.Clubs), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _2S")),
-                shows(Bid._3C, shape(4, 13), highCardPoints(RESPOND_8_11), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _3S")),
+                shows(Bid._3C, shape(4, 13), highCardPoints(RESPOND_8_11), setTrumpColor(Suit.Clubs), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _3S")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -35,7 +35,7 @@ public class RespondSpadeBid2 extends WJ2025 {
 
         choices.addRules(
                 shows(Bid._2H, shape(Suit.Diamonds, 5, 13), highCardPoints(RESPOND_10_11), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _2S")),
-                shows(Bid._3D, shape(4, 13), highCardPoints(RESPOND_8_11), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _3S")),
+                shows(Bid._3D, shape(4, 13), highCardPoints(RESPOND_8_11), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _3S")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
