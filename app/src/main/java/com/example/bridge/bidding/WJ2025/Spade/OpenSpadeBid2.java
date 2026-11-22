@@ -27,7 +27,7 @@ public class OpenSpadeBid2 extends WJ2025 {
         return choices;
     }
 
-    public static PositionCalls spade_3H(PositionState ps) {
+    public static PositionCalls spade_4H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
@@ -48,6 +48,14 @@ public class OpenSpadeBid2 extends WJ2025 {
     public static PositionCalls spade_4D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
+        choices.addRules(
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls spade_3H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -92,6 +100,25 @@ public class OpenSpadeBid2 extends WJ2025 {
     public static PositionCalls spade_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
+                shows(Bid._4H, fit(), highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 2, 13), shape(Suit.Clubs, 2, 13), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _4H")),
+                shows(Bid._4C, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2H _4C")),
+                shows(Bid._4D, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2H _4C")),
+
+                shows(Bid._3NT, shape(Suit.Hearts, 3, 3), highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
+                shows(Bid._3NT, shape(Suit.Hearts, 3, 3), highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
+
+                shows(Bid._3H, shape(Suit.Hearts, 3, 13), highCardPoints(OPEN_15_17), hasShortness(0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _3H")),
+                shows(Bid._3H, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _3H")),
+
+                shows(Bid._3C, shape(Suit.Clubs, 4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2H _3C")),
+                shows(Bid._3D, shape(Suit.Diamonds, 4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2H _3D")),
+
+                shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.spade_2H _2NT")),
+
+                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Hearts, 0, 2), ruleShow(1), id("OpenSpadeBid2.spade_2H _2S")),
+
+                //properties(new Call[]{Bid._3NT}, RespondSpadeBid2::spade_2H_3NT, false),//todo
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
