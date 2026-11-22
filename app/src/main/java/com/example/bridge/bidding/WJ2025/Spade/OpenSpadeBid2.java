@@ -73,8 +73,8 @@ public class OpenSpadeBid2 extends WJ2025 {
     public static PositionCalls spade_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2NT _4H")),
-                shows(Bid._3H, ruleShow(1), id("OpenSpadeBid2.spade_2NT _3H")),
+                shows(Bid._4S, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2NT _4S")),
+                shows(Bid._3S, ruleShow(1), id("OpenSpadeBid2.spade_2NT _3S")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -97,7 +97,7 @@ public class OpenSpadeBid2 extends WJ2025 {
         return choices;
     }
 
-    public static PositionCalls spade_2D(PositionState ps) {
+    public static PositionCalls spade_2D(PositionState ps) { //todo od tego miejsca nalezy zaczac zmieniac zamiast kiery na piki
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._3S, shape(0, 1), shape(Suit.Diamonds, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_15_17), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2D _3S")),
