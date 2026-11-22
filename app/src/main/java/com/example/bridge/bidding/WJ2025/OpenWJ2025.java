@@ -9,6 +9,7 @@ import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.WJ2025.Diamond.RespondDiamondBid1;
 import com.example.bridge.bidding.WJ2025.Heart.RespondHeartBid1;
+import com.example.bridge.bidding.WJ2025.Spade.RespondSpadeBid1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,7 @@ public class OpenWJ2025 extends WJ2025 {
 
         bids.add(partnerBids(Bid._1D, RespondDiamondBid1::oneDiamond));
         bids.add(partnerBids(Bid._1H, RespondHeartBid1::oneHeart));
+        bids.add(partnerBids(Bid._1S, RespondSpadeBid1::oneSpade));
 
         return bids;
     }
