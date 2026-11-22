@@ -34,7 +34,7 @@ public class RespondSpadeBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(
-                shows(Bid._2S, shape(Suit.Diamonds, 5, 13), highCardPoints(RESPOND_10_11), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _2S")),
+                shows(Bid._2H, shape(Suit.Diamonds, 5, 13), highCardPoints(RESPOND_10_11), setTrumpColor(Suit.Diamonds), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _2S")),
                 shows(Bid._3D, shape(4, 13), highCardPoints(RESPOND_8_11), ruleShow(1), id("RespondSpadeBid2.spade_1S_3C _3S")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
