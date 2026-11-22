@@ -54,7 +54,7 @@ public class RespondHeartBid1 extends WJ2025 {
 
                 shows(Bid._1NT, shape(Suit.Hearts, 0, 2), highCardPoints(RESPOND_7_11), ruleShow(1), id("RespondHeartBid1.oneHeart _1NT")),
 
-                properties(new Call[]{Bid._3NT}, OpenHeartBid2::heart_3NT, false),
+                //properties(new Call[]{Bid._3NT}, OpenHeartBid2::heart_3NT, false),
                 properties(new Call[]{Bid._3S}, OpenHeartBid2::heart_3S, false),
                 properties(new Call[]{Bid._4C}, OpenHeartBid2::heart_4C, false),
                 properties(new Call[]{Bid._4D}, OpenHeartBid2::heart_4D, false),

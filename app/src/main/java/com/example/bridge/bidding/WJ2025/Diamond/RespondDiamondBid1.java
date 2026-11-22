@@ -78,7 +78,6 @@ public class RespondDiamondBid1 extends WJ2025 {
                 properties(new Call[]{Bid._3S}, OpenDiamondBid2::diamond_3S, false),
                 properties(new Call[]{Bid._4C}, OpenDiamondBid2::diamond_4C, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
-                //properties(new Call[]{Bid._3NT}, OpenDiamondBid2::diamond_3NT, false) finish,
         );
         return choices;
     }

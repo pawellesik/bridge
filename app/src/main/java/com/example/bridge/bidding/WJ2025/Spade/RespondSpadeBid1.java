@@ -25,7 +25,7 @@ public class RespondSpadeBid1 extends WJ2025 {
 
 
         choices.addRules(
-                //shows(Bid._3NT, shape(Suit.Hearts, 4, 13), highCardPoints(RESPOND_9_14), DECENT_PLUS_SUIT, ruleShow(1), id("RespondSpadeBid1.oneSpade _3NT")),
+                //shows(Bid._3NT, shape(Suit.Spades, 4, 13), highCardPoints(RESPOND_9_14), DECENT_PLUS_SUIT, ruleShow(1), id("RespondSpadeBid1.oneSpade _3NT")),
 
                 shows(Bid._3H, shape(Suit.Spades, 4, 13), shape(Suit.Hearts, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondSpadeBid1.oneSpade _3H")),
                 shows(Bid._4C, shape(Suit.Spades, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Spades), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondSpadeBid1.oneSpade _4C")),
@@ -51,8 +51,8 @@ public class RespondSpadeBid1 extends WJ2025 {
 
                 shows(Bid._1NT, shape(Suit.Spades, 0, 2), highCardPoints(RESPOND_7_11), ruleShow(1), id("RespondSpadeBid1.oneSpade _1NT")),
 
-                properties(new Call[]{Bid._3NT}, OpenSpadeBid2::spade_3NT, false),
-                properties(new Call[]{Bid._3S}, OpenSpadeBid2::spade_3S, false),
+                //properties(new Call[]{Bid._3NT}, OpenSpadeBid2::spade_3NT, false),
+                properties(new Call[]{Bid._3H}, OpenSpadeBid2::spade_3H, false),
                 properties(new Call[]{Bid._4C}, OpenSpadeBid2::spade_4C, false),
                 properties(new Call[]{Bid._4D}, OpenSpadeBid2::spade_4D, false),
                 properties(new Call[]{Bid._3D}, OpenSpadeBid2::spade_3D, false),

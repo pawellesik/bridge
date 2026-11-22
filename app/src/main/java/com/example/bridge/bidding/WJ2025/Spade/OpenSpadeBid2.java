@@ -27,7 +27,7 @@ public class OpenSpadeBid2 extends WJ2025 {
         return choices;
     }
 
-    public static PositionCalls spade_3S(PositionState ps) {
+    public static PositionCalls spade_3H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
