@@ -97,16 +97,16 @@ public class OpenSpadeBid2 extends WJ2025 {
         return choices;
     }
 
-    public static PositionCalls spade_2D(PositionState ps) { //todo od tego miejsca nalezy zaczac zmieniac zamiast kiery na piki
+    public static PositionCalls spade_2D(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3S, shape(0, 1), shape(Suit.Diamonds, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_15_17), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2D _3S")),
-                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3H")),
-                shows(Bid._3C, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3C")),
+                shows(Bid._3H, shape(0, 1), shape(Suit.Diamonds, 4, 13), setTrumpColor(Suit.Diamonds), highCardPoints(OPEN_15_17), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2D _3H")),
+                shows(Bid._3S, shape(6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3S")),
+                shows(Bid._3C, shape(5, 13), shape(Suit.Spades, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3C")),
                 shows(Bid._3D, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3H")),
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.spade_2D _2NT")),
-                shows(Bid._2S, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _2S")),
-                shows(Bid._2H, highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 3), ruleShow(1), id("OpenSpadeBid2.spade_2D _2H")),
+                shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _2H")),
+                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Spades, 0, 3), ruleShow(1), id("OpenSpadeBid2.spade_2D _2H")),
 
                 properties(new Call[]{Bid._2H}, RespondSpadeBid2::spade_2D_2H, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
@@ -119,17 +119,17 @@ public class OpenSpadeBid2 extends WJ2025 {
     public static PositionCalls spade_2C(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._3S, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_15_17), ruleShow(1), note("splinter"), id("OpenSpadeBid2.diamond_1H _3S")),
-                shows(Bid._3H, shape(6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3H")),
-                shows(Bid._3D, shape(5, 13), shape(Suit.Hearts, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3H")),
+                shows(Bid._3H, shape(0, 1), shape(Suit.Clubs, 4, 13), setTrumpColor(Suit.Clubs), highCardPoints(OPEN_15_17), ruleShow(1), note("splinter"), id("OpenSpadeBid2.diamond_1H _3H")),
+                shows(Bid._3S, shape(6, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3S")),
+                shows(Bid._3D, shape(5, 13), shape(Suit.Spades, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3D")),
                 shows(Bid._3C, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3C")),
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.diamond_1H _2NT")),
-                shows(Bid._2S, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2S")),
-                shows(Bid._2H, highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2H")),
+                shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2H")),
+                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2S")),
                 shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2D")),
 
                 properties(new Call[]{Bid._2D}, RespondSpadeBid2::spade_2C_2D, false),
-                properties(new Call[]{Bid._2H}, RespondSpadeBid2::spade_2C_2H, false),
+                properties(new Call[]{Bid._2S}, RespondSpadeBid2::spade_2C_2S, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
