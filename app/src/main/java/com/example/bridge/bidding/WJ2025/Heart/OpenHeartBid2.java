@@ -76,7 +76,8 @@ public class OpenHeartBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._4H, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenHeartBid2.heart_2NT _4H")),
-                shows(Bid._3H, ruleShow(1), id("OpenHeartBid2.heart_2NT _3H")),
+                shows(Bid._3H, highCardPoints(OPEN_12_14), ruleShow(1), id("OpenHeartBid2.heart_2NT _3H")),
+                properties(new Call[]{Bid._3H}, RespondHeartBid2::heart_2NT_3H, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));

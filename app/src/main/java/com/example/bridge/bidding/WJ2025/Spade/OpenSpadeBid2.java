@@ -82,7 +82,9 @@ public class OpenSpadeBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._4S, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2NT _4S")),
-                shows(Bid._3S, ruleShow(1), id("OpenSpadeBid2.spade_2NT _3S")),
+                shows(Bid._3S,  highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid2.spade_2NT _3S")),
+                properties(new Call[]{Bid._3S}, RespondSpadeBid2::spade_2NT_3S, true),
+
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));

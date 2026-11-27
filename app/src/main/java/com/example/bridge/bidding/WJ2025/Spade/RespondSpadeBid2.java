@@ -94,4 +94,13 @@ public class RespondSpadeBid2 extends WJ2025 {
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
+
+    public static PositionCalls spade_2NT_3S(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS,  note("Asking for shortness"), id("RespondSpadeBid2.spade_2NT_3S _pass"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
 }

@@ -32,3 +32,19 @@
 1S Pass 4C Pass
 4NT pass 5C pass
 6S pass pass
+
+[Event "WJ Deal pik 5"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.KQ.AJ9832. 862.K86.AQ4.K753 JT9.KJ72.KQJ96.8 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2NT Pass
+4S pass pass pass
+
+[Event "WJ Deal pik 6"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.KQ.J98732. 862.K86.AQ4.K753 T98.KJ72.KQJ9.86 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2NT Pass
+3S pass pass pass

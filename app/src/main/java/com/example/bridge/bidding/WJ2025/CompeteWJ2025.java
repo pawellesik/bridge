@@ -27,8 +27,8 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._4H, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")));
         bids.add(shows(Bid._4S, pairHighCardPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")));
 
-        bids.add(shows(Bid._4H, pairPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4H")));
-        bids.add(shows(Bid._4S, pairPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids FIT_8_PLUS pairHighCardPoints PAIR_GAME _4S")));
+        bids.add(shows(Bid._4H, pairPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids FIT_8_PLUS pairPoints PAIR_GAME _4H")));
+        bids.add(shows(Bid._4S, pairPoints(PAIR_GAME), FIT_8_PLUS, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids FIT_8_PLUS pairPoints PAIR_GAME _4S")));
 
         bids.add(shows(Bid._4H, pairHighCardPoints(PAIR_GAME_INVITE), FIT_8_PLUS, IS_FORCED_TO_GAME, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids PAIR_GAME_INVITE _4H")));
         bids.add(shows(Bid._4S, pairHighCardPoints(PAIR_GAME_INVITE), FIT_8_PLUS, IS_FORCED_TO_GAME, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids PAIR_GAME_INVITE _4S")));

@@ -177,4 +177,13 @@ public class RespondHeartBid2 extends WJ2025 {
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
+
+    public static PositionCalls heart_2NT_3H(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Call.PASS,  id("RespondHeartBid2.heart_2NT_3H _3H"))
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
 }
