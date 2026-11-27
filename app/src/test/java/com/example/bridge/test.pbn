@@ -1,9 +1,8 @@
-[Event "WJ Deal pik 36"]
+[Event "WJ Deal pik 4"]
 [Dealer "N"]
 [Vulnerable "None"]
-[Deal "N:AKJT87.Q.Q5T.A76 862.K86.AQ4.K753 A9.Q7.KQJ876.QJ6 753.5.J742.J9862"]
+[Deal "N:AKJT8.AQ65.Q7.5T 862.K86.AQ4.K753 A9.Q7.KQJ876.QJ6 753.5.J742.J9862"]
 [Auction "N"]
 1S Pass 2D Pass
-3S pass 4NT pass
-5D pass 6S pass
-pass pass
+2H pass 3D pass
+5D pass pass pass

@@ -319,3 +319,40 @@ pass pass
 3S pass 4NT pass
 5D pass 6S pass
 pass pass
+
+[Event "WJ Deal pik 37"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKJT8.Q5.QT76.A5 862.K86.AQ4.K753 A9.Q7.KQJ876.QJ6 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2D Pass
+3D pass 4NT pass
+5S pass 6D pass
+pass pass
+
+[Event "WJ Deal pik 38"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKJT8.Q5.Q.A5T76 862.K86.AQ4.K753 A9.Q7.KQJ876.QJ6 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2D Pass
+3C pass 5C pass
+pass pass
+
+[Event "WJ Deal pik 39"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKJT8.Q5.Q76.A5T 862.K86.AQ4.K753 A9.Q7.KQJ876.QJ6 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2D Pass
+2NT pass 3D pass
+5D pass pass pass
+
+[Event "WJ Deal pik 40"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKJT8.AQ65.Q7.5T 862.K86.AQ4.K753 A9.Q7.KQJ876.QJ6 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2D Pass
+2H pass 3D pass
+5D pass pass pass

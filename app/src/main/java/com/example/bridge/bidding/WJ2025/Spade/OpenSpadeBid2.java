@@ -82,7 +82,7 @@ public class OpenSpadeBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._4S, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2NT _4S")),
-                shows(Bid._3S,  highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid2.spade_2NT _3S")),
+                shows(Bid._3S, highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid2.spade_2NT _3S")),
                 properties(new Call[]{Bid._3S}, RespondSpadeBid2::spade_2NT_3S, true),
 
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
@@ -136,7 +136,7 @@ public class OpenSpadeBid2 extends WJ2025 {
                 shows(Bid._3C, shape(5, 13), shape(Suit.Spades, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3C")),
                 shows(Bid._3D, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3H")),
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.spade_2D _2NT")),
-                shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _2H")),
+                shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), DECENT_PLUS_SUIT, id("OpenSpadeBid2.spade_2D _2H")),
                 shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 3), ruleShow(1), id("OpenSpadeBid2.spade_2D _2S")),
 
                 properties(new Call[]{Bid._2S}, RespondSpadeBid2::spade_2D_2S, false),
