@@ -53,7 +53,7 @@ public class RecursionWJ2025 extends WJ2025 {
                 shows(Bid._2H, shape(5, 13), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _2H")),
                 shows(Bid._2S, shape(5, 13), IS_NEW_SUIT, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _2S")),
 
-                shows(Bid._2C, shape(5, 13),  id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _2C")),
+                shows(Bid._2C, shape(5, 13), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _2C")),
                 shows(Bid._2D, shape(5, 13), noFit(), IS_NEW_SUIT,  id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _2D")),
 
                 shows(Bid._2H, shape(4, 13), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT,  id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _2H")),
