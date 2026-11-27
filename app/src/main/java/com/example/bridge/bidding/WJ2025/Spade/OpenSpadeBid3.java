@@ -16,31 +16,6 @@ public class OpenSpadeBid3 extends WJ2025 {
     public static final Range OPEN_15_17 = new Range(15, 17);
     public static final Range OPEN_12_17 = new Range(12, 17);
 
-
-    public static PositionCalls spade_1S_2C_2H(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(
-                shows(Call.PASS, highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid3.spade_1S_2C_2D _3NT")),
-                partnerBids(RecursionWJ2025::recursionFindFitGame)
-        );
-        choices.addRules(CompeteWJ2025.compBids(ps));
-        return choices;
-    }
-
-    public static PositionCalls spade_1S_2H_2NT(PositionState ps) {
-        PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(
-                shows(Bid._3H, shape(7, 13), ruleShow(1), id("OpenSpadeBid3.spade_1S_2H_2NT _3H")),
-                shows(Bid._3S, shape(Suit.Spades, 3, 3), ruleShow(1), id("OpenSpadeBid3.spade_1S_2H_2NT _3S")),
-                shows(Bid._3D, shape(4, 13), ruleShow(1), id("OpenSpadeBid3.spade_1S_2H_2NT _3D")),
-                shows(Bid._3C, shape(4, 13), ruleShow(1), id("OpenSpadeBid3.spade_1S_2H_2NT _3C")),
-                shows(Bid._3NT, shape(Suit.Hearts, 6, 6), shape(Suit.Spades, 0, 2), ruleShow(1), id("OpenSpadeBid3.spade_1S_2H_2NT _3NT")),
-                partnerBids(RecursionWJ2025::recursionFindFitGame)
-        );
-        choices.addRules(CompeteWJ2025.compBids(ps));
-        return choices;
-    }
-
     public static PositionCalls spade_2C_2D_2NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
@@ -84,5 +59,14 @@ public class OpenSpadeBid3 extends WJ2025 {
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
     }
-
+    public static PositionCalls spade_2H_3NT_4C(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(
+                shows(Bid._4D, shape(0, 1), ruleShow(1), ruleShow(1), id("OpenSpadeBid3.spade_2H_3NT_4C _4D")),
+                shows(Bid._4H, shape(Suit.Clubs, 0, 1), ruleShow(1), id("OpenSpadeBid3.spade_2H_3NT_4C _4H")),
+                partnerBids(RecursionWJ2025::recursionFindFitGame)
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
 }

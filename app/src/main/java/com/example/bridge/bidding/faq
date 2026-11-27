@@ -134,4 +134,6 @@ ruleDescription("Ask for Aces") pokazuje zamiast description
 =====================================================================================================
 =====================================================================================================
 =====================================================================================================
-choices.addRules(Blackwood.initiateConvention(ps));
+choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
+
+Asking for shortness

@@ -44,8 +44,6 @@ public class RespondSpadeBid1 extends WJ2025 {
                 shows(Bid._2D, shape(5, 13), highCardPoints(RESPOND_15_28), id("RespondSpadeBid1.oneSpade _2D")),
                 shows(Bid._2C, shape(2, 13), highCardPoints(RESPOND_15_28), note("forcing"), id("RespondSpadeBid1.oneSpade _2C")),
 
-                shows(Bid._1S, shape(4, 13), highCardPoints(RESPOND_7_28), ruleShow(1), id("RespondSpadeBid1.oneSpade _1S")),
-
                 shows(Bid._2D, shape(5, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondSpadeBid1.oneSpade _2D")),
 
                 shows(Bid._2C, shape(2, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondSpadeBid1.oneSpade _2C")),
@@ -56,7 +54,7 @@ public class RespondSpadeBid1 extends WJ2025 {
                 properties(new Call[]{Bid._4H}, OpenSpadeBid2::spade_4H, false),
                 properties(new Call[]{Bid._4C}, OpenSpadeBid2::spade_4C, false),
                 properties(new Call[]{Bid._4D}, OpenSpadeBid2::spade_4D, false),
-                properties(new Call[]{Bid._3D}, OpenSpadeBid2::spade_3H, false),
+                properties(new Call[]{Bid._3H}, OpenSpadeBid2::spade_3H, false),
                 properties(new Call[]{Bid._3D}, OpenSpadeBid2::spade_3D, false),
                 properties(new Call[]{Bid._3C}, OpenSpadeBid2::spade_3C, false),
                 properties(new Call[]{Bid._2NT}, OpenSpadeBid2::spade_2NT, false),

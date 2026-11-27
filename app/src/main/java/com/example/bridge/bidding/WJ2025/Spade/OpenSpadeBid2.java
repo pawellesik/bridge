@@ -117,7 +117,7 @@ public class OpenSpadeBid2 extends WJ2025 {
 
                 shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Hearts, 0, 2), ruleShow(1), id("OpenSpadeBid2.spade_2H _2S")),
 
-                //properties(new Call[]{Bid._3NT}, RespondSpadeBid2::spade_2H_3NT, false),//todo
+                properties(new Call[]{Bid._3NT}, RespondSpadeBid2::spade_2H_3NT, true),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));

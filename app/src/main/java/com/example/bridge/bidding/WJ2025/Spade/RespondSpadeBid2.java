@@ -1,5 +1,6 @@
 package com.example.bridge.bidding.WJ2025.Spade;
 
+import com.example.bridge.bidding.Conventions.Blackwood;
 import com.example.bridge.bidding.Conventions.BlackwoodWJ2025;
 import com.example.bridge.bidding.Tools.Bid;
 import com.example.bridge.bidding.Tools.Call;
@@ -78,6 +79,17 @@ public class RespondSpadeBid2 extends WJ2025 {
                 shows(Bid._2NT, highCardPoints(RESPOND_12_28), ruleShow(1), note("forcing"), id("RespondSpadeBid2.spade_2D_2H _2NT")),
                 properties(new Call[]{Bid._2NT}, OpenSpadeBid3::spade_2D_2H_2NT, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
+        );
+        choices.addRules(CompeteWJ2025.compBids(ps));
+        return choices;
+    }
+
+    public static PositionCalls spade_2H_3NT(PositionState ps) {
+        PositionCalls choices = new PositionCalls(ps);
+        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
+        choices.addRules(
+                shows(Bid._4C, ruleShow(1), note("Asking for shortness"), id("RespondSpadeBid2.spade_2H_3NT _4C")),
+                properties(new Call[]{Bid._4C}, OpenSpadeBid3::spade_2H_3NT_4C, true)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
         return choices;
