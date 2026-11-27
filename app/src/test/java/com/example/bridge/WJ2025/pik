@@ -262,3 +262,13 @@ pass pass
 1S Pass 1NT Pass
 2D pass 3NT pass
 pass pass
+
+[Event "WJ Deal pik 31"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AKJT8.Q7.Q5T7.76 862.K86.AQ4.K753 T9.KQJ9.QJ876.Q6 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 1NT Pass
+2D pass 2H pass
+3D pass 5D pass
+pass pass
