@@ -14,7 +14,7 @@ public class RespondHeartBid1 extends WJ2025 {
 
     public static final Range RESPOND_9_14 = new Range(9, 14);
     public static final Range RESPOND_12_16 = new Range(12, 16);
-    public static final Range RESPOND_12_15 = new Range(12, 15);
+    public static final Range RESPOND_12_14 = new Range(12, 14);
     public static final Range RESPOND_10_11 = new Range(10, 11);
     public static final Range RESPOND_7_9 = new Range(7, 9);
     public static final Range RESPOND_12_28 = new Range(12, 28);
@@ -33,7 +33,7 @@ public class RespondHeartBid1 extends WJ2025 {
                 shows(Bid._4C, shape(Suit.Hearts, 4, 13), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4C")),
                 shows(Bid._4D, shape(Suit.Hearts, 4, 13), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_12_16), ruleShow(1), note("(splinter)"), id("RespondHeartBid1.oneHeart _4D")),
 
-                shows(Bid._4H, highCardPoints(RESPOND_12_15), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondSpadeBid1.oneHeart _4H")),
+                shows(Bid._4H, highCardPoints(RESPOND_12_14), FIT_8_PLUS, setTrumpColor(Suit.Hearts), id("RespondSpadeBid1.oneHeart _4H")),
 
                 shows(Bid._2NT, shape(Suit.Hearts, 3, 13), setTrumpColor(Suit.Hearts), highCardPoints(RESPOND_10_11), ruleShow(1), id("RespondHeartBid1.oneHeart _2NT")),
 
