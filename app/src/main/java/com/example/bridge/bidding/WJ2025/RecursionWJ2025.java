@@ -76,12 +76,12 @@ public class RecursionWJ2025 extends WJ2025 {
                 shows(Bid._3C, shape(5, 13), noFit(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3C")),
                 shows(Bid._3D, shape(5, 13), noFit(), IS_NEW_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT _3D")),
 
-                shows(Bid._3H, shape(4, 13), highCardPoints(7, 10), not(IS_OPENER), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
-                shows(Bid._3S, shape(4, 13), highCardPoints(7, 10), not(IS_OPENER), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
-                shows(Bid._3H, shape(4, 13), IS_OPENER, noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3H, shape(4, 13), highCardPoints(7, 10), not(IS_OPENER), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT 1 _3H")),
+                shows(Bid._3S, shape(4, 13), highCardPoints(7, 10), not(IS_OPENER), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT 2 _3S")),
+                shows(Bid._3H, shape(4, 13), IS_OPENER, noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT 3 _3H")),
                 shows(Bid._3S, shape(4, 13), IS_OPENER, noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, ruleShow(1), id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
-                shows(Bid._3H, shape(4, 13), pairHighCardPoints(PAIR_25_31), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3H")),
+                shows(Bid._3H, shape(4, 13), pairHighCardPoints(PAIR_25_31), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT 4 _3H")),
                 shows(Bid._3S, shape(4, 13), pairHighCardPoints(PAIR_25_31), noFitMajor(), IS_NEW_SUIT, DECENT_PLUS_SUIT, IS_NON_JUMP, id("RecursionWJ2025.recursionFindFitGame IS_NEW_SUIT DECENT_PLUS_SUIT _3S")),
 
                 shows(Bid._3C, pairHighCardPoints(PAIR_16_24), fit(), setTrumpColor(Suit.Clubs), id("RecursionWJ2025.recursionFindFitGame  _3C")),
