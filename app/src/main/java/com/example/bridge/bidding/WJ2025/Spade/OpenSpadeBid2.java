@@ -155,7 +155,7 @@ public class OpenSpadeBid2 extends WJ2025 {
                 shows(Bid._3D, shape(5, 13), shape(Suit.Spades, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3D")),
                 shows(Bid._3C, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3C")),
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.diamond_1H _2NT")),
-                shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2H")),
+                shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), DECENT_PLUS_SUIT, id("OpenSpadeBid2.diamond_1H _2H")),
                 shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2S")),
                 shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2D")),
 
