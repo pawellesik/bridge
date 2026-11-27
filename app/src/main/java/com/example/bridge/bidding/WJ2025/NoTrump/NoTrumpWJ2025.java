@@ -1,4 +1,4 @@
-package com.example.bridge.bidding.WJ2025;
+package com.example.bridge.bidding.WJ2025.NoTrump;
 
 import com.example.bridge.bidding.Conventions.AcesAsk;
 import com.example.bridge.bidding.Tools.Bid;

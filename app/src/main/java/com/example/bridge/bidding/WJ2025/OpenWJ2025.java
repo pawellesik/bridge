@@ -9,6 +9,7 @@ import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.WJ2025.Diamond.RespondDiamondBid1;
 import com.example.bridge.bidding.WJ2025.Heart.RespondHeartBid1;
+import com.example.bridge.bidding.WJ2025.NoTrump.NoTrumpWJ2025;
 import com.example.bridge.bidding.WJ2025.Spade.RespondSpadeBid1;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class OpenWJ2025 extends WJ2025 {
     public static final HandConstraint OPEN_BIDDING_11_17 = highCardPoints(11, 17);
     public static final HandConstraint OPEN_BIDDING_12_14 = highCardPoints(12, 14);
     public static final HandConstraint OPEN_BIDDING_11_14 = highCardPoints(11, 14);
-    public static final HandConstraint OpenBiddingHight = highCardPoints(15, 17);
+    public static final HandConstraint OPEN_15_17 = highCardPoints(15, 17);
     public static final HandConstraint OPEN_BIDDING_18_40 = highCardPoints(18, 40);
     public static final HandConstraint OPEN_BIDDING_0_10 = highCardPoints(0, 10);
     public static final HandConstraint OPEN_BIDDING_6_11 = highCardPoints(6, 11);
@@ -30,7 +31,7 @@ public class OpenWJ2025 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
 
         choices.addRules(SolidSuitWJ2025.BIDS(ps));
-        choices.addRules(NoTrumpWJ2025.open1NTBid1(ps));
+        choices.addRules(open1NT(ps));
         choices.addRules(openSuitWeak(ps));
         choices.addRules(openSuit(ps));
 
@@ -93,6 +94,12 @@ public class OpenWJ2025 extends WJ2025 {
         return bids;
     }
 
+    private static List<CallFeature> open1NT(PositionState ps) {
+        List<CallFeature> rules = new ArrayList<>();
+        rules.add(shows(Bid._1NT, shape(Suit.Spades, 2, 4), shape(Suit.Hearts, 2, 4), OPEN_15_17, BALANCED, ruleShow(1), id("OpenWJ2025.open1NT 1NT")));
+        rules.add(partnerBids(NoTrumpWJ2025::respond1NTBid1));
+        return rules;
+    }
     private static List<CallFeature> openSuitWeak(PositionState ps) {
         List<CallFeature> rules = new ArrayList<>();
         rules.add(shows(Bid._3S, shape(7, 13), OPEN_BIDDING_6_11, ruleShow(1), id("OpenWJ2025.openSuitWeak _3S")));
@@ -101,4 +108,5 @@ public class OpenWJ2025 extends WJ2025 {
         rules.add(shows(Bid._3C, shape(7, 13), OPEN_BIDDING_6_11, ruleShow(1), id("OpenWJ2025.openSuitWeak _3C")));
         return rules;
     }
+
 }
