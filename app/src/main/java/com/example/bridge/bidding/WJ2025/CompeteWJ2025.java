@@ -102,6 +102,9 @@ public class CompeteWJ2025 extends WJ2025 {
         bids.add(shows(Bid._3H, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Hearts, 4), GOOD_PLUS_SUIT, id("CompeteWJ2025.compBids _3H")));
         bids.add(shows(Bid._3S, shape(4, 13), partner(isLastBid(Bid._2NT)), NOT_BALANCED, IS_NEW_SUIT, secondSuit(Suit.Spades, 4), GOOD_PLUS_SUIT,  id("CompeteWJ2025.compBids _3S")));
 
+        bids.add(shows(Bid._4H, pairPoints(PAIR_GAME), fit(7), hasShortness(0,1), partner(isLastBid(Bid._3H)), DECENT_PLUS_SUIT, setTrumpColor(Suit.Hearts), id("CompeteWJ2025.compBids 7 pairPoints PAIR_GAME _4H")));
+        bids.add(shows(Bid._4S, pairPoints(PAIR_GAME), fit(7), hasShortness(0,1), partner(isLastBid(Bid._3S)), DECENT_PLUS_SUIT, setTrumpColor(Suit.Spades), id("CompeteWJ2025.compBids 7 pairPoints PAIR_GAME _4S")));
+
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, IS_NON_JUMP, id("CompeteWJ2025.recursionFindFitGame BALANCED, IS_NON_JUMP _3NT")));
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3), id("CompeteWJ2025.recursionFindFitGame pairHighCardPoints(PAIR_GAME), noFit(), IS_NON_JUMP, othersAtLeast(3) _3NT")));
         bids.add(shows(Bid._3NT, pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), id("CompeteWJ2025.recursionFindFitGame pairHighCardPoints(PAIR_GAME), BALANCED, partner(isLastBid(Bid._1NT)), _3NT")));
