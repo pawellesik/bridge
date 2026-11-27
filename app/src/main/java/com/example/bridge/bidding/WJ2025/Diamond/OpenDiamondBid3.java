@@ -55,9 +55,9 @@ public class OpenDiamondBid3 extends WJ2025 {
         choices.addRules(
                 shows(Bid._3NT, shape(Suit.Hearts, 0, 2), stopped(Suit.Clubs), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1H_1NT1S_2D _3NT")),
                 shows(Bid._3H, shape(3, 3), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1H_1NT1S_2D _3H")),//plesik nigdy nie wystąpi !!!
-                shows(Bid._2NT, shape(Suit.Hearts, 0, 2), stopped(Suit.Clubs), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1H_1NT1S_2D _2NT")),
+                shows(Bid._2NT, shape(Suit.Hearts, 0, 2), stopped(Suit.Clubs), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1H_1NT1S_2D _2NT")),
                 shows(Bid._2S, shape(Suit.Hearts, 0, 2), not(stopped(Suit.Clubs)), ruleShow(1), id("OpenDiamondBid3.diamond_1H_1NT1S_2D _2S")),
-                shows(Bid._2H, shape(3, 3), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1H_1NT1S_2D _2H")),
+                shows(Bid._2H, shape(3, 3), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1H_1NT1S_2D _2H")),
                 properties(new Call[]{Bid._2S}, RespondDiamondBid3::diamond_1H_1NT1S_2D_2S, true),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
@@ -79,10 +79,10 @@ public class OpenDiamondBid3 extends WJ2025 {
         choices.addRules(
                 shows(Bid._3NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Spades), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3NT")),
                 shows(Bid._3S, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), shape(Suit.Hearts, 0, 2), not(stopped(Suit.Spades)), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3S")),
-                shows(Bid._3H, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), shape(Suit.Hearts, 3, 3), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3H")),
-                shows(Bid._3D, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 4, 4), not(stopped(Suit.Spades)), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3D")),
-                shows(Bid._3C, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 5, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3D")),
-                shows(Bid._2NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Spades), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3D")),
+                shows(Bid._3H, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), shape(Suit.Hearts, 3, 3), highCardPoints(openRange17(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3H")),
+                shows(Bid._3D, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 4, 4), not(stopped(Suit.Spades)), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3D")),
+                shows(Bid._3C, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 5, 13), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3D")),
+                shows(Bid._2NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Spades), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1H_2C_2S _3D")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
         choices.addRules(CompeteWJ2025.compBids(ps));
@@ -123,9 +123,9 @@ public class OpenDiamondBid3 extends WJ2025 {
         choices.addRules(
                 shows(Bid._3NT, shape(Suit.Spades, 0, 2), stopped(Suit.Clubs), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _3NT")),
                 shows(Bid._3S, shape(3, 3), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _3H")),
-                shows(Bid._2NT, shape(Suit.Spades, 0, 2), stopped(Suit.Clubs), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _2NT")),
-                shows(Bid._2S, shape(3, 3), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _2S")),
-                shows(Bid._2H, shape(Suit.Spades, 0, 2), not(stopped(Suit.Clubs)), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _2H")),
+                shows(Bid._2NT, shape(Suit.Spades, 0, 2), stopped(Suit.Clubs), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _2NT")),
+                shows(Bid._2S, shape(3, 3), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _2S")),
+                shows(Bid._2H, shape(Suit.Spades, 0, 2), not(stopped(Suit.Clubs)), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1S_1NT_2D _2H")),
                 properties(new Call[]{Bid._2S}, RespondDiamondBid3::diamond_1S_1NT_2D_2S, true),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
         );
@@ -147,10 +147,10 @@ public class OpenDiamondBid3 extends WJ2025 {
         choices.addRules(
                 shows(Bid._3NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Hearts), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3NT")),
                 shows(Bid._3H, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), shape(Suit.Spades, 0, 2), not(stopped(Suit.Hearts)), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3S")),
-                shows(Bid._3S, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), shape(Suit.Spades, 3, 3), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3H")),
-                shows(Bid._3D, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 4, 4), not(stopped(Suit.Hearts)), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3D")),
-                shows(Bid._3C, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 5, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3D")),
-                shows(Bid._2NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Hearts), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3D")),
+                shows(Bid._3S, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), shape(Suit.Spades, 3, 3), highCardPoints(openRange17(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3H")),
+                shows(Bid._3D, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 4, 4), not(stopped(Suit.Hearts)), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3D")),
+                shows(Bid._3C, shape(Suit.Diamonds, 5, 13), shape(Suit.Clubs, 5, 13), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3D")),
+                shows(Bid._2NT, shape(Suit.Diamonds, 5, 5), shape(Suit.Clubs, 4, 4), stopped(Suit.Hearts), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenDiamondBid3.diamond_1S_2C_2H _3D")),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
 
         );

@@ -82,7 +82,7 @@ public class OpenSpadeBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._4S, highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2NT _4S")),
-                shows(Bid._3S, highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid2.spade_2NT _3S")),
+                shows(Bid._3S, highCardPoints(openRange14(ps)), ruleShow(1), id("OpenSpadeBid2.spade_2NT _3S")),
                 properties(new Call[]{Bid._3S}, RespondSpadeBid2::spade_2NT_3S, true),
 
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
@@ -102,14 +102,14 @@ public class OpenSpadeBid2 extends WJ2025 {
     public static PositionCalls spade_2H(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
-                shows(Bid._4H, fit(), highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 2, 13), shape(Suit.Clubs, 2, 13), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _4H")),
+                shows(Bid._4H, fit(), highCardPoints(openRange14(ps)), shape(Suit.Diamonds, 2, 13), shape(Suit.Clubs, 2, 13), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _4H")),
                 //shows(Bid._4H, fit(), highCardPoints(OPEN_12_14), setTrumpColor(Suit.Hearts), id("OpenSpadeBid2.spade_2H _4H")),
 
                 shows(Bid._4C, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2H _4C")),
                 shows(Bid._4D, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2H _4C")),
 
-                shows(Bid._3NT, shape(Suit.Hearts, 3, 13), highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
-                shows(Bid._3NT, shape(Suit.Hearts, 3, 13), highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
+                shows(Bid._3NT, shape(Suit.Hearts, 3, 13), highCardPoints(openRange14(ps)), shape(Suit.Diamonds, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
+                shows(Bid._3NT, shape(Suit.Hearts, 3, 13), highCardPoints(openRange14(ps)), shape(Suit.Clubs, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
 
                 shows(Bid._3H, shape(Suit.Hearts, 3, 13), highCardPoints(OPEN_15_17), hasShortness(0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _3H")),
                 shows(Bid._3H, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _3H")),
@@ -119,7 +119,7 @@ public class OpenSpadeBid2 extends WJ2025 {
 
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.spade_2H _2NT")),
 
-                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Hearts, 0, 2), ruleShow(1), id("OpenSpadeBid2.spade_2H _2S")),
+                shows(Bid._2S, highCardPoints(openRange14(ps)), shape(Suit.Hearts, 0, 2), ruleShow(1), id("OpenSpadeBid2.spade_2H _2S")),
 
                 properties(new Call[]{Bid._3NT}, RespondSpadeBid2::spade_2H_3NT, true),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
@@ -137,7 +137,7 @@ public class OpenSpadeBid2 extends WJ2025 {
                 shows(Bid._3D, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_2D _3H")),
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.spade_2D _2NT")),
                 shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), DECENT_PLUS_SUIT, id("OpenSpadeBid2.spade_2D _2H")),
-                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 3), ruleShow(1), id("OpenSpadeBid2.spade_2D _2S")),
+                shows(Bid._2S, highCardPoints(openRange14(ps)), shape(Suit.Clubs, 0, 3), ruleShow(1), id("OpenSpadeBid2.spade_2D _2S")),
 
                 properties(new Call[]{Bid._2S}, RespondSpadeBid2::spade_2D_2S, false),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)
@@ -156,8 +156,8 @@ public class OpenSpadeBid2 extends WJ2025 {
                 shows(Bid._3C, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _3C")),
                 shows(Bid._2NT, highCardPoints(OPEN_15_17), BALANCED, ruleShow(1), id("OpenSpadeBid2.diamond_1H _2NT")),
                 shows(Bid._2H, shape(4, 13), highCardPoints(OPEN_15_17), ruleShow(1), DECENT_PLUS_SUIT, id("OpenSpadeBid2.diamond_1H _2H")),
-                shows(Bid._2S, highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2S")),
-                shows(Bid._2D, shape(4, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2D")),
+                shows(Bid._2S, highCardPoints(openRange14(ps)), shape(Suit.Diamonds, 0, 3), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2S")),
+                shows(Bid._2D, shape(4, 13), highCardPoints(openRange17(ps)), ruleShow(1), id("OpenSpadeBid2.diamond_1H _2D")),
 
                 properties(new Call[]{Bid._2D}, RespondSpadeBid2::spade_2C_2D, false),
                 properties(new Call[]{Bid._2S}, RespondSpadeBid2::spade_2C_2S, false),
@@ -179,12 +179,12 @@ public class OpenSpadeBid2 extends WJ2025 {
                 shows(Bid._2NT, shape5332(), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_1NT _3D")),
                 shows(Bid._2H, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(OPEN_15_17), ruleShow(1), id("OpenSpadeBid2.spade_1NT _2H")),
 
-                shows(Bid._2S, shape(6, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid2.spade_1NT _2S")),
+                shows(Bid._2S, shape(6, 13), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenSpadeBid2.spade_1NT _2S")),
 
-                shows(Bid._2C, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid2.spade_1NT _2C")),
-                shows(Bid._2D, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid2.spade_1NT _2D")),
+                shows(Bid._2C, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(openRange17(ps)), ruleShow(1), id("OpenSpadeBid2.spade_1NT _2C")),
+                shows(Bid._2D, shape(4, 13), shape(Suit.Spades, 5, 13), highCardPoints(openRange17(ps)), ruleShow(1), id("OpenSpadeBid2.spade_1NT _2D")),
 
-                shows(Call.PASS, shape(4, 13), shape5332(), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid2.spade_1NT _pass")),
+                shows(Call.PASS, shape(4, 13), shape5332(), highCardPoints(openRange14(ps)), ruleShow(1), id("OpenSpadeBid2.spade_1NT _pass")),
 
                 properties(new Call[]{Bid._2C}, RespondSpadeBid2::spade_1NT_2C, false),
                 properties(new Call[]{Bid._2D}, RespondSpadeBid2::spade_1NT_2D, false),

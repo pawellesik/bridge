@@ -12,6 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WJ2025 extends Bidder implements IBiddingSystem {
+
+    public static Range openRange17(PositionState ps) {
+        int min = (ps != null && ps.getSeat() >= 3) ? 11 : 12;
+        return new Range(min, 17);
+    }
+
+    public static Range openRange14(PositionState ps) {
+        int min = (ps != null && ps.getSeat() >= 3) ? 11 : 12;
+        return new Range(min, 14);
+    }
+
+    public static Range openRange13(PositionState ps) {
+        int min = (ps != null && ps.getSeat() >= 3) ? 11 : 12;
+        return new Range(min, 13);
+    }
+
     @Override
     public PositionCalls getPositionCalls(PositionState ps) {
         PositionCalls choices;
