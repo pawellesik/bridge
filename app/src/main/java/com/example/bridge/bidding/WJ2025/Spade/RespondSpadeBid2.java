@@ -86,7 +86,6 @@ public class RespondSpadeBid2 extends WJ2025 {
 
     public static PositionCalls spade_2H_3NT(PositionState ps) {
         PositionCalls choices = new PositionCalls(ps);
-        choices.addRules(BlackwoodWJ2025.initiateConvention(ps));
         choices.addRules(
                 shows(Bid._4C, ruleShow(1), note("Asking for shortness"), id("RespondSpadeBid2.spade_2H_3NT _4C")),
                 properties(new Call[]{Bid._4C}, OpenSpadeBid3::spade_2H_3NT_4C, true)

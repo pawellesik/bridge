@@ -103,11 +103,13 @@ public class OpenSpadeBid2 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._4H, fit(), highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 2, 13), shape(Suit.Clubs, 2, 13), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _4H")),
+                //shows(Bid._4H, fit(), highCardPoints(OPEN_12_14), setTrumpColor(Suit.Hearts), id("OpenSpadeBid2.spade_2H _4H")),
+
                 shows(Bid._4C, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), shape(Suit.Clubs, 0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2H _4C")),
                 shows(Bid._4D, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), shape(Suit.Diamonds, 0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), note("splinter"), id("OpenSpadeBid2.spade_2H _4C")),
 
-                shows(Bid._3NT, shape(Suit.Hearts, 3, 3), highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
-                shows(Bid._3NT, shape(Suit.Hearts, 3, 3), highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
+                shows(Bid._3NT, shape(Suit.Hearts, 3, 13), highCardPoints(OPEN_12_14), shape(Suit.Diamonds, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
+                shows(Bid._3NT, shape(Suit.Hearts, 3, 13), highCardPoints(OPEN_12_14), shape(Suit.Clubs, 0, 1), ruleShow(1), id("OpenSpadeBid2.spade_2H _3NT")),
 
                 shows(Bid._3H, shape(Suit.Hearts, 3, 13), highCardPoints(OPEN_15_17), hasShortness(0, 1), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _3H")),
                 shows(Bid._3H, shape(Suit.Hearts, 4, 13), highCardPoints(OPEN_15_17), setTrumpColor(Suit.Hearts), ruleShow(1), id("OpenSpadeBid2.spade_2H _3H")),

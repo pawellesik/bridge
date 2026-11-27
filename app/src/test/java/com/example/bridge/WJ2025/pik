@@ -80,3 +80,48 @@
 [Auction "N"]
 1S Pass 2S Pass
 pass pass
+
+[Event "WJ Deal pik 11"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.K62.J87.Q3 862.K86.AQ4.K753 A9.KQJ97.82.QJ86 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2H Pass
+4H pass pass pass
+
+[Event "WJ Deal pik 12"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.K762.JQ8.Q 862.K86.AQ4.K753 A9.KQJ97.82.QJ86 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2H Pass
+4C pass 4H pass
+pass pass
+
+[Event "WJ Deal pik 13"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.K762.Q.JQ8 862.K86.AQ4.K753 A9.KQJ97.82.QJ86 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2H Pass
+4D pass 4H pass
+pass pass
+
+[Event "WJ Deal pik 14"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.K762.Q.QT8 862.K86.AQ4.K753 A9.KQJ97.82.QJ86 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2H Pass
+3NT pass 4C pass
+4D pass 4H pass
+pass pass
+
+[Event "WJ Deal pik 15"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "N:AK985.K762.QT8.Q 862.K86.AQ4.K753 A9.KQJ97.82.QJ86 753.5.J742.J9862"]
+[Auction "N"]
+1S Pass 2H Pass
+3NT pass 4C pass
+4H pass pass pass
