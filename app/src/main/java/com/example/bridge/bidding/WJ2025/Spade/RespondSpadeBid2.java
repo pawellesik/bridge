@@ -49,7 +49,7 @@ public class RespondSpadeBid2 extends WJ2025 {
                 shows(Bid._3S, fit(), shape(Suit.Clubs, 5, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondSpadeBid2.spade_2C_2D2H _2S")),
                 shows(Bid._2S, fit(), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondSpadeBid2.spade_2C_2D2H _2S")),
                 shows(Bid._3C, shape(6, 13), highCardPoints(RESPOND_12_28), ruleShow(1), id("RespondSpadeBid2.spade_2C_2D2H _3C")),
-                shows(Bid._2H, shape(4, 13), ruleShow(1), highCardPoints(RESPOND_12_28), id("RespondSpadeBid2.spade_2C_2D2H _2H")),
+                shows(Bid._2H, shape(4, 13), ruleShow(1), DECENT_PLUS_SUIT, highCardPoints(RESPOND_12_28), id("RespondSpadeBid2.spade_2C_2D2H _2H")),
                 shows(Bid._2NT, highCardPoints(RESPOND_12_28), ruleShow(1), note("forcing"), id("RespondSpadeBid2.spade_2C_2D2H _2NT")),
                 properties(new Call[]{Bid._2NT}, OpenSpadeBid3::spade_2C_2D_2NT, true),
                 partnerBids(RecursionWJ2025::recursionFindFitGame)

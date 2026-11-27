@@ -20,7 +20,7 @@ public class OpenSpadeBid3 extends WJ2025 {
         PositionCalls choices = new PositionCalls(ps);
         choices.addRules(
                 shows(Bid._3NT, SHAPE_5422, highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid3.spade_2C_2D_2NT _3NT")),
-                shows(Bid._3S, shape(6, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid3.spade_2C_2D_2NT _3S")),
+                shows(Bid._3S, shape(6, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid3.spade_2C_2D_2NT _3S")),//nigdy nie zajdzie
                 shows(Bid._3H, shape(3, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid3.spade_2C_2D_2NT _3H")),
                 shows(Bid._3D, shape(5, 13), highCardPoints(OPEN_12_14), ruleShow(1), id("OpenSpadeBid3.spade_2C_2D_2NT _3D")),
                 shows(Bid._3C, shape(3, 13), highCardPoints(OPEN_12_17), ruleShow(1), id("OpenSpadeBid3.spade_2C_2D_2NT _3C")),
