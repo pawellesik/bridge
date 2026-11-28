@@ -9,7 +9,7 @@ import com.example.bridge.bidding.Tools.PositionState;
 import com.example.bridge.bidding.Tools.Suit;
 import com.example.bridge.bidding.WJ2025.Diamond.RespondDiamondBid1;
 import com.example.bridge.bidding.WJ2025.Heart.RespondHeartBid1;
-import com.example.bridge.bidding.WJ2025.NoTrump.NoTrumpWJ2025;
+import com.example.bridge.bidding.WJ2025.NoTrump.RespondNoTrump1;
 import com.example.bridge.bidding.WJ2025.Spade.RespondSpadeBid1;
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class OpenWJ2025 extends WJ2025 {
     private static List<CallFeature> open1NT(PositionState ps) {
         List<CallFeature> rules = new ArrayList<>();
         rules.add(shows(Bid._1NT, shape(Suit.Spades, 2, 4), shape(Suit.Hearts, 2, 4), OPEN_15_17, BALANCED, ruleShow(1), id("OpenWJ2025.open1NT 1NT")));
-        rules.add(partnerBids(NoTrumpWJ2025::respond1NTBid1));
+        rules.add(partnerBids(RespondNoTrump1::oneNT));
         return rules;
     }
     private static List<CallFeature> openSuitWeak(PositionState ps) {
